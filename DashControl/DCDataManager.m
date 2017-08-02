@@ -56,6 +56,13 @@
     return self;
 }
 
+-(NSNumber* _Nonnull)localCurrencyDashPrice {
+    if (!_bitcoinDashPrice || !_localCurrencyBitcoinPrice) {
+        return _localCurrencyDashPrice;
+    } else {
+        return @(_bitcoinDashPrice.doubleValue * _localCurrencyBitcoinPrice.doubleValue);
+    }
+}
 
 -(NSNumber*)bitcoinDashPrice {
     if (_bitcoinDashPrice.doubleValue == 0) {
