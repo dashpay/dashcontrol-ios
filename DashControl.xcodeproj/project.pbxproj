@@ -15,6 +15,8 @@
 		FB84EDCE1F32898700E4D400 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDCC1F32898700E4D400 /* Main.storyboard */; };
 		FB84EDD01F32898700E4D400 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDCF1F32898700E4D400 /* Assets.xcassets */; };
 		FB84EDD31F32898700E4D400 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDD11F32898700E4D400 /* LaunchScreen.storyboard */; };
+		FB84EDDD1F32908C00E4D400 /* DCDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDDC1F32908C00E4D400 /* DCDataManager.m */; };
+		FB84EDDF1F3293C700E4D400 /* DCWalletConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDDE1F3293C700E4D400 /* DCWalletConstants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,9 @@
 		FB84EDCF1F32898700E4D400 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB84EDD21F32898700E4D400 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FB84EDD41F32898700E4D400 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FB84EDDB1F32908C00E4D400 /* DCDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCDataManager.h; sourceTree = "<group>"; };
+		FB84EDDC1F32908C00E4D400 /* DCDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCDataManager.m; sourceTree = "<group>"; };
+		FB84EDDE1F3293C700E4D400 /* DCWalletConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCWalletConstants.m; sourceTree = "<group>"; };
 		FF2750490726333DC3CBDF5D /* libPods-DashControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -85,6 +90,7 @@
 		FB84EDBF1F32898700E4D400 /* DashControl */ = {
 			isa = PBXGroup;
 			children = (
+				FB84EDDA1F32906F00E4D400 /* New Group */,
 				FB84EDC31F32898700E4D400 /* AppDelegate.h */,
 				FB84EDC41F32898700E4D400 /* AppDelegate.m */,
 				FB84EDC61F32898700E4D400 /* FirstViewController.h */,
@@ -106,6 +112,16 @@
 				FB84EDC11F32898700E4D400 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FB84EDDA1F32906F00E4D400 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				FB84EDDE1F3293C700E4D400 /* DCWalletConstants.m */,
+				FB84EDDB1F32908C00E4D400 /* DCDataManager.h */,
+				FB84EDDC1F32908C00E4D400 /* DCDataManager.m */,
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +251,8 @@
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
 				FB84EDC81F32898700E4D400 /* FirstViewController.m in Sources */,
 				FB84EDC21F32898700E4D400 /* main.m in Sources */,
+				FB84EDDD1F32908C00E4D400 /* DCDataManager.m in Sources */,
+				FB84EDDF1F3293C700E4D400 /* DCWalletConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +415,7 @@
 				FB84EDD91F32898700E4D400 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
