@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		759AEA8D60D15944B9BDE4B6 /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2750490726333DC3CBDF5D /* libPods-DashControl.a */; };
 		FB84EDC21F32898700E4D400 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC11F32898700E4D400 /* main.m */; };
 		FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC41F32898700E4D400 /* AppDelegate.m */; };
 		FB84EDC81F32898700E4D400 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC71F32898700E4D400 /* FirstViewController.m */; };
@@ -17,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		24CDD82E247C7A3CAA8FC718 /* Pods-DashControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.debug.xcconfig"; sourceTree = "<group>"; };
+		6B9CA04C10942ECB36466559 /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
 		FB84EDBD1F32898700E4D400 /* DashControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DashControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB84EDC11F32898700E4D400 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FB84EDC31F32898700E4D400 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -29,6 +32,7 @@
 		FB84EDCF1F32898700E4D400 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB84EDD21F32898700E4D400 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FB84EDD41F32898700E4D400 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FF2750490726333DC3CBDF5D /* libPods-DashControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,17 +40,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				759AEA8D60D15944B9BDE4B6 /* libPods-DashControl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B33D0657677F0BD547DFBF74 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				24CDD82E247C7A3CAA8FC718 /* Pods-DashControl.debug.xcconfig */,
+				6B9CA04C10942ECB36466559 /* Pods-DashControl.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F8F9FBF8277751CF40134EEE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FF2750490726333DC3CBDF5D /* libPods-DashControl.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FB84EDB41F32898700E4D400 = {
 			isa = PBXGroup;
 			children = (
 				FB84EDBF1F32898700E4D400 /* DashControl */,
 				FB84EDBE1F32898700E4D400 /* Products */,
+				B33D0657677F0BD547DFBF74 /* Pods */,
+				F8F9FBF8277751CF40134EEE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -91,9 +115,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FB84EDD71F32898700E4D400 /* Build configuration list for PBXNativeTarget "DashControl" */;
 			buildPhases = (
+				9B63DDA10B48CEE215086D9B /* [CP] Check Pods Manifest.lock */,
 				FB84EDB91F32898700E4D400 /* Sources */,
 				FB84EDBA1F32898700E4D400 /* Frameworks */,
 				FB84EDBB1F32898700E4D400 /* Resources */,
+				26C69FF62BC6A1F3CB431F40 /* [CP] Embed Pods Frameworks */,
+				B4C3BEF8FA1019823EB8A2A7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -150,6 +177,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		26C69FF62BC6A1F3CB431F40 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DashControl/Pods-DashControl-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9B63DDA10B48CEE215086D9B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B4C3BEF8FA1019823EB8A2A7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DashControl/Pods-DashControl-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FB84EDB91F32898700E4D400 /* Sources */ = {
@@ -279,6 +354,7 @@
 		};
 		FB84EDD81F32898700E4D400 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24CDD82E247C7A3CAA8FC718 /* Pods-DashControl.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 44RJ69WHFF;
@@ -291,6 +367,7 @@
 		};
 		FB84EDD91F32898700E4D400 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B9CA04C10942ECB36466559 /* Pods-DashControl.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 44RJ69WHFF;
