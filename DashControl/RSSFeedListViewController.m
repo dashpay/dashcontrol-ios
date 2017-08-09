@@ -155,8 +155,14 @@ static NSString *CellIdentifier = @"PostCell";
                                    entityForName:@"Post" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
+    NSString *lang = [[RSSFeedManager sharedManager] feedLanguage];
+    if (lang) {
+        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"lang == %@", lang]];
+    }
+    
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]
                               initWithKey:@"pubDate" ascending:NO];
+
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     
     //[fetchRequest setFetchBatchSize:20];

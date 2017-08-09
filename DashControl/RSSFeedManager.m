@@ -100,10 +100,10 @@
     else if ([feedLangBasedOnDevice isEqualToString:@"ko"]) {
         feedLangBasedOnDevice = @"kr";
     }
-    else {
-        feedLangBasedOnDevice = @"en";
+    else if ([feedLangBasedOnDevice isEqualToString:@"es"] || [feedLangBasedOnDevice isEqualToString:@"pt"] || [feedLangBasedOnDevice isEqualToString:@"ru"] || [feedLangBasedOnDevice isEqualToString:@"fr"]) {
+        //
     }
-    
+
     return feedLangBasedOnDevice;
 }
 
