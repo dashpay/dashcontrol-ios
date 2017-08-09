@@ -8,7 +8,7 @@
 
 #import "DCDataManager.h"
 #import <Reachability/Reachability.h>
-#import "DCWalletConstants.m"
+#import "DCWalletConstants.h"
 
 
 #define BITCOIN_TICKER_URL  @"https://bitpay.com/rates"
