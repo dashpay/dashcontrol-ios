@@ -149,7 +149,7 @@
             
             if (![self fetchPostWithGUID:[item child:@"guid"].text].count) {
                 Post *post = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:self.managedObjectContext];
-                post.lang = language;
+                post.lang = language ? language : @"en";
                 post.title = [item child:@"title"].text;
                 post.text = [item child:@"description"].text;
                 post.pubDate = [pubDateFormatter dateFromString:[item child:@"pubDate"].text];

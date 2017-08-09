@@ -157,7 +157,7 @@ static NSString *CellIdentifier = @"PostCell";
     
     NSString *lang = [[RSSFeedManager sharedManager] feedLanguage];
     if (lang) {
-        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"lang == %@", lang]];
+        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"lang == %@", lang ? lang : @"en"]];
     }
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]
