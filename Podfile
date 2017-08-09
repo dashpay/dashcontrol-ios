@@ -10,6 +10,6 @@ target 'DashControl' do
   pod 'AFNetworking'
   pod 'Reachability'
   pod 'SDWebImage'
-  pod "MBCircularProgressBar"
+  pod 'MBCircularProgressBar'
 
 end

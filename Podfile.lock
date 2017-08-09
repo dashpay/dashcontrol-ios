@@ -16,9 +16,9 @@ PODS:
     - AFNetworking/NSURLSession
   - MBCircularProgressBar (0.3.5)
   - Reachability (3.2)
-  - SDWebImage (3.8.2):
-    - SDWebImage/Core (= 3.8.2)
-  - SDWebImage/Core (3.8.2)
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -30,8 +30,8 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  SDWebImage: '098e97e6176540799c27e804c96653ee0833d13c'
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
 
-PODFILE CHECKSUM: 537ef9f21672a42705a4476aab523b6ab3143e1e
+PODFILE CHECKSUM: ab83797bedfe43983148bdfe38f05441320d786c
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.2.0
