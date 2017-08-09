@@ -13,10 +13,11 @@
 		24E584101F3ADBAA00A12087 /* Post+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E5840D1F3ADBAA00A12087 /* Post+CoreDataClass.m */; };
 		24E584111F3ADBAA00A12087 /* Post+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E5840F1F3ADBAA00A12087 /* Post+CoreDataProperties.m */; };
 		24E584141F3ADC4C00A12087 /* RSSFeedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E584131F3ADC4C00A12087 /* RSSFeedManager.m */; };
+		24E584181F3AF18A00A12087 /* RSSFeedListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E584171F3AF18A00A12087 /* RSSFeedListViewController.m */; };
+		24E5841C1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E5841A1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m */; };
 		50E228300C10394473CA723B /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF0246311C0216290387F2D /* libPods-DashControl.a */; };
 		FB84EDC21F32898700E4D400 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC11F32898700E4D400 /* main.m */; };
 		FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC41F32898700E4D400 /* AppDelegate.m */; };
-		FB84EDC81F32898700E4D400 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC71F32898700E4D400 /* FirstViewController.m */; };
 		FB84EDCB1F32898700E4D400 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDCA1F32898700E4D400 /* SecondViewController.m */; };
 		FB84EDCE1F32898700E4D400 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDCC1F32898700E4D400 /* Main.storyboard */; };
 		FB84EDD01F32898700E4D400 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDCF1F32898700E4D400 /* Assets.xcassets */; };
@@ -34,14 +35,16 @@
 		24E584121F3ADC4C00A12087 /* RSSFeedManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFeedManager.h; sourceTree = "<group>"; };
 		24E584131F3ADC4C00A12087 /* RSSFeedManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFeedManager.m; sourceTree = "<group>"; };
 		24E584151F3ADCEF00A12087 /* DashControl-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DashControl-PrefixHeader.pch"; sourceTree = "<group>"; };
+		24E584161F3AF18A00A12087 /* RSSFeedListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFeedListViewController.h; sourceTree = "<group>"; };
+		24E584171F3AF18A00A12087 /* RSSFeedListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFeedListViewController.m; sourceTree = "<group>"; };
+		24E584191F3AFB0F00A12087 /* RSSFeedListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFeedListTableViewCell.h; sourceTree = "<group>"; };
+		24E5841A1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFeedListTableViewCell.m; sourceTree = "<group>"; };
 		6B9CA04C10942ECB36466559 /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
 		6EF0246311C0216290387F2D /* libPods-DashControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB84EDBD1F32898700E4D400 /* DashControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DashControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB84EDC11F32898700E4D400 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FB84EDC31F32898700E4D400 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FB84EDC41F32898700E4D400 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		FB84EDC61F32898700E4D400 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		FB84EDC71F32898700E4D400 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		FB84EDC91F32898700E4D400 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
 		FB84EDCA1F32898700E4D400 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		FB84EDCD1F32898700E4D400 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -99,6 +102,10 @@
 		24E584041F3ADA4500A12087 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				24E584161F3AF18A00A12087 /* RSSFeedListViewController.h */,
+				24E584171F3AF18A00A12087 /* RSSFeedListViewController.m */,
+				24E584191F3AFB0F00A12087 /* RSSFeedListTableViewCell.h */,
+				24E5841A1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -147,8 +154,6 @@
 				FB84EDDA1F32906F00E4D400 /* New Group */,
 				FB84EDC31F32898700E4D400 /* AppDelegate.h */,
 				FB84EDC41F32898700E4D400 /* AppDelegate.m */,
-				FB84EDC61F32898700E4D400 /* FirstViewController.h */,
-				FB84EDC71F32898700E4D400 /* FirstViewController.m */,
 				FB84EDC91F32898700E4D400 /* SecondViewController.h */,
 				FB84EDCA1F32898700E4D400 /* SecondViewController.m */,
 				FB84EDCC1F32898700E4D400 /* Main.storyboard */,
@@ -305,13 +310,14 @@
 			files = (
 				FB84EDCB1F32898700E4D400 /* SecondViewController.m in Sources */,
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
-				FB84EDC81F32898700E4D400 /* FirstViewController.m in Sources */,
 				24E584101F3ADBAA00A12087 /* Post+CoreDataClass.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
+				24E5841C1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m in Sources */,
 				24E584111F3ADBAA00A12087 /* Post+CoreDataProperties.m in Sources */,
 				FB84EDC21F32898700E4D400 /* main.m in Sources */,
 				24E584141F3ADC4C00A12087 /* RSSFeedManager.m in Sources */,
 				24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */,
+				24E584181F3AF18A00A12087 /* RSSFeedListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

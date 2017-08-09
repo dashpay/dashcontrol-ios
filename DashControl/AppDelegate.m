@@ -17,6 +17,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    //Init the RSSFeedManager Manager.
+    [RSSFeedManager sharedManager];
+    
     return YES;
 }
 
