@@ -11,5 +11,6 @@ target 'DashControl' do
   pod 'Reachability'
   pod 'SDWebImage'
   pod 'MBCircularProgressBar'
+  pod 'RaptureXML'
 
 end

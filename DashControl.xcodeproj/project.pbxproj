@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		24E583FF1F3A336400A12087 /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E583FE1F3A336400A12087 /* libPods-DashControl.a */; };
 		24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDDC1F32908C00E4D400 /* DCDataManager.m */; };
+		24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */; };
+		24E584101F3ADBAA00A12087 /* Post+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E5840D1F3ADBAA00A12087 /* Post+CoreDataClass.m */; };
+		24E584111F3ADBAA00A12087 /* Post+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E5840F1F3ADBAA00A12087 /* Post+CoreDataProperties.m */; };
+		24E584141F3ADC4C00A12087 /* RSSFeedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E584131F3ADC4C00A12087 /* RSSFeedManager.m */; };
 		50E228300C10394473CA723B /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF0246311C0216290387F2D /* libPods-DashControl.a */; };
 		FB84EDC21F32898700E4D400 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC11F32898700E4D400 /* main.m */; };
 		FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC41F32898700E4D400 /* AppDelegate.m */; };
@@ -22,6 +26,14 @@
 /* Begin PBXFileReference section */
 		24CDD82E247C7A3CAA8FC718 /* Pods-DashControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.debug.xcconfig"; sourceTree = "<group>"; };
 		24E583FE1F3A336400A12087 /* libPods-DashControl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DashControl.a"; path = "../../../Library/Developer/Xcode/DerivedData/DashControl-bbchfpooekeamodlfbmfyyxneavc/Build/Products/Debug-iphonesimulator/libPods-DashControl.a"; sourceTree = "<group>"; };
+		24E584061F3ADAC900A12087 /* DashControl.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DashControl.xcdatamodel; sourceTree = "<group>"; };
+		24E5840C1F3ADBAA00A12087 /* Post+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Post+CoreDataClass.h"; sourceTree = "<group>"; };
+		24E5840D1F3ADBAA00A12087 /* Post+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Post+CoreDataClass.m"; sourceTree = "<group>"; };
+		24E5840E1F3ADBAA00A12087 /* Post+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Post+CoreDataProperties.h"; sourceTree = "<group>"; };
+		24E5840F1F3ADBAA00A12087 /* Post+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Post+CoreDataProperties.m"; sourceTree = "<group>"; };
+		24E584121F3ADC4C00A12087 /* RSSFeedManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFeedManager.h; sourceTree = "<group>"; };
+		24E584131F3ADC4C00A12087 /* RSSFeedManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFeedManager.m; sourceTree = "<group>"; };
+		24E584151F3ADCEF00A12087 /* DashControl-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DashControl-PrefixHeader.pch"; sourceTree = "<group>"; };
 		6B9CA04C10942ECB36466559 /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
 		6EF0246311C0216290387F2D /* libPods-DashControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB84EDBD1F32898700E4D400 /* DashControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DashControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,6 +66,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		24E584011F3ADA0100A12087 /* RSSFeed */ = {
+			isa = PBXGroup;
+			children = (
+				24E584031F3ADA4000A12087 /* Models */,
+				24E584021F3ADA3A00A12087 /* Manager */,
+				24E584041F3ADA4500A12087 /* ViewControllers */,
+			);
+			name = RSSFeed;
+			sourceTree = "<group>";
+		};
+		24E584021F3ADA3A00A12087 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				24E584121F3ADC4C00A12087 /* RSSFeedManager.h */,
+				24E584131F3ADC4C00A12087 /* RSSFeedManager.m */,
+			);
+			name = Manager;
+			sourceTree = "<group>";
+		};
+		24E584031F3ADA4000A12087 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				24E5840C1F3ADBAA00A12087 /* Post+CoreDataClass.h */,
+				24E5840D1F3ADBAA00A12087 /* Post+CoreDataClass.m */,
+				24E5840E1F3ADBAA00A12087 /* Post+CoreDataProperties.h */,
+				24E5840F1F3ADBAA00A12087 /* Post+CoreDataProperties.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		24E584041F3ADA4500A12087 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		B33D0657677F0BD547DFBF74 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +142,8 @@
 		FB84EDBF1F32898700E4D400 /* DashControl */ = {
 			isa = PBXGroup;
 			children = (
+				24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */,
+				24E584011F3ADA0100A12087 /* RSSFeed */,
 				FB84EDDA1F32906F00E4D400 /* New Group */,
 				FB84EDC31F32898700E4D400 /* AppDelegate.h */,
 				FB84EDC41F32898700E4D400 /* AppDelegate.m */,
@@ -113,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				FB84EDC11F32898700E4D400 /* main.m */,
+				24E584151F3ADCEF00A12087 /* DashControl-PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -162,6 +214,7 @@
 					FB84EDBC1F32898700E4D400 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = VJY53T3RB8;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -253,7 +306,11 @@
 				FB84EDCB1F32898700E4D400 /* SecondViewController.m in Sources */,
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
 				FB84EDC81F32898700E4D400 /* FirstViewController.m in Sources */,
+				24E584101F3ADBAA00A12087 /* Post+CoreDataClass.m in Sources */,
+				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
+				24E584111F3ADBAA00A12087 /* Post+CoreDataProperties.m in Sources */,
 				FB84EDC21F32898700E4D400 /* main.m in Sources */,
+				24E584141F3ADC4C00A12087 /* RSSFeedManager.m in Sources */,
 				24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -377,14 +434,19 @@
 			baseConfigurationReference = 24CDD82E247C7A3CAA8FC718 /* Pods-DashControl.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = VJY53T3RB8;
 				ENABLE_BITCODE = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DashControl/DashControl-PrefixHeader.pch";
 				INFOPLIST_FILE = DashControl/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.dash.Control;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -393,13 +455,17 @@
 			baseConfigurationReference = 6B9CA04C10942ECB36466559 /* Pods-DashControl.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = VJY53T3RB8;
 				ENABLE_BITCODE = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DashControl/DashControl-PrefixHeader.pch";
 				INFOPLIST_FILE = DashControl/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.dash.Control;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -425,6 +491,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				24E584061F3ADAC900A12087 /* DashControl.xcdatamodel */,
+			);
+			currentVersion = 24E584061F3ADAC900A12087 /* DashControl.xcdatamodel */;
+			path = DashControl.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = FB84EDB51F32898700E4D400 /* Project object */;
 }
