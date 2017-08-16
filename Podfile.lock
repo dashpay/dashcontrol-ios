@@ -20,7 +20,6 @@ PODS:
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
-  - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -28,7 +27,6 @@ DEPENDENCIES:
   - RaptureXML
   - Reachability
   - SDWebImage
-  - TTTAttributedLabel
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -36,8 +34,7 @@ SPEC CHECKSUMS:
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
-  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 8bc053cbc8a6277050d43fba9925a791f048ca3c
+PODFILE CHECKSUM: 2e5fdd37d8863160d510c0fb793ad593e5fbf6a5
 
 COCOAPODS: 1.2.0
