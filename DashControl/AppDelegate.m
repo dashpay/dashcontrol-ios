@@ -15,6 +15,25 @@
 @implementation AppDelegate
 
 
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    // place all initialization code here that needs to be called "before" state restoration occurs
+    //
+    
+    // At launch time, the system automatically loads your app’s main storyboard file and
+    // loads the initial view controller. For apps that support state restoration, the state
+    // restoration machinery restores your interface to its previous state between calls to the
+    // application:willFinishLaunchingWithOptions: and application:didFinishLaunchingWithOptions: methods.
+    // Use the application:willFinishLaunchingWithOptions: method to show your app window and to determine
+    // if state restoration should happen at all. Use the application:didFinishLaunchingWithOptions: method
+    // to make any final adjustments to your app’s user interface.
+    
+    // require the window being visible before state restoration
+    [self.window makeKeyAndVisible];
+    
+    return YES;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
@@ -34,6 +53,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [self saveContext];
 }
 
 
@@ -49,6 +69,17 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [self saveContext];
+}
+
+#pragma mark - UIStateRestoration
+
+- (BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder {
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder {
+    return YES;
 }
 
 #pragma mark - Core Data stack

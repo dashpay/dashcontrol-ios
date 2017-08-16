@@ -192,6 +192,7 @@
     
 }
 
+/*
 -(NSMutableArray*)fetchAllObjectsForEntity:(NSString*)entityName {
     if (self.managedObjectContext) {
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -208,5 +209,6 @@
         return nil;
     }
 }
+*/
 
 @end

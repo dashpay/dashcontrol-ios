@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RSSFeedListViewController : UIViewController <NSFetchedResultsControllerDelegate>
+@interface RSSFeedListViewController : UIViewController <NSFetchedResultsControllerDelegate, UISearchControllerDelegate, UISearchResultsUpdating>
 
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic, strong) UISearchController *searchController;
 
 @end

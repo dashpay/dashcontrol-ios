@@ -10,7 +10,9 @@
 #import "RSSFeedListTableViewCell.h"
 
 @interface RSSFeedListViewController ()
-
+// for state restoration
+@property BOOL searchControllerWasActive;
+@property BOOL searchControllerSearchFieldWasFirstResponder;
 @end
 
 @implementation RSSFeedListViewController
@@ -25,7 +27,8 @@ static NSString *CellIdentifier = @"PostCell";
     
     managedObjectContext = [[RSSFeedManager sharedManager] managedObjectContext];
 
-    //[self.tableView registerClass:[RSSFeedListTableViewCell class] forCellReuseIdentifier:CellIdentifier];
+    [self cfgSearchController];
+    
     self.tableView.estimatedRowHeight = 44;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
@@ -47,6 +50,21 @@ static NSString *CellIdentifier = @"PostCell";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    // restore the searchController's active state
+    if (self.searchControllerWasActive) {
+        self.searchController.active = self.searchControllerWasActive;
+        _searchControllerWasActive = NO;
+        
+        if (self.searchControllerSearchFieldWasFirstResponder) {
+            [self.searchController.searchBar becomeFirstResponder];
+            _searchControllerSearchFieldWasFirstResponder = NO;
+        }
+    }
 }
 
 #pragma mark - Table view data source
@@ -145,7 +163,7 @@ static NSString *CellIdentifier = @"PostCell";
 #pragma mark - fetchedResultsController
 
 - (NSFetchedResultsController *)fetchedResultsController {
-    
+
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
@@ -156,8 +174,23 @@ static NSString *CellIdentifier = @"PostCell";
     [fetchRequest setEntity:entity];
     
     NSString *lang = [[RSSFeedManager sharedManager] feedLanguage];
-    if (lang) {
-        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"lang == %@", lang ? lang : @"en"]];
+    NSPredicate *langP = [NSPredicate predicateWithFormat:@"lang == %@", lang ? lang : @"en"];
+    NSString *searchString = self.searchController.searchBar.text;
+    if (searchString.length > 0)
+    {
+        NSPredicate *titleP = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchString];
+        NSPredicate *textP = [NSPredicate predicateWithFormat:@"text CONTAINS[cd] %@", searchString];
+        NSPredicate *contentP = [NSPredicate predicateWithFormat:@"content CONTAINS[cd] %@", searchString];
+        NSPredicate *linkP = [NSPredicate predicateWithFormat:@"link CONTAINS[cd] %@", searchString];
+        NSPredicate *guidP = [NSPredicate predicateWithFormat:@"guid CONTAINS[cd] %@", searchString];
+        NSPredicate *orPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:[NSArray arrayWithObjects:titleP, textP, contentP, linkP, guidP, nil]];
+        NSPredicate *andPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:langP, nil]];
+        NSPredicate *finalPred = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:orPredicate, andPredicate, nil]];
+        [fetchRequest setPredicate:finalPred];
+    }
+    else
+    {
+        [fetchRequest setPredicate:langP];
     }
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]
@@ -173,7 +206,7 @@ static NSString *CellIdentifier = @"PostCell";
                                                    cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = self;
-    
+
     return _fetchedResultsController;
     
 }
@@ -237,5 +270,89 @@ static NSString *CellIdentifier = @"PostCell";
     // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
     [self.tableView endUpdates];
 }
+
+#pragma mark - UISearchController
+
+-(void)cfgSearchController {
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+    self.definesPresentationContext = YES;
+    [self.searchController.searchBar sizeToFit];
+}
+
+#pragma mark - UISearchResultsUpdating
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    self.fetchedResultsController = nil;
+    
+    NSError *error;
+    if (![[self fetchedResultsController] performFetch:&error]) {
+        // Update to handle the error appropriately.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        exit(-1);  // Fail
+    }
+    
+    [self.tableView reloadData];
+}
+
+#pragma mark - UIStateRestoration
+
+// we restore several items for state restoration:
+//  1) Search controller's active state,
+//  2) search text,
+//  3) first responder
+
+NSString *const ViewControllerTitleKey = @"ViewControllerTitleKey";
+NSString *const SearchControllerIsActiveKey = @"SearchControllerIsActiveKey";
+NSString *const SearchBarTextKey = @"SearchBarTextKey";
+NSString *const SearchBarIsFirstResponderKey = @"SearchBarIsFirstResponderKey";
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super encodeRestorableStateWithCoder:coder];
+    
+    // encode the view state so it can be restored later
+    
+    // encode the title
+    [coder encodeObject:self.title forKey:ViewControllerTitleKey];
+    
+    UISearchController *searchController = self.searchController;
+    
+    // encode the search controller's active state
+    BOOL searchDisplayControllerIsActive = searchController.isActive;
+    [coder encodeBool:searchDisplayControllerIsActive forKey:SearchControllerIsActiveKey];
+    
+    // encode the first responser status
+    if (searchDisplayControllerIsActive) {
+        [coder encodeBool:[searchController.searchBar isFirstResponder] forKey:SearchBarIsFirstResponderKey];
+    }
+    
+    // encode the search bar text
+    [coder encodeObject:searchController.searchBar.text forKey:SearchBarTextKey];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super decodeRestorableStateWithCoder:coder];
+    
+    // restore the title
+    self.title = [coder decodeObjectForKey:ViewControllerTitleKey];
+    
+    // restore the active state:
+    // we can't make the searchController active here since it's not part of the view
+    // hierarchy yet, instead we do it in viewWillAppear
+    //
+    _searchControllerWasActive = [coder decodeBoolForKey:SearchControllerIsActiveKey];
+    
+    // restore the first responder status:
+    // we can't make the searchController first responder here since it's not part of the view
+    // hierarchy yet, instead we do it in viewWillAppear
+    //
+    _searchControllerSearchFieldWasFirstResponder = [coder decodeBoolForKey:SearchBarIsFirstResponderKey];
+    
+    // restore the text in the search field
+    self.searchController.searchBar.text = [coder decodeObjectForKey:SearchBarTextKey];
+}
+
 
 @end
