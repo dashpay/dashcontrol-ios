@@ -17,7 +17,7 @@
 #import <Reachability/Reachability.h>
 #import <AFNetworking.h>
 #import <RaptureXML/RXMLElement.h>
-
+#import <TTTAttributedLabel/TTTAttributedLabel.h>
 
 //CoreData
 #import <CoreData/CoreData.h>
@@ -27,8 +27,6 @@
 //Other
 #import "AppDelegate.h"
 #import "RSSFeedManager.h"
-
-
 
 
 #endif /* DashControl_PrefixHeader_pch */

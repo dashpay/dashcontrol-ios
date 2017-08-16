@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		248523591F4499C50027FBA6 /* RSSFeedDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 248523581F4499C50027FBA6 /* RSSFeedDetailViewController.m */; };
+		2485235B1F44A71B0027FBA6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2485235A1F44A71B0027FBA6 /* WebKit.framework */; };
 		24E583FF1F3A336400A12087 /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E583FE1F3A336400A12087 /* libPods-DashControl.a */; };
 		24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDDC1F32908C00E4D400 /* DCDataManager.m */; };
 		24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */; };
@@ -25,6 +27,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		248523571F4499C50027FBA6 /* RSSFeedDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFeedDetailViewController.h; sourceTree = "<group>"; };
+		248523581F4499C50027FBA6 /* RSSFeedDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFeedDetailViewController.m; sourceTree = "<group>"; };
+		2485235A1F44A71B0027FBA6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		24CDD82E247C7A3CAA8FC718 /* Pods-DashControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.debug.xcconfig"; sourceTree = "<group>"; };
 		24E583FE1F3A336400A12087 /* libPods-DashControl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DashControl.a"; path = "../../../Library/Developer/Xcode/DerivedData/DashControl-bbchfpooekeamodlfbmfyyxneavc/Build/Products/Debug-iphonesimulator/libPods-DashControl.a"; sourceTree = "<group>"; };
 		24E584061F3ADAC900A12087 /* DashControl.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DashControl.xcdatamodel; sourceTree = "<group>"; };
@@ -61,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2485235B1F44A71B0027FBA6 /* WebKit.framework in Frameworks */,
 				24E583FF1F3A336400A12087 /* libPods-DashControl.a in Frameworks */,
 				50E228300C10394473CA723B /* libPods-DashControl.a in Frameworks */,
 			);
@@ -106,6 +112,8 @@
 				24E584171F3AF18A00A12087 /* RSSFeedListViewController.m */,
 				24E584191F3AFB0F00A12087 /* RSSFeedListTableViewCell.h */,
 				24E5841A1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m */,
+				248523571F4499C50027FBA6 /* RSSFeedDetailViewController.h */,
+				248523581F4499C50027FBA6 /* RSSFeedDetailViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -122,6 +130,7 @@
 		F8F9FBF8277751CF40134EEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2485235A1F44A71B0027FBA6 /* WebKit.framework */,
 				24E583FE1F3A336400A12087 /* libPods-DashControl.a */,
 				6EF0246311C0216290387F2D /* libPods-DashControl.a */,
 			);
@@ -314,6 +323,7 @@
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
 				24E5841C1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m in Sources */,
 				24E584111F3ADBAA00A12087 /* Post+CoreDataProperties.m in Sources */,
+				248523591F4499C50027FBA6 /* RSSFeedDetailViewController.m in Sources */,
 				FB84EDC21F32898700E4D400 /* main.m in Sources */,
 				24E584141F3ADC4C00A12087 /* RSSFeedManager.m in Sources */,
 				24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */,

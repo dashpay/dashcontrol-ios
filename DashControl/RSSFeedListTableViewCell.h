@@ -12,8 +12,9 @@
 
 @property (nonatomic, retain) Post *currentPost;
 
+@property (weak, nonatomic) IBOutlet UILabel *lbPubDate;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
-@property (weak, nonatomic) IBOutlet UILabel *lbText;
+@property (weak, nonatomic) IBOutlet UILabel *lbLink;
 
 //More views...
 

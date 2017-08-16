@@ -12,5 +12,6 @@ target 'DashControl' do
   pod 'SDWebImage'
   pod 'MBCircularProgressBar'
   pod 'RaptureXML'
+  pod 'TTTAttributedLabel'
 
 end

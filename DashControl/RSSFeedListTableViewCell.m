@@ -24,7 +24,11 @@
 
 -(void)cfgViews {
     _lbTitle.text = self.currentPost.title;
-    _lbText.text = self.currentPost.text;
+    _lbLink.text = self.currentPost.link;
+    NSDateFormatter *df = [NSDateFormatter new];
+    [df setDateStyle:NSDateFormatterMediumStyle];
+    [df setTimeStyle:NSDateFormatterNoStyle];
+    _lbPubDate.text = [df stringFromDate:self.currentPost.pubDate];
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "RSSFeedListViewController.h"
 #import "RSSFeedListTableViewCell.h"
+#import "RSSFeedDetailViewController.h"
 
 @interface RSSFeedListViewController ()
 // for state restoration
@@ -29,7 +30,7 @@ static NSString *CellIdentifier = @"PostCell";
 
     [self cfgSearchController];
     
-    self.tableView.estimatedRowHeight = 44;
+    self.tableView.estimatedRowHeight = 142;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     NSError *error;
@@ -146,11 +147,15 @@ static NSString *CellIdentifier = @"PostCell";
 #pragma mark - Table view delegate
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //return 142;
     return UITableViewAutomaticDimension;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //RSSFeedDetailViewController
+    
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
@@ -158,6 +163,17 @@ static NSString *CellIdentifier = @"PostCell";
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Make sure your segue name in storyboard is the same as this line
+    if ([[segue identifier] isEqualToString:@"pushRSSFeedDetail"])
+    {
+        // Get reference to the destination view controller
+        RSSFeedDetailViewController *vc = [segue destinationViewController];
+        [vc setCurrentPost:[(RSSFeedListTableViewCell*)sender currentPost]];
+    }
 }
 
 #pragma mark - fetchedResultsController

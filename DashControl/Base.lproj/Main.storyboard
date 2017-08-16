@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Feed List View Controller-->
+        <!--News-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
                 <viewController storyboardIdentifier="RSSFeedListViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9pv-A4-QxB" customClass="RSSFeedListViewController" sceneMemberID="viewController">
@@ -22,36 +22,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="62" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fSK-Go-T4h">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="142" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fSK-Go-T4h">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PostCell" rowHeight="62" id="CSc-M9-uyu" customClass="RSSFeedListTableViewCell">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="62"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PostCell" id="CSc-M9-uyu" customClass="RSSFeedListTableViewCell">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="142"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CSc-M9-uyu" id="CIL-jo-x77">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="62"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="142"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XYP-gQ-kza">
-                                                    <rect key="frame" x="23" y="13" width="68" height="30.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9A-tj-Kuo">
+                                                    <rect key="frame" x="8" y="8" width="359" height="15"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="60" id="FKc-TY-IRx"/>
+                                                        <constraint firstAttribute="height" constant="15" id="vML-ge-cKR"/>
                                                     </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Post Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XYP-gQ-kza">
+                                                    <rect key="frame" x="8" y="31" width="359" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post link" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhm-ge-OO2">
+                                                    <rect key="frame" x="8" y="58.5" width="359" height="67"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="XYP-gQ-kza" secondAttribute="bottom" constant="10" id="csc-Wf-eTo"/>
-                                                <constraint firstItem="XYP-gQ-kza" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="CIL-jo-x77" secondAttribute="trailingMargin" constant="15" id="flN-xw-ecC"/>
-                                                <constraint firstItem="XYP-gQ-kza" firstAttribute="leading" secondItem="CIL-jo-x77" secondAttribute="leadingMargin" constant="15" id="jo9-NH-jMW"/>
-                                                <constraint firstItem="XYP-gQ-kza" firstAttribute="top" secondItem="CIL-jo-x77" secondAttribute="topMargin" constant="5" id="xrI-d8-L4m"/>
+                                                <constraint firstItem="XYP-gQ-kza" firstAttribute="trailing" secondItem="CIL-jo-x77" secondAttribute="trailingMargin" id="3dh-zz-Gev"/>
+                                                <constraint firstItem="XYP-gQ-kza" firstAttribute="leading" secondItem="CIL-jo-x77" secondAttribute="leadingMargin" id="F5g-Eg-hIA"/>
+                                                <constraint firstItem="f9A-tj-Kuo" firstAttribute="top" secondItem="CIL-jo-x77" secondAttribute="topMargin" id="GZE-k3-F0U"/>
+                                                <constraint firstItem="f9A-tj-Kuo" firstAttribute="trailing" secondItem="CIL-jo-x77" secondAttribute="trailingMargin" id="JKY-3W-IJM"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="bhm-ge-OO2" secondAttribute="bottom" constant="8" id="SnA-Y9-PIr"/>
+                                                <constraint firstItem="bhm-ge-OO2" firstAttribute="top" secondItem="XYP-gQ-kza" secondAttribute="bottom" constant="8" id="cUP-ut-QcS"/>
+                                                <constraint firstItem="bhm-ge-OO2" firstAttribute="trailing" secondItem="CIL-jo-x77" secondAttribute="trailingMargin" id="kET-33-0PF"/>
+                                                <constraint firstItem="bhm-ge-OO2" firstAttribute="leading" secondItem="CIL-jo-x77" secondAttribute="leadingMargin" id="l9g-RD-7e1"/>
+                                                <constraint firstItem="f9A-tj-Kuo" firstAttribute="leading" secondItem="CIL-jo-x77" secondAttribute="leadingMargin" id="lMa-PF-aYT"/>
+                                                <constraint firstItem="XYP-gQ-kza" firstAttribute="top" secondItem="CIL-jo-x77" secondAttribute="topMargin" constant="23" id="vcg-OD-Mqg"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="lbLink" destination="bhm-ge-OO2" id="vm9-EM-KTJ"/>
+                                            <outlet property="lbPubDate" destination="f9A-tj-Kuo" id="ndj-gg-xtd"/>
                                             <outlet property="lbTitle" destination="XYP-gQ-kza" id="woB-NN-ILk"/>
+                                            <segue destination="6nF-TD-OPB" kind="show" identifier="pushRSSFeedDetail" id="QAR-sN-DWH"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -69,7 +90,7 @@
                             <constraint firstItem="fSK-Go-T4h" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="v24-aa-QIi"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="IOC-AI-i7l"/>
+                    <navigationItem key="navigationItem" title="News" id="IOC-AI-i7l"/>
                     <connections>
                         <outlet property="tableView" destination="fSK-Go-T4h" id="WHM-1s-3aQ"/>
                     </connections>
@@ -77,6 +98,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1863.2" y="-320.68965517241384"/>
+        </scene>
+        <!--Feed Detail View Controller-->
+        <scene sceneID="vWz-kU-vmv">
+            <objects>
+                <viewController storyboardIdentifier="RSSFeedDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6nF-TD-OPB" customClass="RSSFeedDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SZd-8d-3lc"/>
+                        <viewControllerLayoutGuide type="bottom" id="8zO-Zc-kaz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nyR-9B-wNs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rgY-gl-27J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2673" y="-322"/>
         </scene>
         <!--Second-->
         <scene sceneID="wg7-f3-ORb">
