@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RSSFeedDetailViewController : UIViewController
+@interface RSSFeedDetailViewController : UIViewController <WKNavigationDelegate, WKUIDelegate>
 
 @property (nonatomic, retain) Post *currentPost;
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
