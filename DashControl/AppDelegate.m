@@ -40,6 +40,9 @@
     //Init the RSSFeedManager Manager.
     [RSSFeedManager sharedManager];
     
+    //Init the Price Data Manager
+    [ChartDataImportManager sharedManager];
+    
     return YES;
 }
 

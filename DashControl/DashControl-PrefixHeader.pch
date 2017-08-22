@@ -22,11 +22,13 @@
 //CoreData
 #import <CoreData/CoreData.h>
 #import "Post+CoreDataClass.h"
+#import "ChartDataEntry+CoreDataClass.h"
 
 
 //Other
 #import "AppDelegate.h"
 #import "RSSFeedManager.h"
+#import "ChartDataImportManager.h"
 
 
 #endif /* DashControl_PrefixHeader_pch */
