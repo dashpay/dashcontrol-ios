@@ -126,7 +126,6 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     switch (market) {
         case DCMarketDashBtc:
             if ([defs objectForKey:CHART_DATA_KRAKEN_DASH_BTC_LAST_IMPORT_TIME]) {
-                //[NSString stringWithFormat:@"%.0f", [aDate timeIntervalSince1970]]
                 [URLParams setObject:[NSString stringWithFormat:@"%.0f", [[defs objectForKey:CHART_DATA_KRAKEN_DASH_BTC_LAST_IMPORT_TIME] timeIntervalSince1970]] forKey:@"start"];
             }
             break;
@@ -414,16 +413,11 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
     [container performBackgroundTask:^(NSManagedObjectContext *context) {
         
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-        [dateFormatter setLocale:enUSPOSIXLocale];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
-        
         for (NSDictionary *jsonObject in jsonArray) {
             ChartDataEntry *chartDataEntry = [NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
             
             NSDate * myDate = [NSDate dateWithTimeIntervalSince1970:[[jsonObject objectForKey:@"date"] doubleValue]];
-            chartDataEntry.time = [dateFormatter stringFromDate:myDate];
+            chartDataEntry.time = myDate;
             
             chartDataEntry.open = [[jsonObject objectForKey:@"open"] doubleValue];
             chartDataEntry.high = [[jsonObject objectForKey:@"high"] doubleValue];
@@ -456,11 +450,16 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        [dateFormatter setLocale:enUSPOSIXLocale];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+        
         for (NSDictionary *jsonObject in jsonArray) {
-            NSArray *entriesFound = [self fetchChartDataForExchange:exchange andMarket:market atTime:[jsonObject objectForKey:@"time"]];
+            NSArray *entriesFound = [self fetchChartDataForExchange:exchange andMarket:market atTime:[dateFormatter dateFromString:[jsonObject objectForKey:@"time"]]];
             if (!entriesFound || entriesFound.count == 0) {
                 ChartDataEntry *chartDataEntry = [NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:self.managedObjectContext];
-                chartDataEntry.time = [jsonObject objectForKey:@"time"];
+                chartDataEntry.time = [dateFormatter dateFromString:[jsonObject objectForKey:@"time"]];
                 chartDataEntry.open = [[jsonObject objectForKey:@"open"] doubleValue];
                 chartDataEntry.high = [[jsonObject objectForKey:@"high"] doubleValue];
                 chartDataEntry.low = [[jsonObject objectForKey:@"low"] doubleValue];
@@ -590,7 +589,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     
 }
 
--(NSMutableArray *)fetchChartDataForExchange:(DCExchangeSource)exchange andMarket:(DCMarketSource)market atTime:(NSString*)time {
+-(NSMutableArray *)fetchChartDataForExchange:(DCExchangeSource)exchange andMarket:(DCMarketSource)market atTime:(NSDate*)time {
     
     if ([self managedObjectContext]) {
         NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"ChartDataEntry" inManagedObjectContext:self.managedObjectContext];

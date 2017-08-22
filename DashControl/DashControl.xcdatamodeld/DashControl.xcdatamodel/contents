@@ -8,7 +8,7 @@
         <attribute name="market" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="open" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="pairVolume" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="trades" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="volume" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
@@ -22,7 +22,7 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Post" positionX="-63" positionY="-18" width="128" height="150"/>
         <element name="ChartDataEntry" positionX="-63" positionY="36" width="128" height="195"/>
+        <element name="Post" positionX="-63" positionY="-18" width="128" height="150"/>
     </elements>
 </model>

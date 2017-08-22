@@ -21,6 +21,8 @@
     
     managedObjectContext = [[ChartDataImportManager sharedManager] managedObjectContext];
     
+    NSLog(@"ChartDataEntry:%lu", [[[ChartDataImportManager sharedManager] fetchAllObjectsForEntity:@"ChartDataEntry"] count]);
+    
     //Observe core data with NSFetchResult... / NSManagedObjectContextObjectsDidChangeNotification
 }
 
