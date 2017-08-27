@@ -10,6 +10,30 @@
 
 #import <sys/utsname.h>
 
+/*
+ * Utils: Add this section before your class implementation
+ */
+
+/**
+ This creates a new query parameters string from the given NSDictionary. For
+ example, if the input is @{@"day":@"Tuesday", @"month":@"January"}, the output
+ string will be @"day=Tuesday&month=January".
+ @param queryParameters The input dictionary.
+ @return The created parameters string.
+ */
+static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
+{
+    NSMutableArray* parts = [NSMutableArray array];
+    [queryParameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        NSString *part = [NSString stringWithFormat: @"%@=%@",
+                          [key stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding],
+                          [value stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]
+                          ];
+        [parts addObject:part];
+    }];
+    return [parts componentsJoinedByString: @"&"];
+}
+
 @interface AppDelegate ()
 
 @end
@@ -236,31 +260,26 @@
     NSString *token_string = [[[[deviceToken description]    stringByReplacingOccurrencesOfString:@"<"withString:@""]
                                stringByReplacingOccurrencesOfString:@">" withString:@""]
                               stringByReplacingOccurrencesOfString: @" " withString: @""];
-    //NSLog(@"deviceToken:%@", token_string);
-    //NSLog(@"device_id:%@", [[UIDevice currentDevice] identifierForVendor]);
-    //NSLog(@"os-version:%@", [[UIDevice currentDevice] systemVersion]);
-    //NSLog(@"version:%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
-    //NSLog(@"model:%@", deviceName());
-    
+
     NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:nil delegateQueue:nil];
-    NSURL* URL = [NSURL URLWithString:@"https://cms-swestrich.c9users.io/api/v0/device/"];
+    NSURL* URL = [NSURL URLWithString:@"https://dashpay.info/api/v0/device/"];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
     request.HTTPMethod = @"POST";
     
     // Headers
-    [request addValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    // JSON Body
-    NSDictionary* bodyObject = @{
-                                 @"model": deviceName(),
-                                 @"os": @"ios",
-                                 @"device_id": [[[UIDevice currentDevice] identifierForVendor] UUIDString],
-                                 @"os_version": [[UIDevice currentDevice] systemVersion],
-                                 @"token": token_string,
-                                 @"version": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]
-                                 };
-    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:bodyObject options:kNilOptions error:NULL];
+    // Form URL-Encoded Body
+    NSDictionary* bodyParameters = @{
+                                     @"version": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+                                     @"model": deviceName(),
+                                     @"os": @"ios",
+                                     @"device_id": [[[UIDevice currentDevice] identifierForVendor] UUIDString],
+                                     @"os_version": [[UIDevice currentDevice] systemVersion],
+                                     @"token": token_string,
+                                     };
+    request.HTTPBody = [NSStringFromQueryParameters(bodyParameters) dataUsingEncoding:NSUTF8StringEncoding];
     
     /* Start a new Task */
     NSURLSessionDataTask* task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
