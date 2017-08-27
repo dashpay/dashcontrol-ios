@@ -64,6 +64,7 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     // Override point for customization after application launch.
     
     self.persistentContainer.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+    self.persistentContainer.viewContext.automaticallyMergesChangesFromParent = TRUE;
     
     //Request Device Token For Apple Push Notifications
     [self registerForRemoteNotifications];
