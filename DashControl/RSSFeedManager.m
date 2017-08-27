@@ -36,11 +36,9 @@
 
 - (id)init {
     if (self = [super init]) {
-        
         self.managedObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
-        
         self.reachability = [Reachability reachabilityForInternetConnection];
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(localeChanged:)
                                                      name:NSCurrentLocaleDidChangeNotification
@@ -142,13 +140,22 @@
     
     if (rootXML) {
         
-        NSDateFormatter *pubDateFormatter = [NSDateFormatter new];
-        [pubDateFormatter setDateFormat:@"EEE, dd MMM yyy HH:mm:ss Z"];
-        
-        [rootXML iterate:@"channel.item" usingBlock: ^(RXMLElement *item) {
+        NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
+        [container performBackgroundTask:^(NSManagedObjectContext *context) {
             
-            if (![self fetchPostWithGUID:[item child:@"guid"].text].count) {
-                Post *post = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:self.managedObjectContext];
+            NSDateFormatter *pubDateFormatter = [NSDateFormatter new];
+            [pubDateFormatter setDateFormat:@"EEE, dd MMM yyy HH:mm:ss Z"];
+            
+            [rootXML iterate:@"channel.item" usingBlock: ^(RXMLElement *item) {
+                
+                Post *post;
+                NSMutableArray *existingPosts = [self fetchPostWithGUID:[item child:@"guid"].text inContext:context];
+                if (!existingPosts.count) {
+                    post = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:context];
+                } else {
+                    post = existingPosts.firstObject;
+                }
+                
                 post.lang = language ? language : @"en";
                 post.title = [item child:@"title"].text;
                 post.text = [item child:@"description"].text;
@@ -156,22 +163,26 @@
                 post.guid = [item child:@"guid"].text;
                 post.link = [item child:@"link"].text;
                 post.content = [item child:@"encoded"].text;
-            }
+            }];
+             
+            context.automaticallyMergesChangesFromParent = TRUE;
+            context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
             
+            NSError *error = nil;
+            if (![context save:&error]) {
+                NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+                abort();
+            }
         }];
-        
-        NSError *error;
-        [self.managedObjectContext save:&error];
     }
     
-    //NSLog(@"Total Posts: %ld", [[self fetchAllObjectsForEntity:@"Post"] count]);
 }
 
 #pragma mark - Core Data Utils Methods
 
--(NSMutableArray *)fetchPostWithGUID:(NSString *)guid {
-    if ([self managedObjectContext]) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Post" inManagedObjectContext:self.managedObjectContext];
+-(NSMutableArray *)fetchPostWithGUID:(NSString *)guid inContext:(NSManagedObjectContext *)context {
+    if (context) {
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Post" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         
@@ -180,7 +191,7 @@
         [request setPredicate:guidPredicate];
         
         NSError *error;
-        NSArray *array = [self.managedObjectContext executeFetchRequest:request error:&error];
+        NSArray *array = [context executeFetchRequest:request error:&error];
         if (array == nil)
         {
             NSLog(@"Error while festching %@ with predicate %@", entityDescription.name, guidPredicate);
@@ -191,24 +202,5 @@
     }
     
 }
-
-/*
--(NSMutableArray*)fetchAllObjectsForEntity:(NSString*)entityName {
-    if (self.managedObjectContext) {
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self.managedObjectContext];
-        [request setEntity:entity];
-        NSError *error = nil;
-        NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
-        if (mutableFetchResults == nil) {
-            // Handle the error.
-            NSLog(@"Error while fetching all %@ from DB", entityName);
-        }
-        return mutableFetchResults;
-    } else {
-        return nil;
-    }
-}
-*/
 
 @end

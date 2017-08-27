@@ -18,7 +18,4 @@
 
 + (id _Nonnull )sharedManager;
 
-//Utils
-//-(NSMutableArray*_Nullable)fetchAllObjectsForEntity:(NSString*_Nullable)entityName;
-
 @end
