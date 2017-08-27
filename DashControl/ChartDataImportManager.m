@@ -454,7 +454,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         for (NSDictionary *jsonObject in jsonArray) {
             NSArray *entriesFound = [self fetchChartDataForExchange:exchange andMarket:market atTime:[dateFormatter dateFromString:[jsonObject objectForKey:@"time"]] inContext:context];
             if (!entriesFound || entriesFound.count == 0) {
-                ChartDataEntry *chartDataEntry = [NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:self.managedObjectContext];
+                ChartDataEntry *chartDataEntry = [NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
                 chartDataEntry.time = [dateFormatter dateFromString:[jsonObject objectForKey:@"time"]];
                 chartDataEntry.open = [[jsonObject objectForKey:@"open"] doubleValue];
                 chartDataEntry.high = [[jsonObject objectForKey:@"high"] doubleValue];
