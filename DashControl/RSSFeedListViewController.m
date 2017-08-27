@@ -26,19 +26,20 @@ static NSString *CellIdentifier = @"PostCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    managedObjectContext = [[RSSFeedManager sharedManager] managedObjectContext];
+    //managedObjectContext = [[RSSFeedManager sharedManager] managedObjectContext];
 
     [self cfgSearchController];
     
     self.tableView.estimatedRowHeight = 142;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    
+    /*
     NSError *error;
     if (![[self fetchedResultsController] performFetch:&error]) {
         // Update to handle the error appropriately.
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         exit(-1);  // Fail
     }
+     */
 }
 
 - (void)viewDidUnload

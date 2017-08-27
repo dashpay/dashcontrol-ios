@@ -26,11 +26,7 @@ typedef NS_ENUM(NSInteger, DCExchangeSource) {
 
 @property (nonatomic, retain) NSManagedObjectContext * _Nullable managedObjectContext;
 
-@property (nonatomic, retain) NSDateFormatter * _Nullable dfImport;
-
 + (id _Nonnull )sharedManager;
-
--(NSMutableArray*_Nullable)fetchAllObjectsForEntity:(NSString*_Nullable)entityName;
 
 - (NSString*_Nullable)convertExchangeEnumToString:(DCExchangeSource)exchangeSource;
 - (DCExchangeSource)convertExchangeStringToEnum:(NSString*_Nullable)exchangeSource;

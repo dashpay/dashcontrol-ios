@@ -81,13 +81,8 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 
 - (id)init {
     if (self = [super init]) {
-        
         self.managedObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
-        
         self.reachability = [Reachability reachabilityForInternetConnection];
-        
-        NSLog(@"ChartDataEntry count:%lu", [[self fetchAllObjectsForEntity:@"ChartDataEntry"] count]);
-        
         [self updatePriceCharts];
     }
     return self;
@@ -356,9 +351,9 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 }
 
 -(void)fetchHistoricalPoloniex {
-    
+
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-    if ([defs objectForKey:HISTORICAL_CHART_DATA_POLONIEX_KEY]) {
+    if ([defs objectForKey:HISTORICAL_CHART_DATA_POLONIEX_KEY] || self.reachability.currentReachabilityStatus == ReachableViaWWAN) {
         return;
     }
     
@@ -408,8 +403,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 #pragma mark - Core Data related
 
 -(void)importLargeHistoricalPoloniexJSONData:(NSArray *)jsonArray {
-    //Using a Private Queue to Support Concurrency, using NSPersistentContainer
-    
+
     NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
     [container performBackgroundTask:^(NSManagedObjectContext *context) {
         
@@ -431,13 +425,14 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             chartDataEntry.exchange = POLHistorySource; //Temporary value until we talk about historical import.
             chartDataEntry.market = POLONIEXMarketUsdDash; //Temporary value until we talk about historical import.
         }
+        
+        context.automaticallyMergesChangesFromParent = TRUE;
+        context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+        
         NSError *error = nil;
         if (![context save:&error]) {
             NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
             abort();
-        }
-        else {
-            NSLog(@"ChartDataEntry count after save:%lu", [[self fetchAllObjectsForEntity:@"ChartDataEntry"] count]);
         }
     }];
 }
@@ -448,7 +443,8 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         return;
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
+    [container performBackgroundTask:^(NSManagedObjectContext *context) {
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
@@ -456,7 +452,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
         
         for (NSDictionary *jsonObject in jsonArray) {
-            NSArray *entriesFound = [self fetchChartDataForExchange:exchange andMarket:market atTime:[dateFormatter dateFromString:[jsonObject objectForKey:@"time"]]];
+            NSArray *entriesFound = [self fetchChartDataForExchange:exchange andMarket:market atTime:[dateFormatter dateFromString:[jsonObject objectForKey:@"time"]] inContext:context];
             if (!entriesFound || entriesFound.count == 0) {
                 ChartDataEntry *chartDataEntry = [NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:self.managedObjectContext];
                 chartDataEntry.time = [dateFormatter dateFromString:[jsonObject objectForKey:@"time"]];
@@ -483,116 +479,22 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                 chartDataEntry.market = market;
             }
         }
+        
+        context.automaticallyMergesChangesFromParent = TRUE;
+        context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+        
         NSError *error = nil;
-        if (![self.managedObjectContext save:&error]) {
-            NSLog(@"Error saving context: %@\n%@", [error localizedDescription], [error userInfo]);
+        if (![context save:&error]) {
+            NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
             abort();
         }
-        else {
-            NSLog(@"ChartDataEntry count after save:%lu", [[self fetchAllObjectsForEntity:@"ChartDataEntry"] count]);
-        }
-        
-    });
-    
-    
-    /*
-     //JSON data to be imported into Core Data
-     NSManagedObjectContext *moc = self.managedObjectContext; //Our primary context on the main queue
-     
-     NSManagedObjectContext *private = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-     [private setParentContext:moc];
-     
-     [private performBlock:^{
-     for (NSDictionary *jsonObject in jsonArray) {
-     NSArray *entriesFound = [self fetchChartDataForExchange:exchange andMarket:market atTime:[jsonObject objectForKey:@"time"]];
-     if (!entriesFound || entriesFound.count == 0) {
-     ChartDataEntry *chartDataEntry = [NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:self.managedObjectContext];
-     chartDataEntry.time = [jsonObject objectForKey:@"time"];
-     chartDataEntry.open = [[jsonObject objectForKey:@"open"] doubleValue];
-     chartDataEntry.high = [[jsonObject objectForKey:@"high"] doubleValue];
-     chartDataEntry.low = [[jsonObject objectForKey:@"low"] doubleValue];
-     chartDataEntry.close = [[jsonObject objectForKey:@"close"] doubleValue];
-     chartDataEntry.volume = [[jsonObject objectForKey:@"volume"] doubleValue];
-     chartDataEntry.pairVolume = [[jsonObject objectForKey:@"pairVolume"] doubleValue];
-     chartDataEntry.trades = [[jsonObject objectForKey:@"trades"] intValue];
-     chartDataEntry.exchange = exchange;
-     chartDataEntry.market = market;
-     }
-     else {
-     ChartDataEntry *chartDataEntry = entriesFound.firstObject;
-     chartDataEntry.open = [[jsonObject objectForKey:@"open"] doubleValue];
-     chartDataEntry.high = [[jsonObject objectForKey:@"high"] doubleValue];
-     chartDataEntry.low = [[jsonObject objectForKey:@"low"] doubleValue];
-     chartDataEntry.close = [[jsonObject objectForKey:@"close"] doubleValue];
-     chartDataEntry.volume = [[jsonObject objectForKey:@"volume"] doubleValue];
-     chartDataEntry.pairVolume = [[jsonObject objectForKey:@"pairVolume"] doubleValue];
-     chartDataEntry.trades = [[jsonObject objectForKey:@"trades"] intValue];
-     chartDataEntry.exchange = exchange;
-     chartDataEntry.market = market;
-     }
-     
-     }
-     NSError *error = nil;
-     if (![private save:&error]) {
-     NSLog(@"Error saving context: %@\n%@", [error localizedDescription], [error userInfo]);
-     abort();
-     }
-     [moc performBlockAndWait:^{
-     NSError *error = nil;
-     if (![moc save:&error]) {
-     NSLog(@"Error saving context: %@\n%@", [error localizedDescription], [error userInfo]);
-     abort();
-     }
-     NSLog(@"ChartDataEntry count after save:%lu", [[self fetchAllObjectsForEntity:@"ChartDataEntry"] count]);
-     }];
-     }];
-     */
-    /*
-     NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
-     [container performBackgroundTask:^(NSManagedObjectContext *context) {
-     for (NSDictionary *jsonObject in jsonArray) {
-     NSArray *entriesFound = [self fetchChartDataWithTimeString:[jsonObject objectForKey:@"time"]];
-     ChartDataEntry *chartDataEntry;
-     if (!entriesFound || entriesFound.count == 0) {
-     chartDataEntry = [NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
-     chartDataEntry.time = [jsonObject objectForKey:@"time"];
-     chartDataEntry.open = [[jsonObject objectForKey:@"open"] doubleValue];
-     chartDataEntry.high = [[jsonObject objectForKey:@"high"] doubleValue];
-     chartDataEntry.low = [[jsonObject objectForKey:@"low"] doubleValue];
-     chartDataEntry.close = [[jsonObject objectForKey:@"close"] doubleValue];
-     chartDataEntry.volume = [[jsonObject objectForKey:@"volume"] doubleValue];
-     chartDataEntry.pairVolume = [[jsonObject objectForKey:@"pairVolume"] doubleValue];
-     chartDataEntry.trades = [[jsonObject objectForKey:@"trades"] intValue];
-     chartDataEntry.exchange = exchange;
-     chartDataEntry.market = market;
-     }
-     else {
-     chartDataEntry = entriesFound.firstObject;
-     chartDataEntry.open = [[jsonObject objectForKey:@"open"] doubleValue];
-     chartDataEntry.high = [[jsonObject objectForKey:@"high"] doubleValue];
-     chartDataEntry.low = [[jsonObject objectForKey:@"low"] doubleValue];
-     chartDataEntry.close = [[jsonObject objectForKey:@"close"] doubleValue];
-     chartDataEntry.volume = [[jsonObject objectForKey:@"volume"] doubleValue];
-     chartDataEntry.pairVolume = [[jsonObject objectForKey:@"pairVolume"] doubleValue];
-     chartDataEntry.trades = [[jsonObject objectForKey:@"trades"] intValue];
-     chartDataEntry.exchange = exchange;
-     chartDataEntry.market = market;
-     }
-     }
-     NSError *error = nil;
-     if (![context save:&error]) {
-     NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-     abort();
-     }
-     }];
-     */
-    
+    }];
 }
 
--(NSMutableArray *)fetchChartDataForExchange:(DCExchangeSource)exchange andMarket:(DCMarketSource)market atTime:(NSDate*)time {
+-(NSMutableArray *)fetchChartDataForExchange:(DCExchangeSource)exchange andMarket:(DCMarketSource)market atTime:(NSDate*)time inContext:(NSManagedObjectContext *)context {
     
-    if ([self managedObjectContext]) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"ChartDataEntry" inManagedObjectContext:self.managedObjectContext];
+    if (context) {
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"ChartDataEntry" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         
@@ -600,7 +502,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         [request setPredicate:predicate];
         
         NSError *error;
-        NSArray *array = [self.managedObjectContext executeFetchRequest:request error:&error];
+        NSArray *array = [context executeFetchRequest:request error:&error];
         if (array == nil)
         {
             NSLog(@"Error while festching %@ with predicate %@", entityDescription.name, predicate);
@@ -610,23 +512,6 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         return  nil;
     }
     
-}
-
--(NSMutableArray*)fetchAllObjectsForEntity:(NSString*)entityName {
-    if (self.managedObjectContext) {
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self.managedObjectContext];
-        [request setEntity:entity];
-        NSError *error = nil;
-        NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
-        if (mutableFetchResults == nil) {
-            // Handle the error.
-            NSLog(@"Error while fetching all %@ from DB", entityName);
-        }
-        return mutableFetchResults;
-    } else {
-        return nil;
-    }
 }
 
 #pragma mark - Exchange & Market
