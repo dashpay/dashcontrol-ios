@@ -183,6 +183,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         budget.superblock = [jsonDic objectForKey:@"superblock"];
 
         context.automaticallyMergesChangesFromParent = TRUE;
+        context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
         
         NSError *error = nil;
         if (![context save:&error]) {
@@ -252,6 +253,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         }
 
         context.automaticallyMergesChangesFromParent = TRUE;
+        context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
         
         NSError *error = nil;
         if (![context save:&error]) {
