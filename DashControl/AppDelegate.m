@@ -39,6 +39,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    self.persistentContainer.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+    
     //Request Device Token For Apple Push Notifications
     [self registerForRemoteNotifications];
     
@@ -47,6 +49,9 @@
     
     //Init the Price Data Manager
     [ChartDataImportManager sharedManager];
+    
+    //Init the Proposals Manager
+    [ProposalsManager sharedManager];
     
     return YES;
 }
@@ -250,7 +255,7 @@
     NSDictionary* bodyObject = @{
                                  @"model": deviceName(),
                                  @"os": @"ios",
-                                 @"device_id": [[UIDevice currentDevice] identifierForVendor],
+                                 @"device_id": [[[UIDevice currentDevice] identifierForVendor] UUIDString],
                                  @"os_version": [[UIDevice currentDevice] systemVersion],
                                  @"token": token_string,
                                  @"version": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]

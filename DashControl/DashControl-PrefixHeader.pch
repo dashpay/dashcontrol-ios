@@ -30,12 +30,15 @@
 #import <CoreData/CoreData.h>
 #import "Post+CoreDataClass.h"
 #import "ChartDataEntry+CoreDataClass.h"
-
+#import "Budget+CoreDataClass.h"
+#import "Proposal+CoreDataClass.h"
+#import "Comment+CoreDataClass.h"
 
 //Other
 #import "AppDelegate.h"
 #import "RSSFeedManager.h"
 #import "ChartDataImportManager.h"
+#import "ProposalsManager.h"
 
 
 #endif /* DashControl_PrefixHeader_pch */

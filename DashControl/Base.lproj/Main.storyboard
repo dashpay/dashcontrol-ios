@@ -170,6 +170,7 @@
                     <connections>
                         <segue destination="0EC-Sk-ZtC" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="PaP-Cg-sTX" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="kjH-Cc-qoC" kind="relationship" relationship="viewControllers" id="wra-uO-Z15"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -213,6 +214,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rpt-a0-tFP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="924" y="381.85907046476763"/>
+        </scene>
+        <!--Proposals-->
+        <scene sceneID="fKP-1R-Lqz">
+            <objects>
+                <viewController storyboardIdentifier="ProposalsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yhc-aO-VLa" customClass="ProposalsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Yiy-UZ-4Tl"/>
+                        <viewControllerLayoutGuide type="bottom" id="39W-JT-Wps"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="69u-ks-Fxp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Proposals" id="tC6-Bc-5Uu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MXP-qd-dcd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1880.8" y="1108.6956521739132"/>
+        </scene>
+        <!--Proposals-->
+        <scene sceneID="mhe-Bh-zbG">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kjH-Cc-qoC" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Proposals" image="second" id="rHg-Il-wKW"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aMS-UW-2jR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="yhc-aO-VLa" kind="relationship" relationship="rootViewController" id="c5C-v4-YJg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LQW-j0-kE8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="941.60000000000002" y="1108.6956521739132"/>
         </scene>
     </scenes>
     <resources>

@@ -7,8 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		241719C61F4D9EE10045C2D6 /* ProposalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */; };
+		241719D81F4DA4C60045C2D6 /* ProposalsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719D71F4DA4C60045C2D6 /* ProposalsManager.m */; };
+		241719E11F4DB0FB0045C2D6 /* Proposal+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DA1F4DB0FB0045C2D6 /* Proposal+CoreDataClass.m */; };
+		241719E21F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DC1F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.m */; };
+		241719E31F4DB0FB0045C2D6 /* Comment+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DE1F4DB0FB0045C2D6 /* Comment+CoreDataClass.m */; };
+		241719E41F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719E01F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m */; };
 		248523591F4499C50027FBA6 /* RSSFeedDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 248523581F4499C50027FBA6 /* RSSFeedDetailViewController.m */; };
 		2485235B1F44A71B0027FBA6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2485235A1F44A71B0027FBA6 /* WebKit.framework */; };
+		24A2159B1F52C5E900A63311 /* Budget+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A215981F52C5E900A63311 /* Budget+CoreDataClass.m */; };
+		24A2159C1F52C5E900A63311 /* Budget+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A2159A1F52C5E900A63311 /* Budget+CoreDataProperties.m */; };
 		24E1D8DE1F4D742D00AE2C47 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */; };
 		24E583FF1F3A336400A12087 /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E583FE1F3A336400A12087 /* libPods-DashControl.a */; };
 		24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDDC1F32908C00E4D400 /* DCDataManager.m */; };
@@ -31,10 +39,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		241719C41F4D9EE10045C2D6 /* ProposalsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalsViewController.h; sourceTree = "<group>"; };
+		241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalsViewController.m; sourceTree = "<group>"; };
+		241719D61F4DA4C60045C2D6 /* ProposalsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalsManager.h; sourceTree = "<group>"; };
+		241719D71F4DA4C60045C2D6 /* ProposalsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalsManager.m; sourceTree = "<group>"; };
+		241719D91F4DB0FB0045C2D6 /* Proposal+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Proposal+CoreDataClass.h"; sourceTree = "<group>"; };
+		241719DA1F4DB0FB0045C2D6 /* Proposal+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Proposal+CoreDataClass.m"; sourceTree = "<group>"; };
+		241719DB1F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Proposal+CoreDataProperties.h"; sourceTree = "<group>"; };
+		241719DC1F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Proposal+CoreDataProperties.m"; sourceTree = "<group>"; };
+		241719DD1F4DB0FB0045C2D6 /* Comment+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Comment+CoreDataClass.h"; sourceTree = "<group>"; };
+		241719DE1F4DB0FB0045C2D6 /* Comment+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Comment+CoreDataClass.m"; sourceTree = "<group>"; };
+		241719DF1F4DB0FB0045C2D6 /* Comment+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Comment+CoreDataProperties.h"; sourceTree = "<group>"; };
+		241719E01F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Comment+CoreDataProperties.m"; sourceTree = "<group>"; };
 		2442A01B1F4D6CDC006FAC0D /* DashControl.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DashControl.entitlements; sourceTree = "<group>"; };
 		248523571F4499C50027FBA6 /* RSSFeedDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFeedDetailViewController.h; sourceTree = "<group>"; };
 		248523581F4499C50027FBA6 /* RSSFeedDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFeedDetailViewController.m; sourceTree = "<group>"; };
 		2485235A1F44A71B0027FBA6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		24A215971F52C5E900A63311 /* Budget+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Budget+CoreDataClass.h"; sourceTree = "<group>"; };
+		24A215981F52C5E900A63311 /* Budget+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Budget+CoreDataClass.m"; sourceTree = "<group>"; };
+		24A215991F52C5E900A63311 /* Budget+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Budget+CoreDataProperties.h"; sourceTree = "<group>"; };
+		24A2159A1F52C5E900A63311 /* Budget+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Budget+CoreDataProperties.m"; sourceTree = "<group>"; };
 		24CDD82E247C7A3CAA8FC718 /* Pods-DashControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.debug.xcconfig"; sourceTree = "<group>"; };
 		24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		24E583FE1F3A336400A12087 /* libPods-DashControl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DashControl.a"; path = "../../../Library/Developer/Xcode/DerivedData/DashControl-bbchfpooekeamodlfbmfyyxneavc/Build/Products/Debug-iphonesimulator/libPods-DashControl.a"; sourceTree = "<group>"; };
@@ -88,6 +112,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		241719C31F4D9EC30045C2D6 /* Proposals */ = {
+			isa = PBXGroup;
+			children = (
+				241719D51F4DA49E0045C2D6 /* Manager */,
+				241719C81F4DA0280045C2D6 /* Models */,
+				241719C71F4DA0130045C2D6 /* ViewControllers */,
+			);
+			name = Proposals;
+			sourceTree = "<group>";
+		};
+		241719C71F4DA0130045C2D6 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				241719C41F4D9EE10045C2D6 /* ProposalsViewController.h */,
+				241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		241719C81F4DA0280045C2D6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				24A215971F52C5E900A63311 /* Budget+CoreDataClass.h */,
+				24A215981F52C5E900A63311 /* Budget+CoreDataClass.m */,
+				24A215991F52C5E900A63311 /* Budget+CoreDataProperties.h */,
+				24A2159A1F52C5E900A63311 /* Budget+CoreDataProperties.m */,
+				241719D91F4DB0FB0045C2D6 /* Proposal+CoreDataClass.h */,
+				241719DA1F4DB0FB0045C2D6 /* Proposal+CoreDataClass.m */,
+				241719DB1F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.h */,
+				241719DC1F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.m */,
+				241719DD1F4DB0FB0045C2D6 /* Comment+CoreDataClass.h */,
+				241719DE1F4DB0FB0045C2D6 /* Comment+CoreDataClass.m */,
+				241719DF1F4DB0FB0045C2D6 /* Comment+CoreDataProperties.h */,
+				241719E01F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		241719D51F4DA49E0045C2D6 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				241719D61F4DA4C60045C2D6 /* ProposalsManager.h */,
+				241719D71F4DA4C60045C2D6 /* ProposalsManager.m */,
+			);
+			name = Manager;
+			sourceTree = "<group>";
+		};
 		24E584011F3ADA0100A12087 /* RSSFeed */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +286,7 @@
 				24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */,
 				24FE253D1F4C7DA200E32652 /* Price */,
 				24E584011F3ADA0100A12087 /* RSSFeed */,
+				241719C31F4D9EC30045C2D6 /* Proposals */,
 				FB84EDDA1F32906F00E4D400 /* New Group */,
 				FB84EDC31F32898700E4D400 /* AppDelegate.h */,
 				FB84EDC41F32898700E4D400 /* AppDelegate.m */,
@@ -375,11 +447,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24A2159C1F52C5E900A63311 /* Budget+CoreDataProperties.m in Sources */,
 				24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */,
+				241719E41F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m in Sources */,
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
+				241719C61F4D9EE10045C2D6 /* ProposalsViewController.m in Sources */,
 				24E584101F3ADBAA00A12087 /* Post+CoreDataClass.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
+				241719E31F4DB0FB0045C2D6 /* Comment+CoreDataClass.m in Sources */,
 				24E5841C1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m in Sources */,
+				241719D81F4DA4C60045C2D6 /* ProposalsManager.m in Sources */,
+				24A2159B1F52C5E900A63311 /* Budget+CoreDataClass.m in Sources */,
+				241719E21F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.m in Sources */,
 				24FE255D1F4CA97A00E32652 /* ChartDataEntry+CoreDataClass.m in Sources */,
 				24E584111F3ADBAA00A12087 /* Post+CoreDataProperties.m in Sources */,
 				248523591F4499C50027FBA6 /* RSSFeedDetailViewController.m in Sources */,
@@ -387,6 +466,7 @@
 				FB84EDC21F32898700E4D400 /* main.m in Sources */,
 				24E584141F3ADC4C00A12087 /* RSSFeedManager.m in Sources */,
 				24FE255E1F4CA97A00E32652 /* ChartDataEntry+CoreDataProperties.m in Sources */,
+				241719E11F4DB0FB0045C2D6 /* Proposal+CoreDataClass.m in Sources */,
 				24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */,
 				24E584181F3AF18A00A12087 /* RSSFeedListViewController.m in Sources */,
 			);
