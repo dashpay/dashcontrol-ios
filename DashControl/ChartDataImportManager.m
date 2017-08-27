@@ -105,7 +105,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     if (self.reachability.currentReachabilityStatus == NotReachable) return;
     
     [self updateChartDataKrakenForMarket:DCMarketDashUsd];
-    [self updateChartDataKrakenForMarket:DCMarketDashEuro];
+    //[self updateChartDataKrakenForMarket:DCMarketDashEuro];
     [self updateChartDataKrakenForMarket:DCMarketDashBtc];
 }
 
@@ -116,6 +116,9 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     NSMutableDictionary *URLParams = [NSMutableDictionary new];
     [URLParams setObject:[self convertExchangeEnumToString:DCExchangeSourceKraken] forKey:@"exchange"];
     [URLParams setObject:[self convertMarketEnumToString:market] forKey:@"market"];
+    if (DEBUG) {
+        [URLParams setObject:@"1" forKey:@"noLimit"];
+    }
     
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
     switch (market) {
@@ -147,6 +150,8 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             
             if (((((NSHTTPURLResponse*)response).statusCode /100) != 2)) {
                 NSLog(@"Status %ld",(long)((NSHTTPURLResponse*)response).statusCode);
+                NSString* ErrorResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                NSLog(@"ErrorResponse:%@",ErrorResponse);
                 return;
             }
             NSError *e = nil;
@@ -189,7 +194,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     if (self.reachability.currentReachabilityStatus == NotReachable) return;
     
     [self updateChartDataPoloniexForMarket:DCMarketDashUsd];
-    [self updateChartDataPoloniexForMarket:DCMarketDashEuro];
+    //[self updateChartDataPoloniexForMarket:DCMarketDashEuro];
     [self updateChartDataPoloniexForMarket:DCMarketDashBtc];
 }
 
@@ -200,6 +205,9 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     NSMutableDictionary *URLParams = [NSMutableDictionary new];
     [URLParams setObject:[self convertExchangeEnumToString:DCExchangeSourcePoloniex] forKey:@"exchange"];
     [URLParams setObject:[self convertMarketEnumToString:market] forKey:@"market"];
+    if (DEBUG) {
+        [URLParams setObject:@"1" forKey:@"noLimit"];
+    }
     
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
     switch (market) {
@@ -231,6 +239,8 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             
             if (((((NSHTTPURLResponse*)response).statusCode /100) != 2)) {
                 NSLog(@"Status %ld",(long)((NSHTTPURLResponse*)response).statusCode);
+                NSString* ErrorResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                NSLog(@"ErrorResponse:%@",ErrorResponse);
                 return;
             }
             NSError *e = nil;
@@ -273,7 +283,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     if (self.reachability.currentReachabilityStatus == NotReachable) return;
     
     [self updateChartDataBitfinexForMarket:DCMarketDashUsd];
-    [self updateChartDataBitfinexForMarket:DCMarketDashEuro];
+    //[self updateChartDataBitfinexForMarket:DCMarketDashEuro];
     [self updateChartDataBitfinexForMarket:DCMarketDashBtc];
 }
 
@@ -284,6 +294,9 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     NSMutableDictionary *URLParams = [NSMutableDictionary new];
     [URLParams setObject:[self convertExchangeEnumToString:DCExchangeSourceBitfinex] forKey:@"exchange"];
     [URLParams setObject:[self convertMarketEnumToString:market] forKey:@"market"];
+    if (DEBUG) {
+        [URLParams setObject:@"1" forKey:@"noLimit"];
+    }
     
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
     switch (market) {
@@ -315,6 +328,8 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             
             if (((((NSHTTPURLResponse*)response).statusCode /100) != 2)) {
                 NSLog(@"Status %ld",(long)((NSHTTPURLResponse*)response).statusCode);
+                NSString* ErrorResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                NSLog(@"ErrorResponse:%@",ErrorResponse);
                 return;
             }
             NSError *e = nil;
