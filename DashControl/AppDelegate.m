@@ -70,7 +70,7 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     [self registerForRemoteNotifications];
     
     //Init the RSSFeedManager Manager.
-    //[RSSFeedManager sharedManager];
+    [RSSFeedManager sharedManager];
     
     //Init the Price Data Manager
     [ChartDataImportManager sharedManager];

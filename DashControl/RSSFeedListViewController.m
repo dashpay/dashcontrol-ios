@@ -209,10 +209,12 @@ static NSString *CellIdentifier = @"PostCell";
         [fetchRequest setPredicate:langP];
     }
     
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc]
+    NSSortDescriptor *pubDateSort = [[NSSortDescriptor alloc]
                               initWithKey:@"pubDate" ascending:NO];
+    NSSortDescriptor *titleSort = [[NSSortDescriptor alloc]
+                                     initWithKey:@"title" ascending:YES];
 
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:pubDateSort, titleSort, nil]];
     
     //[fetchRequest setFetchBatchSize:20];
     
@@ -256,6 +258,8 @@ static NSString *CellIdentifier = @"PostCell";
                                                arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             [tableView insertRowsAtIndexPaths:[NSArray
                                                arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+             [self configureCell:[tableView cellForRowAtIndexPath:newIndexPath] atIndexPath:indexPath];
+            
             break;
     }
 }
