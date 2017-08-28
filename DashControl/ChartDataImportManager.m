@@ -116,9 +116,9 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     NSMutableDictionary *URLParams = [NSMutableDictionary new];
     [URLParams setObject:[self convertExchangeEnumToString:DCExchangeSourceKraken] forKey:@"exchange"];
     [URLParams setObject:[self convertMarketEnumToString:market] forKey:@"market"];
-    if (DEBUG) {
-        [URLParams setObject:@"1" forKey:@"noLimit"];
-    }
+#ifdef DEBUG
+    [URLParams setObject:@"1" forKey:@"noLimit"];
+#endif
     
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
     switch (market) {
@@ -205,9 +205,9 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     NSMutableDictionary *URLParams = [NSMutableDictionary new];
     [URLParams setObject:[self convertExchangeEnumToString:DCExchangeSourcePoloniex] forKey:@"exchange"];
     [URLParams setObject:[self convertMarketEnumToString:market] forKey:@"market"];
-    if (DEBUG) {
-        [URLParams setObject:@"1" forKey:@"noLimit"];
-    }
+#ifdef DEBUG
+    [URLParams setObject:@"1" forKey:@"noLimit"];
+#endif
     
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
     switch (market) {
@@ -294,9 +294,9 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     NSMutableDictionary *URLParams = [NSMutableDictionary new];
     [URLParams setObject:[self convertExchangeEnumToString:DCExchangeSourceBitfinex] forKey:@"exchange"];
     [URLParams setObject:[self convertMarketEnumToString:market] forKey:@"market"];
-    if (DEBUG) {
-        [URLParams setObject:@"1" forKey:@"noLimit"];
-    }
+#ifdef DEBUG
+    [URLParams setObject:@"1" forKey:@"noLimit"];
+#endif
     
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
     switch (market) {
