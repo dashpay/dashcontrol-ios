@@ -2,7 +2,7 @@
 //  Comment+CoreDataProperties.m
 //  DashControl
 //
-//  Created by Manuel Boyer on 23/08/2017.
+//  Created by Manuel Boyer on 27/08/2017.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
@@ -14,16 +14,17 @@
 	return [[NSFetchRequest alloc] initWithEntityName:@"Comment"];
 }
 
-@dynamic idComment;
-@dynamic username;
+@dynamic content;
 @dynamic date;
 @dynamic dateHuman;
-@dynamic order;
+@dynamic idComment;
 @dynamic level;
-@dynamic recentlyPosted;
+@dynamic order;
 @dynamic postedByOwner;
+@dynamic recentlyPosted;
 @dynamic replyUrl;
-@dynamic content;
+@dynamic username;
+@dynamic hashProposal;
 @dynamic proposal;
 
 @end

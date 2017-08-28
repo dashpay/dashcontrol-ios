@@ -228,9 +228,9 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             proposal.dateAddedHuman = [proposalDic objectForKey:@"date_added_human"];
             proposal.dateEnd = [df dateFromString:[proposalDic objectForKey:@"date_end"]];
             proposal.votingDeadlineHuman = [proposalDic objectForKey:@"voting_deadline_human"];
-            proposal.willBeFunded = [proposalDic objectForKey:@"will_be_funded"];
+            proposal.willBeFunded = [[proposalDic objectForKey:@"will_be_funded"] boolValue];
             proposal.remainingYesVotesUntilFunding = [proposalDic objectForKey:@"remaining_yes_votes_until_funding"];
-            proposal.inNextBudget = [proposalDic objectForKey:@"in_next_budget"];
+            proposal.inNextBudget = [[proposalDic objectForKey:@"in_next_budget"] boolValue];
             proposal.monthlyAmount = [[proposalDic objectForKey:@"monthly_amount"] doubleValue];
             proposal.totalPaymentCount = [[proposalDic objectForKey:@"total_payment_count"] intValue];
             proposal.remainingPaymentCount = [[proposalDic objectForKey:@"remaining_payment_count"] intValue];
@@ -261,7 +261,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             abort();
         }
         else {
-            
+            [self linkCommentsToProposals];
         }
     }];
 }
@@ -306,9 +306,11 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             comment.replyUrl = [commentDic objectForKey:@"reply_url"];
             comment.content = [commentDic objectForKey:@"content"];
             
-            if (![proposal.comments containsObject:comment]) {
-                [proposal addCommentsObject:comment];
-            }
+            comment.hashProposal = proposalHash;
+#warning See why context fails to save when adding relationship
+//            if (![proposal.comments containsObject:comment]) {
+//                [proposal addCommentsObject:comment];
+//            }
         }
         
         context.automaticallyMergesChangesFromParent = TRUE;
@@ -319,8 +321,49 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
             abort();
         }
-        else {
+    }];
+}
+
+-(void)linkCommentsToProposals {
+    NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
+    [container performBackgroundTask:^(NSManagedObjectContext *context) {
+        
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Proposal" inManagedObjectContext:context];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entityDescription];
+        
+        NSError *error;
+        NSArray *proposalsArray = [context executeFetchRequest:request error:&error];
+        
+        if (proposalsArray == nil)
+        {
+            NSLog(@"Error while festching %@", entityDescription.name);
+        } else {
             
+            for (Proposal *proposal in proposalsArray) {
+                
+                NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context];
+                NSFetchRequest *request = [[NSFetchRequest alloc] init];
+                [request setEntity:entityDescription];
+                NSPredicate *hashPredicate = [NSPredicate predicateWithFormat:@"hashProposal == %@", proposal.hashProposal];
+                [request setPredicate:hashPredicate];
+                
+                NSArray *commentsArray = [context executeFetchRequest:request error:&error];
+                
+                for (Comment *comment in commentsArray) {
+                    if (!comment.proposal || comment.proposal != proposal) {
+                        comment.proposal = proposal;
+                    }
+                }
+            }
+        }
+    
+        context.automaticallyMergesChangesFromParent = TRUE;
+        context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+        
+        if (![context save:&error]) {
+            NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+            abort();
         }
     }];
 }

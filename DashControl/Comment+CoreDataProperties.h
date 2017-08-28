@@ -2,7 +2,7 @@
 //  Comment+CoreDataProperties.h
 //  DashControl
 //
-//  Created by Manuel Boyer on 23/08/2017.
+//  Created by Manuel Boyer on 27/08/2017.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
@@ -15,16 +15,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<Comment *> *)fetchRequest;
 
-@property (nullable, nonatomic, copy) NSString *idComment;
-@property (nullable, nonatomic, copy) NSString *username;
+@property (nullable, nonatomic, copy) NSString *content;
 @property (nullable, nonatomic, copy) NSDate *date;
 @property (nullable, nonatomic, copy) NSString *dateHuman;
-@property (nonatomic) int32_t order;
+@property (nullable, nonatomic, copy) NSString *idComment;
 @property (nullable, nonatomic, copy) NSString *level;
-@property (nonatomic) BOOL recentlyPosted;
+@property (nonatomic) int32_t order;
 @property (nonatomic) BOOL postedByOwner;
+@property (nonatomic) BOOL recentlyPosted;
 @property (nullable, nonatomic, copy) NSString *replyUrl;
-@property (nullable, nonatomic, copy) NSString *content;
+@property (nullable, nonatomic, copy) NSString *username;
+@property (nullable, nonatomic, copy) NSString *hashProposal;
 @property (nullable, nonatomic, retain) Proposal *proposal;
 
 @end

@@ -36,9 +36,9 @@
     NSLog(@"Budget:%@", budget);
     
     NSArray *proposals = [[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Proposal" inContext:self.managedObjectContext];
-    NSLog(@"All proposals count:%lu", [proposals count]);
+    NSLog(@"All proposals count:%lu", (unsigned long)[proposals count]);
     for (Proposal *proposal in proposals) {
-        NSLog(@"Proposal:%@\rThe proposal has %lu comments", proposal.title, proposal.comments.count);
+        NSLog(@"Proposal:%@\rThe proposal has %tu comments", proposal.title, proposal.comments.count);
     }
 }
 
