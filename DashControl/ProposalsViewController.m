@@ -91,8 +91,8 @@ static NSString *CellIdentifier = @"ProposalCell";
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Proposal *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
-    [(ProposalCell*)cell setCurrentProposal:proposal];
-    [(ProposalCell*)cell cfgViews];
+//    [(ProposalCell*)cell setCurrentProposal:proposal];
+//    [(ProposalCell*)cell cfgViews];
     /*
      cell.textLabel.text = feedItem.title;
      cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@",
