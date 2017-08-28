@@ -25,8 +25,8 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     NSMutableArray* parts = [NSMutableArray array];
     [queryParameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
         NSString *part = [NSString stringWithFormat: @"%@=%@",
-                          [key stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding],
-                          [value stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]
+                          [key stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]],
+                          [value stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]
                           ];
         [parts addObject:part];
     }];
