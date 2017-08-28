@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProposalsViewController : UIViewController
+@interface ProposalsViewController : UIViewController <NSFetchedResultsControllerDelegate, UISearchControllerDelegate, UISearchResultsUpdating>
 
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
-//@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) UISearchController *searchController;
 
 @end
