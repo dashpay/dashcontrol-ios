@@ -14,7 +14,6 @@
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
 @property (nonatomic, strong) UISearchController *searchController;
 
 @end

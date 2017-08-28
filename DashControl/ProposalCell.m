@@ -9,6 +9,7 @@
 #import "ProposalCell.h"
 
 @implementation ProposalCell
+@synthesize currentProposal;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -21,4 +22,7 @@
     // Configure the view for the selected state
 }
 
+-(void)cfgViews {
+    _labelTitle.text = self.currentProposal.title;
+}
 @end

@@ -10,4 +10,10 @@
 
 @interface ProposalCell : UITableViewCell
 
+@property (nonatomic, retain) Proposal *currentProposal;
+
+@property (strong, nonatomic) IBOutlet UILabel *labelTitle;
+
+-(void)cfgViews;
+
 @end

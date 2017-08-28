@@ -91,8 +91,8 @@ static NSString *CellIdentifier = @"ProposalCell";
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Proposal *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
-//    [(ProposalCell*)cell setCurrentProposal:proposal];
-//    [(ProposalCell*)cell cfgViews];
+    [(ProposalCell*)cell setCurrentProposal:proposal];
+    [(ProposalCell*)cell cfgViews];
     /*
      cell.textLabel.text = feedItem.title;
      cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@",
@@ -322,63 +322,6 @@ static NSString *CellIdentifier = @"ProposalCell";
     }
     
     [self.tableView reloadData];
-}
-
-#pragma mark - UIStateRestoration
-
-// we restore several items for state restoration:
-//  1) Search controller's active state,
-//  2) search text,
-//  3) first responder
-
-NSString *const ViewControllerTitleKey = @"ViewControllerTitleKey";
-NSString *const SearchControllerIsActiveKey = @"SearchControllerIsActiveKey";
-NSString *const SearchBarTextKey = @"SearchBarTextKey";
-NSString *const SearchBarIsFirstResponderKey = @"SearchBarIsFirstResponderKey";
-
-- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
-    [super encodeRestorableStateWithCoder:coder];
-    
-    // encode the view state so it can be restored later
-    
-    // encode the title
-    [coder encodeObject:self.title forKey:ViewControllerTitleKey];
-    
-    UISearchController *searchController = self.searchController;
-    
-    // encode the search controller's active state
-    BOOL searchDisplayControllerIsActive = searchController.isActive;
-    [coder encodeBool:searchDisplayControllerIsActive forKey:SearchControllerIsActiveKey];
-    
-    // encode the first responser status
-    if (searchDisplayControllerIsActive) {
-        [coder encodeBool:[searchController.searchBar isFirstResponder] forKey:SearchBarIsFirstResponderKey];
-    }
-    
-    // encode the search bar text
-    [coder encodeObject:searchController.searchBar.text forKey:SearchBarTextKey];
-}
-
-- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
-    [super decodeRestorableStateWithCoder:coder];
-    
-    // restore the title
-    self.title = [coder decodeObjectForKey:ViewControllerTitleKey];
-    
-    // restore the active state:
-    // we can't make the searchController active here since it's not part of the view
-    // hierarchy yet, instead we do it in viewWillAppear
-    //
-    _searchControllerWasActive = [coder decodeBoolForKey:SearchControllerIsActiveKey];
-    
-    // restore the first responder status:
-    // we can't make the searchController first responder here since it's not part of the view
-    // hierarchy yet, instead we do it in viewWillAppear
-    //
-    _searchControllerSearchFieldWasFirstResponder = [coder decodeBoolForKey:SearchBarIsFirstResponderKey];
-    
-    // restore the text in the search field
-    self.searchController.searchBar.text = [coder decodeObjectForKey:SearchBarTextKey];
 }
 
 @end

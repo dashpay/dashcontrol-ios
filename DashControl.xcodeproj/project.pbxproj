@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		241719C61F4D9EE10045C2D6 /* ProposalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */; };
 		241719D81F4DA4C60045C2D6 /* ProposalsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719D71F4DA4C60045C2D6 /* ProposalsManager.m */; };
 		241719E11F4DB0FB0045C2D6 /* Proposal+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DA1F4DB0FB0045C2D6 /* Proposal+CoreDataClass.m */; };
 		241719E21F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DC1F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.m */; };
@@ -18,8 +17,8 @@
 		2485235B1F44A71B0027FBA6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2485235A1F44A71B0027FBA6 /* WebKit.framework */; };
 		24A2159B1F52C5E900A63311 /* Budget+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A215981F52C5E900A63311 /* Budget+CoreDataClass.m */; };
 		24A2159C1F52C5E900A63311 /* Budget+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A2159A1F52C5E900A63311 /* Budget+CoreDataProperties.m */; };
+		24C6C6361F544268007F3671 /* ProposalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */; };
 		24E1D8DE1F4D742D00AE2C47 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */; };
-		24E583FF1F3A336400A12087 /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E583FE1F3A336400A12087 /* libPods-DashControl.a */; };
 		24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDDC1F32908C00E4D400 /* DCDataManager.m */; };
 		24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */; };
 		24E584101F3ADBAA00A12087 /* Post+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E5840D1F3ADBAA00A12087 /* Post+CoreDataClass.m */; };
@@ -31,7 +30,7 @@
 		24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE254B1F4C82C900E32652 /* PriceViewController.m */; };
 		24FE255D1F4CA97A00E32652 /* ChartDataEntry+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE255A1F4CA97A00E32652 /* ChartDataEntry+CoreDataClass.m */; };
 		24FE255E1F4CA97A00E32652 /* ChartDataEntry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE255C1F4CA97A00E32652 /* ChartDataEntry+CoreDataProperties.m */; };
-		50E228300C10394473CA723B /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF0246311C0216290387F2D /* libPods-DashControl.a */; };
+		68753706906DCBA53E9BE99B /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A836C63DE1ECE0489A2F142B /* libPods-DashControl.a */; };
 		FB84EDC21F32898700E4D400 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC11F32898700E4D400 /* main.m */; };
 		FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC41F32898700E4D400 /* AppDelegate.m */; };
 		FB84EDCE1F32898700E4D400 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDCC1F32898700E4D400 /* Main.storyboard */; };
@@ -62,9 +61,7 @@
 		24A215981F52C5E900A63311 /* Budget+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Budget+CoreDataClass.m"; sourceTree = "<group>"; };
 		24A215991F52C5E900A63311 /* Budget+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Budget+CoreDataProperties.h"; sourceTree = "<group>"; };
 		24A2159A1F52C5E900A63311 /* Budget+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Budget+CoreDataProperties.m"; sourceTree = "<group>"; };
-		24CDD82E247C7A3CAA8FC718 /* Pods-DashControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.debug.xcconfig"; sourceTree = "<group>"; };
 		24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
-		24E583FE1F3A336400A12087 /* libPods-DashControl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-DashControl.a"; path = "../../../Library/Developer/Xcode/DerivedData/DashControl-bbchfpooekeamodlfbmfyyxneavc/Build/Products/Debug-iphonesimulator/libPods-DashControl.a"; sourceTree = "<group>"; };
 		24E584061F3ADAC900A12087 /* DashControl.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DashControl.xcdatamodel; sourceTree = "<group>"; };
 		24E5840C1F3ADBAA00A12087 /* Post+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Post+CoreDataClass.h"; sourceTree = "<group>"; };
 		24E5840D1F3ADBAA00A12087 /* Post+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Post+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -85,8 +82,9 @@
 		24FE255A1F4CA97A00E32652 /* ChartDataEntry+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ChartDataEntry+CoreDataClass.m"; sourceTree = "<group>"; };
 		24FE255B1F4CA97A00E32652 /* ChartDataEntry+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ChartDataEntry+CoreDataProperties.h"; sourceTree = "<group>"; };
 		24FE255C1F4CA97A00E32652 /* ChartDataEntry+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ChartDataEntry+CoreDataProperties.m"; sourceTree = "<group>"; };
-		6B9CA04C10942ECB36466559 /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
-		6EF0246311C0216290387F2D /* libPods-DashControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
+		6385EAF7B5AD9CDA2429BFAE /* Pods-DashControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.debug.xcconfig"; sourceTree = "<group>"; };
+		A836C63DE1ECE0489A2F142B /* libPods-DashControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB84EDBD1F32898700E4D400 /* DashControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DashControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB84EDC11F32898700E4D400 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FB84EDC31F32898700E4D400 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -107,8 +105,7 @@
 			files = (
 				24E1D8DE1F4D742D00AE2C47 /* UserNotifications.framework in Frameworks */,
 				2485235B1F44A71B0027FBA6 /* WebKit.framework in Frameworks */,
-				24E583FF1F3A336400A12087 /* libPods-DashControl.a in Frameworks */,
-				50E228300C10394473CA723B /* libPods-DashControl.a in Frameworks */,
+				68753706906DCBA53E9BE99B /* libPods-DashControl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,11 +243,11 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
-		B33D0657677F0BD547DFBF74 /* Pods */ = {
+		3A3DCF867D724725B2BA999A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				24CDD82E247C7A3CAA8FC718 /* Pods-DashControl.debug.xcconfig */,
-				6B9CA04C10942ECB36466559 /* Pods-DashControl.release.xcconfig */,
+				6385EAF7B5AD9CDA2429BFAE /* Pods-DashControl.debug.xcconfig */,
+				481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -260,8 +257,7 @@
 			children = (
 				24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */,
 				2485235A1F44A71B0027FBA6 /* WebKit.framework */,
-				24E583FE1F3A336400A12087 /* libPods-DashControl.a */,
-				6EF0246311C0216290387F2D /* libPods-DashControl.a */,
+				A836C63DE1ECE0489A2F142B /* libPods-DashControl.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -271,8 +267,8 @@
 			children = (
 				FB84EDBF1F32898700E4D400 /* DashControl */,
 				FB84EDBE1F32898700E4D400 /* Products */,
-				B33D0657677F0BD547DFBF74 /* Pods */,
 				F8F9FBF8277751CF40134EEE /* Frameworks */,
+				3A3DCF867D724725B2BA999A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -330,12 +326,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FB84EDD71F32898700E4D400 /* Build configuration list for PBXNativeTarget "DashControl" */;
 			buildPhases = (
-				9B63DDA10B48CEE215086D9B /* [CP] Check Pods Manifest.lock */,
+				B13CDC11D77705DD862345F6 /* [CP] Check Pods Manifest.lock */,
 				FB84EDB91F32898700E4D400 /* Sources */,
 				FB84EDBA1F32898700E4D400 /* Frameworks */,
 				FB84EDBB1F32898700E4D400 /* Resources */,
-				26C69FF62BC6A1F3CB431F40 /* [CP] Embed Pods Frameworks */,
-				B4C3BEF8FA1019823EB8A2A7 /* [CP] Copy Pods Resources */,
+				779A0EF1233194D4FD01D2DF /* [CP] Embed Pods Frameworks */,
+				75B0D16B75B1B72896B89E51 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -400,37 +396,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		26C69FF62BC6A1F3CB431F40 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DashControl/Pods-DashControl-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9B63DDA10B48CEE215086D9B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B4C3BEF8FA1019823EB8A2A7 /* [CP] Copy Pods Resources */ = {
+		75B0D16B75B1B72896B89E51 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -445,6 +411,36 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DashControl/Pods-DashControl-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		779A0EF1233194D4FD01D2DF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DashControl/Pods-DashControl-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B13CDC11D77705DD862345F6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -456,7 +452,6 @@
 				24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */,
 				241719E41F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m in Sources */,
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
-				241719C61F4D9EE10045C2D6 /* ProposalsViewController.m in Sources */,
 				24E584101F3ADBAA00A12087 /* Post+CoreDataClass.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
 				241719E31F4DB0FB0045C2D6 /* Comment+CoreDataClass.m in Sources */,
@@ -466,6 +461,7 @@
 				241719E21F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.m in Sources */,
 				24FE255D1F4CA97A00E32652 /* ChartDataEntry+CoreDataClass.m in Sources */,
 				24E584111F3ADBAA00A12087 /* Post+CoreDataProperties.m in Sources */,
+				24C6C6361F544268007F3671 /* ProposalsViewController.m in Sources */,
 				248523591F4499C50027FBA6 /* RSSFeedDetailViewController.m in Sources */,
 				24FE25491F4C7ECE00E32652 /* ChartDataImportManager.m in Sources */,
 				FB84EDC21F32898700E4D400 /* main.m in Sources */,
@@ -594,7 +590,7 @@
 		};
 		FB84EDD81F32898700E4D400 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24CDD82E247C7A3CAA8FC718 /* Pods-DashControl.debug.xcconfig */;
+			baseConfigurationReference = 6385EAF7B5AD9CDA2429BFAE /* Pods-DashControl.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -604,7 +600,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DashControl/DashControl-PrefixHeader.pch";
 				INFOPLIST_FILE = DashControl/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.dash.Control;
@@ -616,7 +612,7 @@
 		};
 		FB84EDD91F32898700E4D400 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6B9CA04C10942ECB36466559 /* Pods-DashControl.release.xcconfig */;
+			baseConfigurationReference = 481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -626,7 +622,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DashControl/DashControl-PrefixHeader.pch";
 				INFOPLIST_FILE = DashControl/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.dash.Control;
 				PRODUCT_NAME = "$(TARGET_NAME)";
