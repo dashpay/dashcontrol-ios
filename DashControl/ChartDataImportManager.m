@@ -12,18 +12,6 @@
 
 #define TICKER_REFRESH_TIME 60.0
 
-#define CHART_DATA_KRAKEN_DASH_BTC_LAST_IMPORT_TIME  @"CHART_DATA_KRAKEN_DASH_BTC_LAST_IMPORT_TIME"
-#define CHART_DATA_KRAKEN_DASH_USD_LAST_IMPORT_TIME  @"CHART_DATA_KRAKEN_DASH_USD_LAST_IMPORT_TIME"
-#define CHART_DATA_KRAKEN_DASH_EUR_LAST_IMPORT_TIME  @"CHART_DATA_KRAKEN_DASH_EUR_LAST_IMPORT_TIME"
-
-#define CHART_DATA_POLONIEX_DASH_BTC_LAST_IMPORT_TIME  @"CHART_DATA_POLONIEX_DASH_BTC_LAST_IMPORT_TIME"
-#define CHART_DATA_POLONIEX_DASH_USD_LAST_IMPORT_TIME  @"CHART_DATA_POLONIEX_DASH_USD_LAST_IMPORT_TIME"
-#define CHART_DATA_POLONIEX_DASH_EUR_LAST_IMPORT_TIME  @"CHART_DATA_POLONIEX_DASH_EUR_LAST_IMPORT_TIME"
-
-#define CHART_DATA_BITFINEX_DASH_BTC_LAST_IMPORT_TIME  @"CHART_DATA_BITFINEX_DASH_BTC_LAST_IMPORT_TIME"
-#define CHART_DATA_BITFINEX_DASH_USD_LAST_IMPORT_TIME  @"CHART_DATA_BITFINEX_DASH_USD_LAST_IMPORT_TIME"
-#define CHART_DATA_BITFINEX_DASH_EUR_LAST_IMPORT_TIME  @"CHART_DATA_BITFINEX_DASH_EUR_LAST_IMPORT_TIME"
-
 #define HISTORICAL_CHART_DATA_POLONIEX_KEY @"HISTORICAL_CHART_DATA_POLONIEX_KEY"
 
 /**
@@ -83,373 +71,90 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     if (self = [super init]) {
         self.managedObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
         self.reachability = [Reachability reachabilityForInternetConnection];
-        [self updatePriceCharts];
+        [self getAllPriceData];
     }
     return self;
 }
 
 #pragma mark - Import Chart Data
 
--(void)updatePriceCharts {
-    [self updateChartDataKraken];
-    [self updateChartDataPoloniex];
-    [self updateChartDataBitfinex];
+
+-(void)getAllPriceData {
+    
+    NSDictionary * exchangePaths = @{@(DCExchangeSourceKraken):@[@(DCMarketDashBtc),@(DCMarketDashUsd)],@(DCExchangeSourcePoloniex):@[@(DCMarketDashBtc),@(DCMarketDashUsdt)],@(DCExchangeSourceBitfinex):@[@(DCMarketDashBtc),@(DCMarketDashUsd)]};
+    
+    for (NSString * exchangePath in exchangePaths) {
+        NSArray * markets = [exchangePaths objectForKey:exchangePath];
+        for (NSNumber * market in markets) {
+            [self getChartDataForExchange:[exchangePath integerValue] forMarket:[market integerValue]];
+        }
+    }
     
     //Some historical poloniex chart data USD_DASH, so we can get started with the graph thing.
     //[self fetchHistoricalPoloniex];
 }
 
--(void)updateChartDataKraken {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateChartDataKraken) object:nil];
-    [self performSelector:@selector(updateChartDataKraken) withObject:nil afterDelay:TICKER_REFRESH_TIME];
-    if (self.reachability.currentReachabilityStatus == NotReachable) return;
-    
-    [self updateChartDataKrakenForMarket:DCMarketDashUsd];
-    //[self updateChartDataKrakenForMarket:DCMarketDashEuro];
-    [self updateChartDataKrakenForMarket:DCMarketDashBtc];
-}
+//-(void)updateChartDataKraken {
+//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateChartDataKraken) object:nil];
+//    [self performSelector:@selector(updateChartDataKraken) withObject:nil afterDelay:TICKER_REFRESH_TIME];
+//    if (self.reachability.currentReachabilityStatus == NotReachable) return;
+//
+//    [self getChartDataForExchange:DCExchangeSourceKraken forMarket:DCMarketDashUsd];
+//    //[self updateChartDataKrakenForMarket:DCMarketDashEuro];
+//    [self getChartDataForExchange:DCExchangeSourceKraken forMarket:DCMarketDashBtc];
+//}
 
--(void)updateChartDataKrakenForMarket:(DCMarketSource)market {
+-(void)getChartDataForExchange:(DCExchangeSource)exchange forMarket:(DCMarketSource)market {
     NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:nil delegateQueue:nil];
     NSURL* URL = [NSURL URLWithString:DASHCONTROL_CHART_DATA_URL];
     NSMutableDictionary *URLParams = [NSMutableDictionary new];
-    [URLParams setObject:[self convertExchangeEnumToString:DCExchangeSourceKraken] forKey:@"exchange"];
-    [URLParams setObject:[self convertMarketEnumToString:market] forKey:@"market"];
+    NSString * exchangeString = [self convertExchangeEnumToString:exchange];
+    NSString * marketString = [self convertMarketEnumToString:market];
+    [URLParams setObject:exchangeString forKey:@"exchange"];
+    [URLParams setObject:marketString forKey:@"market"];
 #ifdef DEBUG
     [URLParams setObject:@"1" forKey:@"noLimit"];
 #endif
-    
-    NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-    switch (market) {
-        case DCMarketDashBtc:
-            if ([defs objectForKey:CHART_DATA_KRAKEN_DASH_BTC_LAST_IMPORT_TIME]) {
-                [URLParams setObject:[NSString stringWithFormat:@"%.0f", [[defs objectForKey:CHART_DATA_KRAKEN_DASH_BTC_LAST_IMPORT_TIME] timeIntervalSince1970]] forKey:@"start"];
-            }
-            break;
-        case DCMarketDashUsd:
-            if ([defs objectForKey:CHART_DATA_KRAKEN_DASH_USD_LAST_IMPORT_TIME]) {
-                [URLParams setObject:[NSString stringWithFormat:@"%.0f", [[defs objectForKey:CHART_DATA_KRAKEN_DASH_USD_LAST_IMPORT_TIME] timeIntervalSince1970]] forKey:@"start"];
-            }
-            break;
-        case DCMarketDashEuro:
-            if ([defs objectForKey:CHART_DATA_KRAKEN_DASH_EUR_LAST_IMPORT_TIME]) {
-                [URLParams setObject:[NSString stringWithFormat:@"%.0f", [[defs objectForKey:CHART_DATA_KRAKEN_DASH_EUR_LAST_IMPORT_TIME] timeIntervalSince1970]] forKey:@"start"];
-            }
-            break;
-        case POLONIEXMarketUsdDash:
-            break;
-    }
-    
-    URL = NSURLByAppendingQueryParameters(URL, URLParams);
-    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
-    request.HTTPMethod = @"GET";
-    
-    NSURLSessionDataTask* task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error == nil) {
-            
-            if (((((NSHTTPURLResponse*)response).statusCode /100) != 2)) {
-                NSLog(@"Status %ld",(long)((NSHTTPURLResponse*)response).statusCode);
-                NSString* ErrorResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                NSLog(@"ErrorResponse:%@",ErrorResponse);
-                return;
-            }
-            NSError *e = nil;
-            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableLeaves error:&e];
-            
-            if (!e) {
-                [self importJSONData:jsonArray forExchange:DCExchangeSourceKraken andMarket:market];
-                
-                NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-                switch (market) {
-                    case DCMarketDashBtc:
-                        [defs setObject:[NSDate date] forKey:CHART_DATA_KRAKEN_DASH_BTC_LAST_IMPORT_TIME];
-                        break;
-                    case DCMarketDashUsd:
-                        [defs setObject:[NSDate date] forKey:CHART_DATA_KRAKEN_DASH_USD_LAST_IMPORT_TIME];
-                        break;
-                    case DCMarketDashEuro:
-                        [defs setObject:[NSDate date] forKey:CHART_DATA_KRAKEN_DASH_EUR_LAST_IMPORT_TIME];
-                        break;
-                    case POLONIEXMarketUsdDash:
-                        break;
-                }
-                [defs synchronize];
-            }
-            
-        }
-        else {
-            // Failure
-            NSLog(@"URL Session Task Failed: %@", [error localizedDescription]);
-        }
-    }];
-    
-    [task resume];
-    [session finishTasksAndInvalidate];
-}
-
--(void)updateChartDataPoloniex {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateChartDataPoloniex) object:nil];
-    [self performSelector:@selector(updateChartDataPoloniex) withObject:nil afterDelay:TICKER_REFRESH_TIME];
-    if (self.reachability.currentReachabilityStatus == NotReachable) return;
-    
-    [self updateChartDataPoloniexForMarket:DCMarketDashUsd];
-    //[self updateChartDataPoloniexForMarket:DCMarketDashEuro];
-    [self updateChartDataPoloniexForMarket:DCMarketDashBtc];
-}
-
--(void)updateChartDataPoloniexForMarket:(DCMarketSource)market {
-    NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:nil delegateQueue:nil];
-    NSURL* URL = [NSURL URLWithString:DASHCONTROL_CHART_DATA_URL];
-    NSMutableDictionary *URLParams = [NSMutableDictionary new];
-    [URLParams setObject:[self convertExchangeEnumToString:DCExchangeSourcePoloniex] forKey:@"exchange"];
-    [URLParams setObject:[self convertMarketEnumToString:market] forKey:@"market"];
-#ifdef DEBUG
-    [URLParams setObject:@"1" forKey:@"noLimit"];
-#endif
-    
-    NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-    switch (market) {
-        case DCMarketDashBtc:
-            if ([defs objectForKey:CHART_DATA_POLONIEX_DASH_BTC_LAST_IMPORT_TIME]) {
-                [URLParams setObject:[NSString stringWithFormat:@"%.0f", [[defs objectForKey:CHART_DATA_POLONIEX_DASH_BTC_LAST_IMPORT_TIME] timeIntervalSince1970]] forKey:@"start"];
-            }
-            break;
-        case DCMarketDashUsd:
-            if ([defs objectForKey:CHART_DATA_POLONIEX_DASH_USD_LAST_IMPORT_TIME]) {
-                [URLParams setObject:[NSString stringWithFormat:@"%.0f", [[defs objectForKey:CHART_DATA_POLONIEX_DASH_USD_LAST_IMPORT_TIME] timeIntervalSince1970]] forKey:@"start"];
-            }
-            break;
-        case DCMarketDashEuro:
-            if ([defs objectForKey:CHART_DATA_POLONIEX_DASH_EUR_LAST_IMPORT_TIME]) {
-                [URLParams setObject:[NSString stringWithFormat:@"%.0f", [[defs objectForKey:CHART_DATA_POLONIEX_DASH_EUR_LAST_IMPORT_TIME] timeIntervalSince1970]] forKey:@"start"];
-            }
-            break;
-        case POLONIEXMarketUsdDash:
-            break;
-    }
-    
-    URL = NSURLByAppendingQueryParameters(URL, URLParams);
-    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
-    request.HTTPMethod = @"GET";
-    
-    NSURLSessionDataTask* task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error == nil) {
-            
-            if (((((NSHTTPURLResponse*)response).statusCode /100) != 2)) {
-                NSLog(@"Status %ld",(long)((NSHTTPURLResponse*)response).statusCode);
-                NSString* ErrorResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                NSLog(@"ErrorResponse:%@",ErrorResponse);
-                return;
-            }
-            NSError *e = nil;
-            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableLeaves error:&e];
-            
-            if (!e) {
-                [self importJSONData:jsonArray forExchange:DCExchangeSourcePoloniex andMarket:market];
-                
-                NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-                switch (market) {
-                    case DCMarketDashBtc:
-                        [defs setObject:[NSDate date] forKey:CHART_DATA_POLONIEX_DASH_BTC_LAST_IMPORT_TIME];
-                        break;
-                    case DCMarketDashUsd:
-                        [defs setObject:[NSDate date] forKey:CHART_DATA_POLONIEX_DASH_USD_LAST_IMPORT_TIME];
-                        break;
-                    case DCMarketDashEuro:
-                        [defs setObject:[NSDate date] forKey:CHART_DATA_POLONIEX_DASH_EUR_LAST_IMPORT_TIME];
-                        break;
-                    case POLONIEXMarketUsdDash:
-                        break;
-                }
-                [defs synchronize];
-            }
-            
-        }
-        else {
-            // Failure
-            NSLog(@"URL Session Task Failed: %@", [error localizedDescription]);
-        }
-    }];
-    
-    [task resume];
-    [session finishTasksAndInvalidate];
-}
-
--(void)updateChartDataBitfinex {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateChartDataBitfinex) object:nil];
-    [self performSelector:@selector(updateChartDataBitfinex) withObject:nil afterDelay:TICKER_REFRESH_TIME];
-    if (self.reachability.currentReachabilityStatus == NotReachable) return;
-    
-    [self updateChartDataBitfinexForMarket:DCMarketDashUsd];
-    //[self updateChartDataBitfinexForMarket:DCMarketDashEuro];
-    [self updateChartDataBitfinexForMarket:DCMarketDashBtc];
-}
-
--(void)updateChartDataBitfinexForMarket:(DCMarketSource)market {
-    NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:nil delegateQueue:nil];
-    NSURL* URL = [NSURL URLWithString:DASHCONTROL_CHART_DATA_URL];
-    NSMutableDictionary *URLParams = [NSMutableDictionary new];
-    [URLParams setObject:[self convertExchangeEnumToString:DCExchangeSourceBitfinex] forKey:@"exchange"];
-    [URLParams setObject:[self convertMarketEnumToString:market] forKey:@"market"];
-#ifdef DEBUG
-    [URLParams setObject:@"1" forKey:@"noLimit"];
-#endif
-    
-    NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-    switch (market) {
-        case DCMarketDashBtc:
-            if ([defs objectForKey:CHART_DATA_BITFINEX_DASH_BTC_LAST_IMPORT_TIME]) {
-                [URLParams setObject:[NSString stringWithFormat:@"%.0f", [[defs objectForKey:CHART_DATA_BITFINEX_DASH_BTC_LAST_IMPORT_TIME] timeIntervalSince1970]] forKey:@"start"];
-            }
-            break;
-        case DCMarketDashUsd:
-            if ([defs objectForKey:CHART_DATA_BITFINEX_DASH_USD_LAST_IMPORT_TIME]) {
-                [URLParams setObject:[NSString stringWithFormat:@"%.0f", [[defs objectForKey:CHART_DATA_BITFINEX_DASH_USD_LAST_IMPORT_TIME] timeIntervalSince1970]] forKey:@"start"];
-            }
-            break;
-        case DCMarketDashEuro:
-            if ([defs objectForKey:CHART_DATA_BITFINEX_DASH_EUR_LAST_IMPORT_TIME]) {
-                [URLParams setObject:[NSString stringWithFormat:@"%.0f", [[defs objectForKey:CHART_DATA_BITFINEX_DASH_EUR_LAST_IMPORT_TIME] timeIntervalSince1970]] forKey:@"start"];
-            }
-            break;
-        case POLONIEXMarketUsdDash:
-            break;
-    }
-    
-    URL = NSURLByAppendingQueryParameters(URL, URLParams);
-    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
-    request.HTTPMethod = @"GET";
-    
-    NSURLSessionDataTask* task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error == nil) {
-            
-            if (((((NSHTTPURLResponse*)response).statusCode /100) != 2)) {
-                NSLog(@"Status %ld",(long)((NSHTTPURLResponse*)response).statusCode);
-                NSString* ErrorResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                NSLog(@"ErrorResponse:%@",ErrorResponse);
-                return;
-            }
-            NSError *e = nil;
-            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableLeaves error:&e];
-            
-            if (!e) {
-                [self importJSONData:jsonArray forExchange:DCExchangeSourceBitfinex andMarket:market];
-                
-                NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-                switch (market) {
-                    case DCMarketDashBtc:
-                        [defs setObject:[NSDate date] forKey:CHART_DATA_BITFINEX_DASH_BTC_LAST_IMPORT_TIME];
-                        break;
-                    case DCMarketDashUsd:
-                        [defs setObject:[NSDate date] forKey:CHART_DATA_BITFINEX_DASH_USD_LAST_IMPORT_TIME];
-                        break;
-                    case DCMarketDashEuro:
-                        [defs setObject:[NSDate date] forKey:CHART_DATA_BITFINEX_DASH_EUR_LAST_IMPORT_TIME];
-                        break;
-                    case POLONIEXMarketUsdDash:
-                        break;
-                }
-                [defs synchronize];
-            }
-        }
-        else {
-            // Failure
-            NSLog(@"URL Session Task Failed: %@", [error localizedDescription]);
-        }
-    }];
-    
-    [task resume];
-    [session finishTasksAndInvalidate];
-}
-
--(void)fetchHistoricalPoloniex {
-
-    NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-    if ([defs objectForKey:HISTORICAL_CHART_DATA_POLONIEX_KEY] || self.reachability.currentReachabilityStatus == ReachableViaWWAN) {
-        return;
-    }
-    
-    NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:nil delegateQueue:nil];
-    NSURL* URL = [NSURL URLWithString:@"https://poloniex.com/public"];
-    NSDictionary* URLParams = @{
-                                @"command": @"returnChartData",
-                                @"currencyPair": @"USDT_DASH",
-                                @"start": @"0",
-                                @"period": @"300",
-                                };
-    URL = NSURLByAppendingQueryParameters(URL, URLParams);
-    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
-    request.HTTPMethod = @"GET";
-    
-    NSURLSessionDataTask* task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error == nil) {
-            // Success
-            if (((((NSHTTPURLResponse*)response).statusCode /100) != 2)) {
-                NSLog(@"Status %ld",(long)((NSHTTPURLResponse*)response).statusCode);
-                return;
-            }
-            NSError *e = nil;
-            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableLeaves error:&e];
-            
-            if (!e) {
-                
-                [self importLargeHistoricalPoloniexJSONData:jsonArray];
-                
-                NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-                [defs setObject:[NSDate date] forKey:HISTORICAL_CHART_DATA_POLONIEX_KEY];
-                [defs synchronize];
-            }
-            
-            
-        }
-        else {
-            // Failure
-            NSLog(@"URL Session Task Failed: %@", [error localizedDescription]);
-        }
-    }];
-    [task resume];
-    [session finishTasksAndInvalidate];
-}
-
-#pragma mark - Core Data related
-
--(void)importLargeHistoricalPoloniexJSONData:(NSArray *)jsonArray {
-
-    NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
-    [container performBackgroundTask:^(NSManagedObjectContext *context) {
+    NSString * lastGetPath = [[exchangeString stringByAppendingString:marketString] stringByAppendingString:@"lastGet"];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([userDefaults objectForKey:lastGetPath]) {
+        [URLParams setObject:[NSString stringWithFormat:@"%.0f", [[userDefaults objectForKey:lastGetPath] timeIntervalSince1970]] forKey:@"start"];
         
-        for (NSDictionary *jsonObject in jsonArray) {
-            ChartDataEntry *chartDataEntry = [NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
-            
-            NSDate * myDate = [NSDate dateWithTimeIntervalSince1970:[[jsonObject objectForKey:@"date"] doubleValue]];
-            chartDataEntry.time = myDate;
-            
-            chartDataEntry.open = [[jsonObject objectForKey:@"open"] doubleValue];
-            chartDataEntry.high = [[jsonObject objectForKey:@"high"] doubleValue];
-            chartDataEntry.low = [[jsonObject objectForKey:@"low"] doubleValue];
-            chartDataEntry.close = [[jsonObject objectForKey:@"close"] doubleValue];
-            chartDataEntry.volume = [[jsonObject objectForKey:@"volume"] doubleValue];
-            
-            //chartDataEntry.pairVolume = [[jsonObject objectForKey:@"pairVolume"] doubleValue];
-            //chartDataEntry.trades = [[jsonObject objectForKey:@"trades"] intValue];
-            
-            chartDataEntry.exchange = POLHistorySource; //Temporary value until we talk about historical import.
-            chartDataEntry.market = POLONIEXMarketUsdDash; //Temporary value until we talk about historical import.
-        }
+        URL = NSURLByAppendingQueryParameters(URL, URLParams);
+        NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
+        request.HTTPMethod = @"GET";
         
-        context.automaticallyMergesChangesFromParent = TRUE;
-        context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+        NSURLSessionDataTask* task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error == nil) {
+                
+                if (((((NSHTTPURLResponse*)response).statusCode /100) != 2)) {
+                    NSLog(@"Status %ld",(long)((NSHTTPURLResponse*)response).statusCode);
+                    NSString* ErrorResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                    NSLog(@"ErrorResponse:%@",ErrorResponse);
+                    return;
+                }
+                NSError *e = nil;
+                NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableLeaves error:&e];
+                
+                if (!e) {
+                    [self importJSONData:jsonArray forExchange:exchange andMarket:market];
+                    
+                    NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+                    [defs setObject:[NSDate date]  forKey:lastGetPath];
+                    [defs synchronize];
+                }
+                
+            }
+            else {
+                // Failure
+                NSLog(@"URL Session Task Failed: %@", [error localizedDescription]);
+            }
+        }];
         
-        NSError *error = nil;
-        if (![context save:&error]) {
-            NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-            abort();
-        }
-    }];
+        [task resume];
+        [session finishTasksAndInvalidate];
+    }
 }
 
 -(void)importJSONData:(NSArray*)jsonArray forExchange:(DCExchangeSource)exchange andMarket:(DCMarketSource)market {

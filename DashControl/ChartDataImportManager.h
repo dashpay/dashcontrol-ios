@@ -9,17 +9,16 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, DCMarketSource) {
-    DCMarketDashBtc, //DASH_BTC
-    DCMarketDashUsd, //DASH_USD
-    DCMarketDashEuro, //DASH_EUR
-    POLONIEXMarketUsdDash //USDT_DASH Temporary Poloniex Historical Data
+    DCMarketDashBtc = 0, //DASH_BTC
+    DCMarketDashUsd = 1, //DASH_USD
+    DCMarketDashEuro = 2, //DASH_EUR
+    DCMarketDashUsdt = 3 //DASH_USD
 };
 
 typedef NS_ENUM(NSInteger, DCExchangeSource) {
-    DCExchangeSourceKraken, //kraken
-    DCExchangeSourcePoloniex, //poloniex
-    DCExchangeSourceBitfinex, //bitfinex
-    POLHistorySource //Temporary Poloniex Historical Data
+    DCExchangeSourceKraken = 0, //kraken
+    DCExchangeSourcePoloniex = 1, //poloniex
+    DCExchangeSourceBitfinex = 2 //bitfinex
 };
 
 @interface ChartDataImportManager : NSObject
