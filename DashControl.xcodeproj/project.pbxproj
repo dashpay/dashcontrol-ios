@@ -18,6 +18,8 @@
 		24A2159C1F52C5E900A63311 /* Budget+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A2159A1F52C5E900A63311 /* Budget+CoreDataProperties.m */; };
 		24B000441F5724B6007D24A1 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B000431F5724B6007D24A1 /* SafariServices.framework */; };
 		24B000461F57EA13007D24A1 /* dash_icon_tmp.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B000451F57EA13007D24A1 /* dash_icon_tmp.png */; };
+		24B0004B1F580FEB007D24A1 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B0004A1F580FEB007D24A1 /* CoreSpotlight.framework */; };
+		24B0004D1F580FF5007D24A1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B0004C1F580FF5007D24A1 /* MobileCoreServices.framework */; };
 		24C6C6361F544268007F3671 /* ProposalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */; };
 		24E1D8DE1F4D742D00AE2C47 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */; };
 		24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDDC1F32908C00E4D400 /* DCDataManager.m */; };
@@ -62,6 +64,8 @@
 		24A2159A1F52C5E900A63311 /* Budget+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Budget+CoreDataProperties.m"; sourceTree = "<group>"; };
 		24B000431F5724B6007D24A1 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		24B000451F57EA13007D24A1 /* dash_icon_tmp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dash_icon_tmp.png; path = ../../../../Desktop/dash_icon_tmp.png; sourceTree = "<group>"; };
+		24B0004A1F580FEB007D24A1 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
+		24B0004C1F580FF5007D24A1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		24E584061F3ADAC900A12087 /* DashControl.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DashControl.xcdatamodel; sourceTree = "<group>"; };
 		24E5840C1F3ADBAA00A12087 /* Post+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Post+CoreDataClass.h"; sourceTree = "<group>"; };
@@ -104,6 +108,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24B0004D1F580FF5007D24A1 /* MobileCoreServices.framework in Frameworks */,
+				24B0004B1F580FEB007D24A1 /* CoreSpotlight.framework in Frameworks */,
 				24B000441F5724B6007D24A1 /* SafariServices.framework in Frameworks */,
 				24E1D8DE1F4D742D00AE2C47 /* UserNotifications.framework in Frameworks */,
 				2485235B1F44A71B0027FBA6 /* WebKit.framework in Frameworks */,
@@ -256,6 +262,8 @@
 		F8F9FBF8277751CF40134EEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				24B0004C1F580FF5007D24A1 /* MobileCoreServices.framework */,
+				24B0004A1F580FEB007D24A1 /* CoreSpotlight.framework */,
 				24B000431F5724B6007D24A1 /* SafariServices.framework */,
 				24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */,
 				2485235A1F44A71B0027FBA6 /* WebKit.framework */,
