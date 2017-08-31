@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Post : NSManagedObject
-
+-(void)updateCoreSpotlightWithImage:(UIImage*)image;
 @end
 
 NS_ASSUME_NONNULL_END

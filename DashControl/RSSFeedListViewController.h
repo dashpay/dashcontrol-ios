@@ -20,4 +20,6 @@
 //3D Touch
 @property (nonatomic, strong) id previewingContext;
 
+-(void)simulateNavitationToPostWithGUID:(NSString*)guid;
+
 @end

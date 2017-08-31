@@ -19,7 +19,11 @@
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
 #import <UserNotifications/UserNotifications.h>
-#import <WebKit/WebKit.h>
+#import <CoreSpotlight/CoreSpotlight.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+
+//CSSearchableItem
+#define kDCCSSearchDomainIdentifierFeed @"org.dashfoundation.dash.Control.feed"
 
 //Pods
 #import <Reachability/Reachability.h>

@@ -407,4 +407,36 @@ NSString *const SearchBarIsFirstResponderKey = @"SearchBarIsFirstResponderKey";
     [self.navigationController showViewController:viewControllerToCommit sender:nil];
 }
 
+#pragma mark - NSUserActivity continueUserActivity
+
+-(void)simulateNavitationToPostWithGUID:(NSString*)guid {
+    Post *feedItem;
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Post" inManagedObjectContext:self.managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+    NSPredicate *guidPredicate = [NSPredicate predicateWithFormat:@"guid == %@", guid];
+    [request setPredicate:guidPredicate];
+    NSError *error;
+    NSArray *array = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if (array == nil)
+    {
+        NSLog(@"Error while festching %@ with predicate %@", entityDescription.name, guidPredicate);
+    }
+    else {
+        feedItem = array.firstObject;
+    }
+    if (feedItem) {
+        NSIndexPath *indexPath = [_fetchedResultsController indexPathForObject:feedItem];
+        if (indexPath) {
+            if (![[self.tableView indexPathsForVisibleRows] containsObject:indexPath]) {
+                [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+            }
+            [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+            });
+        }
+    }
+}
+
 @end
