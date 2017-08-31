@@ -8,7 +8,7 @@
 
 #import "RSSFeedListViewController.h"
 #import "RSSFeedListTableViewCell.h"
-#import "RSSFeedDetailViewController.h"
+#import <SafariServices/SafariServices.h>
 
 @interface RSSFeedListViewController ()
 // for state restoration
@@ -88,18 +88,13 @@ static NSString *CellIdentifier = @"PostCell";
     Post *feedItem = [_fetchedResultsController objectAtIndexPath:indexPath];
     [(RSSFeedListTableViewCell*)cell setCurrentPost:feedItem];
     [(RSSFeedListTableViewCell*)cell cfgViews];
-    /*
-    cell.textLabel.text = feedItem.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@",
-                                 feedItem.link, feedItem.text];
-     */
 }
+
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RSSFeedListTableViewCell *cell = (RSSFeedListTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-
-    // Configure the cell...
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
@@ -147,33 +142,22 @@ static NSString *CellIdentifier = @"PostCell";
 #pragma mark - Table view delegate
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //return 142;
     return UITableViewAutomaticDimension;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //RSSFeedDetailViewController
     
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    Post *feedItem = [_fetchedResultsController objectAtIndexPath:indexPath];
+    SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:feedItem.link]];
+    svc.delegate = self;
+    [self presentViewController:svc animated:YES completion:nil];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Make sure your segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"pushRSSFeedDetail"])
-    {
-        // Get reference to the destination view controller
-        RSSFeedDetailViewController *vc = [segue destinationViewController];
-        [vc setCurrentPost:[(RSSFeedListTableViewCell*)sender currentPost]];
-    }
+#pragma mark - SFSafari Delegate
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 #pragma mark - fetchedResultsController
@@ -215,8 +199,6 @@ static NSString *CellIdentifier = @"PostCell";
                                      initWithKey:@"title" ascending:YES];
 
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:pubDateSort, titleSort, nil]];
-    
-    //[fetchRequest setFetchBatchSize:20];
     
     NSFetchedResultsController *theFetchedResultsController =
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest

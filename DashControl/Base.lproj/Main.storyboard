@@ -33,8 +33,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="142"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qoP-3u-RC5">
+                                                    <rect key="frame" x="10" y="15" width="60" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="8ew-xZ-qEX"/>
+                                                        <constraint firstAttribute="width" constant="60" id="ReP-0j-VJ5"/>
+                                                    </constraints>
+                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9A-tj-Kuo">
-                                                    <rect key="frame" x="8" y="8" width="359" height="15"/>
+                                                    <rect key="frame" x="78" y="8" width="289" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="vML-ge-cKR"/>
                                                     </constraints>
@@ -43,13 +50,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Post Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XYP-gQ-kza">
-                                                    <rect key="frame" x="8" y="31" width="359" height="19.5"/>
+                                                    <rect key="frame" x="78" y="31" width="289" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post link" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhm-ge-OO2">
-                                                    <rect key="frame" x="8" y="58.5" width="359" height="67"/>
+                                                    <rect key="frame" x="78" y="58.5" width="289" height="67"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -57,22 +64,24 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="XYP-gQ-kza" firstAttribute="trailing" secondItem="CIL-jo-x77" secondAttribute="trailingMargin" id="3dh-zz-Gev"/>
-                                                <constraint firstItem="XYP-gQ-kza" firstAttribute="leading" secondItem="CIL-jo-x77" secondAttribute="leadingMargin" id="F5g-Eg-hIA"/>
+                                                <constraint firstItem="XYP-gQ-kza" firstAttribute="leading" secondItem="CIL-jo-x77" secondAttribute="leadingMargin" constant="70" id="F5g-Eg-hIA"/>
                                                 <constraint firstItem="f9A-tj-Kuo" firstAttribute="top" secondItem="CIL-jo-x77" secondAttribute="topMargin" id="GZE-k3-F0U"/>
                                                 <constraint firstItem="f9A-tj-Kuo" firstAttribute="trailing" secondItem="CIL-jo-x77" secondAttribute="trailingMargin" id="JKY-3W-IJM"/>
+                                                <constraint firstItem="qoP-3u-RC5" firstAttribute="leading" secondItem="CIL-jo-x77" secondAttribute="leading" constant="10" id="Lci-ab-q6C"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="bhm-ge-OO2" secondAttribute="bottom" constant="8" id="SnA-Y9-PIr"/>
                                                 <constraint firstItem="bhm-ge-OO2" firstAttribute="top" secondItem="XYP-gQ-kza" secondAttribute="bottom" constant="8" id="cUP-ut-QcS"/>
                                                 <constraint firstItem="bhm-ge-OO2" firstAttribute="trailing" secondItem="CIL-jo-x77" secondAttribute="trailingMargin" id="kET-33-0PF"/>
-                                                <constraint firstItem="bhm-ge-OO2" firstAttribute="leading" secondItem="CIL-jo-x77" secondAttribute="leadingMargin" id="l9g-RD-7e1"/>
-                                                <constraint firstItem="f9A-tj-Kuo" firstAttribute="leading" secondItem="CIL-jo-x77" secondAttribute="leadingMargin" id="lMa-PF-aYT"/>
+                                                <constraint firstItem="bhm-ge-OO2" firstAttribute="leading" secondItem="CIL-jo-x77" secondAttribute="leadingMargin" constant="70" id="l9g-RD-7e1"/>
+                                                <constraint firstItem="f9A-tj-Kuo" firstAttribute="leading" secondItem="CIL-jo-x77" secondAttribute="leadingMargin" constant="70" id="lMa-PF-aYT"/>
+                                                <constraint firstItem="qoP-3u-RC5" firstAttribute="top" secondItem="CIL-jo-x77" secondAttribute="top" constant="15" id="sye-sg-Lgk"/>
                                                 <constraint firstItem="XYP-gQ-kza" firstAttribute="top" secondItem="CIL-jo-x77" secondAttribute="topMargin" constant="23" id="vcg-OD-Mqg"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="imageViewIcon" destination="qoP-3u-RC5" id="kVQ-ar-qV9"/>
                                             <outlet property="lbLink" destination="bhm-ge-OO2" id="vm9-EM-KTJ"/>
                                             <outlet property="lbPubDate" destination="f9A-tj-Kuo" id="ndj-gg-xtd"/>
                                             <outlet property="lbTitle" destination="XYP-gQ-kza" id="woB-NN-ILk"/>
-                                            <segue destination="6nF-TD-OPB" kind="show" identifier="pushRSSFeedDetail" id="QAR-sN-DWH"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -98,24 +107,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1863.2" y="-320.68965517241384"/>
-        </scene>
-        <!--Feed Detail View Controller-->
-        <scene sceneID="vWz-kU-vmv">
-            <objects>
-                <viewController storyboardIdentifier="RSSFeedDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6nF-TD-OPB" customClass="RSSFeedDetailViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="SZd-8d-3lc"/>
-                        <viewControllerLayoutGuide type="bottom" id="8zO-Zc-kaz"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="nyR-9B-wNs">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rgY-gl-27J" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2673" y="-322"/>
         </scene>
         <!--Price-->
         <scene sceneID="wg7-f3-ORb">
