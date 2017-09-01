@@ -8,6 +8,7 @@
 
 #import "ProposalsViewController.h"
 #import "ProposalCell.h"
+#import "ProposalDetailViewController.h"
 
 @interface ProposalsViewController ()
 @property BOOL searchControllerWasActive;
@@ -153,34 +154,22 @@ static NSString *CellIdentifier = @"ProposalCell";
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 60;
-    //return UITableViewAutomaticDimension;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //RSSFeedDetailViewController
-    
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Make sure your segue name in storyboard is the same as this line
-    /*
-    if ([[segue identifier] isEqualToString:@"pushRSSFeedDetail"])
-    {
-        //Get reference to the destination view controller
-        RSSFeedDetailViewController *vc = [segue destinationViewController];
-        [vc setCurrentPost:[(RSSFeedListTableViewCell*)sender currentPost]];
-    }
-     */
+     if ([[segue identifier] isEqualToString:@"pushProposalDetail"])
+     {
+         //Get reference to the destination view controller
+         ProposalDetailViewController *vc = [segue destinationViewController];
+         [vc setCurrentProposal:[(ProposalCell*)sender currentProposal]];
+     }
 }
 
 #pragma mark - fetchedResultsController
@@ -196,16 +185,12 @@ static NSString *CellIdentifier = @"ProposalCell";
                                    entityForName:@"Proposal" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    //NSString *lang = [[RSSFeedManager sharedManager] feedLanguage];
-    //NSPredicate *langP = [NSPredicate predicateWithFormat:@"lang == %@", lang ? lang : @"en"];
-    
     NSString *searchString = self.searchController.searchBar.text;
     if (searchString.length > 0)
     {
         NSPredicate *titleP = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchString];
         NSPredicate *ownerP = [NSPredicate predicateWithFormat:@"ownerUsername CONTAINS[cd] %@", searchString];
         NSPredicate *orPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:[NSArray arrayWithObjects:titleP, ownerP, nil]];
-        //NSPredicate *andPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:langP, nil]];
         NSPredicate *finalPred = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:orPredicate, /*andPredicate,*/ nil]];
         [fetchRequest setPredicate:finalPred];
     }
@@ -214,14 +199,13 @@ static NSString *CellIdentifier = @"ProposalCell";
         //[fetchRequest setPredicate:langP];
     }
     
-    /*
-    NSSortDescriptor *pubDateSort = [[NSSortDescriptor alloc]
-                                     initWithKey:@"pubDate" ascending:NO];
-     */
+    
+    NSSortDescriptor *dateAddedSort = [[NSSortDescriptor alloc]
+                                     initWithKey:@"dateAdded" ascending:NO];
     NSSortDescriptor *titleSort = [[NSSortDescriptor alloc]
                                    initWithKey:@"title" ascending:YES];
     
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:/*pubDateSort,*/ titleSort, nil]];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:dateAddedSort, titleSort, nil]];
     
     //[fetchRequest setFetchBatchSize:20];
     
