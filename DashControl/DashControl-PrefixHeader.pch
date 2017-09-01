@@ -37,7 +37,7 @@
 //Other
 #import "AppDelegate.h"
 #import "RSSFeedManager.h"
-#import "ChartDataImportManager.h"
+#import "DCBackendManager.h"
 #import "ProposalsManager.h"
 
 

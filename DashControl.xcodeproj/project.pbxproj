@@ -26,17 +26,35 @@
 		24E584141F3ADC4C00A12087 /* RSSFeedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E584131F3ADC4C00A12087 /* RSSFeedManager.m */; };
 		24E584181F3AF18A00A12087 /* RSSFeedListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E584171F3AF18A00A12087 /* RSSFeedListViewController.m */; };
 		24E5841C1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E5841A1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m */; };
-		24FE25491F4C7ECE00E32652 /* ChartDataImportManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE25481F4C7ECE00E32652 /* ChartDataImportManager.m */; };
+		24FE25491F4C7ECE00E32652 /* DCBackendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE25481F4C7ECE00E32652 /* DCBackendManager.m */; };
 		24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE254B1F4C82C900E32652 /* PriceViewController.m */; };
 		24FE255D1F4CA97A00E32652 /* ChartDataEntry+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE255A1F4CA97A00E32652 /* ChartDataEntry+CoreDataClass.m */; };
 		24FE255E1F4CA97A00E32652 /* ChartDataEntry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE255C1F4CA97A00E32652 /* ChartDataEntry+CoreDataProperties.m */; };
-		68753706906DCBA53E9BE99B /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A836C63DE1ECE0489A2F142B /* libPods-DashControl.a */; };
+		5D54F512F2D3905041390607 /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */; };
 		FB84EDC21F32898700E4D400 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC11F32898700E4D400 /* main.m */; };
 		FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC41F32898700E4D400 /* AppDelegate.m */; };
 		FB84EDCE1F32898700E4D400 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDCC1F32898700E4D400 /* Main.storyboard */; };
 		FB84EDD01F32898700E4D400 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDCF1F32898700E4D400 /* Assets.xcassets */; };
 		FB84EDD31F32898700E4D400 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDD11F32898700E4D400 /* LaunchScreen.storyboard */; };
+		FBEBE5381F5776400056D921 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBEBE5371F5776400056D921 /* Charts.framework */; };
+		FBEBE5391F5776400056D921 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FBEBE5371F5776400056D921 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FBEBE5421F5802DE0056D921 /* ChartTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEBE5411F5802DE0056D921 /* ChartTimeFormatter.m */; };
+		FBEBE5461F5986510056D921 /* DCCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEBE5451F5986510056D921 /* DCCoreDataManager.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FBEBE53A1F5776400056D921 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FBEBE5391F5776400056D921 /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		241719C41F4D9EE10045C2D6 /* ProposalsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalsViewController.h; sourceTree = "<group>"; };
@@ -74,8 +92,8 @@
 		24E584171F3AF18A00A12087 /* RSSFeedListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFeedListViewController.m; sourceTree = "<group>"; };
 		24E584191F3AFB0F00A12087 /* RSSFeedListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFeedListTableViewCell.h; sourceTree = "<group>"; };
 		24E5841A1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFeedListTableViewCell.m; sourceTree = "<group>"; };
-		24FE25471F4C7ECE00E32652 /* ChartDataImportManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartDataImportManager.h; sourceTree = "<group>"; };
-		24FE25481F4C7ECE00E32652 /* ChartDataImportManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartDataImportManager.m; sourceTree = "<group>"; };
+		24FE25471F4C7ECE00E32652 /* DCBackendManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCBackendManager.h; sourceTree = "<group>"; };
+		24FE25481F4C7ECE00E32652 /* DCBackendManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCBackendManager.m; sourceTree = "<group>"; };
 		24FE254A1F4C82C900E32652 /* PriceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PriceViewController.h; sourceTree = "<group>"; };
 		24FE254B1F4C82C900E32652 /* PriceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PriceViewController.m; sourceTree = "<group>"; };
 		24FE25591F4CA97A00E32652 /* ChartDataEntry+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ChartDataEntry+CoreDataClass.h"; sourceTree = "<group>"; };
@@ -84,7 +102,7 @@
 		24FE255C1F4CA97A00E32652 /* ChartDataEntry+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ChartDataEntry+CoreDataProperties.m"; sourceTree = "<group>"; };
 		481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
 		6385EAF7B5AD9CDA2429BFAE /* Pods-DashControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.debug.xcconfig"; sourceTree = "<group>"; };
-		A836C63DE1ECE0489A2F142B /* libPods-DashControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB84EDBD1F32898700E4D400 /* DashControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DashControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB84EDC11F32898700E4D400 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FB84EDC31F32898700E4D400 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -96,6 +114,11 @@
 		FB84EDDB1F32908C00E4D400 /* DCDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCDataManager.h; sourceTree = "<group>"; };
 		FB84EDDC1F32908C00E4D400 /* DCDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCDataManager.m; sourceTree = "<group>"; };
 		FB84EDDE1F3293C700E4D400 /* DCWalletConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCWalletConstants.h; sourceTree = "<group>"; };
+		FBEBE5371F5776400056D921 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBEBE5401F5802DE0056D921 /* ChartTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartTimeFormatter.h; sourceTree = "<group>"; };
+		FBEBE5411F5802DE0056D921 /* ChartTimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartTimeFormatter.m; sourceTree = "<group>"; };
+		FBEBE5441F5986510056D921 /* DCCoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCCoreDataManager.h; sourceTree = "<group>"; };
+		FBEBE5451F5986510056D921 /* DCCoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCCoreDataManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,8 +127,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				24E1D8DE1F4D742D00AE2C47 /* UserNotifications.framework in Frameworks */,
+				FBEBE5381F5776400056D921 /* Charts.framework in Frameworks */,
 				2485235B1F44A71B0027FBA6 /* WebKit.framework in Frameworks */,
-				68753706906DCBA53E9BE99B /* libPods-DashControl.a in Frameworks */,
+				5D54F512F2D3905041390607 /* libPods-DashControl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,7 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				24FE253E1F4C7DB500E32652 /* Models */,
-				24FE253F1F4C7DC600E32652 /* Manager */,
+				24FE253F1F4C7DC600E32652 /* Managers */,
 				24FE25401F4C7DCC00E32652 /* ViewControllers */,
 			);
 			name = Price;
@@ -225,18 +249,21 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		24FE253F1F4C7DC600E32652 /* Manager */ = {
+		24FE253F1F4C7DC600E32652 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				24FE25471F4C7ECE00E32652 /* ChartDataImportManager.h */,
-				24FE25481F4C7ECE00E32652 /* ChartDataImportManager.m */,
+				24FE25471F4C7ECE00E32652 /* DCBackendManager.h */,
+				24FE25481F4C7ECE00E32652 /* DCBackendManager.m */,
+				FBEBE5441F5986510056D921 /* DCCoreDataManager.h */,
+				FBEBE5451F5986510056D921 /* DCCoreDataManager.m */,
 			);
-			name = Manager;
+			name = Managers;
 			sourceTree = "<group>";
 		};
 		24FE25401F4C7DCC00E32652 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				FBEBE53F1F5802BE0056D921 /* Chart Helpers */,
 				24FE254A1F4C82C900E32652 /* PriceViewController.h */,
 				24FE254B1F4C82C900E32652 /* PriceViewController.m */,
 			);
@@ -255,9 +282,10 @@
 		F8F9FBF8277751CF40134EEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FBEBE5371F5776400056D921 /* Charts.framework */,
 				24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */,
 				2485235A1F44A71B0027FBA6 /* WebKit.framework */,
-				A836C63DE1ECE0489A2F142B /* libPods-DashControl.a */,
+				742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -319,6 +347,15 @@
 			name = "New Group";
 			sourceTree = "<group>";
 		};
+		FBEBE53F1F5802BE0056D921 /* Chart Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FBEBE5401F5802DE0056D921 /* ChartTimeFormatter.h */,
+				FBEBE5411F5802DE0056D921 /* ChartTimeFormatter.m */,
+			);
+			name = "Chart Helpers";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -332,6 +369,7 @@
 				FB84EDBB1F32898700E4D400 /* Resources */,
 				779A0EF1233194D4FD01D2DF /* [CP] Embed Pods Frameworks */,
 				75B0D16B75B1B72896B89E51 /* [CP] Copy Pods Resources */,
+				FBEBE53A1F5776400056D921 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -403,7 +441,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DashControl/Pods-DashControl-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/MBCircularProgressBar/MBCircularProgressBar.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/MBCircularProgressBar/MBCircularProgressBar.bundle,
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -420,9 +458,22 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DashControl/Pods-DashControl-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/MBCircularProgressBar/MBCircularProgressBar.framework",
+				"${BUILT_PRODUCTS_DIR}/RaptureXML/RaptureXML.framework",
+				"${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBCircularProgressBar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RaptureXML.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -458,9 +509,11 @@
 				24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */,
 				241719E41F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m in Sources */,
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
+				FBEBE5421F5802DE0056D921 /* ChartTimeFormatter.m in Sources */,
 				24E584101F3ADBAA00A12087 /* Post+CoreDataClass.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
 				241719E31F4DB0FB0045C2D6 /* Comment+CoreDataClass.m in Sources */,
+				FBEBE5461F5986510056D921 /* DCCoreDataManager.m in Sources */,
 				24E5841C1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m in Sources */,
 				241719D81F4DA4C60045C2D6 /* ProposalsManager.m in Sources */,
 				24A2159B1F52C5E900A63311 /* Budget+CoreDataClass.m in Sources */,
@@ -469,7 +522,7 @@
 				24E584111F3ADBAA00A12087 /* Post+CoreDataProperties.m in Sources */,
 				24C6C6361F544268007F3671 /* ProposalsViewController.m in Sources */,
 				248523591F4499C50027FBA6 /* RSSFeedDetailViewController.m in Sources */,
-				24FE25491F4C7ECE00E32652 /* ChartDataImportManager.m in Sources */,
+				24FE25491F4C7ECE00E32652 /* DCBackendManager.m in Sources */,
 				FB84EDC21F32898700E4D400 /* main.m in Sources */,
 				24E584141F3ADC4C00A12087 /* RSSFeedManager.m in Sources */,
 				2432DDA01F54395600A14112 /* ProposalCell.m in Sources */,
@@ -598,6 +651,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6385EAF7B5AD9CDA2429BFAE /* Pods-DashControl.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DashControl/DashControl.entitlements;
@@ -620,6 +674,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DashControl/DashControl.entitlements;

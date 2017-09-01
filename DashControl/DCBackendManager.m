@@ -6,13 +6,23 @@
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
-#import "ChartDataImportManager.h"
+#import "DCBackendManager.h"
+#import <AFNetworking/AFNetworking.h>
+//#import "Market+CoreDataClass.h"
+//#import "Exchange+CoreDataClass.h"
 
-#define DASHCONTROL_CHART_DATA_URL  @"http://dashpay.info/api/v0/chart_data"
+#define DASHCONTROL_SERVER_VERSION 0
+
+#define DASHCONTROL_SERVER [NSString stringWithFormat:@"http://dashpay.info/api/v%d/",DASHCONTROL_SERVER_VERSION]
+
+#define DASHCONTROL_URL(x)  [DASHCONTROL_SERVER stringByAppendingString:x]
 
 #define TICKER_REFRESH_TIME 60.0
 
-#define HISTORICAL_CHART_DATA_POLONIEX_KEY @"HISTORICAL_CHART_DATA_POLONIEX_KEY"
+#define DEFAULT_MARKET @"DEFAULT_MARKET"
+#define DEFAULT_EXCHANGE @"DEFAULT_EXCHANGE"
+
+
 
 /**
  This creates a new query parameters string from the given NSDictionary. For
@@ -50,16 +60,16 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     return [NSURL URLWithString:URLString];
 }
 
-@interface ChartDataImportManager ()
+@interface DCBackendManager ()
 @property (nonatomic, strong) Reachability *reachability;
 @end
 
-@implementation ChartDataImportManager
+@implementation DCBackendManager
 
 #pragma mark - Singleton Init Methods
 
 + (id)sharedManager {
-    static ChartDataImportManager *sharedChartDataImportManager = nil;
+    static DCBackendManager *sharedChartDataImportManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedChartDataImportManager = [[self alloc] init];
@@ -69,9 +79,10 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 
 - (id)init {
     if (self = [super init]) {
-        self.managedObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
+        self.mainObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
         self.reachability = [Reachability reachabilityForInternetConnection];
-        [self getAllPriceData];
+        //[self getAllPriceData];
+        [self fetchMarkets];
     }
     return self;
 }
@@ -94,20 +105,50 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     //[self fetchHistoricalPoloniex];
 }
 
-//-(void)updateChartDataKraken {
-//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateChartDataKraken) object:nil];
-//    [self performSelector:@selector(updateChartDataKraken) withObject:nil afterDelay:TICKER_REFRESH_TIME];
-//    if (self.reachability.currentReachabilityStatus == NotReachable) return;
-//
-//    [self getChartDataForExchange:DCExchangeSourceKraken forMarket:DCMarketDashUsd];
-//    //[self updateChartDataKrakenForMarket:DCMarketDashEuro];
-//    [self getChartDataForExchange:DCExchangeSourceKraken forMarket:DCMarketDashBtc];
-//}
+-(void)fetchMarkets {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:DASHCONTROL_URL(@"markets") parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
+        [container performBackgroundTask:^(NSManagedObjectContext *context) {
+            
+            if ([responseObject objectForKey:@"default"]) {
+                NSDictionary * defaultMarketplace = [responseObject objectForKey:@"default"];
+                if ([defaultMarketplace objectForKey:@"exchange"] && [defaultMarketplace objectForKey:@"market"]) {
+                    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                    [userDefaults setObject:[defaultMarketplace objectForKey:@"market"] forKey:DEFAULT_MARKET];
+                    [userDefaults setObject:[defaultMarketplace objectForKey:@"exchange"] forKey:DEFAULT_EXCHANGE];
+                    [userDefaults synchronize];
+                }
+            }
+            if ([responseObject objectForKey:@"markets"]) {
+                NSArray * markets = [[responseObject objectForKey:@"markets"] allKeys];
+                NSArray * exchanges = [[[responseObject objectForKey:@"markets"] allValues] valueForKeyPath: @"@distinctUnionOfArrays.self"];
+//                for (NSDictionary *jsonObject in [responseObject objectForKey:@"markets"]) {
+//                    //Market *market = [NSEntityDescription insertNewObjectForEntityForName:@"Market" inManagedObjectContext:context];
+//                    
+//                }
+//                context.automaticallyMergesChangesFromParent = TRUE;
+//                context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+//                
+//                NSError * error = nil;
+//                if (![context save:&error]) {
+//                    NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+//                    abort();
+//                }
+            }
+
+        }];
+
+        NSLog(@"JSON: %@", responseObject);
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
 
 -(void)getChartDataForExchange:(DCExchangeSource)exchange forMarket:(DCMarketSource)market {
     NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:nil delegateQueue:nil];
-    NSURL* URL = [NSURL URLWithString:DASHCONTROL_CHART_DATA_URL];
+    NSURL* URL = [NSURL URLWithString:DASHCONTROL_URL(@"chart_data")];
     NSMutableDictionary *URLParams = [NSMutableDictionary new];
     NSString * exchangeString = [self convertExchangeEnumToString:exchange];
     NSString * marketString = [self convertMarketEnumToString:market];
@@ -120,44 +161,44 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if ([userDefaults objectForKey:lastGetPath]) {
         [URLParams setObject:[NSString stringWithFormat:@"%.0f", [[userDefaults objectForKey:lastGetPath] timeIntervalSince1970]] forKey:@"start"];
-        
-        URL = NSURLByAppendingQueryParameters(URL, URLParams);
-        NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
-        request.HTTPMethod = @"GET";
-        
-        NSURLSessionDataTask* task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            if (error == nil) {
-                
-                if (((((NSHTTPURLResponse*)response).statusCode /100) != 2)) {
-                    NSLog(@"Status %ld",(long)((NSHTTPURLResponse*)response).statusCode);
-                    NSString* ErrorResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                    NSLog(@"ErrorResponse:%@",ErrorResponse);
-                    return;
-                }
-                NSError *e = nil;
-                NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableLeaves error:&e];
-                
+    }
+    URL = NSURLByAppendingQueryParameters(URL, URLParams);
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
+    request.HTTPMethod = @"GET";
+    
+    NSURLSessionDataTask* task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error == nil) {
+            
+            if (((((NSHTTPURLResponse*)response).statusCode /100) != 2)) {
+                NSLog(@"Status %ld",(long)((NSHTTPURLResponse*)response).statusCode);
+                NSString* ErrorResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                NSLog(@"ErrorResponse:%@",ErrorResponse);
+                return;
+            }
+            NSError *e = nil;
+            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableLeaves error:&e];
+            
+            if (!e) {
+                [self importJSONData:jsonArray forExchange:exchange andMarket:market error:&e];
                 if (!e) {
-                    [self importJSONData:jsonArray forExchange:exchange andMarket:market];
-                    
                     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
                     [defs setObject:[NSDate date]  forKey:lastGetPath];
                     [defs synchronize];
                 }
-                
             }
-            else {
-                // Failure
-                NSLog(@"URL Session Task Failed: %@", [error localizedDescription]);
-            }
-        }];
-        
-        [task resume];
-        [session finishTasksAndInvalidate];
-    }
+            
+        }
+        else {
+            // Failure
+            NSLog(@"URL Session Task Failed: %@", [error localizedDescription]);
+        }
+    }];
+    
+    [task resume];
+    [session finishTasksAndInvalidate];
 }
 
--(void)importJSONData:(NSArray*)jsonArray forExchange:(DCExchangeSource)exchange andMarket:(DCMarketSource)market {
+-(void)importJSONData:(NSArray*)jsonArray forExchange:(DCExchangeSource)exchange andMarket:(DCMarketSource)market error:(NSError**)error {
     
     if (!jsonArray) {
         return;
@@ -170,68 +211,29 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
         [dateFormatter setLocale:enUSPOSIXLocale];
         [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-        
         for (NSDictionary *jsonObject in jsonArray) {
-            NSArray *entriesFound = [self fetchChartDataForExchange:exchange andMarket:market atTime:[dateFormatter dateFromString:[jsonObject objectForKey:@"time"]] inContext:context];
-            if (!entriesFound || entriesFound.count == 0) {
-                ChartDataEntry *chartDataEntry = [NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
-                chartDataEntry.time = [dateFormatter dateFromString:[jsonObject objectForKey:@"time"]];
-                chartDataEntry.open = [[jsonObject objectForKey:@"open"] doubleValue];
-                chartDataEntry.high = [[jsonObject objectForKey:@"high"] doubleValue];
-                chartDataEntry.low = [[jsonObject objectForKey:@"low"] doubleValue];
-                chartDataEntry.close = [[jsonObject objectForKey:@"close"] doubleValue];
-                chartDataEntry.volume = [[jsonObject objectForKey:@"volume"] doubleValue];
-                chartDataEntry.pairVolume = [[jsonObject objectForKey:@"pairVolume"] doubleValue];
-                chartDataEntry.trades = [[jsonObject objectForKey:@"trades"] intValue];
-                chartDataEntry.exchange = exchange;
-                chartDataEntry.market = market;
-            }
-            else {
-                ChartDataEntry *chartDataEntry = entriesFound.firstObject;
-                chartDataEntry.open = [[jsonObject objectForKey:@"open"] doubleValue];
-                chartDataEntry.high = [[jsonObject objectForKey:@"high"] doubleValue];
-                chartDataEntry.low = [[jsonObject objectForKey:@"low"] doubleValue];
-                chartDataEntry.close = [[jsonObject objectForKey:@"close"] doubleValue];
-                chartDataEntry.volume = [[jsonObject objectForKey:@"volume"] doubleValue];
-                chartDataEntry.pairVolume = [[jsonObject objectForKey:@"pairVolume"] doubleValue];
-                chartDataEntry.trades = [[jsonObject objectForKey:@"trades"] intValue];
-                chartDataEntry.exchange = exchange;
-                chartDataEntry.market = market;
-            }
+            ChartDataEntry *chartDataEntry = [NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
+            chartDataEntry.time = [dateFormatter dateFromString:[jsonObject objectForKey:@"time"]];
+            chartDataEntry.open = [[jsonObject objectForKey:@"open"] doubleValue];
+            chartDataEntry.high = [[jsonObject objectForKey:@"high"] doubleValue];
+            chartDataEntry.low = [[jsonObject objectForKey:@"low"] doubleValue];
+            chartDataEntry.close = [[jsonObject objectForKey:@"close"] doubleValue];
+            chartDataEntry.volume = [[jsonObject objectForKey:@"volume"] doubleValue];
+            chartDataEntry.pairVolume = [[jsonObject objectForKey:@"pairVolume"] doubleValue];
+            chartDataEntry.trades = [[jsonObject objectForKey:@"trades"] intValue];
+            chartDataEntry.exchange = exchange;
+            chartDataEntry.market = market;
         }
         
         context.automaticallyMergesChangesFromParent = TRUE;
-        context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
         
-        NSError *error = nil;
-        if (![context save:&error]) {
-            NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+        
+        if (![context save:error]) {
+            NSLog(@"Failure to save context: %@\n%@", [*error localizedDescription], [*error userInfo]);
             abort();
         }
     }];
-}
-
--(NSMutableArray *)fetchChartDataForExchange:(DCExchangeSource)exchange andMarket:(DCMarketSource)market atTime:(NSDate*)time inContext:(NSManagedObjectContext *)context {
-    
-    if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"ChartDataEntry" inManagedObjectContext:context];
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        [request setEntity:entityDescription];
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(exchange == %d) AND (market == %d) AND (time == %@)", exchange, market, time];
-        [request setPredicate:predicate];
-        
-        NSError *error;
-        NSArray *array = [context executeFetchRequest:request error:&error];
-        if (array == nil)
-        {
-            NSLog(@"Error while festching %@ with predicate %@", entityDescription.name, predicate);
-        }
-        return [array mutableCopy];
-    } else {
-        return  nil;
-    }
-    
 }
 
 #pragma mark - Exchange & Market
@@ -282,9 +284,8 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         case 2:
             result = @"DASH_EUR";
             break;
-            
-        default:
-            result = @"unknown";
+        case 3:
+            result = @"DASH_USDT";
     }
     
     return result;
@@ -298,6 +299,9 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     }
     if ([market isEqualToString:@"DASH_EUR"]) {
         return DCMarketDashEuro;
+    }
+    if ([market isEqualToString:@"DASH_USDT"]) {
+        return DCMarketDashUsdt;
     }
     return -1;
 }

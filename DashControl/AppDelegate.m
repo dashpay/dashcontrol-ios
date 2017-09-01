@@ -72,7 +72,7 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     [RSSFeedManager sharedManager];
     
     //Init the Price Data Manager
-    [ChartDataImportManager sharedManager];
+    [DCBackendManager sharedManager];
     
     //Init the Proposals Manager
     [ProposalsManager sharedManager];

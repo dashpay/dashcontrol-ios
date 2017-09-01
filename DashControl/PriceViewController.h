@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Charts/Charts.h>
 
-@interface PriceViewController : UIViewController
+@interface PriceViewController : UIViewController <ChartViewDelegate>
 
 @property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
+@property (nonatomic, assign) BOOL shouldHideData;
+
+- (void)handleOption:(NSString *)key forChartView:(ChartViewBase *)chartView;
+
+- (void)updateChartData;
 
 @end

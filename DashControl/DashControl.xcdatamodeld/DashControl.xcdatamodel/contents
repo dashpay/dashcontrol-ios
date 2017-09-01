@@ -8,16 +8,30 @@
         <attribute name="totalAmount" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="ChartDataEntry" representedClassName="ChartDataEntry" syncable="YES">
-        <attribute name="close" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="exchange" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
-        <attribute name="high" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="low" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="market" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
-        <attribute name="open" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="pairVolume" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="time" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="trades" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="volume" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="close" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="exchange" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="high" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="low" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="market" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="open" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="pairVolume" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="time" attributeType="Date" minDateTimeInterval="220813200" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="trades" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="volume" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="exchange"/>
+                <index value="market"/>
+                <index value="time"/>
+            </compoundIndex>
+        </compoundIndexes>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="exchange"/>
+                <constraint value="market"/>
+                <constraint value="time"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="Comment" representedClassName="Comment" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
@@ -32,6 +46,14 @@
         <attribute name="replyUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="proposal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Proposal" inverseName="comments" inverseEntity="Proposal" syncable="YES"/>
+    </entity>
+    <entity name="Exchange" representedClassName="Exchange" syncable="YES" codeGenerationType="class">
+        <attribute name="identifier" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Market" representedClassName="Market" syncable="YES" codeGenerationType="class">
+        <attribute name="identifier" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="symbol" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
     <entity name="Post" representedClassName="Post" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
@@ -74,5 +96,7 @@
         <element name="Comment" positionX="-54" positionY="144" width="128" height="225"/>
         <element name="Post" positionX="-63" positionY="-18" width="128" height="150"/>
         <element name="Proposal" positionX="-63" positionY="81" width="128" height="405"/>
+        <element name="Market" positionX="-54" positionY="135" width="128" height="75"/>
+        <element name="Exchange" positionX="-45" positionY="144" width="128" height="75"/>
     </elements>
 </model>

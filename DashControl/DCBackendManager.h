@@ -21,9 +21,9 @@ typedef NS_ENUM(NSInteger, DCExchangeSource) {
     DCExchangeSourceBitfinex = 2 //bitfinex
 };
 
-@interface ChartDataImportManager : NSObject
+@interface DCBackendManager : NSObject
 
-@property (nonatomic, retain) NSManagedObjectContext * _Nullable managedObjectContext;
+@property (nonatomic, strong) NSManagedObjectContext * _Nullable mainObjectContext;
 
 + (id _Nonnull )sharedManager;
 
