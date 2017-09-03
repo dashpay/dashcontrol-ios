@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16E195" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="Budget" representedClassName="Budget" syncable="YES">
         <attribute name="allotedAmount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="paymentDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -9,22 +9,15 @@
     </entity>
     <entity name="ChartDataEntry" representedClassName="ChartDataEntry" syncable="YES">
         <attribute name="close" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="exchange" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="exchange" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="high" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="low" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="market" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="market" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="open" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="pairVolume" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="time" attributeType="Date" minDateTimeInterval="220813200" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="trades" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="volume" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <compoundIndexes>
-            <compoundIndex>
-                <index value="exchange"/>
-                <index value="market"/>
-                <index value="time"/>
-            </compoundIndex>
-        </compoundIndexes>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="exchange"/>
@@ -47,13 +40,31 @@
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="proposal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Proposal" inverseName="comments" inverseEntity="Proposal" syncable="YES"/>
     </entity>
-    <entity name="Exchange" representedClassName="Exchange" syncable="YES" codeGenerationType="class">
+    <entity name="Exchange" representedClassName="Exchange" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="markets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Market" inverseName="onExchanges" inverseEntity="Market" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="identifier"/>
+            </uniquenessConstraint>
+            <uniquenessConstraint>
+                <constraint value="name"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
-    <entity name="Market" representedClassName="Market" syncable="YES" codeGenerationType="class">
-        <attribute name="identifier" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
-        <attribute name="symbol" attributeType="String" indexed="YES" syncable="YES"/>
+    <entity name="Market" representedClassName="Market" syncable="YES">
+        <attribute name="identifier" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="onExchanges" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exchange" inverseName="markets" inverseEntity="Exchange" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="identifier"/>
+            </uniquenessConstraint>
+            <uniquenessConstraint>
+                <constraint value="name"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="Post" representedClassName="Post" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
@@ -94,9 +105,9 @@
         <element name="Budget" positionX="-54" positionY="135" width="128" height="120"/>
         <element name="ChartDataEntry" positionX="-63" positionY="36" width="128" height="195"/>
         <element name="Comment" positionX="-54" positionY="144" width="128" height="225"/>
+        <element name="Exchange" positionX="-45" positionY="144" width="128" height="90"/>
+        <element name="Market" positionX="-54" positionY="135" width="128" height="90"/>
         <element name="Post" positionX="-63" positionY="-18" width="128" height="150"/>
         <element name="Proposal" positionX="-63" positionY="81" width="128" height="405"/>
-        <element name="Market" positionX="-54" positionY="135" width="128" height="75"/>
-        <element name="Exchange" positionX="-45" positionY="144" width="128" height="75"/>
     </elements>
 </model>

@@ -33,12 +33,16 @@
 #import "Budget+CoreDataClass.h"
 #import "Proposal+CoreDataClass.h"
 #import "Comment+CoreDataClass.h"
+#import "Market+CoreDataClass.h"
+#import "Exchange+CoreDataClass.h"
 
 //Other
 #import "AppDelegate.h"
 #import "RSSFeedManager.h"
 #import "DCBackendManager.h"
+#import "DCCoreDataManager.h"
 #import "ProposalsManager.h"
+#import "NSArray+SWAdditions.h"
 
 
 #endif /* DashControl_PrefixHeader_pch */

@@ -167,28 +167,23 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
 #pragma mark - Notifications
 
 - (void)registerForRemoteNotifications {
-    if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")){
-        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-        center.delegate = self;
-        [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
-            if(!error){
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
+        if(!error){
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [[UIApplication sharedApplication] registerForRemoteNotifications];
-                if (!granted) {
-                    //Remind the user, when relevant, that he must allow it from setting app
-                }
+            });
+            if (!granted) {
+                //Remind the user, when relevant, that he must allow it from setting app
             }
-            else {
-                //Push registration FAILED
-                NSLog( @"ERROR: %@ - %@", error.localizedFailureReason, error.localizedDescription );
-                NSLog( @"SUGGESTIONS: %@ - %@", error.localizedRecoveryOptions, error.localizedRecoverySuggestion );
-            }
-        }];
-    }
-    else {
-        // Code for old versions
-        // At the moment, the adoption ratio of iOS 10 is already > 87%
-        // https://developer.apple.com/support/app-store/
-    }
+        }
+        else {
+            //Push registration FAILED
+            NSLog( @"ERROR: %@ - %@", error.localizedFailureReason, error.localizedDescription );
+            NSLog( @"SUGGESTIONS: %@ - %@", error.localizedRecoveryOptions, error.localizedRecoverySuggestion );
+        }
+    }];
 }
 
 //Called when a notification is delivered to a foreground app.
@@ -249,8 +244,8 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo  
 {  
-    [self application:application didReceiveRemoteNotification:userInfo fetchCompletionHandler:^(UIBackgroundFetchResult result) {  
-    }];  
+    [self application:application didReceiveRemoteNotification:userInfo fetchCompletionHandler:^(UIBackgroundFetchResult result) {
+    }];
 }
 
 #pragma mark - Register Device
@@ -260,7 +255,7 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     NSString *token_string = [[[[deviceToken description]    stringByReplacingOccurrencesOfString:@"<"withString:@""]
                                stringByReplacingOccurrencesOfString:@">" withString:@""]
                               stringByReplacingOccurrencesOfString: @" " withString: @""];
-
+    
     NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:nil delegateQueue:nil];
     NSURL* URL = [NSURL URLWithString:@"https://dashpay.info/api/v0/device/"];

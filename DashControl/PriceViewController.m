@@ -87,31 +87,32 @@
         _chartView.data = nil;
         return;
     }
-    
-    NSArray * chartData = [[DCCoreDataManager sharedManager] fetchChartDataForExchange:1 forMarket:3 startTime:nil endTime:nil inContext:self.managedObjectContext] ;
-    NSMutableArray *charDataPoints = [[NSMutableArray alloc] init];
-    
-    for (int i = 0; i < chartData.count; i++)
-    {
-        ChartDataEntry * entry = [chartData objectAtIndex:0];
-        [charDataPoints addObject:[[CandleChartDataEntry alloc] initWithX:i shadowH:entry.high shadowL:entry.low open:entry.open close:entry.close icon: [UIImage imageNamed:@"icon"]]];
-    }
-    
-    CandleChartDataSet *set1 = [[CandleChartDataSet alloc] initWithValues:charDataPoints label:@"Data Set"];
-    set1.axisDependency = AxisDependencyLeft;
-    [set1 setColor:[UIColor colorWithWhite:80/255.f alpha:1.f]];
-    
-    set1.drawIconsEnabled = NO;
-    
-    set1.shadowColor = UIColor.darkGrayColor;
-    set1.shadowWidth = 0.7;
-    set1.decreasingColor = UIColor.redColor;
-    set1.decreasingFilled = YES;
-    set1.increasingColor = [UIColor colorWithRed:122/255.f green:242/255.f blue:84/255.f alpha:1.f];
-    set1.increasingFilled = NO;
-    set1.neutralColor = UIColor.blueColor;
-    
-    CandleChartData *data = [[CandleChartData alloc] initWithDataSet:set1];
+//    NSError * error = nil;
+//    NSArray * chartData = [[DCCoreDataManager sharedManager] fetchChartDataForExchange:1 forMarket:3 startTime:nil endTime:nil inContext:self.managedObjectContext error:&error] ;
+//    if (!error) {
+//    NSMutableArray *charDataPoints = [[NSMutableArray alloc] init];
+//    
+//    for (int i = 0; i < chartData.count; i++)
+//    {
+//        ChartDataEntry * entry = [chartData objectAtIndex:0];
+//        [charDataPoints addObject:[[CandleChartDataEntry alloc] initWithX:i shadowH:entry.high shadowL:entry.low open:entry.open close:entry.close icon: [UIImage imageNamed:@"icon"]]];
+//    }
+//    
+//    CandleChartDataSet *set1 = [[CandleChartDataSet alloc] initWithValues:charDataPoints label:@"Data Set"];
+//    set1.axisDependency = AxisDependencyLeft;
+//    [set1 setColor:[UIColor colorWithWhite:80/255.f alpha:1.f]];
+//    
+//    set1.drawIconsEnabled = NO;
+//    
+//    set1.shadowColor = UIColor.darkGrayColor;
+//    set1.shadowWidth = 0.7;
+//    set1.decreasingColor = UIColor.redColor;
+//    set1.decreasingFilled = YES;
+//    set1.increasingColor = [UIColor colorWithRed:122/255.f green:242/255.f blue:84/255.f alpha:1.f];
+//    set1.increasingFilled = NO;
+//    set1.neutralColor = UIColor.blueColor;
+//    
+//    CandleChartData *data = [[CandleChartData alloc] initWithDataSet:set1];
     
 //    NSMutableArray *yVals1 = [[NSMutableArray alloc] init];
 //    
@@ -143,7 +144,8 @@
 //    
 //    CandleChartData *data = [[CandleChartData alloc] initWithDataSet:set1];
     
-    _chartView.data = data;
+    //_chartView.data = data;
+    //}
 }
 
 #pragma mark - Common option actions

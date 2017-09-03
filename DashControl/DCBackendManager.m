@@ -8,8 +8,8 @@
 
 #import "DCBackendManager.h"
 #import <AFNetworking/AFNetworking.h>
-//#import "Market+CoreDataClass.h"
-//#import "Exchange+CoreDataClass.h"
+#import "Market+CoreDataClass.h"
+#import "Exchange+CoreDataClass.h"
 
 #define DASHCONTROL_SERVER_VERSION 0
 
@@ -92,15 +92,15 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 
 -(void)getAllPriceData {
     
-    NSDictionary * exchangePaths = @{@(DCExchangeSourceKraken):@[@(DCMarketDashBtc),@(DCMarketDashUsd)],@(DCExchangeSourcePoloniex):@[@(DCMarketDashBtc),@(DCMarketDashUsdt)],@(DCExchangeSourceBitfinex):@[@(DCMarketDashBtc),@(DCMarketDashUsd)]};
-    
-    for (NSString * exchangePath in exchangePaths) {
-        NSArray * markets = [exchangePaths objectForKey:exchangePath];
-        for (NSNumber * market in markets) {
-            [self getChartDataForExchange:[exchangePath integerValue] forMarket:[market integerValue]];
-        }
-    }
-    
+    //    NSDictionary * exchangePaths = @{@(DCExchangeSourceKraken):@[@(DCMarketDashBtc),@(DCMarketDashUsd)],@(DCExchangeSourcePoloniex):@[@(DCMarketDashBtc),@(DCMarketDashUsdt)],@(DCExchangeSourceBitfinex):@[@(DCMarketDashBtc),@(DCMarketDashUsd)]};
+    //
+    //    for (NSString * exchangePath in exchangePaths) {
+    //        NSArray * markets = [exchangePaths objectForKey:exchangePath];
+    //        for (NSNumber * market in markets) {
+    //            [self getChartDataForExchange:[exchangePath integerValue] forMarket:[market integerValue]];
+    //        }
+    //    }
+    //
     //Some historical poloniex chart data USD_DASH, so we can get started with the graph thing.
     //[self fetchHistoricalPoloniex];
 }
@@ -123,41 +123,89 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             if ([responseObject objectForKey:@"markets"]) {
                 NSArray * markets = [[responseObject objectForKey:@"markets"] allKeys];
                 NSArray * exchanges = [[[responseObject objectForKey:@"markets"] allValues] valueForKeyPath: @"@distinctUnionOfArrays.self"];
-//                for (NSDictionary *jsonObject in [responseObject objectForKey:@"markets"]) {
-//                    //Market *market = [NSEntityDescription insertNewObjectForEntityForName:@"Market" inManagedObjectContext:context];
-//                    
-//                }
-//                context.automaticallyMergesChangesFromParent = TRUE;
-//                context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
-//                
-//                NSError * error = nil;
-//                if (![context save:&error]) {
-//                    NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-//                    abort();
-//                }
+                NSError * error = nil;
+                NSMutableArray * knownMarkets = [[[DCCoreDataManager sharedManager] marketsForNames:markets inContext:context error:&error] mutableCopy];
+                NSMutableArray * knownExchanges = error?nil:[[[DCCoreDataManager sharedManager] exchangesForNames:exchanges inContext:context error:&error] mutableCopy];
+                if (!error) {
+                    NSArray * novelMarkets = [markets arrayByRemovingObjectsFromArray:[knownMarkets  arrayReferencedByKeyPath:@"name"]];
+                    if (novelMarkets.count) {
+                        NSInteger marketIdentifier = [[DCCoreDataManager sharedManager] fetchAutoIncrementIdForMarketinContext:context error:&error];
+                        if (!error) {
+                            for (NSString * marketName in novelMarkets) {
+                                Market *market = [NSEntityDescription insertNewObjectForEntityForName:@"Market" inManagedObjectContext:context];
+                                market.identifier = marketIdentifier;
+                                market.name = marketName;
+                                marketIdentifier++;
+                                [knownMarkets addObject:market];
+                            }
+                        }
+                    }
+                }
+                if (!error) {
+                    NSArray * novelExchanges = [exchanges arrayByRemovingObjectsFromArray:[knownExchanges arrayReferencedByKeyPath:@"name"]];
+                    if (novelExchanges.count) {
+                        NSInteger exchangeIdentifier = [[DCCoreDataManager sharedManager] fetchAutoIncrementIdForExchangeinContext:context error:&error];
+                        if (!error) {
+                            for (NSString * exchangeName in novelExchanges) {
+                                Exchange *exchange = [NSEntityDescription insertNewObjectForEntityForName:@"Exchange" inManagedObjectContext:context];
+                                exchange.identifier = exchangeIdentifier;
+                                exchange.name = exchangeName;
+                                exchangeIdentifier++;
+                                [knownExchanges addObject:exchange];
+                            }
+                        }
+                    }
+                }
+                if (!error) {
+                    context.automaticallyMergesChangesFromParent = TRUE;
+                    context.mergePolicy = NSRollbackMergePolicy;
+                    
+                    if (![context save:&error]) {
+                        NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+                        abort();
+                    }
+                }
+                
+                //now let's make sure all the relationships are correct
+                if (!error) {
+                    NSDictionary * exchangeDictionary = [knownExchanges dictionaryReferencedByKeyPath:@"name"];
+                    for (Market * market in knownMarkets) {
+                        NSArray * serverExchangesForMarket = [[responseObject objectForKey:@"markets"] objectForKey:market.name];
+                        NSArray * knownExchangesForMarket = [[market.onExchanges allObjects] arrayReferencedByKeyPath:@"name"];
+                        NSArray * novelExchangesForMarket = [serverExchangesForMarket arrayByRemovingObjectsFromArray:knownExchangesForMarket];
+                        for (NSString * novelExchangeForMarket in novelExchangesForMarket) {
+                            Exchange * exchange = [exchangeDictionary objectForKey:novelExchangeForMarket];
+                            [market addOnExchangesObject:exchange];
+                        }
+                    }
+                    if (![context save:&error]) {
+                        NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+                        abort();
+                    }
+                    
+                }
+                
             }
-
+            
         }];
-
+        
         NSLog(@"JSON: %@", responseObject);
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
 }
 
--(void)getChartDataForExchange:(DCExchangeSource)exchange forMarket:(DCMarketSource)market {
+-(void)getChartDataForExchange:(Exchange*)exchange forMarket:(Market*)market {
     NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:nil delegateQueue:nil];
     NSURL* URL = [NSURL URLWithString:DASHCONTROL_URL(@"chart_data")];
     NSMutableDictionary *URLParams = [NSMutableDictionary new];
-    NSString * exchangeString = [self convertExchangeEnumToString:exchange];
-    NSString * marketString = [self convertMarketEnumToString:market];
-    [URLParams setObject:exchangeString forKey:@"exchange"];
-    [URLParams setObject:marketString forKey:@"market"];
+    [URLParams setObject:exchange.name forKey:@"exchange"];
+    [URLParams setObject:market.name forKey:@"market"];
 #ifdef DEBUG
     [URLParams setObject:@"1" forKey:@"noLimit"];
 #endif
-    NSString * lastGetPath = [[exchangeString stringByAppendingString:marketString] stringByAppendingString:@"lastGet"];
+    NSString * lastGetPath = [[exchange.name stringByAppendingString:market.name] stringByAppendingString:@"lastGet"];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if ([userDefaults objectForKey:lastGetPath]) {
         [URLParams setObject:[NSString stringWithFormat:@"%.0f", [[userDefaults objectForKey:lastGetPath] timeIntervalSince1970]] forKey:@"start"];
@@ -198,7 +246,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     [session finishTasksAndInvalidate];
 }
 
--(void)importJSONData:(NSArray*)jsonArray forExchange:(DCExchangeSource)exchange andMarket:(DCMarketSource)market error:(NSError**)error {
+-(void)importJSONData:(NSArray*)jsonArray forExchange:(Exchange*)exchange andMarket:(Market*)market error:(NSError**)error {
     
     if (!jsonArray) {
         return;
@@ -221,8 +269,8 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             chartDataEntry.volume = [[jsonObject objectForKey:@"volume"] doubleValue];
             chartDataEntry.pairVolume = [[jsonObject objectForKey:@"pairVolume"] doubleValue];
             chartDataEntry.trades = [[jsonObject objectForKey:@"trades"] intValue];
-            chartDataEntry.exchange = exchange;
-            chartDataEntry.market = market;
+            chartDataEntry.exchange = exchange.identifier;
+            chartDataEntry.market = market.identifier;
         }
         
         context.automaticallyMergesChangesFromParent = TRUE;
@@ -234,76 +282,6 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             abort();
         }
     }];
-}
-
-#pragma mark - Exchange & Market
-
-- (NSString*)convertExchangeEnumToString:(DCExchangeSource)exchangeSource {
-    NSString *result = nil;
-    
-    switch(exchangeSource) {
-        case 0:
-            result = @"kraken";
-            break;
-        case 1:
-            result = @"poloniex";
-            break;
-        case 2:
-            result = @"bitfinex";
-            break;
-            
-        default:
-            result = @"unknown";
-    }
-    
-    return result;
-}
-- (DCExchangeSource)convertExchangeStringToEnum:(NSString*)exchangeSource {
-    if ([exchangeSource isEqualToString:@"kraken"]) {
-        return DCExchangeSourceKraken;
-    }
-    if ([exchangeSource isEqualToString:@"poloniex"]) {
-        return DCExchangeSourcePoloniex;
-    }
-    if ([exchangeSource isEqualToString:@"bitfinex"]) {
-        return DCExchangeSourceBitfinex;
-    }
-    return -1;
-}
-
-- (NSString*)convertMarketEnumToString:(DCMarketSource)marketSource {
-    NSString *result = nil;
-    
-    switch(marketSource) {
-        case 0:
-            result = @"DASH_BTC";
-            break;
-        case 1:
-            result = @"DASH_USD";
-            break;
-        case 2:
-            result = @"DASH_EUR";
-            break;
-        case 3:
-            result = @"DASH_USDT";
-    }
-    
-    return result;
-}
-- (DCMarketSource) convertMarketStringToEnum:(NSString*)market {
-    if ([market isEqualToString:@"DASH_BTC"]) {
-        return DCMarketDashBtc;
-    }
-    if ([market isEqualToString:@"DASH_USD"]) {
-        return DCMarketDashUsd;
-    }
-    if ([market isEqualToString:@"DASH_EUR"]) {
-        return DCMarketDashEuro;
-    }
-    if ([market isEqualToString:@"DASH_USDT"]) {
-        return DCMarketDashUsdt;
-    }
-    return -1;
 }
 
 @end

@@ -31,11 +31,16 @@
 		24FE255D1F4CA97A00E32652 /* ChartDataEntry+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE255A1F4CA97A00E32652 /* ChartDataEntry+CoreDataClass.m */; };
 		24FE255E1F4CA97A00E32652 /* ChartDataEntry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE255C1F4CA97A00E32652 /* ChartDataEntry+CoreDataProperties.m */; };
 		5D54F512F2D3905041390607 /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */; };
+		FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */; };
 		FB84EDC21F32898700E4D400 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC11F32898700E4D400 /* main.m */; };
 		FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC41F32898700E4D400 /* AppDelegate.m */; };
 		FB84EDCE1F32898700E4D400 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDCC1F32898700E4D400 /* Main.storyboard */; };
 		FB84EDD01F32898700E4D400 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDCF1F32898700E4D400 /* Assets.xcassets */; };
 		FB84EDD31F32898700E4D400 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDD11F32898700E4D400 /* LaunchScreen.storyboard */; };
+		FBE1F4F91F5CB52300823A77 /* Market+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F4F21F5CB52300823A77 /* Market+CoreDataClass.m */; };
+		FBE1F4FA1F5CB52300823A77 /* Market+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F4F41F5CB52300823A77 /* Market+CoreDataProperties.m */; };
+		FBE1F4FB1F5CB52300823A77 /* Exchange+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F4F61F5CB52300823A77 /* Exchange+CoreDataClass.m */; };
+		FBE1F4FC1F5CB52300823A77 /* Exchange+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F4F81F5CB52300823A77 /* Exchange+CoreDataProperties.m */; };
 		FBEBE5381F5776400056D921 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBEBE5371F5776400056D921 /* Charts.framework */; };
 		FBEBE5391F5776400056D921 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FBEBE5371F5776400056D921 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBEBE5421F5802DE0056D921 /* ChartTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEBE5411F5802DE0056D921 /* ChartTimeFormatter.m */; };
@@ -103,6 +108,8 @@
 		481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
 		6385EAF7B5AD9CDA2429BFAE /* Pods-DashControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.debug.xcconfig"; sourceTree = "<group>"; };
 		742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB2F9B3B1F5C9F960035180D /* NSArray+SWAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+SWAdditions.h"; sourceTree = "<group>"; };
+		FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+SWAdditions.m"; sourceTree = "<group>"; };
 		FB84EDBD1F32898700E4D400 /* DashControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DashControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB84EDC11F32898700E4D400 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FB84EDC31F32898700E4D400 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -114,6 +121,14 @@
 		FB84EDDB1F32908C00E4D400 /* DCDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCDataManager.h; sourceTree = "<group>"; };
 		FB84EDDC1F32908C00E4D400 /* DCDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCDataManager.m; sourceTree = "<group>"; };
 		FB84EDDE1F3293C700E4D400 /* DCWalletConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCWalletConstants.h; sourceTree = "<group>"; };
+		FBE1F4F11F5CB52300823A77 /* Market+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Market+CoreDataClass.h"; sourceTree = "<group>"; };
+		FBE1F4F21F5CB52300823A77 /* Market+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Market+CoreDataClass.m"; sourceTree = "<group>"; };
+		FBE1F4F31F5CB52300823A77 /* Market+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Market+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FBE1F4F41F5CB52300823A77 /* Market+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Market+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FBE1F4F51F5CB52300823A77 /* Exchange+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Exchange+CoreDataClass.h"; sourceTree = "<group>"; };
+		FBE1F4F61F5CB52300823A77 /* Exchange+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Exchange+CoreDataClass.m"; sourceTree = "<group>"; };
+		FBE1F4F71F5CB52300823A77 /* Exchange+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Exchange+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FBE1F4F81F5CB52300823A77 /* Exchange+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Exchange+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FBEBE5371F5776400056D921 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBEBE5401F5802DE0056D921 /* ChartTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartTimeFormatter.h; sourceTree = "<group>"; };
 		FBEBE5411F5802DE0056D921 /* ChartTimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartTimeFormatter.m; sourceTree = "<group>"; };
@@ -241,6 +256,14 @@
 		24FE253E1F4C7DB500E32652 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FBE1F4F11F5CB52300823A77 /* Market+CoreDataClass.h */,
+				FBE1F4F21F5CB52300823A77 /* Market+CoreDataClass.m */,
+				FBE1F4F31F5CB52300823A77 /* Market+CoreDataProperties.h */,
+				FBE1F4F41F5CB52300823A77 /* Market+CoreDataProperties.m */,
+				FBE1F4F51F5CB52300823A77 /* Exchange+CoreDataClass.h */,
+				FBE1F4F61F5CB52300823A77 /* Exchange+CoreDataClass.m */,
+				FBE1F4F71F5CB52300823A77 /* Exchange+CoreDataProperties.h */,
+				FBE1F4F81F5CB52300823A77 /* Exchange+CoreDataProperties.m */,
 				24FE25591F4CA97A00E32652 /* ChartDataEntry+CoreDataClass.h */,
 				24FE255A1F4CA97A00E32652 /* ChartDataEntry+CoreDataClass.m */,
 				24FE255B1F4CA97A00E32652 /* ChartDataEntry+CoreDataProperties.h */,
@@ -290,6 +313,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FB2F9B3A1F5C9F8A0035180D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				FB2F9B3B1F5C9F960035180D /* NSArray+SWAdditions.h */,
+				FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		FB2F9B3E1F5CA0050035180D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				24E584011F3ADA0100A12087 /* RSSFeed */,
+				241719C31F4D9EC30045C2D6 /* Proposals */,
+				24FE253D1F4C7DA200E32652 /* Price */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		FB84EDB41F32898700E4D400 = {
 			isa = PBXGroup;
 			children = (
@@ -311,11 +353,10 @@
 		FB84EDBF1F32898700E4D400 /* DashControl */ = {
 			isa = PBXGroup;
 			children = (
+				FB2F9B3A1F5C9F8A0035180D /* Utilities */,
+				FB2F9B3E1F5CA0050035180D /* Views */,
 				2442A01B1F4D6CDC006FAC0D /* DashControl.entitlements */,
 				24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */,
-				24FE253D1F4C7DA200E32652 /* Price */,
-				24E584011F3ADA0100A12087 /* RSSFeed */,
-				241719C31F4D9EC30045C2D6 /* Proposals */,
 				FB84EDDA1F32906F00E4D400 /* New Group */,
 				FB84EDC31F32898700E4D400 /* AppDelegate.h */,
 				FB84EDC41F32898700E4D400 /* AppDelegate.m */,
@@ -505,10 +546,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBE1F4FC1F5CB52300823A77 /* Exchange+CoreDataProperties.m in Sources */,
 				24A2159C1F52C5E900A63311 /* Budget+CoreDataProperties.m in Sources */,
 				24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */,
+				FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */,
 				241719E41F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m in Sources */,
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
+				FBE1F4FA1F5CB52300823A77 /* Market+CoreDataProperties.m in Sources */,
 				FBEBE5421F5802DE0056D921 /* ChartTimeFormatter.m in Sources */,
 				24E584101F3ADBAA00A12087 /* Post+CoreDataClass.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
@@ -518,6 +562,7 @@
 				241719D81F4DA4C60045C2D6 /* ProposalsManager.m in Sources */,
 				24A2159B1F52C5E900A63311 /* Budget+CoreDataClass.m in Sources */,
 				241719E21F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.m in Sources */,
+				FBE1F4F91F5CB52300823A77 /* Market+CoreDataClass.m in Sources */,
 				24FE255D1F4CA97A00E32652 /* ChartDataEntry+CoreDataClass.m in Sources */,
 				24E584111F3ADBAA00A12087 /* Post+CoreDataProperties.m in Sources */,
 				24C6C6361F544268007F3671 /* ProposalsViewController.m in Sources */,
@@ -527,6 +572,7 @@
 				24E584141F3ADC4C00A12087 /* RSSFeedManager.m in Sources */,
 				2432DDA01F54395600A14112 /* ProposalCell.m in Sources */,
 				24FE255E1F4CA97A00E32652 /* ChartDataEntry+CoreDataProperties.m in Sources */,
+				FBE1F4FB1F5CB52300823A77 /* Exchange+CoreDataClass.m in Sources */,
 				241719E11F4DB0FB0045C2D6 /* Proposal+CoreDataClass.m in Sources */,
 				24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */,
 				24E584181F3AF18A00A12087 /* RSSFeedListViewController.m in Sources */,
