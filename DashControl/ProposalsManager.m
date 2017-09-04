@@ -11,6 +11,8 @@
 #define DASH_PROPOSALS_BUDGET_URL @"https://www.dashcentral.org/api/v1/budget"
 #define DASH_PROPOSAL_DETAIL_URL @"https://www.dashcentral.org/api/v1/proposal"
 
+#define UserDefaultProposalDisplayedProgress @"UserDefaultProposalDisplayedProgress"
+
 /**
  This creates a new query parameters string from the given NSDictionary. For
  example, if the input is @{@"day":@"Tuesday", @"month":@"January"}, the output
@@ -236,13 +238,13 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             proposal.dateEnd = [df dateFromString:[proposalDictionary objectForKey:@"date_end"]];
             proposal.votingDeadlineHuman = [proposalDictionary objectForKey:@"voting_deadline_human"];
             proposal.willBeFunded = [[proposalDictionary objectForKey:@"will_be_funded"] boolValue];
-            proposal.remainingYesVotesUntilFunding = [proposalDictionary objectForKey:@"remaining_yes_votes_until_funding"];
+            proposal.remainingYesVotesUntilFunding = [[proposalDictionary objectForKey:@"remaining_yes_votes_until_funding"] intValue];
             proposal.inNextBudget = [[proposalDictionary objectForKey:@"in_next_budget"] boolValue];
-            proposal.monthlyAmount = [[proposalDictionary objectForKey:@"monthly_amount"] doubleValue];
+            proposal.monthlyAmount = [[proposalDictionary objectForKey:@"monthly_amount"] intValue];
             proposal.totalPaymentCount = [[proposalDictionary objectForKey:@"total_payment_count"] intValue];
             proposal.remainingPaymentCount = [[proposalDictionary objectForKey:@"remaining_payment_count"] intValue];
-            proposal.yes = [[proposalDictionary objectForKey:@"yes"] boolValue];
-            proposal.no = [[proposalDictionary objectForKey:@"no"] boolValue];
+            proposal.yes = [[proposalDictionary objectForKey:@"yes"] intValue];
+            proposal.no = [[proposalDictionary objectForKey:@"no"] intValue];
             proposal.abstain = [[proposalDictionary objectForKey:@"abstain"] intValue];
             proposal.commentAmount = [[proposalDictionary objectForKey:@"comment_amount"] intValue];
             proposal.ownerUsername = [proposalDictionary objectForKey:@"owner_username"];
@@ -424,5 +426,30 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     }
 }
 
+#pragma mark - Progress proposals
+
+-(CGFloat)lastProgressDisplayedForProposal:(Proposal*_Nullable)proposal {
+    NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+    if ([defs dictionaryForKey:UserDefaultProposalDisplayedProgress]) {
+        if ([[defs dictionaryForKey:UserDefaultProposalDisplayedProgress] objectForKey:proposal.hashProposal]) {
+            return [[[defs dictionaryForKey:UserDefaultProposalDisplayedProgress] objectForKey:proposal.hashProposal] floatValue];
+        }
+    }
+    return 0.0f;
+}
+-(void)setLastProgressDisplayed:(CGFloat)displayedProgressValue forProposal:(Proposal*_Nullable)proposal {
+    NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+    if ([defs dictionaryForKey:UserDefaultProposalDisplayedProgress]) {
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:[defs dictionaryForKey:UserDefaultProposalDisplayedProgress]];
+        [dic setObject:[NSNumber numberWithFloat:displayedProgressValue] forKey:proposal.hashProposal];
+        [defs setObject:dic forKey:UserDefaultProposalDisplayedProgress];
+    }
+    else {
+        NSMutableDictionary *dic = [NSMutableDictionary new];
+        [dic setObject:[NSNumber numberWithFloat:displayedProgressValue] forKey:proposal.hashProposal];
+        [defs setObject:dic forKey:UserDefaultProposalDisplayedProgress];
+    }
+    [defs synchronize];
+}
 
 @end

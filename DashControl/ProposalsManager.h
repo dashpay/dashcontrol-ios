@@ -19,6 +19,9 @@
 -(void)fetchBudgetAndProposals;
 -(void)fetchProposalsWithHash:(NSString *_Nullable)hashProposal;
 
+-(CGFloat)lastProgressDisplayedForProposal:(Proposal*_Nullable)proposal;
+-(void)setLastProgressDisplayed:(CGFloat)displayedProgressValue forProposal:(Proposal*_Nullable)proposal;
+
 //Utils
 -(NSMutableArray*_Nullable)fetchAllObjectsForEntity:(NSString*_Nullable)entityName inContext:(NSManagedObjectContext *_Nullable)context;
 

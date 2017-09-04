@@ -26,9 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSDate *dateEnd;
 @property (nullable, nonatomic, copy) NSString *votingDeadlineHuman;
 @property (nonatomic) BOOL willBeFunded;
-@property (nullable, nonatomic, copy) NSString *remainingYesVotesUntilFunding;
 @property (nonatomic) BOOL inNextBudget;
-@property (nonatomic) double monthlyAmount;
+@property (nonatomic) int32_t remainingYesVotesUntilFunding;
+@property (nonatomic) int32_t monthlyAmount;
 @property (nonatomic) int32_t totalPaymentCount;
 @property (nonatomic) int32_t remainingPaymentCount;
 @property (nonatomic) int32_t yes;

@@ -7,12 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MBCircularProgressBarView.h>
 
 @interface ProposalCell : UITableViewCell
 
 @property (nonatomic, retain) Proposal *currentProposal;
 
-@property (strong, nonatomic) IBOutlet UILabel *labelTitle;
+@property (strong, nonatomic) IBOutlet UILabel *labelName;
+
+@property (strong, nonatomic) IBOutlet UILabel *labelDashPerMonth;
+@property (strong, nonatomic) IBOutlet UILabel *labelByUsername;
+
+@property (strong, nonatomic) IBOutlet UIButton *buttonMonths;
+@property (strong, nonatomic) IBOutlet UIButton *buttonComments;
+@property (strong, nonatomic) IBOutlet MBCircularProgressBarView *progressView;
+
 
 -(void)cfgViews;
 

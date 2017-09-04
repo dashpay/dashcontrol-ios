@@ -66,12 +66,13 @@ static NSString *CellIdentifier = @"ProposalCell";
     Budget *budget = [[[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Budget" inContext:self.managedObjectContext] firstObject];
     [budget allotedAmount];
     NSLog(@"Budget:%@", budget);
-    
+    /*
     NSArray *proposals = [[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Proposal" inContext:self.managedObjectContext];
     NSLog(@"All proposals count:%lu", (unsigned long)[proposals count]);
     for (Proposal *proposal in proposals) {
         NSLog(@"Proposal:%@\rThe proposal has %tu comments", proposal.title, proposal.comments.count);
     }
+     */
 }
 
 #pragma mark - Table view data source
@@ -94,11 +95,43 @@ static NSString *CellIdentifier = @"ProposalCell";
     Proposal *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
     [(ProposalCell*)cell setCurrentProposal:proposal];
     [(ProposalCell*)cell cfgViews];
+    [(ProposalCell*)cell progressView].value = 0;
     /*
-     cell.textLabel.text = feedItem.title;
-     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@",
-     feedItem.link, feedItem.text];
+    CGFloat currentProgress =  (proposal.yes / (proposal.yes + proposal.remainingYesVotesUntilFunding)) * 100;
+    CGFloat lastProgress = [[ProposalsManager sharedManager] lastProgressDisplayedForProposal:proposal];
+    
+    NSLog(@"%@ : %.2f - %.2f", proposal.title, currentProgress, lastProgress);
+    
+    if (lastProgress != currentProgress) {
+        [UIView animateWithDuration:1.f animations:^{
+            [(ProposalCell*)cell progressView].value = currentProgress;
+        }];
+    }
+    else {
+        [(ProposalCell*)cell progressView].value = currentProgress;
+    }
      */
+}
+
+-(void) tableView:(UITableView *) tableView willDisplayCell:(UITableViewCell *) cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Proposal *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
+    
+    CGFloat currentProgress =  (proposal.yes / (proposal.yes + proposal.remainingYesVotesUntilFunding)) * 100;
+    CGFloat lastProgress = [[ProposalsManager sharedManager] lastProgressDisplayedForProposal:proposal];
+    
+    if (lastProgress != currentProgress) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:1.f delay:CGFLOAT_MIN options:UIViewAnimationOptionTransitionNone animations:^{
+                [(ProposalCell*)cell progressView].value = currentProgress;
+            } completion:^(BOOL finished) {
+                [[ProposalsManager sharedManager] setLastProgressDisplayed:currentProgress forProposal:proposal];
+            }];
+        });
+    }
+    else {
+        [(ProposalCell*)cell progressView].value = currentProgress;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -153,7 +186,7 @@ static NSString *CellIdentifier = @"ProposalCell";
 #pragma mark - Table view delegate
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60;
+    return 100;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

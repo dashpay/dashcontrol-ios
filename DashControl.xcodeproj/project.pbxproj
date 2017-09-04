@@ -30,11 +30,13 @@
 		24E584141F3ADC4C00A12087 /* RSSFeedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E584131F3ADC4C00A12087 /* RSSFeedManager.m */; };
 		24E584181F3AF18A00A12087 /* RSSFeedListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E584171F3AF18A00A12087 /* RSSFeedListViewController.m */; };
 		24E5841C1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E5841A1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m */; };
+		24E67D161F5A7C8200D24EF8 /* comments_arrow_tmp.png in Resources */ = {isa = PBXBuildFile; fileRef = 24E67D141F5A7C8200D24EF8 /* comments_arrow_tmp.png */; };
+		24E67D171F5A7C8200D24EF8 /* month_remaining_paper_clip_tmp.png in Resources */ = {isa = PBXBuildFile; fileRef = 24E67D151F5A7C8200D24EF8 /* month_remaining_paper_clip_tmp.png */; };
 		24FE25491F4C7ECE00E32652 /* ChartDataImportManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE25481F4C7ECE00E32652 /* ChartDataImportManager.m */; };
 		24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE254B1F4C82C900E32652 /* PriceViewController.m */; };
 		24FE255D1F4CA97A00E32652 /* ChartDataEntry+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE255A1F4CA97A00E32652 /* ChartDataEntry+CoreDataClass.m */; };
 		24FE255E1F4CA97A00E32652 /* ChartDataEntry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE255C1F4CA97A00E32652 /* ChartDataEntry+CoreDataProperties.m */; };
-		68753706906DCBA53E9BE99B /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A836C63DE1ECE0489A2F142B /* libPods-DashControl.a */; };
+		62E27F8F13FB9922863E1DD8 /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9E24F74BBCB6E854741A54 /* libPods-DashControl.a */; };
 		FB84EDC21F32898700E4D400 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC11F32898700E4D400 /* main.m */; };
 		FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC41F32898700E4D400 /* AppDelegate.m */; };
 		FB84EDCE1F32898700E4D400 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDCC1F32898700E4D400 /* Main.storyboard */; };
@@ -82,6 +84,8 @@
 		24E584171F3AF18A00A12087 /* RSSFeedListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFeedListViewController.m; sourceTree = "<group>"; };
 		24E584191F3AFB0F00A12087 /* RSSFeedListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFeedListTableViewCell.h; sourceTree = "<group>"; };
 		24E5841A1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFeedListTableViewCell.m; sourceTree = "<group>"; };
+		24E67D141F5A7C8200D24EF8 /* comments_arrow_tmp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comments_arrow_tmp.png; sourceTree = "<group>"; };
+		24E67D151F5A7C8200D24EF8 /* month_remaining_paper_clip_tmp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = month_remaining_paper_clip_tmp.png; sourceTree = "<group>"; };
 		24FE25471F4C7ECE00E32652 /* ChartDataImportManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartDataImportManager.h; sourceTree = "<group>"; };
 		24FE25481F4C7ECE00E32652 /* ChartDataImportManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartDataImportManager.m; sourceTree = "<group>"; };
 		24FE254A1F4C82C900E32652 /* PriceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PriceViewController.h; sourceTree = "<group>"; };
@@ -91,8 +95,8 @@
 		24FE255B1F4CA97A00E32652 /* ChartDataEntry+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ChartDataEntry+CoreDataProperties.h"; sourceTree = "<group>"; };
 		24FE255C1F4CA97A00E32652 /* ChartDataEntry+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ChartDataEntry+CoreDataProperties.m"; sourceTree = "<group>"; };
 		481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
+		4E9E24F74BBCB6E854741A54 /* libPods-DashControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6385EAF7B5AD9CDA2429BFAE /* Pods-DashControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.debug.xcconfig"; sourceTree = "<group>"; };
-		A836C63DE1ECE0489A2F142B /* libPods-DashControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB84EDBD1F32898700E4D400 /* DashControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DashControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB84EDC11F32898700E4D400 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FB84EDC31F32898700E4D400 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -116,7 +120,7 @@
 				24B000441F5724B6007D24A1 /* SafariServices.framework in Frameworks */,
 				24E1D8DE1F4D742D00AE2C47 /* UserNotifications.framework in Frameworks */,
 				2485235B1F44A71B0027FBA6 /* WebKit.framework in Frameworks */,
-				68753706906DCBA53E9BE99B /* libPods-DashControl.a in Frameworks */,
+				62E27F8F13FB9922863E1DD8 /* libPods-DashControl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +144,8 @@
 				241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */,
 				2432DD9E1F54395600A14112 /* ProposalCell.h */,
 				2432DD9F1F54395600A14112 /* ProposalCell.m */,
+				24E67D141F5A7C8200D24EF8 /* comments_arrow_tmp.png */,
+				24E67D151F5A7C8200D24EF8 /* month_remaining_paper_clip_tmp.png */,
 				2448578F1F59CCBF004DE273 /* ProposalDetailViewController.h */,
 				244857901F59CCBF004DE273 /* ProposalDetailViewController.m */,
 			);
@@ -272,7 +278,7 @@
 				24B000431F5724B6007D24A1 /* SafariServices.framework */,
 				24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */,
 				2485235A1F44A71B0027FBA6 /* WebKit.framework */,
-				A836C63DE1ECE0489A2F142B /* libPods-DashControl.a */,
+				4E9E24F74BBCB6E854741A54 /* libPods-DashControl.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -403,8 +409,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				24B000461F57EA13007D24A1 /* dash_icon_tmp.png in Resources */,
+				24E67D161F5A7C8200D24EF8 /* comments_arrow_tmp.png in Resources */,
 				FB84EDD31F32898700E4D400 /* LaunchScreen.storyboard in Resources */,
 				FB84EDD01F32898700E4D400 /* Assets.xcassets in Resources */,
+				24E67D171F5A7C8200D24EF8 /* month_remaining_paper_clip_tmp.png in Resources */,
 				FB84EDCE1F32898700E4D400 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -54,12 +54,12 @@
         <attribute name="dwUrlComments" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="hashProposal" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="inNextBudget" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="monthlyAmount" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="monthlyAmount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="no" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="ownerUsername" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remainingPaymentCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="remainingYesVotesUntilFunding" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="remainingYesVotesUntilFunding" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="totalPaymentCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
