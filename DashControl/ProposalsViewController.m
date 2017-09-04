@@ -72,7 +72,7 @@ static NSString *CellIdentifier = @"ProposalCell";
     for (Proposal *proposal in proposals) {
         NSLog(@"Proposal:%@\rThe proposal has %tu comments", proposal.title, proposal.comments.count);
     }
-     */
+    */
 }
 
 #pragma mark - Table view data source
@@ -95,22 +95,7 @@ static NSString *CellIdentifier = @"ProposalCell";
     Proposal *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
     [(ProposalCell*)cell setCurrentProposal:proposal];
     [(ProposalCell*)cell cfgViews];
-    [(ProposalCell*)cell progressView].value = 0;
-    /*
-    CGFloat currentProgress =  (proposal.yes / (proposal.yes + proposal.remainingYesVotesUntilFunding)) * 100;
-    CGFloat lastProgress = [[ProposalsManager sharedManager] lastProgressDisplayedForProposal:proposal];
-    
-    NSLog(@"%@ : %.2f - %.2f", proposal.title, currentProgress, lastProgress);
-    
-    if (lastProgress != currentProgress) {
-        [UIView animateWithDuration:1.f animations:^{
-            [(ProposalCell*)cell progressView].value = currentProgress;
-        }];
-    }
-    else {
-        [(ProposalCell*)cell progressView].value = currentProgress;
-    }
-     */
+    [(ProposalCell*)cell progressView].value = proposal.lastProgressDisplayed;
 }
 
 -(void) tableView:(UITableView *) tableView willDisplayCell:(UITableViewCell *) cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -118,14 +103,15 @@ static NSString *CellIdentifier = @"ProposalCell";
     Proposal *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
     
     CGFloat currentProgress =  (proposal.yes / (proposal.yes + proposal.remainingYesVotesUntilFunding)) * 100;
-    CGFloat lastProgress = [[ProposalsManager sharedManager] lastProgressDisplayedForProposal:proposal];
-    
-    if (lastProgress != currentProgress) {
+
+    if (proposal.lastProgressDisplayed != currentProgress) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:1.f delay:CGFLOAT_MIN options:UIViewAnimationOptionTransitionNone animations:^{
                 [(ProposalCell*)cell progressView].value = currentProgress;
             } completion:^(BOOL finished) {
-                [[ProposalsManager sharedManager] setLastProgressDisplayed:currentProgress forProposal:proposal];
+                proposal.lastProgressDisplayed = currentProgress;
+                NSError *error = nil;
+                [self.managedObjectContext save:&error];
             }];
         });
     }
@@ -340,5 +326,6 @@ static NSString *CellIdentifier = @"ProposalCell";
     
     [self.tableView reloadData];
 }
+
 
 @end

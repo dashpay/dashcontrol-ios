@@ -54,6 +54,7 @@
         <attribute name="dwUrlComments" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="hashProposal" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="inNextBudget" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="lastProgressDisplayed" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="monthlyAmount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="no" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -73,6 +74,6 @@
         <element name="ChartDataEntry" positionX="-63" positionY="36" width="128" height="195"/>
         <element name="Comment" positionX="-54" positionY="144" width="128" height="225"/>
         <element name="Post" positionX="-63" positionY="-18" width="128" height="150"/>
-        <element name="Proposal" positionX="-63" positionY="81" width="128" height="405"/>
+        <element name="Proposal" positionX="-63" positionY="81" width="128" height="420"/>
     </elements>
 </model>

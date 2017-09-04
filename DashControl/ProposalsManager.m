@@ -11,8 +11,6 @@
 #define DASH_PROPOSALS_BUDGET_URL @"https://www.dashcentral.org/api/v1/budget"
 #define DASH_PROPOSAL_DETAIL_URL @"https://www.dashcentral.org/api/v1/proposal"
 
-#define UserDefaultProposalDisplayedProgress @"UserDefaultProposalDisplayedProgress"
-
 /**
  This creates a new query parameters string from the given NSDictionary. For
  example, if the input is @{@"day":@"Tuesday", @"month":@"January"}, the output
@@ -424,32 +422,6 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     } else {
         return nil;
     }
-}
-
-#pragma mark - Progress proposals
-
--(CGFloat)lastProgressDisplayedForProposal:(Proposal*_Nullable)proposal {
-    NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-    if ([defs dictionaryForKey:UserDefaultProposalDisplayedProgress]) {
-        if ([[defs dictionaryForKey:UserDefaultProposalDisplayedProgress] objectForKey:proposal.hashProposal]) {
-            return [[[defs dictionaryForKey:UserDefaultProposalDisplayedProgress] objectForKey:proposal.hashProposal] floatValue];
-        }
-    }
-    return 0.0f;
-}
--(void)setLastProgressDisplayed:(CGFloat)displayedProgressValue forProposal:(Proposal*_Nullable)proposal {
-    NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-    if ([defs dictionaryForKey:UserDefaultProposalDisplayedProgress]) {
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:[defs dictionaryForKey:UserDefaultProposalDisplayedProgress]];
-        [dic setObject:[NSNumber numberWithFloat:displayedProgressValue] forKey:proposal.hashProposal];
-        [defs setObject:dic forKey:UserDefaultProposalDisplayedProgress];
-    }
-    else {
-        NSMutableDictionary *dic = [NSMutableDictionary new];
-        [dic setObject:[NSNumber numberWithFloat:displayedProgressValue] forKey:proposal.hashProposal];
-        [defs setObject:dic forKey:UserDefaultProposalDisplayedProgress];
-    }
-    [defs synchronize];
 }
 
 @end

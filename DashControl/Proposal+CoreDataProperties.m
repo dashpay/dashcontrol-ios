@@ -2,7 +2,7 @@
 //  Proposal+CoreDataProperties.m
 //  DashControl
 //
-//  Created by Manuel Boyer on 23/08/2017.
+//  Created by Manuel Boyer on 05/09/2017.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
@@ -14,29 +14,30 @@
 	return [[NSFetchRequest alloc] initWithEntityName:@"Proposal"];
 }
 
-@dynamic hashProposal;
-@dynamic name;
-@dynamic url;
-@dynamic dwUrl;
-@dynamic dwUrlComments;
-@dynamic title;
+@dynamic abstain;
+@dynamic commentAmount;
 @dynamic dateAdded;
 @dynamic dateAddedHuman;
 @dynamic dateEnd;
-@dynamic votingDeadlineHuman;
-@dynamic willBeFunded;
-@dynamic remainingYesVotesUntilFunding;
-@dynamic inNextBudget;
-@dynamic monthlyAmount;
-@dynamic totalPaymentCount;
-@dynamic remainingPaymentCount;
-@dynamic yes;
-@dynamic no;
-@dynamic abstain;
-@dynamic commentAmount;
 @dynamic descriptionBase64Bb;
 @dynamic descriptionBase64Html;
+@dynamic dwUrl;
+@dynamic dwUrlComments;
+@dynamic hashProposal;
+@dynamic inNextBudget;
+@dynamic monthlyAmount;
+@dynamic name;
+@dynamic no;
 @dynamic ownerUsername;
+@dynamic remainingPaymentCount;
+@dynamic remainingYesVotesUntilFunding;
+@dynamic title;
+@dynamic totalPaymentCount;
+@dynamic url;
+@dynamic votingDeadlineHuman;
+@dynamic willBeFunded;
+@dynamic yes;
+@dynamic lastProgressDisplayed;
 @dynamic comments;
 
 @end
