@@ -32,45 +32,59 @@
 
 -(void)cfgViews {
     
-    //Name and Title string
+    //Name string
     if (TRUE) {
         NSString *nameString = self.currentProposal.name;
-        NSString *titleString = self.currentProposal.title;
-        
-        NSString *finalString = [NSString stringWithFormat:@"%@\n%@", nameString, titleString];
+
+        NSString *finalString = [NSString stringWithFormat:@"%@", nameString];
         NSMutableAttributedString *mutAttributedString = [[NSMutableAttributedString alloc] initWithString:finalString];
         
         NSRange nameStringRange = [finalString rangeOfString:nameString];
-        NSRange titleStringRange = [finalString rangeOfString:titleString];
-
+        
         [mutAttributedString beginEditing];
         [mutAttributedString addAttribute:NSFontAttributeName
                                     value:[UIFont systemFontOfSize:17 weight:UIFontWeightSemibold]
                                     range:nameStringRange];
-        [mutAttributedString addAttribute:NSFontAttributeName
-                                    value:[UIFont systemFontOfSize:13 weight:UIFontWeightRegular]
-                                    range:titleStringRange];
 
         [mutAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:nameStringRange];
-        [mutAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:titleStringRange];
 
         [mutAttributedString endEditing];
         
         [_labelName setAttributedText:mutAttributedString];
     }
     
-    //Dash per month string
+    //Title string
+    if (TRUE) {
+        NSString *titleString = self.currentProposal.title;
+        
+        NSString *finalString = [NSString stringWithFormat:@"%@", titleString];
+        NSMutableAttributedString *mutAttributedString = [[NSMutableAttributedString alloc] initWithString:finalString];
+        
+        NSRange titleStringRange = [finalString rangeOfString:titleString];
+        
+        [mutAttributedString beginEditing];
+        [mutAttributedString addAttribute:NSFontAttributeName
+                                    value:[UIFont systemFontOfSize:13 weight:UIFontWeightRegular]
+                                    range:titleStringRange];
+        
+        [mutAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:titleStringRange];
+        
+        [mutAttributedString endEditing];
+        
+        [_labelTitle setAttributedText:mutAttributedString];
+    }
+    
+    //Dash
     if (TRUE) {
         NSString *dashMonthlyAmountString = [NSString stringWithFormat:@"%d", self.currentProposal.monthlyAmount];
         NSString *dashString = NSLocalizedString(@"Dash", nil);
-        NSString *perMonthString = NSLocalizedString(@"per month", nil);
+
         
-        NSString *finalString = [NSString stringWithFormat:@"%@ %@\n %@", dashMonthlyAmountString, dashString, perMonthString];
+        NSString *finalString = [NSString stringWithFormat:@"%@ %@", dashMonthlyAmountString, dashString];
         NSMutableAttributedString *mutAttributedString = [[NSMutableAttributedString alloc] initWithString:finalString];
         
         NSRange dashMonthlyAmountStringRange = [finalString rangeOfString:dashMonthlyAmountString];
         NSRange dashStringRange = [finalString rangeOfString:dashString];
-        NSRange perMonthStringRange = [finalString rangeOfString:perMonthString];
         
         [mutAttributedString beginEditing];
         [mutAttributedString addAttribute:NSFontAttributeName
@@ -79,12 +93,27 @@
         [mutAttributedString addAttribute:NSFontAttributeName
                                     value:[UIFont systemFontOfSize:17 weight:UIFontWeightThin]
                                     range:dashStringRange];
+        
+        [mutAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:dashMonthlyAmountStringRange];
+        [mutAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:dashStringRange];
+        
+        [mutAttributedString endEditing];
+        
+        [_labelDashNumber setAttributedText:mutAttributedString];
+    }
+    if (TRUE) {
+        NSString *perMonthString = NSLocalizedString(@"per month", nil);
+        
+        NSString *finalString = [NSString stringWithFormat:@"%@", perMonthString];
+        NSMutableAttributedString *mutAttributedString = [[NSMutableAttributedString alloc] initWithString:finalString];
+        
+        NSRange perMonthStringRange = [finalString rangeOfString:perMonthString];
+        
+        [mutAttributedString beginEditing];
         [mutAttributedString addAttribute:NSFontAttributeName
                                     value:[UIFont systemFontOfSize:13 weight:UIFontWeightRegular]
                                     range:perMonthStringRange];
         
-        [mutAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:dashMonthlyAmountStringRange];
-        [mutAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:dashStringRange];
         [mutAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:perMonthStringRange];
         
         [mutAttributedString endEditing];
