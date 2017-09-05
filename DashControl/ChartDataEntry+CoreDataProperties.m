@@ -26,5 +26,6 @@
 @dynamic volume;
 @dynamic exchange;
 @dynamic market;
+@dynamic interval;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "DCCoreDataManager.h"
 
+
 @implementation DCCoreDataManager
 
 #pragma mark - Singleton Init Methods
@@ -28,22 +29,22 @@
     return self;
 }
 
--(NSArray *)fetchChartDataForExchangeIdentifier:(NSUInteger)exchangeIdentifier forMarketIdentifier:(NSUInteger)marketIdentifier startTime:(NSDate*)startTime endTime:(NSDate*)endTime inContext:(NSManagedObjectContext *)context error:(NSError**)error {
+-(NSArray *)fetchChartDataForExchangeIdentifier:(NSUInteger)exchangeIdentifier forMarketIdentifier:(NSUInteger)marketIdentifier interval:(ChartTimeInterval)timeInterval startTime:(NSDate*)startTime endTime:(NSDate*)endTime inContext:(NSManagedObjectContext *)context error:(NSError**)error {
     
     if (context) {
         NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"ChartDataEntry" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
-        NSMutableString * query = [@"(exchangeIdentifier == %@) AND (marketIdentifier == %@)" mutableCopy];
+        NSMutableString * query = [@"(exchangeIdentifier == %@) AND (marketIdentifier == %@) AND (interval == %d)" mutableCopy];
         if (startTime) {
             [query appendString:@" AND (time >= %@)"];
         }
         if (endTime) {
             [query appendString:@" AND (time <= %@)"];
         }
-        NSPredicate * predicate = [NSPredicate predicateWithFormat:query, @(exchangeIdentifier), @(marketIdentifier), startTime,endTime];
+        NSPredicate * predicate = [NSPredicate predicateWithFormat:query, @(exchangeIdentifier), @(marketIdentifier),timeInterval, startTime,endTime];
         request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"time" ascending:TRUE]];
-        //[request setPredicate:predicate];
+        [request setPredicate:predicate];
         
         NSArray *array = [context executeFetchRequest:request error:error];
         if (*error || array == nil)
@@ -53,7 +54,7 @@
         }
         return array;
     } else {
-        return [self fetchChartDataForExchangeIdentifier:exchangeIdentifier forMarketIdentifier:marketIdentifier startTime:startTime endTime:endTime inContext:self.mainObjectContext error:error];
+        return [self fetchChartDataForExchangeIdentifier:exchangeIdentifier forMarketIdentifier:marketIdentifier interval:timeInterval startTime:startTime endTime:endTime inContext:self.mainObjectContext error:error];
     }
     
 }

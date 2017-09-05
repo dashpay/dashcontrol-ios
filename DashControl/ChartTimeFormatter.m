@@ -21,7 +21,7 @@
     return [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:value]];
 }
 
--(NSTimeInterval)timeIntervalForChartTimeInterval:(ChartTimeInterval)timeInterval {
++(NSTimeInterval)timeIntervalForChartTimeInterval:(ChartTimeInterval)timeInterval {
     switch (timeInterval) {
         case ChartTimeInterval_5Mins:
             return 300;
@@ -38,28 +38,28 @@
     }
 }
 
--(NSTimeInterval)timeIntervalForChartTimeViewLength:(ChartTimeViewLength)chartTimeViewLength {
-    switch (chartTimeViewLength) {
-        case ChartTimeViewLength_6H:
++(NSTimeInterval)timeIntervalForChartTimeFrame:(ChartTimeFrame)chartTimeFrame {
+    switch (chartTimeFrame) {
+        case ChartTimeFrame_6H:
             return 21600;
-        case ChartTimeViewLength_24H:
+        case ChartTimeFrame_24H:
             return 86400;
-        case ChartTimeViewLength_2D:
+        case ChartTimeFrame_2D:
             return 172800;
-        case ChartTimeViewLength_4D:
+        case ChartTimeFrame_4D:
             return 345600;
-        case ChartTimeViewLength_1W:
+        case ChartTimeFrame_1W:
             return 604800;
-        case ChartTimeViewLength_1M:
+        case ChartTimeFrame_1M:
             return 2568400;
     }
 }
 
--(NSInteger)stepsForChartTimeInterval:(ChartTimeInterval)chartTimeInterval timeViewLength:(ChartTimeViewLength)chartTimeViewLength {
-    NSTimeInterval timeInterval = [self timeIntervalForChartTimeInterval:chartTimeInterval];
-    NSTimeInterval viewLength = [self timeIntervalForChartTimeViewLength:chartTimeViewLength];
-    if (viewLength < timeInterval) return 1;
-    return ceil(viewLength/timeInterval);
+-(NSInteger)stepsForChartTimeInterval:(ChartTimeInterval)chartTimeInterval timeFrame:(ChartTimeFrame)chartTimeFrame {
+    NSTimeInterval timeInterval = [ChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval];
+    NSTimeInterval Frame = [ChartTimeFormatter timeIntervalForChartTimeFrame:chartTimeFrame];
+    if (Frame < timeInterval) return 1;
+    return ceil(Frame/timeInterval);
 }
 
 -(void)maxIndexForChartTimeInterval:(NSDate *)date {

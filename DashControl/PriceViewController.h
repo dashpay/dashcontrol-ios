@@ -18,4 +18,8 @@
 
 - (void)updateChartData;
 
+-(IBAction)chooseInterval:(id)sender;
+
+-(IBAction)chooseTimeFrame:(id)sender;
+
 @end

@@ -10,6 +10,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "Market+CoreDataClass.h"
 #import "Exchange+CoreDataClass.h"
+#import "ChartTimeFormatter.h"
 
 #define DASHCONTROL_SERVER_VERSION 0
 
@@ -292,7 +293,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                 return;
             }
             NSError *e = nil;
-            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableLeaves error:&e];
+            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableContainers error:&e];
             
             if (!e) {
                 [self importJSONData:jsonArray forExchange:exchange andMarket:market clb:^void(NSError * error) {
@@ -339,18 +340,65 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             context.automaticallyMergesChangesFromParent = TRUE;
             context.mergePolicy = NSOverwriteMergePolicy;
             NSInteger count = 0;
+            
+#define FormatChartTimeInterval(x) [NSString stringWithFormat:@"CT%ld",(long)x]
+            
+            for (NSMutableDictionary *jsonObject in jsonArray) {
+                NSDate * date = [dateFormatter dateFromString:[jsonObject objectForKey:@"time"]];
+                NSTimeInterval timestamp = [date timeIntervalSince1970];
+                [jsonObject setObject:date forKey:@"time"];
+                [jsonObject setObject:@(floor(timestamp/900.0)) forKey:FormatChartTimeInterval(ChartTimeInterval_15Mins)];
+                [jsonObject setObject:@(floor(timestamp/1800.0)) forKey:FormatChartTimeInterval(ChartTimeInterval_30Mins)];
+                [jsonObject setObject:@(floor(timestamp/7200.0)) forKey:FormatChartTimeInterval(ChartTimeInterval_2Hour)];
+                [jsonObject setObject:@(floor(timestamp/14400.0)) forKey:FormatChartTimeInterval(ChartTimeInterval_4Hours)];
+                [jsonObject setObject:@(floor(timestamp/86400.0)) forKey:FormatChartTimeInterval(ChartTimeInterval_1Day)];
+            }
+            
+            
+            
+            for (int chartTimeInterval=1;chartTimeInterval<=ChartTimeInterval_1Day;chartTimeInterval++) {
+                @autoreleasepool {
+                    NSDictionary * jsonGroupedArray = [jsonArray mutableDictionaryOfMutableArraysReferencedByKeyPath:FormatChartTimeInterval(chartTimeInterval)];
+                    
+                    for (NSNumber *intervalNumber in jsonGroupedArray) {
+                        NSArray * intervalArray = [jsonGroupedArray objectForKey:intervalNumber];
+                        ChartDataEntry *chartDataEntry = (ChartDataEntry*)[NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
+                        chartDataEntry.time = [NSDate dateWithTimeIntervalSince1970:[[[intervalArray firstObject] objectForKey:FormatChartTimeInterval(chartTimeInterval)] doubleValue] * [ChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval]];
+                        chartDataEntry.open = [[[intervalArray firstObject] objectForKey:@"open"] doubleValue];
+                        chartDataEntry.high = [[intervalArray valueForKeyPath:@"@max.high"] doubleValue];
+                        chartDataEntry.low = [[intervalArray valueForKeyPath:@"@min.low"] doubleValue];
+                        chartDataEntry.close = [[[intervalArray lastObject] objectForKey:@"close"] doubleValue];
+                        chartDataEntry.volume = [[intervalArray valueForKeyPath:@"@sum.volume"] doubleValue];
+                        chartDataEntry.pairVolume = [[intervalArray valueForKeyPath:@"@sum.pairVolume"] doubleValue];
+                        chartDataEntry.trades = [[intervalArray valueForKeyPath:@"@sum.trades"] longValue];
+                        chartDataEntry.marketIdentifier = market.identifier;
+                        chartDataEntry.exchangeIdentifier = exchange.identifier;
+                        chartDataEntry.interval = chartTimeInterval;
+                        count++;
+                        if (count % 2016 == 0) { //one week of data
+                            if (![context save:&error]) {
+                                NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+                                abort();
+                            }
+                        }
+                    }
+                }
+            }
+            
+            
             for (NSDictionary *jsonObject in jsonArray) {
-                ChartDataEntry *chartDataEntry = [NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
-                chartDataEntry.time = [dateFormatter dateFromString:[jsonObject objectForKey:@"time"]];
+                ChartDataEntry *chartDataEntry = (ChartDataEntry*)[NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
+                chartDataEntry.time = [jsonObject objectForKey:@"time"];
                 chartDataEntry.open = [[jsonObject objectForKey:@"open"] doubleValue];
                 chartDataEntry.high = [[jsonObject objectForKey:@"high"] doubleValue];
                 chartDataEntry.low = [[jsonObject objectForKey:@"low"] doubleValue];
                 chartDataEntry.close = [[jsonObject objectForKey:@"close"] doubleValue];
                 chartDataEntry.volume = [[jsonObject objectForKey:@"volume"] doubleValue];
                 chartDataEntry.pairVolume = [[jsonObject objectForKey:@"pairVolume"] doubleValue];
-                chartDataEntry.trades = [[jsonObject objectForKey:@"trades"] intValue];
-                chartDataEntry.marketIdentifier = exchange.identifier;
+                chartDataEntry.trades = [[jsonObject objectForKey:@"trades"] longValue];
+                chartDataEntry.marketIdentifier = market.identifier;
                 chartDataEntry.exchangeIdentifier = exchange.identifier;
+                chartDataEntry.interval = ChartTimeInterval_5Mins;
                 count++;
                 if (count % 2016 == 0) { //one week of data
                     if (![context save:&error]) {

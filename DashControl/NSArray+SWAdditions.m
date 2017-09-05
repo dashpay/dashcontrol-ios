@@ -9,39 +9,21 @@
 
 @implementation NSArray (SWAdditions)
 
-- (NSDictionary *)dictionaryOfArraysReferencedByKeyPath:(NSString*)key {
-    NSMutableDictionary *mutableDictionary = [[NSMutableDictionary alloc] init];
-    for (NSManagedObject * object in self) {
-        if ([object valueForKey:key]) {
-            id lKey = [[object valueForKey:key] copy];
-            NSArray * arrayOfPreviousObjects = [mutableDictionary objectForKey:lKey];
-            if (arrayOfPreviousObjects) {
-                [mutableDictionary setObject:[arrayOfPreviousObjects arrayByAddingObject:object] forKey:lKey];
-            } else {
-                [mutableDictionary setObject:[NSArray arrayWithObject:object] forKey:lKey];
-            }
-        }
-    }
-    NSDictionary * rDictionary = [NSDictionary dictionaryWithDictionary:mutableDictionary];
-    return rDictionary;
-    
-}
 
-- (NSDictionary *)mutableDictionaryOfArraysReferencedByKeyPath:(NSString*)key {
+- (NSMutableDictionary *)mutableDictionaryOfMutableArraysReferencedByKeyPath:(NSString*)key {
     NSMutableDictionary *mutableDictionary = [[NSMutableDictionary alloc] init];
     for (NSManagedObject * object in self) {
         if ([object valueForKey:key]) {
             id lKey = [[object valueForKey:key] copy];
-            NSArray * arrayOfPreviousObjects = [mutableDictionary objectForKey:lKey];
+            NSMutableArray * arrayOfPreviousObjects = [mutableDictionary objectForKey:lKey];
             if (arrayOfPreviousObjects) {
-                [mutableDictionary setObject:[arrayOfPreviousObjects arrayByAddingObject:object] forKey:lKey];
+                [arrayOfPreviousObjects addObject:object];
             } else {
-                [mutableDictionary setObject:[NSArray arrayWithObject:object] forKey:lKey];
+                [mutableDictionary setObject:[NSMutableArray arrayWithObject:object] forKey:lKey];
             }
         }
     }
-    return (NSDictionary *)mutableDictionary;
-    
+    return mutableDictionary;
 }
 
 - (NSDictionary *)dictionaryReferencedByKeyPath:(NSString*)key {

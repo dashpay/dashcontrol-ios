@@ -18,18 +18,23 @@ typedef NS_ENUM(NSInteger, ChartTimeInterval) {
     ChartTimeInterval_1Day = 5
 };
 
-typedef NS_ENUM(NSInteger, ChartTimeViewLength) {
-    ChartTimeViewLength_6H = 0,
-    ChartTimeViewLength_24H = 1,
-    ChartTimeViewLength_2D = 2,
-    ChartTimeViewLength_4D = 3,
-    ChartTimeViewLength_1W = 4,
-    ChartTimeViewLength_1M = 5
+typedef NS_ENUM(NSInteger, ChartTimeFrame) {
+    ChartTimeFrame_6H = 0,
+    ChartTimeFrame_24H = 1,
+    ChartTimeFrame_2D = 2,
+    ChartTimeFrame_4D = 3,
+    ChartTimeFrame_1W = 4,
+    ChartTimeFrame_1M = 5
 };
 
 
 @interface ChartTimeFormatter : NSObject <IChartAxisValueFormatter>
 
--(NSInteger)stepsForChartTimeInterval:(ChartTimeInterval)timeInterval timeViewLength:(ChartTimeViewLength)viewLength;
+-(NSInteger)stepsForChartTimeInterval:(ChartTimeInterval)timeInterval timeFrame:(ChartTimeFrame)TimeFrame;
+
+
++(NSTimeInterval)timeIntervalForChartTimeInterval:(ChartTimeInterval)timeInterval;
+
++(NSTimeInterval)timeIntervalForChartTimeFrame:(ChartTimeFrame)chartTimeFrame;
 
 @end

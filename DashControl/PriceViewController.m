@@ -17,6 +17,11 @@
 @property (nonatomic, strong) IBOutlet CandleStickChartView *chartView;
 @property (nonatomic, strong) IBOutlet UIButton *optionsButton;
 @property (nonatomic, strong) IBOutlet NSArray *options;
+@property (nonatomic, strong) Market * selectedMarket;
+@property (nonatomic, strong) Exchange * selectedExchange;
+@property (nonatomic, assign) ChartTimeInterval timeInterval;
+@property (nonatomic, strong) NSDate * startTime;
+@property (nonatomic, strong) NSDate * endTime;
 
 @end
 
@@ -52,7 +57,7 @@
     
     ChartTimeFormatter * chartTimeFormatter = [[ChartTimeFormatter alloc] init];
     
-    NSInteger steps = [chartTimeFormatter stepsForChartTimeInterval:ChartTimeInterval_5Mins timeViewLength:ChartTimeViewLength_6H];
+    NSInteger steps = [chartTimeFormatter stepsForChartTimeInterval:ChartTimeInterval_5Mins timeFrame:ChartTimeFrame_6H];
     
     ChartXAxis *xAxis = _chartView.xAxis;
     xAxis.labelPosition = XAxisLabelPositionBottom;
@@ -81,7 +86,12 @@
         Market * currentMarket = [[DCCoreDataManager sharedManager] marketNamed:[currentExchangeMarketPair objectForKey:@"market"] inContext:self.managedObjectContext error:&error];
         Exchange * currentExchange = error?nil:[[DCCoreDataManager sharedManager] exchangeNamed:[currentExchangeMarketPair objectForKey:@"exchange"] inContext:self.managedObjectContext error:&error];
         if (!error) {
-            [self updateChartDataForExchange:currentExchange forMarket:currentMarket startTime:nil endTime:nil];
+            self.selectedMarket = currentMarket;
+            self.selectedExchange = currentExchange;
+            self.timeInterval = ChartTimeInterval_5Mins;
+            self.startTime = [NSDate dateWithTimeIntervalSinceNow:-[ChartTimeFormatter timeIntervalForChartTimeFrame:ChartTimeFrame_6H]];
+            self.endTime = nil;
+            [self updateChartData];
         }
     }
 }
@@ -100,7 +110,7 @@
     }
 }
 
-- (void)updateChartDataForExchange:(Exchange*)exchange forMarket:(Market*)market startTime:(NSDate*)startTime endTime:(NSDate*)endTime
+- (void)updateChartData
 {
     if (self.shouldHideData)
     {
@@ -108,7 +118,7 @@
         return;
     }
     NSError * error = nil;
-    NSArray * chartData = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:exchange.identifier        forMarketIdentifier:market.identifier startTime:nil endTime:nil inContext:self.managedObjectContext error:&error] ;
+    NSArray * chartData = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:self.selectedExchange.identifier        forMarketIdentifier:self.selectedMarket.identifier interval:self.timeInterval startTime:self.startTime endTime:self.endTime inContext:self.managedObjectContext error:&error] ;
     if (!error) {
         NSMutableArray *charDataPoints = [[NSMutableArray alloc] init];
         
@@ -117,7 +127,6 @@
             ChartDataEntry * entry = [chartData objectAtIndex:i];
             
             [charDataPoints addObject:[[CandleChartDataEntry alloc] initWithX:i shadowH:entry.high shadowL:entry.low open:entry.open close:entry.close icon: [UIImage imageNamed:@"icon"]]];
-            NSLog(@"%@",entry);
         }
         
         CandleChartDataSet *set1 = [[CandleChartDataSet alloc] initWithValues:charDataPoints label:@"Data Set"];
@@ -128,43 +137,13 @@
         
         set1.shadowColor = UIColor.darkGrayColor;
         set1.shadowWidth = 0.7;
-        set1.decreasingColor = UIColor.redColor;
+        set1.decreasingColor = [UIColor colorWithRed:164/255.f green:32/255.f blue:21/255.f alpha:1.f];
         set1.decreasingFilled = YES;
-        set1.increasingColor = [UIColor colorWithRed:122/255.f green:242/255.f blue:84/255.f alpha:1.f];
-        set1.increasingFilled = NO;
+        set1.increasingColor = [UIColor colorWithRed:51/255.f green:147/255.f blue:73/255.f alpha:1.f];
+        set1.increasingFilled = YES;
         set1.neutralColor = UIColor.blueColor;
         
         CandleChartData *data = [[CandleChartData alloc] initWithDataSet:set1];
-        
-        //    NSMutableArray *yVals1 = [[NSMutableArray alloc] init];
-        //
-        //    for (int i = 0; i < 100; i++)
-        //    {
-        //        double mult = (100 + 1);
-        //        double val = (double) (arc4random_uniform(40)) + mult;
-        //        double high = (double) (arc4random_uniform(9)) + 8.0;
-        //        double low = (double) (arc4random_uniform(9)) + 8.0;
-        //        double open = (double) (arc4random_uniform(6)) + 1.0;
-        //        double close = (double) (arc4random_uniform(6)) + 1.0;
-        //        BOOL even = i % 2 == 0;
-        //        [yVals1 addObject:[[CandleChartDataEntry alloc] initWithX:i shadowH:val + high shadowL:val - low open:even ? val + open : val - open close:even ? val - close : val + close icon: [UIImage imageNamed:@"icon"]]];
-        //    }
-        //
-        //    CandleChartDataSet *set1 = [[CandleChartDataSet alloc] initWithValues:yVals1 label:@"Data Set"];
-        //    set1.axisDependency = AxisDependencyLeft;
-        //    [set1 setColor:[UIColor colorWithWhite:80/255.f alpha:1.f]];
-        //
-        //    set1.drawIconsEnabled = NO;
-        //
-        //    set1.shadowColor = UIColor.darkGrayColor;
-        //    set1.shadowWidth = 0.7;
-        //    set1.decreasingColor = UIColor.redColor;
-        //    set1.decreasingFilled = YES;
-        //    set1.increasingColor = [UIColor colorWithRed:122/255.f green:242/255.f blue:84/255.f alpha:1.f];
-        //    set1.increasingFilled = NO;
-        //    set1.neutralColor = UIColor.blueColor;
-        //
-        //    CandleChartData *data = [[CandleChartData alloc] initWithDataSet:set1];
         
         _chartView.data = data;
     }
@@ -274,6 +253,18 @@
 }
 
 #pragma mark - Actions
+
+-(IBAction)chooseInterval:(id)sender {
+    self.timeInterval = [((UISegmentedControl*)sender) selectedSegmentIndex];
+    [self updateChartData];
+}
+
+-(IBAction)chooseTimeFrame:(id)sender {
+    ChartTimeFrame chartTimeFrame = [((UISegmentedControl*)sender) selectedSegmentIndex];
+    NSTimeInterval timeFrame = [ChartTimeFormatter timeIntervalForChartTimeFrame:chartTimeFrame];
+    self.startTime = [NSDate dateWithTimeIntervalSinceNow:-timeFrame];
+    [self updateChartData];
+}
 
 #pragma mark - ChartViewDelegate
 

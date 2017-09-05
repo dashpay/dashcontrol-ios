@@ -33,9 +33,7 @@
 
 - (NSMutableArray *)mutableArrayReferencedByKeyPath:(NSString*)key;
 
-- (NSDictionary *)dictionaryOfArraysReferencedByKeyPath:(NSString*)key;
-
-- (NSDictionary *)mutableDictionaryOfArraysReferencedByKeyPath:(NSString*)key;
+- (NSMutableDictionary *)mutableDictionaryOfMutableArraysReferencedByKeyPath:(NSString*)key;
 
 - (NSArray *)arrayByRemovingObjectsFromArray:(NSArray*)arrayOfElementsToRemove;
 
