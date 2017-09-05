@@ -2,7 +2,7 @@
 //  ChartDataEntry+CoreDataProperties.m
 //  DashControl
 //
-//  Created by Manuel Boyer on 23/08/2017.
+//  Created by Sam Westrich on 9/4/17.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
@@ -15,14 +15,16 @@
 }
 
 @dynamic close;
-@dynamic exchange;
+@dynamic exchangeIdentifier;
 @dynamic high;
 @dynamic low;
-@dynamic market;
+@dynamic marketIdentifier;
 @dynamic open;
 @dynamic pairVolume;
 @dynamic time;
 @dynamic trades;
 @dynamic volume;
+@dynamic exchange;
+@dynamic market;
 
 @end

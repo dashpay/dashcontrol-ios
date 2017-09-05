@@ -2,12 +2,14 @@
 //  ChartDataEntry+CoreDataClass.h
 //  DashControl
 //
-//  Created by Manuel Boyer on 23/08/2017.
+//  Created by Sam Westrich on 9/4/17.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+
+@class Exchange, Market;
 
 NS_ASSUME_NONNULL_BEGIN
 

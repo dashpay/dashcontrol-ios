@@ -17,5 +17,6 @@
 @dynamic identifier;
 @dynamic name;
 @dynamic markets;
+@dynamic chartData;
 
 @end

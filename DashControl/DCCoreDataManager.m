@@ -28,30 +28,32 @@
     return self;
 }
 
--(NSArray *)fetchChartDataForExchange:(Exchange*)exchange forMarket:(Market*)market startTime:(NSDate*)startTime endTime:(NSDate*)endTime inContext:(NSManagedObjectContext *)context error:(NSError**)error {
+-(NSArray *)fetchChartDataForExchangeIdentifier:(NSUInteger)exchangeIdentifier forMarketIdentifier:(NSUInteger)marketIdentifier startTime:(NSDate*)startTime endTime:(NSDate*)endTime inContext:(NSManagedObjectContext *)context error:(NSError**)error {
     
     if (context) {
         NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"ChartDataEntry" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
-        NSMutableString * query = [@"(exchange == %d) AND (market == %d)" mutableCopy];
+        NSMutableString * query = [@"(exchangeIdentifier == %@) AND (marketIdentifier == %@)" mutableCopy];
         if (startTime) {
             [query appendString:@" AND (time >= %@)"];
         }
         if (endTime) {
             [query appendString:@" AND (time <= %@)"];
         }
-        NSPredicate * predicate = [NSPredicate predicateWithFormat:query, exchange, market, startTime,endTime];
-        [request setPredicate:predicate];
+        NSPredicate * predicate = [NSPredicate predicateWithFormat:query, @(exchangeIdentifier), @(marketIdentifier), startTime,endTime];
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"time" ascending:TRUE]];
+        //[request setPredicate:predicate];
         
         NSArray *array = [context executeFetchRequest:request error:error];
         if (*error || array == nil)
         {
             NSLog(@"Error while fetching %@ with predicate %@", entityDescription.name, predicate);
+            return [NSArray array];
         }
         return array;
     } else {
-        return [self fetchChartDataForExchange:exchange forMarket:market startTime:startTime endTime:endTime inContext:self.mainObjectContext error:error];
+        return [self fetchChartDataForExchangeIdentifier:exchangeIdentifier forMarketIdentifier:marketIdentifier startTime:startTime endTime:endTime inContext:self.mainObjectContext error:error];
     }
     
 }
@@ -94,6 +96,24 @@
     }
 }
 
+-(NSArray* _Nonnull)allMarketsInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+    if (context) {
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Market" inManagedObjectContext:context];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entityDescription];
+        
+        NSArray *array = [context executeFetchRequest:request error:error];
+        if (*error || array == nil)
+        {
+            NSLog(@"Error while fetching market names");
+            return [NSArray array];
+        }
+        return array;
+    } else {
+        return [self allMarketsInContext:self.mainObjectContext error:error];
+    }
+}
+
 -(NSArray* _Nonnull)marketsForNames:(NSArray* _Nonnull)names inContext:(NSManagedObjectContext * _Nullable)context error:(NSError**)error {
     if (context) {
         NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Market" inManagedObjectContext:context];
@@ -129,6 +149,86 @@
         return array;
     } else {
         return [self exchangesForNames:names inContext:self.mainObjectContext error:error];
+    }
+}
+
+-(Market* _Nullable)marketNamed:(NSString* _Nonnull)marketName inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+    if (context) {
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Market" inManagedObjectContext:context];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entityDescription];
+        request.predicate = [NSPredicate predicateWithFormat:@"name = %@",marketName];
+        
+        NSArray *array = [context executeFetchRequest:request error:error];
+        if (*error || array == nil)
+        {
+            NSLog(@"Error while fetching exchange names");
+            return nil;
+        }
+        if (![array count]) return nil;
+        return [array objectAtIndex:0];
+    } else {
+        return [self marketNamed:marketName inContext:self.mainObjectContext error:error];
+    }
+}
+
+-(Exchange* _Nullable)exchangeNamed:(NSString* _Nonnull)exchangeName inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+    if (context) {
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Exchange" inManagedObjectContext:context];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entityDescription];
+        request.predicate = [NSPredicate predicateWithFormat:@"name = %@",exchangeName];
+        
+        NSArray *array = [context executeFetchRequest:request error:error];
+        if (*error || array == nil)
+        {
+            NSLog(@"Error while fetching exchange names");
+            return nil;
+        }
+        if (![array count]) return nil;
+        return [array objectAtIndex:0];
+    } else {
+        return [self exchangeNamed:exchangeName inContext:self.mainObjectContext error:error];
+    }
+}
+
+-(Market* _Nullable)marketWithIdentifier:(NSUInteger)marketIdentifier inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error{
+    if (context) {
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Market" inManagedObjectContext:context];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entityDescription];
+        request.predicate = [NSPredicate predicateWithFormat:@"identifier = %d",marketIdentifier];
+        
+        NSArray *array = [context executeFetchRequest:request error:error];
+        if (*error || array == nil)
+        {
+            NSLog(@"Error while fetching exchange names");
+            return nil;
+        }
+        if (![array count]) return nil;
+        return [array objectAtIndex:0];
+    } else {
+        return [self marketWithIdentifier:marketIdentifier inContext:self.mainObjectContext error:error];
+    }
+}
+
+-(Exchange* _Nullable)exchangeWithIdentifier:(NSUInteger)exchangeIdentifier inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+    if (context) {
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Exchange" inManagedObjectContext:context];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entityDescription];
+        request.predicate = [NSPredicate predicateWithFormat:@"identifier = %d",exchangeIdentifier];
+        
+        NSArray *array = [context executeFetchRequest:request error:error];
+        if (*error || array == nil)
+        {
+            NSLog(@"Error while fetching exchange names");
+            return nil;
+        }
+        if (![array count]) return nil;
+        return [array objectAtIndex:0];
+    } else {
+        return [self exchangeWithIdentifier:exchangeIdentifier inContext:self.mainObjectContext error:error];
     }
 }
 

@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int16_t identifier;
 @property (nullable, nonatomic, copy) NSString *name;
 @property (nullable, nonatomic, retain) NSSet<Market *> *markets;
+@property (nullable, nonatomic, retain) NSSet<ChartDataEntry *> *chartData;
 
 @end
 
@@ -27,6 +28,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeMarketsObject:(Market *)value;
 - (void)addMarkets:(NSSet<Market *> *)values;
 - (void)removeMarkets:(NSSet<Market *> *)values;
+
+- (void)addChartDataObject:(ChartDataEntry *)value;
+- (void)removeChartDataObject:(ChartDataEntry *)value;
+- (void)addChartData:(NSSet<ChartDataEntry *> *)values;
+- (void)removeChartData:(NSSet<ChartDataEntry *> *)values;
 
 @end
 

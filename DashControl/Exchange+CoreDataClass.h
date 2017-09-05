@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Market;
+@class ChartDataEntry, Market;
 
 NS_ASSUME_NONNULL_BEGIN
 

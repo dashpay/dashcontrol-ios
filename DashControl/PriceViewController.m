@@ -57,8 +57,8 @@
     ChartXAxis *xAxis = _chartView.xAxis;
     xAxis.labelPosition = XAxisLabelPositionBottom;
     xAxis.drawGridLinesEnabled = NO;
-//    xAxis.axisMinimum = 1;
-//    xAxis.axisMaximum = steps;
+    //    xAxis.axisMinimum = 1;
+    //    xAxis.axisMaximum = steps;
     //[xAxis setValueFormatter:dateFormatter];
     
     ChartYAxis *leftAxis = _chartView.leftAxis;
@@ -70,8 +70,20 @@
     rightAxis.enabled = NO;
     
     _chartView.legend.enabled = NO;
-    
-    [self updateChartData];
+    NSUserDefaults * standardDefaults = [NSUserDefaults standardUserDefaults];
+    [standardDefaults addObserver:self
+                       forKeyPath:CURRENT_EXCHANGE_MARKET_PAIR
+                          options:NSKeyValueObservingOptionNew
+                          context:NULL];
+    if ([standardDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR]) {
+        NSError * error = nil;
+        NSDictionary * currentExchangeMarketPair = [standardDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR];
+        Market * currentMarket = [[DCCoreDataManager sharedManager] marketNamed:[currentExchangeMarketPair objectForKey:@"market"] inContext:self.managedObjectContext error:&error];
+        Exchange * currentExchange = error?nil:[[DCCoreDataManager sharedManager] exchangeNamed:[currentExchangeMarketPair objectForKey:@"exchange"] inContext:self.managedObjectContext error:&error];
+        if (!error) {
+            [self updateChartDataForExchange:currentExchange forMarket:currentMarket startTime:nil endTime:nil];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,72 +92,82 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)updateChartData
+- (void)observeValueForKeyPath:(NSString *) keyPath ofObject:(id) object change:(NSDictionary *) change context:(void *) context
+{
+    if([keyPath isEqual:CURRENT_EXCHANGE_MARKET_PAIR])
+    {
+        NSLog(@"SomeKey change: %@", change);
+    }
+}
+
+- (void)updateChartDataForExchange:(Exchange*)exchange forMarket:(Market*)market startTime:(NSDate*)startTime endTime:(NSDate*)endTime
 {
     if (self.shouldHideData)
     {
         _chartView.data = nil;
         return;
     }
-//    NSError * error = nil;
-//    NSArray * chartData = [[DCCoreDataManager sharedManager] fetchChartDataForExchange:1 forMarket:3 startTime:nil endTime:nil inContext:self.managedObjectContext error:&error] ;
-//    if (!error) {
-//    NSMutableArray *charDataPoints = [[NSMutableArray alloc] init];
-//    
-//    for (int i = 0; i < chartData.count; i++)
-//    {
-//        ChartDataEntry * entry = [chartData objectAtIndex:0];
-//        [charDataPoints addObject:[[CandleChartDataEntry alloc] initWithX:i shadowH:entry.high shadowL:entry.low open:entry.open close:entry.close icon: [UIImage imageNamed:@"icon"]]];
-//    }
-//    
-//    CandleChartDataSet *set1 = [[CandleChartDataSet alloc] initWithValues:charDataPoints label:@"Data Set"];
-//    set1.axisDependency = AxisDependencyLeft;
-//    [set1 setColor:[UIColor colorWithWhite:80/255.f alpha:1.f]];
-//    
-//    set1.drawIconsEnabled = NO;
-//    
-//    set1.shadowColor = UIColor.darkGrayColor;
-//    set1.shadowWidth = 0.7;
-//    set1.decreasingColor = UIColor.redColor;
-//    set1.decreasingFilled = YES;
-//    set1.increasingColor = [UIColor colorWithRed:122/255.f green:242/255.f blue:84/255.f alpha:1.f];
-//    set1.increasingFilled = NO;
-//    set1.neutralColor = UIColor.blueColor;
-//    
-//    CandleChartData *data = [[CandleChartData alloc] initWithDataSet:set1];
-    
-//    NSMutableArray *yVals1 = [[NSMutableArray alloc] init];
-//    
-//    for (int i = 0; i < 100; i++)
-//    {
-//        double mult = (100 + 1);
-//        double val = (double) (arc4random_uniform(40)) + mult;
-//        double high = (double) (arc4random_uniform(9)) + 8.0;
-//        double low = (double) (arc4random_uniform(9)) + 8.0;
-//        double open = (double) (arc4random_uniform(6)) + 1.0;
-//        double close = (double) (arc4random_uniform(6)) + 1.0;
-//        BOOL even = i % 2 == 0;
-//        [yVals1 addObject:[[CandleChartDataEntry alloc] initWithX:i shadowH:val + high shadowL:val - low open:even ? val + open : val - open close:even ? val - close : val + close icon: [UIImage imageNamed:@"icon"]]];
-//    }
-//    
-//    CandleChartDataSet *set1 = [[CandleChartDataSet alloc] initWithValues:yVals1 label:@"Data Set"];
-//    set1.axisDependency = AxisDependencyLeft;
-//    [set1 setColor:[UIColor colorWithWhite:80/255.f alpha:1.f]];
-//    
-//    set1.drawIconsEnabled = NO;
-//    
-//    set1.shadowColor = UIColor.darkGrayColor;
-//    set1.shadowWidth = 0.7;
-//    set1.decreasingColor = UIColor.redColor;
-//    set1.decreasingFilled = YES;
-//    set1.increasingColor = [UIColor colorWithRed:122/255.f green:242/255.f blue:84/255.f alpha:1.f];
-//    set1.increasingFilled = NO;
-//    set1.neutralColor = UIColor.blueColor;
-//    
-//    CandleChartData *data = [[CandleChartData alloc] initWithDataSet:set1];
-    
-    //_chartView.data = data;
-    //}
+    NSError * error = nil;
+    NSArray * chartData = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:exchange.identifier        forMarketIdentifier:market.identifier startTime:nil endTime:nil inContext:self.managedObjectContext error:&error] ;
+    if (!error) {
+        NSMutableArray *charDataPoints = [[NSMutableArray alloc] init];
+        
+        for (int i = 0; i < chartData.count; i++)
+        {
+            ChartDataEntry * entry = [chartData objectAtIndex:i];
+            
+            [charDataPoints addObject:[[CandleChartDataEntry alloc] initWithX:i shadowH:entry.high shadowL:entry.low open:entry.open close:entry.close icon: [UIImage imageNamed:@"icon"]]];
+            NSLog(@"%@",entry);
+        }
+        
+        CandleChartDataSet *set1 = [[CandleChartDataSet alloc] initWithValues:charDataPoints label:@"Data Set"];
+        set1.axisDependency = AxisDependencyLeft;
+        [set1 setColor:[UIColor colorWithWhite:80/255.f alpha:1.f]];
+        
+        set1.drawIconsEnabled = NO;
+        
+        set1.shadowColor = UIColor.darkGrayColor;
+        set1.shadowWidth = 0.7;
+        set1.decreasingColor = UIColor.redColor;
+        set1.decreasingFilled = YES;
+        set1.increasingColor = [UIColor colorWithRed:122/255.f green:242/255.f blue:84/255.f alpha:1.f];
+        set1.increasingFilled = NO;
+        set1.neutralColor = UIColor.blueColor;
+        
+        CandleChartData *data = [[CandleChartData alloc] initWithDataSet:set1];
+        
+        //    NSMutableArray *yVals1 = [[NSMutableArray alloc] init];
+        //
+        //    for (int i = 0; i < 100; i++)
+        //    {
+        //        double mult = (100 + 1);
+        //        double val = (double) (arc4random_uniform(40)) + mult;
+        //        double high = (double) (arc4random_uniform(9)) + 8.0;
+        //        double low = (double) (arc4random_uniform(9)) + 8.0;
+        //        double open = (double) (arc4random_uniform(6)) + 1.0;
+        //        double close = (double) (arc4random_uniform(6)) + 1.0;
+        //        BOOL even = i % 2 == 0;
+        //        [yVals1 addObject:[[CandleChartDataEntry alloc] initWithX:i shadowH:val + high shadowL:val - low open:even ? val + open : val - open close:even ? val - close : val + close icon: [UIImage imageNamed:@"icon"]]];
+        //    }
+        //
+        //    CandleChartDataSet *set1 = [[CandleChartDataSet alloc] initWithValues:yVals1 label:@"Data Set"];
+        //    set1.axisDependency = AxisDependencyLeft;
+        //    [set1 setColor:[UIColor colorWithWhite:80/255.f alpha:1.f]];
+        //
+        //    set1.drawIconsEnabled = NO;
+        //
+        //    set1.shadowColor = UIColor.darkGrayColor;
+        //    set1.shadowWidth = 0.7;
+        //    set1.decreasingColor = UIColor.redColor;
+        //    set1.decreasingFilled = YES;
+        //    set1.increasingColor = [UIColor colorWithRed:122/255.f green:242/255.f blue:84/255.f alpha:1.f];
+        //    set1.increasingFilled = NO;
+        //    set1.neutralColor = UIColor.blueColor;
+        //
+        //    CandleChartData *data = [[CandleChartData alloc] initWithDataSet:set1];
+        
+        _chartView.data = data;
+    }
 }
 
 #pragma mark - Common option actions

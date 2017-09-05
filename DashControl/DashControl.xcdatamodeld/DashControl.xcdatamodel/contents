@@ -9,19 +9,26 @@
     </entity>
     <entity name="ChartDataEntry" representedClassName="ChartDataEntry" syncable="YES">
         <attribute name="close" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="exchange" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="exchangeIdentifier" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="high" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="low" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="market" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="marketIdentifier" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="open" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="pairVolume" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="time" attributeType="Date" minDateTimeInterval="220813200" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="trades" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="volume" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="exchangeIdentifier"/>
+                <index value="marketIdentifier"/>
+                <index value="time"/>
+            </compoundIndex>
+        </compoundIndexes>
         <uniquenessConstraints>
             <uniquenessConstraint>
-                <constraint value="exchange"/>
-                <constraint value="market"/>
+                <constraint value="exchangeIdentifier"/>
+                <constraint value="marketIdentifier"/>
                 <constraint value="time"/>
             </uniquenessConstraint>
         </uniquenessConstraints>

@@ -7,6 +7,8 @@
 //
 
 #import "Market+CoreDataClass.h"
+#import "ChartDataEntry+CoreDataClass.h"
+
 #import "Exchange+CoreDataClass.h"
 
 @implementation Market

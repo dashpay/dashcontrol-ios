@@ -17,5 +17,6 @@
 @dynamic identifier;
 @dynamic name;
 @dynamic onExchanges;
+@dynamic chartData;
 
 @end

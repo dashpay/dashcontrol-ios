@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define CURRENT_EXCHANGE_MARKET_PAIR @"CURRENT_EXCHANGE_MARKET_PAIR"
+
 @interface DCBackendManager : NSObject
 
 @property (nonatomic, strong) NSManagedObjectContext * _Nullable mainObjectContext;

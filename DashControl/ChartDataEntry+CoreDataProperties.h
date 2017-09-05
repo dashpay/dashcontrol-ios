@@ -2,7 +2,7 @@
 //  ChartDataEntry+CoreDataProperties.h
 //  DashControl
 //
-//  Created by Manuel Boyer on 23/08/2017.
+//  Created by Sam Westrich on 9/4/17.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
@@ -16,15 +16,17 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSFetchRequest<ChartDataEntry *> *)fetchRequest;
 
 @property (nonatomic) double close;
-@property (nonatomic) int32_t exchange;
+@property (nonatomic) int16_t exchangeIdentifier;
 @property (nonatomic) double high;
 @property (nonatomic) double low;
-@property (nonatomic) int32_t market;
+@property (nonatomic) int16_t marketIdentifier;
 @property (nonatomic) double open;
 @property (nonatomic) double pairVolume;
 @property (nullable, nonatomic, copy) NSDate *time;
-@property (nonatomic) int32_t trades;
+@property (nonatomic) int16_t trades;
 @property (nonatomic) double volume;
+@property (nullable, nonatomic, retain) Exchange *exchange;
+@property (nullable, nonatomic, retain) Market *market;
 
 @end
 
