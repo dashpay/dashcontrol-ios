@@ -14,8 +14,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    [[_buttonComments imageView] setContentMode: UIViewContentModeScaleAspectFit];
-    [[_buttonMonths imageView] setContentMode: UIViewContentModeScaleAspectFit];
     
     //Configure the progress view
     _progressView.progressLineWidth = 2;
