@@ -35,6 +35,8 @@ static NSString *CellIdentifier = @"ProposalCell";
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         exit(-1);  // Fail
     }
+    
+    [self forceTouchIntialize];
 }
 
 - (void)viewDidUnload
@@ -187,6 +189,7 @@ static NSString *CellIdentifier = @"ProposalCell";
      {
          //Get reference to the destination view controller
          ProposalDetailViewController *vc = [segue destinationViewController];
+         [vc setManagedObjectContext:self.managedObjectContext];
          [vc setCurrentProposal:[(ProposalCell*)sender currentProposal]];
      }
 }
@@ -325,6 +328,55 @@ static NSString *CellIdentifier = @"ProposalCell";
     }
     
     [self.tableView reloadData];
+}
+
+#pragma mark - 3D Touch
+-(void)forceTouchIntialize{
+    if ([self isForceTouchAvailable]) {
+        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
+}
+
+- (BOOL)isForceTouchAvailable {
+    BOOL isForceTouchAvailable = NO;
+    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)]) {
+        isForceTouchAvailable = self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
+    }
+    return isForceTouchAvailable;
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    if ([self isForceTouchAvailable]) {
+        if (!self.previewingContext) {
+            self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
+        }
+    } else {
+        if (self.previewingContext) {
+            [self unregisterForPreviewingWithContext:self.previewingContext];
+            self.previewingContext = nil;
+        }
+    }
+}
+
+- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing> )previewingContext viewControllerForLocation:(CGPoint)location{
+    
+    CGPoint cellPostion = [self.tableView convertPoint:location fromView:self.view];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:cellPostion];
+    if (indexPath) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        Proposal *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
+        SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:proposal.dwUrl]];
+        svc.delegate = self;
+        [svc registerForPreviewingWithDelegate:self sourceView:self.view];
+        previewingContext.sourceRect = [self.view convertRect:cell.frame fromView:self.tableView];
+        return svc;
+    }
+    
+    return nil;
+}
+-(void)previewingContext:(id )previewingContext commitViewController: (UIViewController *)viewControllerToCommit {
+    [self.navigationController showViewController:viewControllerToCommit sender:nil];
 }
 
 
