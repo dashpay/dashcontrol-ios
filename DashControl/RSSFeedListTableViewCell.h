@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbPubDate;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lbLink;
+@property (strong, nonatomic) IBOutlet UIImageView *imageViewIcon;
 
 //More views...
 

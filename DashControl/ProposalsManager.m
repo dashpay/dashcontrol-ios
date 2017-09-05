@@ -104,54 +104,54 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                 //Save info about budget.
                 [self updateBudget:[jsonDic objectForKey:@"budget"]];
                 
-                for (NSDictionary *proposalDic in [jsonDic objectForKey:@"proposals"]) {
-                    
-                    NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-                    NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:nil delegateQueue:nil];
-                    
-                    NSURL* URL = [NSURL URLWithString:DASH_PROPOSAL_DETAIL_URL];
-                    NSDictionary* URLParams = @{
-                                                @"hash": [proposalDic objectForKey:@"hash"],
-                                                };
-                    URL = NSURLByAppendingQueryParameters(URL, URLParams);
-                    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
-                    request.HTTPMethod = @"GET";
-                    
-                    /* Start a new Task */
-                    NSURLSessionDataTask* task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                        if (error == nil) {
-                            if (((((NSHTTPURLResponse*)response).statusCode /100) != 2)) {
-                                NSLog(@"Status %ld",(long)((NSHTTPURLResponse*)response).statusCode);
-                                return;
-                            }
-                            NSError *e = nil;
-                            NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableLeaves error:&e];
-                            
-                            if (!e) {
-                                NSMutableDictionary *proposalDic = [NSMutableDictionary new];
-                                if ([jsonDic objectForKey:@"proposal"] && [jsonDic objectForKey:@"proposal"] != [NSNull null]) {
-                                    for (NSString *key in [jsonDic objectForKey:@"proposal"]) {
-                                        [proposalDic setObject:[[jsonDic objectForKey:@"proposal"] objectForKey:key] forKey:key];
-                                    }
-                                }
-                                if ([jsonDic objectForKey:@"comments"] && [jsonDic objectForKey:@"proposal"] != [NSNull null]) {
-                                    [proposalDic setObject:[jsonDic objectForKey:@"comments"] forKey:@"comments"];
-                                }
-                                
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    [self updateProposal:proposalDic];
-                                });
-                            }
-                        }
-                        else {
-                            // Failure
-                            NSLog(@"URL Session Task Failed: %@", [error localizedDescription]);
-                        }
-                    }];
-                    [task resume];
-                    [session finishTasksAndInvalidate];
-                    
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self updateProposals:[jsonDic objectForKey:@"proposals"]];
+                });
+            }
+        }
+        else {
+            // Failure
+            NSLog(@"URL Session Task Failed: %@", [error localizedDescription]);
+        }
+    }];
+    [task resume];
+    [session finishTasksAndInvalidate];
+}
+-(void)fetchProposalsWithHash:(NSString *)hashProposal {
+    NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:nil delegateQueue:nil];
+    
+    NSURL* URL = [NSURL URLWithString:DASH_PROPOSAL_DETAIL_URL];
+    NSDictionary* URLParams = @{
+                                @"hash": hashProposal,
+                                };
+    URL = NSURLByAppendingQueryParameters(URL, URLParams);
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
+    request.HTTPMethod = @"GET";
+    
+    NSURLSessionDataTask* task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error == nil) {
+            if (((((NSHTTPURLResponse*)response).statusCode /100) != 2)) {
+                NSLog(@"Status %ld",(long)((NSHTTPURLResponse*)response).statusCode);
+                return;
+            }
+            NSError *e = nil;
+            NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableLeaves error:&e];
+            
+            if (!e) {
+                NSMutableDictionary *proposalDic = [NSMutableDictionary new];
+                if ([jsonDic objectForKey:@"proposal"] && [jsonDic objectForKey:@"proposal"] != [NSNull null]) {
+                    for (NSString *key in [jsonDic objectForKey:@"proposal"]) {
+                        [proposalDic setObject:[[jsonDic objectForKey:@"proposal"] objectForKey:key] forKey:key];
+                    }
                 }
+                if ([jsonDic objectForKey:@"comments"] && [jsonDic objectForKey:@"proposal"] != [NSNull null]) {
+                    [proposalDic setObject:[jsonDic objectForKey:@"comments"] forKey:@"comments"];
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self updateProposals:[NSArray arrayWithObject:proposalDic]];
+                });
             }
         }
         else {
@@ -201,7 +201,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     }];
 }
 
--(void)updateProposal:(NSDictionary *)proposalDictionary {
+-(void)updateProposals:(NSArray *)proposalsArray {
     
     //NSLog(@"updateProposals.thread:%@", [NSThread currentThread]);
     
@@ -214,70 +214,73 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         [df setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
         [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         
-        
-        Proposal *proposal;
-        NSMutableArray *existingProposal = [self fetchProposalWithHash:[proposalDictionary objectForKey:@"hash"] inContext:context];
-        if (!existingProposal.count) {
-            proposal = [NSEntityDescription insertNewObjectForEntityForName:@"Proposal" inManagedObjectContext:context];
-            proposal.hashProposal = [proposalDictionary objectForKey:@"hash"];
-        }
-        else {
-            proposal = existingProposal.firstObject;
-        }
-        
-        proposal.name = [proposalDictionary objectForKey:@"name"];
-        proposal.url = [proposalDictionary objectForKey:@"url"];
-        proposal.dwUrl = [proposalDictionary objectForKey:@"dw_url"];
-        proposal.dwUrlComments = [proposalDictionary objectForKey:@"dw_url_comments"];
-        proposal.title = [proposalDictionary objectForKey:@"title"];
-        proposal.dateAdded = [df dateFromString:[proposalDictionary objectForKey:@"date_added"]];
-        proposal.dateAddedHuman = [proposalDictionary objectForKey:@"date_added_human"];
-        proposal.dateEnd = [df dateFromString:[proposalDictionary objectForKey:@"date_end"]];
-        proposal.votingDeadlineHuman = [proposalDictionary objectForKey:@"voting_deadline_human"];
-        proposal.willBeFunded = [[proposalDictionary objectForKey:@"will_be_funded"] boolValue];
-        proposal.remainingYesVotesUntilFunding = [proposalDictionary objectForKey:@"remaining_yes_votes_until_funding"];
-        proposal.inNextBudget = [[proposalDictionary objectForKey:@"in_next_budget"] boolValue];
-        proposal.monthlyAmount = [[proposalDictionary objectForKey:@"monthly_amount"] doubleValue];
-        proposal.totalPaymentCount = [[proposalDictionary objectForKey:@"total_payment_count"] intValue];
-        proposal.remainingPaymentCount = [[proposalDictionary objectForKey:@"remaining_payment_count"] intValue];
-        proposal.yes = [[proposalDictionary objectForKey:@"yes"] boolValue];
-        proposal.no = [[proposalDictionary objectForKey:@"no"] boolValue];
-        proposal.abstain = [[proposalDictionary objectForKey:@"abstain"] intValue];
-        proposal.commentAmount = [[proposalDictionary objectForKey:@"comment_amount"] intValue];
-        proposal.ownerUsername = [proposalDictionary objectForKey:@"owner_username"];
-        
-        if ([proposalDictionary objectForKey:@"description_base64_bb"]) {
-            proposal.descriptionBase64Bb = [proposalDictionary objectForKey:@"description_base64_bb"];
-        }
-        if ([proposalDictionary objectForKey:@"description_base64_html"]) {
-            proposal.descriptionBase64Html = [proposalDictionary objectForKey:@"description_base64_html"];
-        }
-
-        for (NSDictionary *commentDic in [proposalDictionary objectForKey:@"comments"]) {
-            Comment *comment;
-            NSMutableArray *existingComment = [self fetchCommentWithId:[commentDic objectForKey:@"id"] inContext:context];
-            if (!existingComment.count) {
-                comment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:context];
-                comment.idComment = [commentDic objectForKey:@"id"];
+        for (NSDictionary *proposalDictionary in proposalsArray) {
+            
+            Proposal *proposal;
+            NSMutableArray *existingProposal = [self fetchProposalWithHash:[proposalDictionary objectForKey:@"hash"] inContext:context];
+            if (!existingProposal.count) {
+                proposal = [NSEntityDescription insertNewObjectForEntityForName:@"Proposal" inManagedObjectContext:context];
+                proposal.hashProposal = [proposalDictionary objectForKey:@"hash"];
             }
             else {
-                comment = existingComment.firstObject;
+                proposal = existingProposal.firstObject;
             }
             
-            comment.username = [commentDic objectForKey:@"username"];
-            comment.date = [df dateFromString:[commentDic objectForKey:@"date"]];
-            comment.dateHuman = [commentDic objectForKey:@"date_human"];
-            comment.order = [[commentDic objectForKey:@"order"] intValue];
-            comment.level = [commentDic objectForKey:@"level"];
-            comment.recentlyPosted = [[commentDic objectForKey:@"recently_posted"] boolValue];
-            comment.postedByOwner = [[commentDic objectForKey:@"posted_by_owner"] boolValue];
-            comment.replyUrl = [commentDic objectForKey:@"reply_url"];
-            comment.content = [commentDic objectForKey:@"content"];
+            proposal.name = [proposalDictionary objectForKey:@"name"];
+            proposal.url = [proposalDictionary objectForKey:@"url"];
+            proposal.dwUrl = [proposalDictionary objectForKey:@"dw_url"];
+            proposal.dwUrlComments = [proposalDictionary objectForKey:@"dw_url_comments"];
+            proposal.title = [proposalDictionary objectForKey:@"title"];
+            proposal.dateAdded = [df dateFromString:[proposalDictionary objectForKey:@"date_added"]];
+            proposal.dateAddedHuman = [proposalDictionary objectForKey:@"date_added_human"];
+            proposal.dateEnd = [df dateFromString:[proposalDictionary objectForKey:@"date_end"]];
+            proposal.votingDeadlineHuman = [proposalDictionary objectForKey:@"voting_deadline_human"];
+            proposal.willBeFunded = [[proposalDictionary objectForKey:@"will_be_funded"] boolValue];
+            proposal.remainingYesVotesUntilFunding = [[proposalDictionary objectForKey:@"remaining_yes_votes_until_funding"] intValue];
+            proposal.inNextBudget = [[proposalDictionary objectForKey:@"in_next_budget"] boolValue];
+            proposal.monthlyAmount = [[proposalDictionary objectForKey:@"monthly_amount"] intValue];
+            proposal.totalPaymentCount = [[proposalDictionary objectForKey:@"total_payment_count"] intValue];
+            proposal.remainingPaymentCount = [[proposalDictionary objectForKey:@"remaining_payment_count"] intValue];
+            proposal.yes = [[proposalDictionary objectForKey:@"yes"] intValue];
+            proposal.no = [[proposalDictionary objectForKey:@"no"] intValue];
+            proposal.abstain = [[proposalDictionary objectForKey:@"abstain"] intValue];
+            proposal.commentAmount = [[proposalDictionary objectForKey:@"comment_amount"] intValue];
+            proposal.ownerUsername = [proposalDictionary objectForKey:@"owner_username"];
             
-            comment.hashProposal = proposal.hashProposal;
-            
-            if (![proposal.comments containsObject:comment]) {
-                [proposal addCommentsObject:comment];
+            if ([proposalDictionary objectForKey:@"description_base64_bb"]) {
+                proposal.descriptionBase64Bb = [proposalDictionary objectForKey:@"description_base64_bb"];
+            }
+            if ([proposalDictionary objectForKey:@"description_base64_html"]) {
+                proposal.descriptionBase64Html = [proposalDictionary objectForKey:@"description_base64_html"];
+            }
+            if ([proposalDictionary objectForKey:@"comments"]) {
+                for (NSDictionary *commentDic in [proposalDictionary objectForKey:@"comments"]) {
+                    Comment *comment;
+                    NSMutableArray *existingComment = [self fetchCommentWithId:[commentDic objectForKey:@"id"] inContext:context];
+                    if (!existingComment.count) {
+                        comment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:context];
+                        comment.idComment = [commentDic objectForKey:@"id"];
+                    }
+                    else {
+                        comment = existingComment.firstObject;
+                    }
+                    
+                    comment.username = [commentDic objectForKey:@"username"];
+                    comment.date = [df dateFromString:[commentDic objectForKey:@"date"]];
+                    comment.dateHuman = [commentDic objectForKey:@"date_human"];
+                    comment.order = [[commentDic objectForKey:@"order"] intValue];
+                    comment.level = [commentDic objectForKey:@"level"];
+                    comment.recentlyPosted = [[commentDic objectForKey:@"recently_posted"] boolValue];
+                    comment.postedByOwner = [[commentDic objectForKey:@"posted_by_owner"] boolValue];
+                    comment.replyUrl = [commentDic objectForKey:@"reply_url"];
+                    comment.content = [commentDic objectForKey:@"content"];
+                    
+                    comment.hashProposal = proposal.hashProposal;
+                    
+                    if (![proposal.comments containsObject:comment]) {
+                        [proposal addCommentsObject:comment];
+                    }
+                }
             }
         }
         
@@ -288,6 +291,18 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         if (![context save:&error]) {
             NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
             abort();
+        }
+        else {
+            
+            if (proposalsArray.count == 1) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+                    [notificationCenter postNotificationName:PROPOSAL_DID_UPDATE_NOTIFICATION
+                                                      object:nil
+                                                    userInfo:@{@"hash":[proposalsArray.firstObject objectForKey:@"hash"]}];
+                });
+
+            }
         }
     }];
 }
@@ -408,6 +423,5 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         return nil;
     }
 }
-
 
 @end

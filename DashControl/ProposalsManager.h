@@ -10,12 +10,14 @@
 
 @interface ProposalsManager : NSObject
 
+#define PROPOSAL_DID_UPDATE_NOTIFICATION @"PROPOSAL_DID_UPDATE_NOTIFICATION"
+
 @property (nonatomic, retain) NSManagedObjectContext * _Nullable managedObjectContext;
 
 + (id _Nonnull )sharedManager;
 
 -(void)fetchBudgetAndProposals;
-//-(void)fetchProposalDetailWithHash:(NSString*_Nullable)hashProposal;
+-(void)fetchProposalsWithHash:(NSString *_Nullable)hashProposal;
 
 //Utils
 -(NSMutableArray*_Nullable)fetchAllObjectsForEntity:(NSString*_Nullable)entityName inContext:(NSManagedObjectContext *_Nullable)context;

@@ -8,6 +8,7 @@
 
 #import "ProposalsViewController.h"
 #import "ProposalCell.h"
+#import "ProposalDetailViewController.h"
 
 @interface ProposalsViewController ()
 @property BOOL searchControllerWasActive;
@@ -34,6 +35,8 @@ static NSString *CellIdentifier = @"ProposalCell";
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         exit(-1);  // Fail
     }
+    
+    [self forceTouchIntialize];
 }
 
 - (void)viewDidUnload
@@ -65,12 +68,13 @@ static NSString *CellIdentifier = @"ProposalCell";
     Budget *budget = [[[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Budget" inContext:self.managedObjectContext] firstObject];
     [budget allotedAmount];
     NSLog(@"Budget:%@", budget);
-    
+    /*
     NSArray *proposals = [[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Proposal" inContext:self.managedObjectContext];
     NSLog(@"All proposals count:%lu", (unsigned long)[proposals count]);
     for (Proposal *proposal in proposals) {
         NSLog(@"Proposal:%@\rThe proposal has %tu comments", proposal.title, proposal.comments.count);
     }
+    */
 }
 
 #pragma mark - Table view data source
@@ -93,11 +97,29 @@ static NSString *CellIdentifier = @"ProposalCell";
     Proposal *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
     [(ProposalCell*)cell setCurrentProposal:proposal];
     [(ProposalCell*)cell cfgViews];
-    /*
-     cell.textLabel.text = feedItem.title;
-     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@",
-     feedItem.link, feedItem.text];
-     */
+    [(ProposalCell*)cell progressView].value = proposal.lastProgressDisplayed;
+}
+
+-(void) tableView:(UITableView *) tableView willDisplayCell:(UITableViewCell *) cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Proposal *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
+    
+    CGFloat currentProgress =  (proposal.yes / (proposal.yes + proposal.remainingYesVotesUntilFunding)) * 100;
+
+    if (proposal.lastProgressDisplayed != currentProgress) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:1.f delay:CGFLOAT_MIN options:UIViewAnimationOptionTransitionNone animations:^{
+                [(ProposalCell*)cell progressView].value = currentProgress;
+            } completion:^(BOOL finished) {
+                proposal.lastProgressDisplayed = currentProgress;
+                NSError *error = nil;
+                [self.managedObjectContext save:&error];
+            }];
+        });
+    }
+    else {
+        [(ProposalCell*)cell progressView].value = currentProgress;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -152,35 +174,24 @@ static NSString *CellIdentifier = @"ProposalCell";
 #pragma mark - Table view delegate
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60;
-    //return UITableViewAutomaticDimension;
+    return 100;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //RSSFeedDetailViewController
-    
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Make sure your segue name in storyboard is the same as this line
-    /*
-    if ([[segue identifier] isEqualToString:@"pushRSSFeedDetail"])
-    {
-        //Get reference to the destination view controller
-        RSSFeedDetailViewController *vc = [segue destinationViewController];
-        [vc setCurrentPost:[(RSSFeedListTableViewCell*)sender currentPost]];
-    }
-     */
+     if ([[segue identifier] isEqualToString:@"pushProposalDetail"])
+     {
+         //Get reference to the destination view controller
+         ProposalDetailViewController *vc = [segue destinationViewController];
+         [vc setManagedObjectContext:self.managedObjectContext];
+         [vc setCurrentProposal:[(ProposalCell*)sender currentProposal]];
+     }
 }
 
 #pragma mark - fetchedResultsController
@@ -196,16 +207,12 @@ static NSString *CellIdentifier = @"ProposalCell";
                                    entityForName:@"Proposal" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    //NSString *lang = [[RSSFeedManager sharedManager] feedLanguage];
-    //NSPredicate *langP = [NSPredicate predicateWithFormat:@"lang == %@", lang ? lang : @"en"];
-    
     NSString *searchString = self.searchController.searchBar.text;
     if (searchString.length > 0)
     {
         NSPredicate *titleP = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchString];
         NSPredicate *ownerP = [NSPredicate predicateWithFormat:@"ownerUsername CONTAINS[cd] %@", searchString];
         NSPredicate *orPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:[NSArray arrayWithObjects:titleP, ownerP, nil]];
-        //NSPredicate *andPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:langP, nil]];
         NSPredicate *finalPred = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:orPredicate, /*andPredicate,*/ nil]];
         [fetchRequest setPredicate:finalPred];
     }
@@ -214,14 +221,13 @@ static NSString *CellIdentifier = @"ProposalCell";
         //[fetchRequest setPredicate:langP];
     }
     
-    /*
-    NSSortDescriptor *pubDateSort = [[NSSortDescriptor alloc]
-                                     initWithKey:@"pubDate" ascending:NO];
-     */
+    
+    NSSortDescriptor *dateAddedSort = [[NSSortDescriptor alloc]
+                                     initWithKey:@"dateAdded" ascending:NO];
     NSSortDescriptor *titleSort = [[NSSortDescriptor alloc]
                                    initWithKey:@"title" ascending:YES];
     
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:/*pubDateSort,*/ titleSort, nil]];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:dateAddedSort, titleSort, nil]];
     
     //[fetchRequest setFetchBatchSize:20];
     
@@ -323,5 +329,55 @@ static NSString *CellIdentifier = @"ProposalCell";
     
     [self.tableView reloadData];
 }
+
+#pragma mark - 3D Touch
+-(void)forceTouchIntialize{
+    if ([self isForceTouchAvailable]) {
+        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
+}
+
+- (BOOL)isForceTouchAvailable {
+    BOOL isForceTouchAvailable = NO;
+    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)]) {
+        isForceTouchAvailable = self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
+    }
+    return isForceTouchAvailable;
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    if ([self isForceTouchAvailable]) {
+        if (!self.previewingContext) {
+            self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
+        }
+    } else {
+        if (self.previewingContext) {
+            [self unregisterForPreviewingWithContext:self.previewingContext];
+            self.previewingContext = nil;
+        }
+    }
+}
+
+- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing> )previewingContext viewControllerForLocation:(CGPoint)location{
+    
+    CGPoint cellPostion = [self.tableView convertPoint:location fromView:self.view];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:cellPostion];
+    if (indexPath) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        Proposal *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
+        SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:proposal.dwUrl]];
+        svc.delegate = self;
+        [svc registerForPreviewingWithDelegate:self sourceView:self.view];
+        previewingContext.sourceRect = [self.view convertRect:cell.frame fromView:self.tableView];
+        return svc;
+    }
+    
+    return nil;
+}
+-(void)previewingContext:(id )previewingContext commitViewController: (UIViewController *)viewControllerToCommit {
+    [self.navigationController showViewController:viewControllerToCommit sender:nil];
+}
+
 
 @end

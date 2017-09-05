@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import <sys/utsname.h>
 
+#import "RSSFeedListViewController.h"
+
 /*
  * Utils: Add this section before your class implementation
  */
@@ -107,6 +109,42 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [self saveContext];
+}
+
+#pragma mark - NSUserActivity Search API
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)activity restorationHandler:(void (^)(NSArray *))restorationHandler
+{
+    NSString * valueCSSearchableItemActionType;
+    BOOL wasHandled = NO;
+    
+    if ([CSSearchableItemAttributeSet class]) //iOS 9
+    {
+        valueCSSearchableItemActionType = CSSearchableItemActionType;
+    }
+    
+    if ([activity.activityType isEqual: valueCSSearchableItemActionType])
+        //Clicked on spotlight search, item was created via CoreSpotlight API
+    {
+        NSString * activityIdentifier = [activity.userInfo valueForKey:CSSearchableItemActivityIdentifier];
+       
+        UITabBarController *tabBarController = (UITabBarController *)_window.rootViewController;
+        [tabBarController setSelectedIndex:0];
+        UINavigationController *RSSFeedNavigationController = (UINavigationController*)[tabBarController.viewControllers objectAtIndex:0];
+        [RSSFeedNavigationController dismissViewControllerAnimated:NO completion:nil];
+        [RSSFeedNavigationController popToRootViewControllerAnimated:NO];
+        RSSFeedListViewController *vc = (RSSFeedListViewController*)[[RSSFeedNavigationController viewControllers] firstObject];
+        [vc simulateNavitationToPostWithGUID:activityIdentifier];
+        
+         wasHandled = YES;
+        
+    } else {
+        
+        //the app was launched via Handoff protocol
+        //or with a Universal Link
+    }
+    
+    return wasHandled;
 }
 
 #pragma mark - UIStateRestoration
@@ -280,7 +318,7 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     NSURLSessionDataTask* task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error == nil) {
             // Success
-            NSLog(@"URL Session Task Succeeded: HTTP %ld", (long)((NSHTTPURLResponse*)response).statusCode);
+            NSLog(@"Token registered %@", token_string);
         }
         else {
             // Failure

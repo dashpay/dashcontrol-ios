@@ -8,7 +8,7 @@
 
 #import "RSSFeedListViewController.h"
 #import "RSSFeedListTableViewCell.h"
-#import "RSSFeedDetailViewController.h"
+#import <SafariServices/SafariServices.h>
 
 @interface RSSFeedListViewController ()
 // for state restoration
@@ -39,6 +39,8 @@ static NSString *CellIdentifier = @"PostCell";
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         exit(-1);  // Fail
     }
+    
+    [self forceTouchIntialize];
 }
 
 - (void)viewDidUnload
@@ -88,18 +90,13 @@ static NSString *CellIdentifier = @"PostCell";
     Post *feedItem = [_fetchedResultsController objectAtIndexPath:indexPath];
     [(RSSFeedListTableViewCell*)cell setCurrentPost:feedItem];
     [(RSSFeedListTableViewCell*)cell cfgViews];
-    /*
-    cell.textLabel.text = feedItem.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@",
-                                 feedItem.link, feedItem.text];
-     */
 }
+
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RSSFeedListTableViewCell *cell = (RSSFeedListTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-
-    // Configure the cell...
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
@@ -147,33 +144,22 @@ static NSString *CellIdentifier = @"PostCell";
 #pragma mark - Table view delegate
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //return 142;
     return UITableViewAutomaticDimension;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //RSSFeedDetailViewController
     
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    Post *feedItem = [_fetchedResultsController objectAtIndexPath:indexPath];
+    SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:feedItem.link]];
+    svc.delegate = self;
+    [self presentViewController:svc animated:YES completion:nil];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Make sure your segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"pushRSSFeedDetail"])
-    {
-        // Get reference to the destination view controller
-        RSSFeedDetailViewController *vc = [segue destinationViewController];
-        [vc setCurrentPost:[(RSSFeedListTableViewCell*)sender currentPost]];
-    }
+#pragma mark - SFSafari Delegate
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 #pragma mark - fetchedResultsController
@@ -215,8 +201,6 @@ static NSString *CellIdentifier = @"PostCell";
                                      initWithKey:@"title" ascending:YES];
 
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:pubDateSort, titleSort, nil]];
-    
-    //[fetchRequest setFetchBatchSize:20];
     
     NSFetchedResultsController *theFetchedResultsController =
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
@@ -374,5 +358,85 @@ NSString *const SearchBarIsFirstResponderKey = @"SearchBarIsFirstResponderKey";
     self.searchController.searchBar.text = [coder decodeObjectForKey:SearchBarTextKey];
 }
 
+#pragma mark - 3D Touch
+-(void)forceTouchIntialize{
+    if ([self isForceTouchAvailable]) {
+        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
+}
+
+- (BOOL)isForceTouchAvailable {
+    BOOL isForceTouchAvailable = NO;
+    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)]) {
+        isForceTouchAvailable = self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
+    }
+    return isForceTouchAvailable;
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    if ([self isForceTouchAvailable]) {
+        if (!self.previewingContext) {
+            self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
+        }
+    } else {
+        if (self.previewingContext) {
+            [self unregisterForPreviewingWithContext:self.previewingContext];
+            self.previewingContext = nil;
+        }
+    }
+}
+
+- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing> )previewingContext viewControllerForLocation:(CGPoint)location{
+    
+    CGPoint cellPostion = [self.tableView convertPoint:location fromView:self.view];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:cellPostion];
+    if (indexPath) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        Post *feedItem = [_fetchedResultsController objectAtIndexPath:indexPath];
+        SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:feedItem.link]];
+        svc.delegate = self;
+        [svc registerForPreviewingWithDelegate:self sourceView:self.view];
+        previewingContext.sourceRect = [self.view convertRect:cell.frame fromView:self.tableView];
+        return svc;
+    }
+    
+    return nil;
+}
+-(void)previewingContext:(id )previewingContext commitViewController: (UIViewController *)viewControllerToCommit {
+    [self.navigationController showViewController:viewControllerToCommit sender:nil];
+}
+
+#pragma mark - NSUserActivity continueUserActivity
+
+-(void)simulateNavitationToPostWithGUID:(NSString*)guid {
+    Post *feedItem;
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Post" inManagedObjectContext:self.managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+    NSPredicate *guidPredicate = [NSPredicate predicateWithFormat:@"guid == %@", guid];
+    [request setPredicate:guidPredicate];
+    NSError *error;
+    NSArray *array = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if (array == nil)
+    {
+        NSLog(@"Error while festching %@ with predicate %@", entityDescription.name, guidPredicate);
+    }
+    else {
+        feedItem = array.firstObject;
+    }
+    if (feedItem) {
+        NSIndexPath *indexPath = [_fetchedResultsController indexPathForObject:feedItem];
+        if (indexPath) {
+            if (![[self.tableView indexPathsForVisibleRows] containsObject:indexPath]) {
+                [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+            }
+            [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+            });
+        }
+    }
+}
 
 @end
