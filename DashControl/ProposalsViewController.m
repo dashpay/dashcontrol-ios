@@ -191,6 +191,7 @@ static NSString *CellIdentifier = @"ProposalCell";
          ProposalDetailViewController *vc = [segue destinationViewController];
          [vc setManagedObjectContext:self.managedObjectContext];
          [vc setCurrentProposal:[(ProposalCell*)sender currentProposal]];
+         vc.hidesBottomBarWhenPushed = YES;
      }
 }
 

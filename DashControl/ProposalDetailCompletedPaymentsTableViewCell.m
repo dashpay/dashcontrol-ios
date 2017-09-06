@@ -23,12 +23,12 @@
 
 -(void)configureWithProposal:(Proposal*)proposal {
     _labelCompletedPayments.text = NSLocalizedString(@"Completed payments", @"Proposal Detail View");
-    _labelMonthRemaining.text = [NSString stringWithFormat:@"%d %@", 0, NSLocalizedString(@"month remaining", @"Proposal Detail View")];
+    _labelMonthRemaining.text = [NSString stringWithFormat:@"%d %@", proposal.remainingPaymentCount, NSLocalizedString(@"month remaining", @"Proposal Detail View")];
     
-    NSString *completedPaymentAmountString = [NSString stringWithFormat:@"%d", 1];
+    NSString *completedPaymentAmountString = [NSString stringWithFormat:@"%d", proposal.totalPaymentCount-proposal.remainingPaymentCount];
     NSString *totallingInString = NSLocalizedString(@"totalling in", @"Proposal Detail View");
     NSString *dashString = NSLocalizedString(@"DASH", nil);
-    NSString *currencyAmountString = [NSString stringWithFormat:@"%@", @"1701"];
+    NSString *currencyAmountString = [NSString stringWithFormat:@"%d", (proposal.totalPaymentCount-proposal.remainingPaymentCount)*proposal.monthlyAmount];
     
     
     NSString *finalString = [NSString stringWithFormat:@"%@ %@ %@ %@", completedPaymentAmountString, totallingInString, currencyAmountString, dashString];

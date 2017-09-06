@@ -13,6 +13,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    [_labelProposalDescription setPreferredMaxLayoutWidth:self.contentView.bounds.size.width-30];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -22,15 +24,18 @@
 }
 
 -(void)configureWithProposal:(Proposal*)proposal {
-    /*
+
     if (proposal.descriptionBase64Html && proposal.descriptionBase64Html.length) {
         NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:proposal.descriptionBase64Html options:0];
         NSString *decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
         NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[decodedString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
         _labelProposalDescription.attributedText = attrStr;
     }
-     */
+    else {
+        _labelProposalDescription.text = NSLocalizedString(@"Description is loading...", @"Proposal Detail View");
+    }
 
+    /*
     NSString *urlString = [NSString stringWithFormat:@"%@", proposal.dwUrl];
     NSMutableAttributedString *mutAttributedString = [[NSMutableAttributedString alloc] initWithString:urlString];
 
@@ -43,6 +48,7 @@
     
     [mutAttributedString endEditing];
     _labelProposalDescription.attributedText = mutAttributedString;
+     */
 }
 
 @end
