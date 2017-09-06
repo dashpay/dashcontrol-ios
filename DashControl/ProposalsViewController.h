@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <SafariServices/SafariServices.h>
+#import "ProposalHeaderView.h"
 
-@interface ProposalsViewController : UIViewController <NSFetchedResultsControllerDelegate, UISearchControllerDelegate, UISearchResultsUpdating, SFSafariViewControllerDelegate, UIViewControllerPreviewingDelegate>
+@interface ProposalsViewController : UIViewController <NSFetchedResultsControllerDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate, SFSafariViewControllerDelegate, UIViewControllerPreviewingDelegate>
 
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 
+@property (strong, nonatomic) IBOutlet ProposalHeaderView *proposalHeaderView;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UISearchController *searchController;
 

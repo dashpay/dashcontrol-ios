@@ -181,11 +181,11 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         [df setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
         [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         
-        budget.totalAmount = [jsonDic objectForKey:@"total_amount"];
+        budget.totalAmount = [[jsonDic objectForKey:@"total_amount"] doubleValue];
         budget.allotedAmount = [[jsonDic objectForKey:@"alloted_amount"] doubleValue];
         budget.paymentDate = [df dateFromString:[jsonDic objectForKey:@"payment_date"]];
         budget.paymentDateHuman = [jsonDic objectForKey:@"payment_date_human"];
-        budget.superblock = [jsonDic objectForKey:@"superblock"];
+        budget.superblock = [[jsonDic objectForKey:@"superblock"] intValue];
         
         context.automaticallyMergesChangesFromParent = TRUE;
         context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
@@ -196,7 +196,12 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             abort();
         }
         else {
-            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+                [notificationCenter postNotificationName:BUDGET_DID_UPDATE_NOTIFICATION
+                                                  object:nil
+                                                userInfo:nil];
+            });
         }
     }];
 }

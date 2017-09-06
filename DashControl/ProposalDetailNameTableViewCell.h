@@ -11,8 +11,6 @@
 
 @interface ProposalDetailNameTableViewCell : UITableViewCell
 
-@property (nonatomic, retain) Proposal *currentProposal;
-
 @property (strong, nonatomic) IBOutlet UILabel *labelProposalId;
 @property (strong, nonatomic) IBOutlet UILabel *labelProposalName;
 @property (strong, nonatomic) IBOutlet MBCircularProgressBarView *progressView;

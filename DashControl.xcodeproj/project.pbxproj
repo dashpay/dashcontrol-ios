@@ -14,8 +14,10 @@
 		241719E41F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719E01F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m */; };
 		2432DDA01F54395600A14112 /* ProposalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432DD9F1F54395600A14112 /* ProposalCell.m */; };
 		24438DEF1F5FCE7D00763A14 /* ProposalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 244857901F59CCBF004DE273 /* ProposalDetailViewController.m */; };
+		24438DF31F5FEA6600763A14 /* ProposalHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24438DF21F5FEA6600763A14 /* ProposalHeaderView.m */; };
 		247B8F551F5FBFFB005BC14A /* dash_icon_tmp.png in Resources */ = {isa = PBXBuildFile; fileRef = 247B8F541F5FBFFB005BC14A /* dash_icon_tmp.png */; };
 		2485235B1F44A71B0027FBA6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2485235A1F44A71B0027FBA6 /* WebKit.framework */; };
+		2499B7671F6015B80094A982 /* ProposalHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2499B7661F6015B80094A982 /* ProposalHeaderView.xib */; };
 		24A2159B1F52C5E900A63311 /* Budget+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A215981F52C5E900A63311 /* Budget+CoreDataClass.m */; };
 		24A2159C1F52C5E900A63311 /* Budget+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A2159A1F52C5E900A63311 /* Budget+CoreDataProperties.m */; };
 		24B000441F5724B6007D24A1 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B000431F5724B6007D24A1 /* SafariServices.framework */; };
@@ -92,10 +94,13 @@
 		2432DD9E1F54395600A14112 /* ProposalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalCell.h; sourceTree = "<group>"; };
 		2432DD9F1F54395600A14112 /* ProposalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalCell.m; sourceTree = "<group>"; };
 		2442A01B1F4D6CDC006FAC0D /* DashControl.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DashControl.entitlements; sourceTree = "<group>"; };
+		24438DF11F5FEA6600763A14 /* ProposalHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalHeaderView.h; sourceTree = "<group>"; };
+		24438DF21F5FEA6600763A14 /* ProposalHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalHeaderView.m; sourceTree = "<group>"; };
 		2448578F1F59CCBF004DE273 /* ProposalDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalDetailViewController.h; sourceTree = "<group>"; };
 		244857901F59CCBF004DE273 /* ProposalDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailViewController.m; sourceTree = "<group>"; };
 		247B8F541F5FBFFB005BC14A /* dash_icon_tmp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dash_icon_tmp.png; sourceTree = "<group>"; };
 		2485235A1F44A71B0027FBA6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		2499B7661F6015B80094A982 /* ProposalHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProposalHeaderView.xib; sourceTree = "<group>"; };
 		24A215971F52C5E900A63311 /* Budget+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Budget+CoreDataClass.h"; sourceTree = "<group>"; };
 		24A215981F52C5E900A63311 /* Budget+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Budget+CoreDataClass.m"; sourceTree = "<group>"; };
 		24A215991F52C5E900A63311 /* Budget+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Budget+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -267,6 +272,9 @@
 				241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */,
 				2432DD9E1F54395600A14112 /* ProposalCell.h */,
 				2432DD9F1F54395600A14112 /* ProposalCell.m */,
+				24438DF11F5FEA6600763A14 /* ProposalHeaderView.h */,
+				24438DF21F5FEA6600763A14 /* ProposalHeaderView.m */,
+				2499B7661F6015B80094A982 /* ProposalHeaderView.xib */,
 			);
 			name = List;
 			sourceTree = "<group>";
@@ -583,6 +591,7 @@
 				247B8F551F5FBFFB005BC14A /* dash_icon_tmp.png in Resources */,
 				FB84EDD31F32898700E4D400 /* LaunchScreen.storyboard in Resources */,
 				FB84EDD01F32898700E4D400 /* Assets.xcassets in Resources */,
+				2499B7671F6015B80094A982 /* ProposalHeaderView.xib in Resources */,
 				FB84EDCE1F32898700E4D400 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -666,6 +675,7 @@
 				FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */,
 				241719E41F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m in Sources */,
 				24438DEF1F5FCE7D00763A14 /* ProposalDetailViewController.m in Sources */,
+				24438DF31F5FEA6600763A14 /* ProposalHeaderView.m in Sources */,
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
 				FBE1F50D1F5D4CF500823A77 /* Market+CoreDataClass.m in Sources */,
 				FBEBE5421F5802DE0056D921 /* ChartTimeFormatter.m in Sources */,
