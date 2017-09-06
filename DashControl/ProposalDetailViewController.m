@@ -123,7 +123,16 @@ static NSString *CellDetailDescriptionDetailIdentifier = @"ProposalDetailDescrip
     NSString *cellIdentifier = [self cellIdentifierForIndexPath:indexPath];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     if ([cell respondsToSelector:@selector(configureWithProposal:)]) {
-        [cell performSelector:@selector(configureWithProposal:) withObject:self.currentProposal];
+        if (![cellIdentifier isEqualToString:CellDetailDescriptionDetailIdentifier]) {
+            [cell performSelector:@selector(configureWithProposal:) withObject:self.currentProposal];
+        }
+        else {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(CGFLOAT_MIN * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [cell performSelector:@selector(configureWithProposal:) withObject:self.currentProposal];
+                [self.tableView beginUpdates];
+                [self.tableView endUpdates];
+            });
+        }
     }
     return cell;
 }
