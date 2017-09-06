@@ -85,7 +85,7 @@ static NSString *CellIdentifier = @"ProposalCell";
 #pragma mark - Budget Updates
 
 -(void)budgetDidUpdate:(NSNotification*)notification {
-    Budget *budget = [[[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Budget" inContext:self.managedObjectContext] firstObject];
+    Budget *budget = [[[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Budget" inContext:managedObjectContext] firstObject];
     [_proposalHeaderView configureWithBudget:budget];
 }
 
@@ -125,7 +125,7 @@ static NSString *CellIdentifier = @"ProposalCell";
             } completion:^(BOOL finished) {
                 proposal.lastProgressDisplayed = currentProgress;
                 NSError *error = nil;
-                [self.managedObjectContext save:&error];
+                [managedObjectContext save:&error];
             }];
         });
     }
@@ -201,7 +201,7 @@ static NSString *CellIdentifier = @"ProposalCell";
      {
          //Get reference to the destination view controller
          ProposalDetailViewController *vc = [segue destinationViewController];
-         [vc setManagedObjectContext:self.managedObjectContext];
+         [vc setManagedObjectContext:managedObjectContext];
          [vc setCurrentProposal:[(ProposalCell*)sender currentProposal]];
          vc.hidesBottomBarWhenPushed = YES;
      }
@@ -394,6 +394,47 @@ static NSString *CellIdentifier = @"ProposalCell";
 }
 -(void)previewingContext:(id )previewingContext commitViewController: (UIViewController *)viewControllerToCommit {
     [self.navigationController showViewController:viewControllerToCommit sender:nil];
+}
+
+#pragma mark - NSUserActivity continueUserActivity
+
+-(void)simulateNavitationToProposalWithHash:(NSString*)hash {
+    
+    if (!managedObjectContext) {
+        managedObjectContext = [[ProposalsManager sharedManager] managedObjectContext];
+    }
+    
+    Proposal *proposal;
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Proposal" inManagedObjectContext:managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+    NSPredicate *hashPredicate = [NSPredicate predicateWithFormat:@"hashProposal == %@", hash];
+    [request setPredicate:hashPredicate];
+    NSError *error;
+    NSArray *array = [managedObjectContext executeFetchRequest:request error:&error];
+    if (array == nil)
+    {
+        NSLog(@"Error while festching %@ with predicate %@", entityDescription.name, hashPredicate);
+    }
+    else {
+        proposal = array.firstObject;
+    }
+    if (proposal) {
+        if (![[self fetchedResultsController] performFetch:&error]) {
+            return;
+        }
+        NSIndexPath *indexPath = [_fetchedResultsController indexPathForObject:proposal];
+        if (indexPath) {
+            if (![[self.tableView indexPathsForVisibleRows] containsObject:indexPath]) {
+                [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+            }
+            [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+                [self performSegueWithIdentifier:@"pushProposalDetail" sender:[self.tableView cellForRowAtIndexPath:indexPath]];
+            });
+        }
+    }
 }
 
 

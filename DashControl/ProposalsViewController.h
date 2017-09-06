@@ -22,4 +22,6 @@
 //3D Touch
 @property (nonatomic, strong) id previewingContext;
 
+-(void)simulateNavitationToProposalWithHash:(NSString*)hash;
+
 @end
