@@ -81,8 +81,6 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 
 -(void)fetchBudgetAndProposals {
     
-    //NSLog(@"fetchBudgetAndProposals.thead:%@", [NSThread currentThread]);
-    
     NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:nil delegateQueue:nil];
     
@@ -107,6 +105,33 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self updateProposals:[jsonDic objectForKey:@"proposals"]];
                 });
+                
+                //Since the list returned include only 'active' proposals.
+                //We want to update 'non-active' proposals we may have in local by calling fetchProposalsWithHash:
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSMutableArray *existingProposals = [self fetchAllObjectsForEntity:@"Proposal" inContext:managedObjectContext];
+                    NSMutableArray *proposalsToUpdate = [NSMutableArray new];
+                    for (Proposal *proposal in existingProposals) {
+                        __block BOOL bProposalFoundInResponse = NO;
+                        [[jsonDic objectForKey:@"proposals"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                            NSDictionary *dic = obj;
+                            if ([[dic objectForKey:@"hash"] isEqualToString:proposal.hashProposal]) {
+                                bProposalFoundInResponse = YES;
+                                *stop = YES;
+                            }
+                        }];
+                        if (!bProposalFoundInResponse) {
+                            [proposalsToUpdate addObject:proposal];
+                        }
+                    }
+                    if (proposalsToUpdate.count) {
+                        
+                        for (Proposal *proposal in proposalsToUpdate) {
+                            NSLog(@"Updating 'non-active' proposal:%@", proposal.title);
+                            [self fetchProposalsWithHash:proposal.hashProposal];
+                        }
+                    }
+                    });
             }
         }
         else {
@@ -208,12 +233,8 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 
 -(void)updateProposals:(NSArray *)proposalsArray {
     
-    //NSLog(@"updateProposals.thread:%@", [NSThread currentThread]);
-    
     NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
     [container performBackgroundTask:^(NSManagedObjectContext *context) {
-        
-        //NSLog(@"updateProposals performBackgroundTask thread:%@", [NSThread currentThread]);
         
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
         [df setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
@@ -309,7 +330,6 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                                                       object:nil
                                                     userInfo:@{@"hash":[proposalsArray.firstObject objectForKey:@"hash"]}];
                 });
-
             }
         }
     }];
