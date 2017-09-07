@@ -101,6 +101,7 @@
         <attribute name="monthlyAmount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="no" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="ownerUsername" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remainingPaymentCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="remainingYesVotesUntilFunding" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -119,6 +120,6 @@
         <element name="Exchange" positionX="-45" positionY="144" width="128" height="90"/>
         <element name="Market" positionX="-54" positionY="135" width="128" height="90"/>
         <element name="Post" positionX="-63" positionY="-18" width="128" height="150"/>
-        <element name="Proposal" positionX="-63" positionY="81" width="128" height="420"/>
+        <element name="Proposal" positionX="-63" positionY="81" width="128" height="435"/>
     </elements>
 </model>

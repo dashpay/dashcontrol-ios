@@ -2,7 +2,7 @@
 //  Proposal+CoreDataProperties.m
 //  DashControl
 //
-//  Created by Manuel Boyer on 05/09/2017.
+//  Created by Manuel Boyer on 07/09/2017.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
@@ -25,6 +25,7 @@
 @dynamic dwUrlComments;
 @dynamic hashProposal;
 @dynamic inNextBudget;
+@dynamic lastProgressDisplayed;
 @dynamic monthlyAmount;
 @dynamic name;
 @dynamic no;
@@ -37,7 +38,7 @@
 @dynamic votingDeadlineHuman;
 @dynamic willBeFunded;
 @dynamic yes;
-@dynamic lastProgressDisplayed;
+@dynamic order;
 @dynamic comments;
 
 @end

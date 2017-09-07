@@ -251,6 +251,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             proposal.abstain = [[proposalDictionary objectForKey:@"abstain"] intValue];
             proposal.commentAmount = [[proposalDictionary objectForKey:@"comment_amount"] intValue];
             proposal.ownerUsername = [proposalDictionary objectForKey:@"owner_username"];
+            proposal.order = [[proposalDictionary objectForKey:@"order"] intValue];
             
             if ([proposalDictionary objectForKey:@"description_base64_bb"]) {
                 proposal.descriptionBase64Bb = [proposalDictionary objectForKey:@"description_base64_bb"];

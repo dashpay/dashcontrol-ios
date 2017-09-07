@@ -2,7 +2,7 @@
 //  Proposal+CoreDataProperties.h
 //  DashControl
 //
-//  Created by Manuel Boyer on 05/09/2017.
+//  Created by Manuel Boyer on 07/09/2017.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *dwUrlComments;
 @property (nullable, nonatomic, copy) NSString *hashProposal;
 @property (nonatomic) BOOL inNextBudget;
+@property (nonatomic) float lastProgressDisplayed;
 @property (nonatomic) int32_t monthlyAmount;
 @property (nullable, nonatomic, copy) NSString *name;
 @property (nonatomic) int32_t no;
@@ -38,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *votingDeadlineHuman;
 @property (nonatomic) BOOL willBeFunded;
 @property (nonatomic) int32_t yes;
-@property (nonatomic) float lastProgressDisplayed;
+@property (nonatomic) int32_t order;
 @property (nullable, nonatomic, retain) NSSet<Comment *> *comments;
 
 @end

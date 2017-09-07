@@ -235,16 +235,10 @@ static NSString *CellIdentifier = @"ProposalCell";
         //[fetchRequest setPredicate:langP];
     }
     
-    
-    NSSortDescriptor *dateAddedSort = [[NSSortDescriptor alloc]
-                                     initWithKey:@"dateAdded" ascending:NO];
-    NSSortDescriptor *titleSort = [[NSSortDescriptor alloc]
-                                   initWithKey:@"title" ascending:YES];
-    
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:dateAddedSort, titleSort, nil]];
-    
-    //[fetchRequest setFetchBatchSize:20];
-    
+    NSSortDescriptor *orderSort = [[NSSortDescriptor alloc]
+                                       initWithKey:@"order" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:orderSort, nil]];
+
     NSFetchedResultsController *theFetchedResultsController =
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:managedObjectContext sectionNameKeyPath:nil
