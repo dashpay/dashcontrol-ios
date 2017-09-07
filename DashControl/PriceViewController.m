@@ -266,6 +266,16 @@
     NSTimeInterval timeFrame = [ChartTimeFormatter timeIntervalForChartTimeFrame:chartTimeFrame];
     self.startTime = [NSDate dateWithTimeIntervalSinceNow:-timeFrame];
     [self updateChartData];
+    
+    NSDate * intervalStart = [ChartTimeFormatter intervalStartForExchangeNamed:self.selectedExchange.name marketNamed:self.selectedMarket.name];
+    if ([intervalStart compare:self.startTime] == NSOrderedDescending) {
+        //lets go get more data
+        NSDate * oneWeekBefore = [intervalStart dateByAddingTimeInterval:-[ChartTimeFormatter timeIntervalForChartTimeFrame:ChartTimeFrame_1W]];
+        NSDate * getStartTime = ([self.startTime compare:oneWeekBefore] == NSOrderedAscending)?oneWeekBefore:self.startTime;
+        [[DCBackendManager sharedManager] getChartDataForExchange:self.selectedExchange.name forMarket:self.selectedMarket.name start:getStartTime end:nil clb:^(NSError * _Nullable error) {
+            [self chooseTimeFrame:sender];
+        }];
+    }
 }
 
 #pragma mark - ChartViewDelegate

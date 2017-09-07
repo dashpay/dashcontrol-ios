@@ -31,7 +31,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="142"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CSc-M9-uyu" id="CIL-jo-x77">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="142"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="141.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qoP-3u-RC5">
@@ -126,7 +126,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="H1s-La-hZw">
-                                <rect key="frame" x="52" y="445" width="272" height="29"/>
+                                <rect key="frame" x="24" y="445" width="327" height="29"/>
                                 <segments>
                                     <segment title="6h"/>
                                     <segment title="24h"/>
@@ -134,7 +134,7 @@
                                     <segment title="4d"/>
                                     <segment title="1w"/>
                                     <segment title="1m"/>
-                                    <segment title="3y"/>
+                                    <segment title="6m"/>
                                 </segments>
                                 <connections>
                                     <action selector="chooseTimeFrame:" destination="8rJ-Kc-sve" eventType="valueChanged" id="YdY-fJ-Uxe"/>
@@ -159,10 +159,12 @@
                         <constraints>
                             <constraint firstItem="eIf-qu-pRP" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="10e-wN-XjS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QSK-GX-Xzb" secondAttribute="trailing" constant="-16" id="7CP-Yv-l2t"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="H1s-La-hZw" secondAttribute="trailing" constant="8" id="FKO-E3-FCN"/>
                             <constraint firstItem="H1s-La-hZw" firstAttribute="top" secondItem="QSK-GX-Xzb" secondAttribute="bottom" constant="42" id="H7d-44-058"/>
                             <constraint firstItem="QSK-GX-Xzb" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" id="JPd-N4-lRd"/>
                             <constraint firstItem="H1s-La-hZw" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="LEq-1e-WOm"/>
                             <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="QSK-GX-Xzb" secondAttribute="bottom" constant="215" id="Ygy-Ak-mfn"/>
+                            <constraint firstItem="H1s-La-hZw" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="8" id="aNo-gq-IJ9"/>
                             <constraint firstItem="eIf-qu-pRP" firstAttribute="top" secondItem="H1s-La-hZw" secondAttribute="bottom" constant="17" id="cvG-Lk-M37"/>
                             <constraint firstItem="QSK-GX-Xzb" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="-16" id="n7q-Ig-6mY"/>
                         </constraints>
@@ -321,7 +323,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BIt-zM-nrh" id="18V-p3-yUF">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0h5-hQ-9aA" customClass="MBCircularProgressBarView">
@@ -366,7 +368,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5T9-Ij-X5T">
-                                                    <rect key="frame" x="67" y="66" width="110" height="14"/>
+                                                    <rect key="frame" x="67" y="66" width="77" height="9"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="7"/>
                                                     <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <state key="normal" title=" X month remaining" image="iconAttachment.png">
@@ -374,7 +376,7 @@
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vf6-NX-GN8">
-                                                    <rect key="frame" x="185" y="66" width="74" height="14"/>
+                                                    <rect key="frame" x="152" y="65.5" width="52" height="10"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="7"/>
                                                     <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <state key="normal" title="X comments" image="iconReply.png">
@@ -382,7 +384,7 @@
                                                     </state>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="by username" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sAI-I4-vOa">
-                                                    <rect key="frame" x="299" y="66" width="68" height="15"/>
+                                                    <rect key="frame" x="322" y="63.5" width="45" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="FGG-ZR-sen"/>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="mLm-Jf-13K"/>
@@ -472,10 +474,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProposalDetailNameCell" rowHeight="100" id="3G5-Mj-TFQ" customClass="ProposalDetailNameTableViewCell">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="100"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3G5-Mj-TFQ" id="vet-n1-PLr">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROPOSAL ID xxxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZi-TC-NIo">
@@ -520,10 +522,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProposalDetailTitleCell" rowHeight="80" id="PK4-jr-pSW" customClass="ProposalDetailTitleTableViewCell">
-                                        <rect key="frame" x="0.0" y="156" width="375" height="80"/>
+                                        <rect key="frame" x="0.0" y="155.5" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PK4-jr-pSW" id="ilz-8y-PSU">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTS-LD-92M">
@@ -562,10 +564,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProposalDetailOneTimePaymentCell" rowHeight="60" id="dFL-Sw-ErI" customClass="ProposalDetailOneTimePayementTableViewCell">
-                                        <rect key="frame" x="0.0" y="236" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="235.5" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dFL-Sw-ErI" id="eTG-Ne-naT">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="One-time payment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5B-Bv-8zC">
@@ -595,10 +597,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProposalDetailCompletedPaymentsCell" rowHeight="60" id="3rB-B2-tht" customClass="ProposalDetailCompletedPaymentsTableViewCell">
-                                        <rect key="frame" x="0.0" y="296" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="295.5" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3rB-B2-tht" id="lbx-6U-Ykb">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 month remaining" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YYb-st-nRS">
@@ -637,10 +639,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProposalDetailVotesResultCell" rowHeight="60" id="AhG-jd-QLt" customClass="ProposalDetailVotesResultTableViewCell">
-                                        <rect key="frame" x="0.0" y="356" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="355.5" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AhG-jd-QLt" id="X4H-GK-I8n">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Votes Result" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9zy-ua-dDB">
@@ -687,10 +689,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProposalDetailDescriptionHeaderCell" rowHeight="40" id="WOQ-vo-zBB" customClass="ProposalDetailDescriptionHeaderTableViewCell">
-                                        <rect key="frame" x="0.0" y="416" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="415.5" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WOQ-vo-zBB" id="GVp-78-ffa">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="39"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="39.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Proposal Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TwN-dM-NWj">
@@ -710,10 +712,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProposalDetailDescriptionDetailCell" id="vWz-B3-GbL" customClass="ProposalDetailDescriptionDetailTableViewCell">
-                                        <rect key="frame" x="0.0" y="456" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="455.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vWz-B3-GbL" id="VXj-Hg-20p">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Proposal description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wf7-Tc-PdL">

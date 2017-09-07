@@ -52,6 +52,8 @@
             return 604800;
         case ChartTimeFrame_1M:
             return 2592000;
+        case ChartTimeFrame_6M:
+            return 15768000;
     }
 }
 
@@ -64,6 +66,24 @@
 
 -(void)maxIndexForChartTimeInterval:(NSDate *)date {
     
+}
+
++(NSString*)chartDataIntervalStartPathForExchangeNamed:(NSString*)exchange marketNamed:(NSString*)market {
+    return [[exchange stringByAppendingString:market] stringByAppendingString:@"chartDataIntervalStart"];
+}
+
++(NSString*)chartDataIntervalEndPathForExchangeNamed:(NSString*)exchange marketNamed:(NSString*)market {
+    return [[exchange stringByAppendingString:market] stringByAppendingString:@"chartDataIntervalEnd"];
+}
+
++(NSDate*)intervalStartForExchangeNamed:(NSString*)exchange marketNamed:(NSString*)market {
+    NSString * chatDataIntervalStartPath = [self chartDataIntervalStartPathForExchangeNamed:exchange marketNamed:market];
+    return [[NSUserDefaults standardUserDefaults] objectForKey:chatDataIntervalStartPath];
+}
+
++(NSDate*)intervalEndForExchangeNamed:(NSString*)exchange marketNamed:(NSString*)market {
+    NSString * chatDataIntervalEndPath = [self chartDataIntervalEndPathForExchangeNamed:exchange marketNamed:market];
+    return [[NSUserDefaults standardUserDefaults] objectForKey:chatDataIntervalEndPath];
 }
 
 @end

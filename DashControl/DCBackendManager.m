@@ -111,9 +111,11 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                      [userDefaults synchronize];
                      NSDictionary * currentMarketExchangePair = [userDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR];
                      if (currentMarketExchangePair && [currentMarketExchangePair objectForKey:@"exchange"] && [currentMarketExchangePair objectForKey:@"market"] ) {
-                         NSError * innerError = nil;
                          NSDate *lastWeek  = [[NSDate date] dateByAddingTimeInterval: -1209600.0]; //one week ago
-                         [self getChartDataForExchange:[currentMarketExchangePair objectForKey:@"exchange"] forMarket:[currentMarketExchangePair objectForKey:@"market"] start:lastWeek end:nil error:&innerError];
+                         [self getChartDataForExchange:[currentMarketExchangePair objectForKey:@"exchange"] forMarket:[currentMarketExchangePair objectForKey:@"market"] start:lastWeek end:nil clb:^(NSError *error) {
+                             //to do error handling
+                             //[[NSNotificationCenter defaultCenter] postNotificationName:ERROR object:];
+                         }];
                      }
                  }
              }
@@ -222,11 +224,10 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     }];
 }
 
--(void)getChartDataForExchange:(NSString*)exchange forMarket:(NSString*)market start:(NSDate*)start end:(NSDate*)end error:(NSError**)error {
+-(void)getChartDataForExchange:(NSString*)exchange forMarket:(NSString*)market start:(NSDate*)start end:(NSDate*)end clb:(void (^)(NSError * error))clb {
     //you may only pass either start or end
     if (start && end) {
-        *error = [NSError errorWithDomain:DASH_CONTROL_ERROR_DOMAIN code:0 userInfo:@{NSLocalizedDescriptionKey : @"Trying to load a nil url"}];
-        return;
+        return clb([NSError errorWithDomain:DASH_CONTROL_ERROR_DOMAIN code:0 userInfo:@{NSLocalizedDescriptionKey : @"You can not supply both start and end"}]);
     }
     NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:nil delegateQueue:nil];
@@ -237,11 +238,9 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 #ifdef DEBUG
     [URLParams setObject:@"1" forKey:@"noLimit"];
 #endif
-    NSString * chatDataIntervalStartPath = [[exchange stringByAppendingString:market] stringByAppendingString:@"chatDataIntervalStart"];
-    NSString * chatDataIntervalEndPath = [[exchange stringByAppendingString:market] stringByAppendingString:@"chatDataIntervalEnd"];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSDate * intervalStart = [userDefaults objectForKey:chatDataIntervalStartPath];
-    NSDate * intervalEnd = [userDefaults objectForKey:chatDataIntervalEndPath];
+    
+    NSDate * intervalStart = [ChartTimeFormatter intervalStartForExchangeNamed:exchange marketNamed:market];
+    NSDate * intervalEnd = [ChartTimeFormatter intervalEndForExchangeNamed:exchange marketNamed:market];
     NSDate * realStart = nil;
     NSDate * realEnd = nil;
     NSDate * knownDataStart = nil;
@@ -298,29 +297,44 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                 NSLog(@"Status %ld",(long)((NSHTTPURLResponse*)response).statusCode);
                 NSString* ErrorResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 NSLog(@"ErrorResponse:%@",ErrorResponse);
-                return;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                                    return clb([NSError errorWithDomain:DASH_CONTROL_ERROR_DOMAIN code:((NSHTTPURLResponse*)response).statusCode userInfo:@{NSLocalizedDescriptionKey : @"Server returned a non 200 http response"}]);
+                });
+
             }
             NSError *e = nil;
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableContainers error:&e];
             
             if (!e) {
                 [self importJSONData:jsonArray forExchange:exchange andMarket:market clb:^void(NSError * error) {
-                    if (!error && chatDataIntervalEndPath) {
+                    if (!error) {
                         NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-                        if (![defs objectForKey:chatDataIntervalEndPath] || ([defs objectForKey:chatDataIntervalEndPath] && ([knownDataEnd compare:[defs objectForKey:chatDataIntervalEndPath]] != NSOrderedSame))) {
-                            [defs setObject:knownDataEnd  forKey:chatDataIntervalEndPath];
+                        NSString * chartDataIntervalStartPath = [ChartTimeFormatter chartDataIntervalStartPathForExchangeNamed:exchange marketNamed:market];
+                        NSString * chartDataIntervalEndPath = [ChartTimeFormatter chartDataIntervalEndPathForExchangeNamed:exchange marketNamed:market];
+                        if (![defs objectForKey:chartDataIntervalEndPath] || ([defs objectForKey:chartDataIntervalEndPath] && ([knownDataEnd compare:[defs objectForKey:chartDataIntervalEndPath]] != NSOrderedSame))) {
+                            [defs setObject:knownDataEnd  forKey:chartDataIntervalEndPath];
                         }
-                        if (![defs objectForKey:chatDataIntervalStartPath] || ([defs objectForKey:chatDataIntervalStartPath] && ([knownDataStart compare:[defs objectForKey:chatDataIntervalStartPath]] != NSOrderedSame))) {
-                            [defs setObject:knownDataStart  forKey:chatDataIntervalStartPath];
+                        if (![defs objectForKey:chartDataIntervalStartPath] || ([defs objectForKey:chartDataIntervalStartPath] && ([knownDataStart compare:[defs objectForKey:chartDataIntervalStartPath]] != NSOrderedSame))) {
+                            [defs setObject:knownDataStart  forKey:chartDataIntervalStartPath];
                         }
                         [defs synchronize];
                     }
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        return clb(error);
+                    });
                 }];
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    return clb(e);
+                });
             }
         }
         else {
             // Failure
             NSLog(@"URL Session Task Failed: %@", [error localizedDescription]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                return clb(error);
+            });
         }
     }];
     
@@ -384,19 +398,19 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                             if ([[intervalArray firstObject] objectForKey:@"isFirst"]) {
                                 NSDate * additionalDataPointIntervalEndTime = [[[intervalArray firstObject] objectForKey:@"time"] dateByAddingTimeInterval:-[ChartTimeFormatter timeIntervalForChartTimeInterval:ChartTimeInterval_5Mins]];
                                 if ([additionalDataPointIntervalEndTime compare:intervalStartTime] == NSOrderedDescending) {
-                                NSArray * additionalDataPoints = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:exchange.identifier forMarketIdentifier:market.identifier interval:ChartTimeInterval_5Mins startTime:intervalStartTime endTime:additionalDataPointIntervalEndTime inContext:context error:&error];
-                                for (ChartDataEntry * chartDataEntry in [additionalDataPoints reverseObjectEnumerator]) {
-                                    NSMutableDictionary * additionalDataPoint = [NSMutableDictionary dictionary];
-                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"time"] forKey:@"time"];
-                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"open"] forKey:@"open"];
-                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"high"] forKey:@"high"];
-                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"low"] forKey:@"low"];
-                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"close"] forKey:@"close"];
-                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"volume"] forKey:@"volume"];
-                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"pairVolume"] forKey:@"pairVolume"];
-                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"trades"] forKey:@"trades"];
-                                    [intervalArray insertObject:additionalDataPoint atIndex:0];
-                                }
+                                    NSArray * additionalDataPoints = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:exchange.identifier forMarketIdentifier:market.identifier interval:ChartTimeInterval_5Mins startTime:intervalStartTime endTime:additionalDataPointIntervalEndTime inContext:context error:&error];
+                                    for (ChartDataEntry * chartDataEntry in [additionalDataPoints reverseObjectEnumerator]) {
+                                        NSMutableDictionary * additionalDataPoint = [NSMutableDictionary dictionary];
+                                        [additionalDataPoint setObject:[chartDataEntry valueForKey:@"time"] forKey:@"time"];
+                                        [additionalDataPoint setObject:[chartDataEntry valueForKey:@"open"] forKey:@"open"];
+                                        [additionalDataPoint setObject:[chartDataEntry valueForKey:@"high"] forKey:@"high"];
+                                        [additionalDataPoint setObject:[chartDataEntry valueForKey:@"low"] forKey:@"low"];
+                                        [additionalDataPoint setObject:[chartDataEntry valueForKey:@"close"] forKey:@"close"];
+                                        [additionalDataPoint setObject:[chartDataEntry valueForKey:@"volume"] forKey:@"volume"];
+                                        [additionalDataPoint setObject:[chartDataEntry valueForKey:@"pairVolume"] forKey:@"pairVolume"];
+                                        [additionalDataPoint setObject:[chartDataEntry valueForKey:@"trades"] forKey:@"trades"];
+                                        [intervalArray insertObject:additionalDataPoint atIndex:0];
+                                    }
                                 }
                             } else if ([[intervalArray firstObject] objectForKey:@"isLast"]) {
                                 NSDate * additionalDataPointIntervalStartTime = [[[intervalArray lastObject] objectForKey:@"time"] dateByAddingTimeInterval:[ChartTimeFormatter timeIntervalForChartTimeInterval:ChartTimeInterval_5Mins]];

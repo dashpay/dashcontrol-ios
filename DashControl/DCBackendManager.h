@@ -16,4 +16,6 @@
 
 + (id _Nonnull )sharedManager;
 
+-(void)getChartDataForExchange:(NSString* _Nonnull)exchange forMarket:(NSString* _Nonnull)market start:(NSDate* _Nullable)start end:(NSDate* _Nullable)end clb:(void (^_Nullable)(NSError * _Nullable error))clb;
+
 @end
