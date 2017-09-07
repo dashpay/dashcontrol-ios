@@ -63,6 +63,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 
 @interface DCBackendManager ()
 @property (nonatomic, strong) Reachability *reachability;
+@property (nonatomic, strong) NSDateFormatter * dateFormatter;
 @end
 
 @implementation DCBackendManager
@@ -80,6 +81,13 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 
 - (id)init {
     if (self = [super init]) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        [dateFormatter setLocale:enUSPOSIXLocale];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+        self.dateFormatter = dateFormatter;
+        
         self.mainObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
         self.reachability = [Reachability reachabilityForInternetConnection];
         [self fetchMarkets: ^void (NSError * error, NSUInteger defaultExchangeIdentifier, NSUInteger defaultMarketIdentifier)
@@ -328,23 +336,24 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     
     NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
     [container performBackgroundTask:^(NSManagedObjectContext *context) {
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-        [dateFormatter setLocale:enUSPOSIXLocale];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
         __block NSError * error;
         Market * market = [[DCCoreDataManager sharedManager] marketNamed:marketName inContext:context error:&error];
         Exchange * exchange = error?nil:[[DCCoreDataManager sharedManager] exchangeNamed:exchangeName inContext:context error:&error];
-        if (!error && market && exchange) {
+        if (!error && market && exchange && [jsonArray count]) {
             context.automaticallyMergesChangesFromParent = TRUE;
             context.mergePolicy = NSOverwriteMergePolicy;
             NSInteger count = 0;
             
 #define FormatChartTimeInterval(x) [NSString stringWithFormat:@"CT%ld",(long)x]
             
+            
+            
+            [[jsonArray firstObject] setObject:[NSNumber numberWithBool:true] forKey:@"isFirst"];
+            
+            [[jsonArray lastObject] setObject:[NSNumber numberWithBool:true] forKey:@"isLast"];
+            
             for (NSMutableDictionary *jsonObject in jsonArray) {
-                NSDate * date = [dateFormatter dateFromString:[jsonObject objectForKey:@"time"]];
+                NSDate * date = [self.dateFormatter dateFromString:[jsonObject objectForKey:@"time"]];
                 NSTimeInterval timestamp = [date timeIntervalSince1970];
                 [jsonObject setObject:date forKey:@"time"];
                 [jsonObject setObject:@(floor(timestamp/900.0)) forKey:FormatChartTimeInterval(ChartTimeInterval_15Mins)];
@@ -357,63 +366,111 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             
             
             for (int chartTimeInterval=1;chartTimeInterval<=ChartTimeInterval_1Day;chartTimeInterval++) {
-                @autoreleasepool {
-                    NSDictionary * jsonGroupedArray = [jsonArray mutableDictionaryOfMutableArraysReferencedByKeyPath:FormatChartTimeInterval(chartTimeInterval)];
-                    
-                    for (NSNumber *intervalNumber in jsonGroupedArray) {
-                        NSArray * intervalArray = [jsonGroupedArray objectForKey:intervalNumber];
-                        ChartDataEntry *chartDataEntry = (ChartDataEntry*)[NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
-                        chartDataEntry.time = [NSDate dateWithTimeIntervalSince1970:[[[intervalArray firstObject] objectForKey:FormatChartTimeInterval(chartTimeInterval)] doubleValue] * [ChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval]];
-                        chartDataEntry.open = [[[intervalArray firstObject] objectForKey:@"open"] doubleValue];
-                        chartDataEntry.high = [[intervalArray valueForKeyPath:@"@max.high"] doubleValue];
-                        chartDataEntry.low = [[intervalArray valueForKeyPath:@"@min.low"] doubleValue];
-                        chartDataEntry.close = [[[intervalArray lastObject] objectForKey:@"close"] doubleValue];
-                        chartDataEntry.volume = [[intervalArray valueForKeyPath:@"@sum.volume"] doubleValue];
-                        chartDataEntry.pairVolume = [[intervalArray valueForKeyPath:@"@sum.pairVolume"] doubleValue];
-                        chartDataEntry.trades = [[intervalArray valueForKeyPath:@"@sum.trades"] longValue];
-                        chartDataEntry.marketIdentifier = market.identifier;
-                        chartDataEntry.exchangeIdentifier = exchange.identifier;
-                        chartDataEntry.interval = chartTimeInterval;
-                        count++;
-                        if (count % 2016 == 0) { //one week of data
-                            if (![context save:&error]) {
-                                NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-                                abort();
+                if (!error) {
+                    @autoreleasepool {
+                        NSDictionary * jsonGroupedArray = [jsonArray mutableDictionaryOfMutableArraysReferencedByKeyPath:FormatChartTimeInterval(chartTimeInterval)];
+                        
+                        for (NSNumber *intervalNumber in jsonGroupedArray) {
+                            NSMutableArray * intervalArray = [jsonGroupedArray objectForKey:intervalNumber];
+                            
+                            //there's a slight problem that needs addressing before we start computing aggregates.
+                            //Data is returned from the server by 5 minute intervals.
+                            //To get proper longer intervals we need to combine this with local 5 minute interval data
+                            //And then do the aggregates
+                            
+                            NSDate * intervalStartTime = [NSDate dateWithTimeIntervalSince1970:[[[intervalArray firstObject] objectForKey:FormatChartTimeInterval(chartTimeInterval)] doubleValue] * [ChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval]];
+                            
+                            
+                            if ([[intervalArray firstObject] objectForKey:@"isFirst"]) {
+                                NSDate * additionalDataPointIntervalEndTime = [[[intervalArray firstObject] objectForKey:@"time"] dateByAddingTimeInterval:-[ChartTimeFormatter timeIntervalForChartTimeInterval:ChartTimeInterval_5Mins]];
+                                if ([additionalDataPointIntervalEndTime compare:intervalStartTime] == NSOrderedDescending) {
+                                NSArray * additionalDataPoints = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:exchange.identifier forMarketIdentifier:market.identifier interval:ChartTimeInterval_5Mins startTime:intervalStartTime endTime:additionalDataPointIntervalEndTime inContext:context error:&error];
+                                for (ChartDataEntry * chartDataEntry in [additionalDataPoints reverseObjectEnumerator]) {
+                                    NSMutableDictionary * additionalDataPoint = [NSMutableDictionary dictionary];
+                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"time"] forKey:@"time"];
+                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"open"] forKey:@"open"];
+                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"high"] forKey:@"high"];
+                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"low"] forKey:@"low"];
+                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"close"] forKey:@"close"];
+                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"volume"] forKey:@"volume"];
+                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"pairVolume"] forKey:@"pairVolume"];
+                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"trades"] forKey:@"trades"];
+                                    [intervalArray insertObject:additionalDataPoint atIndex:0];
+                                }
+                                }
+                            } else if ([[intervalArray firstObject] objectForKey:@"isLast"]) {
+                                NSDate * additionalDataPointIntervalStartTime = [[[intervalArray lastObject] objectForKey:@"time"] dateByAddingTimeInterval:[ChartTimeFormatter timeIntervalForChartTimeInterval:ChartTimeInterval_5Mins]];
+                                NSDate * additionalDataPointIntervalEndTime = [intervalStartTime dateByAddingTimeInterval:[ChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval]];
+                                NSArray * additionalDataPoints = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:exchange.identifier forMarketIdentifier:market.identifier interval:ChartTimeInterval_5Mins startTime:additionalDataPointIntervalStartTime endTime:additionalDataPointIntervalEndTime inContext:context error:&error];
+                                for (ChartDataEntry * chartDataEntry in additionalDataPoints) {
+                                    NSMutableDictionary * additionalDataPoint = [NSMutableDictionary dictionary];
+                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"time"] forKey:@"time"];
+                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"open"] forKey:@"open"];
+                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"high"] forKey:@"high"];
+                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"low"] forKey:@"low"];
+                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"close"] forKey:@"close"];
+                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"volume"] forKey:@"volume"];
+                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"pairVolume"] forKey:@"pairVolume"];
+                                    [additionalDataPoint setObject:[chartDataEntry valueForKey:@"trades"] forKey:@"trades"];
+                                    [intervalArray addObject:additionalDataPoint];
+                                }
+                            }
+                            if (error) break;
+                            
+                            ChartDataEntry *chartDataEntry = (ChartDataEntry*)[NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
+                            chartDataEntry.time = intervalStartTime;
+                            chartDataEntry.open = [[[intervalArray firstObject] objectForKey:@"open"] doubleValue];
+                            chartDataEntry.high = [[intervalArray valueForKeyPath:@"@max.high"] doubleValue];
+                            chartDataEntry.low = [[intervalArray valueForKeyPath:@"@min.low"] doubleValue];
+                            chartDataEntry.close = [[[intervalArray lastObject] objectForKey:@"close"] doubleValue];
+                            chartDataEntry.volume = [[intervalArray valueForKeyPath:@"@sum.volume"] doubleValue];
+                            chartDataEntry.pairVolume = [[intervalArray valueForKeyPath:@"@sum.pairVolume"] doubleValue];
+                            chartDataEntry.trades = [[intervalArray valueForKeyPath:@"@sum.trades"] longValue];
+                            chartDataEntry.marketIdentifier = market.identifier;
+                            chartDataEntry.exchangeIdentifier = exchange.identifier;
+                            chartDataEntry.interval = chartTimeInterval;
+                            count++;
+                            if (count % 2016 == 0) { //one week of data
+                                if (![context save:&error]) {
+                                    NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+                                    abort();
+                                    break;
+                                }
                             }
                         }
                     }
                 }
             }
-            
-            
-            for (NSDictionary *jsonObject in jsonArray) {
-                ChartDataEntry *chartDataEntry = (ChartDataEntry*)[NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
-                chartDataEntry.time = [jsonObject objectForKey:@"time"];
-                chartDataEntry.open = [[jsonObject objectForKey:@"open"] doubleValue];
-                chartDataEntry.high = [[jsonObject objectForKey:@"high"] doubleValue];
-                chartDataEntry.low = [[jsonObject objectForKey:@"low"] doubleValue];
-                chartDataEntry.close = [[jsonObject objectForKey:@"close"] doubleValue];
-                chartDataEntry.volume = [[jsonObject objectForKey:@"volume"] doubleValue];
-                chartDataEntry.pairVolume = [[jsonObject objectForKey:@"pairVolume"] doubleValue];
-                chartDataEntry.trades = [[jsonObject objectForKey:@"trades"] longValue];
-                chartDataEntry.marketIdentifier = market.identifier;
-                chartDataEntry.exchangeIdentifier = exchange.identifier;
-                chartDataEntry.interval = ChartTimeInterval_5Mins;
-                count++;
-                if (count % 2016 == 0) { //one week of data
-                    if (![context save:&error]) {
-                        NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-                        abort();
+            if (!error) {
+                
+                for (NSDictionary *jsonObject in jsonArray) {
+                    ChartDataEntry *chartDataEntry = (ChartDataEntry*)[NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
+                    chartDataEntry.time = [jsonObject objectForKey:@"time"];
+                    chartDataEntry.open = [[jsonObject objectForKey:@"open"] doubleValue];
+                    chartDataEntry.high = [[jsonObject objectForKey:@"high"] doubleValue];
+                    chartDataEntry.low = [[jsonObject objectForKey:@"low"] doubleValue];
+                    chartDataEntry.close = [[jsonObject objectForKey:@"close"] doubleValue];
+                    chartDataEntry.volume = [[jsonObject objectForKey:@"volume"] doubleValue];
+                    chartDataEntry.pairVolume = [[jsonObject objectForKey:@"pairVolume"] doubleValue];
+                    chartDataEntry.trades = [[jsonObject objectForKey:@"trades"] longValue];
+                    chartDataEntry.marketIdentifier = market.identifier;
+                    chartDataEntry.exchangeIdentifier = exchange.identifier;
+                    chartDataEntry.interval = ChartTimeInterval_5Mins;
+                    count++;
+                    if (count % 2016 == 0) { //one week of data
+                        if (![context save:&error]) {
+                            NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+                            abort();
+                        }
                     }
                 }
+                
+                if (![context save:&error]) {
+                    NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+                    abort();
+                }
+                
             }
-            
-            if (![context save:&error]) {
-                NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-                abort();
-            }
-            
-            
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 clb(error);

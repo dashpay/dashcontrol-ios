@@ -51,7 +51,7 @@
         case ChartTimeFrame_1W:
             return 604800;
         case ChartTimeFrame_1M:
-            return 2568400;
+            return 2592000;
     }
 }
 

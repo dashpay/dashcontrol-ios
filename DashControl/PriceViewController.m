@@ -61,14 +61,11 @@
     
     ChartXAxis *xAxis = _chartView.xAxis;
     xAxis.labelPosition = XAxisLabelPositionBottom;
-    xAxis.drawGridLinesEnabled = NO;
-    //    xAxis.axisMinimum = 1;
-    //    xAxis.axisMaximum = steps;
-    //[xAxis setValueFormatter:dateFormatter];
+    xAxis.drawGridLinesEnabled = YES;
     
     ChartYAxis *leftAxis = _chartView.leftAxis;
     leftAxis.labelCount = 7;
-    leftAxis.drawGridLinesEnabled = NO;
+    leftAxis.drawGridLinesEnabled = YES;
     leftAxis.drawAxisLineEnabled = NO;
     
     ChartYAxis *rightAxis = _chartView.rightAxis;
@@ -121,12 +118,13 @@
     NSArray * chartData = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:self.selectedExchange.identifier        forMarketIdentifier:self.selectedMarket.identifier interval:self.timeInterval startTime:self.startTime endTime:self.endTime inContext:self.managedObjectContext error:&error] ;
     if (!error) {
         NSMutableArray *charDataPoints = [[NSMutableArray alloc] init];
-        
+        if (chartData.count) {
+            NSTimeInterval baseTime = [[[chartData firstObject] valueForKey:@"time"] timeIntervalSince1970];
         for (int i = 0; i < chartData.count; i++)
         {
             ChartDataEntry * entry = [chartData objectAtIndex:i];
-            
-            [charDataPoints addObject:[[CandleChartDataEntry alloc] initWithX:i shadowH:entry.high shadowL:entry.low open:entry.open close:entry.close icon: [UIImage imageNamed:@"icon"]]];
+            NSInteger xIndex = ([entry.time timeIntervalSince1970] - baseTime)/[ChartTimeFormatter timeIntervalForChartTimeInterval:self.timeInterval];
+            [charDataPoints addObject:[[CandleChartDataEntry alloc] initWithX:xIndex shadowH:entry.high shadowL:entry.low open:entry.open close:entry.close icon: [UIImage imageNamed:@"icon"]]];
         }
         
         CandleChartDataSet *set1 = [[CandleChartDataSet alloc] initWithValues:charDataPoints label:@"Data Set"];
@@ -146,7 +144,11 @@
         CandleChartData *data = [[CandleChartData alloc] initWithDataSet:set1];
         
         _chartView.data = data;
+        }
     }
+    
+    ChartXAxis *xAxis = _chartView.xAxis;
+    //[xAxis setValueFormatter:dateFormatter];
 }
 
 #pragma mark - Common option actions
