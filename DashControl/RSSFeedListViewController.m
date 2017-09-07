@@ -410,14 +410,19 @@ NSString *const SearchBarIsFirstResponderKey = @"SearchBarIsFirstResponderKey";
 #pragma mark - NSUserActivity continueUserActivity
 
 -(void)simulateNavitationToPostWithGUID:(NSString*)guid {
+    
+    if (!managedObjectContext) {
+        managedObjectContext = [[RSSFeedManager sharedManager] managedObjectContext];
+    }
+    
     Post *feedItem;
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Post" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Post" inManagedObjectContext:managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entityDescription];
     NSPredicate *guidPredicate = [NSPredicate predicateWithFormat:@"guid == %@", guid];
     [request setPredicate:guidPredicate];
     NSError *error;
-    NSArray *array = [self.managedObjectContext executeFetchRequest:request error:&error];
+    NSArray *array = [managedObjectContext executeFetchRequest:request error:&error];
     if (array == nil)
     {
         NSLog(@"Error while festching %@ with predicate %@", entityDescription.name, guidPredicate);
@@ -426,6 +431,9 @@ NSString *const SearchBarIsFirstResponderKey = @"SearchBarIsFirstResponderKey";
         feedItem = array.firstObject;
     }
     if (feedItem) {
+        if (![[self fetchedResultsController] performFetch:&error]) {
+            return;
+        }
         NSIndexPath *indexPath = [_fetchedResultsController indexPathForObject:feedItem];
         if (indexPath) {
             if (![[self.tableView indexPathsForVisibleRows] containsObject:indexPath]) {

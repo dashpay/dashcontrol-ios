@@ -26,9 +26,17 @@ static NSString *CellIdentifier = @"ProposalCell";
     // Do any additional setup after loading the view.
     
     managedObjectContext = [[ProposalsManager sharedManager] managedObjectContext];
+
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(budgetDidUpdate:)
+     name:BUDGET_DID_UPDATE_NOTIFICATION
+     object:nil];
+    
+    [self budgetDidUpdate:nil];
     
     [self cfgSearchController];
-    
+
     NSError *error;
     if (![[self fetchedResultsController] performFetch:&error]) {
         // Update to handle the error appropriately.
@@ -65,9 +73,6 @@ static NSString *CellIdentifier = @"ProposalCell";
         }
     }
     
-    Budget *budget = [[[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Budget" inContext:self.managedObjectContext] firstObject];
-    [budget allotedAmount];
-    NSLog(@"Budget:%@", budget);
     /*
     NSArray *proposals = [[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Proposal" inContext:self.managedObjectContext];
     NSLog(@"All proposals count:%lu", (unsigned long)[proposals count]);
@@ -75,6 +80,13 @@ static NSString *CellIdentifier = @"ProposalCell";
         NSLog(@"Proposal:%@\rThe proposal has %tu comments", proposal.title, proposal.comments.count);
     }
     */
+}
+
+#pragma mark - Budget Updates
+
+-(void)budgetDidUpdate:(NSNotification*)notification {
+    Budget *budget = [[[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Budget" inContext:managedObjectContext] firstObject];
+    [_proposalHeaderView configureWithBudget:budget];
 }
 
 #pragma mark - Table view data source
@@ -113,7 +125,7 @@ static NSString *CellIdentifier = @"ProposalCell";
             } completion:^(BOOL finished) {
                 proposal.lastProgressDisplayed = currentProgress;
                 NSError *error = nil;
-                [self.managedObjectContext save:&error];
+                [managedObjectContext save:&error];
             }];
         });
     }
@@ -189,8 +201,9 @@ static NSString *CellIdentifier = @"ProposalCell";
      {
          //Get reference to the destination view controller
          ProposalDetailViewController *vc = [segue destinationViewController];
-         [vc setManagedObjectContext:self.managedObjectContext];
+         [vc setManagedObjectContext:managedObjectContext];
          [vc setCurrentProposal:[(ProposalCell*)sender currentProposal]];
+         vc.hidesBottomBarWhenPushed = YES;
      }
 }
 
@@ -211,8 +224,9 @@ static NSString *CellIdentifier = @"ProposalCell";
     if (searchString.length > 0)
     {
         NSPredicate *titleP = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchString];
+        NSPredicate *nameP = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString];
         NSPredicate *ownerP = [NSPredicate predicateWithFormat:@"ownerUsername CONTAINS[cd] %@", searchString];
-        NSPredicate *orPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:[NSArray arrayWithObjects:titleP, ownerP, nil]];
+        NSPredicate *orPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:[NSArray arrayWithObjects:nameP, titleP, ownerP, nil]];
         NSPredicate *finalPred = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:orPredicate, /*andPredicate,*/ nil]];
         [fetchRequest setPredicate:finalPred];
     }
@@ -310,7 +324,10 @@ static NSString *CellIdentifier = @"ProposalCell";
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
-    self.tableView.tableHeaderView = self.searchController.searchBar;
+    //self.searchController.searchBar.placeholder = NSLocalizedString(@"Search name or owner", nil);
+    self.searchController.searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.searchController.searchBar.delegate = self;
+    [self.proposalHeaderView addSubview:self.searchController.searchBar];
     self.definesPresentationContext = YES;
     [self.searchController.searchBar sizeToFit];
 }
@@ -377,6 +394,47 @@ static NSString *CellIdentifier = @"ProposalCell";
 }
 -(void)previewingContext:(id )previewingContext commitViewController: (UIViewController *)viewControllerToCommit {
     [self.navigationController showViewController:viewControllerToCommit sender:nil];
+}
+
+#pragma mark - NSUserActivity continueUserActivity
+
+-(void)simulateNavitationToProposalWithHash:(NSString*)hash {
+    
+    if (!managedObjectContext) {
+        managedObjectContext = [[ProposalsManager sharedManager] managedObjectContext];
+    }
+    
+    Proposal *proposal;
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Proposal" inManagedObjectContext:managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+    NSPredicate *hashPredicate = [NSPredicate predicateWithFormat:@"hashProposal == %@", hash];
+    [request setPredicate:hashPredicate];
+    NSError *error;
+    NSArray *array = [managedObjectContext executeFetchRequest:request error:&error];
+    if (array == nil)
+    {
+        NSLog(@"Error while festching %@ with predicate %@", entityDescription.name, hashPredicate);
+    }
+    else {
+        proposal = array.firstObject;
+    }
+    if (proposal) {
+        if (![[self fetchedResultsController] performFetch:&error]) {
+            return;
+        }
+        NSIndexPath *indexPath = [_fetchedResultsController indexPathForObject:proposal];
+        if (indexPath) {
+            if (![[self.tableView indexPathsForVisibleRows] containsObject:indexPath]) {
+                [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+            }
+            [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+                [self performSegueWithIdentifier:@"pushProposalDetail" sender:[self.tableView cellForRowAtIndexPath:indexPath]];
+            });
+        }
+    }
 }
 
 

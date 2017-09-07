@@ -2,7 +2,7 @@
 //  Budget+CoreDataProperties.m
 //  DashControl
 //
-//  Created by Manuel Boyer on 27/08/2017.
+//  Created by Manuel Boyer on 06/09/2017.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
@@ -14,10 +14,10 @@
 	return [[NSFetchRequest alloc] initWithEntityName:@"Budget"];
 }
 
-@dynamic totalAmount;
 @dynamic allotedAmount;
 @dynamic paymentDate;
 @dynamic paymentDateHuman;
 @dynamic superblock;
+@dynamic totalAmount;
 
 @end

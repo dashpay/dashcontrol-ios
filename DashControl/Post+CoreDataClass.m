@@ -24,7 +24,7 @@
     attributeSet.keywords = [self.title componentsSeparatedByString:@" "];
     
     CSSearchableItem *item1 = [[CSSearchableItem alloc]
-                               initWithUniqueIdentifier:self.guid
+                               initWithUniqueIdentifier:[NSString stringWithFormat:@"%@/%@", @"post", self.guid]
                                domainIdentifier:kDCCSSearchDomainIdentifierFeed
                                attributeSet:attributeSet];
     
@@ -50,7 +50,7 @@
     attributeSet.thumbnailData = imageData;
     
     CSSearchableItem *item1 = [[CSSearchableItem alloc]
-                               initWithUniqueIdentifier:self.guid
+                               initWithUniqueIdentifier:[NSString stringWithFormat:@"%@/%@", @"post", self.guid]
                                domainIdentifier:kDCCSSearchDomainIdentifierFeed
                                attributeSet:attributeSet];
     

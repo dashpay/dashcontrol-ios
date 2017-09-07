@@ -10,8 +10,6 @@
 
 @interface ProposalDetailTitleTableViewCell : UITableViewCell
 
-@property (nonatomic, retain) Proposal *currentProposal;
-
 @property (strong, nonatomic) IBOutlet UILabel *labelTitle;
 @property (strong, nonatomic) IBOutlet UILabel *labelProposalTitle;
 @property (strong, nonatomic) IBOutlet UILabel *labelProposalOwner;

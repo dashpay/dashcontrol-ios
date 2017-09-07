@@ -36,7 +36,7 @@ static NSString *CellDetailDescriptionDetailIdentifier = @"ProposalDetailDescrip
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    NSLog(@"Proposal:%@", self.currentProposal);
+    //NSLog(@"Proposal:%@", self.currentProposal);
     
     [[NSNotificationCenter defaultCenter]
      addObserver:self
@@ -54,7 +54,7 @@ static NSString *CellDetailDescriptionDetailIdentifier = @"ProposalDetailDescrip
 
 -(void)proposalDidUpdate:(NSNotification*)notification {
     if ([[notification name] isEqualToString:PROPOSAL_DID_UPDATE_NOTIFICATION] && [[[notification userInfo] objectForKey:@"hash"] isEqualToString:self.currentProposal.hashProposal]) {
-        NSLog(@"Proposal updated:%@", self.currentProposal);
+        //NSLog(@"Proposal updated:%@", self.currentProposal);
         [self.tableView reloadData];
     }
 }
@@ -89,6 +89,9 @@ static NSString *CellDetailDescriptionDetailIdentifier = @"ProposalDetailDescrip
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return CGFLOAT_MIN;
 }
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 60;
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *cellIdentifier = [self cellIdentifierForIndexPath:indexPath];
     if ([cellIdentifier isEqualToString:CellDetailNameIdentifier]) {
@@ -120,7 +123,16 @@ static NSString *CellDetailDescriptionDetailIdentifier = @"ProposalDetailDescrip
     NSString *cellIdentifier = [self cellIdentifierForIndexPath:indexPath];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     if ([cell respondsToSelector:@selector(configureWithProposal:)]) {
-        [cell performSelector:@selector(configureWithProposal:) withObject:self.currentProposal];
+        if (![cellIdentifier isEqualToString:CellDetailDescriptionDetailIdentifier]) {
+            [cell performSelector:@selector(configureWithProposal:) withObject:self.currentProposal];
+        }
+        else {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(CGFLOAT_MIN * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [cell performSelector:@selector(configureWithProposal:) withObject:self.currentProposal];
+                [self.tableView beginUpdates];
+                [self.tableView endUpdates];
+            });
+        }
     }
     return cell;
 }

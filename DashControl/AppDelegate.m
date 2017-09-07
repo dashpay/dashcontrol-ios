@@ -10,6 +10,10 @@
 #import <sys/utsname.h>
 
 #import "RSSFeedListViewController.h"
+#import "ProposalsViewController.h"
+
+#define kRSSFeedViewControllerIndex 0
+#define kProposalsViewControllerIndex 2
 
 /*
  * Utils: Add this section before your class implementation
@@ -128,16 +132,37 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     {
         NSString * activityIdentifier = [activity.userInfo valueForKey:CSSearchableItemActivityIdentifier];
        
-        UITabBarController *tabBarController = (UITabBarController *)_window.rootViewController;
-        [tabBarController setSelectedIndex:0];
-        UINavigationController *RSSFeedNavigationController = (UINavigationController*)[tabBarController.viewControllers objectAtIndex:0];
-        [RSSFeedNavigationController dismissViewControllerAnimated:NO completion:nil];
-        [RSSFeedNavigationController popToRootViewControllerAnimated:NO];
-        RSSFeedListViewController *vc = (RSSFeedListViewController*)[[RSSFeedNavigationController viewControllers] firstObject];
-        [vc simulateNavitationToPostWithGUID:activityIdentifier];
+        wasHandled = YES;
         
-         wasHandled = YES;
-        
+        NSArray *identifierComponents = [activityIdentifier componentsSeparatedByString:@"/"];
+        if ([identifierComponents.firstObject isEqualToString:@"post"]) {
+            
+            activityIdentifier = [activityIdentifier stringByReplacingOccurrencesOfString:@"post/" withString:@""];
+            
+            UITabBarController *tabBarController = (UITabBarController *)_window.rootViewController;
+            [tabBarController setSelectedIndex:kRSSFeedViewControllerIndex];
+            UINavigationController *RSSFeedNavigationController = (UINavigationController*)[tabBarController.viewControllers objectAtIndex:kRSSFeedViewControllerIndex];
+            [RSSFeedNavigationController dismissViewControllerAnimated:NO completion:nil];
+            [RSSFeedNavigationController popToRootViewControllerAnimated:NO];
+            RSSFeedListViewController *vc = (RSSFeedListViewController*)[[RSSFeedNavigationController viewControllers] firstObject];
+            [vc simulateNavitationToPostWithGUID:activityIdentifier];
+        }
+        else if ([identifierComponents.firstObject isEqualToString:@"proposal"]) {
+            
+            activityIdentifier = [activityIdentifier stringByReplacingOccurrencesOfString:@"proposal/" withString:@""];
+            
+            UITabBarController *tabBarController = (UITabBarController *)_window.rootViewController;
+            [tabBarController setSelectedIndex:kProposalsViewControllerIndex];
+            UINavigationController *proposalsNavigationController = (UINavigationController*)[tabBarController.viewControllers objectAtIndex:kProposalsViewControllerIndex];
+            [proposalsNavigationController dismissViewControllerAnimated:NO completion:nil];
+            [proposalsNavigationController popToRootViewControllerAnimated:NO];
+            ProposalsViewController *vc = (ProposalsViewController*)[[proposalsNavigationController viewControllers] firstObject];
+            [vc simulateNavitationToProposalWithHash:activityIdentifier];
+        }
+        else {
+            wasHandled = NO;
+        }
+
     } else {
         
         //the app was launched via Handoff protocol

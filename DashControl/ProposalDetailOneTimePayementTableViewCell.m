@@ -24,11 +24,32 @@
 -(void)configureWithProposal:(Proposal*)proposal {
     _labelOneTimePayment.text = NSLocalizedString(@"One-time payment", @"Proposal Detail View");
     
-    
-    NSString *oneTimePaymentAmountString = [NSString stringWithFormat:@"%d", 1701];
+    NSString *oneTimePaymentAmountString = [NSString stringWithFormat:@"%d", proposal.monthlyAmount];
     NSString *dashString = NSLocalizedString(@"DASH", nil);
-    NSString *currencyAmountString = [NSString stringWithFormat:@"(%@ %@)", @"365003", @"USD"];
     
+    NSError * error = nil;
+    NSUserDefaults * standardDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary * currentExchangeMarketPair = [standardDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR];
+    Market * currentMarket = [[DCCoreDataManager sharedManager] marketNamed:[currentExchangeMarketPair objectForKey:@"market"] inContext:proposal.managedObjectContext error:&error];
+    Exchange * currentExchange = error?nil:[[DCCoreDataManager sharedManager] exchangeNamed:[currentExchangeMarketPair objectForKey:@"exchange"] inContext:proposal.managedObjectContext error:&error];
+    NSDate *startTime;
+    NSTimeInterval timeInterval = ChartTimeInterval_15Mins;
+    if (!error) {
+        currentMarket = currentMarket;
+        currentExchange = currentExchange;
+        startTime = [NSDate dateWithTimeIntervalSinceNow:-[ChartTimeFormatter timeIntervalForChartTimeFrame:timeInterval]];
+    }
+    
+    NSArray * chartData = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:currentExchange.identifier forMarketIdentifier:currentMarket.identifier interval:timeInterval startTime:startTime endTime:nil inContext:proposal.managedObjectContext error:&error] ;
+    ChartDataEntry * entry;
+    if (!error) {
+        entry = [chartData lastObject];
+    }
+    
+    NSString *currencyAmountString = @"";
+    if (!error && entry) {
+        currencyAmountString = [NSString stringWithFormat:@"(%f %@)", proposal.monthlyAmount * entry.close, [currentExchangeMarketPair objectForKey:@"market"]];
+    }
     
     NSString *finalString = [NSString stringWithFormat:@"%@ %@ %@", oneTimePaymentAmountString, dashString, currencyAmountString];
     NSMutableAttributedString *mutAttributedString = [[NSMutableAttributedString alloc] initWithString:finalString];

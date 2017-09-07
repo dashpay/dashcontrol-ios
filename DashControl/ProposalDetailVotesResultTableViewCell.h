@@ -10,8 +10,6 @@
 
 @interface ProposalDetailVotesResultTableViewCell : UITableViewCell
 
-@property (nonatomic, retain) Proposal *currentProposal;
-
 @property (strong, nonatomic) IBOutlet UILabel *labelVotesResult;
 @property (strong, nonatomic) IBOutlet UILabel *labelVotesResultYes;
 @property (strong, nonatomic) IBOutlet UILabel *labelVotesResultNo;

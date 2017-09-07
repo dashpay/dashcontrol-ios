@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) Proposal *currentProposal;
 
+@property (strong, nonatomic) UIView *budgetView;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 //3D Touch

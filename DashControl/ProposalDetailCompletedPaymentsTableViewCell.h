@@ -10,8 +10,6 @@
 
 @interface ProposalDetailCompletedPaymentsTableViewCell : UITableViewCell
 
-@property (nonatomic, retain) Proposal *currentProposal;
-
 @property (strong, nonatomic) IBOutlet UILabel *labelCompletedPayments;
 @property (strong, nonatomic) IBOutlet UILabel *labelCompletedPaymentsDetail;
 @property (strong, nonatomic) IBOutlet UILabel *labelMonthRemaining;

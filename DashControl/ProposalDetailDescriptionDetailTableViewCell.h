@@ -10,8 +10,6 @@
 
 @interface ProposalDetailDescriptionDetailTableViewCell : UITableViewCell
 
-@property (nonatomic, retain) Proposal *currentProposal;
-
 @property (strong, nonatomic) IBOutlet UILabel *labelProposalDescription;
 
 -(void)configureWithProposal:(Proposal*)proposal;

@@ -41,7 +41,7 @@
         
         [mutAttributedString beginEditing];
         [mutAttributedString addAttribute:NSFontAttributeName
-                                    value:[UIFont systemFontOfSize:17 weight:UIFontWeightSemibold]
+                                    value:[UIFont systemFontOfSize:15 weight:UIFontWeightSemibold]
                                     range:nameStringRange];
 
         [mutAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:nameStringRange];
@@ -62,7 +62,7 @@
         
         [mutAttributedString beginEditing];
         [mutAttributedString addAttribute:NSFontAttributeName
-                                    value:[UIFont systemFontOfSize:13 weight:UIFontWeightRegular]
+                                    value:[UIFont systemFontOfSize:11 weight:UIFontWeightRegular]
                                     range:titleStringRange];
         
         [mutAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:titleStringRange];
@@ -86,10 +86,10 @@
         
         [mutAttributedString beginEditing];
         [mutAttributedString addAttribute:NSFontAttributeName
-                                    value:[UIFont systemFontOfSize:17 weight:UIFontWeightSemibold]
+                                    value:[UIFont systemFontOfSize:15 weight:UIFontWeightSemibold]
                                     range:dashMonthlyAmountStringRange];
         [mutAttributedString addAttribute:NSFontAttributeName
-                                    value:[UIFont systemFontOfSize:17 weight:UIFontWeightThin]
+                                    value:[UIFont systemFontOfSize:15 weight:UIFontWeightRegular]
                                     range:dashStringRange];
         
         [mutAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:dashMonthlyAmountStringRange];
@@ -109,7 +109,7 @@
         
         [mutAttributedString beginEditing];
         [mutAttributedString addAttribute:NSFontAttributeName
-                                    value:[UIFont systemFontOfSize:13 weight:UIFontWeightRegular]
+                                    value:[UIFont systemFontOfSize:11 weight:UIFontWeightRegular]
                                     range:perMonthStringRange];
         
         [mutAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:perMonthStringRange];
@@ -128,7 +128,7 @@
         [mutAttributedString beginEditing];
         
         [mutAttributedString addAttribute:NSFontAttributeName
-                                    value:[UIFont systemFontOfSize:10 weight:UIFontWeightRegular]
+                                    value:[UIFont systemFontOfSize:11 weight:UIFontWeightRegular]
                                     range:byUsernameRange];
         [mutAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:byUsernameRange];
         [mutAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:usernameRange];
@@ -138,6 +138,9 @@
         
         [_labelByUsername setAttributedText:mutAttributedString];
     }
+    
+    [_buttonMonths.titleLabel setFont:[UIFont systemFontOfSize:10 weight:UIFontWeightRegular]];
+    [_buttonComments.titleLabel setFont:[UIFont systemFontOfSize:10 weight:UIFontWeightRegular]];
     
     [_buttonMonths setTitle:[NSString stringWithFormat:@"%d %@ %@", self.currentProposal.remainingPaymentCount, self.currentProposal.remainingPaymentCount > 1 ? NSLocalizedString(@"months", nil) : NSLocalizedString(@"month", nil), NSLocalizedString(@"remaining", nil)] forState:UIControlStateNormal];
     [_buttonComments setTitle:[NSString stringWithFormat:@"%d %@", self.currentProposal.commentAmount, self.currentProposal.commentAmount > 1 ? NSLocalizedString(@"comments", nil) : NSLocalizedString(@"comment", nil)] forState:UIControlStateNormal];

@@ -10,8 +10,6 @@
 
 @interface ProposalDetailOneTimePayementTableViewCell : UITableViewCell
 
-@property (nonatomic, retain) Proposal *currentProposal;
-
 @property (strong, nonatomic) IBOutlet UILabel *labelOneTimePayment;
 @property (strong, nonatomic) IBOutlet UILabel *labelOneTimePaymentDetail;
 
