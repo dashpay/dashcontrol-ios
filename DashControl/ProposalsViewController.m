@@ -80,7 +80,7 @@ static NSString *CellIdentifier = @"ProposalCell";
     NSArray *proposals = [[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Proposal" inContext:self.managedObjectContext];
     NSLog(@"All proposals count:%lu", (unsigned long)[proposals count]);
     for (Proposal *proposal in proposals) {
-        NSLog(@"Proposal:%@\rThe proposal has %tu comments", proposal.title, proposal.comments.count);
+        NSLog(@"order:%d ## %@", proposal.order, proposal.title);
     }
     */
 }
@@ -226,16 +226,14 @@ static NSString *CellIdentifier = @"ProposalCell";
     NSString *searchString = self.searchController.searchBar.text;
     
     NSPredicate *scopePredicate;
-    if (self.proposalScopeButtonsView && self.proposalScopeButtonsView.scopeSegmentedControl) {
-        if (self.proposalScopeButtonsView.scopeSegmentedControl.selectedSegmentIndex == 0) {
-            scopePredicate = [NSPredicate predicateWithFormat:@"dateEnd > %@", [NSDate date]];
-        }
-        else if (self.proposalScopeButtonsView.scopeSegmentedControl.selectedSegmentIndex == 1) {
-            scopePredicate = [NSPredicate predicateWithFormat:@"dateEnd < %@", [NSDate date]];
-        }
-        else {
-            scopePredicate = [NSPredicate predicateWithFormat:@"dateEnd > %@ AND remainingPaymentCount > 0 AND willBeFunded == YES AND inNextBudget == YES", [NSDate date]];
-        }
+    if (self.proposalScopeButtonsView.scopeSegmentedControl.selectedSegmentIndex == 0) {
+        scopePredicate = [NSPredicate predicateWithFormat:@"dateEnd > %@", [NSDate date]];
+    }
+    else if (self.proposalScopeButtonsView.scopeSegmentedControl.selectedSegmentIndex == 1) {
+        scopePredicate = [NSPredicate predicateWithFormat:@"dateEnd < %@", [NSDate date]];
+    }
+    else {
+        scopePredicate = [NSPredicate predicateWithFormat:@"dateEnd > %@ AND remainingPaymentCount > 0 AND willBeFunded == YES AND inNextBudget == YES", [NSDate date]];
     }
     
     if (searchString.length > 0)
@@ -255,9 +253,19 @@ static NSString *CellIdentifier = @"ProposalCell";
         [fetchRequest setPredicate:scopePredicate];
     }
     
-    NSSortDescriptor *orderSort = [[NSSortDescriptor alloc]
+    if (self.proposalScopeButtonsView.scopeSegmentedControl.selectedSegmentIndex == 0 || self.proposalScopeButtonsView.scopeSegmentedControl.selectedSegmentIndex == 2) {
+        NSSortDescriptor *orderSort = [[NSSortDescriptor alloc]
                                        initWithKey:@"order" ascending:YES];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:orderSort, nil]];
+        NSSortDescriptor *dateAddedSort = [[NSSortDescriptor alloc]
+                                           initWithKey:@"dateAdded" ascending:NO];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:orderSort, dateAddedSort, nil]];
+    }
+    else {
+        NSSortDescriptor *dateEndSort = [[NSSortDescriptor alloc]
+                                         initWithKey:@"dateEnd" ascending:NO];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:dateEndSort, nil]];
+    }
+
 
     NSFetchedResultsController *theFetchedResultsController =
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest

@@ -102,18 +102,23 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                 //Save info about budget.
                 [self updateBudget:[jsonDic objectForKey:@"budget"]];
                 
+                NSMutableArray *proposalsArray = [[jsonDic objectForKey:@"proposals"] mutableCopy];
+                //Uncomment to test Updating 'non-active' proposal
+                //[proposalsArray removeAllObjects];
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self updateProposals:[jsonDic objectForKey:@"proposals"]];
+                    [self updateProposals:proposalsArray];
                 });
                 
-                //Since the list returned include only 'active' proposals.
-                //We want to update 'non-active' proposals we may have in local by calling fetchProposalsWithHash:
+                //Since the list returned include only 'active' proposals at the moment.
+                //We want to update 'non-active' proposals we may still have in coredata by calling fetchProposalsWithHash:
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSMutableArray *existingProposals = [self fetchAllObjectsForEntity:@"Proposal" inContext:managedObjectContext];
                     NSMutableArray *proposalsToUpdate = [NSMutableArray new];
+                    
                     for (Proposal *proposal in existingProposals) {
                         __block BOOL bProposalFoundInResponse = NO;
-                        [[jsonDic objectForKey:@"proposals"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        [proposalsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                             NSDictionary *dic = obj;
                             if ([[dic objectForKey:@"hash"] isEqualToString:proposal.hashProposal]) {
                                 bProposalFoundInResponse = YES;
@@ -125,13 +130,17 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                         }
                     }
                     if (proposalsToUpdate.count) {
-                        
                         for (Proposal *proposal in proposalsToUpdate) {
-                            NSLog(@"Updating 'non-active' proposal:%@", proposal.title);
-                            [self fetchProposalsWithHash:proposal.hashProposal];
+                            proposal.order = INT32_MAX;
+                            NSError *error;
+                            [self.managedObjectContext save:&error];
+                            if (!error) {
+                                NSLog(@"Updating 'non-active' proposal:%@", proposal.title);
+                                [self fetchProposalsWithHash:proposal.hashProposal];
+                            }
                         }
                     }
-                    });
+                });
             }
         }
         else {

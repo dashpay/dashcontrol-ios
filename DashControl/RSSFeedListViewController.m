@@ -176,23 +176,23 @@ static NSString *CellIdentifier = @"PostCell";
     [fetchRequest setEntity:entity];
     
     NSString *lang = [[RSSFeedManager sharedManager] feedLanguage];
-    NSPredicate *langP = [NSPredicate predicateWithFormat:@"lang == %@", lang ? lang : @"en"];
+    NSPredicate *langPredicate = [NSPredicate predicateWithFormat:@"lang == %@", lang ? lang : @"en"];
     NSString *searchString = self.searchController.searchBar.text;
     if (searchString.length > 0)
     {
-        NSPredicate *titleP = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchString];
-        NSPredicate *textP = [NSPredicate predicateWithFormat:@"text CONTAINS[cd] %@", searchString];
-        NSPredicate *contentP = [NSPredicate predicateWithFormat:@"content CONTAINS[cd] %@", searchString];
-        NSPredicate *linkP = [NSPredicate predicateWithFormat:@"link CONTAINS[cd] %@", searchString];
-        NSPredicate *guidP = [NSPredicate predicateWithFormat:@"guid CONTAINS[cd] %@", searchString];
-        NSPredicate *orPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:[NSArray arrayWithObjects:titleP, textP, contentP, linkP, guidP, nil]];
-        NSPredicate *andPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:langP, nil]];
+        NSPredicate *titlePredicate = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchString];
+        NSPredicate *textPredicate = [NSPredicate predicateWithFormat:@"text CONTAINS[cd] %@", searchString];
+        NSPredicate *contentPredicate = [NSPredicate predicateWithFormat:@"content CONTAINS[cd] %@", searchString];
+        NSPredicate *linkPredicate = [NSPredicate predicateWithFormat:@"link CONTAINS[cd] %@", searchString];
+        NSPredicate *guidPredicate = [NSPredicate predicateWithFormat:@"guid CONTAINS[cd] %@", searchString];
+        NSPredicate *orPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:[NSArray arrayWithObjects:titlePredicate, textPredicate, contentPredicate, linkPredicate, guidPredicate, nil]];
+        NSPredicate *andPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:langPredicate, nil]];
         NSPredicate *finalPred = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:orPredicate, andPredicate, nil]];
         [fetchRequest setPredicate:finalPred];
     }
     else
     {
-        [fetchRequest setPredicate:langP];
+        [fetchRequest setPredicate:langPredicate];
     }
     
     NSSortDescriptor *pubDateSort = [[NSSortDescriptor alloc]
