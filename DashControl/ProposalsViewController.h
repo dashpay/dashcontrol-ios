@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <SafariServices/SafariServices.h>
 #import "ProposalHeaderView.h"
+#import "ProposalScopeButtonsView.h"
 
 @interface ProposalsViewController : UIViewController <NSFetchedResultsControllerDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate, SFSafariViewControllerDelegate, UIViewControllerPreviewingDelegate>
 
@@ -16,6 +17,8 @@
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 
 @property (strong, nonatomic) IBOutlet ProposalHeaderView *proposalHeaderView;
+@property (strong, nonatomic) IBOutlet ProposalScopeButtonsView *proposalScopeButtonsView;
+
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UISearchController *searchController;
 

@@ -17,7 +17,6 @@
 		24438DF31F5FEA6600763A14 /* ProposalHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24438DF21F5FEA6600763A14 /* ProposalHeaderView.m */; };
 		247B8F551F5FBFFB005BC14A /* dash_icon_tmp.png in Resources */ = {isa = PBXBuildFile; fileRef = 247B8F541F5FBFFB005BC14A /* dash_icon_tmp.png */; };
 		2485235B1F44A71B0027FBA6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2485235A1F44A71B0027FBA6 /* WebKit.framework */; };
-		2499B7671F6015B80094A982 /* ProposalHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2499B7661F6015B80094A982 /* ProposalHeaderView.xib */; };
 		249A3FCB1F6133AA00155636 /* LaunchScreen.strings in Resources */ = {isa = PBXBuildFile; fileRef = 249A3F901F6133AA00155636 /* LaunchScreen.strings */; };
 		249A3FCC1F6133AA00155636 /* Main.strings in Resources */ = {isa = PBXBuildFile; fileRef = 249A3F921F6133AA00155636 /* Main.strings */; };
 		249A3FCD1F6133AA00155636 /* LaunchScreen.strings in Resources */ = {isa = PBXBuildFile; fileRef = 249A3F951F6133AA00155636 /* LaunchScreen.strings */; };
@@ -67,6 +66,7 @@
 		249A40261F6139A200155636 /* AFNetworking.strings in Resources */ = {isa = PBXBuildFile; fileRef = 249A40241F6139A200155636 /* AFNetworking.strings */; };
 		249A40291F6139A800155636 /* AFNetworking.strings in Resources */ = {isa = PBXBuildFile; fileRef = 249A40271F6139A800155636 /* AFNetworking.strings */; };
 		249A402C1F6139AD00155636 /* AFNetworking.strings in Resources */ = {isa = PBXBuildFile; fileRef = 249A402A1F6139AD00155636 /* AFNetworking.strings */; };
+		249A402F1F62715700155636 /* ProposalScopeButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 249A402E1F62715700155636 /* ProposalScopeButtonsView.m */; };
 		24A2159B1F52C5E900A63311 /* Budget+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A215981F52C5E900A63311 /* Budget+CoreDataClass.m */; };
 		24A2159C1F52C5E900A63311 /* Budget+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A2159A1F52C5E900A63311 /* Budget+CoreDataProperties.m */; };
 		24B000441F5724B6007D24A1 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B000431F5724B6007D24A1 /* SafariServices.framework */; };
@@ -171,7 +171,6 @@
 		244857901F59CCBF004DE273 /* ProposalDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailViewController.m; sourceTree = "<group>"; };
 		247B8F541F5FBFFB005BC14A /* dash_icon_tmp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dash_icon_tmp.png; sourceTree = "<group>"; };
 		2485235A1F44A71B0027FBA6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		2499B7661F6015B80094A982 /* ProposalHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProposalHeaderView.xib; sourceTree = "<group>"; };
 		249A3F911F6133AA00155636 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = LaunchScreen.strings; sourceTree = "<group>"; };
 		249A3F931F6133AA00155636 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = Main.strings; sourceTree = "<group>"; };
 		249A3F961F6133AA00155636 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = LaunchScreen.strings; sourceTree = "<group>"; };
@@ -221,6 +220,8 @@
 		249A40251F6139A200155636 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = AFNetworking.strings; sourceTree = "<group>"; };
 		249A40281F6139A800155636 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = AFNetworking.strings; sourceTree = "<group>"; };
 		249A402B1F6139AD00155636 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = AFNetworking.strings; sourceTree = "<group>"; };
+		249A402D1F62715700155636 /* ProposalScopeButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalScopeButtonsView.h; sourceTree = "<group>"; };
+		249A402E1F62715700155636 /* ProposalScopeButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalScopeButtonsView.m; sourceTree = "<group>"; };
 		24A215971F52C5E900A63311 /* Budget+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Budget+CoreDataClass.h"; sourceTree = "<group>"; };
 		24A215981F52C5E900A63311 /* Budget+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Budget+CoreDataClass.m"; sourceTree = "<group>"; };
 		24A215991F52C5E900A63311 /* Budget+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Budget+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -542,11 +543,12 @@
 				24FC99F81F5EA0F90054C2A8 /* Assets */,
 				241719C41F4D9EE10045C2D6 /* ProposalsViewController.h */,
 				241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */,
-				2432DD9E1F54395600A14112 /* ProposalCell.h */,
-				2432DD9F1F54395600A14112 /* ProposalCell.m */,
 				24438DF11F5FEA6600763A14 /* ProposalHeaderView.h */,
 				24438DF21F5FEA6600763A14 /* ProposalHeaderView.m */,
-				2499B7661F6015B80094A982 /* ProposalHeaderView.xib */,
+				249A402D1F62715700155636 /* ProposalScopeButtonsView.h */,
+				249A402E1F62715700155636 /* ProposalScopeButtonsView.m */,
+				2432DD9E1F54395600A14112 /* ProposalCell.h */,
+				2432DD9F1F54395600A14112 /* ProposalCell.m */,
 			);
 			name = List;
 			sourceTree = "<group>";
@@ -917,7 +919,6 @@
 				249A3FFA1F61352B00155636 /* Localizable.strings in Resources */,
 				249A3FCF1F6133AA00155636 /* LaunchScreen.strings in Resources */,
 				249A3FE21F6133AA00155636 /* Main.storyboard in Resources */,
-				2499B7671F6015B80094A982 /* ProposalHeaderView.xib in Resources */,
 				249A40081F61366F00155636 /* HowToUpdate.rtf in Resources */,
 				249A3FD81F6133AA00155636 /* Main.strings in Resources */,
 				249A40061F61354700155636 /* Localizable.strings in Resources */,
@@ -1012,6 +1013,7 @@
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
 				FBE1F50D1F5D4CF500823A77 /* Market+CoreDataClass.m in Sources */,
 				FBEBE5421F5802DE0056D921 /* ChartTimeFormatter.m in Sources */,
+				249A402F1F62715700155636 /* ProposalScopeButtonsView.m in Sources */,
 				24E584101F3ADBAA00A12087 /* Post+CoreDataClass.m in Sources */,
 				24C86F091F5EC09900735785 /* ProposalDetailVotesResultTableViewCell.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,

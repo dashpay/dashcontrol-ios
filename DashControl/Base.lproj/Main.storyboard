@@ -31,7 +31,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="142"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CSc-M9-uyu" id="CIL-jo-x77">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="141.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="142"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qoP-3u-RC5">
@@ -315,15 +315,39 @@
                                     <outlet property="labelTotalValue" destination="rzs-s8-0Mg" id="0Kc-r8-Ge2"/>
                                 </connections>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TiF-8L-MSG" customClass="ProposalScopeButtonsView">
+                                <rect key="frame" x="0.0" y="208" width="375" height="44"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2XX-yx-CH6">
+                                        <rect key="frame" x="15" y="8" width="345" height="29"/>
+                                        <segments>
+                                            <segment title="current"/>
+                                            <segment title="past"/>
+                                            <segment title="ongoing"/>
+                                        </segments>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="2XX-yx-CH6" firstAttribute="leading" secondItem="TiF-8L-MSG" secondAttribute="leading" constant="15" id="Onq-yf-zwW"/>
+                                    <constraint firstAttribute="height" constant="44" id="PtU-rD-EWd"/>
+                                    <constraint firstAttribute="trailing" secondItem="2XX-yx-CH6" secondAttribute="trailing" constant="15" id="bpn-Lg-vDR"/>
+                                    <constraint firstItem="2XX-yx-CH6" firstAttribute="centerY" secondItem="TiF-8L-MSG" secondAttribute="centerY" id="eOT-Ke-yYO"/>
+                                    <constraint firstItem="2XX-yx-CH6" firstAttribute="centerX" secondItem="TiF-8L-MSG" secondAttribute="centerX" id="vx1-l4-xvz"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="scopeSegmentedControl" destination="2XX-yx-CH6" id="MDe-qw-V1z"/>
+                                </connections>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fo7-hK-pIr">
-                                <rect key="frame" x="0.0" y="208" width="375" height="410"/>
+                                <rect key="frame" x="0.0" y="252" width="375" height="366"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProposalCell" rowHeight="100" id="BIt-zM-nrh" customClass="ProposalCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BIt-zM-nrh" id="18V-p3-yUF">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0h5-hQ-9aA" customClass="MBCircularProgressBarView">
@@ -439,17 +463,21 @@
                         <constraints>
                             <constraint firstItem="oh0-pu-XRY" firstAttribute="top" secondItem="Yiy-UZ-4Tl" secondAttribute="bottom" id="6wp-Pb-YaE"/>
                             <constraint firstItem="fo7-hK-pIr" firstAttribute="leading" secondItem="69u-ks-Fxp" secondAttribute="leading" id="9TS-aE-ire"/>
-                            <constraint firstItem="fo7-hK-pIr" firstAttribute="top" secondItem="oh0-pu-XRY" secondAttribute="bottom" id="AvM-ju-oJD"/>
                             <constraint firstAttribute="trailing" secondItem="oh0-pu-XRY" secondAttribute="trailing" id="LfV-Ha-gUA"/>
+                            <constraint firstItem="fo7-hK-pIr" firstAttribute="top" secondItem="TiF-8L-MSG" secondAttribute="bottom" id="PQe-Wv-Od5"/>
                             <constraint firstItem="fo7-hK-pIr" firstAttribute="leading" secondItem="69u-ks-Fxp" secondAttribute="leading" id="rFI-ys-mKI"/>
+                            <constraint firstItem="TiF-8L-MSG" firstAttribute="leading" secondItem="69u-ks-Fxp" secondAttribute="leading" id="sFF-Bm-NKf"/>
+                            <constraint firstAttribute="trailing" secondItem="TiF-8L-MSG" secondAttribute="trailing" id="xAe-eh-fQF"/>
                             <constraint firstItem="oh0-pu-XRY" firstAttribute="leading" secondItem="69u-ks-Fxp" secondAttribute="leading" id="ySy-TZ-lH8"/>
                             <constraint firstAttribute="trailing" secondItem="fo7-hK-pIr" secondAttribute="trailing" id="ydX-q0-TQd"/>
+                            <constraint firstItem="TiF-8L-MSG" firstAttribute="top" secondItem="oh0-pu-XRY" secondAttribute="bottom" id="yzz-3m-9ec"/>
                             <constraint firstItem="39W-JT-Wps" firstAttribute="top" secondItem="fo7-hK-pIr" secondAttribute="bottom" id="ztv-sZ-h7S"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Proposals" id="tC6-Bc-5Uu"/>
                     <connections>
                         <outlet property="proposalHeaderView" destination="oh0-pu-XRY" id="hLn-cV-CiM"/>
+                        <outlet property="proposalScopeButtonsView" destination="TiF-8L-MSG" id="61w-2m-eVb"/>
                         <outlet property="tableView" destination="fo7-hK-pIr" id="RoC-TQ-ll6"/>
                     </connections>
                 </viewController>
@@ -474,10 +502,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProposalDetailNameCell" rowHeight="100" id="3G5-Mj-TFQ" customClass="ProposalDetailNameTableViewCell">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="100"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3G5-Mj-TFQ" id="vet-n1-PLr">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROPOSAL ID xxxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZi-TC-NIo">
@@ -522,10 +550,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProposalDetailTitleCell" rowHeight="80" id="PK4-jr-pSW" customClass="ProposalDetailTitleTableViewCell">
-                                        <rect key="frame" x="0.0" y="155.5" width="375" height="80"/>
+                                        <rect key="frame" x="0.0" y="156" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PK4-jr-pSW" id="ilz-8y-PSU">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTS-LD-92M">
@@ -564,10 +592,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProposalDetailOneTimePaymentCell" rowHeight="60" id="dFL-Sw-ErI" customClass="ProposalDetailOneTimePayementTableViewCell">
-                                        <rect key="frame" x="0.0" y="235.5" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="236" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dFL-Sw-ErI" id="eTG-Ne-naT">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="One-time payment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5B-Bv-8zC">
@@ -597,10 +625,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProposalDetailCompletedPaymentsCell" rowHeight="60" id="3rB-B2-tht" customClass="ProposalDetailCompletedPaymentsTableViewCell">
-                                        <rect key="frame" x="0.0" y="295.5" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="296" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3rB-B2-tht" id="lbx-6U-Ykb">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 month remaining" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YYb-st-nRS">
@@ -639,10 +667,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProposalDetailVotesResultCell" rowHeight="60" id="AhG-jd-QLt" customClass="ProposalDetailVotesResultTableViewCell">
-                                        <rect key="frame" x="0.0" y="355.5" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="356" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AhG-jd-QLt" id="X4H-GK-I8n">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Votes Result" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9zy-ua-dDB">
@@ -689,10 +717,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProposalDetailDescriptionHeaderCell" rowHeight="40" id="WOQ-vo-zBB" customClass="ProposalDetailDescriptionHeaderTableViewCell">
-                                        <rect key="frame" x="0.0" y="415.5" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="416" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WOQ-vo-zBB" id="GVp-78-ffa">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="39.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Proposal Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TwN-dM-NWj">
@@ -712,10 +740,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProposalDetailDescriptionDetailCell" id="vWz-B3-GbL" customClass="ProposalDetailDescriptionDetailTableViewCell">
-                                        <rect key="frame" x="0.0" y="455.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="456" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vWz-B3-GbL" id="VXj-Hg-20p">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Proposal description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wf7-Tc-PdL">

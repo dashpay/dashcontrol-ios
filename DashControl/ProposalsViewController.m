@@ -9,6 +9,7 @@
 #import "ProposalsViewController.h"
 #import "ProposalCell.h"
 #import "ProposalDetailViewController.h"
+#import "ProposalScopeButtonsView.h"
 
 @interface ProposalsViewController ()
 @property BOOL searchControllerWasActive;
@@ -36,6 +37,8 @@ static NSString *CellIdentifier = @"ProposalCell";
     [self budgetDidUpdate:nil];
     
     [self cfgSearchController];
+    [self.proposalHeaderView addSubview:self.searchController.searchBar];
+    [self.proposalScopeButtonsView.scopeSegmentedControl addTarget:self action:@selector(updateScopeSelectedButton:) forControlEvents:UIControlEventValueChanged];
 
     NSError *error;
     if (![[self fetchedResultsController] performFetch:&error]) {
@@ -221,18 +224,35 @@ static NSString *CellIdentifier = @"ProposalCell";
     [fetchRequest setEntity:entity];
     
     NSString *searchString = self.searchController.searchBar.text;
+    
+    NSPredicate *scopePredicate;
+    if (self.proposalScopeButtonsView && self.proposalScopeButtonsView.scopeSegmentedControl) {
+        if (self.proposalScopeButtonsView.scopeSegmentedControl.selectedSegmentIndex == 0) {
+            scopePredicate = [NSPredicate predicateWithFormat:@"dateEnd > %@", [NSDate date]];
+        }
+        else if (self.proposalScopeButtonsView.scopeSegmentedControl.selectedSegmentIndex == 1) {
+            scopePredicate = [NSPredicate predicateWithFormat:@"dateEnd < %@", [NSDate date]];
+        }
+        else {
+            scopePredicate = [NSPredicate predicateWithFormat:@"dateEnd > %@ AND remainingPaymentCount > 0 AND willBeFunded == YES AND inNextBudget == YES", [NSDate date]];
+        }
+    }
+    
     if (searchString.length > 0)
     {
-        NSPredicate *titleP = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchString];
-        NSPredicate *nameP = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString];
-        NSPredicate *ownerP = [NSPredicate predicateWithFormat:@"ownerUsername CONTAINS[cd] %@", searchString];
-        NSPredicate *orPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:[NSArray arrayWithObjects:nameP, titleP, ownerP, nil]];
-        NSPredicate *finalPred = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:orPredicate, /*andPredicate,*/ nil]];
-        [fetchRequest setPredicate:finalPred];
+        NSPredicate *titlePredicate = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchString];
+        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString];
+        NSPredicate *ownerPredicate = [NSPredicate predicateWithFormat:@"ownerUsername CONTAINS[cd] %@", searchString];
+        NSPredicate *orPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:[NSArray arrayWithObjects:namePredicate, titlePredicate, ownerPredicate, nil]];
+        
+        NSPredicate *andPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:scopePredicate, nil]];
+        
+        NSPredicate *finalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:orPredicate, andPredicate, nil]];
+        [fetchRequest setPredicate:finalPredicate];
     }
     else
     {
-        //[fetchRequest setPredicate:langP];
+        [fetchRequest setPredicate:scopePredicate];
     }
     
     NSSortDescriptor *orderSort = [[NSSortDescriptor alloc]
@@ -321,7 +341,6 @@ static NSString *CellIdentifier = @"ProposalCell";
     //self.searchController.searchBar.placeholder = NSLocalizedString(@"Search name or owner", nil);
     self.searchController.searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.searchController.searchBar.delegate = self;
-    [self.proposalHeaderView addSubview:self.searchController.searchBar];
     self.definesPresentationContext = YES;
     [self.searchController.searchBar sizeToFit];
 }
@@ -329,6 +348,21 @@ static NSString *CellIdentifier = @"ProposalCell";
 #pragma mark - UISearchResultsUpdating
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    self.fetchedResultsController = nil;
+    
+    NSError *error;
+    if (![[self fetchedResultsController] performFetch:&error]) {
+        // Update to handle the error appropriately.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        exit(-1);  // Fail
+    }
+    
+    [self.tableView reloadData];
+}
+
+#pragma mark - UIScopeBarUpdate
+
+-(void)updateScopeSelectedButton:(UISegmentedControl *)segmentedControl {
     self.fetchedResultsController = nil;
     
     NSError *error;
