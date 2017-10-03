@@ -83,6 +83,9 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     //Init the Proposals Manager
     [ProposalsManager sharedManager];
     
+    //Init the Core Data Manager
+    [DCCoreDataManager sharedManager];
+    
     return YES;
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="Budget" representedClassName="Budget" syncable="YES">
         <attribute name="allotedAmount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="paymentDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -19,14 +19,12 @@
         <attribute name="time" attributeType="Date" minDateTimeInterval="220809600" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="trades" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="volume" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <compoundIndexes>
-            <compoundIndex>
-                <index value="exchangeIdentifier"/>
-                <index value="marketIdentifier"/>
-                <index value="interval"/>
-                <index value="time"/>
-            </compoundIndex>
-        </compoundIndexes>
+        <fetchIndex name="compoundIndex">
+            <fetchIndexElement property="exchangeIdentifier" type="Binary" order="ascending"/>
+            <fetchIndexElement property="marketIdentifier" type="Binary" order="ascending"/>
+            <fetchIndexElement property="interval" type="Binary" order="ascending"/>
+            <fetchIndexElement property="time" type="Binary" order="ascending"/>
+        </fetchIndex>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="exchangeIdentifier"/>
@@ -76,6 +74,17 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
+    <entity name="Masternode" representedClassName="Masternode" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secureVotingKeyPath" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="payments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MasternodePayment" inverseName="masternode" inverseEntity="MasternodePayment" syncable="YES"/>
+    </entity>
+    <entity name="MasternodePayment" representedClassName="MasternodePayment" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="masternode" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Masternode" inverseName="payments" inverseEntity="Masternode" syncable="YES"/>
+    </entity>
     <entity name="Post" representedClassName="Post" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="guid" optional="YES" attributeType="String" syncable="YES"/>
@@ -113,6 +122,14 @@
         <attribute name="yes" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="proposal" inverseEntity="Comment" syncable="YES"/>
     </entity>
+    <entity name="WalletAddress" representedClassName="WalletAddress" syncable="YES">
+        <attribute name="address" attributeType="String" syncable="YES"/>
+        <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="WalletMasterAddress" representedClassName="WalletMasterAddress" syncable="YES">
+        <attribute name="masterBIP32Node" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="masterBIP44Node" optional="YES" attributeType="Binary" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Budget" positionX="-54" positionY="135" width="128" height="120"/>
         <element name="ChartDataEntry" positionX="-63" positionY="36" width="128" height="210"/>
@@ -121,5 +138,9 @@
         <element name="Market" positionX="-54" positionY="135" width="128" height="90"/>
         <element name="Post" positionX="-63" positionY="-18" width="128" height="150"/>
         <element name="Proposal" positionX="-63" positionY="81" width="128" height="435"/>
+        <element name="WalletMasterAddress" positionX="-54" positionY="135" width="128" height="75"/>
+        <element name="WalletAddress" positionX="-45" positionY="144" width="128" height="75"/>
+        <element name="Masternode" positionX="-36" positionY="153" width="128" height="90"/>
+        <element name="MasternodePayment" positionX="-27" positionY="162" width="128" height="105"/>
     </elements>
 </model>

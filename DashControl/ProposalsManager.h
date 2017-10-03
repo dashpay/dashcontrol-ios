@@ -13,7 +13,7 @@
 #define PROPOSAL_DID_UPDATE_NOTIFICATION @"PROPOSAL_DID_UPDATE_NOTIFICATION"
 #define BUDGET_DID_UPDATE_NOTIFICATION @"BUDGET_DID_UPDATE_NOTIFICATION"
 
-@property (nonatomic, retain) NSManagedObjectContext * _Nullable managedObjectContext;
+@property (nonatomic, strong) NSManagedObjectContext * _Nullable managedObjectContext;
 
 + (id _Nonnull )sharedManager;
 

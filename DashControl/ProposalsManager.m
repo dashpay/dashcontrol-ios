@@ -51,7 +51,6 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 @end
 
 @implementation ProposalsManager
-@synthesize managedObjectContext;
 
 #pragma mark - Singleton Init Methods
 
@@ -113,7 +112,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                 //Since the list returned include only 'active' proposals at the moment.
                 //We want to update 'non-active' proposals we may still have in coredata by calling fetchProposalsWithHash:
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    NSMutableArray *existingProposals = [self fetchAllObjectsForEntity:@"Proposal" inContext:managedObjectContext];
+                    NSMutableArray *existingProposals = [self fetchAllObjectsForEntity:@"Proposal" inContext:_managedObjectContext];
                     NSMutableArray *proposalsToUpdate = [NSMutableArray new];
                     
                     for (Proposal *proposal in existingProposals) {

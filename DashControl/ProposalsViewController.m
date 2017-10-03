@@ -17,8 +17,6 @@
 @end
 
 @implementation ProposalsViewController
-@synthesize managedObjectContext;
-@synthesize fetchedResultsController = _fetchedResultsController;
 
 static NSString *CellIdentifier = @"ProposalCell";
 
@@ -26,7 +24,7 @@ static NSString *CellIdentifier = @"ProposalCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    managedObjectContext = [[ProposalsManager sharedManager] managedObjectContext];
+    _managedObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
 
     [[NSNotificationCenter defaultCenter]
      addObserver:self
@@ -88,7 +86,7 @@ static NSString *CellIdentifier = @"ProposalCell";
 #pragma mark - Budget Updates
 
 -(void)budgetDidUpdate:(NSNotification*)notification {
-    Budget *budget = [[[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Budget" inContext:managedObjectContext] firstObject];
+    Budget *budget = [[[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Budget" inContext:_managedObjectContext] firstObject];
     [_proposalHeaderView configureWithBudget:budget];
 }
 
@@ -128,7 +126,7 @@ static NSString *CellIdentifier = @"ProposalCell";
             } completion:^(BOOL finished) {
                 proposal.lastProgressDisplayed = currentProgress;
                 NSError *error = nil;
-                [managedObjectContext save:&error];
+                [_managedObjectContext save:&error];
             }];
         });
     }
@@ -204,7 +202,7 @@ static NSString *CellIdentifier = @"ProposalCell";
      {
          //Get reference to the destination view controller
          ProposalDetailViewController *vc = [segue destinationViewController];
-         [vc setManagedObjectContext:managedObjectContext];
+         [vc setManagedObjectContext:_managedObjectContext];
          [vc setCurrentProposal:[(ProposalCell*)sender currentProposal]];
          vc.hidesBottomBarWhenPushed = YES;
      }
@@ -220,7 +218,7 @@ static NSString *CellIdentifier = @"ProposalCell";
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Proposal" inManagedObjectContext:managedObjectContext];
+                                   entityForName:@"Proposal" inManagedObjectContext:_managedObjectContext];
     [fetchRequest setEntity:entity];
     
     NSString *searchString = self.searchController.searchBar.text;
@@ -269,7 +267,7 @@ static NSString *CellIdentifier = @"ProposalCell";
 
     NSFetchedResultsController *theFetchedResultsController =
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                        managedObjectContext:managedObjectContext sectionNameKeyPath:nil
+                                        managedObjectContext:_managedObjectContext sectionNameKeyPath:nil
                                                    cacheName:nil];
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = self;
@@ -436,18 +434,18 @@ static NSString *CellIdentifier = @"ProposalCell";
 
 -(void)simulateNavitationToProposalWithHash:(NSString*)hash {
     
-    if (!managedObjectContext) {
-        managedObjectContext = [[ProposalsManager sharedManager] managedObjectContext];
+    if (!_managedObjectContext) {
+        _managedObjectContext = [[ProposalsManager sharedManager] managedObjectContext];
     }
     
     Proposal *proposal;
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Proposal" inManagedObjectContext:managedObjectContext];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Proposal" inManagedObjectContext:_managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entityDescription];
     NSPredicate *hashPredicate = [NSPredicate predicateWithFormat:@"hashProposal == %@", hash];
     [request setPredicate:hashPredicate];
     NSError *error;
-    NSArray *array = [managedObjectContext executeFetchRequest:request error:&error];
+    NSArray *array = [_managedObjectContext executeFetchRequest:request error:&error];
     if (array == nil)
     {
         NSLog(@"Error while festching %@ with predicate %@", entityDescription.name, hashPredicate);

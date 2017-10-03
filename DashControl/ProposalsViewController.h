@@ -13,8 +13,8 @@
 
 @interface ProposalsViewController : UIViewController <NSFetchedResultsControllerDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate, SFSafariViewControllerDelegate, UIViewControllerPreviewingDelegate>
 
-@property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @property (strong, nonatomic) IBOutlet ProposalHeaderView *proposalHeaderView;
 @property (strong, nonatomic) IBOutlet ProposalScopeButtonsView *proposalScopeButtonsView;

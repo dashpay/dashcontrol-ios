@@ -11,6 +11,7 @@ target 'DashControl' do
   pod 'SDWebImage'
   pod 'MBCircularProgressBar', :inhibit_warnings => true
   pod 'RaptureXML'
+  pod 'FTPopOverMenu'
   
 
 end
