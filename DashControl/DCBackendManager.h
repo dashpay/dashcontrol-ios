@@ -13,6 +13,7 @@
 @interface DCBackendManager : NSObject
 
 @property (nonatomic, strong) NSManagedObjectContext * _Nullable mainObjectContext;
+@property (nonatomic, strong) NSPersistentContainer * _Nullable persistentContainer;
 
 + (id _Nonnull )sharedManager;
 
