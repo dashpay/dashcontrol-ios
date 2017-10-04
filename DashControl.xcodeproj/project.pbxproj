@@ -114,6 +114,7 @@
 		FB9CC1861F83E45F0079309F /* MasternodePayment+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC17D1F83E45E0079309F /* MasternodePayment+CoreDataProperties.m */; };
 		FB9CC1871F83E45F0079309F /* WalletAddress+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC17E1F83E45E0079309F /* WalletAddress+CoreDataClass.m */; };
 		FB9CC1881F83E8000079309F /* NSMutableData+Dash.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEF66FD1F83DD44003424D2 /* NSMutableData+Dash.m */; };
+		FB9CC18C1F8405180079309F /* PortfolioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC18B1F8405180079309F /* PortfolioManager.m */; };
 		FBE1F5091F5D4CF500823A77 /* ChartDataEntry+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F4FE1F5D4CF500823A77 /* ChartDataEntry+CoreDataClass.m */; };
 		FBE1F50A1F5D4CF500823A77 /* ChartDataEntry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F5001F5D4CF500823A77 /* ChartDataEntry+CoreDataProperties.m */; };
 		FBE1F50B1F5D4CF500823A77 /* Exchange+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F5021F5D4CF500823A77 /* Exchange+CoreDataClass.m */; };
@@ -312,6 +313,8 @@
 		FB9CC17D1F83E45E0079309F /* MasternodePayment+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MasternodePayment+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FB9CC17E1F83E45E0079309F /* WalletAddress+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WalletAddress+CoreDataClass.m"; sourceTree = "<group>"; };
 		FB9CC17F1F83E45F0079309F /* WalletMasterAddress+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WalletMasterAddress+CoreDataClass.h"; sourceTree = "<group>"; };
+		FB9CC18A1F8405180079309F /* PortfolioManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PortfolioManager.h; sourceTree = "<group>"; };
+		FB9CC18B1F8405180079309F /* PortfolioManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PortfolioManager.m; sourceTree = "<group>"; };
 		FBE1F4FD1F5D4CF500823A77 /* ChartDataEntry+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ChartDataEntry+CoreDataClass.h"; sourceTree = "<group>"; };
 		FBE1F4FE1F5D4CF500823A77 /* ChartDataEntry+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ChartDataEntry+CoreDataClass.m"; sourceTree = "<group>"; };
 		FBE1F4FF1F5D4CF500823A77 /* ChartDataEntry+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ChartDataEntry+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -395,46 +398,9 @@
 		241719C81F4DA0280045C2D6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				FB9CC17A1F83E45E0079309F /* Masternode+CoreDataClass.h */,
-				FB9CC1721F83E45C0079309F /* Masternode+CoreDataClass.m */,
-				FB9CC1741F83E45D0079309F /* Masternode+CoreDataProperties.h */,
-				FB9CC17B1F83E45E0079309F /* Masternode+CoreDataProperties.m */,
-				FB9CC1711F83E45C0079309F /* MasternodePayment+CoreDataClass.h */,
-				FB9CC17C1F83E45E0079309F /* MasternodePayment+CoreDataClass.m */,
-				FB9CC1751F83E45D0079309F /* MasternodePayment+CoreDataProperties.h */,
-				FB9CC17D1F83E45E0079309F /* MasternodePayment+CoreDataProperties.m */,
-				FB9CC1731F83E45C0079309F /* WalletAddress+CoreDataClass.h */,
-				FB9CC17E1F83E45E0079309F /* WalletAddress+CoreDataClass.m */,
-				FB9CC1701F83E45C0079309F /* WalletAddress+CoreDataProperties.h */,
-				FB9CC1791F83E45D0079309F /* WalletAddress+CoreDataProperties.m */,
-				FB9CC17F1F83E45F0079309F /* WalletMasterAddress+CoreDataClass.h */,
-				FB9CC1761F83E45D0079309F /* WalletMasterAddress+CoreDataClass.m */,
-				FB9CC1771F83E45D0079309F /* WalletMasterAddress+CoreDataProperties.h */,
-				FB9CC1781F83E45D0079309F /* WalletMasterAddress+CoreDataProperties.m */,
-				24A215971F52C5E900A63311 /* Budget+CoreDataClass.h */,
-				24A215981F52C5E900A63311 /* Budget+CoreDataClass.m */,
-				24A215991F52C5E900A63311 /* Budget+CoreDataProperties.h */,
-				24A2159A1F52C5E900A63311 /* Budget+CoreDataProperties.m */,
-				241719D91F4DB0FB0045C2D6 /* Proposal+CoreDataClass.h */,
-				241719DA1F4DB0FB0045C2D6 /* Proposal+CoreDataClass.m */,
-				241719DB1F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.h */,
-				241719DC1F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.m */,
-				241719DD1F4DB0FB0045C2D6 /* Comment+CoreDataClass.h */,
-				241719DE1F4DB0FB0045C2D6 /* Comment+CoreDataClass.m */,
-				241719DF1F4DB0FB0045C2D6 /* Comment+CoreDataProperties.h */,
-				241719E01F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m */,
-				FBE1F4FD1F5D4CF500823A77 /* ChartDataEntry+CoreDataClass.h */,
-				FBE1F4FE1F5D4CF500823A77 /* ChartDataEntry+CoreDataClass.m */,
-				FBE1F4FF1F5D4CF500823A77 /* ChartDataEntry+CoreDataProperties.h */,
-				FBE1F5001F5D4CF500823A77 /* ChartDataEntry+CoreDataProperties.m */,
-				FBE1F5011F5D4CF500823A77 /* Exchange+CoreDataClass.h */,
-				FBE1F5021F5D4CF500823A77 /* Exchange+CoreDataClass.m */,
-				FBE1F5031F5D4CF500823A77 /* Exchange+CoreDataProperties.h */,
-				FBE1F5041F5D4CF500823A77 /* Exchange+CoreDataProperties.m */,
-				FBE1F5051F5D4CF500823A77 /* Market+CoreDataClass.h */,
-				FBE1F5061F5D4CF500823A77 /* Market+CoreDataClass.m */,
-				FBE1F5071F5D4CF500823A77 /* Market+CoreDataProperties.h */,
-				FBE1F5081F5D4CF500823A77 /* Market+CoreDataProperties.m */,
+				FB9CC18E1F8426CD0079309F /* Entities */,
+				FBEBE5441F5986510056D921 /* DCCoreDataManager.h */,
+				FBEBE5451F5986510056D921 /* DCCoreDataManager.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -738,8 +704,6 @@
 			children = (
 				24FE25471F4C7ECE00E32652 /* DCBackendManager.h */,
 				24FE25481F4C7ECE00E32652 /* DCBackendManager.m */,
-				FBEBE5441F5986510056D921 /* DCCoreDataManager.h */,
-				FBEBE5451F5986510056D921 /* DCCoreDataManager.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -801,10 +765,8 @@
 		FB4F93B71F8252210078E259 /* Portfolio */ = {
 			isa = PBXGroup;
 			children = (
-				FB4F93B81F82528F0078E259 /* PortfolioViewController.h */,
-				FB4F93B91F82528F0078E259 /* PortfolioViewController.m */,
-				FBEF66E01F83D68C003424D2 /* AddWalletAddressViewController.h */,
-				FBEF66E11F83D68C003424D2 /* AddWalletAddressViewController.m */,
+				FB9CC18D1F8405210079309F /* View Controllers */,
+				FB9CC1891F8404F30079309F /* Manager */,
 			);
 			name = Portfolio;
 			sourceTree = "<group>";
@@ -867,6 +829,73 @@
 				FB84EDDC1F32908C00E4D400 /* DCDataManager.m */,
 			);
 			name = "New Group";
+			sourceTree = "<group>";
+		};
+		FB9CC1891F8404F30079309F /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				FB9CC18A1F8405180079309F /* PortfolioManager.h */,
+				FB9CC18B1F8405180079309F /* PortfolioManager.m */,
+			);
+			name = Manager;
+			sourceTree = "<group>";
+		};
+		FB9CC18D1F8405210079309F /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FB4F93B81F82528F0078E259 /* PortfolioViewController.h */,
+				FB4F93B91F82528F0078E259 /* PortfolioViewController.m */,
+				FBEF66E01F83D68C003424D2 /* AddWalletAddressViewController.h */,
+				FBEF66E11F83D68C003424D2 /* AddWalletAddressViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		FB9CC18E1F8426CD0079309F /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				FB9CC17A1F83E45E0079309F /* Masternode+CoreDataClass.h */,
+				FB9CC1721F83E45C0079309F /* Masternode+CoreDataClass.m */,
+				FB9CC1741F83E45D0079309F /* Masternode+CoreDataProperties.h */,
+				FB9CC17B1F83E45E0079309F /* Masternode+CoreDataProperties.m */,
+				FB9CC1711F83E45C0079309F /* MasternodePayment+CoreDataClass.h */,
+				FB9CC17C1F83E45E0079309F /* MasternodePayment+CoreDataClass.m */,
+				FB9CC1751F83E45D0079309F /* MasternodePayment+CoreDataProperties.h */,
+				FB9CC17D1F83E45E0079309F /* MasternodePayment+CoreDataProperties.m */,
+				FB9CC1731F83E45C0079309F /* WalletAddress+CoreDataClass.h */,
+				FB9CC17E1F83E45E0079309F /* WalletAddress+CoreDataClass.m */,
+				FB9CC1701F83E45C0079309F /* WalletAddress+CoreDataProperties.h */,
+				FB9CC1791F83E45D0079309F /* WalletAddress+CoreDataProperties.m */,
+				FB9CC17F1F83E45F0079309F /* WalletMasterAddress+CoreDataClass.h */,
+				FB9CC1761F83E45D0079309F /* WalletMasterAddress+CoreDataClass.m */,
+				FB9CC1771F83E45D0079309F /* WalletMasterAddress+CoreDataProperties.h */,
+				FB9CC1781F83E45D0079309F /* WalletMasterAddress+CoreDataProperties.m */,
+				24A215971F52C5E900A63311 /* Budget+CoreDataClass.h */,
+				24A215981F52C5E900A63311 /* Budget+CoreDataClass.m */,
+				24A215991F52C5E900A63311 /* Budget+CoreDataProperties.h */,
+				24A2159A1F52C5E900A63311 /* Budget+CoreDataProperties.m */,
+				241719D91F4DB0FB0045C2D6 /* Proposal+CoreDataClass.h */,
+				241719DA1F4DB0FB0045C2D6 /* Proposal+CoreDataClass.m */,
+				241719DB1F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.h */,
+				241719DC1F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.m */,
+				241719DD1F4DB0FB0045C2D6 /* Comment+CoreDataClass.h */,
+				241719DE1F4DB0FB0045C2D6 /* Comment+CoreDataClass.m */,
+				241719DF1F4DB0FB0045C2D6 /* Comment+CoreDataProperties.h */,
+				241719E01F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m */,
+				FBE1F4FD1F5D4CF500823A77 /* ChartDataEntry+CoreDataClass.h */,
+				FBE1F4FE1F5D4CF500823A77 /* ChartDataEntry+CoreDataClass.m */,
+				FBE1F4FF1F5D4CF500823A77 /* ChartDataEntry+CoreDataProperties.h */,
+				FBE1F5001F5D4CF500823A77 /* ChartDataEntry+CoreDataProperties.m */,
+				FBE1F5011F5D4CF500823A77 /* Exchange+CoreDataClass.h */,
+				FBE1F5021F5D4CF500823A77 /* Exchange+CoreDataClass.m */,
+				FBE1F5031F5D4CF500823A77 /* Exchange+CoreDataProperties.h */,
+				FBE1F5041F5D4CF500823A77 /* Exchange+CoreDataProperties.m */,
+				FBE1F5051F5D4CF500823A77 /* Market+CoreDataClass.h */,
+				FBE1F5061F5D4CF500823A77 /* Market+CoreDataClass.m */,
+				FBE1F5071F5D4CF500823A77 /* Market+CoreDataProperties.h */,
+				FBE1F5081F5D4CF500823A77 /* Market+CoreDataProperties.m */,
+			);
+			name = Entities;
 			sourceTree = "<group>";
 		};
 		FBEBE53F1F5802BE0056D921 /* Chart Helpers */ = {
@@ -1184,6 +1213,7 @@
 				FB4F93BA1F82528F0078E259 /* PortfolioViewController.m in Sources */,
 				FBE1F5091F5D4CF500823A77 /* ChartDataEntry+CoreDataClass.m in Sources */,
 				24C86F061F5EC08500735785 /* ProposalDetailCompletedPaymentsTableViewCell.m in Sources */,
+				FB9CC18C1F8405180079309F /* PortfolioManager.m in Sources */,
 				FB9CC1811F83E45F0079309F /* WalletMasterAddress+CoreDataClass.m in Sources */,
 				24C86F0F1F5EC0D600735785 /* ProposalDetailDescriptionDetailTableViewCell.m in Sources */,
 				24C86F0C1F5EC0C300735785 /* ProposalDetailDescriptionHeaderTableViewCell.m in Sources */,

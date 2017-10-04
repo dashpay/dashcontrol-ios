@@ -76,8 +76,17 @@
     </entity>
     <entity name="Masternode" representedClassName="Masternode" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="secureVotingKeyPath" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="payments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MasternodePayment" inverseName="masternode" inverseEntity="MasternodePayment" syncable="YES"/>
+        <fetchIndex name="address">
+            <fetchIndexElement property="address" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="address"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="MasternodePayment" representedClassName="MasternodePayment" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -125,6 +134,14 @@
     <entity name="WalletAddress" representedClassName="WalletAddress" syncable="YES">
         <attribute name="address" attributeType="String" syncable="YES"/>
         <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <fetchIndex name="address">
+            <fetchIndexElement property="address" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="address"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="WalletMasterAddress" representedClassName="WalletMasterAddress" syncable="YES">
         <attribute name="masterBIP32Node" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -136,11 +153,11 @@
         <element name="Comment" positionX="-54" positionY="144" width="128" height="225"/>
         <element name="Exchange" positionX="-45" positionY="144" width="128" height="90"/>
         <element name="Market" positionX="-54" positionY="135" width="128" height="90"/>
+        <element name="Masternode" positionX="-36" positionY="153" width="128" height="105"/>
+        <element name="MasternodePayment" positionX="-27" positionY="162" width="128" height="105"/>
         <element name="Post" positionX="-63" positionY="-18" width="128" height="150"/>
         <element name="Proposal" positionX="-63" positionY="81" width="128" height="435"/>
-        <element name="WalletMasterAddress" positionX="-54" positionY="135" width="128" height="75"/>
         <element name="WalletAddress" positionX="-45" positionY="144" width="128" height="75"/>
-        <element name="Masternode" positionX="-36" positionY="153" width="128" height="90"/>
-        <element name="MasternodePayment" positionX="-27" positionY="162" width="128" height="105"/>
+        <element name="WalletMasterAddress" positionX="-54" positionY="135" width="128" height="75"/>
     </elements>
 </model>

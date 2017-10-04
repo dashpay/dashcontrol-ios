@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSFetchRequest<Masternode *> *)fetchRequest;
 
 @property (nullable, nonatomic, copy) NSString *address;
+@property (nonatomic) int64_t amount;
 @property (nullable, nonatomic, copy) NSString *secureVotingKeyPath;
 @property (nullable, nonatomic, retain) NSSet<MasternodePayment *> *payments;
 

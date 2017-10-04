@@ -41,10 +41,32 @@
 
 - (NSDictionary *)dictionaryReferencedByKeyPath:(NSString*)key objectPath:(NSString*)objectPath {
     NSMutableDictionary *mutableDictionary = [[NSMutableDictionary alloc] init];
+    NSString * realObjectPath = objectPath;
+    NSString * operator = nil;
+    if ([objectPath hasPrefix:@"@"] && [objectPath containsString:@"."]) {
+        NSArray * components = [objectPath componentsSeparatedByString:@"."];
+        realObjectPath = [components objectAtIndex:1];
+        operator = [components objectAtIndex:0];
+        operator = [operator stringByAppendingString:@".self"];
+    }
     for (NSManagedObject * object in self) {
         if ([object valueForKey:key]) {
             id lKey = [[object valueForKey:key] copy];
-            [mutableDictionary setObject:[object valueForKey:objectPath] forKey:lKey];
+            id valueToInsert = [object valueForKey:realObjectPath];
+            if ([mutableDictionary objectForKey:lKey]) {
+                [[mutableDictionary objectForKey:lKey] addObject:valueToInsert];
+            } else {
+                [mutableDictionary setObject:[[NSMutableArray alloc] initWithObjects:valueToInsert, nil] forKey:lKey];
+            }
+        }
+    }
+    if (operator) {
+        for (NSString * lKey in [mutableDictionary allKeys]) {
+            [mutableDictionary setObject:[[mutableDictionary objectForKey:lKey] valueForKeyPath:operator] forKey:lKey];
+        }
+    } else {
+        for (NSString * lKey in [mutableDictionary allKeys]) {
+            [mutableDictionary setObject:[[mutableDictionary objectForKey:lKey] copy] forKey:lKey];
         }
     }
     NSDictionary * rDictionary = [NSDictionary dictionaryWithDictionary:mutableDictionary];
@@ -53,10 +75,28 @@
 
 - (NSMutableDictionary *)mutableDictionaryReferencedByKeyPath:(NSString*)key objectPathMakeMutable:(NSString*)objectPath {
     NSMutableDictionary *mutableDictionary = [[NSMutableDictionary alloc] init];
+    NSString * realObjectPath = objectPath;
+    NSString * operator = nil;
+    if ([objectPath hasPrefix:@"@"] && [objectPath containsString:@"."]) {
+        NSArray * components = [objectPath componentsSeparatedByString:@"."];
+        realObjectPath = [components objectAtIndex:1];
+        operator = [components objectAtIndex:0];
+        operator = [operator stringByAppendingString:@".self"];
+    }
     for (NSManagedObject * object in self) {
         if ([object valueForKey:key]) {
             id lKey = [[object valueForKey:key] copy];
-            [mutableDictionary setObject:[[object valueForKey:objectPath] mutableCopy] forKey:lKey];
+            id valueToInsert = [object valueForKey:realObjectPath];
+            if ([mutableDictionary objectForKey:lKey]) {
+                [[mutableDictionary objectForKey:lKey] addObject:valueToInsert];
+            } else {
+                [mutableDictionary setObject:[[NSMutableArray alloc] initWithObjects:valueToInsert, nil] forKey:lKey];
+            }
+        }
+    }
+    if (operator) {
+        for (NSString * lKey in [mutableDictionary allKeys]) {
+            [mutableDictionary setObject:[[[mutableDictionary objectForKey:lKey] valueForKeyPath:operator] mutableCopy] forKey:lKey];
         }
     }
     return mutableDictionary;

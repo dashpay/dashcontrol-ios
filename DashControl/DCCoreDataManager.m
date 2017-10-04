@@ -233,4 +233,61 @@
     }
 }
 
+// MARK: - Portfolio
+
+-(NSArray * _Nonnull)walletAddressesInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+    if (context) {
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"WalletAddress" inManagedObjectContext:context];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entityDescription];
+        
+        NSArray *array = [context executeFetchRequest:request error:error];
+        if (*error || array == nil)
+        {
+            NSLog(@"Error while fetching wallet addresses");
+            return @[];
+        }
+        return array;
+    } else {
+        return [self walletAddressesInContext:self.mainObjectContext error:error];
+    }
+}
+
+-(NSArray * _Nonnull)masternodesInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+    if (context) {
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Masternode" inManagedObjectContext:context];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entityDescription];
+        
+        NSArray *array = [context executeFetchRequest:request error:error];
+        if (*error || array == nil)
+        {
+            NSLog(@"Error while fetching masternodes");
+            return @[];
+        }
+        return array;
+    } else {
+        return [self masternodesInContext:self.mainObjectContext error:error];
+    }
+}
+
+-(NSUInteger)countMasternodesInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+    if (context) {
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Masternode" inManagedObjectContext:context];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entityDescription];
+        
+        NSUInteger count = [context countForFetchRequest:request error:error];
+        if (*error)
+        {
+            NSLog(@"Error while fetching masternode count");
+            return NSUIntegerMax;
+        }
+        return count;
+    } else {
+        return [self countMasternodesInContext:self.mainObjectContext error:error];
+    }
+}
+
+
 @end

@@ -18,5 +18,6 @@
 @dynamic address;
 @dynamic secureVotingKeyPath;
 @dynamic payments;
+@dynamic amount;
 
 @end

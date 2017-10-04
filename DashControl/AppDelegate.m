@@ -11,6 +11,7 @@
 
 #import "RSSFeedListViewController.h"
 #import "ProposalsViewController.h"
+#import "PortfolioManager.h"
 
 #define kRSSFeedViewControllerIndex 0
 #define kProposalsViewControllerIndex 2
@@ -85,6 +86,8 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     
     //Init the Core Data Manager
     [DCCoreDataManager sharedManager];
+    
+    [[PortfolioManager sharedManager] updateAmounts];
     
     return YES;
 }

@@ -33,13 +33,16 @@
 {
     
     [FTPopOverMenu showFromEvent:event
-                   withMenuArray:@[@"Masternode",@"Link Dashwallet",@"Wallet Address"] doneBlock:^(NSInteger selectedIndex) {
+                   withMenuArray:@[@"Wallet Address",@"Masternode",@"Link Dashwallet"] doneBlock:^(NSInteger selectedIndex) {
                        switch (selectedIndex) {
                            case 0:
+                               [self performSegueWithIdentifier:@"AddWalletAddressSegue" sender:self];
+                               break;
+                           case 1:
                                
                                break;
-                           case 1: {
-                               [self performSegueWithIdentifier:@"AddWalletAddressSegue" sender:self];
+                           case 2: {
+                               
                            }
                            default:
                                break;
@@ -130,13 +133,19 @@
     [fetchRequest setEntity:entity];
     NSSortDescriptor * sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"address" ascending:TRUE];
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
-    NSFetchedResultsController *theFetchedResultsController =
-    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+    [fetchRequest setFetchBatchSize:20];
+    NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:_managedObjectContext sectionNameKeyPath:nil
                                                    cacheName:nil];
     self.walletAddressFetchedResultsController = theFetchedResultsController;
     _walletAddressFetchedResultsController.delegate = self;
-    
+    NSError *error = nil;
+    if (![_walletAddressFetchedResultsController performFetch:&error]) {
+        /*
+         Replace this implementation with code to handle the error appropriately.
+         */
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
     return _walletAddressFetchedResultsController;
 }
 
@@ -152,13 +161,20 @@
     [fetchRequest setEntity:entity];
     NSSortDescriptor * sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"address" ascending:TRUE];
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
+    [fetchRequest setFetchBatchSize:20];
     NSFetchedResultsController *theFetchedResultsController =
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:_managedObjectContext sectionNameKeyPath:nil
                                                    cacheName:nil];
     self.masternodeAddressFetchedResultsController = theFetchedResultsController;
     _masternodeAddressFetchedResultsController.delegate = self;
-    
+    NSError *error = nil;
+    if (![_masternodeAddressFetchedResultsController performFetch:&error]) {
+        /*
+         Replace this implementation with code to handle the error appropriately.
+         */
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
     return _masternodeAddressFetchedResultsController;
 }
 
@@ -173,8 +189,7 @@
     switch (section) {
         case 0:
         {
-            id< NSFetchedResultsSectionInfo> sectionInfo = [[[self walletAddressFetchedResultsController] sections] objectAtIndex:0];
-            return [sectionInfo numberOfObjects];
+            return [self.walletAddressFetchedResultsController.fetchedObjects count];
         }
         case 1:
         {
