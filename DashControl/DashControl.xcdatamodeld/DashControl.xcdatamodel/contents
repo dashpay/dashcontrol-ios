@@ -144,8 +144,10 @@
         </uniquenessConstraints>
     </entity>
     <entity name="WalletMasterAddress" representedClassName="WalletMasterAddress" syncable="YES">
+        <attribute name="dateAdded" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="masterBIP32Node" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="masterBIP44Node" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Budget" positionX="-54" positionY="135" width="128" height="120"/>
@@ -158,6 +160,6 @@
         <element name="Post" positionX="-63" positionY="-18" width="128" height="150"/>
         <element name="Proposal" positionX="-63" positionY="81" width="128" height="435"/>
         <element name="WalletAddress" positionX="-45" positionY="144" width="128" height="75"/>
-        <element name="WalletMasterAddress" positionX="-54" positionY="135" width="128" height="75"/>
+        <element name="WalletMasterAddress" positionX="-54" positionY="135" width="128" height="105"/>
     </elements>
 </model>

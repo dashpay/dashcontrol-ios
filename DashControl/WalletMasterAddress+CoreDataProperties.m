@@ -17,5 +17,7 @@
 
 @dynamic masterBIP32Node;
 @dynamic masterBIP44Node;
+@dynamic name;
+@dynamic dateAdded;
 
 @end

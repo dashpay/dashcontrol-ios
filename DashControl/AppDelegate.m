@@ -12,6 +12,9 @@
 #import "RSSFeedListViewController.h"
 #import "ProposalsViewController.h"
 #import "PortfolioManager.h"
+#import "DCCoreDataManager.h"
+
+#import "WalletMasterAddress+CoreDataClass.h"
 
 #define kRSSFeedViewControllerIndex 0
 #define kProposalsViewControllerIndex 2
@@ -41,6 +44,8 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
 }
 
 @interface AppDelegate ()
+
+@property (nonatomic, strong) NSPersistentContainer *persistentContainer;
 
 @end
 
@@ -125,7 +130,7 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)activity restorationHandler:(void (^)(NSArray *))restorationHandler
 {
-    NSString * valueCSSearchableItemActionType;
+    NSString * valueCSSearchableItemActionType = nil;
     BOOL wasHandled = NO;
     
     if ([CSSearchableItemAttributeSet class]) //iOS 9
@@ -189,8 +194,6 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
 }
 
 #pragma mark - Core Data stack
-
-@synthesize persistentContainer = _persistentContainer;
 
 - (NSPersistentContainer *)persistentContainer {
     // The persistent container for the application. This implementation creates and returns a container, having loaded the store for the application to it.
@@ -262,7 +265,7 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
 }
 
 //Called to let your app know which action was selected by the user for a given notification.
--(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler{
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)(void))completionHandler{
     NSLog(@"User Info : %@",response.notification.request.content.userInfo);
     completionHandler();
 }
@@ -315,6 +318,63 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
 {  
     [self application:application didReceiveRemoteNotification:userInfo fetchCompletionHandler:^(UIBackgroundFetchResult result) {
     }];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    if (![url.scheme isEqual:@"dashcontrol"]) {
+        UIAlertController * alert = [UIAlertController
+                                     alertControllerWithTitle:@"Not a dash URL"
+                                     message:url.absoluteString
+                                     preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* okButton = [UIAlertAction
+                                   actionWithTitle:NSLocalizedString(@"ok", nil)
+                                   style:UIAlertActionStyleCancel
+                                   handler:^(UIAlertAction * action) {
+                                   }];
+        
+        [alert addAction:okButton];
+        [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:alert animated:YES completion:nil];
+        
+        return NO;
+    }
+    
+    NSArray * parameters = [url.host componentsSeparatedByString:@"&"];
+    NSMutableDictionary * paramDictionary = [[NSMutableDictionary alloc] init];
+    for (NSString * param in parameters) {
+        NSArray * paramArray = [param componentsSeparatedByString:@"="];
+        if ([paramArray count] == 2) {
+            [paramDictionary setObject:[paramArray[1] stringByRemovingPercentEncoding] forKey:paramArray[0]];
+        }
+    }
+    if (paramDictionary[@"callback"]) {
+        if ([[paramDictionary[@"callback"] lowercaseString] isEqualToString:@"masterpublickey"]) {
+            [[self persistentContainer] performBackgroundTask:^(NSManagedObjectContext *context) {
+                NSError * error = nil;
+                BOOL hasAddress = [[DCCoreDataManager sharedManager] hasWalletMasterAddress:paramDictionary[@"masterPublicKeyBIP32"] inContext:context error:&error];
+                if (hasAddress || error) {
+                    return;
+                }
+                hasAddress = [[DCCoreDataManager sharedManager] hasWalletMasterAddress:paramDictionary[@"masterPublicKeyBIP44"] inContext:context error:&error];
+                if (hasAddress || error) {
+                    return;
+                }
+                WalletMasterAddress * walletMasterAddress = [NSEntityDescription insertNewObjectForEntityForName:@"WalletMasterAddress" inManagedObjectContext:context];
+                walletMasterAddress.masterBIP32Node = paramDictionary[@"masterPublicKeyBIP32"];
+                walletMasterAddress.masterBIP44Node = paramDictionary[@"masterPublicKeyBIP44"];
+                walletMasterAddress.dateAdded = [NSDate date];
+                walletMasterAddress.name = paramDictionary[@"source"];
+                context.automaticallyMergesChangesFromParent = TRUE;
+                context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+                if (![context save:&error]) {
+                    NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+                    abort();
+                }
+            }];
+        }
+    }
+    return TRUE;
 }
 
 #pragma mark - Register Device

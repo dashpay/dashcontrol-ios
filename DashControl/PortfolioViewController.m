@@ -31,18 +31,24 @@
 
 -(void)onNavButtonTapped:(UIBarButtonItem *)sender event:(UIEvent *)event
 {
-    
+    NSURL * requestURL = [NSURL URLWithString:@"dashwallet://request=masterPublicKey&account=0&sender=dashcontrol"];
+    NSMutableArray * menuArray = [@[@"Wallet Address",@"Masternode"] mutableCopy];
+    if ([[UIApplication sharedApplication] canOpenURL:requestURL]) {
+        [menuArray addObject:@"Link Dashwallet"];
+    }
     [FTPopOverMenu showFromEvent:event
-                   withMenuArray:@[@"Wallet Address",@"Masternode",@"Link Dashwallet"] doneBlock:^(NSInteger selectedIndex) {
+                   withMenuArray:menuArray doneBlock:^(NSInteger selectedIndex) {
                        switch (selectedIndex) {
                            case 0:
                                [self performSegueWithIdentifier:@"AddWalletAddressSegue" sender:self];
                                break;
                            case 1:
-                               
+                               [self performSegueWithIdentifier:@"AddMasternodeSegue" sender:self];
                                break;
                            case 2: {
-                               
+                               [[UIApplication sharedApplication] openURL:requestURL options:@{} completionHandler:^(BOOL success) {
+                                   
+                               }];
                            }
                            default:
                                break;

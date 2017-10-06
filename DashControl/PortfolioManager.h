@@ -18,6 +18,8 @@
 
 -(uint64_t)totalWorthInContext:(NSManagedObjectContext* _Nullable)context error:(NSError*_Nullable* _Nullable)error;
 
+-(void)amountAtAddress:(NSString* _Nonnull)address clb:(void (^ _Nonnull)(uint64_t amount,NSError * _Nullable error))clb;
+
 -(void)updateAmounts;
 
 @end

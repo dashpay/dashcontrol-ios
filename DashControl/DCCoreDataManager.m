@@ -235,6 +235,24 @@
 
 // MARK: - Portfolio
 
+-(BOOL)hasWalletMasterAddress:(NSData* _Nonnull)masterPublicKey inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+    if (context) {
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"WalletMasterAddress" inManagedObjectContext:context];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entityDescription];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"masterBIP32Node == %@ OR masterBIP44Node == %@",masterPublicKey,masterPublicKey]];
+        NSUInteger count = [context countForFetchRequest:request error:error];
+        if (*error)
+        {
+            NSLog(@"Error while fetching wallet addresses");
+            return FALSE;
+        }
+        return !!count;
+    } else {
+        return [self hasWalletMasterAddress:masterPublicKey inContext:self.mainObjectContext error:error];
+    }
+}
+
 -(NSArray * _Nonnull)walletAddressesInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     if (context) {
         NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"WalletAddress" inManagedObjectContext:context];

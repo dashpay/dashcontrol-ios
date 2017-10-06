@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, retain) NSData *masterBIP32Node;
 @property (nullable, nonatomic, retain) NSData *masterBIP44Node;
+@property (nullable, nonatomic, copy) NSString *name;
+@property (nonnull, nonatomic, copy) NSDate *dateAdded;
 
 @end
 

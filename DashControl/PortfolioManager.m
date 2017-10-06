@@ -12,6 +12,8 @@
 #import <AFNetworking/AFNetworking.h>
 #import "WalletAddress+CoreDataClass.h"
 
+#define INSIGHT_API_URL @"https://insight.dash.org/insight-api-dash"
+
 @implementation PortfolioManager
 
 + (id)sharedManager {
@@ -30,13 +32,23 @@
     if (*error) return 0;
     NSNumber * walletSum =  [walletAddresses valueForKeyPath:@"@sum.amount"];
     total += [walletSum longLongValue];
-
+    
     NSArray * masternodes = [[DCCoreDataManager sharedManager] masternodesInContext:context error:error];
     if (*error) return 0;
     NSNumber * masternodeSum =  [masternodes valueForKeyPath:@"@sum.amount"];
     total += [masternodeSum longLongValue];
     
     return total;
+}
+
+-(void)amountAtAddress:(NSString*)address clb:(void (^)(uint64_t amount,NSError * _Nullable error))clb {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSString * addr = [NSString stringWithFormat:@"%@/addr/%@",INSIGHT_API_URL,address];
+    [manager GET:addr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        clb(0,nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        clb(0,error);
+    }];
 }
 
 -(void)updateAmounts {
@@ -48,43 +60,46 @@
         
         NSArray * masternodes = [[DCCoreDataManager sharedManager] masternodesInContext:context error:&error];
         if (error) return;
-
+        
         
         NSArray * addresses = [[walletAddresses arrayReferencedByKeyPath:@"address"] arrayByAddingObjectsFromArray:[masternodes arrayReferencedByKeyPath:@"address"]];
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        NSString * addr = [NSString stringWithFormat:@"https://insight.dash.org/insight-api-dash/addrs/%@/utxo",[addresses componentsJoinedByString:@":"]];
-        [manager GET:addr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
-            NSDictionary * addressAmountDictionary = [((NSArray*)responseObject) dictionaryReferencedByKeyPath:@"address" objectPath:@"@sum.amount"];
-            BOOL updatedAmounts = FALSE;
-            for (WalletAddress * address in walletAddresses) {
-                if ([addressAmountDictionary objectForKey:address.address]) {
-                    updatedAmounts = TRUE;
-                    [address setAmount:[[addressAmountDictionary objectForKey:address.address] longLongValue]];
+        
+        if ([addresses count]) {
+            AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+            NSString * addr = [NSString stringWithFormat:@"%@/addrs/%@/utxo",INSIGHT_API_URL,[addresses componentsJoinedByString:@":"]];
+            [manager GET:addr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
+                NSDictionary * addressAmountDictionary = [((NSArray*)responseObject) dictionaryReferencedByKeyPath:@"address" objectPath:@"@sum.amount"];
+                BOOL updatedAmounts = FALSE;
+                for (WalletAddress * address in walletAddresses) {
+                    if ([addressAmountDictionary objectForKey:address.address]) {
+                        updatedAmounts = TRUE;
+                        [address setAmount:[[addressAmountDictionary objectForKey:address.address] longLongValue]];
+                    }
                 }
-            }
-            context.automaticallyMergesChangesFromParent = TRUE;
-            context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-            
-            NSError *error = nil;
-            if (![context save:&error]) {
-                NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-                abort();
-            }
-            else {
+                context.automaticallyMergesChangesFromParent = TRUE;
+                context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
                 
-                if (updatedAmounts) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-                        [notificationCenter postNotificationName:PORTFOLIO_DID_UPDATE_NOTIFICATION
-                                                          object:nil
-                                                        userInfo:nil];
-                    });
+                NSError *error = nil;
+                if (![context save:&error]) {
+                    NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+                    abort();
                 }
-            }
-            
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"%@",error);
-        }];
+                else {
+                    
+                    if (updatedAmounts) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+                            [notificationCenter postNotificationName:PORTFOLIO_DID_UPDATE_NOTIFICATION
+                                                              object:nil
+                                                            userInfo:nil];
+                        });
+                    }
+                }
+                
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                NSLog(@"%@",error);
+            }];
+        }
     }];
 }
 
