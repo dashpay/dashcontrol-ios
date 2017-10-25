@@ -15,6 +15,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *labelProposalName;
 @property (strong, nonatomic) IBOutlet MBCircularProgressBarView *progressView;
 
--(void)configureWithProposal:(Proposal*)proposal;
+-(void)configureWithProposal:(DCProposalEntity*)proposal;
 
 @end

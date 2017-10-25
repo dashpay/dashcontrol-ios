@@ -75,9 +75,9 @@ static NSString *CellIdentifier = @"ProposalCell";
     }
     
     /*
-    NSArray *proposals = [[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Proposal" inContext:self.managedObjectContext];
+    NSArray *proposals = [[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"DCProposalEntity" inContext:self.managedObjectContext];
     NSLog(@"All proposals count:%lu", (unsigned long)[proposals count]);
-    for (Proposal *proposal in proposals) {
+    for (DCProposalEntity *proposal in proposals) {
         NSLog(@"order:%d ## %@", proposal.order, proposal.title);
     }
     */
@@ -86,7 +86,7 @@ static NSString *CellIdentifier = @"ProposalCell";
 #pragma mark - Budget Updates
 
 -(void)budgetDidUpdate:(NSNotification*)notification {
-    Budget *budget = [[[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Budget" inContext:_managedObjectContext] firstObject];
+    DCBudgetEntity *budget = [[[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Budget" inContext:_managedObjectContext] firstObject];
     [_proposalHeaderView configureWithBudget:budget];
 }
 
@@ -107,7 +107,7 @@ static NSString *CellIdentifier = @"ProposalCell";
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    Proposal *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
+    DCProposalEntity *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
     [(ProposalCell*)cell setCurrentProposal:proposal];
     [(ProposalCell*)cell cfgViews];
     [(ProposalCell*)cell progressView].value = proposal.lastProgressDisplayed;
@@ -115,7 +115,7 @@ static NSString *CellIdentifier = @"ProposalCell";
 
 -(void) tableView:(UITableView *) tableView willDisplayCell:(UITableViewCell *) cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Proposal *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
+    DCProposalEntity *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
     
     CGFloat currentProgress =  (proposal.yes / (proposal.yes + proposal.remainingYesVotesUntilFunding)) * 100;
 
@@ -416,7 +416,7 @@ static NSString *CellIdentifier = @"ProposalCell";
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:cellPostion];
     if (indexPath) {
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        Proposal *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
+        DCProposalEntity *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
         SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:proposal.dwUrl]];
         svc.delegate = self;
         [svc registerForPreviewingWithDelegate:self sourceView:self.view];
@@ -438,7 +438,7 @@ static NSString *CellIdentifier = @"ProposalCell";
         _managedObjectContext = [[ProposalsManager sharedManager] managedObjectContext];
     }
     
-    Proposal *proposal;
+    DCProposalEntity *proposal;
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Proposal" inManagedObjectContext:_managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entityDescription];

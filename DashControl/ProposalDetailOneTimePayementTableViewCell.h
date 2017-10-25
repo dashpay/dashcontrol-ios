@@ -13,6 +13,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *labelOneTimePayment;
 @property (strong, nonatomic) IBOutlet UILabel *labelOneTimePaymentDetail;
 
--(void)configureWithProposal:(Proposal*)proposal;
+-(void)configureWithProposal:(DCProposalEntity*)proposal;
 
 @end

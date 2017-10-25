@@ -8,7 +8,7 @@
 
 #import "AddWalletAddressViewController.h"
 #import "NSString+Dash.h"
-#import "WalletAddress+CoreDataClass.h"
+#import "DCWalletAddressEntity+CoreDataClass.h"
 
 @interface AddWalletAddressViewController ()
 
@@ -34,7 +34,7 @@
 -(IBAction)done:(id)sender {
     if ([[self.inputField text] isValidDashAddress]) {
         NSManagedObjectContext * context = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
-        WalletAddress * walletAddress = [NSEntityDescription insertNewObjectForEntityForName:@"WalletAddress" inManagedObjectContext:context];
+        DCWalletAddressEntity * walletAddress = [NSEntityDescription insertNewObjectForEntityForName:@"WalletAddress" inManagedObjectContext:context];
         walletAddress.address = [self.inputField text];
         walletAddress.amount = -1; //-1 is updating amount;
         NSError *error = nil;

@@ -13,7 +13,7 @@
 
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 
-@property (nonatomic, retain) Proposal *currentProposal;
+@property (nonatomic, retain) DCProposalEntity *currentProposal;
 
 @property (strong, nonatomic) UIView *budgetView;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;

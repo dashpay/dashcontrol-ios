@@ -14,6 +14,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *labelCompletedPaymentsDetail;
 @property (strong, nonatomic) IBOutlet UILabel *labelMonthRemaining;
 
--(void)configureWithProposal:(Proposal*)proposal;
+-(void)configureWithProposal:(DCProposalEntity*)proposal;
 
 @end

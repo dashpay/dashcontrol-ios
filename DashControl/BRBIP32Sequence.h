@@ -33,7 +33,7 @@
 
 @interface BRBIP32Sequence : NSObject<BRKeySequence>
 
-- (NSData * _Nullable)masterPublicKeyFromSeed:(NSData * _Nullable)seed purpose:(uint32_t)purpose;
+- (NSData * _Nullable)extendedPublicKeyForAccount:(uint32_t)account fromSeed:(NSData * _Nullable)seed purpose:(uint32_t)purpose;
 - (NSData * _Nullable)publicKey:(uint32_t)n internal:(BOOL)internal masterPublicKey:(NSData * _Nonnull)masterPublicKey;
 - (NSString * _Nullable)privateKey:(uint32_t)n purpose:(uint32_t)purpose internal:(BOOL)internal fromSeed:(NSData * _Nonnull)seed;
 - (NSArray * _Nullable)privateKeys:(NSArray * _Nonnull)n purpose:(uint32_t)purpose internal:(BOOL)internal fromSeed:(NSData * _Nonnull)seed;
@@ -45,6 +45,8 @@
 - (NSString * _Nullable)bitIdPrivateKey:(uint32_t)n forURI:(NSString * _Nonnull)uri fromSeed:(NSData * _Nonnull)seed;
 
 - (NSString * _Nullable)serializedPrivateMasterFromSeed:(NSData * _Nullable)seed;
-- (NSString * _Nullable)serializedMasterPublicKey:(NSData * _Nonnull)masterPublicKey;
+- (NSString * _Nullable)serializedMasterPublicKey:(NSData * _Nonnull)masterPublicKey depth:(NSUInteger)depth;
+- (NSData * _Nullable)deserializedMasterPublicKey:(NSString * _Nonnull)masterPublicKeyString;
 
 @end
+

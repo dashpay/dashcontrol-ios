@@ -12,6 +12,6 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *labelProposalDescription;
 
--(void)configureWithProposal:(Proposal*)proposal;
+-(void)configureWithProposal:(DCProposalEntity*)proposal;
 
 @end

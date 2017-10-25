@@ -8,8 +8,8 @@
 
 #import "DCBackendManager.h"
 #import <AFNetworking/AFNetworking.h>
-#import "Market+CoreDataClass.h"
-#import "Exchange+CoreDataClass.h"
+#import "DCMarketEntity+CoreDataClass.h"
+#import "DCExchangeEntity+CoreDataClass.h"
 #import "ChartTimeFormatter.h"
 
 #define DASHCONTROL_SERVER_VERSION 0
@@ -95,8 +95,8 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
          {
              if (!error) {
                  NSError * innerError = nil;
-                 Market * defaultMarket = [[DCCoreDataManager sharedManager] marketWithIdentifier:defaultMarketIdentifier inContext:self.mainObjectContext  error:&innerError];
-                 Exchange * defaultExchange = innerError?nil:[[DCCoreDataManager sharedManager] exchangeWithIdentifier:defaultExchangeIdentifier inContext:self.mainObjectContext  error:&innerError];
+                 DCMarketEntity * defaultMarket = [[DCCoreDataManager sharedManager] marketWithIdentifier:defaultMarketIdentifier inContext:self.mainObjectContext  error:&innerError];
+                 DCExchangeEntity * defaultExchange = innerError?nil:[[DCCoreDataManager sharedManager] exchangeWithIdentifier:defaultExchangeIdentifier inContext:self.mainObjectContext  error:&innerError];
                  if (!innerError) {
                      NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
                      if (defaultMarket && ![[userDefaults objectForKey:DEFAULT_MARKET] isEqualToString:defaultMarket.name]) {
@@ -133,8 +133,8 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     [manager GET:DASHCONTROL_URL(@"markets") parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
         [container performBackgroundTask:^(NSManagedObjectContext *context) {
-            Market * defaultMarket = nil;
-            Exchange * defaultExchange = nil;
+            DCMarketEntity * defaultMarket = nil;
+            DCExchangeEntity * defaultExchange = nil;
             NSString * defaultMarketName = nil;
             NSString * defaultExchangeName = nil;
             if ([responseObject objectForKey:@"default"]) {
@@ -156,7 +156,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                         NSInteger marketIdentifier = [[DCCoreDataManager sharedManager] fetchAutoIncrementIdForMarketinContext:context error:&error];
                         if (!error) {
                             for (NSString * marketName in novelMarkets) {
-                                Market *market = [NSEntityDescription insertNewObjectForEntityForName:@"Market" inManagedObjectContext:context];
+                                DCMarketEntity *market = [NSEntityDescription insertNewObjectForEntityForName:@"Market" inManagedObjectContext:context];
                                 market.identifier = marketIdentifier;
                                 market.name = marketName;
                                 marketIdentifier++;
@@ -171,7 +171,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                         NSInteger exchangeIdentifier = [[DCCoreDataManager sharedManager] fetchAutoIncrementIdForExchangeinContext:context error:&error];
                         if (!error) {
                             for (NSString * exchangeName in novelExchanges) {
-                                Exchange *exchange = [NSEntityDescription insertNewObjectForEntityForName:@"Exchange" inManagedObjectContext:context];
+                                DCExchangeEntity *exchange = [NSEntityDescription insertNewObjectForEntityForName:@"Exchange" inManagedObjectContext:context];
                                 exchange.identifier = exchangeIdentifier;
                                 exchange.name = exchangeName;
                                 exchangeIdentifier++;
@@ -195,12 +195,12 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                 //now let's make sure all the relationships are correct
                 if (!error) {
                     NSDictionary * exchangeDictionary = [knownExchanges dictionaryReferencedByKeyPath:@"name"];
-                    for (Market * market in knownMarkets) {
+                    for (DCMarketEntity * market in knownMarkets) {
                         NSArray * serverExchangesForMarket = [[responseObject objectForKey:@"markets"] objectForKey:market.name];
                         NSArray * knownExchangesForMarket = [[market.onExchanges allObjects] arrayReferencedByKeyPath:@"name"];
                         NSArray * novelExchangesForMarket = [serverExchangesForMarket arrayByRemovingObjectsFromArray:knownExchangesForMarket];
                         for (NSString * novelExchangeForMarket in novelExchangesForMarket) {
-                            Exchange * exchange = [exchangeDictionary objectForKey:novelExchangeForMarket];
+                            DCExchangeEntity * exchange = [exchangeDictionary objectForKey:novelExchangeForMarket];
                             [market addOnExchangesObject:exchange];
                         }
                     }
@@ -352,8 +352,8 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     
     [self.persistentContainer performBackgroundTask:^(NSManagedObjectContext *context) {
         __block NSError * error;
-        Market * market = [[DCCoreDataManager sharedManager] marketNamed:marketName inContext:context error:&error];
-        Exchange * exchange = error?nil:[[DCCoreDataManager sharedManager] exchangeNamed:exchangeName inContext:context error:&error];
+        DCMarketEntity * market = [[DCCoreDataManager sharedManager] marketNamed:marketName inContext:context error:&error];
+        DCExchangeEntity * exchange = error?nil:[[DCCoreDataManager sharedManager] exchangeNamed:exchangeName inContext:context error:&error];
         if (!error && market && exchange && [jsonArray count]) {
             context.automaticallyMergesChangesFromParent = TRUE;
             context.mergePolicy = NSOverwriteMergePolicy;
@@ -400,7 +400,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                                 NSDate * additionalDataPointIntervalEndTime = [[[intervalArray firstObject] objectForKey:@"time"] dateByAddingTimeInterval:-[ChartTimeFormatter timeIntervalForChartTimeInterval:ChartTimeInterval_5Mins]];
                                 if ([additionalDataPointIntervalEndTime compare:intervalStartTime] == NSOrderedDescending) {
                                     NSArray * additionalDataPoints = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:exchange.identifier forMarketIdentifier:market.identifier interval:ChartTimeInterval_5Mins startTime:intervalStartTime endTime:additionalDataPointIntervalEndTime inContext:context error:&error];
-                                    for (ChartDataEntry * chartDataEntry in [additionalDataPoints reverseObjectEnumerator]) {
+                                    for (DCChartDataEntryEntity * chartDataEntry in [additionalDataPoints reverseObjectEnumerator]) {
                                         NSMutableDictionary * additionalDataPoint = [NSMutableDictionary dictionary];
                                         [additionalDataPoint setObject:[chartDataEntry valueForKey:@"time"] forKey:@"time"];
                                         [additionalDataPoint setObject:[chartDataEntry valueForKey:@"open"] forKey:@"open"];
@@ -417,7 +417,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                                 NSDate * additionalDataPointIntervalStartTime = [[[intervalArray lastObject] objectForKey:@"time"] dateByAddingTimeInterval:[ChartTimeFormatter timeIntervalForChartTimeInterval:ChartTimeInterval_5Mins]];
                                 NSDate * additionalDataPointIntervalEndTime = [intervalStartTime dateByAddingTimeInterval:[ChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval]];
                                 NSArray * additionalDataPoints = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:exchange.identifier forMarketIdentifier:market.identifier interval:ChartTimeInterval_5Mins startTime:additionalDataPointIntervalStartTime endTime:additionalDataPointIntervalEndTime inContext:context error:&error];
-                                for (ChartDataEntry * chartDataEntry in additionalDataPoints) {
+                                for (DCChartDataEntryEntity * chartDataEntry in additionalDataPoints) {
                                     NSMutableDictionary * additionalDataPoint = [NSMutableDictionary dictionary];
                                     [additionalDataPoint setObject:[chartDataEntry valueForKey:@"time"] forKey:@"time"];
                                     [additionalDataPoint setObject:[chartDataEntry valueForKey:@"open"] forKey:@"open"];
@@ -432,7 +432,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                             }
                             if (error) break;
                             
-                            ChartDataEntry *chartDataEntry = (ChartDataEntry*)[NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
+                            DCChartDataEntryEntity *chartDataEntry = (DCChartDataEntryEntity*)[NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
                             chartDataEntry.time = intervalStartTime;
                             chartDataEntry.open = [[[intervalArray firstObject] objectForKey:@"open"] doubleValue];
                             chartDataEntry.high = [[intervalArray valueForKeyPath:@"@max.high"] doubleValue];
@@ -459,7 +459,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             if (!error) {
                 
                 for (NSDictionary *jsonObject in jsonArray) {
-                    ChartDataEntry *chartDataEntry = (ChartDataEntry*)[NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
+                    DCChartDataEntryEntity *chartDataEntry = (DCChartDataEntryEntity*)[NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
                     chartDataEntry.time = [jsonObject objectForKey:@"time"];
                     chartDataEntry.open = [[jsonObject objectForKey:@"open"] doubleValue];
                     chartDataEntry.high = [[jsonObject objectForKey:@"high"] doubleValue];

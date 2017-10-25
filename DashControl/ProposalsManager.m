@@ -115,7 +115,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                     NSMutableArray *existingProposals = [self fetchAllObjectsForEntity:@"Proposal" inContext:_managedObjectContext];
                     NSMutableArray *proposalsToUpdate = [NSMutableArray new];
                     
-                    for (Proposal *proposal in existingProposals) {
+                    for (DCProposalEntity *proposal in existingProposals) {
                         __block BOOL bProposalFoundInResponse = NO;
                         [proposalsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                             NSDictionary *dic = obj;
@@ -129,7 +129,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                         }
                     }
                     if (proposalsToUpdate.count) {
-                        for (Proposal *proposal in proposalsToUpdate) {
+                        for (DCProposalEntity *proposal in proposalsToUpdate) {
                             proposal.order = INT32_MAX;
                             NSError *error;
                             [self.managedObjectContext save:&error];
@@ -202,7 +202,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
     [container performBackgroundTask:^(NSManagedObjectContext *context) {
         
-        Budget *budget;
+        DCBudgetEntity *budget;
         NSMutableArray *existingBudgets = [self fetchAllObjectsForEntity:@"Budget" inContext:context];
         if (existingBudgets.count == 0) {
             budget = [NSEntityDescription insertNewObjectForEntityForName:@"Budget" inManagedObjectContext:context];
@@ -250,7 +250,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         
         for (NSDictionary *proposalDictionary in proposalsArray) {
             
-            Proposal *proposal;
+            DCProposalEntity *proposal;
             NSMutableArray *existingProposal = [self fetchProposalWithHash:[proposalDictionary objectForKey:@"hash"] inContext:context];
             if (!existingProposal.count) {
                 proposal = [NSEntityDescription insertNewObjectForEntityForName:@"Proposal" inManagedObjectContext:context];
@@ -292,7 +292,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             }
             if ([proposalDictionary objectForKey:@"comments"]) {
                 for (NSDictionary *commentDic in [proposalDictionary objectForKey:@"comments"]) {
-                    Comment *comment;
+                    DCCommentEntity *comment;
                     NSMutableArray *existingComment = [self fetchCommentWithId:[commentDic objectForKey:@"id"] inContext:context];
                     if (!existingComment.count) {
                         comment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:context];
@@ -348,7 +348,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
     [container performBackgroundTask:^(NSManagedObjectContext *context) {
         
-        Proposal *proposal;
+        DCProposalEntity *proposal;
         NSMutableArray *existingProposal = [self fetchProposalWithHash:proposalHash inContext:context];
         if (!existingProposal.count) {
             return;

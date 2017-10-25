@@ -15,6 +15,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *labelVotesResultNo;
 @property (strong, nonatomic) IBOutlet UILabel *labelVotesResultAbstain;
 
--(void)configureWithProposal:(Proposal*)proposal;
+-(void)configureWithProposal:(DCProposalEntity*)proposal;
 
 @end

@@ -17,5 +17,5 @@
 @property (strong, nonatomic) IBOutlet UILabel *labelPaymentDate;
 @property (strong, nonatomic) CALayer *bottomBorder;
 @property (strong, nonatomic) CALayer *nearBottomBorder;
--(void)configureWithBudget:(Budget*)budget;
+-(void)configureWithBudget:(DCBudgetEntity*)budget;
 @end

@@ -5,6 +5,9 @@ target 'DashControl' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
 
   # Pods for DashControl
+  
+  # ignore all warnings from all pods
+  inhibit_all_warnings!
 
   pod 'AFNetworking'
   pod 'Reachability'
@@ -12,6 +15,5 @@ target 'DashControl' do
   pod 'MBCircularProgressBar', :inhibit_warnings => true
   pod 'RaptureXML'
   pod 'FTPopOverMenu'
-  
 
 end

@@ -21,7 +21,7 @@
     // Configure the view for the selected state
 }
 
--(void)configureWithProposal:(Proposal*)proposal {
+-(void)configureWithProposal:(DCProposalEntity*)proposal {
     _labelVotesResult.text = NSLocalizedString(@"Votes Result", @"Proposal Detail View");
     
     _labelVotesResultYes.text = [NSString stringWithFormat:@"%d %@", proposal.yes, NSLocalizedString(@"Yes", @"Proposal Detail View")];

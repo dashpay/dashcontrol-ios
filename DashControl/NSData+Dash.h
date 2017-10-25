@@ -85,6 +85,7 @@ size_t chacha20Poly1305AEADDecrypt(void *_Nullable out, size_t outLen, const voi
 - (UInt512)SHA512;
 - (UInt160)RMD160;
 - (UInt160)hash160;
+- (NSString*)hash160String;
 - (UInt128)MD5;
 - (NSData * _Nonnull)reverse;
 

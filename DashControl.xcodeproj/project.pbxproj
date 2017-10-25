@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		241719D81F4DA4C60045C2D6 /* ProposalsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719D71F4DA4C60045C2D6 /* ProposalsManager.m */; };
-		241719E11F4DB0FB0045C2D6 /* Proposal+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DA1F4DB0FB0045C2D6 /* Proposal+CoreDataClass.m */; };
-		241719E21F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DC1F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.m */; };
-		241719E31F4DB0FB0045C2D6 /* Comment+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DE1F4DB0FB0045C2D6 /* Comment+CoreDataClass.m */; };
-		241719E41F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719E01F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m */; };
+		241719E11F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DA1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m */; };
+		241719E21F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DC1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m */; };
+		241719E31F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DE1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m */; };
+		241719E41F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719E01F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m */; };
 		2432DDA01F54395600A14112 /* ProposalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432DD9F1F54395600A14112 /* ProposalCell.m */; };
 		24438DEF1F5FCE7D00763A14 /* ProposalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 244857901F59CCBF004DE273 /* ProposalDetailViewController.m */; };
 		24438DF31F5FEA6600763A14 /* ProposalHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24438DF21F5FEA6600763A14 /* ProposalHeaderView.m */; };
@@ -67,8 +67,8 @@
 		249A40291F6139A800155636 /* AFNetworking.strings in Resources */ = {isa = PBXBuildFile; fileRef = 249A40271F6139A800155636 /* AFNetworking.strings */; };
 		249A402C1F6139AD00155636 /* AFNetworking.strings in Resources */ = {isa = PBXBuildFile; fileRef = 249A402A1F6139AD00155636 /* AFNetworking.strings */; };
 		249A402F1F62715700155636 /* ProposalScopeButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 249A402E1F62715700155636 /* ProposalScopeButtonsView.m */; };
-		24A2159B1F52C5E900A63311 /* Budget+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A215981F52C5E900A63311 /* Budget+CoreDataClass.m */; };
-		24A2159C1F52C5E900A63311 /* Budget+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A2159A1F52C5E900A63311 /* Budget+CoreDataProperties.m */; };
+		24A2159B1F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A215981F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m */; };
+		24A2159C1F52C5E900A63311 /* DCBudgetEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A2159A1F52C5E900A63311 /* DCBudgetEntity+CoreDataProperties.m */; };
 		24B000441F5724B6007D24A1 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B000431F5724B6007D24A1 /* SafariServices.framework */; };
 		24B0004B1F580FEB007D24A1 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B0004A1F580FEB007D24A1 /* CoreSpotlight.framework */; };
 		24B0004D1F580FF5007D24A1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B0004C1F580FF5007D24A1 /* MobileCoreServices.framework */; };
@@ -96,6 +96,14 @@
 		24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE254B1F4C82C900E32652 /* PriceViewController.m */; };
 		8B0BD619FFF877813DC0386A /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */; };
 		FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */; };
+		FB4310D71F9DA96700784EBC /* DCWalletManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310D61F9DA96700784EBC /* DCWalletManager.m */; };
+		FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310D91F9EF4B500784EBC /* DCWalletAccount.m */; };
+		FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310DB1F9EFC3F00784EBC /* DCServerBloomFilter.m */; };
+		FB4310E61F9F00A700784EBC /* DCWalletAddressEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310DF1F9F00A700784EBC /* DCWalletAddressEntity+CoreDataClass.m */; };
+		FB4310E71F9F00A700784EBC /* DCWalletAddressEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310E11F9F00A700784EBC /* DCWalletAddressEntity+CoreDataProperties.m */; };
+		FB4310E81F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310E31F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.m */; };
+		FB4310E91F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310E51F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.m */; };
+		FB4310EC1F9F03A800784EBC /* NSManagedObject+Sugar.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310EB1F9F03A800784EBC /* NSManagedObject+Sugar.m */; };
 		FB4F93BA1F82528F0078E259 /* PortfolioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F93B91F82528F0078E259 /* PortfolioViewController.m */; };
 		FB84EDC21F32898700E4D400 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC11F32898700E4D400 /* main.m */; };
 		FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC41F32898700E4D400 /* AppDelegate.m */; };
@@ -105,32 +113,38 @@
 		FB9CC1611F83E38A0079309F /* NSData+Dash.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEF66E61F83DA75003424D2 /* NSData+Dash.m */; };
 		FB9CC1621F83E38D0079309F /* NSString+Dash.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEF66E51F83DA4F003424D2 /* NSString+Dash.m */; };
 		FB9CC1631F83E38F0079309F /* UIImage+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEF67001F83DE30003424D2 /* UIImage+Utils.m */; };
-		FB9CC1801F83E45F0079309F /* Masternode+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1721F83E45C0079309F /* Masternode+CoreDataClass.m */; };
-		FB9CC1811F83E45F0079309F /* WalletMasterAddress+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1761F83E45D0079309F /* WalletMasterAddress+CoreDataClass.m */; };
-		FB9CC1821F83E45F0079309F /* WalletMasterAddress+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1781F83E45D0079309F /* WalletMasterAddress+CoreDataProperties.m */; };
-		FB9CC1831F83E45F0079309F /* WalletAddress+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1791F83E45D0079309F /* WalletAddress+CoreDataProperties.m */; };
-		FB9CC1841F83E45F0079309F /* Masternode+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC17B1F83E45E0079309F /* Masternode+CoreDataProperties.m */; };
-		FB9CC1851F83E45F0079309F /* MasternodePayment+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC17C1F83E45E0079309F /* MasternodePayment+CoreDataClass.m */; };
-		FB9CC1861F83E45F0079309F /* MasternodePayment+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC17D1F83E45E0079309F /* MasternodePayment+CoreDataProperties.m */; };
-		FB9CC1871F83E45F0079309F /* WalletAddress+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC17E1F83E45E0079309F /* WalletAddress+CoreDataClass.m */; };
+		FB9CC1801F83E45F0079309F /* DCMasternodeEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1721F83E45C0079309F /* DCMasternodeEntity+CoreDataClass.m */; };
+		FB9CC1841F83E45F0079309F /* DCMasternodeEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC17B1F83E45E0079309F /* DCMasternodeEntity+CoreDataProperties.m */; };
+		FB9CC1851F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC17C1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataClass.m */; };
+		FB9CC1861F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC17D1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m */; };
 		FB9CC1881F83E8000079309F /* NSMutableData+Dash.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEF66FD1F83DD44003424D2 /* NSMutableData+Dash.m */; };
 		FB9CC18C1F8405180079309F /* PortfolioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC18B1F8405180079309F /* PortfolioManager.m */; };
 		FB9CC1911F84BB0D0079309F /* AddMasternodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1901F84BB0D0079309F /* AddMasternodeViewController.m */; };
 		FB9CC1A51F87D4860079309F /* BRBIP32Sequence.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1A31F87D4850079309F /* BRBIP32Sequence.m */; };
 		FB9CC1AA1F87D4A60079309F /* BRKey+BIP38.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1A61F87D4A40079309F /* BRKey+BIP38.m */; };
 		FB9CC1AB1F87D4A60079309F /* BRKey.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1A81F87D4A50079309F /* BRKey.m */; };
-		FBE1F5091F5D4CF500823A77 /* ChartDataEntry+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F4FE1F5D4CF500823A77 /* ChartDataEntry+CoreDataClass.m */; };
-		FBE1F50A1F5D4CF500823A77 /* ChartDataEntry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F5001F5D4CF500823A77 /* ChartDataEntry+CoreDataProperties.m */; };
-		FBE1F50B1F5D4CF500823A77 /* Exchange+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F5021F5D4CF500823A77 /* Exchange+CoreDataClass.m */; };
-		FBE1F50C1F5D4CF500823A77 /* Exchange+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F5041F5D4CF500823A77 /* Exchange+CoreDataProperties.m */; };
-		FBE1F50D1F5D4CF500823A77 /* Market+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F5061F5D4CF500823A77 /* Market+CoreDataClass.m */; };
-		FBE1F50E1F5D4CF500823A77 /* Market+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F5081F5D4CF500823A77 /* Market+CoreDataProperties.m */; };
+		FBE1F5091F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F4FE1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m */; };
+		FBE1F50A1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F5001F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.m */; };
+		FBE1F50B1F5D4CF500823A77 /* DCExchangeEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F5021F5D4CF500823A77 /* DCExchangeEntity+CoreDataClass.m */; };
+		FBE1F50C1F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F5041F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.m */; };
+		FBE1F50D1F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F5061F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m */; };
+		FBE1F50E1F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F5081F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.m */; };
 		FBEBE5391F5776400056D921 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FBEBE5371F5776400056D921 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBEBE5421F5802DE0056D921 /* ChartTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEBE5411F5802DE0056D921 /* ChartTimeFormatter.m */; };
 		FBEBE5461F5986510056D921 /* DCCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEBE5451F5986510056D921 /* DCCoreDataManager.m */; };
 		FBEF66E21F83D68C003424D2 /* AddWalletAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEF66E11F83D68C003424D2 /* AddWalletAddressViewController.m */; };
 		FBEF66FB1F83DCED003424D2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBEF66FA1F83DCED003424D2 /* Security.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FB9CC26D1F88A89F0079309F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB84EDB51F32898700E4D400 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FB9CC2691F88A8460079309F;
+			remoteInfo = submodules;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		FBEBE53A1F5776400056D921 /* Embed Frameworks */ = {
@@ -151,14 +165,14 @@
 		241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalsViewController.m; sourceTree = "<group>"; };
 		241719D61F4DA4C60045C2D6 /* ProposalsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalsManager.h; sourceTree = "<group>"; };
 		241719D71F4DA4C60045C2D6 /* ProposalsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalsManager.m; sourceTree = "<group>"; };
-		241719D91F4DB0FB0045C2D6 /* Proposal+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Proposal+CoreDataClass.h"; sourceTree = "<group>"; };
-		241719DA1F4DB0FB0045C2D6 /* Proposal+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Proposal+CoreDataClass.m"; sourceTree = "<group>"; };
-		241719DB1F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Proposal+CoreDataProperties.h"; sourceTree = "<group>"; };
-		241719DC1F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Proposal+CoreDataProperties.m"; sourceTree = "<group>"; };
-		241719DD1F4DB0FB0045C2D6 /* Comment+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Comment+CoreDataClass.h"; sourceTree = "<group>"; };
-		241719DE1F4DB0FB0045C2D6 /* Comment+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Comment+CoreDataClass.m"; sourceTree = "<group>"; };
-		241719DF1F4DB0FB0045C2D6 /* Comment+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Comment+CoreDataProperties.h"; sourceTree = "<group>"; };
-		241719E01F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Comment+CoreDataProperties.m"; sourceTree = "<group>"; };
+		241719D91F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCProposalEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		241719DA1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCProposalEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		241719DB1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCProposalEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		241719DC1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCProposalEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		241719DD1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCCommentEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		241719DE1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCCommentEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		241719DF1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCCommentEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		241719E01F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCCommentEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		2432DD9E1F54395600A14112 /* ProposalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalCell.h; sourceTree = "<group>"; };
 		2432DD9F1F54395600A14112 /* ProposalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalCell.m; sourceTree = "<group>"; };
 		243D272C1F60817500D53D99 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
@@ -241,10 +255,10 @@
 		249A402B1F6139AD00155636 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = AFNetworking.strings; sourceTree = "<group>"; };
 		249A402D1F62715700155636 /* ProposalScopeButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalScopeButtonsView.h; sourceTree = "<group>"; };
 		249A402E1F62715700155636 /* ProposalScopeButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalScopeButtonsView.m; sourceTree = "<group>"; };
-		24A215971F52C5E900A63311 /* Budget+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Budget+CoreDataClass.h"; sourceTree = "<group>"; };
-		24A215981F52C5E900A63311 /* Budget+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Budget+CoreDataClass.m"; sourceTree = "<group>"; };
-		24A215991F52C5E900A63311 /* Budget+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Budget+CoreDataProperties.h"; sourceTree = "<group>"; };
-		24A2159A1F52C5E900A63311 /* Budget+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Budget+CoreDataProperties.m"; sourceTree = "<group>"; };
+		24A215971F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCBudgetEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		24A215981F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCBudgetEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		24A215991F52C5E900A63311 /* DCBudgetEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCBudgetEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		24A2159A1F52C5E900A63311 /* DCBudgetEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCBudgetEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		24B000431F5724B6007D24A1 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		24B0004A1F580FEB007D24A1 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		24B0004C1F580FF5007D24A1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -288,6 +302,22 @@
 		742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB2F9B3B1F5C9F960035180D /* NSArray+SWAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+SWAdditions.h"; sourceTree = "<group>"; };
 		FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+SWAdditions.m"; sourceTree = "<group>"; };
+		FB4310D51F9DA96700784EBC /* DCWalletManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCWalletManager.h; sourceTree = "<group>"; };
+		FB4310D61F9DA96700784EBC /* DCWalletManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCWalletManager.m; sourceTree = "<group>"; };
+		FB4310D81F9EF4B500784EBC /* DCWalletAccount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCWalletAccount.h; sourceTree = "<group>"; };
+		FB4310D91F9EF4B500784EBC /* DCWalletAccount.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCWalletAccount.m; sourceTree = "<group>"; };
+		FB4310DB1F9EFC3F00784EBC /* DCServerBloomFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCServerBloomFilter.m; sourceTree = "<group>"; };
+		FB4310DC1F9EFC3F00784EBC /* DCServerBloomFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCServerBloomFilter.h; sourceTree = "<group>"; };
+		FB4310DE1F9F00A700784EBC /* DCWalletAddressEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCWalletAddressEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		FB4310DF1F9F00A700784EBC /* DCWalletAddressEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletAddressEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		FB4310E01F9F00A700784EBC /* DCWalletAddressEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCWalletAddressEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FB4310E11F9F00A700784EBC /* DCWalletAddressEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletAddressEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FB4310E21F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCWalletMasterAddressEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		FB4310E31F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletMasterAddressEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		FB4310E41F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCWalletMasterAddressEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FB4310E51F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletMasterAddressEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FB4310EA1F9F03A800784EBC /* NSManagedObject+Sugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+Sugar.h"; sourceTree = "<group>"; };
+		FB4310EB1F9F03A800784EBC /* NSManagedObject+Sugar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+Sugar.m"; sourceTree = "<group>"; };
 		FB4F93B81F82528F0078E259 /* PortfolioViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PortfolioViewController.h; sourceTree = "<group>"; };
 		FB4F93B91F82528F0078E259 /* PortfolioViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PortfolioViewController.m; sourceTree = "<group>"; };
 		FB84EDBD1F32898700E4D400 /* DashControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DashControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -301,22 +331,14 @@
 		FB84EDDB1F32908C00E4D400 /* DCDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCDataManager.h; sourceTree = "<group>"; };
 		FB84EDDC1F32908C00E4D400 /* DCDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCDataManager.m; sourceTree = "<group>"; };
 		FB84EDDE1F3293C700E4D400 /* DCWalletConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCWalletConstants.h; sourceTree = "<group>"; };
-		FB9CC1701F83E45C0079309F /* WalletAddress+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WalletAddress+CoreDataProperties.h"; sourceTree = "<group>"; };
-		FB9CC1711F83E45C0079309F /* MasternodePayment+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MasternodePayment+CoreDataClass.h"; sourceTree = "<group>"; };
-		FB9CC1721F83E45C0079309F /* Masternode+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Masternode+CoreDataClass.m"; sourceTree = "<group>"; };
-		FB9CC1731F83E45C0079309F /* WalletAddress+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WalletAddress+CoreDataClass.h"; sourceTree = "<group>"; };
-		FB9CC1741F83E45D0079309F /* Masternode+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Masternode+CoreDataProperties.h"; sourceTree = "<group>"; };
-		FB9CC1751F83E45D0079309F /* MasternodePayment+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MasternodePayment+CoreDataProperties.h"; sourceTree = "<group>"; };
-		FB9CC1761F83E45D0079309F /* WalletMasterAddress+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WalletMasterAddress+CoreDataClass.m"; sourceTree = "<group>"; };
-		FB9CC1771F83E45D0079309F /* WalletMasterAddress+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WalletMasterAddress+CoreDataProperties.h"; sourceTree = "<group>"; };
-		FB9CC1781F83E45D0079309F /* WalletMasterAddress+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WalletMasterAddress+CoreDataProperties.m"; sourceTree = "<group>"; };
-		FB9CC1791F83E45D0079309F /* WalletAddress+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WalletAddress+CoreDataProperties.m"; sourceTree = "<group>"; };
-		FB9CC17A1F83E45E0079309F /* Masternode+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Masternode+CoreDataClass.h"; sourceTree = "<group>"; };
-		FB9CC17B1F83E45E0079309F /* Masternode+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Masternode+CoreDataProperties.m"; sourceTree = "<group>"; };
-		FB9CC17C1F83E45E0079309F /* MasternodePayment+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MasternodePayment+CoreDataClass.m"; sourceTree = "<group>"; };
-		FB9CC17D1F83E45E0079309F /* MasternodePayment+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MasternodePayment+CoreDataProperties.m"; sourceTree = "<group>"; };
-		FB9CC17E1F83E45E0079309F /* WalletAddress+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WalletAddress+CoreDataClass.m"; sourceTree = "<group>"; };
-		FB9CC17F1F83E45F0079309F /* WalletMasterAddress+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WalletMasterAddress+CoreDataClass.h"; sourceTree = "<group>"; };
+		FB9CC1711F83E45C0079309F /* DCMasternodePaymentEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCMasternodePaymentEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		FB9CC1721F83E45C0079309F /* DCMasternodeEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCMasternodeEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		FB9CC1741F83E45D0079309F /* DCMasternodeEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCMasternodeEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FB9CC1751F83E45D0079309F /* DCMasternodePaymentEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCMasternodePaymentEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FB9CC17A1F83E45E0079309F /* DCMasternodeEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCMasternodeEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		FB9CC17B1F83E45E0079309F /* DCMasternodeEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCMasternodeEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FB9CC17C1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCMasternodePaymentEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		FB9CC17D1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCMasternodePaymentEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FB9CC18A1F8405180079309F /* PortfolioManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PortfolioManager.h; sourceTree = "<group>"; };
 		FB9CC18B1F8405180079309F /* PortfolioManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PortfolioManager.m; sourceTree = "<group>"; };
 		FB9CC18F1F84BB0D0079309F /* AddMasternodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddMasternodeViewController.h; sourceTree = "<group>"; };
@@ -328,18 +350,67 @@
 		FB9CC1A71F87D4A40079309F /* BRKey+BIP38.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BRKey+BIP38.h"; sourceTree = "<group>"; };
 		FB9CC1A81F87D4A50079309F /* BRKey.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRKey.m; sourceTree = "<group>"; };
 		FB9CC1A91F87D4A50079309F /* BRKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRKey.h; sourceTree = "<group>"; };
-		FBE1F4FD1F5D4CF500823A77 /* ChartDataEntry+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ChartDataEntry+CoreDataClass.h"; sourceTree = "<group>"; };
-		FBE1F4FE1F5D4CF500823A77 /* ChartDataEntry+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ChartDataEntry+CoreDataClass.m"; sourceTree = "<group>"; };
-		FBE1F4FF1F5D4CF500823A77 /* ChartDataEntry+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ChartDataEntry+CoreDataProperties.h"; sourceTree = "<group>"; };
-		FBE1F5001F5D4CF500823A77 /* ChartDataEntry+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ChartDataEntry+CoreDataProperties.m"; sourceTree = "<group>"; };
-		FBE1F5011F5D4CF500823A77 /* Exchange+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Exchange+CoreDataClass.h"; sourceTree = "<group>"; };
-		FBE1F5021F5D4CF500823A77 /* Exchange+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Exchange+CoreDataClass.m"; sourceTree = "<group>"; };
-		FBE1F5031F5D4CF500823A77 /* Exchange+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Exchange+CoreDataProperties.h"; sourceTree = "<group>"; };
-		FBE1F5041F5D4CF500823A77 /* Exchange+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Exchange+CoreDataProperties.m"; sourceTree = "<group>"; };
-		FBE1F5051F5D4CF500823A77 /* Market+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Market+CoreDataClass.h"; sourceTree = "<group>"; };
-		FBE1F5061F5D4CF500823A77 /* Market+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Market+CoreDataClass.m"; sourceTree = "<group>"; };
-		FBE1F5071F5D4CF500823A77 /* Market+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Market+CoreDataProperties.h"; sourceTree = "<group>"; };
-		FBE1F5081F5D4CF500823A77 /* Market+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Market+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FB9CC2111F88A7F10079309F /* secp256k1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = secp256k1.h; sourceTree = "<group>"; };
+		FB9CC2121F88A7F10079309F /* secp256k1_ecdh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = secp256k1_ecdh.h; sourceTree = "<group>"; };
+		FB9CC2131F88A7F10079309F /* secp256k1_recovery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = secp256k1_recovery.h; sourceTree = "<group>"; };
+		FB9CC2231F88A7F10079309F /* basic-config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "basic-config.h"; sourceTree = "<group>"; };
+		FB9CC2241F88A7F10079309F /* bench.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bench.h; sourceTree = "<group>"; };
+		FB9CC22A1F88A7F10079309F /* ecdsa.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecdsa.h; sourceTree = "<group>"; };
+		FB9CC22B1F88A7F10079309F /* ecdsa_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecdsa_impl.h; sourceTree = "<group>"; };
+		FB9CC22C1F88A7F10079309F /* eckey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = eckey.h; sourceTree = "<group>"; };
+		FB9CC22D1F88A7F10079309F /* eckey_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = eckey_impl.h; sourceTree = "<group>"; };
+		FB9CC22E1F88A7F10079309F /* ecmult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecmult.h; sourceTree = "<group>"; };
+		FB9CC22F1F88A7F10079309F /* ecmult_const.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecmult_const.h; sourceTree = "<group>"; };
+		FB9CC2301F88A7F10079309F /* ecmult_const_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecmult_const_impl.h; sourceTree = "<group>"; };
+		FB9CC2311F88A7F10079309F /* ecmult_gen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecmult_gen.h; sourceTree = "<group>"; };
+		FB9CC2321F88A7F10079309F /* ecmult_gen_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecmult_gen_impl.h; sourceTree = "<group>"; };
+		FB9CC2331F88A7F10079309F /* ecmult_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecmult_impl.h; sourceTree = "<group>"; };
+		FB9CC2341F88A7F10079309F /* field.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = field.h; sourceTree = "<group>"; };
+		FB9CC2351F88A7F10079309F /* field_10x26.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = field_10x26.h; sourceTree = "<group>"; };
+		FB9CC2361F88A7F10079309F /* field_10x26_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = field_10x26_impl.h; sourceTree = "<group>"; };
+		FB9CC2371F88A7F10079309F /* field_5x52.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = field_5x52.h; sourceTree = "<group>"; };
+		FB9CC2381F88A7F10079309F /* field_5x52_asm_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = field_5x52_asm_impl.h; sourceTree = "<group>"; };
+		FB9CC2391F88A7F10079309F /* field_5x52_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = field_5x52_impl.h; sourceTree = "<group>"; };
+		FB9CC23A1F88A7F10079309F /* field_5x52_int128_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = field_5x52_int128_impl.h; sourceTree = "<group>"; };
+		FB9CC23B1F88A7F10079309F /* field_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = field_impl.h; sourceTree = "<group>"; };
+		FB9CC23D1F88A7F10079309F /* group.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = group.h; sourceTree = "<group>"; };
+		FB9CC23E1F88A7F10079309F /* group_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = group_impl.h; sourceTree = "<group>"; };
+		FB9CC23F1F88A7F10079309F /* hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hash.h; sourceTree = "<group>"; };
+		FB9CC2401F88A7F10079309F /* hash_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hash_impl.h; sourceTree = "<group>"; };
+		FB9CC24E1F88A7F10079309F /* main_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main_impl.h; sourceTree = "<group>"; };
+		FB9CC24F1F88A7F10079309F /* Makefile.am.include */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am.include; sourceTree = "<group>"; };
+		FB9CC2501F88A7F10079309F /* tests_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tests_impl.h; sourceTree = "<group>"; };
+		FB9CC2521F88A7F10079309F /* main_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main_impl.h; sourceTree = "<group>"; };
+		FB9CC2531F88A7F10079309F /* Makefile.am.include */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am.include; sourceTree = "<group>"; };
+		FB9CC2541F88A7F10079309F /* tests_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tests_impl.h; sourceTree = "<group>"; };
+		FB9CC2551F88A7F10079309F /* num.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = num.h; sourceTree = "<group>"; };
+		FB9CC2561F88A7F10079309F /* num_gmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = num_gmp.h; sourceTree = "<group>"; };
+		FB9CC2571F88A7F10079309F /* num_gmp_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = num_gmp_impl.h; sourceTree = "<group>"; };
+		FB9CC2581F88A7F10079309F /* num_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = num_impl.h; sourceTree = "<group>"; };
+		FB9CC2591F88A7F10079309F /* scalar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scalar.h; sourceTree = "<group>"; };
+		FB9CC25A1F88A7F10079309F /* scalar_4x64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scalar_4x64.h; sourceTree = "<group>"; };
+		FB9CC25B1F88A7F10079309F /* scalar_4x64_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scalar_4x64_impl.h; sourceTree = "<group>"; };
+		FB9CC25C1F88A7F10079309F /* scalar_8x32.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scalar_8x32.h; sourceTree = "<group>"; };
+		FB9CC25D1F88A7F10079309F /* scalar_8x32_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scalar_8x32_impl.h; sourceTree = "<group>"; };
+		FB9CC25E1F88A7F10079309F /* scalar_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scalar_impl.h; sourceTree = "<group>"; };
+		FB9CC25F1F88A7F10079309F /* scalar_low.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scalar_low.h; sourceTree = "<group>"; };
+		FB9CC2601F88A7F10079309F /* scalar_low_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scalar_low_impl.h; sourceTree = "<group>"; };
+		FB9CC2611F88A7F10079309F /* secp256k1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = secp256k1.c; sourceTree = "<group>"; };
+		FB9CC2621F88A7F10079309F /* testrand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testrand.h; sourceTree = "<group>"; };
+		FB9CC2631F88A7F10079309F /* testrand_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testrand_impl.h; sourceTree = "<group>"; };
+		FB9CC2661F88A7F10079309F /* util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		FBE1F4FD1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCChartDataEntryEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		FBE1F4FE1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCChartDataEntryEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		FBE1F4FF1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCChartDataEntryEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FBE1F5001F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCChartDataEntryEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FBE1F5011F5D4CF500823A77 /* DCExchangeEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCExchangeEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		FBE1F5021F5D4CF500823A77 /* DCExchangeEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCExchangeEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		FBE1F5031F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCExchangeEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FBE1F5041F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCExchangeEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FBE1F5051F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCMarketEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		FBE1F5061F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCMarketEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		FBE1F5071F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCMarketEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FBE1F5081F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCMarketEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FBEBE5371F5776400056D921 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBEBE5401F5802DE0056D921 /* ChartTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartTimeFormatter.h; sourceTree = "<group>"; };
 		FBEBE5411F5802DE0056D921 /* ChartTimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartTimeFormatter.m; sourceTree = "<group>"; };
@@ -414,6 +485,10 @@
 				FB9CC18E1F8426CD0079309F /* Entities */,
 				FBEBE5441F5986510056D921 /* DCCoreDataManager.h */,
 				FBEBE5451F5986510056D921 /* DCCoreDataManager.m */,
+				FB4310D51F9DA96700784EBC /* DCWalletManager.h */,
+				FB4310D61F9DA96700784EBC /* DCWalletManager.m */,
+				FB4310D81F9EF4B500784EBC /* DCWalletAccount.h */,
+				FB4310D91F9EF4B500784EBC /* DCWalletAccount.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -869,48 +944,144 @@
 		FB9CC18E1F8426CD0079309F /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				FB9CC17A1F83E45E0079309F /* Masternode+CoreDataClass.h */,
-				FB9CC1721F83E45C0079309F /* Masternode+CoreDataClass.m */,
-				FB9CC1741F83E45D0079309F /* Masternode+CoreDataProperties.h */,
-				FB9CC17B1F83E45E0079309F /* Masternode+CoreDataProperties.m */,
-				FB9CC1711F83E45C0079309F /* MasternodePayment+CoreDataClass.h */,
-				FB9CC17C1F83E45E0079309F /* MasternodePayment+CoreDataClass.m */,
-				FB9CC1751F83E45D0079309F /* MasternodePayment+CoreDataProperties.h */,
-				FB9CC17D1F83E45E0079309F /* MasternodePayment+CoreDataProperties.m */,
-				FB9CC1731F83E45C0079309F /* WalletAddress+CoreDataClass.h */,
-				FB9CC17E1F83E45E0079309F /* WalletAddress+CoreDataClass.m */,
-				FB9CC1701F83E45C0079309F /* WalletAddress+CoreDataProperties.h */,
-				FB9CC1791F83E45D0079309F /* WalletAddress+CoreDataProperties.m */,
-				FB9CC17F1F83E45F0079309F /* WalletMasterAddress+CoreDataClass.h */,
-				FB9CC1761F83E45D0079309F /* WalletMasterAddress+CoreDataClass.m */,
-				FB9CC1771F83E45D0079309F /* WalletMasterAddress+CoreDataProperties.h */,
-				FB9CC1781F83E45D0079309F /* WalletMasterAddress+CoreDataProperties.m */,
-				24A215971F52C5E900A63311 /* Budget+CoreDataClass.h */,
-				24A215981F52C5E900A63311 /* Budget+CoreDataClass.m */,
-				24A215991F52C5E900A63311 /* Budget+CoreDataProperties.h */,
-				24A2159A1F52C5E900A63311 /* Budget+CoreDataProperties.m */,
-				241719D91F4DB0FB0045C2D6 /* Proposal+CoreDataClass.h */,
-				241719DA1F4DB0FB0045C2D6 /* Proposal+CoreDataClass.m */,
-				241719DB1F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.h */,
-				241719DC1F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.m */,
-				241719DD1F4DB0FB0045C2D6 /* Comment+CoreDataClass.h */,
-				241719DE1F4DB0FB0045C2D6 /* Comment+CoreDataClass.m */,
-				241719DF1F4DB0FB0045C2D6 /* Comment+CoreDataProperties.h */,
-				241719E01F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m */,
-				FBE1F4FD1F5D4CF500823A77 /* ChartDataEntry+CoreDataClass.h */,
-				FBE1F4FE1F5D4CF500823A77 /* ChartDataEntry+CoreDataClass.m */,
-				FBE1F4FF1F5D4CF500823A77 /* ChartDataEntry+CoreDataProperties.h */,
-				FBE1F5001F5D4CF500823A77 /* ChartDataEntry+CoreDataProperties.m */,
-				FBE1F5011F5D4CF500823A77 /* Exchange+CoreDataClass.h */,
-				FBE1F5021F5D4CF500823A77 /* Exchange+CoreDataClass.m */,
-				FBE1F5031F5D4CF500823A77 /* Exchange+CoreDataProperties.h */,
-				FBE1F5041F5D4CF500823A77 /* Exchange+CoreDataProperties.m */,
-				FBE1F5051F5D4CF500823A77 /* Market+CoreDataClass.h */,
-				FBE1F5061F5D4CF500823A77 /* Market+CoreDataClass.m */,
-				FBE1F5071F5D4CF500823A77 /* Market+CoreDataProperties.h */,
-				FBE1F5081F5D4CF500823A77 /* Market+CoreDataProperties.m */,
+				FB4310DE1F9F00A700784EBC /* DCWalletAddressEntity+CoreDataClass.h */,
+				FB4310DF1F9F00A700784EBC /* DCWalletAddressEntity+CoreDataClass.m */,
+				FB4310E01F9F00A700784EBC /* DCWalletAddressEntity+CoreDataProperties.h */,
+				FB4310E11F9F00A700784EBC /* DCWalletAddressEntity+CoreDataProperties.m */,
+				FB4310E21F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.h */,
+				FB4310E31F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.m */,
+				FB4310E41F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.h */,
+				FB4310E51F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.m */,
+				FB9CC17A1F83E45E0079309F /* DCMasternodeEntity+CoreDataClass.h */,
+				FB9CC1721F83E45C0079309F /* DCMasternodeEntity+CoreDataClass.m */,
+				FB9CC1741F83E45D0079309F /* DCMasternodeEntity+CoreDataProperties.h */,
+				FB9CC17B1F83E45E0079309F /* DCMasternodeEntity+CoreDataProperties.m */,
+				FB9CC1711F83E45C0079309F /* DCMasternodePaymentEntity+CoreDataClass.h */,
+				FB9CC17C1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataClass.m */,
+				FB9CC1751F83E45D0079309F /* DCMasternodePaymentEntity+CoreDataProperties.h */,
+				FB9CC17D1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m */,
+				24A215971F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.h */,
+				24A215981F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m */,
+				24A215991F52C5E900A63311 /* DCBudgetEntity+CoreDataProperties.h */,
+				24A2159A1F52C5E900A63311 /* DCBudgetEntity+CoreDataProperties.m */,
+				241719D91F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.h */,
+				241719DA1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m */,
+				241719DB1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.h */,
+				241719DC1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m */,
+				241719DD1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.h */,
+				241719DE1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m */,
+				241719DF1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.h */,
+				241719E01F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m */,
+				FBE1F4FD1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.h */,
+				FBE1F4FE1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m */,
+				FBE1F4FF1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.h */,
+				FBE1F5001F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.m */,
+				FBE1F5011F5D4CF500823A77 /* DCExchangeEntity+CoreDataClass.h */,
+				FBE1F5021F5D4CF500823A77 /* DCExchangeEntity+CoreDataClass.m */,
+				FBE1F5031F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.h */,
+				FBE1F5041F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.m */,
+				FBE1F5051F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.h */,
+				FBE1F5061F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m */,
+				FBE1F5071F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.h */,
+				FBE1F5081F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.m */,
 			);
 			name = Entities;
+			sourceTree = "<group>";
+		};
+		FB9CC2001F88A7F10079309F /* secp256k1 */ = {
+			isa = PBXGroup;
+			children = (
+				FB9CC2101F88A7F10079309F /* include */,
+				FB9CC2201F88A7F10079309F /* src */,
+			);
+			path = secp256k1;
+			sourceTree = SOURCE_ROOT;
+		};
+		FB9CC2101F88A7F10079309F /* include */ = {
+			isa = PBXGroup;
+			children = (
+				FB9CC2111F88A7F10079309F /* secp256k1.h */,
+				FB9CC2121F88A7F10079309F /* secp256k1_ecdh.h */,
+				FB9CC2131F88A7F10079309F /* secp256k1_recovery.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		FB9CC2201F88A7F10079309F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				FB9CC2231F88A7F10079309F /* basic-config.h */,
+				FB9CC2241F88A7F10079309F /* bench.h */,
+				FB9CC22A1F88A7F10079309F /* ecdsa.h */,
+				FB9CC22B1F88A7F10079309F /* ecdsa_impl.h */,
+				FB9CC22C1F88A7F10079309F /* eckey.h */,
+				FB9CC22D1F88A7F10079309F /* eckey_impl.h */,
+				FB9CC22E1F88A7F10079309F /* ecmult.h */,
+				FB9CC22F1F88A7F10079309F /* ecmult_const.h */,
+				FB9CC2301F88A7F10079309F /* ecmult_const_impl.h */,
+				FB9CC2311F88A7F10079309F /* ecmult_gen.h */,
+				FB9CC2321F88A7F10079309F /* ecmult_gen_impl.h */,
+				FB9CC2331F88A7F10079309F /* ecmult_impl.h */,
+				FB9CC2341F88A7F10079309F /* field.h */,
+				FB9CC2351F88A7F10079309F /* field_10x26.h */,
+				FB9CC2361F88A7F10079309F /* field_10x26_impl.h */,
+				FB9CC2371F88A7F10079309F /* field_5x52.h */,
+				FB9CC2381F88A7F10079309F /* field_5x52_asm_impl.h */,
+				FB9CC2391F88A7F10079309F /* field_5x52_impl.h */,
+				FB9CC23A1F88A7F10079309F /* field_5x52_int128_impl.h */,
+				FB9CC23B1F88A7F10079309F /* field_impl.h */,
+				FB9CC23D1F88A7F10079309F /* group.h */,
+				FB9CC23E1F88A7F10079309F /* group_impl.h */,
+				FB9CC23F1F88A7F10079309F /* hash.h */,
+				FB9CC2401F88A7F10079309F /* hash_impl.h */,
+				FB9CC24C1F88A7F10079309F /* modules */,
+				FB9CC2551F88A7F10079309F /* num.h */,
+				FB9CC2561F88A7F10079309F /* num_gmp.h */,
+				FB9CC2571F88A7F10079309F /* num_gmp_impl.h */,
+				FB9CC2581F88A7F10079309F /* num_impl.h */,
+				FB9CC2591F88A7F10079309F /* scalar.h */,
+				FB9CC25A1F88A7F10079309F /* scalar_4x64.h */,
+				FB9CC25B1F88A7F10079309F /* scalar_4x64_impl.h */,
+				FB9CC25C1F88A7F10079309F /* scalar_8x32.h */,
+				FB9CC25D1F88A7F10079309F /* scalar_8x32_impl.h */,
+				FB9CC25E1F88A7F10079309F /* scalar_impl.h */,
+				FB9CC25F1F88A7F10079309F /* scalar_low.h */,
+				FB9CC2601F88A7F10079309F /* scalar_low_impl.h */,
+				FB9CC2611F88A7F10079309F /* secp256k1.c */,
+				FB9CC2621F88A7F10079309F /* testrand.h */,
+				FB9CC2631F88A7F10079309F /* testrand_impl.h */,
+				FB9CC2661F88A7F10079309F /* util.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		FB9CC24C1F88A7F10079309F /* modules */ = {
+			isa = PBXGroup;
+			children = (
+				FB9CC24D1F88A7F10079309F /* ecdh */,
+				FB9CC2511F88A7F10079309F /* recovery */,
+			);
+			path = modules;
+			sourceTree = "<group>";
+		};
+		FB9CC24D1F88A7F10079309F /* ecdh */ = {
+			isa = PBXGroup;
+			children = (
+				FB9CC24E1F88A7F10079309F /* main_impl.h */,
+				FB9CC24F1F88A7F10079309F /* Makefile.am.include */,
+				FB9CC2501F88A7F10079309F /* tests_impl.h */,
+			);
+			path = ecdh;
+			sourceTree = "<group>";
+		};
+		FB9CC2511F88A7F10079309F /* recovery */ = {
+			isa = PBXGroup;
+			children = (
+				FB9CC2521F88A7F10079309F /* main_impl.h */,
+				FB9CC2531F88A7F10079309F /* Makefile.am.include */,
+				FB9CC2541F88A7F10079309F /* tests_impl.h */,
+			);
+			path = recovery;
 			sourceTree = "<group>";
 		};
 		FBEBE53F1F5802BE0056D921 /* Chart Helpers */ = {
@@ -925,6 +1096,8 @@
 		FBEF66E31F83DA41003424D2 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				FB4310EA1F9F03A800784EBC /* NSManagedObject+Sugar.h */,
+				FB4310EB1F9F03A800784EBC /* NSManagedObject+Sugar.m */,
 				FBEF66FC1F83DD44003424D2 /* NSMutableData+Dash.h */,
 				FBEF66FD1F83DD44003424D2 /* NSMutableData+Dash.m */,
 				FBEF66EA1F83DB0C003424D2 /* IntTypes.h */,
@@ -939,12 +1112,15 @@
 		FBEF66EB1F83DBEF003424D2 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				FB9CC2001F88A7F10079309F /* secp256k1 */,
 				FB9CC1A91F87D4A50079309F /* BRKey.h */,
 				FB9CC1A81F87D4A50079309F /* BRKey.m */,
 				FB9CC1A71F87D4A40079309F /* BRKey+BIP38.h */,
 				FB9CC1A61F87D4A40079309F /* BRKey+BIP38.m */,
 				FB9CC1A21F87D4850079309F /* BRBIP32Sequence.h */,
 				FB9CC1A31F87D4850079309F /* BRBIP32Sequence.m */,
+				FB4310DC1F9EFC3F00784EBC /* DCServerBloomFilter.h */,
+				FB4310DB1F9EFC3F00784EBC /* DCServerBloomFilter.m */,
 				FB9CC1A41F87D4850079309F /* BRKeySequence.h */,
 				FBEF66FF1F83DE30003424D2 /* UIImage+Utils.h */,
 				FBEF67001F83DE30003424D2 /* UIImage+Utils.m */,
@@ -975,6 +1151,23 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXLegacyTarget section */
+		FB9CC2691F88A8460079309F /* submodules */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "-c 'git submodule init && git submodule update'";
+			buildConfigurationList = FB9CC26A1F88A8460079309F /* Build configuration list for PBXLegacyTarget "submodules" */;
+			buildPhases = (
+			);
+			buildToolPath = /bin/sh;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = submodules;
+			passBuildSettingsInEnvironment = 1;
+			productName = submodules;
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXNativeTarget section */
 		FB84EDBC1F32898700E4D400 /* DashControl */ = {
 			isa = PBXNativeTarget;
@@ -991,6 +1184,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				FB9CC26E1F88A89F0079309F /* PBXTargetDependency */,
 			);
 			name = DashControl;
 			productName = DashControl;
@@ -1016,6 +1210,11 @@
 								enabled = 1;
 							};
 						};
+					};
+					FB9CC2691F88A8460079309F = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = 44RJ69WHFF;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1044,6 +1243,7 @@
 			projectRoot = "";
 			targets = (
 				FB84EDBC1F32898700E4D400 /* DashControl */,
+				FB9CC2691F88A8460079309F /* submodules */,
 			);
 		};
 /* End PBXProject section */
@@ -1187,38 +1387,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24A2159C1F52C5E900A63311 /* Budget+CoreDataProperties.m in Sources */,
+				24A2159C1F52C5E900A63311 /* DCBudgetEntity+CoreDataProperties.m in Sources */,
 				FB9CC1621F83E38D0079309F /* NSString+Dash.m in Sources */,
+				FB4310D71F9DA96700784EBC /* DCWalletManager.m in Sources */,
 				FB9CC1631F83E38F0079309F /* UIImage+Utils.m in Sources */,
-				FB9CC1831F83E45F0079309F /* WalletAddress+CoreDataProperties.m in Sources */,
 				24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */,
 				FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */,
-				241719E41F4DB0FB0045C2D6 /* Comment+CoreDataProperties.m in Sources */,
+				241719E41F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m in Sources */,
 				24438DEF1F5FCE7D00763A14 /* ProposalDetailViewController.m in Sources */,
 				24438DF31F5FEA6600763A14 /* ProposalHeaderView.m in Sources */,
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
-				FB9CC1861F83E45F0079309F /* MasternodePayment+CoreDataProperties.m in Sources */,
-				FBE1F50D1F5D4CF500823A77 /* Market+CoreDataClass.m in Sources */,
+				FB9CC1861F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m in Sources */,
+				FBE1F50D1F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m in Sources */,
+				FB4310E91F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.m in Sources */,
 				FBEBE5421F5802DE0056D921 /* ChartTimeFormatter.m in Sources */,
 				249A402F1F62715700155636 /* ProposalScopeButtonsView.m in Sources */,
 				24E584101F3ADBAA00A12087 /* Post+CoreDataClass.m in Sources */,
 				24C86F091F5EC09900735785 /* ProposalDetailVotesResultTableViewCell.m in Sources */,
 				FB9CC1611F83E38A0079309F /* NSData+Dash.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
-				FB9CC1801F83E45F0079309F /* Masternode+CoreDataClass.m in Sources */,
-				241719E31F4DB0FB0045C2D6 /* Comment+CoreDataClass.m in Sources */,
+				FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */,
+				FB9CC1801F83E45F0079309F /* DCMasternodeEntity+CoreDataClass.m in Sources */,
+				241719E31F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m in Sources */,
+				FB4310E61F9F00A700784EBC /* DCWalletAddressEntity+CoreDataClass.m in Sources */,
 				FB9CC1881F83E8000079309F /* NSMutableData+Dash.m in Sources */,
 				FBEBE5461F5986510056D921 /* DCCoreDataManager.m in Sources */,
-				FBE1F50E1F5D4CF500823A77 /* Market+CoreDataProperties.m in Sources */,
+				FBE1F50E1F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.m in Sources */,
 				24E5841C1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m in Sources */,
-				FB9CC1841F83E45F0079309F /* Masternode+CoreDataProperties.m in Sources */,
-				FBE1F50A1F5D4CF500823A77 /* ChartDataEntry+CoreDataProperties.m in Sources */,
+				FB9CC1841F83E45F0079309F /* DCMasternodeEntity+CoreDataProperties.m in Sources */,
+				FBE1F50A1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.m in Sources */,
 				241719D81F4DA4C60045C2D6 /* ProposalsManager.m in Sources */,
 				24C86EFD1F5EC04100735785 /* ProposalDetailNameTableViewCell.m in Sources */,
-				24A2159B1F52C5E900A63311 /* Budget+CoreDataClass.m in Sources */,
-				FBE1F50C1F5D4CF500823A77 /* Exchange+CoreDataProperties.m in Sources */,
-				FB9CC1821F83E45F0079309F /* WalletMasterAddress+CoreDataProperties.m in Sources */,
-				241719E21F4DB0FB0045C2D6 /* Proposal+CoreDataProperties.m in Sources */,
+				FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */,
+				24A2159B1F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m in Sources */,
+				FBE1F50C1F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.m in Sources */,
+				FB4310E71F9F00A700784EBC /* DCWalletAddressEntity+CoreDataProperties.m in Sources */,
+				241719E21F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m in Sources */,
 				FB9CC1AA1F87D4A60079309F /* BRKey+BIP38.m in Sources */,
 				FB9CC1AB1F87D4A60079309F /* BRKey.m in Sources */,
 				24E584111F3ADBAA00A12087 /* Post+CoreDataProperties.m in Sources */,
@@ -1227,20 +1431,20 @@
 				24C86F031F5EC06C00735785 /* ProposalDetailOneTimePayementTableViewCell.m in Sources */,
 				FBEF66E21F83D68C003424D2 /* AddWalletAddressViewController.m in Sources */,
 				FB84EDC21F32898700E4D400 /* main.m in Sources */,
-				FBE1F50B1F5D4CF500823A77 /* Exchange+CoreDataClass.m in Sources */,
+				FBE1F50B1F5D4CF500823A77 /* DCExchangeEntity+CoreDataClass.m in Sources */,
 				24E584141F3ADC4C00A12087 /* RSSFeedManager.m in Sources */,
-				FB9CC1871F83E45F0079309F /* WalletAddress+CoreDataClass.m in Sources */,
-				FB9CC1851F83E45F0079309F /* MasternodePayment+CoreDataClass.m in Sources */,
+				FB4310E81F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.m in Sources */,
+				FB9CC1851F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataClass.m in Sources */,
 				24C86F001F5EC05400735785 /* ProposalDetailTitleTableViewCell.m in Sources */,
 				2432DDA01F54395600A14112 /* ProposalCell.m in Sources */,
-				241719E11F4DB0FB0045C2D6 /* Proposal+CoreDataClass.m in Sources */,
+				FB4310EC1F9F03A800784EBC /* NSManagedObject+Sugar.m in Sources */,
+				241719E11F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m in Sources */,
 				FB4F93BA1F82528F0078E259 /* PortfolioViewController.m in Sources */,
 				FB9CC1911F84BB0D0079309F /* AddMasternodeViewController.m in Sources */,
-				FBE1F5091F5D4CF500823A77 /* ChartDataEntry+CoreDataClass.m in Sources */,
+				FBE1F5091F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m in Sources */,
 				24C86F061F5EC08500735785 /* ProposalDetailCompletedPaymentsTableViewCell.m in Sources */,
 				FB9CC1A51F87D4860079309F /* BRBIP32Sequence.m in Sources */,
 				FB9CC18C1F8405180079309F /* PortfolioManager.m in Sources */,
-				FB9CC1811F83E45F0079309F /* WalletMasterAddress+CoreDataClass.m in Sources */,
 				24C86F0F1F5EC0D600735785 /* ProposalDetailDescriptionDetailTableViewCell.m in Sources */,
 				24C86F0C1F5EC0C300735785 /* ProposalDetailDescriptionHeaderTableViewCell.m in Sources */,
 				24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */,
@@ -1249,6 +1453,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FB9CC26E1F88A89F0079309F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FB9CC2691F88A8460079309F /* submodules */;
+			targetProxy = FB9CC26D1F88A89F0079309F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		249A3F901F6133AA00155636 /* LaunchScreen.strings */ = {
@@ -1782,6 +1994,19 @@
 				ENABLE_BITCODE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DashControl/DashControl-PrefixHeader.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/include/libxml2",
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/FTPopOverMenu\"",
+					"\"${PODS_ROOT}/Headers/Public/MBCircularProgressBar\"",
+					"\"${PODS_ROOT}/Headers/Public/RaptureXML\"",
+					"\"${PODS_ROOT}/Headers/Public/Reachability\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"$(SRCROOT)",
+					"$(SRCROOT)/secp256k1",
+				);
 				INFOPLIST_FILE = DashControl/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1805,12 +2030,70 @@
 				ENABLE_BITCODE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DashControl/DashControl-PrefixHeader.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/include/libxml2",
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/FTPopOverMenu\"",
+					"\"${PODS_ROOT}/Headers/Public/MBCircularProgressBar\"",
+					"\"${PODS_ROOT}/Headers/Public/RaptureXML\"",
+					"\"${PODS_ROOT}/Headers/Public/Reachability\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"$(SRCROOT)",
+					"$(SRCROOT)/secp256k1",
+				);
 				INFOPLIST_FILE = DashControl/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.dash.Control;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		FB9CC26B1F88A8460079309F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 44RJ69WHFF;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FB9CC26C1F88A8460079309F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 44RJ69WHFF;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -1831,6 +2114,15 @@
 			buildConfigurations = (
 				FB84EDD81F32898700E4D400 /* Debug */,
 				FB84EDD91F32898700E4D400 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB9CC26A1F88A8460079309F /* Build configuration list for PBXLegacyTarget "submodules" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB9CC26B1F88A8460079309F /* Debug */,
+				FB9CC26C1F88A8460079309F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

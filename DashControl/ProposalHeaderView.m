@@ -33,7 +33,7 @@
     _nearBottomBorder.frame = CGRectMake(0.0f, self.bounds.size.height-22.5, self.bounds.size.width, 0.5f);
 }
 
--(void)configureWithBudget:(Budget*)budget {
+-(void)configureWithBudget:(DCBudgetEntity*)budget {
     _labelTotal.text = NSLocalizedString(@"TOTAL", @"Budget view");
     _labelAlloted.text = NSLocalizedString(@"ALLOTED", @"Budget view");
     _labelTotalValue.text = [NSString stringWithFormat:@"%.1f", budget.totalAmount];

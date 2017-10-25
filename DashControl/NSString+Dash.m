@@ -334,17 +334,6 @@ static const UniChar base58chars[] = {
         return (*(const uint8_t *)d.bytes == DASH_PRIVKEY) ? YES : NO;
 #endif
     }
-    //there is currently no support for mini keys
-//    else if ((self.length == 30 || self.length == 22) && [self characterAtIndex:0] == 'S') { // mini private key format
-//        NSMutableData *d = [NSMutableData secureDataWithCapacity:self.length + 1];
-//
-//        d.length = self.length;
-//        [self getBytes:d.mutableBytes maxLength:d.length usedLength:NULL encoding:NSUTF8StringEncoding options:0
-//         range:NSMakeRange(0, self.length) remainingRange:NULL];
-//        [d appendBytes:"?" length:1];
-//        NSInteger byteValue = *(const uint8_t *)d.SHA256.bytes;
-//        return (byteValue == 0) ? YES : NO;
-//    }
     else return (self.hexToData.length == 32) ? YES : NO; // hex encoded key
 }
 
@@ -358,6 +347,25 @@ static const UniChar base58chars[] = {
     uint16_t prefix = CFSwapInt16BigToHost(*(const uint16_t *)d.bytes);
     uint8_t flag = ((const uint8_t *)d.bytes)[2];
 
+    if (prefix == BIP38_NOEC_PREFIX) { // non EC multiplied key
+        return ((flag & BIP38_NOEC_FLAG) == BIP38_NOEC_FLAG && (flag & BIP38_LOTSEQUENCE_FLAG) == 0 &&
+                (flag & BIP38_INVALID_FLAG) == 0) ? YES : NO;
+    }
+    else if (prefix == BIP38_EC_PREFIX) { // EC multiplied key
+        return ((flag & BIP38_NOEC_FLAG) == 0 && (flag & BIP38_INVALID_FLAG) == 0) ? YES : NO;
+    }
+    else return NO; // invalid prefix
+}
+
+- (BOOL)isValidDashPubKey
+{
+    NSData *d = self.base58checkToData;
+    
+    if (d.length != 39) return NO; // invalid length
+    
+    uint16_t prefix = CFSwapInt16BigToHost(*(const uint16_t *)d.bytes);
+    uint8_t flag = ((const uint8_t *)d.bytes)[2];
+    
     if (prefix == BIP38_NOEC_PREFIX) { // non EC multiplied key
         return ((flag & BIP38_NOEC_FLAG) == BIP38_NOEC_FLAG && (flag & BIP38_LOTSEQUENCE_FLAG) == 0 &&
                 (flag & BIP38_INVALID_FLAG) == 0) ? YES : NO;

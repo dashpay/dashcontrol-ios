@@ -36,7 +36,7 @@ static NSString *CellDetailDescriptionDetailIdentifier = @"ProposalDetailDescrip
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    //NSLog(@"Proposal:%@", self.currentProposal);
+    //NSLog(@"DCProposalEntity:%@", self.currentProposal);
     
     [[NSNotificationCenter defaultCenter]
      addObserver:self
@@ -54,7 +54,7 @@ static NSString *CellDetailDescriptionDetailIdentifier = @"ProposalDetailDescrip
 
 -(void)proposalDidUpdate:(NSNotification*)notification {
     if ([[notification name] isEqualToString:PROPOSAL_DID_UPDATE_NOTIFICATION] && [[[notification userInfo] objectForKey:@"hash"] isEqualToString:self.currentProposal.hashProposal]) {
-        //NSLog(@"Proposal updated:%@", self.currentProposal);
+        //NSLog(@"DCProposalEntity updated:%@", self.currentProposal);
         [self.tableView reloadData];
     }
 }

@@ -11,7 +11,7 @@
 
 @interface ProposalCell : UITableViewCell
 
-@property (nonatomic, retain) Proposal *currentProposal;
+@property (nonatomic, retain) DCProposalEntity *currentProposal;
 
 @property (strong, nonatomic) IBOutlet UILabel *labelName;
 @property (strong, nonatomic) IBOutlet UILabel *labelTitle;

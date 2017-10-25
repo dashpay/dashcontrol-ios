@@ -10,7 +10,7 @@
 #import "DCCoreDataManager.h"
 #import "NSArray+SWAdditions.h"
 #import <AFNetworking/AFNetworking.h>
-#import "WalletAddress+CoreDataClass.h"
+#import "DCWalletAddressEntity+CoreDataClass.h"
 
 #define INSIGHT_API_URL @"https://insight.dash.org/insight-api-dash"
 
@@ -70,7 +70,7 @@
             [manager GET:addr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
                 NSDictionary * addressAmountDictionary = [((NSArray*)responseObject) dictionaryReferencedByKeyPath:@"address" objectPath:@"@sum.amount"];
                 BOOL updatedAmounts = FALSE;
-                for (WalletAddress * address in walletAddresses) {
+                for (DCWalletAddressEntity * address in walletAddresses) {
                     if ([addressAmountDictionary objectForKey:address.address]) {
                         updatedAmounts = TRUE;
                         [address setAmount:[[addressAmountDictionary objectForKey:address.address] longLongValue]];

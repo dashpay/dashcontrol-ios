@@ -23,7 +23,7 @@
     // Configure the view for the selected state
 }
 
--(void)configureWithProposal:(Proposal*)proposal {
+-(void)configureWithProposal:(DCProposalEntity*)proposal {
 
     if (proposal.descriptionBase64Html && proposal.descriptionBase64Html.length) {
         NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:proposal.descriptionBase64Html options:0];

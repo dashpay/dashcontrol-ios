@@ -21,7 +21,7 @@
     // Configure the view for the selected state
 }
 
--(void)configureWithProposal:(Proposal*)proposal {
+-(void)configureWithProposal:(DCProposalEntity*)proposal {
     _labelCompletedPayments.text = NSLocalizedString(@"Completed payments", @"Proposal Detail View");
     _labelMonthRemaining.text = [NSString stringWithFormat:@"%d %@", proposal.remainingPaymentCount, proposal.remainingPaymentCount>1?NSLocalizedString(@"months remaining", @"Proposal Detail View"):NSLocalizedString(@"month remaining", @"Proposal Detail View")];
     

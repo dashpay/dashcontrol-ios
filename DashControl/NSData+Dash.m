@@ -36,6 +36,7 @@
 #import "Simd.c"
 #import "Skein.c"
 #import "NSString+Dash.h"
+#import "NSMutableData+Dash.h"
 
 // bitwise left rotation
 #define rol32(a, b) (((a) << (b)) | ((a) >> (32 - (b))))
@@ -871,6 +872,14 @@ sph_echo512(&ctx_echo, self.bytes, self.length);
     SHA256(&sha256, self.bytes, self.length);
     RMD160(&rmd160, &sha256, sizeof(sha256));
     return rmd160;
+}
+
+- (NSString*)hash160String
+{
+    UInt160 hash160 = self.hash160;
+    NSMutableData *d = [NSMutableData secureDataWithCapacity:160/8 + 1];
+    [d appendBytes:&hash160 length:sizeof(hash160)];
+    return [NSString base58checkWithData:d];
 }
 
 - (UInt128)MD5

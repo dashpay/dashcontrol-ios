@@ -72,7 +72,7 @@
             NSLog(@"Error while fetching AI %@", entityDescription.name);
         }
         if (![array count]) return 1;
-        return [(Exchange*)[array objectAtIndex:0] identifier] + 1;
+        return [(DCExchangeEntity*)[array objectAtIndex:0] identifier] + 1;
     } else {
         return [self fetchAutoIncrementIdForExchangeinContext:self.mainObjectContext error:error];
     }
@@ -91,7 +91,7 @@
             NSLog(@"Error while fetching AI %@", entityDescription.name);
         }
         if (![array count]) return 1;
-        return [(Exchange*)[array objectAtIndex:0] identifier] + 1;
+        return [(DCExchangeEntity*)[array objectAtIndex:0] identifier] + 1;
     } else {
         return [self fetchAutoIncrementIdForMarketinContext:self.mainObjectContext error:error];
     }
@@ -153,7 +153,7 @@
     }
 }
 
--(Market* _Nullable)marketNamed:(NSString* _Nonnull)marketName inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+-(DCMarketEntity* _Nullable)marketNamed:(NSString* _Nonnull)marketName inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     if (context) {
         NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Market" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -173,7 +173,7 @@
     }
 }
 
--(Exchange* _Nullable)exchangeNamed:(NSString* _Nonnull)exchangeName inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+-(DCExchangeEntity* _Nullable)exchangeNamed:(NSString* _Nonnull)exchangeName inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     if (context) {
         NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Exchange" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -193,7 +193,7 @@
     }
 }
 
--(Market* _Nullable)marketWithIdentifier:(NSUInteger)marketIdentifier inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error{
+-(DCMarketEntity* _Nullable)marketWithIdentifier:(NSUInteger)marketIdentifier inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error{
     if (context) {
         NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Market" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -213,7 +213,7 @@
     }
 }
 
--(Exchange* _Nullable)exchangeWithIdentifier:(NSUInteger)exchangeIdentifier inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+-(DCExchangeEntity* _Nullable)exchangeWithIdentifier:(NSUInteger)exchangeIdentifier inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     if (context) {
         NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Exchange" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -235,12 +235,12 @@
 
 // MARK: - Portfolio
 
--(BOOL)hasWalletMasterAddress:(NSData* _Nonnull)masterPublicKey inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+-(BOOL)hasWalletMasterAddress:(NSString* _Nonnull)masterPublicKeyHash inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     if (context) {
         NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"WalletMasterAddress" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
-        [request setPredicate:[NSPredicate predicateWithFormat:@"masterBIP32Node == %@ OR masterBIP44Node == %@",masterPublicKey,masterPublicKey]];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"masterBIP32NodeKey == %@ OR masterBIP44NodeKey == %@",masterPublicKeyHash,masterPublicKeyHash]];
         NSUInteger count = [context countForFetchRequest:request error:error];
         if (*error)
         {
@@ -249,7 +249,7 @@
         }
         return !!count;
     } else {
-        return [self hasWalletMasterAddress:masterPublicKey inContext:self.mainObjectContext error:error];
+        return [self hasWalletMasterAddress:masterPublicKeyHash inContext:self.mainObjectContext error:error];
     }
 }
 

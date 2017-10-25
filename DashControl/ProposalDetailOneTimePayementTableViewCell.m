@@ -21,7 +21,7 @@
     // Configure the view for the selected state
 }
 
--(void)configureWithProposal:(Proposal*)proposal {
+-(void)configureWithProposal:(DCProposalEntity*)proposal {
     _labelOneTimePayment.text = NSLocalizedString(@"One-time payment", @"Proposal Detail View");
     
     NSString *oneTimePaymentAmountString = [NSString stringWithFormat:@"%d", proposal.monthlyAmount];
@@ -30,8 +30,8 @@
     NSError * error = nil;
     NSUserDefaults * standardDefaults = [NSUserDefaults standardUserDefaults];
     NSDictionary * currentExchangeMarketPair = [standardDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR];
-    Market * currentMarket = [[DCCoreDataManager sharedManager] marketNamed:[currentExchangeMarketPair objectForKey:@"market"] inContext:proposal.managedObjectContext error:&error];
-    Exchange * currentExchange = error?nil:[[DCCoreDataManager sharedManager] exchangeNamed:[currentExchangeMarketPair objectForKey:@"exchange"] inContext:proposal.managedObjectContext error:&error];
+    DCMarketEntity * currentMarket = [[DCCoreDataManager sharedManager] marketNamed:[currentExchangeMarketPair objectForKey:@"market"] inContext:proposal.managedObjectContext error:&error];
+    DCExchangeEntity * currentExchange = error?nil:[[DCCoreDataManager sharedManager] exchangeNamed:[currentExchangeMarketPair objectForKey:@"exchange"] inContext:proposal.managedObjectContext error:&error];
     NSDate *startTime;
     NSTimeInterval timeInterval = ChartTimeInterval_15Mins;
     if (!error) {
@@ -41,7 +41,7 @@
     }
     
     NSArray * chartData = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:currentExchange.identifier forMarketIdentifier:currentMarket.identifier interval:timeInterval startTime:startTime endTime:nil inContext:proposal.managedObjectContext error:&error] ;
-    ChartDataEntry * entry;
+    DCChartDataEntryEntity * entry;
     if (!error) {
         entry = [chartData lastObject];
     }

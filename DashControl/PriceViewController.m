@@ -8,7 +8,7 @@
 
 #import "PriceViewController.h"
 #import "DCCoreDataManager.h"
-#import "ChartDataEntry+CoreDataProperties.h"
+#import "DCChartDataEntryEntity+CoreDataProperties.h"
 #import "ChartTimeFormatter.h"
 
 @interface PriceViewController ()
@@ -17,8 +17,8 @@
 @property (nonatomic, strong) IBOutlet CandleStickChartView *chartView;
 @property (nonatomic, strong) IBOutlet UIButton *optionsButton;
 @property (nonatomic, strong) IBOutlet NSArray *options;
-@property (nonatomic, strong) Market * selectedMarket;
-@property (nonatomic, strong) Exchange * selectedExchange;
+@property (nonatomic, strong) DCMarketEntity * selectedMarket;
+@property (nonatomic, strong) DCExchangeEntity * selectedExchange;
 @property (nonatomic, assign) ChartTimeInterval timeInterval;
 @property (nonatomic, strong) NSDate * startTime;
 @property (nonatomic, strong) NSDate * endTime;
@@ -80,8 +80,8 @@
     if ([standardDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR]) {
         NSError * error = nil;
         NSDictionary * currentExchangeMarketPair = [standardDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR];
-        Market * currentMarket = [[DCCoreDataManager sharedManager] marketNamed:[currentExchangeMarketPair objectForKey:@"market"] inContext:self.managedObjectContext error:&error];
-        Exchange * currentExchange = error?nil:[[DCCoreDataManager sharedManager] exchangeNamed:[currentExchangeMarketPair objectForKey:@"exchange"] inContext:self.managedObjectContext error:&error];
+        DCMarketEntity * currentMarket = [[DCCoreDataManager sharedManager] marketNamed:[currentExchangeMarketPair objectForKey:@"market"] inContext:self.managedObjectContext error:&error];
+        DCExchangeEntity * currentExchange = error?nil:[[DCCoreDataManager sharedManager] exchangeNamed:[currentExchangeMarketPair objectForKey:@"exchange"] inContext:self.managedObjectContext error:&error];
         if (!error) {
             self.selectedMarket = currentMarket;
             self.selectedExchange = currentExchange;
@@ -122,7 +122,7 @@
             NSTimeInterval baseTime = [[[chartData firstObject] valueForKey:@"time"] timeIntervalSince1970];
         for (int i = 0; i < chartData.count; i++)
         {
-            ChartDataEntry * entry = [chartData objectAtIndex:i];
+            DCChartDataEntryEntity * entry = [chartData objectAtIndex:i];
             NSInteger xIndex = ([entry.time timeIntervalSince1970] - baseTime)/[ChartTimeFormatter timeIntervalForChartTimeInterval:self.timeInterval];
             [charDataPoints addObject:[[CandleChartDataEntry alloc] initWithX:xIndex shadowH:entry.high shadowL:entry.low open:entry.open close:entry.close icon: [UIImage imageNamed:@"icon"]]];
         }
@@ -280,7 +280,7 @@
 
 #pragma mark - ChartViewDelegate
 
-- (void)chartValueSelected:(ChartViewBase * __nonnull)chartView entry:(ChartDataEntry * __nonnull)entry highlight:(ChartHighlight * __nonnull)highlight
+- (void)chartValueSelected:(ChartViewBase * __nonnull)chartView entry:(DCChartDataEntryEntity * __nonnull)entry highlight:(ChartHighlight * __nonnull)highlight
 {
     NSLog(@"chartValueSelected");
 }

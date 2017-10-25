@@ -14,7 +14,7 @@
 #import "PortfolioManager.h"
 #import "DCCoreDataManager.h"
 
-#import "WalletMasterAddress+CoreDataClass.h"
+#import "DCWalletManager.h"
 
 #define kRSSFeedViewControllerIndex 0
 #define kProposalsViewControllerIndex 2
@@ -350,27 +350,8 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     }
     if (paramDictionary[@"callback"]) {
         if ([[paramDictionary[@"callback"] lowercaseString] isEqualToString:@"masterpublickey"]) {
-            [[self persistentContainer] performBackgroundTask:^(NSManagedObjectContext *context) {
-                NSError * error = nil;
-                BOOL hasAddress = [[DCCoreDataManager sharedManager] hasWalletMasterAddress:paramDictionary[@"masterPublicKeyBIP32"] inContext:context error:&error];
-                if (hasAddress || error) {
-                    return;
-                }
-                hasAddress = [[DCCoreDataManager sharedManager] hasWalletMasterAddress:paramDictionary[@"masterPublicKeyBIP44"] inContext:context error:&error];
-                if (hasAddress || error) {
-                    return;
-                }
-                WalletMasterAddress * walletMasterAddress = [NSEntityDescription insertNewObjectForEntityForName:@"WalletMasterAddress" inManagedObjectContext:context];
-                walletMasterAddress.masterBIP32Node = paramDictionary[@"masterPublicKeyBIP32"];
-                walletMasterAddress.masterBIP44Node = paramDictionary[@"masterPublicKeyBIP44"];
-                walletMasterAddress.dateAdded = [NSDate date];
-                walletMasterAddress.name = paramDictionary[@"source"];
-                context.automaticallyMergesChangesFromParent = TRUE;
-                context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-                if (![context save:&error]) {
-                    NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-                    abort();
-                }
+            [[DCWalletManager sharedInstance] importWalletMasterAddressFromSource:@"Dashwallet" withExtended32PublicKey:paramDictionary[@"masterPublicKeyBIP32"] extended44PublicKey:paramDictionary[@"masterPublicKeyBIP44"] completion:^(BOOL success) {
+                
             }];
         }
     }

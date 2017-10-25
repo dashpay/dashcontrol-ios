@@ -34,13 +34,14 @@
 
 //CoreData
 #import <CoreData/CoreData.h>
+#import "NSManagedObject+Sugar.h"
 #import "Post+CoreDataClass.h"
-#import "ChartDataEntry+CoreDataClass.h"
-#import "Budget+CoreDataClass.h"
-#import "Proposal+CoreDataClass.h"
-#import "Comment+CoreDataClass.h"
-#import "Market+CoreDataClass.h"
-#import "Exchange+CoreDataClass.h"
+#import "DCChartDataEntryEntity+CoreDataClass.h"
+#import "DCBudgetEntity+CoreDataClass.h"
+#import "DCProposalEntity+CoreDataClass.h"
+#import "DCCommentEntity+CoreDataClass.h"
+#import "DCMarketEntity+CoreDataClass.h"
+#import "DCExchangeEntity+CoreDataClass.h"
 
 //Other
 #import "AppDelegate.h"

@@ -7,9 +7,9 @@
 //
 
 #import "PortfolioViewController.h"
-#import "WalletAddress+CoreDataClass.h"
-#import "WalletMasterAddress+CoreDataClass.h"
-#import "Masternode+CoreDataClass.h"
+#import "DCWalletAddressEntity+CoreDataClass.h"
+#import "DCWalletMasterAddressEntity+CoreDataClass.h"
+#import "DCMasternodeEntity+CoreDataClass.h"
 #import <FTPopOverMenu/FTPopOverMenu.h>
 
 @interface PortfolioViewController ()
@@ -209,7 +209,7 @@
 }
 
 -(void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath *)indexPath {
-    WalletAddress *walletAddress = [self.walletAddressFetchedResultsController objectAtIndexPath:indexPath];
+    DCWalletAddressEntity *walletAddress = [self.walletAddressFetchedResultsController objectAtIndexPath:indexPath];
     [cell.textLabel setText:walletAddress.address];
 }
 
@@ -226,7 +226,7 @@
         static NSString * CellReuseIdentifier = @"MasternodeCell";
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellReuseIdentifier];
         
-        Masternode *masternode = [self.walletAddressFetchedResultsController objectAtIndexPath:indexPath];
+        DCMasternodeEntity *masternode = [self.walletAddressFetchedResultsController objectAtIndexPath:indexPath];
          [cell.textLabel setText:masternode.address];
         return cell;
     }

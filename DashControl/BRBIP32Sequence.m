@@ -25,8 +25,8 @@
 
 #import "BRBIP32Sequence.h"
 #import "BRKey.h"
-#import "NSString+Dash.h"
 #import "NSData+Dash.h"
+#import "NSString+Dash.h"
 #import "NSMutableData+Dash.h"
 
 #define useDarkCoinSeed 0
@@ -77,9 +77,9 @@ static void CKDpriv(UInt256 *k, UInt256 *c, uint32_t i)
         *(UInt256 *)&buf[1] = *k;
     }
     else BRSecp256k1PointGen((BRECPoint *)buf, k);
-
+    
     *(uint32_t *)&buf[sizeof(BRECPoint)] = CFSwapInt32HostToBig(i);
-
+    
     HMAC(&I, SHA512, sizeof(UInt512), c, sizeof(*c), buf, sizeof(buf)); // I = HMAC-SHA512(c, k|P(k) || i)
     
     BRSecp256k1ModAdd(k, (UInt256 *)&I); // k = IL + k (mod n)
@@ -106,13 +106,13 @@ static void CKDpriv(UInt256 *k, UInt256 *c, uint32_t i)
 static void CKDpub(BRECPoint *K, UInt256 *c, uint32_t i)
 {
     if (i & BIP32_HARD) return; // can't derive private child key from public parent key
-
+    
     uint8_t buf[sizeof(*K) + sizeof(i)];
     UInt512 I;
     
     *(BRECPoint *)buf = *K;
     *(uint32_t *)&buf[sizeof(*K)] = CFSwapInt32HostToBig(i);
-
+    
     HMAC(&I, SHA512, sizeof(UInt512), c, sizeof(*c), buf, sizeof(buf)); // I = HMAC-SHA512(c, P(K) || i)
     
     *c = *(UInt256 *)&I.u8[sizeof(UInt256)]; // c = IR
@@ -126,10 +126,10 @@ static void CKDpub(BRECPoint *K, UInt256 *c, uint32_t i)
 static NSString *serialize(uint8_t depth, uint32_t fingerprint, uint32_t child, UInt256 chain, NSData *key)
 {
     NSMutableData *d = [NSMutableData secureDataWithCapacity:14 + key.length + sizeof(chain)];
-
+    
     fingerprint = CFSwapInt32HostToBig(fingerprint);
     child = CFSwapInt32HostToBig(child);
-
+    
     [d appendBytes:key.length < 33 ? BIP32_XPRV : BIP32_XPUB length:4];
     [d appendBytes:&depth length:1];
     [d appendBytes:&fingerprint length:sizeof(fingerprint)];
@@ -137,8 +137,34 @@ static NSString *serialize(uint8_t depth, uint32_t fingerprint, uint32_t child, 
     [d appendBytes:&chain length:sizeof(chain)];
     if (key.length < 33) [d appendBytes:"\0" length:1];
     [d appendData:key];
-
+    
     return [NSString base58checkWithData:d];
+}
+
+// helper function for serializing BIP32 master public/private keys to standard export format
+static BOOL deserialize(NSString * string, uint8_t * depth, uint32_t * fingerprint, uint32_t * child, UInt256 * chain, NSData **key)
+{
+    NSData * data = [NSData dataWithBase58String:string];
+    uint8_t * bytes = (uint8_t *)[data bytes];
+    void * type = malloc(4*sizeof(void *));
+    [data getBytes:type length:4];
+    if (type != BIP32_XPRV && type != BIP32_XPUB) return FALSE;
+    NSUInteger offset = 4;
+    *depth = bytes[4];
+    offset++;
+    *fingerprint = (uint32_t)bytes[5];
+    offset += sizeof(uint32_t);
+    *child = (uint32_t)bytes[offset];
+    offset += sizeof(uint32_t);
+    for (int i = 0;i<8;i++) {
+        (*chain).u32[i] = bytes[offset];
+        offset += sizeof(uint32_t);
+    }
+    offset += sizeof(UInt256);
+    *key = [data subdataWithRange:NSMakeRange(offset, data.length - offset)];
+    *fingerprint = CFSwapInt32BigToHost(*fingerprint);
+    *child = CFSwapInt32BigToHost(*child);
+    return TRUE;
 }
 
 @implementation BRBIP32Sequence
@@ -147,41 +173,40 @@ static NSString *serialize(uint8_t depth, uint32_t fingerprint, uint32_t child, 
 
 // master public key format is: 4 byte parent fingerprint || 32 byte chain code || 33 byte compressed public key
 // the values are taken from BIP32 account m/44H/5H/0H
-- (NSData *)masterPublicKeyFromSeed:(NSData *)seed purpose:(uint32_t)purpose
+- (NSData *)extendedPublicKeyForAccount:(uint32_t)account fromSeed:(NSData *)seed purpose:(uint32_t)purpose
 {
     if (! seed) return nil;
     if (purpose && purpose != 44) return nil; //currently only support purpose 0 and 44
     NSMutableData *mpk = [NSMutableData secureData];
     UInt512 I;
-
+    
     HMAC(&I, SHA512, sizeof(UInt512), BIP32_SEED_KEY, strlen(BIP32_SEED_KEY), seed.bytes, seed.length);
-
+    
     UInt256 secret = *(UInt256 *)&I, chain = *(UInt256 *)&I.u8[sizeof(UInt256)];
-
-    [mpk appendBytes:[BRKey keyWithSecret:secret compressed:YES].hash160.u32 length:4];
     
     if (purpose == 44) {
         CKDpriv(&secret, &chain, 44 | BIP32_HARD); // purpose 44H
         CKDpriv(&secret, &chain, 5 | BIP32_HARD); // dash 5H
     }
-    CKDpriv(&secret, &chain, 0 | BIP32_HARD); // account 0H
-
+    [mpk appendBytes:[BRKey keyWithSecret:secret compressed:YES].hash160.u32 length:4];
+    CKDpriv(&secret, &chain, account | BIP32_HARD); // account 0H
+    
     [mpk appendBytes:&chain length:sizeof(chain)];
     [mpk appendData:[BRKey keyWithSecret:secret compressed:YES].publicKey];
-
+    
     return mpk;
 }
 
 - (NSData *)publicKey:(uint32_t)n internal:(BOOL)internal masterPublicKey:(NSData *)masterPublicKey
 {
     if (masterPublicKey.length < 4 + sizeof(UInt256) + sizeof(BRECPoint)) return nil;
-
+    
     UInt256 chain = *(const UInt256 *)((const uint8_t *)masterPublicKey.bytes + 4);
     BRECPoint pubKey = *(const BRECPoint *)((const uint8_t *)masterPublicKey.bytes + 36);
-
+    
     CKDpub(&pubKey, &chain, internal ? 1 : 0); // internal or external chain
     CKDpub(&pubKey, &chain, n); // nth key in chain
-
+    
     return [NSData dataWithBytes:&pubKey length:sizeof(pubKey)];
 }
 
@@ -195,7 +220,7 @@ static NSString *serialize(uint8_t depth, uint32_t fingerprint, uint32_t child, 
     if (! seed || ! n) return nil;
     if (purpose && purpose != 44) return nil; //currently only support purpose 0 and 44
     if (n.count == 0) return @[];
-
+    
     NSMutableArray *a = [NSMutableArray arrayWithCapacity:n.count];
     UInt512 I;
     
@@ -207,26 +232,26 @@ static NSString *serialize(uint8_t depth, uint32_t fingerprint, uint32_t child, 
 #if DASH_TESTNET
     version = DASH_PRIVKEY_TEST;
 #endif
-
+    
     if (purpose == 44) {
         CKDpriv(&secret, &chain, 44 | BIP32_HARD); // purpose 44H
         CKDpriv(&secret, &chain, 5 | BIP32_HARD); // dash 5H
     }
     CKDpriv(&secret, &chain, 0 | BIP32_HARD); // account 0H
     CKDpriv(&secret, &chain, internal ? 1 : 0); // internal or external chain
-
+    
     for (NSNumber *i in n) {
         NSMutableData *privKey = [NSMutableData secureDataWithCapacity:34];
         UInt256 s = secret, c = chain;
         
         CKDpriv(&s, &c, i.unsignedIntValue); // nth key in chain
-
+        
         [privKey appendBytes:&version length:1];
         [privKey appendBytes:&s length:sizeof(s)];
         [privKey appendBytes:"\x01" length:1]; // specifies compressed pubkey format
         [a addObject:[NSString base58checkWithData:privKey]];
     }
-
+    
     return a;
 }
 
@@ -252,7 +277,7 @@ static NSString *serialize(uint8_t depth, uint32_t fingerprint, uint32_t child, 
     CKDpriv(&secret, &chain, 0);
     
     NSMutableData *privKey = [NSMutableData secureDataWithCapacity:34];
-
+    
     [privKey appendBytes:&version length:1];
     [privKey appendBytes:&secret length:sizeof(secret)];
     [privKey appendBytes:"\x01" length:1]; // specifies compressed pubkey format
@@ -267,7 +292,7 @@ static NSString *serialize(uint8_t depth, uint32_t fingerprint, uint32_t child, 
     
     [data appendUInt32:n];
     [data appendBytes:uri.UTF8String length:len];
-
+    
     UInt256 hash = data.SHA256;
     UInt512 I;
     
@@ -279,13 +304,13 @@ static NSString *serialize(uint8_t depth, uint32_t fingerprint, uint32_t child, 
 #if DASH_TESTNET
     version = DASH_PRIVKEY_TEST;
 #endif
-
+    
     CKDpriv(&secret, &chain, 13 | BIP32_HARD); // m/13H
     CKDpriv(&secret, &chain, CFSwapInt32LittleToHost(hash.u32[0]) | BIP32_HARD); // m/13H/aH
     CKDpriv(&secret, &chain, CFSwapInt32LittleToHost(hash.u32[1]) | BIP32_HARD); // m/13H/aH/bH
     CKDpriv(&secret, &chain, CFSwapInt32LittleToHost(hash.u32[2]) | BIP32_HARD); // m/13H/aH/bH/cH
     CKDpriv(&secret, &chain, CFSwapInt32LittleToHost(hash.u32[3]) | BIP32_HARD); // m/13H/aH/bH/cH/dH
-
+    
     NSMutableData *privKey = [NSMutableData secureDataWithCapacity:34];
     
     [privKey appendBytes:&version length:1];
@@ -299,25 +324,43 @@ static NSString *serialize(uint8_t depth, uint32_t fingerprint, uint32_t child, 
 - (NSString *)serializedPrivateMasterFromSeed:(NSData *)seed
 {
     if (! seed) return nil;
-
+    
     UInt512 I;
-
+    
     HMAC(&I, SHA512, sizeof(UInt512), BIP32_SEED_KEY, strlen(BIP32_SEED_KEY), seed.bytes, seed.length);
-
+    
     UInt256 secret = *(UInt256 *)&I, chain = *(UInt256 *)&I.u8[sizeof(UInt256)];
-
+    
     return serialize(0, 0, 0, chain, [NSData dataWithBytes:&secret length:sizeof(secret)]);
 }
 
-- (NSString *)serializedMasterPublicKey:(NSData *)masterPublicKey
+- (NSString *)serializedMasterPublicKey:(NSData *)masterPublicKey depth:(NSUInteger)depth
 {
     if (masterPublicKey.length < 36) return nil;
     
     uint32_t fingerprint = CFSwapInt32BigToHost(*(const uint32_t *)masterPublicKey.bytes);
     UInt256 chain = *(UInt256 *)((const uint8_t *)masterPublicKey.bytes + 4);
     BRECPoint pubKey = *(BRECPoint *)((const uint8_t *)masterPublicKey.bytes + 36);
+    
+    return serialize(depth, fingerprint, 0 | BIP32_HARD, chain, [NSData dataWithBytes:&pubKey length:sizeof(pubKey)]);
+}
 
-    return serialize(1, fingerprint, 0 | BIP32_HARD, chain, [NSData dataWithBytes:&pubKey length:sizeof(pubKey)]);
+- (NSData *)deserializedMasterPublicKey:(NSString *)masterPublicKeyString
+{
+    uint8_t depth;
+    uint32_t fingerprint;
+    uint32_t child;
+    UInt256 chain;
+    NSData * pubkey = nil;
+    NSMutableData * masterPublicKey = [NSMutableData secureData];
+    BOOL valid = deserialize(masterPublicKeyString, &depth, &fingerprint, &child, &chain, &pubkey);
+    if (!valid) return nil;
+    [masterPublicKey appendUInt32:CFSwapInt32HostToBig(fingerprint)];
+    [masterPublicKey appendBytes:&chain length:32];
+    [masterPublicKey appendData:pubkey];
+    
+    return masterPublicKey;
 }
 
 @end
+

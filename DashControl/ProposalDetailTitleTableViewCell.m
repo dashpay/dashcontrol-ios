@@ -21,7 +21,7 @@
     // Configure the view for the selected state
 }
 
--(void)configureWithProposal:(Proposal*)proposal {
+-(void)configureWithProposal:(DCProposalEntity*)proposal {
     _labelTitle.text = NSLocalizedString(@"Title", @"Proposal Detail View");
     _labelProposalTitle.text = proposal.title;
     

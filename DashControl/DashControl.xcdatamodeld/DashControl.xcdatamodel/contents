@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
-    <entity name="Budget" representedClassName="Budget" syncable="YES">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13241" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="DCBudgetEntity" representedClassName="DCBudgetEntity" syncable="YES">
         <attribute name="allotedAmount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="paymentDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="paymentDateHuman" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="superblock" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="totalAmount" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
-    <entity name="ChartDataEntry" representedClassName="ChartDataEntry" syncable="YES">
+    <entity name="DCChartDataEntryEntity" representedClassName="DCChartDataEntryEntity" syncable="YES">
         <attribute name="close" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="exchangeIdentifier" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="high" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
@@ -34,7 +34,7 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="Comment" representedClassName="Comment" syncable="YES">
+    <entity name="DCCommentEntity" representedClassName="DCCommentEntity" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="dateHuman" optional="YES" attributeType="String" syncable="YES"/>
@@ -46,12 +46,12 @@
         <attribute name="recentlyPosted" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="replyUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="proposal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Proposal" inverseName="comments" inverseEntity="Proposal" syncable="YES"/>
+        <relationship name="proposal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DCProposalEntity" inverseName="comments" inverseEntity="DCProposalEntity" syncable="YES"/>
     </entity>
-    <entity name="Exchange" representedClassName="Exchange" syncable="YES">
+    <entity name="DCExchangeEntity" representedClassName="DCExchangeEntity" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="markets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Market" inverseName="onExchanges" inverseEntity="Market" syncable="YES"/>
+        <relationship name="markets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DCMarketEntity" inverseName="onExchanges" inverseEntity="DCMarketEntity" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="identifier"/>
@@ -61,10 +61,10 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="Market" representedClassName="Market" syncable="YES">
+    <entity name="DCMarketEntity" representedClassName="DCMarketEntity" syncable="YES">
         <attribute name="identifier" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <relationship name="onExchanges" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exchange" inverseName="markets" inverseEntity="Exchange" syncable="YES"/>
+        <relationship name="onExchanges" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DCExchangeEntity" inverseName="markets" inverseEntity="DCExchangeEntity" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="identifier"/>
@@ -74,11 +74,11 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="Masternode" representedClassName="Masternode" syncable="YES">
+    <entity name="DCMasternodeEntity" representedClassName="DCMasternodeEntity" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="secureVotingKeyPath" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="payments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MasternodePayment" inverseName="masternode" inverseEntity="MasternodePayment" syncable="YES"/>
+        <relationship name="payments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DCMasternodePaymentEntity" inverseName="masternode" inverseEntity="DCMasternodePaymentEntity" syncable="YES"/>
         <fetchIndex name="address">
             <fetchIndexElement property="address" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -88,22 +88,13 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="MasternodePayment" representedClassName="MasternodePayment" syncable="YES">
+    <entity name="DCMasternodePaymentEntity" representedClassName="DCMasternodePaymentEntity" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="height" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="masternode" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Masternode" inverseName="payments" inverseEntity="Masternode" syncable="YES"/>
+        <relationship name="masternode" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DCMasternodeEntity" inverseName="payments" inverseEntity="DCMasternodeEntity" syncable="YES"/>
     </entity>
-    <entity name="Post" representedClassName="Post" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="guid" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="lang" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="pubDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
-    <entity name="Proposal" representedClassName="Proposal" syncable="YES">
+    <entity name="DCProposalEntity" representedClassName="DCProposalEntity" syncable="YES">
         <attribute name="abstain" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="commentAmount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -129,13 +120,20 @@
         <attribute name="votingDeadlineHuman" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="willBeFunded" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="yes" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="proposal" inverseEntity="Comment" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DCCommentEntity" inverseName="proposal" inverseEntity="DCCommentEntity" syncable="YES"/>
     </entity>
-    <entity name="WalletAddress" representedClassName="WalletAddress" syncable="YES">
+    <entity name="DCWalletAddressEntity" representedClassName="DCWalletAddressEntity" syncable="YES">
         <attribute name="address" attributeType="String" syncable="YES"/>
         <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="extendedKeyHash" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="internal" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="walletMasterAddress" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DCWalletMasterAddressEntity" inverseName="walletAddresses" inverseEntity="DCWalletMasterAddressEntity" syncable="YES"/>
         <fetchIndex name="address">
             <fetchIndexElement property="address" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="extendedKeyHash">
+            <fetchIndexElement property="extendedKeyHash" type="Binary" order="ascending"/>
         </fetchIndex>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -143,23 +141,33 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="WalletMasterAddress" representedClassName="WalletMasterAddress" syncable="YES">
+    <entity name="DCWalletMasterAddressEntity" representedClassName="DCWalletMasterAddressEntity" syncable="YES">
         <attribute name="dateAdded" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="masterBIP32Node" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="masterBIP44Node" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="masterBIP32NodeKey" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="masterBIP44NodeKey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="walletAddresses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DCWalletAddressEntity" inverseName="walletMasterAddress" inverseEntity="DCWalletAddressEntity" syncable="YES"/>
+    </entity>
+    <entity name="Post" representedClassName="Post" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="guid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lang" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pubDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Budget" positionX="-54" positionY="135" width="128" height="120"/>
-        <element name="ChartDataEntry" positionX="-63" positionY="36" width="128" height="210"/>
-        <element name="Comment" positionX="-54" positionY="144" width="128" height="225"/>
-        <element name="Exchange" positionX="-45" positionY="144" width="128" height="90"/>
-        <element name="Market" positionX="-54" positionY="135" width="128" height="90"/>
-        <element name="Masternode" positionX="-36" positionY="153" width="128" height="105"/>
-        <element name="MasternodePayment" positionX="-27" positionY="162" width="128" height="105"/>
+        <element name="DCBudgetEntity" positionX="-54" positionY="135" width="128" height="120"/>
+        <element name="DCChartDataEntryEntity" positionX="-63" positionY="36" width="128" height="210"/>
+        <element name="DCCommentEntity" positionX="-54" positionY="144" width="128" height="225"/>
+        <element name="DCExchangeEntity" positionX="-45" positionY="144" width="128" height="90"/>
+        <element name="DCMarketEntity" positionX="-54" positionY="135" width="128" height="90"/>
+        <element name="DCMasternodeEntity" positionX="-36" positionY="153" width="128" height="105"/>
+        <element name="DCMasternodePaymentEntity" positionX="-27" positionY="162" width="128" height="105"/>
         <element name="Post" positionX="-63" positionY="-18" width="128" height="150"/>
-        <element name="Proposal" positionX="-63" positionY="81" width="128" height="435"/>
-        <element name="WalletAddress" positionX="-45" positionY="144" width="128" height="75"/>
-        <element name="WalletMasterAddress" positionX="-54" positionY="135" width="128" height="105"/>
+        <element name="DCProposalEntity" positionX="-63" positionY="81" width="128" height="435"/>
+        <element name="DCWalletAddressEntity" positionX="-45" positionY="144" width="128" height="135"/>
+        <element name="DCWalletMasterAddressEntity" positionX="-54" positionY="135" width="128" height="120"/>
     </elements>
 </model>
