@@ -86,7 +86,7 @@ static NSString *CellIdentifier = @"ProposalCell";
 #pragma mark - Budget Updates
 
 -(void)budgetDidUpdate:(NSNotification*)notification {
-    DCBudgetEntity *budget = [[[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"Budget" inContext:_managedObjectContext] firstObject];
+    DCBudgetEntity *budget = [[[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"DCBudgetEntity" inContext:_managedObjectContext] firstObject];
     [_proposalHeaderView configureWithBudget:budget];
 }
 
@@ -218,7 +218,7 @@ static NSString *CellIdentifier = @"ProposalCell";
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Proposal" inManagedObjectContext:_managedObjectContext];
+                                   entityForName:@"DCProposalEntity" inManagedObjectContext:_managedObjectContext];
     [fetchRequest setEntity:entity];
     
     NSString *searchString = self.searchController.searchBar.text;

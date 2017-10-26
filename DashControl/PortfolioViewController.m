@@ -135,7 +135,7 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"WalletAddress" inManagedObjectContext:_managedObjectContext];
+                                   entityForName:@"DCWalletAddressEntity" inManagedObjectContext:_managedObjectContext];
     [fetchRequest setEntity:entity];
     NSSortDescriptor * sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"address" ascending:TRUE];
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
@@ -163,7 +163,7 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Masternode" inManagedObjectContext:_managedObjectContext];
+                                   entityForName:@"DCMasternodeEntity" inManagedObjectContext:_managedObjectContext];
     [fetchRequest setEntity:entity];
     NSSortDescriptor * sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"address" ascending:TRUE];
     [fetchRequest setSortDescriptors:@[sortDescriptor]];

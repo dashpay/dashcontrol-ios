@@ -112,7 +112,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                 //Since the list returned include only 'active' proposals at the moment.
                 //We want to update 'non-active' proposals we may still have in coredata by calling fetchProposalsWithHash:
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    NSMutableArray *existingProposals = [self fetchAllObjectsForEntity:@"Proposal" inContext:_managedObjectContext];
+                    NSMutableArray *existingProposals = [self fetchAllObjectsForEntity:@"DCProposalEntity" inContext:_managedObjectContext];
                     NSMutableArray *proposalsToUpdate = [NSMutableArray new];
                     
                     for (DCProposalEntity *proposal in existingProposals) {
@@ -203,9 +203,9 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     [container performBackgroundTask:^(NSManagedObjectContext *context) {
         
         DCBudgetEntity *budget;
-        NSMutableArray *existingBudgets = [self fetchAllObjectsForEntity:@"Budget" inContext:context];
+        NSMutableArray *existingBudgets = [self fetchAllObjectsForEntity:@"DCBudgetEntity" inContext:context];
         if (existingBudgets.count == 0) {
-            budget = [NSEntityDescription insertNewObjectForEntityForName:@"Budget" inManagedObjectContext:context];
+            budget = [NSEntityDescription insertNewObjectForEntityForName:@"DCBudgetEntity" inManagedObjectContext:context];
         } else {
             budget = existingBudgets.firstObject;
         }
@@ -253,7 +253,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             DCProposalEntity *proposal;
             NSMutableArray *existingProposal = [self fetchProposalWithHash:[proposalDictionary objectForKey:@"hash"] inContext:context];
             if (!existingProposal.count) {
-                proposal = [NSEntityDescription insertNewObjectForEntityForName:@"Proposal" inManagedObjectContext:context];
+                proposal = [NSEntityDescription insertNewObjectForEntityForName:@"DCProposalEntity" inManagedObjectContext:context];
                 proposal.hashProposal = [proposalDictionary objectForKey:@"hash"];
             }
             else {
@@ -295,7 +295,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                     DCCommentEntity *comment;
                     NSMutableArray *existingComment = [self fetchCommentWithId:[commentDic objectForKey:@"id"] inContext:context];
                     if (!existingComment.count) {
-                        comment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:context];
+                        comment = [NSEntityDescription insertNewObjectForEntityForName:@"DCCommentEntity" inManagedObjectContext:context];
                         comment.idComment = [commentDic objectForKey:@"id"];
                     }
                     else {
@@ -403,7 +403,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 */
 -(NSMutableArray *)fetchProposalWithHash:(NSString *)hashProposal inContext:(NSManagedObjectContext *)context {
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Proposal" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCProposalEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         
@@ -424,7 +424,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 
 -(NSMutableArray *)fetchCommentWithId:(NSString *)idComment inContext:(NSManagedObjectContext *)context {
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Comment" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCCommentEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         

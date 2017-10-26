@@ -32,7 +32,7 @@
 -(NSArray *)fetchChartDataForExchangeIdentifier:(NSUInteger)exchangeIdentifier forMarketIdentifier:(NSUInteger)marketIdentifier interval:(ChartTimeInterval)timeInterval startTime:(NSDate*)startTime endTime:(NSDate*)endTime inContext:(NSManagedObjectContext *)context error:(NSError**)error {
     
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"ChartDataEntry" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCChartDataEntryEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         NSMutableString * query = [@"(exchangeIdentifier == %@) AND (marketIdentifier == %@) AND (interval == %d)" mutableCopy];
@@ -61,7 +61,7 @@
 
 -(NSInteger)fetchAutoIncrementIdForExchangeinContext:(NSManagedObjectContext * _Nullable)context error:(NSError**)error {
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Exchange" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCExchangeEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         request.predicate = [NSPredicate predicateWithFormat:@"identifier==max(identifier)"];
@@ -80,7 +80,7 @@
 
 -(NSInteger)fetchAutoIncrementIdForMarketinContext:(NSManagedObjectContext * _Nullable)context error:(NSError**)error {
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Market" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCMarketEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         request.predicate = [NSPredicate predicateWithFormat:@"identifier==max(identifier)"];
@@ -99,7 +99,7 @@
 
 -(NSArray* _Nonnull)allMarketsInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Market" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCMarketEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         
@@ -117,7 +117,7 @@
 
 -(NSArray* _Nonnull)marketsForNames:(NSArray* _Nonnull)names inContext:(NSManagedObjectContext * _Nullable)context error:(NSError**)error {
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Market" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCMarketEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         request.predicate = [NSPredicate predicateWithFormat:@"name IN %@",names];
@@ -136,7 +136,7 @@
 
 -(NSArray* _Nonnull)exchangesForNames:(NSArray* _Nonnull)names inContext:(NSManagedObjectContext * _Nullable)context error:(NSError**)error {
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Exchange" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCExchangeEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         request.predicate = [NSPredicate predicateWithFormat:@"name IN %@",names];
@@ -155,7 +155,7 @@
 
 -(DCMarketEntity* _Nullable)marketNamed:(NSString* _Nonnull)marketName inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Market" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCMarketEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         request.predicate = [NSPredicate predicateWithFormat:@"name = %@",marketName];
@@ -175,7 +175,7 @@
 
 -(DCExchangeEntity* _Nullable)exchangeNamed:(NSString* _Nonnull)exchangeName inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Exchange" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCExchangeEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         request.predicate = [NSPredicate predicateWithFormat:@"name = %@",exchangeName];
@@ -195,7 +195,7 @@
 
 -(DCMarketEntity* _Nullable)marketWithIdentifier:(NSUInteger)marketIdentifier inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error{
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Market" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCMarketEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         request.predicate = [NSPredicate predicateWithFormat:@"identifier = %d",marketIdentifier];
@@ -215,7 +215,7 @@
 
 -(DCExchangeEntity* _Nullable)exchangeWithIdentifier:(NSUInteger)exchangeIdentifier inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Exchange" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCExchangeEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         request.predicate = [NSPredicate predicateWithFormat:@"identifier = %d",exchangeIdentifier];
@@ -237,7 +237,7 @@
 
 -(BOOL)hasWalletMasterAddress:(NSString* _Nonnull)masterPublicKeyHash inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"WalletMasterAddress" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCWalletMasterAddressEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         [request setPredicate:[NSPredicate predicateWithFormat:@"masterBIP32NodeKey == %@ OR masterBIP44NodeKey == %@",masterPublicKeyHash,masterPublicKeyHash]];
@@ -255,7 +255,7 @@
 
 -(NSArray * _Nonnull)walletAddressesInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"WalletAddress" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCWalletAddressEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         
@@ -273,7 +273,7 @@
 
 -(NSArray * _Nonnull)masternodesInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Masternode" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCMasternodeEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         
@@ -291,7 +291,7 @@
 
 -(NSUInteger)countMasternodesInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Masternode" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCMasternodeEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         

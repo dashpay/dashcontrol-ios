@@ -156,7 +156,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                         NSInteger marketIdentifier = [[DCCoreDataManager sharedManager] fetchAutoIncrementIdForMarketinContext:context error:&error];
                         if (!error) {
                             for (NSString * marketName in novelMarkets) {
-                                DCMarketEntity *market = [NSEntityDescription insertNewObjectForEntityForName:@"Market" inManagedObjectContext:context];
+                                DCMarketEntity *market = [NSEntityDescription insertNewObjectForEntityForName:@"DCMarketEntity" inManagedObjectContext:context];
                                 market.identifier = marketIdentifier;
                                 market.name = marketName;
                                 marketIdentifier++;
@@ -171,7 +171,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                         NSInteger exchangeIdentifier = [[DCCoreDataManager sharedManager] fetchAutoIncrementIdForExchangeinContext:context error:&error];
                         if (!error) {
                             for (NSString * exchangeName in novelExchanges) {
-                                DCExchangeEntity *exchange = [NSEntityDescription insertNewObjectForEntityForName:@"Exchange" inManagedObjectContext:context];
+                                DCExchangeEntity *exchange = [NSEntityDescription insertNewObjectForEntityForName:@"DCExchangeEntity" inManagedObjectContext:context];
                                 exchange.identifier = exchangeIdentifier;
                                 exchange.name = exchangeName;
                                 exchangeIdentifier++;
@@ -356,7 +356,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         DCExchangeEntity * exchange = error?nil:[[DCCoreDataManager sharedManager] exchangeNamed:exchangeName inContext:context error:&error];
         if (!error && market && exchange && [jsonArray count]) {
             context.automaticallyMergesChangesFromParent = TRUE;
-            context.mergePolicy = NSOverwriteMergePolicy;
+            context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
             NSInteger count = 0;
             
 #define FormatChartTimeInterval(x) [NSString stringWithFormat:@"CT%ld",(long)x]
@@ -432,7 +432,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                             }
                             if (error) break;
                             
-                            DCChartDataEntryEntity *chartDataEntry = (DCChartDataEntryEntity*)[NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
+                            DCChartDataEntryEntity *chartDataEntry = (DCChartDataEntryEntity*)[NSEntityDescription insertNewObjectForEntityForName:@"DCChartDataEntryEntity" inManagedObjectContext:context];
                             chartDataEntry.time = intervalStartTime;
                             chartDataEntry.open = [[[intervalArray firstObject] objectForKey:@"open"] doubleValue];
                             chartDataEntry.high = [[intervalArray valueForKeyPath:@"@max.high"] doubleValue];
@@ -459,7 +459,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             if (!error) {
                 
                 for (NSDictionary *jsonObject in jsonArray) {
-                    DCChartDataEntryEntity *chartDataEntry = (DCChartDataEntryEntity*)[NSEntityDescription insertNewObjectForEntityForName:@"ChartDataEntry" inManagedObjectContext:context];
+                    DCChartDataEntryEntity *chartDataEntry = (DCChartDataEntryEntity*)[NSEntityDescription insertNewObjectForEntityForName:@"DCChartDataEntryEntity" inManagedObjectContext:context];
                     chartDataEntry.time = [jsonObject objectForKey:@"time"];
                     chartDataEntry.open = [[jsonObject objectForKey:@"open"] doubleValue];
                     chartDataEntry.high = [[jsonObject objectForKey:@"high"] doubleValue];
