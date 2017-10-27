@@ -199,44 +199,46 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 #pragma mark - Core Data related
 
 -(void)updateBudget:(NSDictionary *)jsonDic {
-    NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
-    [container performBackgroundTask:^(NSManagedObjectContext *context) {
-        
-        DCBudgetEntity *budget;
-        NSMutableArray *existingBudgets = [self fetchAllObjectsForEntity:@"DCBudgetEntity" inContext:context];
-        if (existingBudgets.count == 0) {
-            budget = [NSEntityDescription insertNewObjectForEntityForName:@"DCBudgetEntity" inManagedObjectContext:context];
-        } else {
-            budget = existingBudgets.firstObject;
-        }
-        
-        NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-        [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        
-        budget.totalAmount = [[jsonDic objectForKey:@"total_amount"] doubleValue];
-        budget.allotedAmount = [[jsonDic objectForKey:@"alloted_amount"] doubleValue];
-        budget.paymentDate = [df dateFromString:[jsonDic objectForKey:@"payment_date"]];
-        budget.paymentDateHuman = [jsonDic objectForKey:@"payment_date_human"];
-        budget.superblock = [[jsonDic objectForKey:@"superblock"] intValue];
-        
-        context.automaticallyMergesChangesFromParent = TRUE;
-        context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-        
-        NSError *error = nil;
-        if (![context save:&error]) {
-            NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-            abort();
-        }
-        else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-                [notificationCenter postNotificationName:BUDGET_DID_UPDATE_NOTIFICATION
-                                                  object:nil
-                                                userInfo:nil];
-            });
-        }
-    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
+        [container performBackgroundTask:^(NSManagedObjectContext *context) {
+            
+            DCBudgetEntity *budget;
+            NSMutableArray *existingBudgets = [self fetchAllObjectsForEntity:@"DCBudgetEntity" inContext:context];
+            if (existingBudgets.count == 0) {
+                budget = [NSEntityDescription insertNewObjectForEntityForName:@"DCBudgetEntity" inManagedObjectContext:context];
+            } else {
+                budget = existingBudgets.firstObject;
+            }
+            
+            NSDateFormatter *df = [[NSDateFormatter alloc] init];
+            [df setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+            [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            
+            budget.totalAmount = [[jsonDic objectForKey:@"total_amount"] doubleValue];
+            budget.allotedAmount = [[jsonDic objectForKey:@"alloted_amount"] doubleValue];
+            budget.paymentDate = [df dateFromString:[jsonDic objectForKey:@"payment_date"]];
+            budget.paymentDateHuman = [jsonDic objectForKey:@"payment_date_human"];
+            budget.superblock = [[jsonDic objectForKey:@"superblock"] intValue];
+            
+            context.automaticallyMergesChangesFromParent = TRUE;
+            context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+            
+            NSError *error = nil;
+            if (![context save:&error]) {
+                NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+                abort();
+            }
+            else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+                    [notificationCenter postNotificationName:BUDGET_DID_UPDATE_NOTIFICATION
+                                                      object:nil
+                                                    userInfo:nil];
+                });
+            }
+        }];
+    });
 }
 
 -(void)updateProposals:(NSArray *)proposalsArray {
