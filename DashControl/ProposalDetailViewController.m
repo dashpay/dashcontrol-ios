@@ -45,7 +45,6 @@ static NSString *CellDetailDescriptionDetailIdentifier = @"ProposalDetailDescrip
      object:nil];
     
     [self fetchProposalDetail];
-    [self forceTouchIntialize];
 }
 
 -(void)fetchProposalDetail {
@@ -193,54 +192,5 @@ static NSString *CellDetailDescriptionDetailIdentifier = @"ProposalDetailDescrip
         return nil;
     }
 }
-
-#pragma mark - 3D Touch
--(void)forceTouchIntialize{
-    if ([self isForceTouchAvailable]) {
-        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
-    }
-}
-
-- (BOOL)isForceTouchAvailable {
-    BOOL isForceTouchAvailable = NO;
-    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)]) {
-        isForceTouchAvailable = self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
-    }
-    return isForceTouchAvailable;
-}
-
-- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    [super traitCollectionDidChange:previousTraitCollection];
-    if ([self isForceTouchAvailable]) {
-        if (!self.previewingContext) {
-            self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
-        }
-    } else {
-        if (self.previewingContext) {
-            [self unregisterForPreviewingWithContext:self.previewingContext];
-            self.previewingContext = nil;
-        }
-    }
-}
-
-- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing> )previewingContext viewControllerForLocation:(CGPoint)location{
-    
-    CGPoint cellPostion = [self.tableView convertPoint:location fromView:self.view];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:cellPostion];
-    if (indexPath && (indexPath.row == 0 || indexPath.row == 6)) {
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:self.currentProposal.dwUrl]];
-        svc.delegate = self;
-        [svc registerForPreviewingWithDelegate:self sourceView:self.view];
-        previewingContext.sourceRect = [self.view convertRect:cell.frame fromView:self.tableView];
-        return svc;
-    }
-    
-    return nil;
-}
--(void)previewingContext:(id )previewingContext commitViewController: (UIViewController *)viewControllerToCommit {
-    [self.navigationController showViewController:viewControllerToCommit sender:nil];
-}
-
 
 @end

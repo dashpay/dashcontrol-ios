@@ -39,8 +39,6 @@ static NSString *CellIdentifier = @"PostCell";
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         exit(-1);  // Fail
     }
-    
-    [self forceTouchIntialize];
 }
 
 - (void)viewDidUnload
@@ -356,55 +354,6 @@ NSString *const SearchBarIsFirstResponderKey = @"SearchBarIsFirstResponderKey";
     
     // restore the text in the search field
     self.searchController.searchBar.text = [coder decodeObjectForKey:SearchBarTextKey];
-}
-
-#pragma mark - 3D Touch
--(void)forceTouchIntialize{
-    if ([self isForceTouchAvailable]) {
-        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
-    }
-}
-
-- (BOOL)isForceTouchAvailable {
-    BOOL isForceTouchAvailable = NO;
-    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)]) {
-        isForceTouchAvailable = self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
-    }
-    return isForceTouchAvailable;
-}
-
-- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    [super traitCollectionDidChange:previousTraitCollection];
-    if ([self isForceTouchAvailable]) {
-        if (!self.previewingContext) {
-            self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
-        }
-    } else {
-        if (self.previewingContext) {
-            [self unregisterForPreviewingWithContext:self.previewingContext];
-            self.previewingContext = nil;
-        }
-    }
-}
-
-- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing> )previewingContext viewControllerForLocation:(CGPoint)location{
-    
-    CGPoint cellPostion = [self.tableView convertPoint:location fromView:self.view];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:cellPostion];
-    if (indexPath) {
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        DCPostEntity *feedItem = [_fetchedResultsController objectAtIndexPath:indexPath];
-        SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:feedItem.link]];
-        svc.delegate = self;
-        [svc registerForPreviewingWithDelegate:self sourceView:self.view];
-        previewingContext.sourceRect = [self.view convertRect:cell.frame fromView:self.tableView];
-        return svc;
-    }
-    
-    return nil;
-}
--(void)previewingContext:(id )previewingContext commitViewController: (UIViewController *)viewControllerToCommit {
-    [self.navigationController showViewController:viewControllerToCommit sender:nil];
 }
 
 #pragma mark - NSUserActivity continueUserActivity

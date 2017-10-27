@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <SafariServices/SafariServices.h>
 
-@interface ProposalDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, SFSafariViewControllerDelegate, UIViewControllerPreviewingDelegate>
+@interface ProposalDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, SFSafariViewControllerDelegate>
 
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 
@@ -17,8 +17,5 @@
 
 @property (strong, nonatomic) UIView *budgetView;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-
-//3D Touch
-@property (nonatomic, strong) id previewingContext;
 
 @end
