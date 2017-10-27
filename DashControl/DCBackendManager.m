@@ -17,7 +17,7 @@
 
 #define DASHCONTROL_SERVER_VERSION 0
 
-#define PRODUCTION_URL @"http://dashpay.info"
+#define PRODUCTION_URL @"https://dashpay.info"
 
 #define DEVELOPMENT_URL @"http://cms-swestrich.c9users.io"
 
