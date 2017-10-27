@@ -350,7 +350,9 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     if (paramDictionary[@"callback"]) {
         if ([[paramDictionary[@"callback"] lowercaseString] isEqualToString:@"masterpublickey"]) {
             [[DCWalletManager sharedInstance] importWalletMasterAddressFromSource:@"Dashwallet" withExtended32PublicKey:paramDictionary[@"masterPublicKeyBIP32"] extended44PublicKey:paramDictionary[@"masterPublicKeyBIP44"] completion:^(BOOL success) {
-                
+                if (success) {
+                    [[DCBackendManager sharedInstance] updateBloomFilter:[[DCWalletManager sharedInstance] bloomFilter]];
+                }
             }];
         }
     }

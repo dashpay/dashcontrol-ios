@@ -151,7 +151,7 @@
                 DCPostEntity *post;
                 NSMutableArray *existingPosts = [self fetchPostWithGUID:[item child:@"guid"].text inContext:context];
                 if (!existingPosts.count) {
-                    post = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:context];
+                    post = [NSEntityDescription insertNewObjectForEntityForName:@"DCPostEntity" inManagedObjectContext:context];
                 } else {
                     post = existingPosts.firstObject;
                 }
@@ -182,7 +182,7 @@
 
 -(NSMutableArray *)fetchPostWithGUID:(NSString *)guid inContext:(NSManagedObjectContext *)context {
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Post" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCPostEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         

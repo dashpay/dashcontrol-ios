@@ -477,6 +477,8 @@
     }];
 }
 
+#pragma mark - Registering
+
 -(void)registerDeviceForDeviceToken:(NSData*)deviceToken {
     
     struct utsname systemInfo;
@@ -505,6 +507,8 @@
         NSLog(@"URL Session Task Failed: %@", [error localizedDescription]);
     }];
 }
+
+#pragma mark - Notifications
 
 -(void)updateBloomFilter:(DCServerBloomFilter*)filter {
     [self.authenticatedManager POST:DASHCONTROL_URL(@"filter") parameters:@{} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {

@@ -172,7 +172,7 @@ static NSString *CellIdentifier = @"PostCell";
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Post" inManagedObjectContext:managedObjectContext];
+                                   entityForName:@"DCPostEntity" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
     NSString *lang = [[DCRSSFeedManager sharedManager] feedLanguage];
