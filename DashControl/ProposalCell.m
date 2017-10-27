@@ -142,8 +142,8 @@
     [_buttonMonths.titleLabel setFont:[UIFont systemFontOfSize:10 weight:UIFontWeightRegular]];
     [_buttonComments.titleLabel setFont:[UIFont systemFontOfSize:10 weight:UIFontWeightRegular]];
     
-    [_buttonMonths setTitle:[NSString stringWithFormat:@"%d %@ %@", self.currentProposal.remainingPaymentCount, self.currentProposal.remainingPaymentCount > 1 ? NSLocalizedString(@"months", nil) : NSLocalizedString(@"month", nil), NSLocalizedString(@"remaining", nil)] forState:UIControlStateNormal];
-    [_buttonComments setTitle:[NSString stringWithFormat:@"%d %@", self.currentProposal.commentAmount, self.currentProposal.commentAmount > 1 ? NSLocalizedString(@"comments", nil) : NSLocalizedString(@"comment", nil)] forState:UIControlStateNormal];
+    [_buttonMonths setTitle:[NSString stringWithFormat:NSLocalizedString(@"%d months remaining", @"Proposals View"), self.currentProposal.remainingPaymentCount] forState:UIControlStateNormal];
+    [_buttonComments setTitle:[NSString stringWithFormat:NSLocalizedString(@"%d comments", @"Proposals View"), self.currentProposal.commentAmount] forState:UIControlStateNormal];
     
     //progressView;
 }

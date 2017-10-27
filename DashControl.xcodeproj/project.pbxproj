@@ -12,6 +12,7 @@
 		241719E21F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DC1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m */; };
 		241719E31F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DE1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m */; };
 		241719E41F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719E01F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m */; };
+		241A70901FA33A6E00FCC808 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 241A708F1FA33A6E00FCC808 /* Localizable.stringsdict */; };
 		2432DDA01F54395600A14112 /* ProposalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432DD9F1F54395600A14112 /* ProposalCell.m */; };
 		24438DEF1F5FCE7D00763A14 /* ProposalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 244857901F59CCBF004DE273 /* ProposalDetailViewController.m */; };
 		24438DF31F5FEA6600763A14 /* ProposalHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24438DF21F5FEA6600763A14 /* ProposalHeaderView.m */; };
@@ -128,6 +129,7 @@
 		241719DE1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCCommentEntity+CoreDataClass.m"; sourceTree = "<group>"; };
 		241719DF1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCCommentEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
 		241719E01F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCCommentEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		241A708F1FA33A6E00FCC808 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		2432DD9E1F54395600A14112 /* ProposalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalCell.h; sourceTree = "<group>"; };
 		2432DD9F1F54395600A14112 /* ProposalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalCell.m; sourceTree = "<group>"; };
 		243D272C1F60817500D53D99 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
@@ -630,6 +632,7 @@
 				FB84EDCF1F32898700E4D400 /* Assets.xcassets */,
 				FB84EDC11F32898700E4D400 /* main.m */,
 				24E584151F3ADCEF00A12087 /* DashControl-PrefixHeader.pch */,
+				241A708F1FA33A6E00FCC808 /* Localizable.stringsdict */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -957,6 +960,7 @@
 			files = (
 				24FC99F61F5EA0F40054C2A8 /* iconReply.png in Resources */,
 				24FC99F71F5EA0F40054C2A8 /* iconReply@2x.png in Resources */,
+				241A70901FA33A6E00FCC808 /* Localizable.stringsdict in Resources */,
 				24FC99F41F5EA0F40054C2A8 /* iconAttachment.png in Resources */,
 				24FC99F51F5EA0F40054C2A8 /* iconAttachment@2x.png in Resources */,
 				247B8F551F5FBFFB005BC14A /* dash_icon_tmp.png in Resources */,

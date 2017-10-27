@@ -23,7 +23,8 @@
 
 -(void)configureWithProposal:(DCProposalEntity*)proposal {
     _labelCompletedPayments.text = NSLocalizedString(@"Completed payments", @"Proposal Detail View");
-    _labelMonthRemaining.text = [NSString stringWithFormat:@"%d %@", proposal.remainingPaymentCount, proposal.remainingPaymentCount>1?NSLocalizedString(@"months remaining", @"Proposal Detail View"):NSLocalizedString(@"month remaining", @"Proposal Detail View")];
+    
+    _labelMonthRemaining.text = [NSString stringWithFormat:NSLocalizedString(@"%d months remaining", @"Proposals View"), proposal.remainingPaymentCount];
     
     NSString *completedPaymentAmountString = [NSString stringWithFormat:@"%d", proposal.totalPaymentCount-proposal.remainingPaymentCount];
     NSString *totallingInString = NSLocalizedString(@"totalling in", @"Proposal Detail View");
