@@ -9,7 +9,7 @@
 #import "PriceViewController.h"
 #import "DCCoreDataManager.h"
 #import "DCChartDataEntryEntity+CoreDataProperties.h"
-#import "ChartTimeFormatter.h"
+#import "DCChartTimeFormatter.h"
 
 @interface PriceViewController ()
 
@@ -55,7 +55,7 @@
     _chartView.pinchZoomEnabled = NO;
     _chartView.drawGridBackgroundEnabled = NO;
     
-    ChartTimeFormatter * chartTimeFormatter = [[ChartTimeFormatter alloc] init];
+    DCChartTimeFormatter * chartTimeFormatter = [[DCChartTimeFormatter alloc] init];
     
     NSInteger steps = [chartTimeFormatter stepsForChartTimeInterval:ChartTimeInterval_5Mins timeFrame:ChartTimeFrame_6H];
     
@@ -86,7 +86,7 @@
             self.selectedMarket = currentMarket;
             self.selectedExchange = currentExchange;
             self.timeInterval = ChartTimeInterval_5Mins;
-            self.startTime = [NSDate dateWithTimeIntervalSinceNow:-[ChartTimeFormatter timeIntervalForChartTimeFrame:ChartTimeFrame_6H]];
+            self.startTime = [NSDate dateWithTimeIntervalSinceNow:-[DCChartTimeFormatter timeIntervalForChartTimeFrame:ChartTimeFrame_6H]];
             self.endTime = nil;
             [self updateChartData];
         }
@@ -123,7 +123,7 @@
         for (int i = 0; i < chartData.count; i++)
         {
             DCChartDataEntryEntity * entry = [chartData objectAtIndex:i];
-            NSInteger xIndex = ([entry.time timeIntervalSince1970] - baseTime)/[ChartTimeFormatter timeIntervalForChartTimeInterval:self.timeInterval];
+            NSInteger xIndex = ([entry.time timeIntervalSince1970] - baseTime)/[DCChartTimeFormatter timeIntervalForChartTimeInterval:self.timeInterval];
             [charDataPoints addObject:[[CandleChartDataEntry alloc] initWithX:xIndex shadowH:entry.high shadowL:entry.low open:entry.open close:entry.close icon: [UIImage imageNamed:@"icon"]]];
         }
         
@@ -263,16 +263,16 @@
 
 -(IBAction)chooseTimeFrame:(id)sender {
     ChartTimeFrame chartTimeFrame = [((UISegmentedControl*)sender) selectedSegmentIndex];
-    NSTimeInterval timeFrame = [ChartTimeFormatter timeIntervalForChartTimeFrame:chartTimeFrame];
+    NSTimeInterval timeFrame = [DCChartTimeFormatter timeIntervalForChartTimeFrame:chartTimeFrame];
     self.startTime = [NSDate dateWithTimeIntervalSinceNow:-timeFrame];
     [self updateChartData];
     
-    NSDate * intervalStart = [ChartTimeFormatter intervalStartForExchangeNamed:self.selectedExchange.name marketNamed:self.selectedMarket.name];
+    NSDate * intervalStart = [DCChartTimeFormatter intervalStartForExchangeNamed:self.selectedExchange.name marketNamed:self.selectedMarket.name];
     if ([intervalStart compare:self.startTime] == NSOrderedDescending) {
         //lets go get more data
-        NSDate * oneWeekBefore = [intervalStart dateByAddingTimeInterval:-[ChartTimeFormatter timeIntervalForChartTimeFrame:ChartTimeFrame_1W]];
+        NSDate * oneWeekBefore = [intervalStart dateByAddingTimeInterval:-[DCChartTimeFormatter timeIntervalForChartTimeFrame:ChartTimeFrame_1W]];
         NSDate * getStartTime = ([self.startTime compare:oneWeekBefore] == NSOrderedAscending)?oneWeekBefore:self.startTime;
-        [[DCBackendManager sharedManager] getChartDataForExchange:self.selectedExchange.name forMarket:self.selectedMarket.name start:getStartTime end:nil clb:^(NSError * _Nullable error) {
+        [[DCBackendManager sharedInstance] getChartDataForExchange:self.selectedExchange.name forMarket:self.selectedMarket.name start:getStartTime end:nil clb:^(NSError * _Nullable error) {
             [self chooseTimeFrame:sender];
         }];
     }

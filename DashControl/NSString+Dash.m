@@ -26,7 +26,7 @@
 #import "NSString+Dash.h"
 #import "NSData+Dash.h"
 #import "NSMutableData+Dash.h"
-#import "UIImage+Utils.h"
+#import "UIImage+Sugar.h"
 
 
 static const UniChar base58chars[] = {

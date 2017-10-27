@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ChartTimeFormatter.h"
+#import "DCChartTimeFormatter.h"
 
 @interface DCCoreDataManager : NSObject
 

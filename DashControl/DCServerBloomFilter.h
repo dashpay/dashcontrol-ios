@@ -27,10 +27,8 @@
 
 #define BLOOM_DEFAULT_FALSEPOSITIVE_RATE 0.0005 // same as bitcoinj, use 0.00005 for less data, 0.001 for good anonymity
 #define BLOOM_REDUCED_FALSEPOSITIVE_RATE 0.00005
-#define BLOOM_UPDATE_NONE                0
-#define BLOOM_UPDATE_ALL                 1
-#define BLOOM_UPDATE_P2PUBKEY_ONLY       2
-#define BLOOM_MAX_FILTER_LENGTH          36000 // this allows for 10,000 elements with a <0.0001% false positive rate
+#define BLOOM_MAX_FILTER_LENGTH          50000 // this allows for 10,000 elements with a <0.0001% false positive rate
+#define BLOOM_FILTER_MAGIC 0xfba4c795
 
 @interface DCServerBloomFilter : NSObject
 
@@ -40,7 +38,7 @@
 @property (nonatomic, readonly) double falsePositiveRate;
 @property (nonatomic, readonly) NSUInteger length;
 
-- (instancetype)initWithFalsePositiveRate:(double)fpRate forElementCount:(NSUInteger)count flags:(uint8_t)flags;
+- (instancetype)initWithFalsePositiveRate:(double)fpRate forElementCount:(NSUInteger)count;
 - (BOOL)containsData:(NSData *)data;
 - (void)insertData:(NSData *)data;
 

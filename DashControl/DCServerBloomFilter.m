@@ -73,7 +73,7 @@ static uint32_t murmur3_32(const void *data, size_t len, uint32_t seed)
 
 @implementation DCServerBloomFilter
 
-- (instancetype)initWithFalsePositiveRate:(double)fpRate forElementCount:(NSUInteger)count flags:(uint8_t)flags
+- (instancetype)initWithFalsePositiveRate:(double)fpRate forElementCount:(NSUInteger)count
 {
     if (! (self = [self init])) return nil;
 
@@ -83,13 +83,12 @@ static uint32_t murmur3_32(const void *data, size_t len, uint32_t seed)
     self.filter = [NSMutableData dataWithLength:(length < 1) ? 1 : length];
     self.hashFuncs = ((self.filter.length*8.0)/count)*M_LN2;
     if (self.hashFuncs > BLOOM_MAX_HASH_FUNCS) self.hashFuncs = BLOOM_MAX_HASH_FUNCS;
-    _flags = flags;
     return self;
 }
 
 - (uint32_t)hash:(NSData *)data hashNum:(uint32_t)hashNum
 {
-    return murmur3_32(data.bytes, data.length, hashNum*0xfba4c795) % (self.filter.length*8);
+    return murmur3_32(data.bytes, data.length, hashNum*BLOOM_FILTER_MAGIC) % (self.filter.length*8);
 }
 
 - (BOOL)containsData:(NSData *)data
@@ -130,7 +129,6 @@ static uint32_t murmur3_32(const void *data, size_t len, uint32_t seed)
     [d appendVarInt:self.length];
     [d appendData:self.filter];
     [d appendUInt32:self.hashFuncs];
-    [d appendUInt8:self.flags];
     return d;
 }
 

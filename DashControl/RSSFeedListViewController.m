@@ -26,7 +26,7 @@ static NSString *CellIdentifier = @"PostCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    managedObjectContext = [[RSSFeedManager sharedManager] managedObjectContext];
+    managedObjectContext = [[DCRSSFeedManager sharedManager] managedObjectContext];
 
     [self cfgSearchController];
     
@@ -87,7 +87,7 @@ static NSString *CellIdentifier = @"PostCell";
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    Post *feedItem = [_fetchedResultsController objectAtIndexPath:indexPath];
+    DCPostEntity *feedItem = [_fetchedResultsController objectAtIndexPath:indexPath];
     [(RSSFeedListTableViewCell*)cell setCurrentPost:feedItem];
     [(RSSFeedListTableViewCell*)cell cfgViews];
 }
@@ -151,7 +151,7 @@ static NSString *CellIdentifier = @"PostCell";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    Post *feedItem = [_fetchedResultsController objectAtIndexPath:indexPath];
+    DCPostEntity *feedItem = [_fetchedResultsController objectAtIndexPath:indexPath];
     SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:feedItem.link]];
     svc.delegate = self;
     [self presentViewController:svc animated:YES completion:nil];
@@ -175,7 +175,7 @@ static NSString *CellIdentifier = @"PostCell";
                                    entityForName:@"Post" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    NSString *lang = [[RSSFeedManager sharedManager] feedLanguage];
+    NSString *lang = [[DCRSSFeedManager sharedManager] feedLanguage];
     NSPredicate *langPredicate = [NSPredicate predicateWithFormat:@"lang == %@", lang ? lang : @"en"];
     NSString *searchString = self.searchController.searchBar.text;
     if (searchString.length > 0)
@@ -393,7 +393,7 @@ NSString *const SearchBarIsFirstResponderKey = @"SearchBarIsFirstResponderKey";
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:cellPostion];
     if (indexPath) {
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        Post *feedItem = [_fetchedResultsController objectAtIndexPath:indexPath];
+        DCPostEntity *feedItem = [_fetchedResultsController objectAtIndexPath:indexPath];
         SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:feedItem.link]];
         svc.delegate = self;
         [svc registerForPreviewingWithDelegate:self sourceView:self.view];
@@ -412,10 +412,10 @@ NSString *const SearchBarIsFirstResponderKey = @"SearchBarIsFirstResponderKey";
 -(void)simulateNavitationToPostWithGUID:(NSString*)guid {
     
     if (!managedObjectContext) {
-        managedObjectContext = [[RSSFeedManager sharedManager] managedObjectContext];
+        managedObjectContext = [[DCRSSFeedManager sharedManager] managedObjectContext];
     }
     
-    Post *feedItem;
+    DCPostEntity *feedItem;
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Post" inManagedObjectContext:managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entityDescription];

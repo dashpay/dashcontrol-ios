@@ -49,7 +49,7 @@ static NSString *CellDetailDescriptionDetailIdentifier = @"ProposalDetailDescrip
 }
 
 -(void)fetchProposalDetail {
-    [[ProposalsManager sharedManager] fetchProposalsWithHash:self.currentProposal.hashProposal];
+    [[DCProposalsManager sharedManager] fetchProposalsWithHash:self.currentProposal.hashProposal];
 }
 
 -(void)proposalDidUpdate:(NSNotification*)notification {

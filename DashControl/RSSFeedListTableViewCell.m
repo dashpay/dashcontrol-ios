@@ -32,7 +32,7 @@
     
     // You should not call an ivar from a block (so get a weak reference to the imageView)
     __weak UIImageView *weakImageView = self.imageViewIcon;
-    __weak Post *weakPost = self.currentPost;
+    __weak DCPostEntity *weakPost = self.currentPost;
     [self.imageViewIcon setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:[UIImage imageNamed:@"dash_icon_tmp"] success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
         UIImageView *strongImageView = weakImageView; // make local strong reference to protect against race conditions
         if (!strongImageView) return;

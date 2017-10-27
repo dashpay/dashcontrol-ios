@@ -7,14 +7,13 @@
 //
 
 #import "AppDelegate.h"
-#import <sys/utsname.h>
 
 #import "RSSFeedListViewController.h"
 #import "ProposalsViewController.h"
-#import "PortfolioManager.h"
+#import "DCPortfolioManager.h"
 #import "DCCoreDataManager.h"
-
 #import "DCWalletManager.h"
+#import "DCBackendManager.h"
 
 #define kRSSFeedViewControllerIndex 0
 #define kProposalsViewControllerIndex 2
@@ -81,18 +80,18 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     [self registerForRemoteNotifications];
     
     //Init the RSSFeedManager Manager.
-    [RSSFeedManager sharedManager];
+    [DCRSSFeedManager sharedManager];
     
     //Init the Price Data Manager
-    [DCBackendManager sharedManager];
+    [DCBackendManager sharedInstance];
     
     //Init the Proposals Manager
-    [ProposalsManager sharedManager];
+    [DCProposalsManager sharedManager];
     
     //Init the Core Data Manager
     [DCCoreDataManager sharedManager];
     
-    [[PortfolioManager sharedManager] updateAmounts];
+    [[DCPortfolioManager sharedManager] updateAmounts];
     
     return YES;
 }
@@ -272,7 +271,7 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    [self registerDeviceForDeviceToken:deviceToken];
+    [[DCBackendManager sharedInstance] registerDeviceForDeviceToken:deviceToken];
 }
 
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
@@ -356,60 +355,6 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
         }
     }
     return TRUE;
-}
-
-#pragma mark - Register Device
-
--(void)registerDeviceForDeviceToken:(NSData*)deviceToken {
-    
-    NSString *token_string = [[[[deviceToken description]    stringByReplacingOccurrencesOfString:@"<"withString:@""]
-                               stringByReplacingOccurrencesOfString:@">" withString:@""]
-                              stringByReplacingOccurrencesOfString: @" " withString: @""];
-    
-    NSURLSessionConfiguration* sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:nil delegateQueue:nil];
-    NSURL* URL = [NSURL URLWithString:@"https://dashpay.info/api/v0/device/"];
-    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
-    request.HTTPMethod = @"POST";
-    
-    // Headers
-    [request addValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    // Form URL-Encoded Body
-    NSDictionary* bodyParameters = @{
-                                     @"version": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
-                                     @"model": deviceName(),
-                                     @"os": @"ios",
-                                     @"device_id": [[[UIDevice currentDevice] identifierForVendor] UUIDString],
-                                     @"os_version": [[UIDevice currentDevice] systemVersion],
-                                     @"token": token_string,
-                                     };
-    request.HTTPBody = [NSStringFromQueryParameters(bodyParameters) dataUsingEncoding:NSUTF8StringEncoding];
-    
-    /* Start a new Task */
-    NSURLSessionDataTask* task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error == nil) {
-            // Success
-            NSLog(@"Token registered %@", token_string);
-        }
-        else {
-            // Failure
-            NSLog(@"URL Session Task Failed: %@", [error localizedDescription]);
-        }
-    }];
-    [task resume];
-    [session finishTasksAndInvalidate];
-}
-
-#pragma mark - Utils
-
-NSString* deviceName()
-{
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    
-    return [NSString stringWithCString:systemInfo.machine
-                              encoding:NSUTF8StringEncoding];
 }
 
 @end

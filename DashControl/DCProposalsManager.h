@@ -1,5 +1,5 @@
 //
-//  ProposalsManager.h
+//  DCProposalsManager.h
 //  DashControl
 //
 //  Created by Manuel Boyer on 23/08/2017.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ProposalsManager : NSObject
+@interface DCProposalsManager : NSObject
 
 #define PROPOSAL_DID_UPDATE_NOTIFICATION @"PROPOSAL_DID_UPDATE_NOTIFICATION"
 #define BUDGET_DID_UPDATE_NOTIFICATION @"BUDGET_DID_UPDATE_NOTIFICATION"

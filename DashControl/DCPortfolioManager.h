@@ -1,5 +1,5 @@
 //
-//  PortfolioManager.h
+//  DCPortfolioManager.h
 //  DashControl
 //
 //  Created by Sam Westrich on 10/4/17.
@@ -10,7 +10,7 @@
 
 #define PORTFOLIO_DID_UPDATE_NOTIFICATION @"PORTFOLIO_DID_UPDATE_NOTIFICATION"
 
-@interface PortfolioManager : NSObject
+@interface DCPortfolioManager : NSObject
 
 @property (nonatomic, strong) NSManagedObjectContext * _Nullable managedObjectContext;
 

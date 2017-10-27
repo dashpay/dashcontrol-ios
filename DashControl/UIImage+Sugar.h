@@ -26,7 +26,7 @@
 #import <UIKit/UIKit.h>
 @class CIColor;
 
-@interface UIImage (Utils)
+@interface UIImage (Sugar)
 
 + (instancetype)imageWithQRCodeData:(NSData *)data color:(CIColor *)color;
 

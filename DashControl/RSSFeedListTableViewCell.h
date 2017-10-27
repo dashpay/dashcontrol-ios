@@ -10,7 +10,7 @@
 
 @interface RSSFeedListTableViewCell : UITableViewCell
 
-@property (nonatomic, retain) Post *currentPost;
+@property (nonatomic, retain) DCPostEntity *currentPost;
 
 @property (weak, nonatomic) IBOutlet UILabel *lbPubDate;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;

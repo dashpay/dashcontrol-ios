@@ -86,7 +86,7 @@ static NSString *CellIdentifier = @"ProposalCell";
 #pragma mark - Budget Updates
 
 -(void)budgetDidUpdate:(NSNotification*)notification {
-    DCBudgetEntity *budget = [[[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"DCBudgetEntity" inContext:_managedObjectContext] firstObject];
+    DCBudgetEntity *budget = [[[DCProposalsManager sharedManager] fetchAllObjectsForEntity:@"DCBudgetEntity" inContext:_managedObjectContext] firstObject];
     [_proposalHeaderView configureWithBudget:budget];
 }
 
@@ -435,7 +435,7 @@ static NSString *CellIdentifier = @"ProposalCell";
 -(void)simulateNavitationToProposalWithHash:(NSString*)hash {
     
     if (!_managedObjectContext) {
-        _managedObjectContext = [[ProposalsManager sharedManager] managedObjectContext];
+        _managedObjectContext = [[DCProposalsManager sharedManager] managedObjectContext];
     }
     
     DCProposalEntity *proposal;

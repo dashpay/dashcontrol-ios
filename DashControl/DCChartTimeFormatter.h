@@ -1,5 +1,5 @@
 //
-//  ChartTimeFormatter.h
+//  DCChartTimeFormatter.h
 //  DashControl
 //
 //  Created by Sam Westrich on 8/31/17.
@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, ChartTimeFrame) {
 };
 
 
-@interface ChartTimeFormatter : NSObject <IChartAxisValueFormatter>
+@interface DCChartTimeFormatter : NSObject <IChartAxisValueFormatter>
 
 -(NSInteger)stepsForChartTimeInterval:(ChartTimeInterval)timeInterval timeFrame:(ChartTimeFrame)TimeFrame;
 

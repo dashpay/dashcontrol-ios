@@ -9,7 +9,7 @@
 #import "AddMasternodeViewController.h"
 #import "NSString+Dash.h"
 #import "DCMasternodeEntity+CoreDataClass.h"
-#import "PortfolioManager.h"
+#import "DCPortfolioManager.h"
 
 @interface AddMasternodeViewController ()
 
@@ -36,7 +36,7 @@
     NSString * address = [self.inputField text];
     if ([address isValidDashAddress]) {
         //first lets check to see if it has 1000 dash in it
-        [[PortfolioManager sharedManager] amountAtAddress:address clb:^(uint64_t amount, NSError * _Nullable error) {
+        [[DCPortfolioManager sharedManager] amountAtAddress:address clb:^(uint64_t amount, NSError * _Nullable error) {
             if (error) {
                 if (amount < 100000000000) {
                     UIAlertController * alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Not a valid masternode address",nil) message:NSLocalizedString(@"This address does not contain the required 1000 Dash",nil) preferredStyle:UIAlertControllerStyleAlert];

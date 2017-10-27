@@ -1,19 +1,19 @@
 //
-//  Post+CoreDataProperties.h
+//  DCPostEntity+CoreDataProperties.h
 //  DashControl
 //
 //  Created by Manuel Boyer on 09/08/2017.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
-#import "Post+CoreDataClass.h"
+#import "DCPostEntity+CoreDataClass.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Post (CoreDataProperties)
+@interface DCPostEntity (CoreDataProperties)
 
-+ (NSFetchRequest<Post *> *)fetchRequest;
++ (NSFetchRequest<DCPostEntity *> *)fetchRequest;
 
 @property (nullable, nonatomic, copy) NSString *title;
 @property (nullable, nonatomic, copy) NSString *text;

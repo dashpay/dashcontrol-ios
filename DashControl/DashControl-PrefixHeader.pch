@@ -35,7 +35,7 @@
 //CoreData
 #import <CoreData/CoreData.h>
 #import "NSManagedObject+Sugar.h"
-#import "Post+CoreDataClass.h"
+#import "DCPostEntity+CoreDataClass.h"
 #import "DCChartDataEntryEntity+CoreDataClass.h"
 #import "DCBudgetEntity+CoreDataClass.h"
 #import "DCProposalEntity+CoreDataClass.h"
@@ -45,10 +45,10 @@
 
 //Other
 #import "AppDelegate.h"
-#import "RSSFeedManager.h"
+#import "DCRSSFeedManager.h"
 #import "DCBackendManager.h"
 #import "DCCoreDataManager.h"
-#import "ProposalsManager.h"
+#import "DCProposalsManager.h"
 #import "NSArray+SWAdditions.h"
 
 

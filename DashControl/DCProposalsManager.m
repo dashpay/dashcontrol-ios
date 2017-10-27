@@ -1,12 +1,12 @@
 //
-//  ProposalsManager.m
+//  DCProposalsManager.m
 //  DashControl
 //
 //  Created by Manuel Boyer on 23/08/2017.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
-#import "ProposalsManager.h"
+#import "DCProposalsManager.h"
 
 #define DASH_PROPOSALS_BUDGET_URL @"https://www.dashcentral.org/api/v1/budget"
 #define DASH_PROPOSAL_DETAIL_URL @"https://www.dashcentral.org/api/v1/proposal"
@@ -46,16 +46,16 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     return [NSURL URLWithString:URLString];
 }
 
-@interface ProposalsManager ()
+@interface DCProposalsManager ()
 @property (nonatomic, strong) Reachability *reachability;
 @end
 
-@implementation ProposalsManager
+@implementation DCProposalsManager
 
 #pragma mark - Singleton Init Methods
 
 + (id)sharedManager {
-    static ProposalsManager *sharedProposalsManager = nil;
+    static DCProposalsManager *sharedProposalsManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedProposalsManager = [[self alloc] init];

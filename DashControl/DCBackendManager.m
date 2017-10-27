@@ -10,11 +10,20 @@
 #import <AFNetworking/AFNetworking.h>
 #import "DCMarketEntity+CoreDataClass.h"
 #import "DCExchangeEntity+CoreDataClass.h"
-#import "ChartTimeFormatter.h"
+#import "DCChartTimeFormatter.h"
+#import <sys/utsname.h>
+#import "NSURL+Sugar.h"
+#import "DCEnvironment.h"
 
 #define DASHCONTROL_SERVER_VERSION 0
 
-#define DASHCONTROL_SERVER [NSString stringWithFormat:@"http://dashpay.info/api/v%d/",DASHCONTROL_SERVER_VERSION]
+#define PRODUCTION_URL @"http://dashpay.info"
+
+#define DEVELOPMENT_URL @"http://cms-swestrich.c9users.io"
+
+#define USE_PRODUCTION 0
+
+#define DASHCONTROL_SERVER [NSString stringWithFormat:@"%@/api/v%d/",USE_PRODUCTION?PRODUCTION_URL:DEVELOPMENT_URL,DASHCONTROL_SERVER_VERSION]
 
 #define DASHCONTROL_URL(x)  [DASHCONTROL_SERVER stringByAppendingString:x]
 
@@ -23,60 +32,23 @@
 #define DEFAULT_MARKET @"DEFAULT_MARKET"
 #define DEFAULT_EXCHANGE @"DEFAULT_EXCHANGE"
 
-
-
-/**
- This creates a new query parameters string from the given NSDictionary. For
- example, if the input is @{@"day":@"Tuesday", @"month":@"January"}, the output
- string will be @"day=Tuesday&month=January".
- @param queryParameters The input dictionary.
- @return The created parameters string.
- */
-
-static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
-{
-    NSMutableArray* parts = [NSMutableArray array];
-    [queryParameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        NSString *part = [NSString stringWithFormat: @"%@=%@",
-                          [key stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]],
-                          [value stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]
-                          ];
-        [parts addObject:part];
-    }];
-    return [parts componentsJoinedByString: @"&"];
-}
-
-/**
- Creates a new URL by adding the given query parameters.
- @param URL The input URL.
- @param queryParameters The query parameter dictionary to add.
- @return A new NSURL.
- */
-static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryParameters)
-{
-    NSString* URLString = [NSString stringWithFormat:@"%@?%@",
-                           [URL absoluteString],
-                           NSStringFromQueryParameters(queryParameters)
-                           ];
-    return [NSURL URLWithString:URLString];
-}
-
 @interface DCBackendManager ()
 @property (nonatomic, strong) Reachability *reachability;
 @property (nonatomic, strong) NSDateFormatter * dateFormatter;
+@property (nonatomic, strong) AFHTTPSessionManager * authenticatedManager;
 @end
 
 @implementation DCBackendManager
 
 #pragma mark - Singleton Init Methods
 
-+ (id)sharedManager {
-    static DCBackendManager *sharedChartDataImportManager = nil;
++ (id)sharedInstance {
+    static DCBackendManager *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedChartDataImportManager = [[self alloc] init];
+        sharedInstance = [[self alloc] init];
     });
-    return sharedChartDataImportManager;
+    return sharedInstance;
 }
 
 - (id)init {
@@ -123,6 +95,15 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
          }];
     }
     return self;
+}
+
+-(AFHTTPSessionManager*)authenticatedManager {
+    if (!_authenticatedManager) {
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithUsername:[[DCEnvironment sharedInstance] deviceId] password:[[DCEnvironment sharedInstance] devicePassword]];
+        self.authenticatedManager = manager;
+    }
+    return _authenticatedManager;
 }
 
 #pragma mark - Import Chart Data
@@ -240,8 +221,8 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
     [URLParams setObject:@"1" forKey:@"noLimit"];
 #endif
     
-    NSDate * intervalStart = [ChartTimeFormatter intervalStartForExchangeNamed:exchange marketNamed:market];
-    NSDate * intervalEnd = [ChartTimeFormatter intervalEndForExchangeNamed:exchange marketNamed:market];
+    NSDate * intervalStart = [DCChartTimeFormatter intervalStartForExchangeNamed:exchange marketNamed:market];
+    NSDate * intervalEnd = [DCChartTimeFormatter intervalEndForExchangeNamed:exchange marketNamed:market];
     NSDate * realStart = nil;
     NSDate * realEnd = nil;
     NSDate * knownDataStart = nil;
@@ -287,7 +268,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         realStart = [NSDate distantPast];
         knownDataStart = realStart;
     }
-    URL = NSURLByAppendingQueryParameters(URL, URLParams);
+    URL = [URL URLByAppendingQueryParameters:URLParams];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
     request.HTTPMethod = @"GET";
     
@@ -310,8 +291,8 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                 [self importJSONData:jsonArray forExchange:exchange andMarket:market clb:^void(NSError * error) {
                     if (!error) {
                         NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-                        NSString * chartDataIntervalStartPath = [ChartTimeFormatter chartDataIntervalStartPathForExchangeNamed:exchange marketNamed:market];
-                        NSString * chartDataIntervalEndPath = [ChartTimeFormatter chartDataIntervalEndPathForExchangeNamed:exchange marketNamed:market];
+                        NSString * chartDataIntervalStartPath = [DCChartTimeFormatter chartDataIntervalStartPathForExchangeNamed:exchange marketNamed:market];
+                        NSString * chartDataIntervalEndPath = [DCChartTimeFormatter chartDataIntervalEndPathForExchangeNamed:exchange marketNamed:market];
                         if (![defs objectForKey:chartDataIntervalEndPath] || ([defs objectForKey:chartDataIntervalEndPath] && ([knownDataEnd compare:[defs objectForKey:chartDataIntervalEndPath]] != NSOrderedSame))) {
                             [defs setObject:knownDataEnd  forKey:chartDataIntervalEndPath];
                         }
@@ -393,11 +374,11 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                             //To get proper longer intervals we need to combine this with local 5 minute interval data
                             //And then do the aggregates
                             
-                            NSDate * intervalStartTime = [NSDate dateWithTimeIntervalSince1970:[[[intervalArray firstObject] objectForKey:FormatChartTimeInterval(chartTimeInterval)] doubleValue] * [ChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval]];
+                            NSDate * intervalStartTime = [NSDate dateWithTimeIntervalSince1970:[[[intervalArray firstObject] objectForKey:FormatChartTimeInterval(chartTimeInterval)] doubleValue] * [DCChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval]];
                             
                             
                             if ([[intervalArray firstObject] objectForKey:@"isFirst"]) {
-                                NSDate * additionalDataPointIntervalEndTime = [[[intervalArray firstObject] objectForKey:@"time"] dateByAddingTimeInterval:-[ChartTimeFormatter timeIntervalForChartTimeInterval:ChartTimeInterval_5Mins]];
+                                NSDate * additionalDataPointIntervalEndTime = [[[intervalArray firstObject] objectForKey:@"time"] dateByAddingTimeInterval:-[DCChartTimeFormatter timeIntervalForChartTimeInterval:ChartTimeInterval_5Mins]];
                                 if ([additionalDataPointIntervalEndTime compare:intervalStartTime] == NSOrderedDescending) {
                                     NSArray * additionalDataPoints = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:exchange.identifier forMarketIdentifier:market.identifier interval:ChartTimeInterval_5Mins startTime:intervalStartTime endTime:additionalDataPointIntervalEndTime inContext:context error:&error];
                                     for (DCChartDataEntryEntity * chartDataEntry in [additionalDataPoints reverseObjectEnumerator]) {
@@ -414,8 +395,8 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                                     }
                                 }
                             } else if ([[intervalArray firstObject] objectForKey:@"isLast"]) {
-                                NSDate * additionalDataPointIntervalStartTime = [[[intervalArray lastObject] objectForKey:@"time"] dateByAddingTimeInterval:[ChartTimeFormatter timeIntervalForChartTimeInterval:ChartTimeInterval_5Mins]];
-                                NSDate * additionalDataPointIntervalEndTime = [intervalStartTime dateByAddingTimeInterval:[ChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval]];
+                                NSDate * additionalDataPointIntervalStartTime = [[[intervalArray lastObject] objectForKey:@"time"] dateByAddingTimeInterval:[DCChartTimeFormatter timeIntervalForChartTimeInterval:ChartTimeInterval_5Mins]];
+                                NSDate * additionalDataPointIntervalEndTime = [intervalStartTime dateByAddingTimeInterval:[DCChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval]];
                                 NSArray * additionalDataPoints = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:exchange.identifier forMarketIdentifier:market.identifier interval:ChartTimeInterval_5Mins startTime:additionalDataPointIntervalStartTime endTime:additionalDataPointIntervalEndTime inContext:context error:&error];
                                 for (DCChartDataEntryEntity * chartDataEntry in additionalDataPoints) {
                                     NSMutableDictionary * additionalDataPoint = [NSMutableDictionary dictionary];
@@ -493,6 +474,47 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
         } else {
             clb(error);
         }
+    }];
+}
+
+-(void)registerDeviceForDeviceToken:(NSData*)deviceToken {
+    
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString * deviceName = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    
+    NSString *token_string = [[[[deviceToken description]    stringByReplacingOccurrencesOfString:@"<"withString:@""]
+                               stringByReplacingOccurrencesOfString:@">" withString:@""]
+                              stringByReplacingOccurrencesOfString: @" " withString: @""];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    NSDictionary* parameters = @{
+                                     @"version": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+                                     @"model": deviceName,
+                                     @"os": @"ios",
+                                     @"device_id": [[[UIDevice currentDevice] identifierForVendor] UUIDString],
+                                     @"os_version": [[UIDevice currentDevice] systemVersion],
+                                     @"token": token_string,
+                                     @"app_name": @"dashcontrol",
+                                     };
+    
+    [manager POST:DASHCONTROL_URL(@"device") parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"Token registered %@", token_string);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"URL Session Task Failed: %@", [error localizedDescription]);
+    }];
+}
+
+-(void)updateBloomFilter:(DCServerBloomFilter*)filter {
+    [self.authenticatedManager POST:DASHCONTROL_URL(@"filter") parameters:@{} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [formData appendPartWithHeaders:nil body:filter.data];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
     }];
 }
 

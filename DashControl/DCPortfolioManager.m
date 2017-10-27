@@ -1,12 +1,12 @@
 //
-//  PortfolioManager.m
+//  DCPortfolioManager.m
 //  DashControl
 //
 //  Created by Sam Westrich on 10/4/17.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
-#import "PortfolioManager.h"
+#import "DCPortfolioManager.h"
 #import "DCCoreDataManager.h"
 #import "NSArray+SWAdditions.h"
 #import <AFNetworking/AFNetworking.h>
@@ -14,10 +14,10 @@
 
 #define INSIGHT_API_URL @"https://insight.dash.org/insight-api-dash"
 
-@implementation PortfolioManager
+@implementation DCPortfolioManager
 
 + (id)sharedManager {
-    static PortfolioManager *sharedPortfolioManager = nil;
+    static DCPortfolioManager *sharedPortfolioManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedPortfolioManager = [[self alloc] init];

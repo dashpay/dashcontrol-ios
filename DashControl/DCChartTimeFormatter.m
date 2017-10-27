@@ -1,14 +1,14 @@
 //
-//  ChartTimeFormatter.m
+//  DCChartTimeFormatter.m
 //  DashControl
 //
 //  Created by Sam Westrich on 8/31/17.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
-#import "ChartTimeFormatter.h"
+#import "DCChartTimeFormatter.h"
 
-@implementation ChartTimeFormatter
+@implementation DCChartTimeFormatter
 
 - (NSString * _Nonnull)stringForValue:(double)value axis:(ChartAxisBase * _Nullable)axis {
     
@@ -58,8 +58,8 @@
 }
 
 -(NSInteger)stepsForChartTimeInterval:(ChartTimeInterval)chartTimeInterval timeFrame:(ChartTimeFrame)chartTimeFrame {
-    NSTimeInterval timeInterval = [ChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval];
-    NSTimeInterval Frame = [ChartTimeFormatter timeIntervalForChartTimeFrame:chartTimeFrame];
+    NSTimeInterval timeInterval = [DCChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval];
+    NSTimeInterval Frame = [DCChartTimeFormatter timeIntervalForChartTimeFrame:chartTimeFrame];
     if (Frame < timeInterval) return 1;
     return ceil(Frame/timeInterval);
 }

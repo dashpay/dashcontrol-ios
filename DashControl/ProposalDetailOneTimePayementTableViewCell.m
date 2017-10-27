@@ -37,7 +37,7 @@
     if (!error) {
         currentMarket = currentMarket;
         currentExchange = currentExchange;
-        startTime = [NSDate dateWithTimeIntervalSinceNow:-[ChartTimeFormatter timeIntervalForChartTimeFrame:timeInterval]];
+        startTime = [NSDate dateWithTimeIntervalSinceNow:-[DCChartTimeFormatter timeIntervalForChartTimeFrame:timeInterval]];
     }
     
     NSArray * chartData = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:currentExchange.identifier forMarketIdentifier:currentMarket.identifier interval:timeInterval startTime:startTime endTime:nil inContext:proposal.managedObjectContext error:&error] ;

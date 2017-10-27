@@ -1,5 +1,5 @@
 //
-//  Post+CoreDataClass.h
+//  DCPostEntity+CoreDataClass.h
 //  DashControl
 //
 //  Created by Manuel Boyer on 09/08/2017.
@@ -11,10 +11,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Post : NSManagedObject
+@interface DCPostEntity : NSManagedObject
 -(void)updateCoreSpotlightWithImage:(UIImage*)image;
 @end
 
 NS_ASSUME_NONNULL_END
 
-#import "Post+CoreDataProperties.h"
+#import "DCPostEntity+CoreDataProperties.h"

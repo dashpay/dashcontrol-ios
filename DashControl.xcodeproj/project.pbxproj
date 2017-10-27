@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		241719D81F4DA4C60045C2D6 /* ProposalsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719D71F4DA4C60045C2D6 /* ProposalsManager.m */; };
+		241719D81F4DA4C60045C2D6 /* DCProposalsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719D71F4DA4C60045C2D6 /* DCProposalsManager.m */; };
 		241719E11F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DA1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m */; };
 		241719E21F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DC1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m */; };
 		241719E31F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DE1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m */; };
@@ -83,9 +83,9 @@
 		24E1D8DE1F4D742D00AE2C47 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */; };
 		24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDDC1F32908C00E4D400 /* DCDataManager.m */; };
 		24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */; };
-		24E584101F3ADBAA00A12087 /* Post+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E5840D1F3ADBAA00A12087 /* Post+CoreDataClass.m */; };
-		24E584111F3ADBAA00A12087 /* Post+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E5840F1F3ADBAA00A12087 /* Post+CoreDataProperties.m */; };
-		24E584141F3ADC4C00A12087 /* RSSFeedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E584131F3ADC4C00A12087 /* RSSFeedManager.m */; };
+		24E584101F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E5840D1F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.m */; };
+		24E584111F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E5840F1F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.m */; };
+		24E584141F3ADC4C00A12087 /* DCRSSFeedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E584131F3ADC4C00A12087 /* DCRSSFeedManager.m */; };
 		24E584181F3AF18A00A12087 /* RSSFeedListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E584171F3AF18A00A12087 /* RSSFeedListViewController.m */; };
 		24E5841C1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E5841A1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m */; };
 		24FC99F41F5EA0F40054C2A8 /* iconAttachment.png in Resources */ = {isa = PBXBuildFile; fileRef = 24FC99F01F5EA0F40054C2A8 /* iconAttachment.png */; };
@@ -104,6 +104,10 @@
 		FB4310E81F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310E31F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.m */; };
 		FB4310E91F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310E51F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.m */; };
 		FB4310EC1F9F03A800784EBC /* NSManagedObject+Sugar.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310EB1F9F03A800784EBC /* NSManagedObject+Sugar.m */; };
+		FB4310F51FA2142700784EBC /* DCEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310F41FA2142700784EBC /* DCEnvironment.m */; };
+		FB4310FF1FA2B90700784EBC /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4310FE1FA2B8BC00784EBC /* LocalAuthentication.framework */; };
+		FB4311021FA2BCD800784EBC /* NSString+Sugar.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4311011FA2BCD800784EBC /* NSString+Sugar.m */; };
+		FB4311051FA2C19800784EBC /* NSURL+Sugar.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4311041FA2C19800784EBC /* NSURL+Sugar.m */; };
 		FB4F93BA1F82528F0078E259 /* PortfolioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F93B91F82528F0078E259 /* PortfolioViewController.m */; };
 		FB84EDC21F32898700E4D400 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC11F32898700E4D400 /* main.m */; };
 		FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC41F32898700E4D400 /* AppDelegate.m */; };
@@ -112,13 +116,13 @@
 		FB84EDD31F32898700E4D400 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDD11F32898700E4D400 /* LaunchScreen.storyboard */; };
 		FB9CC1611F83E38A0079309F /* NSData+Dash.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEF66E61F83DA75003424D2 /* NSData+Dash.m */; };
 		FB9CC1621F83E38D0079309F /* NSString+Dash.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEF66E51F83DA4F003424D2 /* NSString+Dash.m */; };
-		FB9CC1631F83E38F0079309F /* UIImage+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEF67001F83DE30003424D2 /* UIImage+Utils.m */; };
+		FB9CC1631F83E38F0079309F /* UIImage+Sugar.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEF67001F83DE30003424D2 /* UIImage+Sugar.m */; };
 		FB9CC1801F83E45F0079309F /* DCMasternodeEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1721F83E45C0079309F /* DCMasternodeEntity+CoreDataClass.m */; };
 		FB9CC1841F83E45F0079309F /* DCMasternodeEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC17B1F83E45E0079309F /* DCMasternodeEntity+CoreDataProperties.m */; };
 		FB9CC1851F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC17C1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataClass.m */; };
 		FB9CC1861F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC17D1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m */; };
 		FB9CC1881F83E8000079309F /* NSMutableData+Dash.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEF66FD1F83DD44003424D2 /* NSMutableData+Dash.m */; };
-		FB9CC18C1F8405180079309F /* PortfolioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC18B1F8405180079309F /* PortfolioManager.m */; };
+		FB9CC18C1F8405180079309F /* DCPortfolioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC18B1F8405180079309F /* DCPortfolioManager.m */; };
 		FB9CC1911F84BB0D0079309F /* AddMasternodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1901F84BB0D0079309F /* AddMasternodeViewController.m */; };
 		FB9CC1A51F87D4860079309F /* BRBIP32Sequence.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1A31F87D4850079309F /* BRBIP32Sequence.m */; };
 		FB9CC1AA1F87D4A60079309F /* BRKey+BIP38.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1A61F87D4A40079309F /* BRKey+BIP38.m */; };
@@ -130,7 +134,7 @@
 		FBE1F50D1F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F5061F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m */; };
 		FBE1F50E1F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE1F5081F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.m */; };
 		FBEBE5391F5776400056D921 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FBEBE5371F5776400056D921 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FBEBE5421F5802DE0056D921 /* ChartTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEBE5411F5802DE0056D921 /* ChartTimeFormatter.m */; };
+		FBEBE5421F5802DE0056D921 /* DCChartTimeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEBE5411F5802DE0056D921 /* DCChartTimeFormatter.m */; };
 		FBEBE5461F5986510056D921 /* DCCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEBE5451F5986510056D921 /* DCCoreDataManager.m */; };
 		FBEF66E21F83D68C003424D2 /* AddWalletAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEF66E11F83D68C003424D2 /* AddWalletAddressViewController.m */; };
 		FBEF66FB1F83DCED003424D2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBEF66FA1F83DCED003424D2 /* Security.framework */; };
@@ -163,8 +167,8 @@
 /* Begin PBXFileReference section */
 		241719C41F4D9EE10045C2D6 /* ProposalsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalsViewController.h; sourceTree = "<group>"; };
 		241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalsViewController.m; sourceTree = "<group>"; };
-		241719D61F4DA4C60045C2D6 /* ProposalsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalsManager.h; sourceTree = "<group>"; };
-		241719D71F4DA4C60045C2D6 /* ProposalsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalsManager.m; sourceTree = "<group>"; };
+		241719D61F4DA4C60045C2D6 /* DCProposalsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCProposalsManager.h; sourceTree = "<group>"; };
+		241719D71F4DA4C60045C2D6 /* DCProposalsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCProposalsManager.m; sourceTree = "<group>"; };
 		241719D91F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCProposalEntity+CoreDataClass.h"; sourceTree = "<group>"; };
 		241719DA1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCProposalEntity+CoreDataClass.m"; sourceTree = "<group>"; };
 		241719DB1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCProposalEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -278,12 +282,12 @@
 		24C86F0E1F5EC0D600735785 /* ProposalDetailDescriptionDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailDescriptionDetailTableViewCell.m; sourceTree = "<group>"; };
 		24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		24E584061F3ADAC900A12087 /* DashControl.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DashControl.xcdatamodel; sourceTree = "<group>"; };
-		24E5840C1F3ADBAA00A12087 /* Post+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Post+CoreDataClass.h"; sourceTree = "<group>"; };
-		24E5840D1F3ADBAA00A12087 /* Post+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Post+CoreDataClass.m"; sourceTree = "<group>"; };
-		24E5840E1F3ADBAA00A12087 /* Post+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Post+CoreDataProperties.h"; sourceTree = "<group>"; };
-		24E5840F1F3ADBAA00A12087 /* Post+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Post+CoreDataProperties.m"; sourceTree = "<group>"; };
-		24E584121F3ADC4C00A12087 /* RSSFeedManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFeedManager.h; sourceTree = "<group>"; };
-		24E584131F3ADC4C00A12087 /* RSSFeedManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFeedManager.m; sourceTree = "<group>"; };
+		24E5840C1F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCPostEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		24E5840D1F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCPostEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		24E5840E1F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCPostEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		24E5840F1F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCPostEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		24E584121F3ADC4C00A12087 /* DCRSSFeedManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRSSFeedManager.h; sourceTree = "<group>"; };
+		24E584131F3ADC4C00A12087 /* DCRSSFeedManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRSSFeedManager.m; sourceTree = "<group>"; };
 		24E584151F3ADCEF00A12087 /* DashControl-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DashControl-PrefixHeader.pch"; sourceTree = "<group>"; };
 		24E584161F3AF18A00A12087 /* RSSFeedListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFeedListViewController.h; sourceTree = "<group>"; };
 		24E584171F3AF18A00A12087 /* RSSFeedListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFeedListViewController.m; sourceTree = "<group>"; };
@@ -318,6 +322,13 @@
 		FB4310E51F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletMasterAddressEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FB4310EA1F9F03A800784EBC /* NSManagedObject+Sugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+Sugar.h"; sourceTree = "<group>"; };
 		FB4310EB1F9F03A800784EBC /* NSManagedObject+Sugar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+Sugar.m"; sourceTree = "<group>"; };
+		FB4310F31FA2142700784EBC /* DCEnvironment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCEnvironment.h; sourceTree = "<group>"; };
+		FB4310F41FA2142700784EBC /* DCEnvironment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCEnvironment.m; sourceTree = "<group>"; };
+		FB4310FE1FA2B8BC00784EBC /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		FB4311001FA2BCD800784EBC /* NSString+Sugar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Sugar.h"; sourceTree = "<group>"; };
+		FB4311011FA2BCD800784EBC /* NSString+Sugar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Sugar.m"; sourceTree = "<group>"; };
+		FB4311031FA2C19800784EBC /* NSURL+Sugar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+Sugar.h"; sourceTree = "<group>"; };
+		FB4311041FA2C19800784EBC /* NSURL+Sugar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Sugar.m"; sourceTree = "<group>"; };
 		FB4F93B81F82528F0078E259 /* PortfolioViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PortfolioViewController.h; sourceTree = "<group>"; };
 		FB4F93B91F82528F0078E259 /* PortfolioViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PortfolioViewController.m; sourceTree = "<group>"; };
 		FB84EDBD1F32898700E4D400 /* DashControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DashControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -339,8 +350,8 @@
 		FB9CC17B1F83E45E0079309F /* DCMasternodeEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCMasternodeEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FB9CC17C1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCMasternodePaymentEntity+CoreDataClass.m"; sourceTree = "<group>"; };
 		FB9CC17D1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCMasternodePaymentEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
-		FB9CC18A1F8405180079309F /* PortfolioManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PortfolioManager.h; sourceTree = "<group>"; };
-		FB9CC18B1F8405180079309F /* PortfolioManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PortfolioManager.m; sourceTree = "<group>"; };
+		FB9CC18A1F8405180079309F /* DCPortfolioManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCPortfolioManager.h; sourceTree = "<group>"; };
+		FB9CC18B1F8405180079309F /* DCPortfolioManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCPortfolioManager.m; sourceTree = "<group>"; };
 		FB9CC18F1F84BB0D0079309F /* AddMasternodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddMasternodeViewController.h; sourceTree = "<group>"; };
 		FB9CC1901F84BB0D0079309F /* AddMasternodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddMasternodeViewController.m; sourceTree = "<group>"; };
 		FB9CC1A21F87D4850079309F /* BRBIP32Sequence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRBIP32Sequence.h; sourceTree = "<group>"; };
@@ -412,8 +423,8 @@
 		FBE1F5071F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCMarketEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
 		FBE1F5081F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCMarketEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FBEBE5371F5776400056D921 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FBEBE5401F5802DE0056D921 /* ChartTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartTimeFormatter.h; sourceTree = "<group>"; };
-		FBEBE5411F5802DE0056D921 /* ChartTimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartTimeFormatter.m; sourceTree = "<group>"; };
+		FBEBE5401F5802DE0056D921 /* DCChartTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCChartTimeFormatter.h; sourceTree = "<group>"; };
+		FBEBE5411F5802DE0056D921 /* DCChartTimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCChartTimeFormatter.m; sourceTree = "<group>"; };
 		FBEBE5441F5986510056D921 /* DCCoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCCoreDataManager.h; sourceTree = "<group>"; };
 		FBEBE5451F5986510056D921 /* DCCoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCCoreDataManager.m; sourceTree = "<group>"; };
 		FBEF66E01F83D68C003424D2 /* AddWalletAddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddWalletAddressViewController.h; sourceTree = "<group>"; };
@@ -439,8 +450,8 @@
 		FBEF66FA1F83DCED003424D2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		FBEF66FC1F83DD44003424D2 /* NSMutableData+Dash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableData+Dash.h"; sourceTree = "<group>"; };
 		FBEF66FD1F83DD44003424D2 /* NSMutableData+Dash.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableData+Dash.m"; sourceTree = "<group>"; };
-		FBEF66FF1F83DE30003424D2 /* UIImage+Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Utils.h"; sourceTree = "<group>"; };
-		FBEF67001F83DE30003424D2 /* UIImage+Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Utils.m"; sourceTree = "<group>"; };
+		FBEF66FF1F83DE30003424D2 /* UIImage+Sugar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Sugar.h"; sourceTree = "<group>"; };
+		FBEF67001F83DE30003424D2 /* UIImage+Sugar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Sugar.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -452,6 +463,7 @@
 				24B0004D1F580FF5007D24A1 /* MobileCoreServices.framework in Frameworks */,
 				24B0004B1F580FEB007D24A1 /* CoreSpotlight.framework in Frameworks */,
 				24B000441F5724B6007D24A1 /* SafariServices.framework in Frameworks */,
+				FB4310FF1FA2B90700784EBC /* LocalAuthentication.framework in Frameworks */,
 				24E1D8DE1F4D742D00AE2C47 /* UserNotifications.framework in Frameworks */,
 				2485235B1F44A71B0027FBA6 /* WebKit.framework in Frameworks */,
 				8B0BD619FFF877813DC0386A /* libPods-DashControl.a in Frameworks */,
@@ -464,19 +476,10 @@
 		241719C31F4D9EC30045C2D6 /* Proposals */ = {
 			isa = PBXGroup;
 			children = (
-				241719D51F4DA49E0045C2D6 /* Manager */,
-				241719C71F4DA0130045C2D6 /* ViewControllers */,
-			);
-			name = Proposals;
-			sourceTree = "<group>";
-		};
-		241719C71F4DA0130045C2D6 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
 				24C86EF71F5EBF3700735785 /* List */,
 				24C86EF81F5EBF6A00735785 /* Detail */,
 			);
-			name = ViewControllers;
+			name = Proposals;
 			sourceTree = "<group>";
 		};
 		241719C81F4DA0280045C2D6 /* Models */ = {
@@ -491,15 +494,6 @@
 				FB4310D91F9EF4B500784EBC /* DCWalletAccount.m */,
 			);
 			name = Models;
-			sourceTree = "<group>";
-		};
-		241719D51F4DA49E0045C2D6 /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-				241719D61F4DA4C60045C2D6 /* ProposalsManager.h */,
-				241719D71F4DA4C60045C2D6 /* ProposalsManager.m */,
-			);
-			name = Manager;
 			sourceTree = "<group>";
 		};
 		24438DF01F5FCF1C00763A14 /* Cells */ = {
@@ -723,40 +717,10 @@
 		24E584011F3ADA0100A12087 /* RSSFeed */ = {
 			isa = PBXGroup;
 			children = (
-				24E584031F3ADA4000A12087 /* Models */,
-				24E584021F3ADA3A00A12087 /* Manager */,
-				24E584041F3ADA4500A12087 /* ViewControllers */,
-			);
-			name = RSSFeed;
-			sourceTree = "<group>";
-		};
-		24E584021F3ADA3A00A12087 /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-				24E584121F3ADC4C00A12087 /* RSSFeedManager.h */,
-				24E584131F3ADC4C00A12087 /* RSSFeedManager.m */,
-			);
-			name = Manager;
-			sourceTree = "<group>";
-		};
-		24E584031F3ADA4000A12087 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				24E5840C1F3ADBAA00A12087 /* Post+CoreDataClass.h */,
-				24E5840D1F3ADBAA00A12087 /* Post+CoreDataClass.m */,
-				24E5840E1F3ADBAA00A12087 /* Post+CoreDataProperties.h */,
-				24E5840F1F3ADBAA00A12087 /* Post+CoreDataProperties.m */,
-			);
-			name = Models;
-			sourceTree = "<group>";
-		};
-		24E584041F3ADA4500A12087 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
 				24C86EF91F5EBFDF00735785 /* List */,
 				24C86EFA1F5EBFE500735785 /* Detail */,
 			);
-			name = ViewControllers;
+			name = RSSFeed;
 			sourceTree = "<group>";
 		};
 		24FC99F81F5EA0F90054C2A8 /* Assets */ = {
@@ -773,37 +737,10 @@
 		24FE253D1F4C7DA200E32652 /* Price */ = {
 			isa = PBXGroup;
 			children = (
-				24FE253E1F4C7DB500E32652 /* Models */,
-				24FE253F1F4C7DC600E32652 /* Managers */,
-				24FE25401F4C7DCC00E32652 /* ViewControllers */,
-			);
-			name = Price;
-			sourceTree = "<group>";
-		};
-		24FE253E1F4C7DB500E32652 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Models;
-			sourceTree = "<group>";
-		};
-		24FE253F1F4C7DC600E32652 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				24FE25471F4C7ECE00E32652 /* DCBackendManager.h */,
-				24FE25481F4C7ECE00E32652 /* DCBackendManager.m */,
-			);
-			name = Managers;
-			sourceTree = "<group>";
-		};
-		24FE25401F4C7DCC00E32652 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				FBEBE53F1F5802BE0056D921 /* Chart Helpers */,
 				24FE254A1F4C82C900E32652 /* PriceViewController.h */,
 				24FE254B1F4C82C900E32652 /* PriceViewController.m */,
 			);
-			name = ViewControllers;
+			name = Price;
 			sourceTree = "<group>";
 		};
 		3A3DCF867D724725B2BA999A /* Pods */ = {
@@ -818,6 +755,7 @@
 		F8F9FBF8277751CF40134EEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FB4310FE1FA2B8BC00784EBC /* LocalAuthentication.framework */,
 				FBEF66FA1F83DCED003424D2 /* Security.framework */,
 				FBEBE5371F5776400056D921 /* Charts.framework */,
 				24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */,
@@ -830,16 +768,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		FB2F9B3A1F5C9F8A0035180D /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				FB2F9B3B1F5C9F960035180D /* NSArray+SWAdditions.h */,
-				FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */,
-			);
-			name = Utilities;
-			sourceTree = "<group>";
-		};
-		FB2F9B3E1F5CA0050035180D /* Views */ = {
+		FB2F9B3E1F5CA0050035180D /* Views Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				FB4F93B71F8252210078E259 /* Portfolio */,
@@ -847,14 +776,43 @@
 				241719C31F4D9EC30045C2D6 /* Proposals */,
 				24FE253D1F4C7DA200E32652 /* Price */,
 			);
-			name = Views;
+			name = "Views Controllers";
+			sourceTree = "<group>";
+		};
+		FB4310F21FA204F700784EBC /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				24FE25471F4C7ECE00E32652 /* DCBackendManager.h */,
+				24FE25481F4C7ECE00E32652 /* DCBackendManager.m */,
+				FB9CC18A1F8405180079309F /* DCPortfolioManager.h */,
+				FB9CC18B1F8405180079309F /* DCPortfolioManager.m */,
+				24E584121F3ADC4C00A12087 /* DCRSSFeedManager.h */,
+				24E584131F3ADC4C00A12087 /* DCRSSFeedManager.m */,
+				241719D61F4DA4C60045C2D6 /* DCProposalsManager.h */,
+				241719D71F4DA4C60045C2D6 /* DCProposalsManager.m */,
+			);
+			name = Server;
+			sourceTree = "<group>";
+		};
+		FB4310FA1FA2A2E600784EBC /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */,
+				FB4310F31FA2142700784EBC /* DCEnvironment.h */,
+				FB4310F41FA2142700784EBC /* DCEnvironment.m */,
+			);
+			name = Persistence;
 			sourceTree = "<group>";
 		};
 		FB4F93B71F8252210078E259 /* Portfolio */ = {
 			isa = PBXGroup;
 			children = (
-				FB9CC18D1F8405210079309F /* View Controllers */,
-				FB9CC1891F8404F30079309F /* Manager */,
+				FB4F93B81F82528F0078E259 /* PortfolioViewController.h */,
+				FB4F93B91F82528F0078E259 /* PortfolioViewController.m */,
+				FBEF66E01F83D68C003424D2 /* AddWalletAddressViewController.h */,
+				FBEF66E11F83D68C003424D2 /* AddWalletAddressViewController.m */,
+				FB9CC18F1F84BB0D0079309F /* AddMasternodeViewController.h */,
+				FB9CC1901F84BB0D0079309F /* AddMasternodeViewController.m */,
 			);
 			name = Portfolio;
 			sourceTree = "<group>";
@@ -880,21 +838,18 @@
 		FB84EDBF1F32898700E4D400 /* DashControl */ = {
 			isa = PBXGroup;
 			children = (
+				FB4310FA1FA2A2E600784EBC /* Persistence */,
+				FB4310F21FA204F700784EBC /* Server */,
 				FBEF66EB1F83DBEF003424D2 /* Utils */,
 				FBEF66E31F83DA41003424D2 /* Categories */,
 				249A3F8E1F61337C00155636 /* Localization */,
-				FB2F9B3A1F5C9F8A0035180D /* Utilities */,
 				241719C81F4DA0280045C2D6 /* Models */,
-				FB2F9B3E1F5CA0050035180D /* Views */,
-				2442A01B1F4D6CDC006FAC0D /* DashControl.entitlements */,
-				24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */,
+				FB2F9B3E1F5CA0050035180D /* Views Controllers */,
 				FB84EDDA1F32906F00E4D400 /* New Group */,
 				FB84EDC31F32898700E4D400 /* AppDelegate.h */,
 				FB84EDC41F32898700E4D400 /* AppDelegate.m */,
 				FB84EDCC1F32898700E4D400 /* Main.storyboard */,
-				FB84EDCF1F32898700E4D400 /* Assets.xcassets */,
 				FB84EDD11F32898700E4D400 /* LaunchScreen.storyboard */,
-				FB84EDD41F32898700E4D400 /* Info.plist */,
 				FB84EDC01F32898700E4D400 /* Supporting Files */,
 			);
 			path = DashControl;
@@ -903,6 +858,9 @@
 		FB84EDC01F32898700E4D400 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2442A01B1F4D6CDC006FAC0D /* DashControl.entitlements */,
+				FB84EDD41F32898700E4D400 /* Info.plist */,
+				FB84EDCF1F32898700E4D400 /* Assets.xcassets */,
 				FB84EDC11F32898700E4D400 /* main.m */,
 				24E584151F3ADCEF00A12087 /* DashControl-PrefixHeader.pch */,
 			);
@@ -919,31 +877,13 @@
 			name = "New Group";
 			sourceTree = "<group>";
 		};
-		FB9CC1891F8404F30079309F /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-				FB9CC18A1F8405180079309F /* PortfolioManager.h */,
-				FB9CC18B1F8405180079309F /* PortfolioManager.m */,
-			);
-			name = Manager;
-			sourceTree = "<group>";
-		};
-		FB9CC18D1F8405210079309F /* View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				FB4F93B81F82528F0078E259 /* PortfolioViewController.h */,
-				FB4F93B91F82528F0078E259 /* PortfolioViewController.m */,
-				FBEF66E01F83D68C003424D2 /* AddWalletAddressViewController.h */,
-				FBEF66E11F83D68C003424D2 /* AddWalletAddressViewController.m */,
-				FB9CC18F1F84BB0D0079309F /* AddMasternodeViewController.h */,
-				FB9CC1901F84BB0D0079309F /* AddMasternodeViewController.m */,
-			);
-			name = "View Controllers";
-			sourceTree = "<group>";
-		};
 		FB9CC18E1F8426CD0079309F /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				24E5840C1F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.h */,
+				24E5840D1F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.m */,
+				24E5840E1F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.h */,
+				24E5840F1F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.m */,
 				FB4310DE1F9F00A700784EBC /* DCWalletAddressEntity+CoreDataClass.h */,
 				FB4310DF1F9F00A700784EBC /* DCWalletAddressEntity+CoreDataClass.m */,
 				FB4310E01F9F00A700784EBC /* DCWalletAddressEntity+CoreDataProperties.h */,
@@ -1084,27 +1024,25 @@
 			path = recovery;
 			sourceTree = "<group>";
 		};
-		FBEBE53F1F5802BE0056D921 /* Chart Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				FBEBE5401F5802DE0056D921 /* ChartTimeFormatter.h */,
-				FBEBE5411F5802DE0056D921 /* ChartTimeFormatter.m */,
-			);
-			name = "Chart Helpers";
-			sourceTree = "<group>";
-		};
 		FBEF66E31F83DA41003424D2 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				FB4310EA1F9F03A800784EBC /* NSManagedObject+Sugar.h */,
-				FB4310EB1F9F03A800784EBC /* NSManagedObject+Sugar.m */,
+				FB2F9B3B1F5C9F960035180D /* NSArray+SWAdditions.h */,
+				FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */,
 				FBEF66FC1F83DD44003424D2 /* NSMutableData+Dash.h */,
 				FBEF66FD1F83DD44003424D2 /* NSMutableData+Dash.m */,
-				FBEF66EA1F83DB0C003424D2 /* IntTypes.h */,
 				FBEF66E71F83DA76003424D2 /* NSData+Dash.h */,
 				FBEF66E61F83DA75003424D2 /* NSData+Dash.m */,
 				FBEF66E41F83DA4F003424D2 /* NSString+Dash.h */,
 				FBEF66E51F83DA4F003424D2 /* NSString+Dash.m */,
+				FBEF66FF1F83DE30003424D2 /* UIImage+Sugar.h */,
+				FBEF67001F83DE30003424D2 /* UIImage+Sugar.m */,
+				FB4310EA1F9F03A800784EBC /* NSManagedObject+Sugar.h */,
+				FB4310EB1F9F03A800784EBC /* NSManagedObject+Sugar.m */,
+				FB4311001FA2BCD800784EBC /* NSString+Sugar.h */,
+				FB4311011FA2BCD800784EBC /* NSString+Sugar.m */,
+				FB4311031FA2C19800784EBC /* NSURL+Sugar.h */,
+				FB4311041FA2C19800784EBC /* NSURL+Sugar.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1112,19 +1050,20 @@
 		FBEF66EB1F83DBEF003424D2 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				FBEF66EC1F83DBFD003424D2 /* x11 */,
 				FB9CC2001F88A7F10079309F /* secp256k1 */,
 				FB9CC1A91F87D4A50079309F /* BRKey.h */,
 				FB9CC1A81F87D4A50079309F /* BRKey.m */,
 				FB9CC1A71F87D4A40079309F /* BRKey+BIP38.h */,
 				FB9CC1A61F87D4A40079309F /* BRKey+BIP38.m */,
+				FB9CC1A41F87D4850079309F /* BRKeySequence.h */,
 				FB9CC1A21F87D4850079309F /* BRBIP32Sequence.h */,
 				FB9CC1A31F87D4850079309F /* BRBIP32Sequence.m */,
 				FB4310DC1F9EFC3F00784EBC /* DCServerBloomFilter.h */,
 				FB4310DB1F9EFC3F00784EBC /* DCServerBloomFilter.m */,
-				FB9CC1A41F87D4850079309F /* BRKeySequence.h */,
-				FBEF66FF1F83DE30003424D2 /* UIImage+Utils.h */,
-				FBEF67001F83DE30003424D2 /* UIImage+Utils.m */,
-				FBEF66EC1F83DBFD003424D2 /* x11 */,
+				FBEBE5401F5802DE0056D921 /* DCChartTimeFormatter.h */,
+				FBEBE5411F5802DE0056D921 /* DCChartTimeFormatter.m */,
+				FBEF66EA1F83DB0C003424D2 /* IntTypes.h */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1390,7 +1329,7 @@
 				24A2159C1F52C5E900A63311 /* DCBudgetEntity+CoreDataProperties.m in Sources */,
 				FB9CC1621F83E38D0079309F /* NSString+Dash.m in Sources */,
 				FB4310D71F9DA96700784EBC /* DCWalletManager.m in Sources */,
-				FB9CC1631F83E38F0079309F /* UIImage+Utils.m in Sources */,
+				FB9CC1631F83E38F0079309F /* UIImage+Sugar.m in Sources */,
 				24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */,
 				FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */,
 				241719E41F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m in Sources */,
@@ -1400,10 +1339,11 @@
 				FB9CC1861F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m in Sources */,
 				FBE1F50D1F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m in Sources */,
 				FB4310E91F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.m in Sources */,
-				FBEBE5421F5802DE0056D921 /* ChartTimeFormatter.m in Sources */,
+				FBEBE5421F5802DE0056D921 /* DCChartTimeFormatter.m in Sources */,
 				249A402F1F62715700155636 /* ProposalScopeButtonsView.m in Sources */,
-				24E584101F3ADBAA00A12087 /* Post+CoreDataClass.m in Sources */,
+				24E584101F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.m in Sources */,
 				24C86F091F5EC09900735785 /* ProposalDetailVotesResultTableViewCell.m in Sources */,
+				FB4310F51FA2142700784EBC /* DCEnvironment.m in Sources */,
 				FB9CC1611F83E38A0079309F /* NSData+Dash.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
 				FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */,
@@ -1416,24 +1356,26 @@
 				24E5841C1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m in Sources */,
 				FB9CC1841F83E45F0079309F /* DCMasternodeEntity+CoreDataProperties.m in Sources */,
 				FBE1F50A1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.m in Sources */,
-				241719D81F4DA4C60045C2D6 /* ProposalsManager.m in Sources */,
+				241719D81F4DA4C60045C2D6 /* DCProposalsManager.m in Sources */,
 				24C86EFD1F5EC04100735785 /* ProposalDetailNameTableViewCell.m in Sources */,
 				FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */,
 				24A2159B1F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m in Sources */,
 				FBE1F50C1F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.m in Sources */,
+				FB4311051FA2C19800784EBC /* NSURL+Sugar.m in Sources */,
 				FB4310E71F9F00A700784EBC /* DCWalletAddressEntity+CoreDataProperties.m in Sources */,
 				241719E21F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m in Sources */,
 				FB9CC1AA1F87D4A60079309F /* BRKey+BIP38.m in Sources */,
 				FB9CC1AB1F87D4A60079309F /* BRKey.m in Sources */,
-				24E584111F3ADBAA00A12087 /* Post+CoreDataProperties.m in Sources */,
+				24E584111F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.m in Sources */,
 				24C6C6361F544268007F3671 /* ProposalsViewController.m in Sources */,
 				24FE25491F4C7ECE00E32652 /* DCBackendManager.m in Sources */,
 				24C86F031F5EC06C00735785 /* ProposalDetailOneTimePayementTableViewCell.m in Sources */,
 				FBEF66E21F83D68C003424D2 /* AddWalletAddressViewController.m in Sources */,
 				FB84EDC21F32898700E4D400 /* main.m in Sources */,
 				FBE1F50B1F5D4CF500823A77 /* DCExchangeEntity+CoreDataClass.m in Sources */,
-				24E584141F3ADC4C00A12087 /* RSSFeedManager.m in Sources */,
+				24E584141F3ADC4C00A12087 /* DCRSSFeedManager.m in Sources */,
 				FB4310E81F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.m in Sources */,
+				FB4311021FA2BCD800784EBC /* NSString+Sugar.m in Sources */,
 				FB9CC1851F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataClass.m in Sources */,
 				24C86F001F5EC05400735785 /* ProposalDetailTitleTableViewCell.m in Sources */,
 				2432DDA01F54395600A14112 /* ProposalCell.m in Sources */,
@@ -1444,7 +1386,7 @@
 				FBE1F5091F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m in Sources */,
 				24C86F061F5EC08500735785 /* ProposalDetailCompletedPaymentsTableViewCell.m in Sources */,
 				FB9CC1A51F87D4860079309F /* BRBIP32Sequence.m in Sources */,
-				FB9CC18C1F8405180079309F /* PortfolioManager.m in Sources */,
+				FB9CC18C1F8405180079309F /* DCPortfolioManager.m in Sources */,
 				24C86F0F1F5EC0D600735785 /* ProposalDetailDescriptionDetailTableViewCell.m in Sources */,
 				24C86F0C1F5EC0C300735785 /* ProposalDetailDescriptionHeaderTableViewCell.m in Sources */,
 				24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */,

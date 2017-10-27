@@ -1,5 +1,5 @@
 //
-//  RSSFeedManager.h
+//  DCRSSFeedManager.h
 //  DashControl
 //
 //  Created by Manuel Boyer on 09/08/2017.
@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RSSFeedManager : NSObject
+@interface DCRSSFeedManager : NSObject
 
-@property (nonatomic, retain) NSManagedObjectContext * _Nullable managedObjectContext;
+@property (nonatomic, strong) NSManagedObjectContext * _Nullable managedObjectContext;
 
 @property (nonatomic, copy) NSArray * _Nullable feedAvailableLanguages; // List of available languages for the feed.
 @property (nonatomic, copy) NSString * _Nullable feedLanguage; // By default based on device, can be overridden by user preference (LOCAL_USER_PREF_FEED_LANGUAGE_KEY).

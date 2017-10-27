@@ -1,12 +1,12 @@
 //
-//  RSSFeedManager.m
+//  DCRSSFeedManager.m
 //  DashControl
 //
 //  Created by Manuel Boyer on 09/08/2017.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
-#import "RSSFeedManager.h"
+#import "DCRSSFeedManager.h"
 
 #define DASH_RSS_PREFIX_URL @"https://www.dash.org"
 #define DASH_RSS_SUFFIX_URL @"rss/dash_blog_rss.xml"
@@ -15,18 +15,18 @@
 
 #define TICKER_REFRESH_TIME 60.0
 
-@interface RSSFeedManager ()
+@interface DCRSSFeedManager ()
 @property (nonatomic, strong) Reachability *reachability;
 @end
 
-@implementation RSSFeedManager
+@implementation DCRSSFeedManager
 @synthesize managedObjectContext;
 @synthesize feedAvailableLanguages, feedLanguage, feedURL;
 
 #pragma mark - Singleton Init Methods
 
 + (id)sharedManager {
-    static RSSFeedManager *sharedRSSFeedManager = nil;
+    static DCRSSFeedManager *sharedRSSFeedManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedRSSFeedManager = [[self alloc] init];
@@ -148,7 +148,7 @@
             
             [rootXML iterate:@"channel.item" usingBlock: ^(RXMLElement *item) {
                 
-                Post *post;
+                DCPostEntity *post;
                 NSMutableArray *existingPosts = [self fetchPostWithGUID:[item child:@"guid"].text inContext:context];
                 if (!existingPosts.count) {
                     post = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:context];

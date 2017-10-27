@@ -151,8 +151,7 @@ static BOOL setKeychainData(NSData *data, NSString *key, BOOL authenticated)
     
     
     DCServerBloomFilter *filter = [[DCServerBloomFilter alloc] initWithFalsePositiveRate:BLOOM_REDUCED_FALSEPOSITIVE_RATE
-                                                             forElementCount:addresses.count
-                                                                       flags:BLOOM_UPDATE_ALL];
+                                                             forElementCount:addresses.count];
     
     for (NSString *addr in addresses) {// add addresses to watch for tx receiveing money to the wallet
         NSData *hash = addr.addressToHash160;
