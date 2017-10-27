@@ -138,7 +138,7 @@ static NSString *CellDetailDescriptionDetailIdentifier = @"ProposalDetailDescrip
 -(void) tableView:(UITableView *) tableView willDisplayCell:(UITableViewCell *) cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        CGFloat currentProgress =  (self.currentProposal.yes / (self.currentProposal.yes + self.currentProposal.remainingYesVotesUntilFunding)) * 100;
+        float currentProgress =  ((self.currentProposal.yes *1.0f) / (self.currentProposal.yes + self.currentProposal.remainingYesVotesUntilFunding)) * 100;
         
         if (self.currentProposal.lastProgressDisplayed != currentProgress) {
             dispatch_async(dispatch_get_main_queue(), ^{

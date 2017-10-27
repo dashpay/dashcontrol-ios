@@ -115,8 +115,8 @@ static NSString *CellIdentifier = @"ProposalCell";
 -(void) tableView:(UITableView *) tableView willDisplayCell:(UITableViewCell *) cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DCProposalEntity *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
-    
-    CGFloat currentProgress =  (proposal.yes / (proposal.yes + proposal.remainingYesVotesUntilFunding)) * 100;
+
+    float currentProgress =  ((proposal.yes *1.0f) / (proposal.yes + proposal.remainingYesVotesUntilFunding)) * 100;
 
     if (proposal.lastProgressDisplayed != currentProgress) {
         dispatch_async(dispatch_get_main_queue(), ^{
