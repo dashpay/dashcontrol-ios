@@ -148,6 +148,10 @@ static NSString *CellIdentifier = @"PostCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.searchController dismissViewControllerAnimated:YES completion:nil];
+    });
     
     DCPostEntity *feedItem = [_fetchedResultsController objectAtIndexPath:indexPath];
     SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:feedItem.link]];

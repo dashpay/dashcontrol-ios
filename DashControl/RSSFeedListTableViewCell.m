@@ -19,7 +19,6 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
 }
 
@@ -51,20 +50,9 @@
     }];
 }
 
-
-
 -(void)cfgViews {
     _lbTitle.text = self.currentPost.title;
-    //_lbLink.text = self.currentPost.link;
-    
-    
-    /*
-     NSRange range = [self.currentPost.text rangeOfString:@"src="];
-     NSString *substring = [[[self.currentPost.text substringFromIndex:NSMaxRange(range)] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] firstObject];
-     _lbLink.text = substring;
-     _lbLink.numberOfLines = 1;
-     */
-    
+
     BOOL loadingImageFromText = NO;
     NSDataDetector* detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
     NSArray* matches = [detector matchesInString:self.currentPost.text options:0 range:NSMakeRange(0, [self.currentPost.text length])];
@@ -92,64 +80,6 @@
     
     _lbLink.text = self.currentPost.link;
     
-    /*
-    [CATransaction setCompletionBlock:^{
-        CGFloat detailLabelFontSize = 14.0f;
-        NSDictionary *dictAttrib = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,  NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)};
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]
-                                                       initWithData: [self.currentPost.text dataUsingEncoding:NSUnicodeStringEncoding]
-                                                       options: dictAttrib
-                                                       documentAttributes: nil
-                                                       error: nil];
-//         If we want to keep originals style.
-//         [attributedString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleNone] range:NSMakeRange(0, attributedString.length)];
-//         [attributedString beginEditing];
-//         [attributedString enumerateAttribute:NSFontAttributeName inRange:NSMakeRange(0, attributedString.length) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
-//         if (value) {
-//         UIFont *oldFont = (UIFont *)value;
-//         
-//         [attributedString removeAttribute:NSFontAttributeName range:range];
-//         
-//         if ([oldFont.fontName isEqualToString:@"TimesNewRomanPSMT"])
-//         [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:detailLabelFontSize weight:UIFontWeightRegular] range:range];
-//         else if([oldFont.fontName isEqualToString:@"TimesNewRomanPS-BoldMT"])
-//         [attributedString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:detailLabelFontSize] range:range];
-//         else if([oldFont.fontName isEqualToString:@"TimesNewRomanPS-ItalicMT"])
-//         [attributedString addAttribute:NSFontAttributeName value:[UIFont italicSystemFontOfSize:detailLabelFontSize] range:range];
-//         else if([oldFont.fontName isEqualToString:@"TimesNewRomanPS-BoldItalicMT"])
-//         [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:detailLabelFontSize weight:UIFontWeightSemibold] range:range];
-//         else
-//         [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:detailLabelFontSize weight:UIFontWeightRegular] range:range];
-//         
-//         [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:range];
-//         }
-//         }];
-//         [attributedString endEditing];
-        
-        
-        [attributedString setAttributes:@{
-                                          NSUnderlineStyleAttributeName:[NSNumber numberWithInt:NSUnderlineStyleNone],
-                                          NSFontAttributeName:[UIFont systemFontOfSize:detailLabelFontSize weight:UIFontWeightRegular],
-                                          NSForegroundColorAttributeName:[UIColor darkGrayColor]
-                                          } range:NSMakeRange(0, attributedString.length)];
-        
-        _lbLink.attributedText = attributedString;
-        _lbLink.numberOfLines = 3;
-        //_lbLink.lineBreakMode = NSLineBreakByTruncatingTail;
-        
-        NSInteger lineCount = 0;
-        CGSize labelSize = (CGSize){_lbLink.frame.size.width, MAXFLOAT};
-        CGRect requiredSize = [_lbLink.text boundingRectWithSize:labelSize  options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: _lbLink.font} context:nil];
-        
-        int charSize = (int)lroundf(_lbLink.font.lineHeight);
-        int rHeight = (int)lroundf(requiredSize.size.height);
-        lineCount = rHeight/charSize;
-        
-        if (lineCount < _lbLink.numberOfLines) _lbLink.numberOfLines = lineCount;
-    }];
-*/
-    
-
     NSDateFormatter *df = [NSDateFormatter new];
     [df setDateStyle:NSDateFormatterMediumStyle];
     [df setTimeStyle:NSDateFormatterNoStyle];
