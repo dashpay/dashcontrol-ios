@@ -182,16 +182,6 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     return wasHandled;
 }
 
-#pragma mark - UIStateRestoration
-
-- (BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder {
-    return YES;
-}
-
-- (BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder {
-    return YES;
-}
-
 #pragma mark - Core Data stack
 
 - (NSPersistentContainer *)persistentContainer {
