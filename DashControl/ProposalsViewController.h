@@ -11,7 +11,7 @@
 #import "ProposalHeaderView.h"
 #import "ProposalScopeButtonsView.h"
 
-@interface ProposalsViewController : UIViewController <NSFetchedResultsControllerDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate, SFSafariViewControllerDelegate, UIViewControllerPreviewingDelegate>
+@interface ProposalsViewController : UIViewController <NSFetchedResultsControllerDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate, SFSafariViewControllerDelegate>
 
 @property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
@@ -21,9 +21,6 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UISearchController *searchController;
-
-//3D Touch
-@property (nonatomic, strong) id previewingContext;
 
 -(void)simulateNavitationToProposalWithHash:(NSString*)hash;
 

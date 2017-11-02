@@ -10,6 +10,7 @@
 #import "DCCoreDataManager.h"
 #import "DCChartDataEntryEntity+CoreDataProperties.h"
 #import "DCChartTimeFormatter.h"
+#import "PriceAlertViewController.h"
 
 @interface PriceViewController ()
 
@@ -91,6 +92,8 @@
             [self updateChartData];
         }
     }
+    
+    self.priceAlertsArray = [NSMutableArray new];
 }
 
 - (void)didReceiveMemoryWarning
@@ -290,4 +293,84 @@
     NSLog(@"chartValueNothingSelected");
 }
 
+#pragma mark - Price Alerts table
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.priceAlertsArray.count + 1;
+}
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell;
+    if (indexPath.row < self.priceAlertsArray.count) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"priceAlertCell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"priceAlertCell"];
+        }
+        
+        NSNumber *price = [[self.priceAlertsArray objectAtIndex:indexPath.row] valueForKey:@"priceAmount"];
+        BOOL whenOver = [[[self.priceAlertsArray objectAtIndex:indexPath.row] valueForKey:@"isOver"] boolValue];
+        
+        if (whenOver) {
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Over", @"Price Alert Screen"), price];
+        }
+        else {
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Under", @"Price Alert Screen"), price];
+        }
+        
+        
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        return cell;
+    }
+    else {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"newPriceAlertCell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"newPriceAlertCell"];
+        }
+        cell.textLabel.text = NSLocalizedString(@"New Price Alert", @"Price Alert Screen");
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        return cell;
+    }
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.row < self.priceAlertsArray.count) {
+        NSMutableDictionary *priceAlertDictionary = [self.priceAlertsArray objectAtIndex:indexPath.row];
+        [self showPriceAlertScreen:priceAlertDictionary];
+    }
+    else {
+        [self showPriceAlertScreen:nil];
+    }
+}
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return NSLocalizedString(@"PRICE ALERTS", @"Price Alert Screen");
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 40;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return CGFLOAT_MIN;
+}
+
+-(void)showPriceAlertScreen:(NSMutableDictionary *)priceAlertDictionary {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PriceAlertViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"PriceAlertViewController"];
+    
+    vc.delegate = self;
+    if (priceAlertDictionary) {
+        vc.priceAlertIdentifier = [[priceAlertDictionary objectForKey:@"priceAlertIdentifier"] integerValue];
+        vc.priceAmount = [priceAlertDictionary objectForKey:@"priceAmount"];
+        vc.isOver = [[priceAlertDictionary objectForKey:@"isOver"] boolValue];
+    }
+    else {
+        vc.isOver = YES;;
+    }
+    
+    [self.navigationController pushViewController:vc animated:YES];
+}
 @end

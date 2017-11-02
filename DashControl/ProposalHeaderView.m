@@ -77,7 +77,8 @@
     }
     if (TRUE) {
         NSInteger numberOfDays = [self daysBetweenDate:[NSDate date] andDate:budget.paymentDate];
-        NSString *inXDaysString = [NSString stringWithFormat:@"%@ %ld %@", NSLocalizedString(@"in", @"Budget view"), numberOfDays, numberOfDays>1?NSLocalizedString(@"Days", @"Budget view"):NSLocalizedString(@"Day", @"Budget view")];
+        NSString *inXDaysString = [NSString stringWithFormat:NSLocalizedString(@"in %d Days", @"Proposals View"), numberOfDays];
+
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
         [df setDateStyle:NSDateFormatterLongStyle];
         [df setTimeStyle:NSDateFormatterNoStyle];

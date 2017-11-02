@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <Charts/Charts.h>
 
-@interface PriceViewController : UIViewController <ChartViewDelegate>
+@interface PriceViewController : UIViewController <ChartViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, assign) BOOL shouldHideData;
+
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *priceAlertsArray;
 
 - (void)handleOption:(NSString *)key forChartView:(ChartViewBase *)chartView;
 

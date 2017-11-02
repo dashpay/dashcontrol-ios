@@ -12,6 +12,8 @@
 		241719E21F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DC1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m */; };
 		241719E31F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DE1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m */; };
 		241719E41F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719E01F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m */; };
+		241A70901FA33A6E00FCC808 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 241A708F1FA33A6E00FCC808 /* Localizable.stringsdict */; };
+		241A70961FA356DF00FCC808 /* PriceAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 241A70951FA356DF00FCC808 /* PriceAlertViewController.m */; };
 		2432DDA01F54395600A14112 /* ProposalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432DD9F1F54395600A14112 /* ProposalCell.m */; };
 		24438DEF1F5FCE7D00763A14 /* ProposalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 244857901F59CCBF004DE273 /* ProposalDetailViewController.m */; };
 		24438DF31F5FEA6600763A14 /* ProposalHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24438DF21F5FEA6600763A14 /* ProposalHeaderView.m */; };
@@ -23,6 +25,8 @@
 		24B000441F5724B6007D24A1 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B000431F5724B6007D24A1 /* SafariServices.framework */; };
 		24B0004B1F580FEB007D24A1 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B0004A1F580FEB007D24A1 /* CoreSpotlight.framework */; };
 		24B0004D1F580FF5007D24A1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B0004C1F580FF5007D24A1 /* MobileCoreServices.framework */; };
+		24B08BA51FA739BE00A41566 /* PriceAmountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B08BA41FA739BE00A41566 /* PriceAmountTableViewCell.m */; };
+		24B08BA81FA739D700A41566 /* AlertOverTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B08BA71FA739D700A41566 /* AlertOverTableViewCell.m */; };
 		24C6C6361F544268007F3671 /* ProposalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */; };
 		24C86EFD1F5EC04100735785 /* ProposalDetailNameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C86EFC1F5EC04100735785 /* ProposalDetailNameTableViewCell.m */; };
 		24C86F001F5EC05400735785 /* ProposalDetailTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C86EFF1F5EC05400735785 /* ProposalDetailTitleTableViewCell.m */; };
@@ -129,6 +133,9 @@
 		241719DE1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCCommentEntity+CoreDataClass.m"; sourceTree = "<group>"; };
 		241719DF1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCCommentEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
 		241719E01F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCCommentEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		241A708F1FA33A6E00FCC808 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
+		241A70941FA356DF00FCC808 /* PriceAlertViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceAlertViewController.h; sourceTree = "<group>"; };
+		241A70951FA356DF00FCC808 /* PriceAlertViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceAlertViewController.m; sourceTree = "<group>"; };
 		2432DD9E1F54395600A14112 /* ProposalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalCell.h; sourceTree = "<group>"; };
 		2432DD9F1F54395600A14112 /* ProposalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalCell.m; sourceTree = "<group>"; };
 		243D272C1F60817500D53D99 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
@@ -159,6 +166,10 @@
 		24B000431F5724B6007D24A1 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		24B0004A1F580FEB007D24A1 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		24B0004C1F580FF5007D24A1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		24B08BA31FA739BE00A41566 /* PriceAmountTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceAmountTableViewCell.h; sourceTree = "<group>"; };
+		24B08BA41FA739BE00A41566 /* PriceAmountTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceAmountTableViewCell.m; sourceTree = "<group>"; };
+		24B08BA61FA739D700A41566 /* AlertOverTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertOverTableViewCell.h; sourceTree = "<group>"; };
+		24B08BA71FA739D700A41566 /* AlertOverTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertOverTableViewCell.m; sourceTree = "<group>"; };
 		24C86EFB1F5EC04100735785 /* ProposalDetailNameTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalDetailNameTableViewCell.h; sourceTree = "<group>"; };
 		24C86EFC1F5EC04100735785 /* ProposalDetailNameTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailNameTableViewCell.m; sourceTree = "<group>"; };
 		24C86EFE1F5EC05400735785 /* ProposalDetailTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalDetailTitleTableViewCell.h; sourceTree = "<group>"; };
@@ -437,6 +448,17 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
+		24B08BA21FA734FA00A41566 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				24B08BA31FA739BE00A41566 /* PriceAmountTableViewCell.h */,
+				24B08BA41FA739BE00A41566 /* PriceAmountTableViewCell.m */,
+				24B08BA61FA739D700A41566 /* AlertOverTableViewCell.h */,
+				24B08BA71FA739D700A41566 /* AlertOverTableViewCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		24C86EF71F5EBF3700735785 /* List */ = {
 			isa = PBXGroup;
 			children = (
@@ -505,8 +527,11 @@
 		24FE253D1F4C7DA200E32652 /* Price */ = {
 			isa = PBXGroup;
 			children = (
+				24B08BA21FA734FA00A41566 /* Cells */,
 				24FE254A1F4C82C900E32652 /* PriceViewController.h */,
 				24FE254B1F4C82C900E32652 /* PriceViewController.m */,
+				241A70941FA356DF00FCC808 /* PriceAlertViewController.h */,
+				241A70951FA356DF00FCC808 /* PriceAlertViewController.m */,
 			);
 			name = Price;
 			sourceTree = "<group>";
@@ -633,6 +658,7 @@
 				FB84EDCF1F32898700E4D400 /* Assets.xcassets */,
 				FB84EDC11F32898700E4D400 /* main.m */,
 				24E584151F3ADCEF00A12087 /* DashControl-PrefixHeader.pch */,
+				241A708F1FA33A6E00FCC808 /* Localizable.stringsdict */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -962,6 +988,7 @@
 			files = (
 				24FC99F61F5EA0F40054C2A8 /* iconReply.png in Resources */,
 				24FC99F71F5EA0F40054C2A8 /* iconReply@2x.png in Resources */,
+				241A70901FA33A6E00FCC808 /* Localizable.stringsdict in Resources */,
 				24FC99F41F5EA0F40054C2A8 /* iconAttachment.png in Resources */,
 				24FC99F51F5EA0F40054C2A8 /* iconAttachment@2x.png in Resources */,
 				247B8F551F5FBFFB005BC14A /* dash_icon_tmp.png in Resources */,
@@ -1071,6 +1098,7 @@
 				FB9CC1861F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m in Sources */,
 				FBE1F50D1F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m in Sources */,
 				FBEBE5421F5802DE0056D921 /* DCChartTimeFormatter.m in Sources */,
+				24B08BA81FA739D700A41566 /* AlertOverTableViewCell.m in Sources */,
 				249A402F1F62715700155636 /* ProposalScopeButtonsView.m in Sources */,
 				FB4C23891FA342DE00A43858 /* DCWalletEntity+CoreDataClass.m in Sources */,
 				24E584101F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.m in Sources */,
@@ -1094,6 +1122,7 @@
 				24A2159B1F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m in Sources */,
 				FBE1F50C1F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.m in Sources */,
 				FB4311051FA2C19800784EBC /* NSURL+Sugar.m in Sources */,
+				24B08BA51FA739BE00A41566 /* PriceAmountTableViewCell.m in Sources */,
 				241719E21F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m in Sources */,
 				FB9CC1AA1F87D4A60079309F /* BRKey+BIP38.m in Sources */,
 				FB9CC1AB1F87D4A60079309F /* BRKey.m in Sources */,
@@ -1117,6 +1146,7 @@
 				FB17AEE51FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m in Sources */,
 				FBE1F5091F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m in Sources */,
 				24C86F061F5EC08500735785 /* ProposalDetailCompletedPaymentsTableViewCell.m in Sources */,
+				241A70961FA356DF00FCC808 /* PriceAlertViewController.m in Sources */,
 				FB9CC1A51F87D4860079309F /* BRBIP32Sequence.m in Sources */,
 				FB17AEE61FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m in Sources */,
 				FB9CC18C1F8405180079309F /* DCPortfolioManager.m in Sources */,
