@@ -519,9 +519,9 @@
     [self.authenticatedManager POST:DASHCONTROL_URL(@"filter") parameters:@{@"filter":[filter.data base64EncodedStringWithOptions:0]} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
+        if (completion) completion(nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        if (completion) completion(error);
     }];
 }
 
