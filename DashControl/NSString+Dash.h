@@ -63,6 +63,7 @@
 - (BOOL)isValidDashAddress;
 - (BOOL)isValidDashPrivateKey;
 - (BOOL)isValidDashBIP38Key; // BIP38 encrypted keys: https://github.com/quantumexplorer/bips/blob/master/bip-0038.mediawiki
+- (BOOL)isValidDashSerializedPublicKey;
 
 -(NSInteger)indexOfCharacter:(unichar)character;
 

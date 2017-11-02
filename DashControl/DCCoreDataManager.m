@@ -7,13 +7,14 @@
 //
 
 #import "DCCoreDataManager.h"
+#import "DCWalletEntity+CoreDataClass.h"
 
 
 @implementation DCCoreDataManager
 
 #pragma mark - Singleton Init Methods
 
-+ (id)sharedManager {
++ (id)sharedInstance {
     static DCBackendManager *sharedChartDataImportManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -235,12 +236,12 @@
 
 // MARK: - Portfolio
 
--(BOOL)hasWalletMasterAddress:(NSString* _Nonnull)masterPublicKeyHash inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+-(BOOL)hasWalletAccount:(NSString* _Nonnull)accountPublicKeyHash inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCWalletMasterAddressEntity" inManagedObjectContext:context];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCWalletAccountEntity" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
-        [request setPredicate:[NSPredicate predicateWithFormat:@"masterBIP32NodeKey == %@ OR masterBIP44NodeKey == %@",masterPublicKeyHash,masterPublicKeyHash]];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"hash160Key == %@",accountPublicKeyHash]];
         NSUInteger count = [context countForFetchRequest:request error:error];
         if (*error)
         {
@@ -249,7 +250,26 @@
         }
         return !!count;
     } else {
-        return [self hasWalletMasterAddress:masterPublicKeyHash inContext:self.mainObjectContext error:error];
+        return [self hasWalletAccount:accountPublicKeyHash inContext:self.mainObjectContext error:error];
+    }
+}
+
+-(DCWalletEntity*)walletHavingOneOfAccounts:(NSArray*)accounts withIdentifier:(NSString*)identifier inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+    if (context) {
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCWalletEntity" inManagedObjectContext:context];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entityDescription];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"ANY accounts IN %@ AND identifier == %@",accounts,identifier]];
+        NSArray *array = [context executeFetchRequest:request error:error];
+        if (*error || array == nil)
+        {
+            NSLog(@"Error while fetching wallet addresses");
+            return nil;
+        }
+        
+        return array.count?array[0]:nil;
+    } else {
+        return [self walletHavingOneOfAccounts:accounts withIdentifier:identifier inContext:self.mainObjectContext error:error];
     }
 }
 
@@ -307,5 +327,25 @@
     }
 }
 
+// MARK: - Wallet Accounts
+
+-(NSArray * _Nonnull)walletAccountsInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+    if (context) {
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCWalletAccountEntity" inManagedObjectContext:context];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entityDescription];
+        
+        NSArray *array = [context executeFetchRequest:request error:error];
+        if (*error || array == nil)
+        {
+            NSLog(@"Error while fetching wallet addresses");
+            return @[];
+        }
+        return array;
+    } else {
+        return [self walletAccountsInContext:self.mainObjectContext error:error];
+        
+    }
+}
 
 @end

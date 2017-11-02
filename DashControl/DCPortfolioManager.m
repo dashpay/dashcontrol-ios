@@ -28,12 +28,12 @@
 
 -(uint64_t)totalWorthInContext:(NSManagedObjectContext* _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     uint64_t total = 0;
-    NSArray * walletAddresses = [[DCCoreDataManager sharedManager] walletAddressesInContext:context error:error];
+    NSArray * walletAddresses = [[DCCoreDataManager sharedInstance] walletAddressesInContext:context error:error];
     if (*error) return 0;
     NSNumber * walletSum =  [walletAddresses valueForKeyPath:@"@sum.amount"];
     total += [walletSum longLongValue];
     
-    NSArray * masternodes = [[DCCoreDataManager sharedManager] masternodesInContext:context error:error];
+    NSArray * masternodes = [[DCCoreDataManager sharedInstance] masternodesInContext:context error:error];
     if (*error) return 0;
     NSNumber * masternodeSum =  [masternodes valueForKeyPath:@"@sum.amount"];
     total += [masternodeSum longLongValue];
@@ -55,10 +55,10 @@
     NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
     [container performBackgroundTask:^(NSManagedObjectContext *context) {
         NSError * error = nil;
-        NSArray * walletAddresses = [[DCCoreDataManager sharedManager] walletAddressesInContext:context error:&error];
+        NSArray * walletAddresses = [[DCCoreDataManager sharedInstance] walletAddressesInContext:context error:&error];
         if (error) return;
         
-        NSArray * masternodes = [[DCCoreDataManager sharedManager] masternodesInContext:context error:&error];
+        NSArray * masternodes = [[DCCoreDataManager sharedInstance] masternodesInContext:context error:&error];
         if (error) return;
         
         

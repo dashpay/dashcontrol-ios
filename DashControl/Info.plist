@@ -43,7 +43,7 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>dashpay.info</key>
+			<key>cms-swestrich.c9users.io</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>

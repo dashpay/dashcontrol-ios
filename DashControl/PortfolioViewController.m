@@ -8,7 +8,8 @@
 
 #import "PortfolioViewController.h"
 #import "DCWalletAddressEntity+CoreDataClass.h"
-#import "DCWalletMasterAddressEntity+CoreDataClass.h"
+#import "DCWalletAccountEntity+CoreDataClass.h"
+#import "DCWalletEntity+CoreDataClass.h"
 #import "DCMasternodeEntity+CoreDataClass.h"
 #import <FTPopOverMenu/FTPopOverMenu.h>
 

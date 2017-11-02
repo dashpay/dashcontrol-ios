@@ -2,7 +2,7 @@
 //  DCWalletAddressEntity+CoreDataProperties.m
 //  DashControl
 //
-//  Created by Sam Westrich on 10/24/17.
+//  Created by Sam Westrich on 10/27/17.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 //
@@ -17,9 +17,9 @@
 
 @dynamic address;
 @dynamic amount;
-@dynamic internal;
 @dynamic extendedKeyHash;
 @dynamic index;
-@dynamic walletMasterAddress;
+@dynamic internal;
+@dynamic walletAccount;
 
 @end

@@ -80,8 +80,8 @@
     if ([standardDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR]) {
         NSError * error = nil;
         NSDictionary * currentExchangeMarketPair = [standardDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR];
-        DCMarketEntity * currentMarket = [[DCCoreDataManager sharedManager] marketNamed:[currentExchangeMarketPair objectForKey:@"market"] inContext:self.managedObjectContext error:&error];
-        DCExchangeEntity * currentExchange = error?nil:[[DCCoreDataManager sharedManager] exchangeNamed:[currentExchangeMarketPair objectForKey:@"exchange"] inContext:self.managedObjectContext error:&error];
+        DCMarketEntity * currentMarket = [[DCCoreDataManager sharedInstance] marketNamed:[currentExchangeMarketPair objectForKey:@"market"] inContext:self.managedObjectContext error:&error];
+        DCExchangeEntity * currentExchange = error?nil:[[DCCoreDataManager sharedInstance] exchangeNamed:[currentExchangeMarketPair objectForKey:@"exchange"] inContext:self.managedObjectContext error:&error];
         if (!error) {
             self.selectedMarket = currentMarket;
             self.selectedExchange = currentExchange;
@@ -115,7 +115,7 @@
         return;
     }
     NSError * error = nil;
-    NSArray * chartData = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:self.selectedExchange.identifier        forMarketIdentifier:self.selectedMarket.identifier interval:self.timeInterval startTime:self.startTime endTime:self.endTime inContext:self.managedObjectContext error:&error] ;
+    NSArray * chartData = [[DCCoreDataManager sharedInstance] fetchChartDataForExchangeIdentifier:self.selectedExchange.identifier        forMarketIdentifier:self.selectedMarket.identifier interval:self.timeInterval startTime:self.startTime endTime:self.endTime inContext:self.managedObjectContext error:&error] ;
     if (!error) {
         NSMutableArray *charDataPoints = [[NSMutableArray alloc] init];
         if (chartData.count) {

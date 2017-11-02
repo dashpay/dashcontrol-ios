@@ -79,7 +79,7 @@
         }
         [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] performBackgroundTask:^(NSManagedObjectContext *context) {
             for (NSDictionary * createdAddress in createdAddresses) {
-                DCWalletAddressEntity *e = [DCWalletAddressEntity managedObject];
+                DCWalletAddressEntity *e = [NSEntityDescription insertNewObjectForEntityForName:@"DCWalletAddressEntity" inManagedObjectContext:context];
                 e.address = createdAddress[@"address"];
                 e.index = [createdAddress[@"index"] intValue];
                 e.internal = [createdAddress[@"internal"] boolValue];

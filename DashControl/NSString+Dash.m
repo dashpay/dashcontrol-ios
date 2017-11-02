@@ -357,6 +357,12 @@ static const UniChar base58chars[] = {
     else return NO; // invalid prefix
 }
 
+
+- (BOOL)isValidDashSerializedPublicKey
+{
+    return [self hasPrefix:@"xpub"];
+}
+
 - (BOOL)isValidDashPubKey
 {
     NSData *d = self.base58checkToData;

@@ -132,6 +132,10 @@ static uint32_t murmur3_32(const void *data, size_t len, uint32_t seed)
     return d;
 }
 
+-(UInt160)filterHash {
+    return [self.filter hash160];
+}
+
 - (NSUInteger)length
 {
     return self.filter.length;

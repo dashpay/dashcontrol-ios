@@ -144,26 +144,26 @@ static NSString *serialize(uint8_t depth, uint32_t fingerprint, uint32_t child, 
 // helper function for serializing BIP32 master public/private keys to standard export format
 static BOOL deserialize(NSString * string, uint8_t * depth, uint32_t * fingerprint, uint32_t * child, UInt256 * chain, NSData **key)
 {
-    NSData * data = [NSData dataWithBase58String:string];
+    NSData * allData = [NSData dataWithBase58String:string];
+    if (allData.length != 82) return false;
+    NSData * data = [allData subdataWithRange:NSMakeRange(0, allData.length - 4)];
+    NSData * checkData = [allData subdataWithRange:NSMakeRange(allData.length - 4, 4)];
+    if ((*(uint32_t*)data.SHA256_2.u32) != *(uint32_t*)checkData.bytes) return FALSE;
     uint8_t * bytes = (uint8_t *)[data bytes];
-    void * type = malloc(4*sizeof(void *));
-    [data getBytes:type length:4];
-    if (type != BIP32_XPRV && type != BIP32_XPUB) return FALSE;
+    if (memcmp(bytes,BIP32_XPRV,4) != 0 && memcmp(bytes,BIP32_XPUB,4) != 0) {
+        return FALSE;
+    }
     NSUInteger offset = 4;
     *depth = bytes[4];
     offset++;
-    *fingerprint = (uint32_t)bytes[5];
+    *fingerprint = CFSwapInt32BigToHost(*(uint32_t*)(&bytes[offset]));
     offset += sizeof(uint32_t);
-    *child = (uint32_t)bytes[offset];
+    *child = CFSwapInt32BigToHost(*(uint32_t*)(&bytes[offset]));
     offset += sizeof(uint32_t);
-    for (int i = 0;i<8;i++) {
-        (*chain).u32[i] = bytes[offset];
-        offset += sizeof(uint32_t);
-    }
+    *chain = *(UInt256*)(&bytes[offset]);
     offset += sizeof(UInt256);
+    if (memcmp(bytes,BIP32_XPRV,4) == 0) offset++;
     *key = [data subdataWithRange:NSMakeRange(offset, data.length - offset)];
-    *fingerprint = CFSwapInt32BigToHost(*fingerprint);
-    *child = CFSwapInt32BigToHost(*child);
     return TRUE;
 }
 

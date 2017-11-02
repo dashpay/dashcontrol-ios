@@ -10,11 +10,14 @@
 #import "NSData+Dash.h"
 #import "BRBIP32Sequence.h"
 #import "NSString+Dash.h"
-#import "DCWalletMasterAddressEntity+CoreDataClass.h"
+#import "DCWalletAccountEntity+CoreDataClass.h"
 #import "DCWalletAccount.h"
+#import "DCWalletEntity+CoreDataClass.h"
 #import "DCServerBloomFilter.h"
+#import "DCWalletAddressEntity+CoreDataClass.h"
+#import "DCEnvironment.h"
 
-#define SEC_ATTR_SERVICE      @"org.dashfoundation.dashControl"
+#define SERVER_BLOOM_FILTER_HASH   @"SERVER_BLOOM_FILTER_HASH"
 
 @interface DCWalletManager()
 
@@ -23,51 +26,6 @@
 @end
 
 @implementation DCWalletManager
-
-static BOOL setKeychainData(NSData *data, NSString *key, BOOL authenticated)
-{
-    if (! key) return NO;
-    
-    id accessible = (authenticated) ? (__bridge id)kSecAttrAccessibleWhenUnlockedThisDeviceOnly
-    : (__bridge id)kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly;
-    NSDictionary *query = @{(__bridge id)kSecClass:(__bridge id)kSecClassGenericPassword,
-                            (__bridge id)kSecAttrService:SEC_ATTR_SERVICE,
-                            (__bridge id)kSecAttrAccount:key};
-    
-    if (SecItemCopyMatching((__bridge CFDictionaryRef)query, NULL) == errSecItemNotFound) {
-        if (! data) return YES;
-        
-        NSDictionary *item = @{(__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
-                               (__bridge id)kSecAttrService:SEC_ATTR_SERVICE,
-                               (__bridge id)kSecAttrAccount:key,
-                               (__bridge id)kSecAttrAccessible:accessible,
-                               (__bridge id)kSecValueData:data};
-        OSStatus status = SecItemAdd((__bridge CFDictionaryRef)item, NULL);
-        
-        if (status == noErr) return YES;
-        NSLog(@"SecItemAdd error: %@",
-              [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil].localizedDescription);
-        return NO;
-    }
-    
-    if (! data) {
-        OSStatus status = SecItemDelete((__bridge CFDictionaryRef)query);
-        
-        if (status == noErr) return YES;
-        NSLog(@"SecItemDelete error: %@",
-              [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil].localizedDescription);
-        return NO;
-    }
-    
-    NSDictionary *update = @{(__bridge id)kSecAttrAccessible:accessible,
-                             (__bridge id)kSecValueData:data};
-    OSStatus status = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)update);
-    
-    if (status == noErr) return YES;
-    NSLog(@"SecItemUpdate error: %@",
-          [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil].localizedDescription);
-    return NO;
-}
 
 
 + (id)sharedInstance {
@@ -81,14 +39,36 @@ static BOOL setKeychainData(NSData *data, NSString *key, BOOL authenticated)
 
 - (id)init {
     if (self = [super init]) {
-        self.wallets = [NSMutableSet set];
+        
+        [self initializeWallets];
+        
+        
     }
     return self;
 }
 
+-(void)initializeWallets {
+    self.wallets = [NSMutableSet set];
+    [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] performBackgroundTask:^(NSManagedObjectContext *context) {
+        NSError * error = nil;
+        NSArray * accountEntities = [[DCCoreDataManager sharedInstance] walletAccountsInContext:context error:&error]; //nil is main context
+        if (!error) {
+            for (DCWalletAccountEntity * accountEntity in accountEntities) {
+                NSString * locationInKeyValueStore = accountEntity.hash160Key;
+                NSError * error = nil;
+                NSData * pubkeyData = [[DCEnvironment sharedInstance] getKeychainDataForKey:locationInKeyValueStore error:&error];
+                DCWalletAccount * walletAccount = [[DCWalletAccount alloc] initWithAccountPublicKey:pubkeyData];
+                [self.wallets addObject:walletAccount];
+                [walletAccount startUp];
+            }
+            [self updateBloomFilterInContext:context];
+        }
+    }];
+}
+
 -(void)importWalletMasterAddressFromSource:(NSString*)source withExtended32PublicKey:(NSString*)extended32PublicKey extended44PublicKey:(NSString*)extended44PublicKey completion:(void (^)(BOOL success))completion {
-    BOOL valid = [extended32PublicKey isValidDashBIP38Key];
-    valid |= [extended44PublicKey isValidDashBIP38Key];
+    BOOL valid = [extended32PublicKey isValidDashSerializedPublicKey];
+    valid |= [extended44PublicKey isValidDashSerializedPublicKey];
     if (!valid)  {
         if (completion) completion(false);
         return;
@@ -97,69 +77,113 @@ static BOOL setKeychainData(NSData *data, NSString *key, BOOL authenticated)
         BRBIP32Sequence * sequence = [[BRBIP32Sequence alloc] init];
         NSData * data32 = [sequence deserializedMasterPublicKey:extended32PublicKey];
         NSData * data44 = [sequence deserializedMasterPublicKey:extended44PublicKey];
-        NSString * extended32PublicKey = [data32 hash160String];
-        NSString * extended44PublicKey = [data44 hash160String];
+        NSString * extended32PublicKeyHash = [data32 hash160String];
+        NSString * extended44PublicKeyHash = [data44 hash160String];
         
+        DCWalletAccountEntity * wallet32Account;
+        DCWalletAccountEntity * wallet44Account;
         NSError * error = nil;
-        BOOL hasAddress = [[DCCoreDataManager sharedManager] hasWalletMasterAddress:extended32PublicKey inContext:context error:&error];
-        if (hasAddress || error) {
+        BOOL has32Account = [[DCCoreDataManager sharedInstance] hasWalletAccount:extended32PublicKeyHash inContext:context error:&error];
+        if (error) {
+            if (completion) completion(FALSE);
             return;
         }
-        hasAddress = [[DCCoreDataManager sharedManager] hasWalletMasterAddress:extended44PublicKey inContext:context error:&error];
-        if (hasAddress || error) {
+        
+        if (!has32Account) {
+            wallet32Account = [NSEntityDescription insertNewObjectForEntityForName:@"DCWalletAccountEntity" inManagedObjectContext:context];
+            wallet32Account.hash160Key = extended32PublicKeyHash;
+            [[DCEnvironment sharedInstance] setKeychainData:data32 forKey:extended32PublicKeyHash authenticated:NO];
+        }
+        BOOL has44Account = [[DCCoreDataManager sharedInstance] hasWalletAccount:extended44PublicKeyHash inContext:context error:&error];
+        if (error) {
+            if (completion) completion(FALSE);
             return;
         }
-        setKeychainData(data44, extended44PublicKey, NO);
-        setKeychainData(data32, extended32PublicKey, NO);
-        DCWalletMasterAddressEntity * walletMasterAddress = [NSEntityDescription insertNewObjectForEntityForName:@"WalletMasterAddress" inManagedObjectContext:context];
-        walletMasterAddress.masterBIP32NodeKey = extended32PublicKey;
-        walletMasterAddress.masterBIP44NodeKey = extended44PublicKey;
-        walletMasterAddress.dateAdded = [NSDate date];
-        walletMasterAddress.name = source;
+        if (!has44Account) {
+            wallet44Account = [NSEntityDescription insertNewObjectForEntityForName:@"DCWalletAccountEntity" inManagedObjectContext:context];
+            wallet44Account.hash160Key = extended44PublicKeyHash;
+            [[DCEnvironment sharedInstance] setKeychainData:data44 forKey:extended44PublicKeyHash authenticated:NO];
+        }
+        
+        if (has44Account && has32Account) {
+            //we already have both accounts
+            return;
+        }
+        
+        DCWalletEntity * wallet;
+        if (has32Account || has44Account) {
+            NSError * error = nil;
+            wallet = [[DCCoreDataManager sharedInstance] walletHavingOneOfAccounts:@[wallet32Account,wallet44Account] withIdentifier:source inContext:context error:&error];
+            if (![wallet.accounts containsObject:wallet44Account]) {
+                [wallet addAccountsObject:wallet44Account];
+            }
+            if (![wallet.accounts containsObject:wallet32Account]) {
+                [wallet addAccountsObject:wallet32Account];
+            }
+        }
+        
+        if (!wallet) {
+            wallet = [NSEntityDescription insertNewObjectForEntityForName:@"DCWalletEntity" inManagedObjectContext:context];
+            [wallet addAccountsObject:wallet32Account];
+            [wallet addAccountsObject:wallet44Account];
+            wallet.dateAdded = [NSDate date];
+            wallet.name = source;
+            wallet.identifier = source;
+        }
         context.automaticallyMergesChangesFromParent = TRUE;
         context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
         if (![context save:&error]) {
             NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-            setKeychainData(nil, extended44PublicKey, NO);
-            setKeychainData(nil, extended32PublicKey, NO);
             if (completion) completion(FALSE);
             return;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            DCWalletAccount * data32Account = [[DCWalletAccount alloc] initWithAccountPublicKey:data32];
-            DCWalletAccount * data44Account = [[DCWalletAccount alloc] initWithAccountPublicKey:data44];
-            [self.wallets addObject:data32Account];
-            [self.wallets addObject:data32Account];
-            [data32Account startUp];
-            [data44Account startUp];
+            if (!has32Account) {
+                DCWalletAccount * data32Account = [[DCWalletAccount alloc] initWithAccountPublicKey:data32];
+                [self.wallets addObject:data32Account];
+                [data32Account startUp];
+                
+            }
+            if (!has44Account) {
+                DCWalletAccount * data44Account = [[DCWalletAccount alloc] initWithAccountPublicKey:data44];
+                [self.wallets addObject:data44Account];
+                [data44Account startUp];
+            }
+            
+            [self updateBloomFilter];
             if (completion) completion(TRUE);
         });
     }];
 }
 
-
-- (DCServerBloomFilter *)bloomFilter
-{
-    NSMutableArray * addresses = [NSMutableArray array];
-    for (DCWalletAccount * walletAccount in self.wallets) {
-    // every time a new wallet address is added, the bloom filter has to be rebuilt, and each address is only used for
-    // one transaction, so here we generate some spare addresses to avoid rebuilding the filter each time a wallet
-    // transaction is encountered during the blockchain download
-        [addresses addObjectsFromArray:[walletAccount addressesWithGapLimit:SEQUENCE_GAP_LIMIT_EXTERNAL + 100 internal:NO]];
-        [addresses addObjectsFromArray:[walletAccount addressesWithGapLimit:SEQUENCE_GAP_LIMIT_INTERNAL + 100 internal:YES]];
+-(void)updateBloomFilterInContext:(NSManagedObjectContext*)context {
+    NSError * error = nil;
+    NSArray * walletAddressEntities = [[DCCoreDataManager sharedInstance] walletAddressesInContext:context error:&error];
+    if (!error && [walletAddressEntities count]) {
+        NSArray * walletAddresses = [walletAddressEntities arrayReferencedByKeyPath:@"address"];
+        DCServerBloomFilter * bloomFilter = [self bloomFilterForAddresses:walletAddresses];
+        NSData * bloomFilterHashData = [NSData dataWithUInt160:bloomFilter.filterHash];
+        NSData * previousBloomFilterHashData = [[DCEnvironment sharedInstance] getKeychainDataForKey:SERVER_BLOOM_FILTER_HASH error:&error];
+        if (!previousBloomFilterHashData || ![bloomFilterHashData isEqualToData:previousBloomFilterHashData]) {
+            [[DCBackendManager sharedInstance] updateBloomFilter:bloomFilter completion:^(NSError * _Nullable error) {
+                if (!error) {
+                    [[DCEnvironment sharedInstance] setKeychainData:bloomFilterHashData forKey:SERVER_BLOOM_FILTER_HASH authenticated:NO];
+                }
+            }];
+        }
     }
-    
-    
+}
+
+- (DCServerBloomFilter *)bloomFilterForAddresses:(NSArray*)addresses
+{
     DCServerBloomFilter *filter = [[DCServerBloomFilter alloc] initWithFalsePositiveRate:BLOOM_REDUCED_FALSEPOSITIVE_RATE
-                                                             forElementCount:addresses.count];
+                                                                         forElementCount:addresses.count];
     
     for (NSString *addr in addresses) {// add addresses to watch for tx receiveing money to the wallet
         NSData *hash = addr.addressToHash160;
         
         if (hash && ! [filter containsData:hash]) [filter insertData:hash];
     }
-    
-
     return filter;
 }
 

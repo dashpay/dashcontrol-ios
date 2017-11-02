@@ -131,13 +131,21 @@
         <attribute name="yes" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DCCommentEntity" inverseName="proposal" inverseEntity="DCCommentEntity" syncable="YES"/>
     </entity>
+    <entity name="DCWalletAccountEntity" representedClassName="DCWalletAccountEntity" syncable="YES">
+        <attribute name="hash160Key" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="addresses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DCWalletAddressEntity" inverseName="walletAccount" inverseEntity="DCWalletAddressEntity" syncable="YES"/>
+        <relationship name="wallet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DCWalletEntity" inverseName="accounts" inverseEntity="DCWalletEntity" syncable="YES"/>
+        <fetchIndex name="hash160Key">
+            <fetchIndexElement property="hash160Key" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
     <entity name="DCWalletAddressEntity" representedClassName="DCWalletAddressEntity" syncable="YES">
         <attribute name="address" attributeType="String" syncable="YES"/>
         <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="extendedKeyHash" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="internal" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="walletMasterAddress" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DCWalletMasterAddressEntity" inverseName="walletAddresses" inverseEntity="DCWalletMasterAddressEntity" syncable="YES"/>
+        <relationship name="walletAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DCWalletAccountEntity" inverseName="addresses" inverseEntity="DCWalletAccountEntity" syncable="YES"/>
         <fetchIndex name="address">
             <fetchIndexElement property="address" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -150,12 +158,11 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="DCWalletMasterAddressEntity" representedClassName="DCWalletMasterAddressEntity" syncable="YES">
+    <entity name="DCWalletEntity" representedClassName="DCWalletEntity" syncable="YES">
         <attribute name="dateAdded" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="masterBIP32NodeKey" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="masterBIP44NodeKey" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="identifier" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="walletAddresses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DCWalletAddressEntity" inverseName="walletMasterAddress" inverseEntity="DCWalletAddressEntity" syncable="YES"/>
+        <relationship name="accounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DCWalletAccountEntity" inverseName="wallet" inverseEntity="DCWalletAccountEntity" syncable="YES"/>
     </entity>
     <elements>
         <element name="DCBudgetEntity" positionX="-54" positionY="135" width="128" height="120"/>
@@ -167,7 +174,8 @@
         <element name="DCMasternodePaymentEntity" positionX="-27" positionY="162" width="128" height="105"/>
         <element name="DCPostEntity" positionX="-63" positionY="-18" width="128" height="150"/>
         <element name="DCProposalEntity" positionX="-63" positionY="81" width="128" height="435"/>
+        <element name="DCWalletAccountEntity" positionX="-45" positionY="135" width="128" height="90"/>
         <element name="DCWalletAddressEntity" positionX="-45" positionY="144" width="128" height="135"/>
-        <element name="DCWalletMasterAddressEntity" positionX="-54" positionY="135" width="128" height="120"/>
+        <element name="DCWalletEntity" positionX="-54" positionY="135" width="128" height="105"/>
     </elements>
 </model>

@@ -14,6 +14,7 @@
 #import "DCCoreDataManager.h"
 #import "DCWalletManager.h"
 #import "DCBackendManager.h"
+#import "DCEnvironment.h"
 
 #define kRSSFeedViewControllerIndex 0
 #define kProposalsViewControllerIndex 2
@@ -89,9 +90,12 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     [DCProposalsManager sharedManager];
     
     //Init the Core Data Manager
-    [DCCoreDataManager sharedManager];
+    [DCCoreDataManager sharedInstance];
     
     [[DCPortfolioManager sharedManager] updateAmounts];
+    
+    
+    [DCWalletManager sharedInstance];
     
     return YES;
 }
@@ -141,7 +145,7 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
         //Clicked on spotlight search, item was created via CoreSpotlight API
     {
         NSString * activityIdentifier = [activity.userInfo valueForKey:CSSearchableItemActivityIdentifier];
-       
+        
         wasHandled = YES;
         
         NSArray *identifierComponents = [activityIdentifier componentsSeparatedByString:@"/"];
@@ -172,7 +176,7 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
         else {
             wasHandled = NO;
         }
-
+        
     } else {
         
         //the app was launched via Handoff protocol
@@ -242,17 +246,22 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     center.delegate = self;
     [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
         if(!error){
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[UIApplication sharedApplication] registerForRemoteNotifications];
-            });
-            if (!granted) {
+            if (granted) {
+#if !TARGET_OS_SIMULATOR
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[UIApplication sharedApplication] registerForRemoteNotifications];
+                });
+#else
+                [self application:[UIApplication sharedApplication] didRegisterForRemoteNotificationsWithDeviceToken:[NSData data]];
+#endif
+            } else {
                 //Remind the user, when relevant, that he must allow it from setting app
             }
         }
         else {
             //Push registration FAILED
-            NSLog( @"ERROR: %@ - %@", error.localizedFailureReason, error.localizedDescription );
-            NSLog( @"SUGGESTIONS: %@ - %@", error.localizedRecoveryOptions, error.localizedRecoverySuggestion );
+            NSLog(@"ERROR: %@ - %@", error.localizedFailureReason, error.localizedDescription );
+            NSLog(@"SUGGESTIONS: %@ - %@", error.localizedRecoveryOptions, error.localizedRecoverySuggestion );
         }
     }];
 }
@@ -268,6 +277,7 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     NSLog(@"User Info : %@",response.notification.request.content.userInfo);
     completionHandler();
 }
+
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
@@ -351,7 +361,7 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
         if ([[paramDictionary[@"callback"] lowercaseString] isEqualToString:@"masterpublickey"]) {
             [[DCWalletManager sharedInstance] importWalletMasterAddressFromSource:@"Dashwallet" withExtended32PublicKey:paramDictionary[@"masterPublicKeyBIP32"] extended44PublicKey:paramDictionary[@"masterPublicKeyBIP44"] completion:^(BOOL success) {
                 if (success) {
-                    [[DCBackendManager sharedInstance] updateBloomFilter:[[DCWalletManager sharedInstance] bloomFilter]];
+                
                 }
             }];
         }

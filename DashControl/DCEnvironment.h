@@ -13,6 +13,11 @@
 @property (nonatomic,copy,readonly,nonnull) NSString * deviceId;
 @property (nonatomic,copy,readonly,nonnull) NSString * devicePassword;
 
+
 + (id _Nonnull )sharedInstance;
+
+-(void)setKeychainData:(NSData* _Nullable)data forKey:(NSString* _Nonnull)key authenticated:(BOOL)authenticated;
+
+-(NSData* _Nullable)getKeychainDataForKey:(NSString* _Nonnull)key error:(NSError* _Nullable * _Nullable)error;
 
 @end

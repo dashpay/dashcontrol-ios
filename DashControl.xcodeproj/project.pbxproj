@@ -46,19 +46,20 @@
 		24FE25491F4C7ECE00E32652 /* DCBackendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE25481F4C7ECE00E32652 /* DCBackendManager.m */; };
 		24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE254B1F4C82C900E32652 /* PriceViewController.m */; };
 		8B0BD619FFF877813DC0386A /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */; };
+		FB17AEE31FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AED81FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m */; };
+		FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AEDA1FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m */; };
+		FB17AEE51FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AEDC1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m */; };
+		FB17AEE61FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AEDE1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m */; };
 		FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */; };
 		FB4310D71F9DA96700784EBC /* DCWalletManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310D61F9DA96700784EBC /* DCWalletManager.m */; };
 		FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310D91F9EF4B500784EBC /* DCWalletAccount.m */; };
 		FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310DB1F9EFC3F00784EBC /* DCServerBloomFilter.m */; };
-		FB4310E61F9F00A700784EBC /* DCWalletAddressEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310DF1F9F00A700784EBC /* DCWalletAddressEntity+CoreDataClass.m */; };
-		FB4310E71F9F00A700784EBC /* DCWalletAddressEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310E11F9F00A700784EBC /* DCWalletAddressEntity+CoreDataProperties.m */; };
-		FB4310E81F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310E31F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.m */; };
-		FB4310E91F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310E51F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.m */; };
-		FB4310EC1F9F03A800784EBC /* NSManagedObject+Sugar.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310EB1F9F03A800784EBC /* NSManagedObject+Sugar.m */; };
 		FB4310F51FA2142700784EBC /* DCEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310F41FA2142700784EBC /* DCEnvironment.m */; };
 		FB4310FF1FA2B90700784EBC /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4310FE1FA2B8BC00784EBC /* LocalAuthentication.framework */; };
 		FB4311021FA2BCD800784EBC /* NSString+Sugar.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4311011FA2BCD800784EBC /* NSString+Sugar.m */; };
 		FB4311051FA2C19800784EBC /* NSURL+Sugar.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4311041FA2C19800784EBC /* NSURL+Sugar.m */; };
+		FB4C23891FA342DE00A43858 /* DCWalletEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4C23861FA342DE00A43858 /* DCWalletEntity+CoreDataClass.m */; };
+		FB4C238A1FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4C23881FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.m */; };
 		FB4F93BA1F82528F0078E259 /* PortfolioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F93B91F82528F0078E259 /* PortfolioViewController.m */; };
 		FB84EDC21F32898700E4D400 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC11F32898700E4D400 /* main.m */; };
 		FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC41F32898700E4D400 /* AppDelegate.m */; };
@@ -196,6 +197,14 @@
 		481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
 		6385EAF7B5AD9CDA2429BFAE /* Pods-DashControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.debug.xcconfig"; sourceTree = "<group>"; };
 		742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB17AED71FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCWalletAccountEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		FB17AED81FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletAccountEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		FB17AED91FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCWalletAccountEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FB17AEDA1FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletAccountEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FB17AEDB1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCWalletAddressEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		FB17AEDC1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletAddressEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		FB17AEDD1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCWalletAddressEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FB17AEDE1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletAddressEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FB2F9B3B1F5C9F960035180D /* NSArray+SWAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+SWAdditions.h"; sourceTree = "<group>"; };
 		FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+SWAdditions.m"; sourceTree = "<group>"; };
 		FB4310D51F9DA96700784EBC /* DCWalletManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCWalletManager.h; sourceTree = "<group>"; };
@@ -204,16 +213,6 @@
 		FB4310D91F9EF4B500784EBC /* DCWalletAccount.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCWalletAccount.m; sourceTree = "<group>"; };
 		FB4310DB1F9EFC3F00784EBC /* DCServerBloomFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCServerBloomFilter.m; sourceTree = "<group>"; };
 		FB4310DC1F9EFC3F00784EBC /* DCServerBloomFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCServerBloomFilter.h; sourceTree = "<group>"; };
-		FB4310DE1F9F00A700784EBC /* DCWalletAddressEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCWalletAddressEntity+CoreDataClass.h"; sourceTree = "<group>"; };
-		FB4310DF1F9F00A700784EBC /* DCWalletAddressEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletAddressEntity+CoreDataClass.m"; sourceTree = "<group>"; };
-		FB4310E01F9F00A700784EBC /* DCWalletAddressEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCWalletAddressEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
-		FB4310E11F9F00A700784EBC /* DCWalletAddressEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletAddressEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
-		FB4310E21F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCWalletMasterAddressEntity+CoreDataClass.h"; sourceTree = "<group>"; };
-		FB4310E31F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletMasterAddressEntity+CoreDataClass.m"; sourceTree = "<group>"; };
-		FB4310E41F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCWalletMasterAddressEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
-		FB4310E51F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletMasterAddressEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
-		FB4310EA1F9F03A800784EBC /* NSManagedObject+Sugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+Sugar.h"; sourceTree = "<group>"; };
-		FB4310EB1F9F03A800784EBC /* NSManagedObject+Sugar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+Sugar.m"; sourceTree = "<group>"; };
 		FB4310F31FA2142700784EBC /* DCEnvironment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCEnvironment.h; sourceTree = "<group>"; };
 		FB4310F41FA2142700784EBC /* DCEnvironment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCEnvironment.m; sourceTree = "<group>"; };
 		FB4310FE1FA2B8BC00784EBC /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
@@ -249,6 +248,10 @@
 		FB4311461FA2DF0300784EBC /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		FB4311471FA2DF0900784EBC /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Main.strings; sourceTree = "<group>"; };
 		FB4311481FA2DF0A00784EBC /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		FB4C23851FA342DE00A43858 /* DCWalletEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "DCWalletEntity+CoreDataClass.h"; path = "../DCWalletEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		FB4C23861FA342DE00A43858 /* DCWalletEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "DCWalletEntity+CoreDataClass.m"; path = "../DCWalletEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		FB4C23871FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "DCWalletEntity+CoreDataProperties.h"; path = "../DCWalletEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FB4C23881FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "DCWalletEntity+CoreDataProperties.m"; path = "../DCWalletEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FB4F93B81F82528F0078E259 /* PortfolioViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PortfolioViewController.h; sourceTree = "<group>"; };
 		FB4F93B91F82528F0078E259 /* PortfolioViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PortfolioViewController.m; sourceTree = "<group>"; };
 		FB84EDBD1F32898700E4D400 /* DashControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DashControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -405,9 +408,6 @@
 		241719C81F4DA0280045C2D6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				FB9CC18E1F8426CD0079309F /* Entities */,
-				FBEBE5441F5986510056D921 /* DCCoreDataManager.h */,
-				FBEBE5451F5986510056D921 /* DCCoreDataManager.m */,
 				FB4310D51F9DA96700784EBC /* DCWalletManager.h */,
 				FB4310D61F9DA96700784EBC /* DCWalletManager.m */,
 				FB4310D81F9EF4B500784EBC /* DCWalletAccount.h */,
@@ -565,9 +565,12 @@
 		FB4310FA1FA2A2E600784EBC /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				FB9CC18E1F8426CD0079309F /* Entities */,
 				24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */,
 				FB4310F31FA2142700784EBC /* DCEnvironment.h */,
 				FB4310F41FA2142700784EBC /* DCEnvironment.m */,
+				FBEBE5441F5986510056D921 /* DCCoreDataManager.h */,
+				FBEBE5451F5986510056D921 /* DCCoreDataManager.m */,
 			);
 			name = Persistence;
 			sourceTree = "<group>";
@@ -647,18 +650,22 @@
 		FB9CC18E1F8426CD0079309F /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				FB4C23851FA342DE00A43858 /* DCWalletEntity+CoreDataClass.h */,
+				FB4C23861FA342DE00A43858 /* DCWalletEntity+CoreDataClass.m */,
+				FB4C23871FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.h */,
+				FB4C23881FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.m */,
+				FB17AED71FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.h */,
+				FB17AED81FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m */,
+				FB17AED91FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.h */,
+				FB17AEDA1FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m */,
+				FB17AEDB1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.h */,
+				FB17AEDC1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m */,
+				FB17AEDD1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.h */,
+				FB17AEDE1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m */,
 				24E5840C1F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.h */,
 				24E5840D1F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.m */,
 				24E5840E1F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.h */,
 				24E5840F1F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.m */,
-				FB4310DE1F9F00A700784EBC /* DCWalletAddressEntity+CoreDataClass.h */,
-				FB4310DF1F9F00A700784EBC /* DCWalletAddressEntity+CoreDataClass.m */,
-				FB4310E01F9F00A700784EBC /* DCWalletAddressEntity+CoreDataProperties.h */,
-				FB4310E11F9F00A700784EBC /* DCWalletAddressEntity+CoreDataProperties.m */,
-				FB4310E21F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.h */,
-				FB4310E31F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.m */,
-				FB4310E41F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.h */,
-				FB4310E51F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.m */,
 				FB9CC17A1F83E45E0079309F /* DCMasternodeEntity+CoreDataClass.h */,
 				FB9CC1721F83E45C0079309F /* DCMasternodeEntity+CoreDataClass.m */,
 				FB9CC1741F83E45D0079309F /* DCMasternodeEntity+CoreDataProperties.h */,
@@ -804,8 +811,6 @@
 				FBEF66E51F83DA4F003424D2 /* NSString+Dash.m */,
 				FBEF66FF1F83DE30003424D2 /* UIImage+Sugar.h */,
 				FBEF67001F83DE30003424D2 /* UIImage+Sugar.m */,
-				FB4310EA1F9F03A800784EBC /* NSManagedObject+Sugar.h */,
-				FB4310EB1F9F03A800784EBC /* NSManagedObject+Sugar.m */,
 				FB4311001FA2BCD800784EBC /* NSString+Sugar.h */,
 				FB4311011FA2BCD800784EBC /* NSString+Sugar.m */,
 				FB4311031FA2C19800784EBC /* NSURL+Sugar.h */,
@@ -1065,9 +1070,9 @@
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
 				FB9CC1861F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m in Sources */,
 				FBE1F50D1F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m in Sources */,
-				FB4310E91F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataProperties.m in Sources */,
 				FBEBE5421F5802DE0056D921 /* DCChartTimeFormatter.m in Sources */,
 				249A402F1F62715700155636 /* ProposalScopeButtonsView.m in Sources */,
+				FB4C23891FA342DE00A43858 /* DCWalletEntity+CoreDataClass.m in Sources */,
 				24E584101F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.m in Sources */,
 				24C86F091F5EC09900735785 /* ProposalDetailVotesResultTableViewCell.m in Sources */,
 				FB4310F51FA2142700784EBC /* DCEnvironment.m in Sources */,
@@ -1076,12 +1081,12 @@
 				FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */,
 				FB9CC1801F83E45F0079309F /* DCMasternodeEntity+CoreDataClass.m in Sources */,
 				241719E31F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m in Sources */,
-				FB4310E61F9F00A700784EBC /* DCWalletAddressEntity+CoreDataClass.m in Sources */,
 				FB9CC1881F83E8000079309F /* NSMutableData+Dash.m in Sources */,
 				FBEBE5461F5986510056D921 /* DCCoreDataManager.m in Sources */,
 				FBE1F50E1F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.m in Sources */,
 				24E5841C1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m in Sources */,
 				FB9CC1841F83E45F0079309F /* DCMasternodeEntity+CoreDataProperties.m in Sources */,
+				FB4C238A1FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.m in Sources */,
 				FBE1F50A1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.m in Sources */,
 				241719D81F4DA4C60045C2D6 /* DCProposalsManager.m in Sources */,
 				24C86EFD1F5EC04100735785 /* ProposalDetailNameTableViewCell.m in Sources */,
@@ -1089,30 +1094,31 @@
 				24A2159B1F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m in Sources */,
 				FBE1F50C1F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.m in Sources */,
 				FB4311051FA2C19800784EBC /* NSURL+Sugar.m in Sources */,
-				FB4310E71F9F00A700784EBC /* DCWalletAddressEntity+CoreDataProperties.m in Sources */,
 				241719E21F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m in Sources */,
 				FB9CC1AA1F87D4A60079309F /* BRKey+BIP38.m in Sources */,
 				FB9CC1AB1F87D4A60079309F /* BRKey.m in Sources */,
 				24E584111F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.m in Sources */,
 				24C6C6361F544268007F3671 /* ProposalsViewController.m in Sources */,
 				24FE25491F4C7ECE00E32652 /* DCBackendManager.m in Sources */,
+				FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */,
 				24C86F031F5EC06C00735785 /* ProposalDetailOneTimePayementTableViewCell.m in Sources */,
 				FBEF66E21F83D68C003424D2 /* AddWalletAddressViewController.m in Sources */,
 				FB84EDC21F32898700E4D400 /* main.m in Sources */,
 				FBE1F50B1F5D4CF500823A77 /* DCExchangeEntity+CoreDataClass.m in Sources */,
 				24E584141F3ADC4C00A12087 /* DCRSSFeedManager.m in Sources */,
-				FB4310E81F9F00A700784EBC /* DCWalletMasterAddressEntity+CoreDataClass.m in Sources */,
 				FB4311021FA2BCD800784EBC /* NSString+Sugar.m in Sources */,
 				FB9CC1851F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataClass.m in Sources */,
 				24C86F001F5EC05400735785 /* ProposalDetailTitleTableViewCell.m in Sources */,
+				FB17AEE31FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m in Sources */,
 				2432DDA01F54395600A14112 /* ProposalCell.m in Sources */,
-				FB4310EC1F9F03A800784EBC /* NSManagedObject+Sugar.m in Sources */,
 				241719E11F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m in Sources */,
 				FB4F93BA1F82528F0078E259 /* PortfolioViewController.m in Sources */,
 				FB9CC1911F84BB0D0079309F /* AddMasternodeViewController.m in Sources */,
+				FB17AEE51FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m in Sources */,
 				FBE1F5091F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m in Sources */,
 				24C86F061F5EC08500735785 /* ProposalDetailCompletedPaymentsTableViewCell.m in Sources */,
 				FB9CC1A51F87D4860079309F /* BRBIP32Sequence.m in Sources */,
+				FB17AEE61FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m in Sources */,
 				FB9CC18C1F8405180079309F /* DCPortfolioManager.m in Sources */,
 				24C86F0F1F5EC0D600735785 /* ProposalDetailDescriptionDetailTableViewCell.m in Sources */,
 				24C86F0C1F5EC0C300735785 /* ProposalDetailDescriptionHeaderTableViewCell.m in Sources */,

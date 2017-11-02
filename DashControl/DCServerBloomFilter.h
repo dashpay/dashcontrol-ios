@@ -35,6 +35,7 @@
 @property (nonatomic, readonly) uint8_t flags;
 @property (nonatomic, readonly, getter = toData) NSData *data;
 @property (nonatomic, readonly) NSUInteger elementCount;
+@property (nonatomic, assign, readonly) UInt160 filterHash;
 @property (nonatomic, readonly) double falsePositiveRate;
 @property (nonatomic, readonly) NSUInteger length;
 

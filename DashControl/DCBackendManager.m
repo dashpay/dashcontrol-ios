@@ -17,7 +17,7 @@
 
 #define DASHCONTROL_SERVER_VERSION 0
 
-#define PRODUCTION_URL @"http://dashpay.info"
+#define PRODUCTION_URL @"https://dashpay.info"
 
 #define DEVELOPMENT_URL @"http://cms-swestrich.c9users.io"
 
@@ -67,8 +67,8 @@
          {
              if (!error) {
                  NSError * innerError = nil;
-                 DCMarketEntity * defaultMarket = [[DCCoreDataManager sharedManager] marketWithIdentifier:defaultMarketIdentifier inContext:self.mainObjectContext  error:&innerError];
-                 DCExchangeEntity * defaultExchange = innerError?nil:[[DCCoreDataManager sharedManager] exchangeWithIdentifier:defaultExchangeIdentifier inContext:self.mainObjectContext  error:&innerError];
+                 DCMarketEntity * defaultMarket = [[DCCoreDataManager sharedInstance] marketWithIdentifier:defaultMarketIdentifier inContext:self.mainObjectContext  error:&innerError];
+                 DCExchangeEntity * defaultExchange = innerError?nil:[[DCCoreDataManager sharedInstance] exchangeWithIdentifier:defaultExchangeIdentifier inContext:self.mainObjectContext  error:&innerError];
                  if (!innerError) {
                      NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
                      if (defaultMarket && ![[userDefaults objectForKey:DEFAULT_MARKET] isEqualToString:defaultMarket.name]) {
@@ -129,12 +129,12 @@
                 NSArray * markets = [[responseObject objectForKey:@"markets"] allKeys];
                 NSArray * exchanges = [[[responseObject objectForKey:@"markets"] allValues] valueForKeyPath: @"@distinctUnionOfArrays.self"];
                 NSError * error = nil;
-                NSMutableArray * knownMarkets = [[[DCCoreDataManager sharedManager] marketsForNames:markets inContext:context error:&error] mutableCopy];
-                NSMutableArray * knownExchanges = error?nil:[[[DCCoreDataManager sharedManager] exchangesForNames:exchanges inContext:context error:&error] mutableCopy];
+                NSMutableArray * knownMarkets = [[[DCCoreDataManager sharedInstance] marketsForNames:markets inContext:context error:&error] mutableCopy];
+                NSMutableArray * knownExchanges = error?nil:[[[DCCoreDataManager sharedInstance] exchangesForNames:exchanges inContext:context error:&error] mutableCopy];
                 if (!error) {
                     NSArray * novelMarkets = [markets arrayByRemovingObjectsFromArray:[knownMarkets  arrayReferencedByKeyPath:@"name"]];
                     if (novelMarkets.count) {
-                        NSInteger marketIdentifier = [[DCCoreDataManager sharedManager] fetchAutoIncrementIdForMarketinContext:context error:&error];
+                        NSInteger marketIdentifier = [[DCCoreDataManager sharedInstance] fetchAutoIncrementIdForMarketinContext:context error:&error];
                         if (!error) {
                             for (NSString * marketName in novelMarkets) {
                                 DCMarketEntity *market = [NSEntityDescription insertNewObjectForEntityForName:@"DCMarketEntity" inManagedObjectContext:context];
@@ -149,7 +149,7 @@
                 if (!error) {
                     NSArray * novelExchanges = [exchanges arrayByRemovingObjectsFromArray:[knownExchanges arrayReferencedByKeyPath:@"name"]];
                     if (novelExchanges.count) {
-                        NSInteger exchangeIdentifier = [[DCCoreDataManager sharedManager] fetchAutoIncrementIdForExchangeinContext:context error:&error];
+                        NSInteger exchangeIdentifier = [[DCCoreDataManager sharedInstance] fetchAutoIncrementIdForExchangeinContext:context error:&error];
                         if (!error) {
                             for (NSString * exchangeName in novelExchanges) {
                                 DCExchangeEntity *exchange = [NSEntityDescription insertNewObjectForEntityForName:@"DCExchangeEntity" inManagedObjectContext:context];
@@ -333,8 +333,8 @@
     
     [self.persistentContainer performBackgroundTask:^(NSManagedObjectContext *context) {
         __block NSError * error;
-        DCMarketEntity * market = [[DCCoreDataManager sharedManager] marketNamed:marketName inContext:context error:&error];
-        DCExchangeEntity * exchange = error?nil:[[DCCoreDataManager sharedManager] exchangeNamed:exchangeName inContext:context error:&error];
+        DCMarketEntity * market = [[DCCoreDataManager sharedInstance] marketNamed:marketName inContext:context error:&error];
+        DCExchangeEntity * exchange = error?nil:[[DCCoreDataManager sharedInstance] exchangeNamed:exchangeName inContext:context error:&error];
         if (!error && market && exchange && [jsonArray count]) {
             context.automaticallyMergesChangesFromParent = TRUE;
             context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
@@ -380,7 +380,7 @@
                             if ([[intervalArray firstObject] objectForKey:@"isFirst"]) {
                                 NSDate * additionalDataPointIntervalEndTime = [[[intervalArray firstObject] objectForKey:@"time"] dateByAddingTimeInterval:-[DCChartTimeFormatter timeIntervalForChartTimeInterval:ChartTimeInterval_5Mins]];
                                 if ([additionalDataPointIntervalEndTime compare:intervalStartTime] == NSOrderedDescending) {
-                                    NSArray * additionalDataPoints = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:exchange.identifier forMarketIdentifier:market.identifier interval:ChartTimeInterval_5Mins startTime:intervalStartTime endTime:additionalDataPointIntervalEndTime inContext:context error:&error];
+                                    NSArray * additionalDataPoints = [[DCCoreDataManager sharedInstance] fetchChartDataForExchangeIdentifier:exchange.identifier forMarketIdentifier:market.identifier interval:ChartTimeInterval_5Mins startTime:intervalStartTime endTime:additionalDataPointIntervalEndTime inContext:context error:&error];
                                     for (DCChartDataEntryEntity * chartDataEntry in [additionalDataPoints reverseObjectEnumerator]) {
                                         NSMutableDictionary * additionalDataPoint = [NSMutableDictionary dictionary];
                                         [additionalDataPoint setObject:[chartDataEntry valueForKey:@"time"] forKey:@"time"];
@@ -397,7 +397,7 @@
                             } else if ([[intervalArray firstObject] objectForKey:@"isLast"]) {
                                 NSDate * additionalDataPointIntervalStartTime = [[[intervalArray lastObject] objectForKey:@"time"] dateByAddingTimeInterval:[DCChartTimeFormatter timeIntervalForChartTimeInterval:ChartTimeInterval_5Mins]];
                                 NSDate * additionalDataPointIntervalEndTime = [intervalStartTime dateByAddingTimeInterval:[DCChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval]];
-                                NSArray * additionalDataPoints = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:exchange.identifier forMarketIdentifier:market.identifier interval:ChartTimeInterval_5Mins startTime:additionalDataPointIntervalStartTime endTime:additionalDataPointIntervalEndTime inContext:context error:&error];
+                                NSArray * additionalDataPoints = [[DCCoreDataManager sharedInstance] fetchChartDataForExchangeIdentifier:exchange.identifier forMarketIdentifier:market.identifier interval:ChartTimeInterval_5Mins startTime:additionalDataPointIntervalStartTime endTime:additionalDataPointIntervalEndTime inContext:context error:&error];
                                 for (DCChartDataEntryEntity * chartDataEntry in additionalDataPoints) {
                                     NSMutableDictionary * additionalDataPoint = [NSMutableDictionary dictionary];
                                     [additionalDataPoint setObject:[chartDataEntry valueForKey:@"time"] forKey:@"time"];
@@ -491,18 +491,23 @@
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
-    NSDictionary* parameters = @{
+    
+    NSMutableDictionary* parameters = [@{
                                      @"version": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
                                      @"model": deviceName,
                                      @"os": @"ios",
-                                     @"device_id": [[[UIDevice currentDevice] identifierForVendor] UUIDString],
+                                     @"device_id": [[DCEnvironment sharedInstance] deviceId],
+                                     @"password": [[DCEnvironment sharedInstance] devicePassword],
                                      @"os_version": [[UIDevice currentDevice] systemVersion],
-                                     @"token": token_string,
                                      @"app_name": @"dashcontrol",
-                                     };
+                                     } mutableCopy];
+    
+    if (token_string && ![token_string isEqualToString:@""]) {
+        [parameters setObject:token_string forKey:@"token"];
+    }
     
     [manager POST:DASHCONTROL_URL(@"device") parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"Token registered %@", token_string);
+        NSLog(@"Device registered %@", token_string);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"URL Session Task Failed: %@", [error localizedDescription]);
     }];
@@ -510,10 +515,8 @@
 
 #pragma mark - Notifications
 
--(void)updateBloomFilter:(DCServerBloomFilter*)filter {
-    [self.authenticatedManager POST:DASHCONTROL_URL(@"filter") parameters:@{} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        [formData appendPartWithHeaders:nil body:filter.data];
-    } progress:^(NSProgress * _Nonnull uploadProgress) {
+-(void)updateBloomFilter:(DCServerBloomFilter*)filter completion:(void (^)(NSError * error))completion {
+    [self.authenticatedManager POST:DASHCONTROL_URL(@"filter") parameters:@{@"filter":[filter.data base64EncodedStringWithOptions:0]} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         

@@ -160,6 +160,14 @@ static NSDictionary *getKeychainDict(NSString *key, NSError **error)
     return self;
 }
 
+-(void)setKeychainData:(NSData*)data forKey:(NSString*)key authenticated:(BOOL)authenticated {
+    setKeychainData(data, key, authenticated);
+}
+
+-(NSData*)getKeychainDataForKey:(NSString*)key error:(NSError**)error {
+    return getKeychainData(key, error);
+}
+
 -(NSString*)deviceId {
     if (!_deviceId) {
         NSError * error = nil;

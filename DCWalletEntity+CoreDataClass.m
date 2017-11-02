@@ -1,5 +1,5 @@
 //
-//  DCWalletAddressEntity+CoreDataClass.m
+//  DCWalletEntity+CoreDataClass.m
 //  DashControl
 //
 //  Created by Sam Westrich on 10/27/17.
@@ -7,8 +7,8 @@
 //
 //
 
-#import "DCWalletAddressEntity+CoreDataClass.h"
+#import "DCWalletEntity+CoreDataClass.h"
 
-@implementation DCWalletAddressEntity
+@implementation DCWalletEntity
 
 @end

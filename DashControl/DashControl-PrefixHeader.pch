@@ -34,7 +34,6 @@
 
 //CoreData
 #import <CoreData/CoreData.h>
-#import "NSManagedObject+Sugar.h"
 #import "DCPostEntity+CoreDataClass.h"
 #import "DCChartDataEntryEntity+CoreDataClass.h"
 #import "DCBudgetEntity+CoreDataClass.h"
@@ -44,6 +43,7 @@
 #import "DCExchangeEntity+CoreDataClass.h"
 
 //Other
+#import "IntTypes.h"
 #import "AppDelegate.h"
 #import "DCRSSFeedManager.h"
 #import "DCBackendManager.h"

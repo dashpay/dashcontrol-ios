@@ -9,11 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "DCChartTimeFormatter.h"
 
+@class DCWalletEntity;
+
 @interface DCCoreDataManager : NSObject
 
 @property (nonatomic, strong) NSManagedObjectContext * _Nullable mainObjectContext;
 
-+ (id _Nonnull )sharedManager;
++ (id _Nonnull )sharedInstance;
 
 // MARK: - Chart Data
 
@@ -38,12 +40,18 @@
 
 // MARK: - Portfolio
 
--(BOOL)hasWalletMasterAddress:(NSString* _Nonnull)masterPublicKeyHash inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error;
+-(DCWalletEntity* _Nullable)walletHavingOneOfAccounts:(NSArray* _Nonnull)accounts withIdentifier:(NSString* _Nonnull)identifier inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error;
+
+-(BOOL)hasWalletAccount:(NSString* _Nonnull)accountPublicKeyHash inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error;
 
 -(NSArray * _Nonnull)walletAddressesInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error;
 
 -(NSArray * _Nonnull)masternodesInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error;
 
 -(NSUInteger)countMasternodesInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error;
+
+// MARK: - Wallet Accounts
+
+-(NSArray * _Nonnull)walletAccountsInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error;
 
 @end

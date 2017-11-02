@@ -30,8 +30,8 @@
     NSError * error = nil;
     NSUserDefaults * standardDefaults = [NSUserDefaults standardUserDefaults];
     NSDictionary * currentExchangeMarketPair = [standardDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR];
-    DCMarketEntity * currentMarket = [[DCCoreDataManager sharedManager] marketNamed:[currentExchangeMarketPair objectForKey:@"market"] inContext:proposal.managedObjectContext error:&error];
-    DCExchangeEntity * currentExchange = error?nil:[[DCCoreDataManager sharedManager] exchangeNamed:[currentExchangeMarketPair objectForKey:@"exchange"] inContext:proposal.managedObjectContext error:&error];
+    DCMarketEntity * currentMarket = [[DCCoreDataManager sharedInstance] marketNamed:[currentExchangeMarketPair objectForKey:@"market"] inContext:proposal.managedObjectContext error:&error];
+    DCExchangeEntity * currentExchange = error?nil:[[DCCoreDataManager sharedInstance] exchangeNamed:[currentExchangeMarketPair objectForKey:@"exchange"] inContext:proposal.managedObjectContext error:&error];
     NSDate *startTime;
     NSTimeInterval timeInterval = ChartTimeInterval_15Mins;
     if (!error) {
@@ -40,7 +40,7 @@
         startTime = [NSDate dateWithTimeIntervalSinceNow:-[DCChartTimeFormatter timeIntervalForChartTimeFrame:timeInterval]];
     }
     
-    NSArray * chartData = [[DCCoreDataManager sharedManager] fetchChartDataForExchangeIdentifier:currentExchange.identifier forMarketIdentifier:currentMarket.identifier interval:timeInterval startTime:startTime endTime:nil inContext:proposal.managedObjectContext error:&error] ;
+    NSArray * chartData = [[DCCoreDataManager sharedInstance] fetchChartDataForExchangeIdentifier:currentExchange.identifier forMarketIdentifier:currentMarket.identifier interval:timeInterval startTime:startTime endTime:nil inContext:proposal.managedObjectContext error:&error] ;
     DCChartDataEntryEntity * entry;
     if (!error) {
         entry = [chartData lastObject];

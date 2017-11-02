@@ -1,5 +1,5 @@
 //
-//  DCWalletAddressEntity+CoreDataClass.h
+//  DCWalletAccountEntity+CoreDataClass.h
 //  DashControl
 //
 //  Created by Sam Westrich on 10/27/17.
@@ -10,14 +10,14 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class DCWalletAccountEntity;
+@class DCWalletAddressEntity, DCWalletEntity;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DCWalletAddressEntity : NSManagedObject
+@interface DCWalletAccountEntity : NSManagedObject
 
 @end
 
 NS_ASSUME_NONNULL_END
 
-#import "DCWalletAddressEntity+CoreDataProperties.h"
+#import "DCWalletAccountEntity+CoreDataProperties.h"
