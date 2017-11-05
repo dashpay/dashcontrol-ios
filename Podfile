@@ -15,5 +15,6 @@ target 'DashControl' do
   pod 'MBCircularProgressBar', :inhibit_warnings => true
   pod 'RaptureXML'
   pod 'FTPopOverMenu'
+  pod 'MBProgressHUD'
 
 end

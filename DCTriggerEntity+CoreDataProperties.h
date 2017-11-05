@@ -10,8 +10,12 @@
 #import "DCTriggerEntity+CoreDataClass.h"
 
 typedef NS_ENUM(uint16_t,DCTriggerType) {
-    DCTriggerOver,
-    DCTriggerUnder
+    DCTriggerAbove,
+    DCTriggerBelow,
+    DCTriggerAboveFor,
+    DCTriggerBelowFor,
+    DCTriggerSpikeUp,
+    DCTriggerSpikeDown
 };
 
 

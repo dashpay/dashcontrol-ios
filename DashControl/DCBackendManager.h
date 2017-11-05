@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "DCServerBloomFilter.h"
+#import "DCTrigger.h"
+
 
 #define CURRENT_EXCHANGE_MARKET_PAIR @"CURRENT_EXCHANGE_MARKET_PAIR"
 
@@ -23,5 +25,7 @@
 -(void)updateBloomFilter:(DCServerBloomFilter* _Nonnull)filter completion:(void (^ _Nullable)(NSError * _Nullable error))completion;
 
 -(void)registerDeviceForDeviceToken:(NSData* _Nonnull)deviceToken;
+
+-(void)postTrigger:(DCTrigger* _Nonnull)trigger completion:(void (^ _Nullable)(NSError * _Nullable error))completion;
 
 @end

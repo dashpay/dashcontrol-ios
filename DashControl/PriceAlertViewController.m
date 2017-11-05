@@ -10,6 +10,8 @@
 #import "PriceAmountTableViewCell.h"
 #import "TriggerTypeTableViewCell.h"
 #import "AddTriggerTableViewCell.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import "DCBackendManager.h"
 
 @interface PriceAlertViewController ()
 
@@ -34,10 +36,10 @@
     
     self.triggerTypeTableViewCell = [self.tableView dequeueReusableCellWithIdentifier:@"TriggerTypeCell"];
     self.triggerTypeTableViewCell.mainLabel.text = NSLocalizedString(@"Alert type", @"Price Alert Screen");
-    self.triggerTypeTableViewCell.typeLabel.text = [self textForTriggerType:DCTriggerOver];
+    self.triggerTypeTableViewCell.typeLabel.text = [self textForTriggerType:DCTriggerAbove];
     
     self.addTriggerTableViewCell = [self.tableView dequeueReusableCellWithIdentifier:@"AddTriggerCell"];
-    self.triggerType = DCTriggerOver;
+    self.triggerType = DCTriggerAbove;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,7 +94,7 @@
         }
     } else if (indexPath.row == 1) {
         UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"trigger type",@"Price Alert Screen") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        for (NSInteger i = 0;i<DCTriggerUnder + 1;i++) {
+        for (NSInteger i = 0;i<DCTriggerBelow + 1;i++) {
             NSString * triggerText = [self textForTriggerType:i];
             [alertController addAction:[UIAlertAction actionWithTitle:triggerText style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 self.triggerType = i;
@@ -108,7 +110,7 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     if (!indexPath.section) {
         UIAlertController * alertController = [UIAlertController alertControllerWithTitle:[self textForTriggerType:self.triggerType] message:[self explanationForTriggerType:self.triggerType] preferredStyle:UIAlertControllerStyleAlert];
-            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ok",@"ok") style:UIAlertActionStyleDefault handler:nil]];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ok",@"ok") style:UIAlertActionStyleDefault handler:nil]];
         [self presentViewController:alertController animated:TRUE completion:^{
             
         }];
@@ -117,28 +119,43 @@
 
 -(NSString*)textForTriggerType:(DCTriggerType)triggerType {
     switch (triggerType) {
-        case DCTriggerOver:
+        case DCTriggerAbove:
             return NSLocalizedString(@"Alert when over",@"Price Alert Screen");
             break;
-        case DCTriggerUnder:
+        case DCTriggerBelow:
             return NSLocalizedString(@"Alert when under",@"Price Alert Screen");
             break;
+        case DCTriggerAboveFor:
+            return NSLocalizedString(@"Alert when over for a time period",@"Price Alert Screen");
+            break;
+        case DCTriggerBelowFor:
+            return NSLocalizedString(@"Alert when under for a time period",@"Price Alert Screen");
+            break;
+        case DCTriggerSpikeUp:
+            return NSLocalizedString(@"Alert when price rises quickly",@"Price Alert Screen");
+            break;
+        case DCTriggerSpikeDown:
+            return NSLocalizedString(@"Alert when price drops quickly",@"Price Alert Screen");
+            break;
         default:
+            return @"";
             break;
     }
 }
 
 -(NSString*)explanationForTriggerType:(DCTriggerType)triggerType {
     switch (triggerType) {
-        case DCTriggerOver:
+        case DCTriggerAbove:
             return NSLocalizedString(@"You will receive a notification on your device when the Dash price raises above the value entered above.",@"Price Alert Screen");
             break;
-        case DCTriggerUnder:
+        case DCTriggerBelow:
             return NSLocalizedString(@"You will receive a notification on your device when the Dash price falls below the value entered above.",@"Price Alert Screen");
             break;
         default:
+            return @"";
             break;
     }
+    
 }
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -175,16 +192,30 @@
 }
 
 -(void)addTrigger:(id)sender {
-    NSManagedObjectContext * context = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
-    DCTriggerEntity *triggerEntity = [NSEntityDescription insertNewObjectForEntityForName:@"DCTriggerEntity" inManagedObjectContext:context];
-    triggerEntity.value = [self.priceAmountTableViewCell.priceTextField.text integerValue];
-    triggerEntity.type = self.triggerType;
-    NSError * error = nil;
-    if (![context save:&error]) {
-        NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-        abort();
-    }
-    [self.navigationController popViewControllerAnimated:TRUE];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSNumber * value = @([self.priceAmountTableViewCell.priceTextField.text integerValue]);
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        DCTrigger * trigger = [[DCTrigger alloc] initWithType:self.triggerType value:value market:@"DASH_USD"];
+        [[DCBackendManager sharedInstance] postTrigger:trigger completion:^(NSError * _Nullable error) {
+            // Do something...
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                if (!error) {
+                    NSManagedObjectContext * context = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
+                    DCTriggerEntity *triggerEntity = [NSEntityDescription insertNewObjectForEntityForName:@"DCTriggerEntity" inManagedObjectContext:context];
+                    triggerEntity.value = [self.priceAmountTableViewCell.priceTextField.text integerValue];
+                    triggerEntity.type = self.triggerType;
+                    NSError * error = nil;
+                    if (![context save:&error]) {
+                        NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+                        abort();
+                    }
+                    [self.navigationController popViewControllerAnimated:TRUE];
+                }
+            });
+        }];
+        
+    });
 }
 
 @end

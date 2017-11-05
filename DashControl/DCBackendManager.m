@@ -513,6 +513,18 @@
     }];
 }
 
+#pragma mark - Trigger
+
+-(void)postTrigger:(DCTrigger* _Nonnull)trigger completion:(void (^ _Nullable)(NSError * _Nullable error))completion {
+    [self.authenticatedManager POST:DASHCONTROL_URL(@"trigger") parameters: @{ @"value":trigger.value, @"type":[DCTrigger networkStringForType:trigger.type], @"market":trigger.market, @"exchange":trigger.exchange} progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (completion) completion(nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (completion) completion(error);
+    }];
+}
+
 #pragma mark - Notifications
 
 -(void)updateBloomFilter:(DCServerBloomFilter*)filter completion:(void (^)(NSError * error))completion {

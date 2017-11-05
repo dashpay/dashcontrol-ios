@@ -409,12 +409,12 @@
 -(void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath *)indexPath {
     DCTriggerEntity * triggerEntity = [self.triggerFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
     switch (triggerEntity.type) {
-        case DCTriggerUnder:
+        case DCTriggerBelow:
         {
             cell.textLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Under %@", @"Price View Screen"),@(triggerEntity.value)];
             return;
         }
-        case DCTriggerOver:
+        case DCTriggerAbove:
         {
             cell.textLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Over %@", @"Price View Screen"),@(triggerEntity.value)];
             return;

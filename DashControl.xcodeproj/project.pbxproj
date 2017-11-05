@@ -65,6 +65,7 @@
 		FB4310FF1FA2B90700784EBC /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4310FE1FA2B8BC00784EBC /* LocalAuthentication.framework */; };
 		FB4311021FA2BCD800784EBC /* NSString+Sugar.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4311011FA2BCD800784EBC /* NSString+Sugar.m */; };
 		FB4311051FA2C19800784EBC /* NSURL+Sugar.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4311041FA2C19800784EBC /* NSURL+Sugar.m */; };
+		FB4550CC1FAFABD6001CC1ED /* DCTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4550CB1FAFABD6001CC1ED /* DCTrigger.m */; };
 		FB4C23891FA342DE00A43858 /* DCWalletEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4C23861FA342DE00A43858 /* DCWalletEntity+CoreDataClass.m */; };
 		FB4C238A1FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4C23881FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.m */; };
 		FB4F93BA1F82528F0078E259 /* PortfolioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F93B91F82528F0078E259 /* PortfolioViewController.m */; };
@@ -268,6 +269,8 @@
 		FB4311461FA2DF0300784EBC /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		FB4311471FA2DF0900784EBC /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Main.strings; sourceTree = "<group>"; };
 		FB4311481FA2DF0A00784EBC /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		FB4550CA1FAFABD6001CC1ED /* DCTrigger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTrigger.h; sourceTree = "<group>"; };
+		FB4550CB1FAFABD6001CC1ED /* DCTrigger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCTrigger.m; sourceTree = "<group>"; };
 		FB4C23851FA342DE00A43858 /* DCWalletEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "DCWalletEntity+CoreDataClass.h"; path = "../DCWalletEntity+CoreDataClass.h"; sourceTree = "<group>"; };
 		FB4C23861FA342DE00A43858 /* DCWalletEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "DCWalletEntity+CoreDataClass.m"; path = "../DCWalletEntity+CoreDataClass.m"; sourceTree = "<group>"; };
 		FB4C23871FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "DCWalletEntity+CoreDataProperties.h"; path = "../DCWalletEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -432,6 +435,8 @@
 				FB4310D61F9DA96700784EBC /* DCWalletManager.m */,
 				FB4310D81F9EF4B500784EBC /* DCWalletAccount.h */,
 				FB4310D91F9EF4B500784EBC /* DCWalletAccount.m */,
+				FB4550CA1FAFABD6001CC1ED /* DCTrigger.h */,
+				FB4550CB1FAFABD6001CC1ED /* DCTrigger.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1141,6 +1146,7 @@
 				24B08BA51FA739BE00A41566 /* PriceAmountTableViewCell.m in Sources */,
 				241719E21F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m in Sources */,
 				FB9CC1AA1F87D4A60079309F /* BRKey+BIP38.m in Sources */,
+				FB4550CC1FAFABD6001CC1ED /* DCTrigger.m in Sources */,
 				FB9CC1AB1F87D4A60079309F /* BRKey.m in Sources */,
 				24E584111F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.m in Sources */,
 				24C6C6361F544268007F3671 /* ProposalsViewController.m in Sources */,

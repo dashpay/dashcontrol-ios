@@ -18,7 +18,19 @@
 "Alert when over" = "Alert when over";
 
 /* Price Alert Screen */
+"Alert when over for a time period" = "Alert when over for a time period";
+
+/* Price Alert Screen */
+"Alert when price drops quickly" = "Alert when price drops quickly";
+
+/* Price Alert Screen */
+"Alert when price rises quickly" = "Alert when price rises quickly";
+
+/* Price Alert Screen */
 "Alert when under" = "Alert when under";
+
+/* Price Alert Screen */
+"Alert when under for a time period" = "Alert when under for a time period";
 
 /* Budget view */
 "ALLOTED" = "ALLOTED";
@@ -41,11 +53,11 @@
 /* Proposal Detail View */
 "Completed payments" = "Completed payments";
 
-/* Proposal Detail View */
-"DASH" = "DASH";
-
 /* No comment provided by engineer. */
 "Dash" = "Dash";
+
+/* Proposal Detail View */
+"DASH" = "DASH";
 
 /* Budget view */
 "Day" = "Day";
