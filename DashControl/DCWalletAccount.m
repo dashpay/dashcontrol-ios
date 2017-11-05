@@ -29,12 +29,17 @@
 @implementation DCWalletAccount
 
 
--(id)initWithAccountPublicKey:(NSData*)accountPublicKey {
+-(id)initWithAccountPublicKey:(NSData*)accountPublicKey hash:(NSString*)hash inContext:(NSManagedObjectContext*)context {
     if (self = [super init]) {
+        NSError * error = nil;
+        DCWalletAccountEntity * walletAccountEntity = [[DCCoreDataManager sharedInstance] walletAccountWithPublicKeyHash:hash inContext:context error:&error];
         self.publicKey = accountPublicKey;
         self.state = WalletAccountStopped;
-        self.internalAddresses = [NSMutableArray array];
-        self.externalAddresses = [NSMutableArray array];
+
+        NSArray * previousInternalAddresses = [[walletAccountEntity.addresses filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"internal == %@",[NSNumber numberWithBool:TRUE]]] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:TRUE]]];
+        NSArray * previousExternalAddresses = [[walletAccountEntity.addresses filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"internal == %@",[NSNumber numberWithBool:FALSE]]] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:TRUE]]];
+        self.internalAddresses = [previousInternalAddresses mutableArrayReferencedByKeyPath:@"address"] ;
+        self.externalAddresses = [previousExternalAddresses mutableArrayReferencedByKeyPath:@"address"];
         self.usedAddresses = [NSMutableArray array];
         self.sequence = [[BRBIP32Sequence alloc] init];
     }
@@ -66,7 +71,7 @@
         while (a.count < gapLimit) { // generate new addresses up to gapLimit
             NSData *pubKey = [self.sequence publicKey:n internal:internal masterPublicKey:self.publicKey];
             NSString *addr = [BRKey keyWithPublicKey:pubKey].address;
-
+            
             if (! addr) {
                 NSLog(@"error generating keys");
                 return nil;
@@ -78,17 +83,17 @@
             [a addObject:addr];
             n++;
         }
-            for (NSDictionary * createdAddress in createdAddresses) {
-                DCWalletAddressEntity *e = [NSEntityDescription insertNewObjectForEntityForName:@"DCWalletAddressEntity" inManagedObjectContext:walletAccountEntity.managedObjectContext];
-                e.address = createdAddress[@"address"];
-                e.index = [createdAddress[@"index"] intValue];
-                e.internal = [createdAddress[@"internal"] boolValue];
-                e.walletAccount = walletAccountEntity;
-            }
-            NSError * error = nil;
-            if (![walletAccountEntity.managedObjectContext save:&error]) {
-                NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-            }
+        for (NSDictionary * createdAddress in createdAddresses) {
+            DCWalletAddressEntity *e = [NSEntityDescription insertNewObjectForEntityForName:@"DCWalletAddressEntity" inManagedObjectContext:walletAccountEntity.managedObjectContext];
+            e.address = createdAddress[@"address"];
+            e.index = [createdAddress[@"index"] intValue];
+            e.internal = [createdAddress[@"internal"] boolValue];
+            e.walletAccount = walletAccountEntity;
+        }
+        NSError * error = nil;
+        if (![walletAccountEntity.managedObjectContext save:&error]) {
+            NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+        }
     }
     return a;
 }

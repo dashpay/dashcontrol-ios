@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DCChartTimeFormatter.h"
 
-@class DCWalletEntity;
+@class DCWalletEntity,DCWalletAccountEntity;
 
 @interface DCCoreDataManager : NSObject
 
@@ -53,6 +53,8 @@
 // MARK: - Wallet Accounts
 
 -(NSArray * _Nonnull)walletAccountsInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error;
+
+-(DCWalletAccountEntity* _Nullable)walletAccountWithPublicKeyHash:(NSString* _Nonnull)publicKeyHash inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error;
 
 // MARK: - Wallet
 

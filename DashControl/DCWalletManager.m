@@ -57,7 +57,7 @@
                 NSString * locationInKeyValueStore = accountEntity.hash160Key;
                 NSError * error = nil;
                 NSData * pubkeyData = [[DCEnvironment sharedInstance] getKeychainDataForKey:locationInKeyValueStore error:&error];
-                DCWalletAccount * walletAccount = [[DCWalletAccount alloc] initWithAccountPublicKey:pubkeyData];
+                DCWalletAccount * walletAccount = [[DCWalletAccount alloc] initWithAccountPublicKey:pubkeyData hash:locationInKeyValueStore inContext:context];
                 [self.wallets addObject:walletAccount];
                 [walletAccount startUpWithWalletAccountEntity:accountEntity];
             }
@@ -143,13 +143,13 @@
         }
 
             if (!has32Account) {
-                DCWalletAccount * data32Account = [[DCWalletAccount alloc] initWithAccountPublicKey:data32];
+                DCWalletAccount * data32Account = [[DCWalletAccount alloc] initWithAccountPublicKey:data32 hash:extended32PublicKeyHash inContext:context];
                 [self.wallets addObject:data32Account];
                 [data32Account startUpWithWalletAccountEntity:wallet32Account];
                 
             }
             if (!has44Account) {
-                DCWalletAccount * data44Account = [[DCWalletAccount alloc] initWithAccountPublicKey:data44];
+                DCWalletAccount * data44Account = [[DCWalletAccount alloc] initWithAccountPublicKey:data44 hash:extended44PublicKeyHash inContext:context];
                 [self.wallets addObject:data44Account];
                 [data44Account startUpWithWalletAccountEntity:wallet44Account];
             }
