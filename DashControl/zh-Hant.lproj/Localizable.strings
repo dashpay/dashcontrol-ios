@@ -9,7 +9,16 @@
 "Abstain" = "Abstain";
 
 /* Price Alert Screen */
+"Alert type" = "Alert type";
+
+/* Price Alert Screen */
 "Alert when Over" = "Alert when Over";
+
+/* Price Alert Screen */
+"Alert when over" = "Alert when over";
+
+/* Price Alert Screen */
+"Alert when under" = "Alert when under";
 
 /* Budget view */
 "ALLOTED" = "ALLOTED";
@@ -32,11 +41,11 @@
 /* Proposal Detail View */
 "Completed payments" = "Completed payments";
 
-/* No comment provided by engineer. */
-"Dash" = "Dash";
-
 /* Proposal Detail View */
 "DASH" = "DASH";
+
+/* No comment provided by engineer. */
+"Dash" = "Dash";
 
 /* Budget view */
 "Day" = "Day";
@@ -49,6 +58,9 @@
 
 /* Available Languages List */
 "English" = "English";
+
+/* Price Alert Screen */
+"explanation" = "explanation";
 
 /* Available Languages List */
 "French" = "French";
@@ -98,6 +110,9 @@
 /* Price Alert Screen */
 "Over" = "Over";
 
+/* Price View Screen */
+"Over %@" = "Over %@";
+
 /* Proposal Detail View */
 "Owner" = "Owner";
 
@@ -125,6 +140,9 @@
 /* No comment provided by engineer. */
 "remaining" = "remaining";
 
+/* Price Alert Screen */
+"required" = "required";
+
 /* Available Languages List */
 "Russian" = "Russian";
 
@@ -150,7 +168,13 @@
 "totalling in" = "totalling in";
 
 /* Price Alert Screen */
+"trigger type" = "trigger type";
+
+/* Price Alert Screen */
 "Under" = "Under";
+
+/* Price View Screen */
+"Under %@" = "Under %@";
 
 /* Proposal Detail View */
 "Votes Result" = "Votes Result";
@@ -160,3 +184,15 @@
 
 /* Proposal Detail View */
 "Yes" = "Yes";
+
+/* Price Alert Screen */
+"You must imput a value" = "You must imput a value";
+
+/* Price Alert Screen */
+"You must input a value" = "You must input a value";
+
+/* Price Alert Screen */
+"You will receive a notification on your device when the Dash price falls below the value entered above." = "You will receive a notification on your device when the Dash price falls below the value entered above.";
+
+/* Price Alert Screen */
+"You will receive a notification on your device when the Dash price raises above the value entered above." = "You will receive a notification on your device when the Dash price raises above the value entered above.";

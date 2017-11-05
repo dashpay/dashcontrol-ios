@@ -1,14 +1,14 @@
 //
-//  AlertOverTableViewCell.m
+//  TriggerTypeTableViewCell.m
 //  DashControl
 //
-//  Created by Manuel Boyer on 30/10/2017.
+//  Created by Sam Westrich on 11/5/17.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
-#import "AlertOverTableViewCell.h"
+#import "TriggerTypeTableViewCell.h"
 
-@implementation AlertOverTableViewCell
+@implementation TriggerTypeTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

@@ -11,6 +11,7 @@
 #import "DCChartDataEntryEntity+CoreDataProperties.h"
 #import "DCChartTimeFormatter.h"
 #import "PriceAlertViewController.h"
+#import "DCTriggerEntity+CoreDataProperties.h"
 
 @interface PriceViewController ()
 
@@ -23,6 +24,8 @@
 @property (nonatomic, assign) ChartTimeInterval timeInterval;
 @property (nonatomic, strong) NSDate * startTime;
 @property (nonatomic, strong) NSDate * endTime;
+@property (nonatomic, strong) NSFetchedResultsController* triggerFetchedResultsController;
+@property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
 
 @end
 
@@ -92,8 +95,16 @@
             [self updateChartData];
         }
     }
-    
-    self.priceAlertsArray = [NSMutableArray new];
+}
+
+-(NSManagedObjectContext*)managedObjectContext {
+    if (!_managedObjectContext) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        self.managedObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
+    });
+    }
+    return _managedObjectContext;
 }
 
 - (void)didReceiveMemoryWarning
@@ -293,45 +304,140 @@
     NSLog(@"chartValueNothingSelected");
 }
 
-#pragma mark - Price Alerts table
+#pragma mark - Price Alerts Section
+
+#pragma mark - Fetch result controller
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+    [self.tableView beginUpdates];
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    UITableView *tableView = self.tableView;
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
+            [self configureCell:[tableView cellForRowAtIndexPath:newIndexPath] atIndexPath:indexPath];
+            
+            break;
+    }
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            break;
+    }
+}
+
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+    [self.tableView endUpdates];
+}
+
+- (NSFetchedResultsController *)triggerFetchedResultsController {
+    
+    if (_triggerFetchedResultsController != nil) {
+        return _triggerFetchedResultsController;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"DCTriggerEntity" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSSortDescriptor * sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"value" ascending:TRUE];
+    [fetchRequest setSortDescriptors:@[sortDescriptor]];
+    [fetchRequest setFetchBatchSize:20];
+    NSFetchedResultsController *theFetchedResultsController =
+    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                        managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil
+                                                   cacheName:nil];
+    self.triggerFetchedResultsController = theFetchedResultsController;
+    _triggerFetchedResultsController.delegate = self;
+    NSError *error = nil;
+    if (![_triggerFetchedResultsController performFetch:&error]) {
+        /*
+         Replace this implementation with code to handle the error appropriately.
+         */
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
+    return _triggerFetchedResultsController;
+}
+
+#pragma mark - Trigger Table View
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.priceAlertsArray.count + 1;
+    if (!section) {
+        return [self.triggerFetchedResultsController.fetchedObjects count];
+    } else return 1;
 }
+
+-(void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath *)indexPath {
+    DCTriggerEntity * triggerEntity = [self.triggerFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
+    switch (triggerEntity.type) {
+        case DCTriggerUnder:
+        {
+            cell.textLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Under %@", @"Price View Screen"),@(triggerEntity.value)];
+            return;
+        }
+        case DCTriggerOver:
+        {
+            cell.textLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Over %@", @"Price View Screen"),@(triggerEntity.value)];
+            return;
+        }
+    }
+    
+}
+
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell;
-    if (indexPath.row < self.priceAlertsArray.count) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"priceAlertCell"];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"priceAlertCell"];
-        }
-        
-        NSNumber *price = [[self.priceAlertsArray objectAtIndex:indexPath.row] valueForKey:@"priceAmount"];
-        BOOL whenOver = [[[self.priceAlertsArray objectAtIndex:indexPath.row] valueForKey:@"isOver"] boolValue];
-        
-        if (whenOver) {
-            cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Over", @"Price Alert Screen"), price];
-        }
-        else {
-            cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Under", @"Price Alert Screen"), price];
-        }
-        
-        
+    if (!indexPath.section) {
+        static NSString * priceAlertCellIdentifierString = @"PriceAlertCellIdentifier";
+        cell = [tableView dequeueReusableCellWithIdentifier:priceAlertCellIdentifierString];
+        [self configureCell:cell atIndexPath:indexPath];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         return cell;
     }
     else {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"newPriceAlertCell"];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"newPriceAlertCell"];
-        }
+        static NSString * addPriceAlertCellIdentifierString = @"AddPriceAlertCellIdentifier";
+        cell = [tableView dequeueReusableCellWithIdentifier:addPriceAlertCellIdentifierString];
         cell.textLabel.text = NSLocalizedString(@"New Price Alert", @"Price Alert Screen");
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
         return cell;
     }
 }
@@ -339,16 +445,21 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.row < self.priceAlertsArray.count) {
-        NSMutableDictionary *priceAlertDictionary = [self.priceAlertsArray objectAtIndex:indexPath.row];
-        [self showPriceAlertScreen:priceAlertDictionary];
+    if (!indexPath.section) {
+        DCTriggerEntity * triggerEntity = [self.triggerFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
+        [self performSegueWithIdentifier:@"PriceAlertSegue" sender:triggerEntity];
     }
     else {
-        [self showPriceAlertScreen:nil];
+        [self performSegueWithIdentifier:@"PriceAlertSegue" sender:nil];
     }
 }
+
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return NSLocalizedString(@"PRICE ALERTS", @"Price Alert Screen");
+    if (!section) {
+        return NSLocalizedString(@"PRICE ALERTS", @"Price Alert Screen");
+    } else {
+        return nil;
+    }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 40;
@@ -357,20 +468,11 @@
     return CGFLOAT_MIN;
 }
 
--(void)showPriceAlertScreen:(NSMutableDictionary *)priceAlertDictionary {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    PriceAlertViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"PriceAlertViewController"];
-    
-    vc.delegate = self;
-    if (priceAlertDictionary) {
-        vc.priceAlertIdentifier = [[priceAlertDictionary objectForKey:@"priceAlertIdentifier"] integerValue];
-        vc.priceAmount = [priceAlertDictionary objectForKey:@"priceAmount"];
-        vc.isOver = [[priceAlertDictionary objectForKey:@"isOver"] boolValue];
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    //we kind of hacked the sender as it contains the trigger to send to the next view
+    if ([segue.identifier isEqualToString:@"PriceAlertSegue"]) {
+        
     }
-    else {
-        vc.isOver = YES;;
-    }
-    
-    [self.navigationController pushViewController:vc animated:YES];
 }
+
 @end

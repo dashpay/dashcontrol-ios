@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PriceAmountTableViewCell : UITableViewCell
-@property (strong, nonatomic) IBOutlet UILabel *labelPrice;
-@property (strong, nonatomic) IBOutlet UITextField *textFieldInput;
+@property (strong, nonatomic) IBOutlet UILabel *mainLabel;
+@property (strong, nonatomic) IBOutlet UITextField *priceTextField;
 
 @end

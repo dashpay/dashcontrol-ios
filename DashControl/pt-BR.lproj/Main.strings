@@ -209,11 +209,17 @@
 /* Class = "UILabel"; text = "Address"; ObjectID = "yjI-tR-BGU"; */
 "yjI-tR-BGU.text" = "";
 
-/* Class = "UITextField"; placeholder = "input"; ObjectID = "Kus-3A-VNO"; */
-"Kus-3A-VNO.placeholder" = "";
+/* Class = "UILabel"; text = "Price"; ObjectID = "JCK-zN-5QC"; */
+"JCK-zN-5QC.text" = "";
 
-/* Class = "UILabel"; text = "Price"; ObjectID = "jqE-Xu-cMk"; */
-"jqE-Xu-cMk.text" = "";
+/* Class = "UITextField"; placeholder = "input"; ObjectID = "WeJ-BR-qJ5"; */
+"WeJ-BR-qJ5.placeholder" = "";
 
-/* Class = "UILabel"; text = "Alert when Over"; ObjectID = "yOK-oS-tIa"; */
-"yOK-oS-tIa.text" = "";
+/* Class = "UILabel"; text = "Add"; ObjectID = "gXz-A3-YS1"; */
+"gXz-A3-YS1.text" = "";
+
+/* Class = "UILabel"; text = "Alert when over"; ObjectID = "rJ1-D6-iF8"; */
+"rJ1-D6-iF8.text" = "";
+
+/* Class = "UILabel"; text = "Trigger type"; ObjectID = "ztL-lb-chG"; */
+"ztL-lb-chG.text" = "";

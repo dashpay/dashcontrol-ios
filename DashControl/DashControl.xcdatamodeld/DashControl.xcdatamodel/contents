@@ -52,6 +52,7 @@
         <attribute name="identifier" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="markets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DCMarketEntity" inverseName="onExchanges" inverseEntity="DCMarketEntity" syncable="YES"/>
+        <relationship name="triggers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DCTriggerEntity" inverseName="exchange" inverseEntity="DCTriggerEntity" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="identifier"/>
@@ -65,6 +66,7 @@
         <attribute name="identifier" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="onExchanges" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DCExchangeEntity" inverseName="markets" inverseEntity="DCExchangeEntity" syncable="YES"/>
+        <relationship name="triggers" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DCTriggerEntity" inverseName="market" inverseEntity="DCTriggerEntity" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="identifier"/>
@@ -131,6 +133,15 @@
         <attribute name="yes" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DCCommentEntity" inverseName="proposal" inverseEntity="DCCommentEntity" syncable="YES"/>
     </entity>
+    <entity name="DCTriggerEntity" representedClassName="DCTriggerEntity" syncable="YES">
+        <attribute name="conditionalValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="consume" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="ignoreFor" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="value" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="exchange" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DCExchangeEntity" inverseName="triggers" inverseEntity="DCExchangeEntity" syncable="YES"/>
+        <relationship name="market" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DCMarketEntity" inverseName="triggers" inverseEntity="DCMarketEntity" syncable="YES"/>
+    </entity>
     <entity name="DCWalletAccountEntity" representedClassName="DCWalletAccountEntity" syncable="YES">
         <attribute name="hash160Key" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="addresses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DCWalletAddressEntity" inverseName="walletAccount" inverseEntity="DCWalletAddressEntity" syncable="YES"/>
@@ -168,8 +179,8 @@
         <element name="DCBudgetEntity" positionX="-54" positionY="135" width="128" height="120"/>
         <element name="DCChartDataEntryEntity" positionX="-63" positionY="36" width="128" height="210"/>
         <element name="DCCommentEntity" positionX="-54" positionY="144" width="128" height="225"/>
-        <element name="DCExchangeEntity" positionX="-45" positionY="144" width="128" height="90"/>
-        <element name="DCMarketEntity" positionX="-54" positionY="135" width="128" height="90"/>
+        <element name="DCExchangeEntity" positionX="-45" positionY="144" width="128" height="105"/>
+        <element name="DCMarketEntity" positionX="-54" positionY="135" width="128" height="105"/>
         <element name="DCMasternodeEntity" positionX="-36" positionY="153" width="128" height="105"/>
         <element name="DCMasternodePaymentEntity" positionX="-27" positionY="162" width="128" height="105"/>
         <element name="DCPostEntity" positionX="-63" positionY="-18" width="128" height="150"/>
@@ -177,5 +188,6 @@
         <element name="DCWalletAccountEntity" positionX="-45" positionY="135" width="128" height="90"/>
         <element name="DCWalletAddressEntity" positionX="-45" positionY="144" width="128" height="135"/>
         <element name="DCWalletEntity" positionX="-54" positionY="135" width="128" height="105"/>
+        <element name="DCTriggerEntity" positionX="-45" positionY="135" width="128" height="150"/>
     </elements>
 </model>

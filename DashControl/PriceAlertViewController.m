@@ -7,32 +7,37 @@
 //
 
 #import "PriceAlertViewController.h"
-
 #import "PriceAmountTableViewCell.h"
-#import "AlertOverTableViewCell.h"
+#import "TriggerTypeTableViewCell.h"
+#import "AddTriggerTableViewCell.h"
 
 @interface PriceAlertViewController ()
+
+@property(nonatomic,strong) PriceAmountTableViewCell * priceAmountTableViewCell;
+@property(nonatomic,strong) TriggerTypeTableViewCell * triggerTypeTableViewCell;
+@property(nonatomic,strong) AddTriggerTableViewCell * addTriggerTableViewCell;
+@property(nonatomic,assign) DCTriggerType triggerType;
 
 @end
 
 @implementation PriceAlertViewController
-@synthesize delegate;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"Price Alert", @"Price Alert Screen");
     
-    if (self.priceAlertIdentifier) {
-        UIBarButtonItem *addBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(savePriceAlert:)];
-        self.navigationItem.rightBarButtonItem = addBtn;
-        self.isEditing = YES;
-    }
-    else {
-        UIBarButtonItem *addBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(savePriceAlert:)];
-        self.navigationItem.rightBarButtonItem = addBtn;
-    }
+    self.priceAmountTableViewCell = [self.tableView dequeueReusableCellWithIdentifier:@"PriceValueCell"];
+    self.priceAmountTableViewCell.mainLabel.text = NSLocalizedString(@"Price", @"Price Alert Screen");
+    self.priceAmountTableViewCell.priceTextField.placeholder = NSLocalizedString(@"required", @"Price Alert Screen");
+    self.priceAmountTableViewCell.priceTextField.delegate = self;
     
+    self.triggerTypeTableViewCell = [self.tableView dequeueReusableCellWithIdentifier:@"TriggerTypeCell"];
+    self.triggerTypeTableViewCell.mainLabel.text = NSLocalizedString(@"Alert type", @"Price Alert Screen");
+    self.triggerTypeTableViewCell.typeLabel.text = [self textForTriggerType:DCTriggerOver];
+    
+    self.addTriggerTableViewCell = [self.tableView dequeueReusableCellWithIdentifier:@"AddTriggerCell"];
+    self.triggerType = DCTriggerOver;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,101 +45,146 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)savePriceAlert:(UIBarButtonItem*)barButtonItem {
-    
-    if (self.isEditing) {
-        //Edit delegate priceAlertDictionary
-        
-        for (NSMutableDictionary *objDic in self.delegate.priceAlertsArray) {
-            if ([[objDic objectForKey:@"priceAlertIdentifier"] integerValue] == self.priceAlertIdentifier) {
-                [objDic setObject:self.priceAmount forKey:@"priceAmount"];
-                [objDic setObject:[NSNumber numberWithBool:self.isOver] forKey:@"isOver"];
-            }
-        }
-        
-    }
-    else {
-        NSMutableDictionary *objDic = [NSMutableDictionary new];
-        [objDic setObject:self.priceAmount forKey:@"priceAmount"];
-        [objDic setObject:[NSNumber numberWithBool:self.isOver] forKey:@"isOver"];
-        [objDic setObject:[NSNumber numberWithInteger:[self nextIdentifies]] forKey:@"priceAlertIdentifier"];
-        [self.delegate.priceAlertsArray addObject:objDic];
-    }
-    
-    [self.delegate.tableView reloadData];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
--(NSInteger)nextIdentifies;
-{
-    static NSString* lastID = @"lastPriceAlertIdentifier";
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger identifier = [defaults integerForKey:lastID] + 1;
-    [defaults setInteger:identifier forKey:lastID];
-    [defaults synchronize];
-    return identifier;
-}
-
 #pragma mark - Table view
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    if (!section) {
+        return 2;
+    } else {
+        return 1;
+    }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 44;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    if (indexPath.row == 0) {
-        PriceAmountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"priceAmountCell"];
-        cell.labelPrice.text = NSLocalizedString(@"Price", @"Price Alert Screen");
-        cell.textFieldInput.placeholder = NSLocalizedString(@"input", @"Price Alert Screen");
-        if (self.priceAmount) {
-            cell.textFieldInput.text = self.priceAmount.stringValue;
+    
+    if (!indexPath.section) {
+        switch (indexPath.row) {
+            case 0:
+            {
+                return self.priceAmountTableViewCell;
+            }
+            case 1:
+            {
+                return self.triggerTypeTableViewCell;
+            }
         }
-        
-        cell.textFieldInput.delegate = self;
-        if (cell.textFieldInput.allTargets.count == 0) {
-            [cell.textFieldInput addTarget:self action:@selector(updateLabelUsingContentsOfTextField:) forControlEvents:UIControlEventEditingChanged];
-        }
-        
-        return cell;
-    }
-    if (indexPath.row == 1) {
-        AlertOverTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"alertOverCell"];
-        cell.labelAlert.text = NSLocalizedString(@"Alert when Over", @"Price Alert Screen");
-        cell.switchOver.on = self.isOver;
-        
-        if (cell.switchOver.allTargets.count == 0) {
-            [cell.switchOver addTarget:self action:@selector(swithOverChanged:) forControlEvents:UIControlEventValueChanged];
-        }
-        
-        return cell;
+    } else {
+        return self.addTriggerTableViewCell;
     }
     
     return nil;
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
+    if (indexPath.section) {
+        if (self.priceAmountTableViewCell.priceTextField.text && ![self.priceAmountTableViewCell.priceTextField.text isEqualToString:@""]) {
+            [self addTrigger:self];
+        } else {
+            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"You must input a value",@"Price Alert Screen") message:nil preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ok",@"ok") style:UIAlertActionStyleDefault handler:nil]];
+            [self presentViewController:alertController animated:TRUE completion:nil];
+        }
+    } else if (indexPath.row == 1) {
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"trigger type",@"Price Alert Screen") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        for (NSInteger i = 0;i<DCTriggerUnder + 1;i++) {
+            NSString * triggerText = [self textForTriggerType:i];
+            [alertController addAction:[UIAlertAction actionWithTitle:triggerText style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self.triggerType = i;
+                self.triggerTypeTableViewCell.typeLabel.text = triggerText;
+            }]];
+        }
+        [self presentViewController:alertController animated:TRUE completion:^{
+            
+        }];
+    }
 }
-*/
 
-- (void)swithOverChanged:(UISwitch *)sender {
-    self.isOver = sender.on;
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    if (!indexPath.section) {
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:[self textForTriggerType:self.triggerType] message:[self explanationForTriggerType:self.triggerType] preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ok",@"ok") style:UIAlertActionStyleDefault handler:nil]];
+        [self presentViewController:alertController animated:TRUE completion:^{
+            
+        }];
+    }
 }
 
-- (void)updateLabelUsingContentsOfTextField:(UITextField*)sender {
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSNumber *newPriceAmount = [numberFormatter numberFromString:sender.text];
-    self.priceAmount = newPriceAmount;
+-(NSString*)textForTriggerType:(DCTriggerType)triggerType {
+    switch (triggerType) {
+        case DCTriggerOver:
+            return NSLocalizedString(@"Alert when over",@"Price Alert Screen");
+            break;
+        case DCTriggerUnder:
+            return NSLocalizedString(@"Alert when under",@"Price Alert Screen");
+            break;
+        default:
+            break;
+    }
 }
+
+-(NSString*)explanationForTriggerType:(DCTriggerType)triggerType {
+    switch (triggerType) {
+        case DCTriggerOver:
+            return NSLocalizedString(@"You will receive a notification on your device when the Dash price raises above the value entered above.",@"Price Alert Screen");
+            break;
+        case DCTriggerUnder:
+            return NSLocalizedString(@"You will receive a notification on your device when the Dash price falls below the value entered above.",@"Price Alert Screen");
+            break;
+        default:
+            break;
+    }
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (!string.length)
+    {
+        return YES;
+    }
+    
+    // Prevent invalid character input, if keyboard is numberpad
+    if (textField.keyboardType == UIKeyboardTypeNumberPad)
+    {
+        if ([string rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet].invertedSet].location != NSNotFound)
+        {
+            return NO;
+        }
+    }
+    
+    // verify max length has not been exceeded
+    NSString *proposedText = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    
+    if (proposedText.length > 6) // Let's not let users go crazy either :P
+    {
+        // suppress the max length message only when the user is typing
+        // easy: pasted data has a length greater than 1; who copy/pastes one character?
+        if (string.length > 1)
+        {
+            // BasicAlert(@"", @"This field accepts a maximum of 4 characters.");
+        }
+        
+        return NO;
+    }
+    
+    return YES;
+}
+
+-(void)addTrigger:(id)sender {
+    NSManagedObjectContext * context = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
+    DCTriggerEntity *triggerEntity = [NSEntityDescription insertNewObjectForEntityForName:@"DCTriggerEntity" inManagedObjectContext:context];
+    triggerEntity.value = [self.priceAmountTableViewCell.priceTextField.text integerValue];
+    triggerEntity.type = self.triggerType;
+    NSError * error = nil;
+    if (![context save:&error]) {
+        NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+        abort();
+    }
+    [self.navigationController popViewControllerAnimated:TRUE];
+}
+
 @end

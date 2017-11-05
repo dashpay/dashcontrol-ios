@@ -8,15 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "PriceViewController.h"
+#import "DCTriggerEntity+CoreDataProperties.h"
 
 @interface PriceAlertViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
-@property (nonatomic, assign) PriceViewController *delegate;
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic) BOOL isEditing;
-
-@property (nonatomic) NSInteger priceAlertIdentifier;
-@property (strong, nonatomic) NSNumber *priceAmount;
-@property (nonatomic) BOOL isOver;
+@property (nonatomic,strong) IBOutlet UITableView *tableView;
+@property (nonatomic,assign) BOOL isEditing;
 
 @end
