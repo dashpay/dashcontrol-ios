@@ -66,8 +66,9 @@ static uint32_t murmur3_32(const void *data, size_t len, uint32_t seed)
 // bloom filters are explained in BIP37: https://github.com/bitcoin/bips/blob/master/bip-0037.mediawiki
 @interface DCServerBloomFilter ()
 
-@property (nonatomic, strong) NSMutableData *filter;
+@property (nonatomic, strong) NSMutableData *filterData;
 @property (nonatomic, assign) uint32_t hashFuncs;
+@property (nonatomic, assign) NSUInteger elementCount;
 
 @end
 
@@ -76,24 +77,24 @@ static uint32_t murmur3_32(const void *data, size_t len, uint32_t seed)
 - (instancetype)initWithFalsePositiveRate:(double)fpRate forElementCount:(NSUInteger)count
 {
     if (! (self = [self init])) return nil;
-
+    self.elementCount = count;
     NSUInteger length = (fpRate < DBL_EPSILON) ? BLOOM_MAX_FILTER_LENGTH : (-1.0/(M_LN2*M_LN2))*count*log(fpRate)/8.0;
 
     if (length > BLOOM_MAX_FILTER_LENGTH) length = BLOOM_MAX_FILTER_LENGTH;
-    self.filter = [NSMutableData dataWithLength:(length < 1) ? 1 : length];
-    self.hashFuncs = ((self.filter.length*8.0)/count)*M_LN2;
+    self.filterData = [NSMutableData dataWithLength:(length < 1) ? 1 : length];
+    self.hashFuncs = ((self.filterData.length*8.0)/count)*M_LN2;
     if (self.hashFuncs > BLOOM_MAX_HASH_FUNCS) self.hashFuncs = BLOOM_MAX_HASH_FUNCS;
     return self;
 }
 
 - (uint32_t)hash:(NSData *)data hashNum:(uint32_t)hashNum
 {
-    return murmur3_32(data.bytes, data.length, hashNum*BLOOM_FILTER_MAGIC) % (self.filter.length*8);
+    return murmur3_32(data.bytes, data.length, hashNum*BLOOM_FILTER_MAGIC) % (self.filterData.length*8);
 }
 
 - (BOOL)containsData:(NSData *)data
 {
-    const uint8_t *b = self.filter.bytes;
+    const uint8_t *b = self.filterData.bytes;
     
     for (uint32_t i = 0; i < self.hashFuncs; i++) {
         uint32_t idx = [self hash:data hashNum:i];
@@ -106,7 +107,7 @@ static uint32_t murmur3_32(const void *data, size_t len, uint32_t seed)
 
 - (void)insertData:(NSData *)data
 {
-    uint8_t *b = self.filter.mutableBytes;
+    uint8_t *b = self.filterData.mutableBytes;
 
     for (uint32_t i = 0; i < self.hashFuncs; i++) {
         uint32_t idx = [self hash:data hashNum:i];
@@ -119,26 +120,16 @@ static uint32_t murmur3_32(const void *data, size_t len, uint32_t seed)
 
 - (double)falsePositiveRate
 {
-    return pow(1 - pow(M_E, -1.0*self.hashFuncs*self.elementCount/(self.filter.length*8.0)), self.hashFuncs);
-}
-
-- (NSData *)toData
-{
-    NSMutableData *d = [NSMutableData data];
-    
-    [d appendVarInt:self.length];
-    [d appendData:self.filter];
-    [d appendUInt32:self.hashFuncs];
-    return d;
+    return pow(1 - pow(M_E, -1.0*self.hashFuncs*self.elementCount/(self.filterData.length*8.0)), self.hashFuncs);
 }
 
 -(UInt160)filterHash {
-    return [self.filter hash160];
+    return [self.filterData hash160];
 }
 
 - (NSUInteger)length
 {
-    return self.filter.length;
+    return self.filterData.length;
 }
 
 @end

@@ -208,3 +208,12 @@
 
 /* Class = "UILabel"; text = "in 8 Days 4 Friday August 2017"; ObjectID = "zvh-9E-zmq"; */
 "zvh-9E-zmq.text" = "in 8 Days 4 Friday August 2017";
+
+/* Class = "UITextField"; placeholder = "input"; ObjectID = "Kus-3A-VNO"; */
+"Kus-3A-VNO.placeholder" = "";
+
+/* Class = "UILabel"; text = "Price"; ObjectID = "jqE-Xu-cMk"; */
+"jqE-Xu-cMk.text" = "";
+
+/* Class = "UILabel"; text = "Alert when Over"; ObjectID = "yOK-oS-tIa"; */
+"yOK-oS-tIa.text" = "";

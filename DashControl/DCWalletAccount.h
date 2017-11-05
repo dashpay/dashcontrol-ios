@@ -23,8 +23,8 @@ typedef NS_ENUM(uint32_t,WalletAccountState) {
 
 -(id _Nonnull)initWithAccountPublicKey:(NSData* _Nonnull)accountPublicKey;
 
--(void)startUp;
+-(void)startUpInContext:(NSManagedObjectContext* _Nullable)context;
 
--(NSArray * _Nonnull)addressesWithGapLimit:(NSUInteger)gapLimit internal:(BOOL)internal;
+-(NSArray * _Nonnull)addressesWithGapLimit:(NSUInteger)gapLimit internal:(BOOL)internal inContext:(NSManagedObjectContext* _Nullable)context;
 
 @end

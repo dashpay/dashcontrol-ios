@@ -19,7 +19,7 @@
 
 #define PRODUCTION_URL @"https://dashpay.info"
 
-#define DEVELOPMENT_URL @"http://cms-swestrich.c9users.io"
+#define DEVELOPMENT_URL @"https://dev.dashpay.info"
 
 #define USE_PRODUCTION 0
 
@@ -516,7 +516,7 @@
 #pragma mark - Notifications
 
 -(void)updateBloomFilter:(DCServerBloomFilter*)filter completion:(void (^)(NSError * error))completion {
-    [self.authenticatedManager POST:DASHCONTROL_URL(@"filter") parameters:@{@"filter":[filter.data base64EncodedStringWithOptions:0]} progress:^(NSProgress * _Nonnull uploadProgress) {
+    [self.authenticatedManager POST:DASHCONTROL_URL(@"filter") parameters:@{@"filter":[filter.filterData base64EncodedStringWithOptions:0],@"filter_length":@(filter.length),@"hash_count":@(filter.hashFuncs)} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (completion) completion(nil);

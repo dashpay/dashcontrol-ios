@@ -271,7 +271,9 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    [[DCBackendManager sharedInstance] registerDeviceForDeviceToken:deviceToken];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[DCBackendManager sharedInstance] registerDeviceForDeviceToken:deviceToken];
+    });
 }
 
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error

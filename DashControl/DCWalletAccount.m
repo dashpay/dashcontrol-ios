@@ -44,8 +44,16 @@
 // found that haven't been used in any transactions. This method returns an array of <gapLimit> unused addresses
 // following the last used address in the chain. The internal chain is used for change addresses and the external chain
 // for receive addresses.
-- (NSArray * _Nonnull)addressesWithGapLimit:(NSUInteger)gapLimit internal:(BOOL)internal
+- (NSArray * _Nonnull)addressesWithGapLimit:(NSUInteger)gapLimit internal:(BOOL)internal inContext:(NSManagedObjectContext*)context
 {
+    if (!context) {
+        if ([NSThread isMainThread]) {
+            return [self addressesWithGapLimit:gapLimit internal:internal inContext:[[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext]];
+        } else {
+            NSAssert(FALSE, @"you should not get here");
+            return nil;
+        }
+    }
     NSMutableArray *a;
     @synchronized(self) {
         a = [NSMutableArray arrayWithArray:(internal) ? self.internalAddresses : self.externalAddresses];
@@ -77,29 +85,24 @@
             [a addObject:addr];
             n++;
         }
-        [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] performBackgroundTask:^(NSManagedObjectContext *context) {
             for (NSDictionary * createdAddress in createdAddresses) {
                 DCWalletAddressEntity *e = [NSEntityDescription insertNewObjectForEntityForName:@"DCWalletAddressEntity" inManagedObjectContext:context];
                 e.address = createdAddress[@"address"];
                 e.index = [createdAddress[@"index"] intValue];
                 e.internal = [createdAddress[@"internal"] boolValue];
             }
-            
-            context.automaticallyMergesChangesFromParent = TRUE;
-            context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
             NSError * error = nil;
             if (![context save:&error]) {
                 NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
             }
-        }];
     }
     return a;
 }
 
--(void)startUp {
+-(void)startUpInContext:(NSManagedObjectContext*)context {
     self.state = WalletAccountStarting;
-    [self addressesWithGapLimit:SEQUENCE_GAP_LIMIT_EXTERNAL internal:NO];
-    [self addressesWithGapLimit:SEQUENCE_GAP_LIMIT_INTERNAL internal:YES];
+    [self addressesWithGapLimit:SEQUENCE_GAP_LIMIT_EXTERNAL internal:NO inContext:context];
+    [self addressesWithGapLimit:SEQUENCE_GAP_LIMIT_INTERNAL internal:YES inContext:context];
 }
 
 @end

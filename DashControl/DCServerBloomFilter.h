@@ -33,11 +33,12 @@
 @interface DCServerBloomFilter : NSObject
 
 @property (nonatomic, readonly) uint8_t flags;
-@property (nonatomic, readonly, getter = toData) NSData *data;
+@property (nonatomic, readonly, strong) NSMutableData *filterData;
 @property (nonatomic, readonly) NSUInteger elementCount;
 @property (nonatomic, assign, readonly) UInt160 filterHash;
 @property (nonatomic, readonly) double falsePositiveRate;
 @property (nonatomic, readonly) NSUInteger length;
+@property (nonatomic, assign,readonly) uint32_t hashFuncs;
 
 - (instancetype)initWithFalsePositiveRate:(double)fpRate forElementCount:(NSUInteger)count;
 - (BOOL)containsData:(NSData *)data;

@@ -564,10 +564,10 @@
 		FB2F9B3E1F5CA0050035180D /* Views Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FB4F93B71F8252210078E259 /* Portfolio */,
 				24E584011F3ADA0100A12087 /* RSSFeed */,
 				241719C31F4D9EC30045C2D6 /* Proposals */,
 				24FE253D1F4C7DA200E32652 /* Price */,
+				FB4F93B71F8252210078E259 /* Portfolio */,
 			);
 			name = "Views Controllers";
 			sourceTree = "<group>";

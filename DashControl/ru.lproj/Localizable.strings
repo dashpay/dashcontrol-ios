@@ -1,6 +1,15 @@
 
+/* Proposals View */
+"%d comments" = "%d comments";
+
+/* Proposals View */
+"%d months remaining" = "%d months remaining";
+
 /* Proposal Detail View */
 "Abstain" = "Abstain";
+
+/* Price Alert Screen */
+"Alert when Over" = "Alert when Over";
 
 /* Budget view */
 "ALLOTED" = "ALLOTED";
@@ -47,6 +56,12 @@
 /* Budget view */
 "in" = "in";
 
+/* Proposals View */
+"in %d Days" = "in %d Days";
+
+/* Price Alert Screen */
+"input" = "input";
+
 /* Available Languages List */
 "Korean" = "Korean";
 
@@ -61,6 +76,9 @@
 
 /* Proposal Detail View */
 "months remaining" = "months remaining";
+
+/* Price Alert Screen */
+"New Price Alert" = "New Price Alert";
 
 /* Proposal Detail View */
 "No" = "No";
@@ -77,6 +95,9 @@
 /* Proposal Detail View */
 "One-time payment" = "One-time payment";
 
+/* Price Alert Screen */
+"Over" = "Over";
+
 /* Proposal Detail View */
 "Owner" = "Owner";
 
@@ -85,6 +106,15 @@
 
 /* Available Languages List */
 "Portugese" = "Portugese";
+
+/* Price Alert Screen */
+"Price" = "Price";
+
+/* Price Alert Screen */
+"Price Alert" = "Price Alert";
+
+/* Price Alert Screen */
+"PRICE ALERTS" = "PRICE ALERTS";
 
 /* Proposal Detail View */
 "PROPOSAL DESCRIPTION" = "PROPOSAL DESCRIPTION";
@@ -118,6 +148,9 @@
 
 /* Proposal Detail View */
 "totalling in" = "totalling in";
+
+/* Price Alert Screen */
+"Under" = "Under";
 
 /* Proposal Detail View */
 "Votes Result" = "Votes Result";

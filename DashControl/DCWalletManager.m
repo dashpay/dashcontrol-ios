@@ -59,7 +59,7 @@
                 NSData * pubkeyData = [[DCEnvironment sharedInstance] getKeychainDataForKey:locationInKeyValueStore error:&error];
                 DCWalletAccount * walletAccount = [[DCWalletAccount alloc] initWithAccountPublicKey:pubkeyData];
                 [self.wallets addObject:walletAccount];
-                [walletAccount startUp];
+                [walletAccount startUpInContext:context];
             }
             [self updateBloomFilterInContext:context];
         }
@@ -134,25 +134,32 @@
         context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
         if (![context save:&error]) {
             NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-            if (completion) completion(FALSE);
+            if (completion) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                completion(FALSE);
+                        });
+            }
             return;
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
+
             if (!has32Account) {
                 DCWalletAccount * data32Account = [[DCWalletAccount alloc] initWithAccountPublicKey:data32];
                 [self.wallets addObject:data32Account];
-                [data32Account startUp];
+                [data32Account startUpInContext:context];
                 
             }
             if (!has44Account) {
                 DCWalletAccount * data44Account = [[DCWalletAccount alloc] initWithAccountPublicKey:data44];
                 [self.wallets addObject:data44Account];
-                [data44Account startUp];
+                [data44Account startUpInContext:context];
             }
             
-            [self updateBloomFilter];
-            if (completion) completion(TRUE);
-        });
+            [self updateBloomFilterInContext:context];
+        if (completion) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(FALSE);
+            });
+        }
     }];
 }
 
@@ -178,7 +185,7 @@
 {
     DCServerBloomFilter *filter = [[DCServerBloomFilter alloc] initWithFalsePositiveRate:BLOOM_REDUCED_FALSEPOSITIVE_RATE
                                                                          forElementCount:addresses.count];
-    
+    double fpRate = [filter falsePositiveRate];
     for (NSString *addr in addresses) {// add addresses to watch for tx receiveing money to the wallet
         NSData *hash = addr.addressToHash160;
         
