@@ -59,7 +59,7 @@
                 NSData * pubkeyData = [[DCEnvironment sharedInstance] getKeychainDataForKey:locationInKeyValueStore error:&error];
                 DCWalletAccount * walletAccount = [[DCWalletAccount alloc] initWithAccountPublicKey:pubkeyData];
                 [self.wallets addObject:walletAccount];
-                [walletAccount startUpInContext:context];
+                [walletAccount startUpWithWalletAccountEntity:accountEntity];
             }
             [self updateBloomFilterInContext:context];
         }
@@ -145,13 +145,13 @@
             if (!has32Account) {
                 DCWalletAccount * data32Account = [[DCWalletAccount alloc] initWithAccountPublicKey:data32];
                 [self.wallets addObject:data32Account];
-                [data32Account startUpInContext:context];
+                [data32Account startUpWithWalletAccountEntity:wallet32Account];
                 
             }
             if (!has44Account) {
                 DCWalletAccount * data44Account = [[DCWalletAccount alloc] initWithAccountPublicKey:data44];
                 [self.wallets addObject:data44Account];
-                [data44Account startUpInContext:context];
+                [data44Account startUpWithWalletAccountEntity:wallet44Account];
             }
             
             [self updateBloomFilterInContext:context];

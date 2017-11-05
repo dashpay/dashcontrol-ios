@@ -348,4 +348,25 @@
     }
 }
 
+// MARK: - Wallet
+
+-(NSArray * _Nonnull)walletsWithIndentifier:(NSString*)sourceName inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+    if (context) {
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCWalletEntity" inManagedObjectContext:context];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entityDescription];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"identifier ==[c] %@",sourceName]];
+        NSArray *array = [context executeFetchRequest:request error:error];
+        if (*error || array == nil)
+        {
+            NSLog(@"Error while fetching wallet addresses");
+            return @[];
+        }
+        return array;
+    } else {
+        return [self walletsWithIndentifier:sourceName inContext:self.mainObjectContext error:error];
+        
+    }
+}
+
 @end

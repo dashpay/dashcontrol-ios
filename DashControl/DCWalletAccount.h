@@ -15,6 +15,8 @@ typedef NS_ENUM(uint32_t,WalletAccountState) {
     WalletAccountActive = 2
 };
 
+@class DCWalletAccountEntity;
+
 @interface DCWalletAccount : NSObject
 
 @property (nonatomic,assign) WalletAccountState state;
@@ -23,8 +25,8 @@ typedef NS_ENUM(uint32_t,WalletAccountState) {
 
 -(id _Nonnull)initWithAccountPublicKey:(NSData* _Nonnull)accountPublicKey;
 
--(void)startUpInContext:(NSManagedObjectContext* _Nullable)context;
+-(void)startUpWithWalletAccountEntity:(DCWalletAccountEntity* _Nonnull)walletAccountEntity;
 
--(NSArray * _Nonnull)addressesWithGapLimit:(NSUInteger)gapLimit internal:(BOOL)internal inContext:(NSManagedObjectContext* _Nullable)context;
+-(NSArray * _Nonnull)addressesWithGapLimit:(NSUInteger)gapLimit internal:(BOOL)internal withWalletAccountEntity:(DCWalletAccountEntity* _Nonnull)walletAccountEntity;
 
 @end

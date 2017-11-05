@@ -54,4 +54,8 @@
 
 -(NSArray * _Nonnull)walletAccountsInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error;
 
+// MARK: - Wallet
+
+-(NSArray * _Nonnull)walletsWithIndentifier:(NSString* _Nonnull)sourceName inContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error;
+
 @end

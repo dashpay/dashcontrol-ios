@@ -12,10 +12,12 @@
 #import "DCWalletEntity+CoreDataClass.h"
 #import "DCMasternodeEntity+CoreDataClass.h"
 #import <FTPopOverMenu/FTPopOverMenu.h>
+#import "DCCoreDataManager.h"
 
 @interface PortfolioViewController ()
 
 @property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
+@property (nonatomic, strong) NSFetchedResultsController* walletFetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController* walletAddressFetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController* masternodeAddressFetchedResultsController;
 
@@ -34,7 +36,9 @@
 {
     NSURL * requestURL = [NSURL URLWithString:@"dashwallet://request=masterPublicKey&account=0&sender=dashcontrol"];
     NSMutableArray * menuArray = [@[@"Wallet Address",@"Masternode"] mutableCopy];
-    if ([[UIApplication sharedApplication] canOpenURL:requestURL]) {
+    NSError * error = nil;
+    NSArray * dashwalletEntities = [[DCCoreDataManager sharedInstance] walletsWithIndentifier:@"dashwallet" inContext:nil error:&error];
+    if (![dashwalletEntities count] && [[UIApplication sharedApplication] canOpenURL:requestURL]) {
         [menuArray addObject:@"Link Dashwallet"];
     }
     [FTPopOverMenu showFromEvent:event
@@ -91,10 +95,7 @@
             break;
             
         case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
             [self configureCell:[tableView cellForRowAtIndexPath:newIndexPath] atIndexPath:indexPath];
             
             break;
@@ -128,6 +129,35 @@
     [self.tableView endUpdates];
 }
 
+- (NSFetchedResultsController *)walletFetchedResultsController {
+    
+    if (_walletFetchedResultsController != nil) {
+        return _walletFetchedResultsController;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"DCWalletEntity" inManagedObjectContext:_managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSSortDescriptor * sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:TRUE];
+    [fetchRequest setSortDescriptors:@[sortDescriptor]];
+    [fetchRequest setFetchBatchSize:20];
+    NSFetchedResultsController *theFetchedResultsController =
+    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                        managedObjectContext:_managedObjectContext sectionNameKeyPath:nil
+                                                   cacheName:nil];
+    self.walletFetchedResultsController = theFetchedResultsController;
+    _walletFetchedResultsController.delegate = self;
+    NSError *error = nil;
+    if (![_walletFetchedResultsController performFetch:&error]) {
+        /*
+         Replace this implementation with code to handle the error appropriately.
+         */
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
+    return _walletFetchedResultsController;
+}
+
 - (NSFetchedResultsController *)walletAddressFetchedResultsController {
     
     if (_walletAddressFetchedResultsController != nil) {
@@ -139,6 +169,7 @@
                                    entityForName:@"DCWalletAddressEntity" inManagedObjectContext:_managedObjectContext];
     [fetchRequest setEntity:entity];
     NSSortDescriptor * sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"address" ascending:TRUE];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"walletAccount = nil"]];
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     [fetchRequest setFetchBatchSize:20];
     NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
@@ -188,7 +219,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -196,12 +227,15 @@
     switch (section) {
         case 0:
         {
-            return [self.walletAddressFetchedResultsController.fetchedObjects count];
+            return [self.walletFetchedResultsController.fetchedObjects count];
         }
         case 1:
         {
-            id< NSFetchedResultsSectionInfo> sectionInfo = [[[self masternodeAddressFetchedResultsController] sections] objectAtIndex:0];
-            return [sectionInfo numberOfObjects];
+            return [self.masternodeAddressFetchedResultsController.fetchedObjects count];
+        }
+        case 2:
+        {
+            return [self.walletAddressFetchedResultsController.fetchedObjects count];
         }
         default:
             break;
@@ -210,27 +244,59 @@
 }
 
 -(void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath *)indexPath {
-    DCWalletAddressEntity *walletAddress = [self.walletAddressFetchedResultsController objectAtIndexPath:indexPath];
-    [cell.textLabel setText:walletAddress.address];
+    switch (indexPath.section) {
+        case 0:
+        {
+            DCWalletEntity *wallet = [self.walletFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
+            [cell.textLabel setText:wallet.name];
+            return;
+        }
+        case 1:
+        {
+            DCMasternodeEntity *masternode = [self.masternodeAddressFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
+            [cell.textLabel setText:[NSString stringWithFormat:@"%@ - %@",@"Masternode",masternode.address]];
+            return;
+        }
+        case 2:
+        {
+            DCWalletAddressEntity *walletAddress = [self.walletAddressFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
+            [cell.textLabel setText:walletAddress.address];
+            return;
+        }
+        default:
+            break;
+    }
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-    static NSString * CellReuseIdentifier = @"WalletAddressCell";
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellReuseIdentifier];
-        [self configureCell:cell atIndexPath:indexPath];
+    UITableViewCell * cell = nil;
+    switch (indexPath.section) {
+        case 0:
+        {
+            static NSString * CellReuseIdentifier = @"WalletCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellReuseIdentifier];
+            [self configureCell:cell atIndexPath:indexPath];
+            break;
+        }
+        case 1:
+        {
+            static NSString * CellReuseIdentifier = @"MasternodeCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellReuseIdentifier];
+            [self configureCell:cell atIndexPath:indexPath];
+            break;
+        }
+        case 2:
+        {
 
-    // Configure the cell from the object
-    return cell;
-    } else {
-        static NSString * CellReuseIdentifier = @"MasternodeCell";
-        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellReuseIdentifier];
-        
-        DCMasternodeEntity *masternode = [self.walletAddressFetchedResultsController objectAtIndexPath:indexPath];
-         [cell.textLabel setText:masternode.address];
-        return cell;
+            static NSString * CellReuseIdentifier = @"WalletAddressCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellReuseIdentifier];
+            [self configureCell:cell atIndexPath:indexPath];
+            break;
+        }
     }
+    return cell;
 }
 
 
