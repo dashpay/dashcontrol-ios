@@ -478,11 +478,11 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         DCTriggerEntity * triggerEntity = [self.triggerFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
-        if (!triggerEntity.triggerId) {
+        if (!triggerEntity.identifier) {
             [self.managedObjectContext deleteObject:triggerEntity];
             return;
         }
-        [[DCBackendManager sharedInstance] deleteTriggerWithId:triggerEntity.triggerId completion:^(NSError * _Nullable error, id  _Nullable responseObject) {
+        [[DCBackendManager sharedInstance] deleteTriggerWithId:triggerEntity.identifier completion:^(NSError * _Nullable error,NSUInteger statusCode, id  _Nullable responseObject) {
             if (!error) {
                 [self.managedObjectContext deleteObject:triggerEntity];
             }

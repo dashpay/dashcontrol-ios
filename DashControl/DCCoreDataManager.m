@@ -239,6 +239,8 @@
 
 // MARK: - Triggers
 
-
+-(NSArray * _Nonnull)triggersInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+    return [self objectsWithEntityNamed:@"DCTriggerEntity" inContext:context error:error];
+}
 
 @end

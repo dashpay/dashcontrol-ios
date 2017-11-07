@@ -196,24 +196,51 @@
     NSNumber * value = @([self.priceAmountTableViewCell.priceTextField.text integerValue]);
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         DCTrigger * trigger = [[DCTrigger alloc] initWithType:self.triggerType value:value market:@"DASH_USD"];
-        [[DCBackendManager sharedInstance] postTrigger:trigger completion:^(NSError * _Nullable error, id response) {
+        [[DCBackendManager sharedInstance] postTrigger:trigger completion:^(NSError * _Nullable triggerError,NSUInteger statusCode, id response) {
             // Do something...
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
+                NSError * error = triggerError;
                 if (!error && response) {
                     NSDictionary * dictionary = ((NSDictionary*)response);
                     NSManagedObjectContext * context = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
                     DCTriggerEntity *triggerEntity = [NSEntityDescription insertNewObjectForEntityForName:@"DCTriggerEntity" inManagedObjectContext:context];
-                    triggerEntity.triggerId = [[dictionary objectForKey:@"id"] unsignedLongLongValue];
-                    triggerEntity.value = [self.priceAmountTableViewCell.priceTextField.text longLongValue];
-                    triggerEntity.type = self.triggerType;
+                    triggerEntity.identifier = [[dictionary objectForKey:@"id"] unsignedLongLongValue];
+                    triggerEntity.value = [[dictionary objectForKey:@"value"] unsignedLongLongValue];
+                    triggerEntity.type = [DCTrigger typeForNetworkString:[dictionary objectForKey:@"type"]];
+                    triggerEntity.marketNamed = [dictionary objectForKey:@"market"];
+                    triggerEntity.ignoreFor = [[dictionary objectForKey:@"ignoreFor"] unsignedLongLongValue];
+                    triggerEntity.market = [[DCCoreDataManager sharedInstance] marketNamed:[dictionary objectForKey:@"market"] inContext:context error:&error];
+                    NSString * exchangeName = [dictionary objectForKey:@"exchange"];
+                    if (![exchangeName isEqualToString:@"any"]) {
+                        triggerEntity.exchangeNamed = exchangeName;
+                        triggerEntity.exchange = [[DCCoreDataManager sharedInstance] exchangeNamed:exchangeName inContext:context error:&error];
+                    }
+                    
                     NSError * error = nil;
                     if (![context save:&error]) {
                         NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
                         abort();
                     }
                     [self.navigationController popViewControllerAnimated:TRUE];
+                    if (!error) {
+                        return;
+                    }
                 }
+                NSString * message = nil;
+                if (statusCode == 409) {
+                    message = @"You already have this exact same price alert.";
+                } else if (!response) {
+                    message = @"The server does not seem reachable, are you sure you are online?";
+                } else {
+                    message = @"Local error, please try again.";
+                }
+                    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"Error" message:message preferredStyle:UIAlertControllerStyleAlert];
+                    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ok",@"ok") style:UIAlertActionStyleDefault handler:nil]];
+                    [self presentViewController:alertController animated:TRUE completion:^{
+                        
+                    }];
+                
             });
         }];
         

@@ -70,7 +70,7 @@
 
 #pragma mark - start up
 
--(void)startUpFetchMarkets {
+-(void)startUpFetchMarkets:(void (^)(NSError * error))completion {
     [self fetchMarkets: ^void (NSError * error, NSUInteger defaultExchangeIdentifier, NSUInteger defaultMarketIdentifier)
      {
          if (!error) {
@@ -98,26 +98,70 @@
                          //[[NSNotificationCenter defaultCenter] postNotificationName:ERROR object:];
                      }];
                  }
+                 if (completion) completion(nil);
+             } else {
+                 if (completion) completion(innerError);
              }
+         } else {
+             if (completion) completion(error);
          }
      }];
 }
 
 -(void)startUpFetchTriggers {
-    [self getTriggers:^(NSError *error, NSArray *triggers) {
-        if (!error) {
-            NSMutableArray * knownTriggers = [[[DCCoreDataManager sharedInstance] marketsForNames:markets inContext:context error:&error] mutableCopy];
-        }
-    };
+    [self getTriggers:^(NSError *triggerError,NSUInteger statusCode, NSArray *responseObject) {
+        NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
+        [container performBackgroundTask:^(NSManagedObjectContext *context) {
+            if (!triggerError) {
+                NSDictionary * triggerIdentifiers = [responseObject dictionaryReferencedByKeyPath:@"identifier"] ;
+                NSError * error = nil;
+                NSArray * knownTriggerIdentifiers = [[[DCCoreDataManager sharedInstance] triggersInContext:context error:&error] arrayReferencedByKeyPath:@"identifier"];
+                if (!error) {
+                    NSArray * novelTriggerIdentifiers = [[triggerIdentifiers allKeys] arrayByRemovingObjectsFromArray:knownTriggerIdentifiers];
+                    for (NSString * identifier in novelTriggerIdentifiers) {
+                        NSDictionary * triggerToAdd = triggerIdentifiers[identifier];
+                        DCTriggerEntity *trigger = [NSEntityDescription insertNewObjectForEntityForName:@"DCTriggerEntity" inManagedObjectContext:context];
+                        trigger.identifier = [triggerToAdd[@"identifier"] longLongValue];
+                        trigger.value = [triggerToAdd[@"value"] longLongValue];
+                        trigger.type = [DCTrigger typeForNetworkString:triggerToAdd[@"type"]];
+                        trigger.consume = [triggerToAdd[@"consume"] boolValue];
+                        trigger.ignoreFor = [triggerToAdd[@"ignoreFor"] longLongValue];
+                        NSString * exchangeName = triggerToAdd[@"echange"];
+                        if (exchangeName) {
+                            trigger.exchangeNamed = exchangeName;
+                            trigger.exchange = [[DCCoreDataManager sharedInstance] exchangeNamed:exchangeName inContext:context error:&error];
+                            if (error) return;
+                        }
+                        
+                        NSString * marketName = triggerToAdd[@"market"];
+                        trigger.marketNamed = marketName;
+                        trigger.market = [[DCCoreDataManager sharedInstance] marketNamed:marketName inContext:context error:&error];
+                        if (error) return;
+                        
+                    }
+                    context.automaticallyMergesChangesFromParent = TRUE;
+                    context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+                    if (![context save:&error]) {
+                        NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+                        abort();
+                    }
+                }
+            }
+        }];
+    }];
 }
 
 -(void)startUp {
-    [self startUpFetchMarkets];
-    NSError * error = nil;
-    BOOL hasRegistered = [[DCEnvironment sharedInstance] hasRegisteredWithError:&error];
-    if (!error && hasRegistered) {
-        
-    }
+    [self startUpFetchMarkets:^(NSError *marketError) {
+        if (!marketError) {
+        NSError * error = nil;
+        BOOL hasRegistered = [[DCEnvironment sharedInstance] hasRegisteredWithError:&error];
+        if (!error && hasRegistered) {
+            [self startUpFetchTriggers];
+        }
+        }
+    }];
+
 }
 
 -(AFHTTPSessionManager*)authenticatedManager {
@@ -309,9 +353,9 @@
                 NSString* ErrorResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 NSLog(@"ErrorResponse:%@",ErrorResponse);
                 dispatch_async(dispatch_get_main_queue(), ^{
-                                    return clb([NSError errorWithDomain:DASH_CONTROL_ERROR_DOMAIN code:((NSHTTPURLResponse*)response).statusCode userInfo:@{NSLocalizedDescriptionKey : @"Server returned a non 200 http response"}]);
+                    return clb([NSError errorWithDomain:DASH_CONTROL_ERROR_DOMAIN code:((NSHTTPURLResponse*)response).statusCode userInfo:@{NSLocalizedDescriptionKey : @"Server returned a non 200 http response"}]);
                 });
-
+                
             }
             NSError *e = nil;
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableContainers error:&e];
@@ -522,14 +566,14 @@
     
     
     NSMutableDictionary* parameters = [@{
-                                     @"version": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
-                                     @"model": deviceName,
-                                     @"os": @"ios",
-                                     @"device_id": [[DCEnvironment sharedInstance] deviceId],
-                                     @"password": [[DCEnvironment sharedInstance] devicePassword],
-                                     @"os_version": [[UIDevice currentDevice] systemVersion],
-                                     @"app_name": @"dashcontrol",
-                                     } mutableCopy];
+                                         @"version": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+                                         @"model": deviceName,
+                                         @"os": @"ios",
+                                         @"device_id": [[DCEnvironment sharedInstance] deviceId],
+                                         @"password": [[DCEnvironment sharedInstance] devicePassword],
+                                         @"os_version": [[UIDevice currentDevice] systemVersion],
+                                         @"app_name": @"dashcontrol",
+                                         } mutableCopy];
     
     if (token_string && ![token_string isEqualToString:@""]) {
         [parameters setObject:token_string forKey:@"token"];
@@ -545,31 +589,37 @@
 
 #pragma mark - Trigger
 
--(void)postTrigger:(DCTrigger* _Nonnull)trigger completion:(void (^ _Nullable)(NSError * _Nullable error, id  _Nullable responseObject))completion {
-    [self.authenticatedManager POST:DASHCONTROL_URL(@"trigger") parameters: @{ @"value":trigger.value, @"type":[DCTrigger networkStringForType:trigger.type], @"market":trigger.market, @"exchange":trigger.exchange, @"stardardize_tether":trigger.stardardizeTether} progress:^(NSProgress * _Nonnull uploadProgress) {
+-(void)postTrigger:(DCTrigger* _Nonnull)trigger completion:(void (^ _Nullable)(NSError * _Nullable error,NSUInteger statusCode, id  _Nullable responseObject))completion {
+    [self.authenticatedManager POST:DASHCONTROL_URL(@"trigger") parameters: @{ @"value":trigger.value, @"type":[DCTrigger networkStringForType:trigger.type], @"market":trigger.market, @"exchange":trigger.exchange, @"standardize_tether":@(trigger.standardizeTether)} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (completion) completion(nil,responseObject);
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+        if (completion) completion(nil,httpResponse.statusCode,responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (completion) completion(error,nil);
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+        if (completion) completion(error,httpResponse.statusCode,nil);
     }];
 }
 
--(void)deleteTriggerWithId:(u_int64_t)triggerId completion:(void (^ _Nullable)(NSError * _Nullable error, id  _Nullable responseObject))completion {
+-(void)deleteTriggerWithId:(u_int64_t)triggerId completion:(void (^ _Nullable)(NSError * _Nullable error,NSUInteger statusCode, id  _Nullable responseObject))completion {
     [self.authenticatedManager DELETE:DASHCONTROL_MODIFY_URL(@"trigger",@(triggerId)) parameters: @{}
-      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (completion) completion(nil,responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (completion) completion(error,nil);
-    }];
+                              success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                                  NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+                                  if (completion) completion(nil,httpResponse.statusCode,responseObject);
+                              } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                                  NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+                                  if (completion) completion(error,httpResponse.statusCode,nil);
+                              }];
 }
 
 
--(void)getTriggers:(void (^)(NSError * error, NSArray * triggers))completion {
+-(void)getTriggers:(void (^)(NSError * error,NSUInteger statusCode, NSArray * triggers))completion {
     [self.authenticatedManager GET:DASHCONTROL_URL(@"trigger") parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-        if (completion) completion(nil,responseObject);
-    } failure:^(NSURLSessionTask *operation, NSError *error) {
-        if (completion) completion(error,nil);
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+        if (completion) completion(nil,httpResponse.statusCode,responseObject);
+    } failure:^(NSURLSessionTask *task, NSError *error) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+        if (completion) completion(error,httpResponse.statusCode,nil);
     }];
 }
 

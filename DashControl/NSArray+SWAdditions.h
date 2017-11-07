@@ -17,7 +17,7 @@
 
 - (NSDictionary *)dictionaryReferencedByKeyPath:(NSString*)key objectPaths:(NSArray*)objectPaths;
 
-- (NSDictionary *)mutableDictionaryReferencedByKeyPath:(NSString*)key;
+- (NSMutableDictionary *)mutableDictionaryReferencedByKeyPath:(NSString*)key;
 
 - (NSArray *)arrayReferencedByKeyPath:(NSString*)key;
 

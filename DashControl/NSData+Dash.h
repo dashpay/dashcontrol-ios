@@ -72,7 +72,7 @@ size_t chacha20Poly1305AEADDecrypt(void *_Nullable out, size_t outLen, const voi
 -(UInt512)simd512;
 -(UInt512)echo512;
 
-+ (NSData *)dataFromHexString:(NSString *)string;
++ (NSData * _Nonnull)dataFromHexString:(NSString * _Nonnull)string;
 
 + (nonnull instancetype)dataWithUInt256:(UInt256)n;
 + (nonnull instancetype)dataWithUInt160:(UInt160)n;
@@ -85,7 +85,7 @@ size_t chacha20Poly1305AEADDecrypt(void *_Nullable out, size_t outLen, const voi
 - (UInt512)SHA512;
 - (UInt160)RMD160;
 - (UInt160)hash160;
-- (NSString*)hash160String;
+- (NSString* _Nonnull)hash160String;
 - (UInt128)MD5;
 - (NSData * _Nonnull)reverse;
 

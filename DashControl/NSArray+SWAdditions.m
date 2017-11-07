@@ -119,7 +119,7 @@
 }
 
 
-- (NSDictionary *)mutableDictionaryReferencedByKeyPath:(NSString*)key {
+- (NSMutableDictionary *)mutableDictionaryReferencedByKeyPath:(NSString*)key {
     NSMutableDictionary *mutableDictionary = [[NSMutableDictionary alloc] init];
     for (NSManagedObject * object in self) {
         if ([object valueForKey:key]) {

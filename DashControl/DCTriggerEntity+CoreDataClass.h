@@ -2,7 +2,7 @@
 //  DCTriggerEntity+CoreDataClass.h
 //  DashControl
 //
-//  Created by Sam Westrich on 11/5/17.
+//  Created by Sam Westrich on 11/7/17.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 //

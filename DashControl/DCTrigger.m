@@ -47,4 +47,21 @@
     return nil;
 }
 
++(DCTriggerType)typeForNetworkString:(NSString* _Nonnull)networkString {
+    if ([networkString isEqualToString:@"above"]) {
+        return DCTriggerAbove;
+    } else if ([networkString isEqualToString:@"below"]) {
+        return DCTriggerBelow;
+    } else if ([networkString isEqualToString:@"above_for"]) {
+        return DCTriggerAboveFor;
+    } else if ([networkString isEqualToString:@"below_for"]) {
+        return DCTriggerBelowFor;
+    } else if ([networkString isEqualToString:@"spike_up"]) {
+        return DCTriggerSpikeUp;
+    } else if ([networkString isEqualToString:@"spike_down"]) {
+        return DCTriggerSpikeDown;
+    }
+    return DCTriggerUnknown;
+}
+
 @end

@@ -136,8 +136,11 @@
     <entity name="DCTriggerEntity" representedClassName="DCTriggerEntity" syncable="YES">
         <attribute name="conditionalValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="consume" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="exchangeNamed" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="identifier" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="ignoreFor" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="triggerId" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="marketNamed" attributeType="String" syncable="YES"/>
+        <attribute name="standardizeTether" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="value" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="exchange" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DCExchangeEntity" inverseName="triggers" inverseEntity="DCExchangeEntity" syncable="YES"/>
@@ -186,7 +189,7 @@
         <element name="DCMasternodePaymentEntity" positionX="-27" positionY="162" width="128" height="105"/>
         <element name="DCPostEntity" positionX="-63" positionY="-18" width="128" height="150"/>
         <element name="DCProposalEntity" positionX="-63" positionY="81" width="128" height="435"/>
-        <element name="DCTriggerEntity" positionX="-45" positionY="135" width="128" height="165"/>
+        <element name="DCTriggerEntity" positionX="-45" positionY="135" width="128" height="210"/>
         <element name="DCWalletAccountEntity" positionX="-45" positionY="135" width="128" height="90"/>
         <element name="DCWalletAddressEntity" positionX="-45" positionY="144" width="128" height="135"/>
         <element name="DCWalletEntity" positionX="-54" positionY="135" width="128" height="105"/>
