@@ -26,6 +26,7 @@
 #define DASHCONTROL_SERVER [NSString stringWithFormat:@"%@/api/v%d/",USE_PRODUCTION?PRODUCTION_URL:DEVELOPMENT_URL,DASHCONTROL_SERVER_VERSION]
 
 #define DASHCONTROL_URL(x)  [DASHCONTROL_SERVER stringByAppendingString:x]
+#define DASHCONTROL_MODIFY_URL(x,y) [NSString stringWithFormat:@"%@%@/%@",DASHCONTROL_SERVER,x,y]
 
 #define TICKER_REFRESH_TIME 60.0
 
@@ -515,13 +516,22 @@
 
 #pragma mark - Trigger
 
--(void)postTrigger:(DCTrigger* _Nonnull)trigger completion:(void (^ _Nullable)(NSError * _Nullable error))completion {
-    [self.authenticatedManager POST:DASHCONTROL_URL(@"trigger") parameters: @{ @"value":trigger.value, @"type":[DCTrigger networkStringForType:trigger.type], @"market":trigger.market, @"exchange":trigger.exchange} progress:^(NSProgress * _Nonnull uploadProgress) {
+-(void)postTrigger:(DCTrigger* _Nonnull)trigger completion:(void (^ _Nullable)(NSError * _Nullable error, id  _Nullable responseObject))completion {
+    [self.authenticatedManager POST:DASHCONTROL_URL(@"trigger") parameters: @{ @"value":trigger.value, @"type":[DCTrigger networkStringForType:trigger.type], @"market":trigger.market, @"exchange":trigger.exchange, @"stardardize_tether":trigger.stardardizeTether} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (completion) completion(nil);
+        if (completion) completion(nil,responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (completion) completion(error);
+        if (completion) completion(error,nil);
+    }];
+}
+
+-(void)deleteTriggerWithId:(u_int64_t)triggerId completion:(void (^ _Nullable)(NSError * _Nullable error, id  _Nullable responseObject))completion {
+    [self.authenticatedManager DELETE:DASHCONTROL_MODIFY_URL(@"trigger",@(triggerId)) parameters: @{}
+      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (completion) completion(nil,responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (completion) completion(error,nil);
     }];
 }
 

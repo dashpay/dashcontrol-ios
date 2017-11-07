@@ -95,6 +95,7 @@
             [self updateChartData];
         }
     }
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
 }
 
 -(NSManagedObjectContext*)managedObjectContext {
@@ -466,6 +467,27 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return CGFLOAT_MIN;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return YES if you want the specified item to be editable.
+    return YES;
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        DCTriggerEntity * triggerEntity = [self.triggerFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
+        if (!triggerEntity.triggerId) {
+            [self.managedObjectContext deleteObject:triggerEntity];
+            return;
+        }
+        [[DCBackendManager sharedInstance] deleteTriggerWithId:triggerEntity.triggerId completion:^(NSError * _Nullable error, id  _Nullable responseObject) {
+            if (!error) {
+                [self.managedObjectContext deleteObject:triggerEntity];
+            }
+        }];
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

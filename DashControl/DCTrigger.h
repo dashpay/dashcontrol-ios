@@ -15,6 +15,7 @@
 @property (nonatomic,assign) DCTriggerType type;
 @property (nonatomic,strong) NSString * market;
 @property (nonatomic,strong) NSString * exchange;
+@property (nonatomic,assign) BOOL standardizeTether;
 
 -(id)initWithType:(DCTriggerType)type value:(NSNumber* _Nonnull)value market:(NSString* _Nonnull)market;
 

@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int16_t type;
 @property (nonatomic) BOOL consume;
 @property (nonatomic) int64_t ignoreFor;
+@property (nonatomic) int64_t triggerId;
 @property (nullable, nonatomic, retain) DCExchangeEntity *exchange;
 @property (nullable, nonatomic, retain) DCMarketEntity *market;
 

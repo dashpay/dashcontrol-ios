@@ -15,6 +15,7 @@
 	return [[NSFetchRequest alloc] initWithEntityName:@"DCTriggerEntity"];
 }
 
+@dynamic triggerId;
 @dynamic value;
 @dynamic conditionalValue;
 @dynamic type;

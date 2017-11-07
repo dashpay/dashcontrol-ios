@@ -53,8 +53,6 @@
 		FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AEDA1FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m */; };
 		FB17AEE51FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AEDC1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m */; };
 		FB17AEE61FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AEDE1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m */; };
-		FB25EA291FAF4369000B41BE /* DCTriggerEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB25EA261FAF4369000B41BE /* DCTriggerEntity+CoreDataClass.m */; };
-		FB25EA2A1FAF4369000B41BE /* DCTriggerEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB25EA281FAF4369000B41BE /* DCTriggerEntity+CoreDataProperties.m */; };
 		FB25EA301FAF8509000B41BE /* TriggerTypeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB25EA2F1FAF8509000B41BE /* TriggerTypeTableViewCell.m */; };
 		FB25EA331FAF8559000B41BE /* AddTriggerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB25EA321FAF8559000B41BE /* AddTriggerTableViewCell.m */; };
 		FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */; };
@@ -66,8 +64,10 @@
 		FB4311021FA2BCD800784EBC /* NSString+Sugar.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4311011FA2BCD800784EBC /* NSString+Sugar.m */; };
 		FB4311051FA2C19800784EBC /* NSURL+Sugar.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4311041FA2C19800784EBC /* NSURL+Sugar.m */; };
 		FB4550CC1FAFABD6001CC1ED /* DCTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4550CB1FAFABD6001CC1ED /* DCTrigger.m */; };
-		FB4C23891FA342DE00A43858 /* DCWalletEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4C23861FA342DE00A43858 /* DCWalletEntity+CoreDataClass.m */; };
-		FB4C238A1FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4C23881FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.m */; };
+		FB4550CF1FB1C195001CC1ED /* DCTriggerEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4550CE1FB1C195001CC1ED /* DCTriggerEntity+CoreDataProperties.m */; };
+		FB4550D61FB1C1A4001CC1ED /* DCTriggerEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4550D11FB1C1A3001CC1ED /* DCTriggerEntity+CoreDataClass.m */; };
+		FB4550D71FB1C1A4001CC1ED /* DCWalletEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4550D21FB1C1A3001CC1ED /* DCWalletEntity+CoreDataClass.m */; };
+		FB4550D81FB1C1A4001CC1ED /* DCWalletEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4550D41FB1C1A4001CC1ED /* DCWalletEntity+CoreDataProperties.m */; };
 		FB4F93BA1F82528F0078E259 /* PortfolioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F93B91F82528F0078E259 /* PortfolioViewController.m */; };
 		FB84EDC21F32898700E4D400 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC11F32898700E4D400 /* main.m */; };
 		FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC41F32898700E4D400 /* AppDelegate.m */; };
@@ -218,10 +218,6 @@
 		FB17AEDC1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletAddressEntity+CoreDataClass.m"; sourceTree = "<group>"; };
 		FB17AEDD1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCWalletAddressEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
 		FB17AEDE1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletAddressEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
-		FB25EA251FAF4369000B41BE /* DCTriggerEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "DCTriggerEntity+CoreDataClass.h"; path = "../DCTriggerEntity+CoreDataClass.h"; sourceTree = "<group>"; };
-		FB25EA261FAF4369000B41BE /* DCTriggerEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "DCTriggerEntity+CoreDataClass.m"; path = "../DCTriggerEntity+CoreDataClass.m"; sourceTree = "<group>"; };
-		FB25EA271FAF4369000B41BE /* DCTriggerEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "DCTriggerEntity+CoreDataProperties.h"; path = "../DCTriggerEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
-		FB25EA281FAF4369000B41BE /* DCTriggerEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "DCTriggerEntity+CoreDataProperties.m"; path = "../DCTriggerEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FB25EA2E1FAF8509000B41BE /* TriggerTypeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriggerTypeTableViewCell.h; sourceTree = "<group>"; };
 		FB25EA2F1FAF8509000B41BE /* TriggerTypeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriggerTypeTableViewCell.m; sourceTree = "<group>"; };
 		FB25EA311FAF8559000B41BE /* AddTriggerTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddTriggerTableViewCell.h; sourceTree = "<group>"; };
@@ -271,10 +267,14 @@
 		FB4311481FA2DF0A00784EBC /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		FB4550CA1FAFABD6001CC1ED /* DCTrigger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTrigger.h; sourceTree = "<group>"; };
 		FB4550CB1FAFABD6001CC1ED /* DCTrigger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCTrigger.m; sourceTree = "<group>"; };
-		FB4C23851FA342DE00A43858 /* DCWalletEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "DCWalletEntity+CoreDataClass.h"; path = "../DCWalletEntity+CoreDataClass.h"; sourceTree = "<group>"; };
-		FB4C23861FA342DE00A43858 /* DCWalletEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "DCWalletEntity+CoreDataClass.m"; path = "../DCWalletEntity+CoreDataClass.m"; sourceTree = "<group>"; };
-		FB4C23871FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "DCWalletEntity+CoreDataProperties.h"; path = "../DCWalletEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
-		FB4C23881FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "DCWalletEntity+CoreDataProperties.m"; path = "../DCWalletEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FB4550CD1FB1C194001CC1ED /* DCTriggerEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCTriggerEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FB4550CE1FB1C195001CC1ED /* DCTriggerEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCTriggerEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FB4550D01FB1C1A3001CC1ED /* DCTriggerEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCTriggerEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		FB4550D11FB1C1A3001CC1ED /* DCTriggerEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCTriggerEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		FB4550D21FB1C1A3001CC1ED /* DCWalletEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCWalletEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		FB4550D31FB1C1A3001CC1ED /* DCWalletEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCWalletEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FB4550D41FB1C1A4001CC1ED /* DCWalletEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCWalletEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FB4550D51FB1C1A4001CC1ED /* DCWalletEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCWalletEntity+CoreDataClass.h"; sourceTree = "<group>"; };
 		FB4F93B81F82528F0078E259 /* PortfolioViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PortfolioViewController.h; sourceTree = "<group>"; };
 		FB4F93B91F82528F0078E259 /* PortfolioViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PortfolioViewController.m; sourceTree = "<group>"; };
 		FB84EDBD1F32898700E4D400 /* DashControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DashControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -692,14 +692,14 @@
 		FB9CC18E1F8426CD0079309F /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				FB25EA251FAF4369000B41BE /* DCTriggerEntity+CoreDataClass.h */,
-				FB25EA261FAF4369000B41BE /* DCTriggerEntity+CoreDataClass.m */,
-				FB25EA271FAF4369000B41BE /* DCTriggerEntity+CoreDataProperties.h */,
-				FB25EA281FAF4369000B41BE /* DCTriggerEntity+CoreDataProperties.m */,
-				FB4C23851FA342DE00A43858 /* DCWalletEntity+CoreDataClass.h */,
-				FB4C23861FA342DE00A43858 /* DCWalletEntity+CoreDataClass.m */,
-				FB4C23871FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.h */,
-				FB4C23881FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.m */,
+				FB4550D51FB1C1A4001CC1ED /* DCWalletEntity+CoreDataClass.h */,
+				FB4550D21FB1C1A3001CC1ED /* DCWalletEntity+CoreDataClass.m */,
+				FB4550D31FB1C1A3001CC1ED /* DCWalletEntity+CoreDataProperties.h */,
+				FB4550D41FB1C1A4001CC1ED /* DCWalletEntity+CoreDataProperties.m */,
+				FB4550D01FB1C1A3001CC1ED /* DCTriggerEntity+CoreDataClass.h */,
+				FB4550D11FB1C1A3001CC1ED /* DCTriggerEntity+CoreDataClass.m */,
+				FB4550CD1FB1C194001CC1ED /* DCTriggerEntity+CoreDataProperties.h */,
+				FB4550CE1FB1C195001CC1ED /* DCTriggerEntity+CoreDataProperties.m */,
 				FB17AED71FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.h */,
 				FB17AED81FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m */,
 				FB17AED91FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.h */,
@@ -1118,24 +1118,25 @@
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
 				FB9CC1861F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m in Sources */,
 				FBE1F50D1F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m in Sources */,
+				FB4550D61FB1C1A4001CC1ED /* DCTriggerEntity+CoreDataClass.m in Sources */,
 				FBEBE5421F5802DE0056D921 /* DCChartTimeFormatter.m in Sources */,
 				249A402F1F62715700155636 /* ProposalScopeButtonsView.m in Sources */,
-				FB4C23891FA342DE00A43858 /* DCWalletEntity+CoreDataClass.m in Sources */,
 				24E584101F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.m in Sources */,
 				24C86F091F5EC09900735785 /* ProposalDetailVotesResultTableViewCell.m in Sources */,
-				FB25EA291FAF4369000B41BE /* DCTriggerEntity+CoreDataClass.m in Sources */,
 				FB4310F51FA2142700784EBC /* DCEnvironment.m in Sources */,
+				FB4550CF1FB1C195001CC1ED /* DCTriggerEntity+CoreDataProperties.m in Sources */,
 				FB9CC1611F83E38A0079309F /* NSData+Dash.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
 				FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */,
 				FB9CC1801F83E45F0079309F /* DCMasternodeEntity+CoreDataClass.m in Sources */,
 				241719E31F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m in Sources */,
 				FB9CC1881F83E8000079309F /* NSMutableData+Dash.m in Sources */,
+				FB4550D71FB1C1A4001CC1ED /* DCWalletEntity+CoreDataClass.m in Sources */,
 				FBEBE5461F5986510056D921 /* DCCoreDataManager.m in Sources */,
 				FBE1F50E1F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.m in Sources */,
 				24E5841C1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m in Sources */,
 				FB9CC1841F83E45F0079309F /* DCMasternodeEntity+CoreDataProperties.m in Sources */,
-				FB4C238A1FA342DE00A43858 /* DCWalletEntity+CoreDataProperties.m in Sources */,
+				FB4550D81FB1C1A4001CC1ED /* DCWalletEntity+CoreDataProperties.m in Sources */,
 				FBE1F50A1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.m in Sources */,
 				241719D81F4DA4C60045C2D6 /* DCProposalsManager.m in Sources */,
 				24C86EFD1F5EC04100735785 /* ProposalDetailNameTableViewCell.m in Sources */,
@@ -1175,7 +1176,6 @@
 				24C86F0F1F5EC0D600735785 /* ProposalDetailDescriptionDetailTableViewCell.m in Sources */,
 				24C86F0C1F5EC0C300735785 /* ProposalDetailDescriptionHeaderTableViewCell.m in Sources */,
 				FB25EA331FAF8559000B41BE /* AddTriggerTableViewCell.m in Sources */,
-				FB25EA2A1FAF4369000B41BE /* DCTriggerEntity+CoreDataProperties.m in Sources */,
 				24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */,
 				24E584181F3AF18A00A12087 /* RSSFeedListViewController.m in Sources */,
 			);

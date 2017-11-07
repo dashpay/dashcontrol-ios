@@ -196,14 +196,16 @@
     NSNumber * value = @([self.priceAmountTableViewCell.priceTextField.text integerValue]);
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         DCTrigger * trigger = [[DCTrigger alloc] initWithType:self.triggerType value:value market:@"DASH_USD"];
-        [[DCBackendManager sharedInstance] postTrigger:trigger completion:^(NSError * _Nullable error) {
+        [[DCBackendManager sharedInstance] postTrigger:trigger completion:^(NSError * _Nullable error, id response) {
             // Do something...
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
-                if (!error) {
+                if (!error && response) {
+                    NSDictionary * dictionary = ((NSDictionary*)response);
                     NSManagedObjectContext * context = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
                     DCTriggerEntity *triggerEntity = [NSEntityDescription insertNewObjectForEntityForName:@"DCTriggerEntity" inManagedObjectContext:context];
-                    triggerEntity.value = [self.priceAmountTableViewCell.priceTextField.text integerValue];
+                    triggerEntity.triggerId = [[dictionary objectForKey:@"id"] unsignedLongLongValue];
+                    triggerEntity.value = [self.priceAmountTableViewCell.priceTextField.text longLongValue];
                     triggerEntity.type = self.triggerType;
                     NSError * error = nil;
                     if (![context save:&error]) {

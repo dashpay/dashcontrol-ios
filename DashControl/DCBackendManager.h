@@ -26,6 +26,8 @@
 
 -(void)registerDeviceForDeviceToken:(NSData* _Nonnull)deviceToken;
 
--(void)postTrigger:(DCTrigger* _Nonnull)trigger completion:(void (^ _Nullable)(NSError * _Nullable error))completion;
+-(void)postTrigger:(DCTrigger* _Nonnull)trigger completion:(void (^ _Nullable)(NSError * _Nullable error, id  _Nullable responseObject))completion;
+
+-(void)deleteTriggerWithId:(u_int64_t)triggerId completion:(void (^ _Nullable)(NSError * _Nullable error, id  _Nullable responseObject))completion;
 
 @end

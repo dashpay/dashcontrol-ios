@@ -16,6 +16,7 @@
         self.value = value;
         self.market = market;
         self.exchange = @"any";
+        self.standardizeTether = TRUE;
     }
     return self;
 }
