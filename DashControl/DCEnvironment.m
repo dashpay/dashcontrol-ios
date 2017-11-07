@@ -15,6 +15,7 @@
 #define SEC_ATTR_SERVICE      @"org.dashfoundation.dash.Control"
 #define DEVICE_ID @"DEVICE_ID"
 #define DEVICE_PASSWORD @"DEVICE_PASSWORD"
+#define DEVICE_HAS_REGISTERED @"DEVICE_REGISTERED"
 
 static BOOL setKeychainData(NSData *data, NSString *key, BOOL authenticated)
 {
@@ -96,6 +97,25 @@ static int64_t getKeychainInt(NSString *key, NSError **error)
     }
 }
 
+static BOOL setKeychainBool(Boolean i, NSString *key, BOOL authenticated)
+{
+    @autoreleasepool {
+        NSMutableData *d = [NSMutableData secureDataWithLength:sizeof(Boolean)];
+        
+        *(Boolean *)d.mutableBytes = i;
+        return setKeychainData(d, key, authenticated);
+    }
+}
+
+static Boolean getKeychainBool(NSString *key, NSError **error)
+{
+    @autoreleasepool {
+        NSData *d = getKeychainData(key, error);
+        
+        return (d.length == sizeof(Boolean)) ? *(Boolean *)d.bytes : 0;
+    }
+}
+
 static BOOL setKeychainString(NSString *s, NSString *key, BOOL authenticated)
 {
     @autoreleasepool {
@@ -168,6 +188,15 @@ static NSDictionary *getKeychainDict(NSString *key, NSError **error)
     return getKeychainData(key, error);
 }
 
+-(void)setKeychainBoolean:(Boolean)value forKey:(NSString*)key authenticated:(BOOL)authenticated {
+    setKeychainBool(value, key, authenticated);
+}
+
+-(Boolean)getKeychainBooleanForKey:(NSString*)key error:(NSError**)error {
+    return getKeychainBool(key, error);
+}
+
+
 -(NSString*)deviceId {
     if (!_deviceId) {
         NSError * error = nil;
@@ -192,6 +221,14 @@ static NSDictionary *getKeychainDict(NSString *key, NSError **error)
         }
     }
     return _devicePassword;
+}
+
+-(void)setHasRegistered {
+    [self setKeychainBoolean:TRUE forKey:DEVICE_HAS_REGISTERED authenticated:NO];
+}
+
+-(BOOL)hasRegisteredWithError:(NSError**)error {
+    return [self getKeychainBooleanForKey:DEVICE_HAS_REGISTERED error:error];
 }
 
 @end

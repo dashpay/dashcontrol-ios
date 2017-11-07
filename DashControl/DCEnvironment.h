@@ -20,4 +20,8 @@
 
 -(NSData* _Nullable)getKeychainDataForKey:(NSString* _Nonnull)key error:(NSError* _Nullable * _Nullable)error;
 
+-(void)setHasRegistered;
+
+-(BOOL)hasRegisteredWithError:(NSError**)error;
+
 @end

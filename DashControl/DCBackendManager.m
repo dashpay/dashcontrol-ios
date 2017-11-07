@@ -64,47 +64,75 @@
         self.persistentContainer = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
         self.mainObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
         self.reachability = [Reachability reachabilityForInternetConnection];
-        [self fetchMarkets: ^void (NSError * error, NSUInteger defaultExchangeIdentifier, NSUInteger defaultMarketIdentifier)
-         {
-             if (!error) {
-                 NSError * innerError = nil;
-                 DCMarketEntity * defaultMarket = [[DCCoreDataManager sharedInstance] marketWithIdentifier:defaultMarketIdentifier inContext:self.mainObjectContext  error:&innerError];
-                 DCExchangeEntity * defaultExchange = innerError?nil:[[DCCoreDataManager sharedInstance] exchangeWithIdentifier:defaultExchangeIdentifier inContext:self.mainObjectContext  error:&innerError];
-                 if (!innerError) {
-                     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-                     if (defaultMarket && ![[userDefaults objectForKey:DEFAULT_MARKET] isEqualToString:defaultMarket.name]) {
-                         [userDefaults setObject:defaultMarket.name forKey:DEFAULT_MARKET];
-                     }
-                     if (defaultExchange && ![[userDefaults objectForKey:DEFAULT_EXCHANGE] isEqualToString:defaultExchange.name]) {
-                         [userDefaults setObject:defaultExchange.name forKey:DEFAULT_EXCHANGE];
-                     }
-                     if (defaultExchange && defaultMarket && ![userDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR]) {
-                         NSDictionary * currentMarketExchangePair = @{@"exchange":defaultExchange.name,@"market":defaultMarket.name};
-                         [userDefaults setObject:currentMarketExchangePair forKey:CURRENT_EXCHANGE_MARKET_PAIR];
-                     }
-                     [userDefaults synchronize];
-                     NSDictionary * currentMarketExchangePair = [userDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR];
-                     if (currentMarketExchangePair && [currentMarketExchangePair objectForKey:@"exchange"] && [currentMarketExchangePair objectForKey:@"market"] ) {
-                         NSDate *lastWeek  = [[NSDate date] dateByAddingTimeInterval: -1209600.0]; //one week ago
-                         [self getChartDataForExchange:[currentMarketExchangePair objectForKey:@"exchange"] forMarket:[currentMarketExchangePair objectForKey:@"market"] start:lastWeek end:nil clb:^(NSError *error) {
-                             //to do error handling
-                             //[[NSNotificationCenter defaultCenter] postNotificationName:ERROR object:];
-                         }];
-                     }
-                 }
-             }
-         }];
     }
     return self;
 }
 
+#pragma mark - start up
+
+-(void)startUpFetchMarkets {
+    [self fetchMarkets: ^void (NSError * error, NSUInteger defaultExchangeIdentifier, NSUInteger defaultMarketIdentifier)
+     {
+         if (!error) {
+             NSError * innerError = nil;
+             DCMarketEntity * defaultMarket = [[DCCoreDataManager sharedInstance] marketWithIdentifier:defaultMarketIdentifier inContext:self.mainObjectContext  error:&innerError];
+             DCExchangeEntity * defaultExchange = innerError?nil:[[DCCoreDataManager sharedInstance] exchangeWithIdentifier:defaultExchangeIdentifier inContext:self.mainObjectContext  error:&innerError];
+             if (!innerError) {
+                 NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                 if (defaultMarket && ![[userDefaults objectForKey:DEFAULT_MARKET] isEqualToString:defaultMarket.name]) {
+                     [userDefaults setObject:defaultMarket.name forKey:DEFAULT_MARKET];
+                 }
+                 if (defaultExchange && ![[userDefaults objectForKey:DEFAULT_EXCHANGE] isEqualToString:defaultExchange.name]) {
+                     [userDefaults setObject:defaultExchange.name forKey:DEFAULT_EXCHANGE];
+                 }
+                 if (defaultExchange && defaultMarket && ![userDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR]) {
+                     NSDictionary * currentMarketExchangePair = @{@"exchange":defaultExchange.name,@"market":defaultMarket.name};
+                     [userDefaults setObject:currentMarketExchangePair forKey:CURRENT_EXCHANGE_MARKET_PAIR];
+                 }
+                 [userDefaults synchronize];
+                 NSDictionary * currentMarketExchangePair = [userDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR];
+                 if (currentMarketExchangePair && [currentMarketExchangePair objectForKey:@"exchange"] && [currentMarketExchangePair objectForKey:@"market"] ) {
+                     NSDate *lastWeek  = [[NSDate date] dateByAddingTimeInterval: -1209600.0]; //one week ago
+                     [self getChartDataForExchange:[currentMarketExchangePair objectForKey:@"exchange"] forMarket:[currentMarketExchangePair objectForKey:@"market"] start:lastWeek end:nil clb:^(NSError *error) {
+                         //to do error handling
+                         //[[NSNotificationCenter defaultCenter] postNotificationName:ERROR object:];
+                     }];
+                 }
+             }
+         }
+     }];
+}
+
+-(void)startUpFetchTriggers {
+    [self getTriggers:^(NSError *error, NSArray *triggers) {
+        if (!error) {
+            NSMutableArray * knownTriggers = [[[DCCoreDataManager sharedInstance] marketsForNames:markets inContext:context error:&error] mutableCopy];
+        }
+    };
+}
+
+-(void)startUp {
+    [self startUpFetchMarkets];
+    NSError * error = nil;
+    BOOL hasRegistered = [[DCEnvironment sharedInstance] hasRegisteredWithError:&error];
+    if (!error && hasRegistered) {
+        
+    }
+}
+
 -(AFHTTPSessionManager*)authenticatedManager {
+    
     if (!_authenticatedManager) {
-        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-        [manager.requestSerializer setAuthorizationHeaderFieldWithUsername:[[DCEnvironment sharedInstance] deviceId] password:[[DCEnvironment sharedInstance] devicePassword]];
-        self.authenticatedManager = manager;
+        @synchronized(self) {
+            if (!_authenticatedManager) { //a second time, this time synchronized
+                AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                [manager.requestSerializer setAuthorizationHeaderFieldWithUsername:[[DCEnvironment sharedInstance] deviceId] password:[[DCEnvironment sharedInstance] devicePassword]];
+                self.authenticatedManager = manager;
+            }
+        }
     }
     return _authenticatedManager;
+    
 }
 
 #pragma mark - Import Chart Data
@@ -135,7 +163,7 @@
                 if (!error) {
                     NSArray * novelMarkets = [markets arrayByRemovingObjectsFromArray:[knownMarkets  arrayReferencedByKeyPath:@"name"]];
                     if (novelMarkets.count) {
-                        NSInteger marketIdentifier = [[DCCoreDataManager sharedInstance] fetchAutoIncrementIdForMarketinContext:context error:&error];
+                        NSInteger marketIdentifier = [[DCCoreDataManager sharedInstance] fetchAutoIncrementIdForMarketInContext:context error:&error];
                         if (!error) {
                             for (NSString * marketName in novelMarkets) {
                                 DCMarketEntity *market = [NSEntityDescription insertNewObjectForEntityForName:@"DCMarketEntity" inManagedObjectContext:context];
@@ -508,6 +536,7 @@
     }
     
     [manager POST:DASHCONTROL_URL(@"device") parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [[DCEnvironment sharedInstance] setHasRegistered];
         NSLog(@"Device registered %@", token_string);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"URL Session Task Failed: %@", [error localizedDescription]);
@@ -531,6 +560,15 @@
       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (completion) completion(nil,responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (completion) completion(error,nil);
+    }];
+}
+
+
+-(void)getTriggers:(void (^)(NSError * error, NSArray * triggers))completion {
+    [self.authenticatedManager GET:DASHCONTROL_URL(@"trigger") parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        if (completion) completion(nil,responseObject);
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
         if (completion) completion(error,nil);
     }];
 }
