@@ -137,7 +137,7 @@
         <attribute name="conditionalValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="consume" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="exchangeNamed" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="identifier" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="identifier" attributeType="Integer 64" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="ignoreFor" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="marketNamed" attributeType="String" syncable="YES"/>
         <attribute name="standardizeTether" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
@@ -145,6 +145,11 @@
         <attribute name="value" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="exchange" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DCExchangeEntity" inverseName="triggers" inverseEntity="DCExchangeEntity" syncable="YES"/>
         <relationship name="market" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DCMarketEntity" inverseName="triggers" inverseEntity="DCMarketEntity" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="identifier"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="DCWalletAccountEntity" representedClassName="DCWalletAccountEntity" syncable="YES">
         <attribute name="hash160Key" optional="YES" attributeType="String" syncable="YES"/>

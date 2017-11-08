@@ -315,7 +315,7 @@
                     NSDictionary * dictionary = ((NSDictionary*)response);
                     NSManagedObjectContext * context = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
                     DCTriggerEntity *triggerEntity = [NSEntityDescription insertNewObjectForEntityForName:@"DCTriggerEntity" inManagedObjectContext:context];
-                    triggerEntity.identifier = [[dictionary objectForKey:@"id"] unsignedLongLongValue];
+                    triggerEntity.identifier = [[dictionary objectForKey:@"identifier"] unsignedLongLongValue];
                     triggerEntity.value = [[dictionary objectForKey:@"value"] doubleValue];
                     triggerEntity.type = [DCTrigger typeForNetworkString:[dictionary objectForKey:@"type"]];
                     triggerEntity.marketNamed = [dictionary objectForKey:@"market"];

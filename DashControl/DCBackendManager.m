@@ -126,7 +126,7 @@
                             NSDictionary * triggerToAdd = triggerIdentifiers[identifier];
                             DCTriggerEntity *trigger = [NSEntityDescription insertNewObjectForEntityForName:@"DCTriggerEntity" inManagedObjectContext:context];
                             trigger.identifier = [triggerToAdd[@"identifier"] longLongValue];
-                            trigger.value = [triggerToAdd[@"value"] longLongValue];
+                            trigger.value = [triggerToAdd[@"value"] doubleValue];
                             trigger.type = [DCTrigger typeForNetworkString:triggerToAdd[@"type"]];
                             trigger.consume = [triggerToAdd[@"consume"] boolValue];
                             trigger.ignoreFor = [triggerToAdd[@"ignoreFor"] longLongValue];
