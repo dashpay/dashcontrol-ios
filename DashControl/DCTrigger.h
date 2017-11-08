@@ -30,7 +30,7 @@ typedef NS_ENUM(uint16_t,DCTriggerType) {
 @property (nonatomic,strong,nonnull) NSString * exchange;
 @property (nonatomic,assign) BOOL standardizeTether;
 
--(id _Nonnull)initWithType:(DCTriggerType)type value:(NSNumber* _Nonnull)value market:(NSString* _Nonnull)market;
+-(id _Nonnull)initWithType:(DCTriggerType)type value:(NSNumber* _Nonnull)value exchange:(NSString*_Nullable)exchange market:(NSString* _Nonnull)market;
 
 +(NSString* _Nonnull)networkStringForType:(DCTriggerType)triggerType;
 

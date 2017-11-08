@@ -56,6 +56,7 @@
 		FB25EA301FAF8509000B41BE /* TriggerTypeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB25EA2F1FAF8509000B41BE /* TriggerTypeTableViewCell.m */; };
 		FB25EA331FAF8559000B41BE /* AddTriggerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB25EA321FAF8559000B41BE /* AddTriggerTableViewCell.m */; };
 		FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */; };
+		FB3BEBBE1FB32AF000C8974E /* PriceInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB3BEBBD1FB32AF000C8974E /* PriceInfoTableViewCell.m */; };
 		FB4310D71F9DA96700784EBC /* DCWalletManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310D61F9DA96700784EBC /* DCWalletManager.m */; };
 		FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310D91F9EF4B500784EBC /* DCWalletAccount.m */; };
 		FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310DB1F9EFC3F00784EBC /* DCServerBloomFilter.m */; };
@@ -224,6 +225,8 @@
 		FB25EA321FAF8559000B41BE /* AddTriggerTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddTriggerTableViewCell.m; sourceTree = "<group>"; };
 		FB2F9B3B1F5C9F960035180D /* NSArray+SWAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+SWAdditions.h"; sourceTree = "<group>"; };
 		FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+SWAdditions.m"; sourceTree = "<group>"; };
+		FB3BEBBC1FB32AF000C8974E /* PriceInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceInfoTableViewCell.h; sourceTree = "<group>"; };
+		FB3BEBBD1FB32AF000C8974E /* PriceInfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceInfoTableViewCell.m; sourceTree = "<group>"; };
 		FB4310D51F9DA96700784EBC /* DCWalletManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCWalletManager.h; sourceTree = "<group>"; };
 		FB4310D61F9DA96700784EBC /* DCWalletManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCWalletManager.m; sourceTree = "<group>"; };
 		FB4310D81F9EF4B500784EBC /* DCWalletAccount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCWalletAccount.h; sourceTree = "<group>"; };
@@ -471,6 +474,8 @@
 				FB25EA2F1FAF8509000B41BE /* TriggerTypeTableViewCell.m */,
 				FB25EA311FAF8559000B41BE /* AddTriggerTableViewCell.h */,
 				FB25EA321FAF8559000B41BE /* AddTriggerTableViewCell.m */,
+				FB3BEBBC1FB32AF000C8974E /* PriceInfoTableViewCell.h */,
+				FB3BEBBD1FB32AF000C8974E /* PriceInfoTableViewCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1138,6 +1143,7 @@
 				FB4550D81FB1C1A4001CC1ED /* DCWalletEntity+CoreDataProperties.m in Sources */,
 				FBE1F50A1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.m in Sources */,
 				241719D81F4DA4C60045C2D6 /* DCProposalsManager.m in Sources */,
+				FB3BEBBE1FB32AF000C8974E /* PriceInfoTableViewCell.m in Sources */,
 				24C86EFD1F5EC04100735785 /* ProposalDetailNameTableViewCell.m in Sources */,
 				FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */,
 				24A2159B1F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m in Sources */,

@@ -10,6 +10,7 @@
 #import "PriceAmountTableViewCell.h"
 #import "TriggerTypeTableViewCell.h"
 #import "AddTriggerTableViewCell.h"
+#import "PriceInfoTableViewCell.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "DCBackendManager.h"
 
@@ -17,6 +18,8 @@
 
 @property(nonatomic,strong) PriceAmountTableViewCell * priceAmountTableViewCell;
 @property(nonatomic,strong) TriggerTypeTableViewCell * triggerTypeTableViewCell;
+@property(nonatomic,strong) PriceInfoTableViewCell * marketTableViewCell;
+@property(nonatomic,strong) PriceInfoTableViewCell * exchangeTableViewCell;
 @property(nonatomic,strong) AddTriggerTableViewCell * addTriggerTableViewCell;
 @property(nonatomic,assign) DCTriggerType triggerType;
 
@@ -38,6 +41,14 @@
     self.triggerTypeTableViewCell.mainLabel.text = NSLocalizedString(@"Alert type", @"Price Alert Screen");
     self.triggerTypeTableViewCell.typeLabel.text = [self textForTriggerType:DCTriggerAbove];
     
+    self.marketTableViewCell = [self.tableView dequeueReusableCellWithIdentifier:@"MarketTypeCell"];
+    self.marketTableViewCell.mainLabel.text = NSLocalizedString(@"Market", @"Price Alert Screen");
+    self.marketTableViewCell.typeLabel.text = self.selectedMarket.name;
+    
+    self.exchangeTableViewCell = [self.tableView dequeueReusableCellWithIdentifier:@"ExchangeTypeCell"];
+    self.exchangeTableViewCell.mainLabel.text = NSLocalizedString(@"Exchange", @"Price Alert Screen");
+    self.exchangeTableViewCell.typeLabel.text = self.selectedExchange.name;
+    
     self.addTriggerTableViewCell = [self.tableView dequeueReusableCellWithIdentifier:@"AddTriggerCell"];
     self.triggerType = DCTriggerAbove;
 }
@@ -54,7 +65,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (!section) {
-        return 2;
+        return 4;
     } else {
         return 1;
     }
@@ -68,9 +79,17 @@
         switch (indexPath.row) {
             case 0:
             {
-                return self.priceAmountTableViewCell;
+                return self.exchangeTableViewCell;
             }
             case 1:
+            {
+                return self.marketTableViewCell;
+            }
+            case 2:
+            {
+                return self.priceAmountTableViewCell;
+            }
+            case 3:
             {
                 return self.triggerTypeTableViewCell;
             }
@@ -92,23 +111,104 @@
             [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ok",@"ok") style:UIAlertActionStyleDefault handler:nil]];
             [self presentViewController:alertController animated:TRUE completion:nil];
         }
-    } else if (indexPath.row == 1) {
-        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"trigger type",@"Price Alert Screen") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        for (NSInteger i = 0;i<DCTriggerBelow + 1;i++) {
-            NSString * triggerText = [self textForTriggerType:i];
-            [alertController addAction:[UIAlertAction actionWithTitle:triggerText style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                self.triggerType = i;
-                self.triggerTypeTableViewCell.typeLabel.text = triggerText;
-            }]];
+    } else {
+        switch (indexPath.row) {
+            case 0:
+            {
+                UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"exchange",@"Price Alert Screen") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+                NSError * error = nil;
+                NSArray * exchanges = [[DCCoreDataManager sharedInstance] exchangesInContext:nil error:&error];
+                if (error) break;
+                for (DCExchangeEntity * exchange in exchanges) {
+                    [alertController addAction:[UIAlertAction actionWithTitle:exchange.name style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        self.selectedExchange = exchange;
+                        self.exchangeTableViewCell.typeLabel.text = exchange.name;
+                        NSSet * possibleMarkets = self.selectedExchange.markets;
+                        if (![possibleMarkets containsObject:self.selectedMarket]) {
+                            //first try to mimic tether
+                            BOOL replaced = FALSE;
+                            if ([self.selectedMarket.name isEqualToString:@"DASH_USDT"] || [self.selectedMarket.name isEqualToString:@"DASH_USD"]) {
+                                NSString * invertedName = [self.selectedMarket.name isEqualToString:@"DASH_USDT"]?@"DASH_USD":@"DASH_USDT";
+                                for (DCMarketEntity * market in possibleMarkets) {
+                                    if ([market.name isEqualToString:invertedName]) {
+                                        self.selectedMarket = market;
+                                        self.marketTableViewCell.typeLabel.text = market.name;
+                                        replaced = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (!replaced) {
+                                for (DCMarketEntity * market in possibleMarkets) {
+                                    if ([market.name isEqualToString:@"DASH_BTC"]) {
+                                        self.selectedMarket = market;
+                                        self.marketTableViewCell.typeLabel.text = market.name;
+                                        replaced = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (!replaced) {
+                                self.selectedMarket = [possibleMarkets anyObject];
+                                self.marketTableViewCell.typeLabel.text = self.selectedMarket.name;
+                                if (!self.selectedMarket) {
+                                    [self.navigationController popViewControllerAnimated:TRUE];
+                                }
+                            }
+                        }
+                    }]];
+                }
+                [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"any",nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    self.selectedExchange = nil;
+                    self.exchangeTableViewCell.typeLabel.text = @"any";
+                }]];
+                [self presentViewController:alertController animated:TRUE completion:^{
+                    
+                }];
+                break;
+            }
+
+            case 1:
+            {
+                UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"market",@"Price Alert Screen") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+                NSError * error = nil;
+                NSArray * markets = self.selectedExchange?[self.selectedExchange.markets sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:TRUE]]]:[[DCCoreDataManager sharedInstance] marketsInContext:nil error:&error];
+                if (error) break;
+                for (DCMarketEntity * market in markets) {
+                    [alertController addAction:[UIAlertAction actionWithTitle:market.name style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        self.selectedMarket = market;
+                        self.marketTableViewCell.typeLabel.text = market.name;
+                    }]];
+                }
+                [self presentViewController:alertController animated:TRUE completion:^{
+                    
+                }];
+                break;
+            }
+            case 3:
+            {
+                UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"trigger type",@"Price Alert Screen") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+                for (NSInteger i = 0;i<DCTriggerBelow + 1;i++) {
+                    NSString * triggerText = [self textForTriggerType:i];
+                    [alertController addAction:[UIAlertAction actionWithTitle:triggerText style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        self.triggerType = i;
+                        self.triggerTypeTableViewCell.typeLabel.text = triggerText;
+                    }]];
+                }
+                [self presentViewController:alertController animated:TRUE completion:^{
+                    
+                }];
+                break;
+            }
+            default:
+                break;
         }
-        [self presentViewController:alertController animated:TRUE completion:^{
-            
-        }];
+
     }
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    if (!indexPath.section) {
+    if (!indexPath.section && indexPath.row == 3) {
         UIAlertController * alertController = [UIAlertController alertControllerWithTitle:[self textForTriggerType:self.triggerType] message:[self explanationForTriggerType:self.triggerType] preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ok",@"ok") style:UIAlertActionStyleDefault handler:nil]];
         [self presentViewController:alertController animated:TRUE completion:^{
@@ -195,7 +295,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSNumber * value = @([self.priceAmountTableViewCell.priceTextField.text integerValue]);
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        DCTrigger * trigger = [[DCTrigger alloc] initWithType:self.triggerType value:value market:@"DASH_USD"];
+        DCTrigger * trigger = [[DCTrigger alloc] initWithType:self.triggerType value:value exchange:self.selectedExchange?self.selectedExchange.name:nil market:self.selectedMarket.name];
         [[DCBackendManager sharedInstance] postTrigger:trigger completion:^(NSError * _Nullable triggerError,NSUInteger statusCode, id response) {
             // Do something...
             dispatch_async(dispatch_get_main_queue(), ^{

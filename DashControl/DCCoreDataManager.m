@@ -179,6 +179,10 @@
     return [self objectsWithEntityNamed:@"DCMarketEntity" predicate:[NSPredicate predicateWithFormat:@"name IN %@",names] inContext:context error:error];
 }
 
+-(NSArray* _Nonnull)exchangesInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
+    return [self objectsWithEntityNamed:@"DCExchangeEntity" inContext:context error:error];
+}
+
 -(NSArray* _Nonnull)exchangesForNames:(NSArray* _Nonnull)names inContext:(NSManagedObjectContext * _Nullable)context error:(NSError**)error {
     return [self objectsWithEntityNamed:@"DCExchangeEntity" predicate:[NSPredicate predicateWithFormat:@"name IN %@",names] inContext:context error:error];
 }

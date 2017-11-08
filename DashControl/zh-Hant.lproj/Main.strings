@@ -223,3 +223,21 @@
 
 /* Class = "UILabel"; text = "Trigger type"; ObjectID = "ztL-lb-chG"; */
 "ztL-lb-chG.text" = "";
+
+/* Class = "UIButton"; normalTitle = "Poloniex"; ObjectID = "tl1-fv-Esu"; */
+"tl1-fv-Esu.normalTitle" = "";
+
+/* Class = "UIButton"; normalTitle = "DASH_BTC"; ObjectID = "xvx-hB-RIZ"; */
+"xvx-hB-RIZ.normalTitle" = "";
+
+/* Class = "UILabel"; text = "Exchange"; ObjectID = "Bte-qy-FaH"; */
+"Bte-qy-FaH.text" = "";
+
+/* Class = "UILabel"; text = "Poloniex"; ObjectID = "MsC-2F-03s"; */
+"MsC-2F-03s.text" = "";
+
+/* Class = "UILabel"; text = "DASH_BTC"; ObjectID = "dDW-tV-7N7"; */
+"dDW-tV-7N7.text" = "";
+
+/* Class = "UILabel"; text = "Market"; ObjectID = "og6-bG-W7C"; */
+"og6-bG-W7C.text" = "";

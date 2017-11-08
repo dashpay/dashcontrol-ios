@@ -23,4 +23,8 @@
 
 -(IBAction)chooseTimeFrame:(id)sender;
 
+-(IBAction)chooseMarket:(id)sender;
+
+-(IBAction)chooseExchange:(id)sender;
+
 @end

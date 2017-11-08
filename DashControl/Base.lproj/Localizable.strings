@@ -35,14 +35,26 @@
 /* Budget view */
 "ALLOTED" = "ALLOTED";
 
+/* No comment provided by engineer. */
+"any" = "any";
+
 /* As in 'by Username' */
 "by" = "by";
+
+/* No comment provided by engineer. */
+"Cancel" = "Cancel";
 
 /* Proposal Detail View */
 "Cellular" = "Cellular";
 
 /* Available Languages List */
 "Chinese" = "Chinese";
+
+/* Price View Screen */
+"Choose Exchange" = "Choose Exchange";
+
+/* Price View Screen */
+"Choose Market" = "Choose Market";
 
 /* As in 'by Username' */
 "comment" = "comment";
@@ -72,6 +84,12 @@
 "English" = "English";
 
 /* Price Alert Screen */
+"exchange" = "exchange";
+
+/* Price Alert Screen */
+"Exchange" = "Exchange";
+
+/* Price Alert Screen */
 "explanation" = "explanation";
 
 /* Available Languages List */
@@ -88,6 +106,12 @@
 
 /* Available Languages List */
 "Korean" = "Korean";
+
+/* Price Alert Screen */
+"Market" = "Market";
+
+/* Price Alert Screen */
+"market" = "market";
 
 /* Proposal Detail View */
 "month" = "month";

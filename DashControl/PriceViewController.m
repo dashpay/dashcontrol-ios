@@ -12,6 +12,8 @@
 #import "DCChartTimeFormatter.h"
 #import "PriceAlertViewController.h"
 #import "DCTriggerEntity+CoreDataProperties.h"
+#import "DCExchangeEntity+CoreDataProperties.h"
+#import "DCMarketEntity+CoreDataProperties.h"
 
 @interface PriceViewController ()
 
@@ -100,10 +102,10 @@
 
 -(NSManagedObjectContext*)managedObjectContext {
     if (!_managedObjectContext) {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        self.managedObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
-    });
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            self.managedObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
+        });
     }
     return _managedObjectContext;
 }
@@ -135,30 +137,30 @@
         NSMutableArray *charDataPoints = [[NSMutableArray alloc] init];
         if (chartData.count) {
             NSTimeInterval baseTime = [[[chartData firstObject] valueForKey:@"time"] timeIntervalSince1970];
-        for (int i = 0; i < chartData.count; i++)
-        {
-            DCChartDataEntryEntity * entry = [chartData objectAtIndex:i];
-            NSInteger xIndex = ([entry.time timeIntervalSince1970] - baseTime)/[DCChartTimeFormatter timeIntervalForChartTimeInterval:self.timeInterval];
-            [charDataPoints addObject:[[CandleChartDataEntry alloc] initWithX:xIndex shadowH:entry.high shadowL:entry.low open:entry.open close:entry.close icon: [UIImage imageNamed:@"icon"]]];
-        }
-        
-        CandleChartDataSet *set1 = [[CandleChartDataSet alloc] initWithValues:charDataPoints label:@"Data Set"];
-        set1.axisDependency = AxisDependencyLeft;
-        [set1 setColor:[UIColor colorWithWhite:80/255.f alpha:1.f]];
-        
-        set1.drawIconsEnabled = NO;
-        
-        set1.shadowColor = UIColor.darkGrayColor;
-        set1.shadowWidth = 0.7;
-        set1.decreasingColor = [UIColor colorWithRed:164/255.f green:32/255.f blue:21/255.f alpha:1.f];
-        set1.decreasingFilled = YES;
-        set1.increasingColor = [UIColor colorWithRed:51/255.f green:147/255.f blue:73/255.f alpha:1.f];
-        set1.increasingFilled = YES;
-        set1.neutralColor = UIColor.blueColor;
-        
-        CandleChartData *data = [[CandleChartData alloc] initWithDataSet:set1];
-        
-        _chartView.data = data;
+            for (int i = 0; i < chartData.count; i++)
+            {
+                DCChartDataEntryEntity * entry = [chartData objectAtIndex:i];
+                NSInteger xIndex = ([entry.time timeIntervalSince1970] - baseTime)/[DCChartTimeFormatter timeIntervalForChartTimeInterval:self.timeInterval];
+                [charDataPoints addObject:[[CandleChartDataEntry alloc] initWithX:xIndex shadowH:entry.high shadowL:entry.low open:entry.open close:entry.close icon: [UIImage imageNamed:@"icon"]]];
+            }
+            
+            CandleChartDataSet *set1 = [[CandleChartDataSet alloc] initWithValues:charDataPoints label:@"Data Set"];
+            set1.axisDependency = AxisDependencyLeft;
+            [set1 setColor:[UIColor colorWithWhite:80/255.f alpha:1.f]];
+            
+            set1.drawIconsEnabled = NO;
+            
+            set1.shadowColor = UIColor.darkGrayColor;
+            set1.shadowWidth = 0.7;
+            set1.decreasingColor = [UIColor colorWithRed:164/255.f green:32/255.f blue:21/255.f alpha:1.f];
+            set1.decreasingFilled = YES;
+            set1.increasingColor = [UIColor colorWithRed:51/255.f green:147/255.f blue:73/255.f alpha:1.f];
+            set1.increasingFilled = YES;
+            set1.neutralColor = UIColor.blueColor;
+            
+            CandleChartData *data = [[CandleChartData alloc] initWithDataSet:set1];
+            
+            _chartView.data = data;
         }
     }
     
@@ -291,6 +293,40 @@
             [self chooseTimeFrame:sender];
         }];
     }
+}
+
+-(IBAction)chooseMarket:(id)sender {
+    NSArray * markets = [self.selectedExchange.markets sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:TRUE]]];
+    if (markets && [markets count]) {
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Choose Market", @"Price View Screen") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        for (DCMarketEntity * market in markets) {
+            [alertController addAction:[UIAlertAction actionWithTitle:market.name style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self.selectedMarket = market;
+                ((UIButton*)sender).titleLabel.text = market.name;
+                [self updateChartData];
+            }]];
+        }
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        }]];
+        
+        [self presentViewController:alertController animated:TRUE completion:nil];
+    }
+}
+
+-(IBAction)chooseExchange:(id)sender {
+    NSError * error = nil;
+    NSArray * exchanges = [[DCCoreDataManager sharedInstance] exchangesInContext:nil error:&error];
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Choose Exchange", @"Price View Screen") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    for (DCExchangeEntity * exchange in exchanges) {
+        [alertController addAction:[UIAlertAction actionWithTitle:exchange.name style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            self.selectedExchange = exchange;
+            ((UIButton*)sender).titleLabel.text = exchange.name;
+            [self updateChartData];
+        }]];
+    }
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    [self presentViewController:alertController animated:TRUE completion:nil];
 }
 
 #pragma mark - ChartViewDelegate
@@ -493,7 +529,8 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     //we kind of hacked the sender as it contains the trigger to send to the next view
     if ([segue.identifier isEqualToString:@"PriceAlertSegue"]) {
-        
+        ((PriceAlertViewController*)segue.destinationViewController).selectedMarket = self.selectedMarket;
+        ((PriceAlertViewController*)segue.destinationViewController).selectedExchange = self.selectedExchange;
     }
 }
 

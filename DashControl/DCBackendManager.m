@@ -64,6 +64,7 @@
         self.persistentContainer = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
         self.mainObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
         self.reachability = [Reachability reachabilityForInternetConnection];
+        [self startUp];
     }
     return self;
 }
@@ -590,7 +591,7 @@
 #pragma mark - Trigger
 
 -(void)postTrigger:(DCTrigger* _Nonnull)trigger completion:(void (^ _Nullable)(NSError * _Nullable error,NSUInteger statusCode, id  _Nullable responseObject))completion {
-    [self.authenticatedManager POST:DASHCONTROL_URL(@"trigger") parameters: @{ @"value":trigger.value, @"type":[DCTrigger networkStringForType:trigger.type], @"market":trigger.market, @"exchange":trigger.exchange, @"standardize_tether":@(trigger.standardizeTether)} progress:^(NSProgress * _Nonnull uploadProgress) {
+    [self.authenticatedManager POST:DASHCONTROL_URL(@"trigger") parameters: @{ @"value":trigger.value, @"type":[DCTrigger networkStringForType:trigger.type], @"market":trigger.market, @"exchange":trigger.exchange?trigger.exchange:@"any", @"standardize_tether":@(trigger.standardizeTether)} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;

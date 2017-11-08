@@ -15,4 +15,7 @@
 @property (nonatomic,strong) IBOutlet UITableView *tableView;
 @property (nonatomic,assign) BOOL isEditing;
 
+@property (nonatomic, strong) DCMarketEntity * selectedMarket;
+@property (nonatomic, strong) DCExchangeEntity * selectedExchange;
+
 @end

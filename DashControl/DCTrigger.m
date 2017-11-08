@@ -10,12 +10,12 @@
 
 @implementation DCTrigger
 
--(id)initWithType:(DCTriggerType)type value:(NSNumber*)value market:(NSString*)market {
+-(id)initWithType:(DCTriggerType)type value:(NSNumber*)value exchange:(NSString*)exchange market:(NSString*)market {
     if (self = [super init]) {
         self.type = type;
         self.value = value;
+        self.exchange = exchange;
         self.market = market;
-        self.exchange = @"any";
         self.standardizeTether = TRUE;
     }
     return self;
