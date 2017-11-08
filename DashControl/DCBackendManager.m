@@ -111,58 +111,67 @@
 
 -(void)startUpFetchTriggers {
     [self getTriggers:^(NSError *triggerError,NSUInteger statusCode, NSArray *responseObject) {
-        NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
-        [container performBackgroundTask:^(NSManagedObjectContext *context) {
-            if (!triggerError) {
-                NSDictionary * triggerIdentifiers = [responseObject dictionaryReferencedByKeyPath:@"identifier"] ;
-                NSError * error = nil;
-                NSArray * knownTriggerIdentifiers = [[[DCCoreDataManager sharedInstance] triggersInContext:context error:&error] arrayReferencedByKeyPath:@"identifier"];
-                if (!error) {
-                    NSArray * novelTriggerIdentifiers = [[triggerIdentifiers allKeys] arrayByRemovingObjectsFromArray:knownTriggerIdentifiers];
-                    for (NSString * identifier in novelTriggerIdentifiers) {
-                        NSDictionary * triggerToAdd = triggerIdentifiers[identifier];
-                        DCTriggerEntity *trigger = [NSEntityDescription insertNewObjectForEntityForName:@"DCTriggerEntity" inManagedObjectContext:context];
-                        trigger.identifier = [triggerToAdd[@"identifier"] longLongValue];
-                        trigger.value = [triggerToAdd[@"value"] longLongValue];
-                        trigger.type = [DCTrigger typeForNetworkString:triggerToAdd[@"type"]];
-                        trigger.consume = [triggerToAdd[@"consume"] boolValue];
-                        trigger.ignoreFor = [triggerToAdd[@"ignoreFor"] longLongValue];
-                        NSString * exchangeName = triggerToAdd[@"echange"];
-                        if (exchangeName) {
-                            trigger.exchangeNamed = exchangeName;
-                            trigger.exchange = [[DCCoreDataManager sharedInstance] exchangeNamed:exchangeName inContext:context error:&error];
+        if (statusCode/100 == 2) {
+            NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
+            [container performBackgroundTask:^(NSManagedObjectContext *context) {
+                if (!triggerError) {
+                    NSDictionary * triggerIdentifiers = [responseObject dictionaryReferencedByKeyPath:@"identifier"] ;
+                    NSError * error = nil;
+                    NSDictionary * knownTriggerIdentifiers = [[[DCCoreDataManager sharedInstance] triggersInContext:context error:&error] dictionaryReferencedByKeyPath:@"identifier"];
+                    if (!error) {
+                        NSArray * triggerIdentifierKeys = [triggerIdentifiers allKeys];
+                        NSArray * knownTriggerIdentifierKeys = [knownTriggerIdentifiers allKeys];
+                        NSArray * novelTriggerIdentifiers = [triggerIdentifierKeys arrayByRemovingObjectsFromArray:knownTriggerIdentifierKeys];
+                        for (NSString * identifier in novelTriggerIdentifiers) {
+                            NSDictionary * triggerToAdd = triggerIdentifiers[identifier];
+                            DCTriggerEntity *trigger = [NSEntityDescription insertNewObjectForEntityForName:@"DCTriggerEntity" inManagedObjectContext:context];
+                            trigger.identifier = [triggerToAdd[@"identifier"] longLongValue];
+                            trigger.value = [triggerToAdd[@"value"] longLongValue];
+                            trigger.type = [DCTrigger typeForNetworkString:triggerToAdd[@"type"]];
+                            trigger.consume = [triggerToAdd[@"consume"] boolValue];
+                            trigger.ignoreFor = [triggerToAdd[@"ignoreFor"] longLongValue];
+                            NSString * exchangeName = triggerToAdd[@"echange"];
+                            if (exchangeName) {
+                                trigger.exchangeNamed = exchangeName;
+                                trigger.exchange = [[DCCoreDataManager sharedInstance] exchangeNamed:exchangeName inContext:context error:&error];
+                                if (error) return;
+                            }
+                            
+                            NSString * marketName = triggerToAdd[@"market"];
+                            trigger.marketNamed = marketName;
+                            trigger.market = [[DCCoreDataManager sharedInstance] marketNamed:marketName inContext:context error:&error];
                             if (error) return;
+                            
                         }
-                        
-                        NSString * marketName = triggerToAdd[@"market"];
-                        trigger.marketNamed = marketName;
-                        trigger.market = [[DCCoreDataManager sharedInstance] marketNamed:marketName inContext:context error:&error];
-                        if (error) return;
-                        
-                    }
-                    context.automaticallyMergesChangesFromParent = TRUE;
-                    context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-                    if (![context save:&error]) {
-                        NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-                        abort();
+                        NSArray * deleteTriggerIdentifiers = [knownTriggerIdentifierKeys arrayByRemovingObjectsFromArray:triggerIdentifierKeys];
+                        for (NSString * identifier in deleteTriggerIdentifiers) {
+                            DCTriggerEntity * trigger = [knownTriggerIdentifiers objectForKey:identifier];
+                            [context deleteObject:trigger];
+                        }
+                        context.automaticallyMergesChangesFromParent = TRUE;
+                        context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+                        if (![context save:&error]) {
+                            NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+                            abort();
+                        }
                     }
                 }
-            }
-        }];
+            }];
+        }
     }];
 }
 
 -(void)startUp {
     [self startUpFetchMarkets:^(NSError *marketError) {
         if (!marketError) {
-        NSError * error = nil;
-        BOOL hasRegistered = [[DCEnvironment sharedInstance] hasRegisteredWithError:&error];
-        if (!error && hasRegistered) {
-            [self startUpFetchTriggers];
-        }
+            NSError * error = nil;
+            BOOL hasRegistered = [[DCEnvironment sharedInstance] hasRegisteredWithError:&error];
+            if (!error && hasRegistered) {
+                [self startUpFetchTriggers];
+            }
         }
     }];
-
+    
 }
 
 -(AFHTTPSessionManager*)authenticatedManager {
