@@ -212,7 +212,7 @@
 /* Class = "UILabel"; text = "Price"; ObjectID = "JCK-zN-5QC"; */
 "JCK-zN-5QC.text" = "";
 
-/* Class = "UITextField"; placeholder = "input"; ObjectID = "WeJ-BR-qJ5"; */
+/* Class = "UITextField"; placeholder = "required"; ObjectID = "WeJ-BR-qJ5"; */
 "WeJ-BR-qJ5.placeholder" = "";
 
 /* Class = "UILabel"; text = "Add"; ObjectID = "gXz-A3-YS1"; */

@@ -37,6 +37,21 @@
     self.priceAmountTableViewCell.priceTextField.placeholder = NSLocalizedString(@"required", @"Price Alert Screen");
     self.priceAmountTableViewCell.priceTextField.delegate = self;
     
+    if (self.editingTrigger) {
+        NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
+        [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        [numberFormatter setRoundingMode:NSNumberFormatterRoundHalfDown];
+        numberFormatter.maximumFractionDigits = 6;
+        numberFormatter.minimumFractionDigits = 0;
+        numberFormatter.minimumSignificantDigits = 0;
+        numberFormatter.maximumSignificantDigits = 6;
+        numberFormatter.usesSignificantDigits = TRUE;
+
+        self.priceAmountTableViewCell.priceTextField.text = [numberFormatter stringFromNumber:@(self.editingTrigger.value)];
+        self.selectedMarket = self.editingTrigger.market;
+        self.selectedExchange = self.editingTrigger.exchange;
+    }
+    
     self.triggerTypeTableViewCell = [self.tableView dequeueReusableCellWithIdentifier:@"TriggerTypeCell"];
     self.triggerTypeTableViewCell.mainLabel.text = NSLocalizedString(@"Alert type", @"Price Alert Screen");
     self.triggerTypeTableViewCell.typeLabel.text = [self textForTriggerType:DCTriggerAbove];
@@ -265,10 +280,11 @@
     }
     
     // Prevent invalid character input, if keyboard is numberpad
-    if (textField.keyboardType == UIKeyboardTypeNumberPad)
+    if (textField.keyboardType == UIKeyboardTypeDecimalPad)
     {
-        if ([string rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet].invertedSet].location != NSNotFound)
+        if (([textField.text rangeOfCharacterFromSet:[NSCharacterSet punctuationCharacterSet]].location != NSNotFound) && ([string rangeOfCharacterFromSet:[NSCharacterSet punctuationCharacterSet]].location != NSNotFound))
         {
+            //we are trying to put in a period or a comma when there already was one
             return NO;
         }
     }
@@ -276,14 +292,8 @@
     // verify max length has not been exceeded
     NSString *proposedText = [textField.text stringByReplacingCharactersInRange:range withString:string];
     
-    if (proposedText.length > 6) // Let's not let users go crazy either :P
+    if (proposedText.length > 8) // Let's not let users go crazy either :P
     {
-        // suppress the max length message only when the user is typing
-        // easy: pasted data has a length greater than 1; who copy/pastes one character?
-        if (string.length > 1)
-        {
-            // BasicAlert(@"", @"This field accepts a maximum of 4 characters.");
-        }
         
         return NO;
     }
@@ -293,7 +303,7 @@
 
 -(void)addTrigger:(id)sender {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSNumber * value = @([self.priceAmountTableViewCell.priceTextField.text integerValue]);
+    NSNumber * value = @([self.priceAmountTableViewCell.priceTextField.text doubleValue]);
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         DCTrigger * trigger = [[DCTrigger alloc] initWithType:self.triggerType value:value exchange:self.selectedExchange?self.selectedExchange.name:nil market:self.selectedMarket.name];
         [[DCBackendManager sharedInstance] postTrigger:trigger completion:^(NSError * _Nullable triggerError,NSUInteger statusCode, id response) {
@@ -306,7 +316,7 @@
                     NSManagedObjectContext * context = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
                     DCTriggerEntity *triggerEntity = [NSEntityDescription insertNewObjectForEntityForName:@"DCTriggerEntity" inManagedObjectContext:context];
                     triggerEntity.identifier = [[dictionary objectForKey:@"id"] unsignedLongLongValue];
-                    triggerEntity.value = [[dictionary objectForKey:@"value"] unsignedLongLongValue];
+                    triggerEntity.value = [[dictionary objectForKey:@"value"] doubleValue];
                     triggerEntity.type = [DCTrigger typeForNetworkString:[dictionary objectForKey:@"type"]];
                     triggerEntity.marketNamed = [dictionary objectForKey:@"market"];
                     triggerEntity.ignoreFor = [[dictionary objectForKey:@"ignoreFor"] unsignedLongLongValue];

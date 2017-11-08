@@ -353,11 +353,11 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="input" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WeJ-BR-qJ5">
-                                                    <rect key="frame" x="130" y="5" width="237" height="33.5"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="required" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WeJ-BR-qJ5">
+                                                    <rect key="frame" x="130" y="5" width="195" height="33.5"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="next" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" returnKeyType="next" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -367,7 +367,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="WeJ-BR-qJ5" secondAttribute="bottom" constant="5" id="ev3-4x-HIR"/>
                                                 <constraint firstAttribute="bottom" secondItem="JCK-zN-5QC" secondAttribute="bottom" constant="5" id="mcL-v6-EaL"/>
                                                 <constraint firstItem="JCK-zN-5QC" firstAttribute="top" secondItem="og9-m7-Qso" secondAttribute="top" constant="5" id="nr9-Ro-TUe"/>
-                                                <constraint firstAttribute="trailing" secondItem="WeJ-BR-qJ5" secondAttribute="trailing" constant="8" id="pYi-qz-9W6"/>
+                                                <constraint firstAttribute="trailing" secondItem="WeJ-BR-qJ5" secondAttribute="trailing" constant="50" id="pYi-qz-9W6"/>
                                                 <constraint firstItem="WeJ-BR-qJ5" firstAttribute="top" secondItem="og9-m7-Qso" secondAttribute="top" constant="5" id="zxA-s6-tMU"/>
                                             </constraints>
                                         </tableViewCellContentView>

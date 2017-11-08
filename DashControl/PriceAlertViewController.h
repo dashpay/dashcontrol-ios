@@ -13,7 +13,7 @@
 @interface PriceAlertViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property (nonatomic,strong) IBOutlet UITableView *tableView;
-@property (nonatomic,assign) BOOL isEditing;
+@property (nonatomic,strong) DCTriggerEntity * editingTrigger;
 
 @property (nonatomic, strong) DCMarketEntity * selectedMarket;
 @property (nonatomic, strong) DCExchangeEntity * selectedExchange;

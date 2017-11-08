@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int64_t ignoreFor;
 @property (nonatomic) int64_t identifier;
 @property (nonatomic) int16_t type;
-@property (nonatomic) int64_t value;
+@property (nonatomic) double value;
 @property (nullable, nonatomic, copy) NSString *exchangeNamed;
 @property (nullable, nonatomic, copy) NSString *marketNamed;
 @property (nullable, nonatomic, retain) DCExchangeEntity *exchange;

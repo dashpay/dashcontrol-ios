@@ -529,8 +529,12 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     //we kind of hacked the sender as it contains the trigger to send to the next view
     if ([segue.identifier isEqualToString:@"PriceAlertSegue"]) {
-        ((PriceAlertViewController*)segue.destinationViewController).selectedMarket = self.selectedMarket;
-        ((PriceAlertViewController*)segue.destinationViewController).selectedExchange = self.selectedExchange;
+        if ([sender isMemberOfClass:[DCTriggerEntity class]]) {
+            ((PriceAlertViewController*)segue.destinationViewController).editingTrigger = sender;
+        } else {
+            ((PriceAlertViewController*)segue.destinationViewController).selectedMarket = self.selectedMarket;
+            ((PriceAlertViewController*)segue.destinationViewController).selectedExchange = self.selectedExchange;
+        }
     }
 }
 
