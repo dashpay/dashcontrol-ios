@@ -62,7 +62,11 @@
     
     self.exchangeTableViewCell = [self.tableView dequeueReusableCellWithIdentifier:@"ExchangeTypeCell"];
     self.exchangeTableViewCell.mainLabel.text = NSLocalizedString(@"Exchange", @"Price Alert Screen");
-    self.exchangeTableViewCell.typeLabel.text = self.selectedExchange.name;
+    if (self.selectedExchange) {
+        self.exchangeTableViewCell.typeLabel.text = self.selectedExchange.name;
+    } else {
+        self.exchangeTableViewCell.typeLabel.text = NSLocalizedString(@"any",nil);
+    }
     
     self.addTriggerTableViewCell = [self.tableView dequeueReusableCellWithIdentifier:@"AddTriggerCell"];
     self.triggerType = DCTriggerAbove;
