@@ -92,7 +92,7 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
     //Init the Core Data Manager
     [DCCoreDataManager sharedInstance];
     
-    [[DCPortfolioManager sharedManager] updateAmounts];
+    [[DCPortfolioManager sharedInstance] updateAmounts];
     
     
     [DCWalletManager sharedInstance];

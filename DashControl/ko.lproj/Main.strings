@@ -241,3 +241,6 @@
 
 /* Class = "UIButton"; normalTitle = "DASH_USD"; ObjectID = "xvx-hB-RIZ"; */
 "xvx-hB-RIZ.normalTitle" = "";
+
+/* Class = "UILabel"; text = "0 DASH / 0 USD"; ObjectID = "CRy-M5-kWH"; */
+"CRy-M5-kWH.text" = "";

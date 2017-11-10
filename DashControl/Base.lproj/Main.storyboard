@@ -778,9 +778,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="ij2-DE-zaL">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 DASH / 0 USD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CRy-M5-kWH">
+                                    <rect key="frame" x="41" y="11.666666666666664" width="340" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="CRy-M5-kWH" firstAttribute="leading" secondItem="ij2-DE-zaL" secondAttribute="leading" constant="41" id="NbW-Wf-ubS"/>
+                                <constraint firstItem="CRy-M5-kWH" firstAttribute="centerY" secondItem="ij2-DE-zaL" secondAttribute="centerY" id="TUO-Kp-J4V"/>
+                                <constraint firstAttribute="trailing" secondItem="CRy-M5-kWH" secondAttribute="trailing" constant="33" id="bP5-F0-YNn"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="WalletAddressCell" id="qC6-81-p5i">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="72" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qC6-81-p5i" id="pue-yp-6Yd">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
@@ -788,7 +806,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="MasternodeCell" id="l3r-gX-jgw">
-                                <rect key="frame" x="0.0" y="72" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="116" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="l3r-gX-jgw" id="0OC-Pu-Lqe">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
@@ -796,7 +814,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="WalletCell" id="Ree-TT-mcg">
-                                <rect key="frame" x="0.0" y="116" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="160" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ree-TT-mcg" id="3zA-De-143">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
@@ -811,13 +829,14 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Portfolio" id="xw2-T4-skC"/>
                     <connections>
+                        <outlet property="balanceLabel" destination="CRy-M5-kWH" id="Shp-Rk-RMP"/>
                         <segue destination="lLN-hp-WKZ" kind="show" identifier="AddWalletAddressSegue" id="Zs1-Ur-ntb"/>
                         <segue destination="2QV-KO-4Rp" kind="show" identifier="AddMasternodeSegue" id="DVx-uc-RFF"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uwi-Y3-qzt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1412" y="1829"/>
+            <point key="canvasLocation" x="1410.144927536232" y="1828.5326086956522"/>
         </scene>
         <!--Add Address-->
         <scene sceneID="9Ie-xq-hBb">

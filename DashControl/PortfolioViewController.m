@@ -13,6 +13,7 @@
 #import "DCMasternodeEntity+CoreDataClass.h"
 #import <FTPopOverMenu/FTPopOverMenu.h>
 #import "DCCoreDataManager.h"
+#import "DCPortfolioManager.h"
 
 @interface PortfolioViewController ()
 
@@ -20,6 +21,7 @@
 @property (nonatomic, strong) NSFetchedResultsController* walletFetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController* walletAddressFetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController* masternodeAddressFetchedResultsController;
+@property id balanceObserver;
 
 @end
 
@@ -30,7 +32,30 @@
     
     self.managedObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(onNavButtonTapped:event:)]];
+    
+    self.balanceObserver =
+    [[NSNotificationCenter defaultCenter] addObserverForName:PORTFOLIO_DID_UPDATE_NOTIFICATION object:nil
+                                                       queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+                                                           
+                                                       }];
+    [self refreshTotalWorth];
 }
+     
+     -(void)refreshTotalWorth {
+         NSError * error =nil;
+         uint64_t totalWorth = [[DCPortfolioManager sharedInstance] totalWorthInContext:nil error:&error];
+         float worthDash = totalWorth/100000000.0;
+         NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
+         [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+         [numberFormatter setRoundingMode:NSNumberFormatterRoundHalfDown];
+         numberFormatter.maximumFractionDigits = 6;
+         numberFormatter.minimumFractionDigits = 0;
+         numberFormatter.minimumSignificantDigits = 0;
+         numberFormatter.maximumSignificantDigits = 6;
+         numberFormatter.usesSignificantDigits = TRUE;
+         
+         self.balanceLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@ DASH worth %@ USD", nil),[numberFormatter stringFromNumber:@(worthDash)],@"0"];
+     }
 
 -(void)onNavButtonTapped:(UIBarButtonItem *)sender event:(UIEvent *)event
 {

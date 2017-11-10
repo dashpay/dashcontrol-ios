@@ -36,7 +36,7 @@
     NSString * address = [self.inputField text];
     if ([address isValidDashAddress]) {
         //first lets check to see if it has 1000 dash in it
-        [[DCPortfolioManager sharedManager] amountAtAddress:address clb:^(uint64_t amount, NSError * _Nullable error) {
+        [[DCPortfolioManager sharedInstance] amountAtAddress:address clb:^(uint64_t amount, NSError * _Nullable error) {
             if (error) {
                 if (amount < 100000000000) {
                     UIAlertController * alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Not a valid masternode address",nil) message:NSLocalizedString(@"This address does not contain the required 1000 Dash",nil) preferredStyle:UIAlertControllerStyleAlert];

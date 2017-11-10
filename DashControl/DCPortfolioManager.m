@@ -16,7 +16,7 @@
 
 @implementation DCPortfolioManager
 
-+ (id)sharedManager {
++ (id)sharedInstance {
     static DCPortfolioManager *sharedPortfolioManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -66,9 +66,9 @@
         
         if ([addresses count]) {
             AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-            NSString * addr = [NSString stringWithFormat:@"%@/addrs/%@/utxo",INSIGHT_API_URL,[addresses componentsJoinedByString:@":"]];
+            NSString * addr = [NSString stringWithFormat:@"%@/addrs/%@/utxo",INSIGHT_API_URL,[addresses componentsJoinedByString:@","]];
             [manager GET:addr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
-                NSDictionary * addressAmountDictionary = [((NSArray*)responseObject) dictionaryReferencedByKeyPath:@"address" objectPath:@"@sum.amount"];
+                NSDictionary * addressAmountDictionary = [((NSArray*)responseObject) dictionaryReferencedByKeyPath:@"address" objectPath:@"@sum.satoshis"];
                 BOOL updatedAmounts = FALSE;
                 for (DCWalletAddressEntity * address in walletAddresses) {
                     if ([addressAmountDictionary objectForKey:address.address]) {

@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) NSManagedObjectContext * _Nullable managedObjectContext;
 
-+ (id _Nonnull )sharedManager;
++ (id _Nonnull )sharedInstance;
 
 -(uint64_t)totalWorthInContext:(NSManagedObjectContext* _Nullable)context error:(NSError*_Nullable* _Nullable)error;
 

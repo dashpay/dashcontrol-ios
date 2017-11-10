@@ -1,5 +1,8 @@
 
 /* No comment provided by engineer. */
+"%@ DASH worth %@ USD" = "%1$@ DASH worth %2$@ USD";
+
+/* No comment provided by engineer. */
 "%@ is not allowed to access the camera" = "%@ is not allowed to access the camera";
 
 /* Proposals View */

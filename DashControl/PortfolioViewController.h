@@ -10,4 +10,6 @@
 
 @interface PortfolioViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
+@property (nonatomic,strong) IBOutlet UILabel * balanceLabel;
+
 @end
