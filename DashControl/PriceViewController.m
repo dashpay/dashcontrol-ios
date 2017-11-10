@@ -37,8 +37,6 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Candle Stick Chart";
-    
     self.options = @[
                      @{@"key": @"toggleValues", @"label": @"Toggle Values"},
                      @{@"key": @"toggleIcons", @"label": @"Toggle Icons"},

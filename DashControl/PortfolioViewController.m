@@ -77,26 +77,35 @@
 
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    
+    NSUInteger realSection;
+    if (controller == _walletFetchedResultsController) {
+        realSection = 0;
+    } else if (controller == _masternodeAddressFetchedResultsController) {
+        realSection = 1;
+    } else {
+        realSection = 2;
+    }
+    NSIndexPath * realIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:realSection];
+    NSIndexPath * realNewIndexPath = [NSIndexPath indexPathForRow:newIndexPath.row inSection:realSection];
     UITableView *tableView = self.tableView;
     
     switch(type) {
             
         case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:realNewIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:realIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [self configureCell:[tableView cellForRowAtIndexPath:realIndexPath] atIndexPath:realIndexPath];
             break;
             
         case NSFetchedResultsChangeMove:
-            [tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
-            [self configureCell:[tableView cellForRowAtIndexPath:newIndexPath] atIndexPath:indexPath];
+            [tableView moveRowAtIndexPath:realIndexPath toIndexPath:realNewIndexPath];
+            [self configureCell:[tableView cellForRowAtIndexPath:realNewIndexPath] atIndexPath:indexPath];
             
             break;
     }

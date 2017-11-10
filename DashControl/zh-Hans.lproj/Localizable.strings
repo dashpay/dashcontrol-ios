@@ -1,9 +1,15 @@
 
+/* No comment provided by engineer. */
+"%@ is not allowed to access the camera" = "%@ is not allowed to access the camera";
+
 /* Proposals View */
 "%d comments" = "%d comments";
 
 /* Proposals View */
 "%d months remaining" = "%d months remaining";
+
+/* No comment provided by engineer. */
+"\nallow camera access in\nSettings->Privacy->Camera->%@" = "\nallow camera access in\nSettings->Privacy->Camera->%@";
 
 /* Proposal Detail View */
 "Abstain" = "Abstain";
@@ -133,6 +139,9 @@
 
 /* Available Languages List */
 "No Connection" = "No Connection";
+
+/* No comment provided by engineer. */
+"not a valid dash address" = "not a valid dash address";
 
 /* No comment provided by engineer. */
 "Not a valid masternode address" = "Not a valid masternode address";

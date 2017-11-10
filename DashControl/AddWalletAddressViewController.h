@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface AddWalletAddressViewController : UITableViewController
+@interface AddWalletAddressViewController : UITableViewController <AVCaptureMetadataOutputObjectsDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField * inputField;
 

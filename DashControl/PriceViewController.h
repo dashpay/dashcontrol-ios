@@ -14,6 +14,8 @@
 @property (nonatomic, assign) BOOL shouldHideData;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UILabel *marketLabel;
+@property (strong, nonatomic) IBOutlet UILabel *exchangeLabel;
 
 - (void)handleOption:(NSString *)key forChartView:(ChartViewBase *)chartView;
 

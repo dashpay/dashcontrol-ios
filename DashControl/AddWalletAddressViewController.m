@@ -9,8 +9,12 @@
 #import "AddWalletAddressViewController.h"
 #import "NSString+Dash.h"
 #import "DCWalletAddressEntity+CoreDataClass.h"
+#import "BRScanViewController.h"
+#import "DCWalletAddressEntity+CoreDataClass.h"
 
 @interface AddWalletAddressViewController ()
+
+@property(nonatomic,strong) BRScanViewController * scanController;
 
 @end
 
@@ -34,18 +38,51 @@
 -(IBAction)done:(id)sender {
     if ([[self.inputField text] isValidDashAddress]) {
         NSManagedObjectContext * context = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
-        DCWalletAddressEntity * walletAddress = [NSEntityDescription insertNewObjectForEntityForName:@"WalletAddress" inManagedObjectContext:context];
+        DCWalletAddressEntity * walletAddress = [NSEntityDescription insertNewObjectForEntityForName:@"DCWalletAddressEntity" inManagedObjectContext:context];
         walletAddress.address = [self.inputField text];
-        walletAddress.amount = -1; //-1 is updating amount;
         NSError *error = nil;
         if (![context save:&error]) {
             NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
             abort();
         }
         else {
-            
+            [self.navigationController dismissViewControllerAnimated:TRUE completion:nil];
         }
     }
 }
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    //we kind of hacked the sender as it contains the trigger to send to the next view
+    if ([segue.identifier isEqualToString:@"AddressScanSegue"]) {
+        self.scanController = (BRScanViewController*)segue.destinationViewController;
+        self.scanController.delegate = self;
+    }
+}
+
+// MARK: - AVCaptureMetadataOutputObjectsDelegate
+
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects
+       fromConnection:(AVCaptureConnection *)connection
+{
+    for (AVMetadataMachineReadableCodeObject *codeObject in metadataObjects) {
+        if (! [codeObject.type isEqual:AVMetadataObjectTypeQRCode]) continue;
+        
+        NSString *addr = [codeObject.stringValue stringByTrimmingCharactersInSet:
+                          [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if ([addr isValidDashAddress]) {
+            self.scanController.cameraGuide.image = [UIImage imageNamed:@"cameraguide-green"];
+            [self.scanController stop];
+            self.inputField.text = addr;
+            [self done:self];
+        } else {
+            self.scanController.cameraGuide.image = [UIImage imageNamed:@"cameraguide-red"];
+            self.scanController.message.text = [NSString stringWithFormat:@"%@:\n%@",
+                                                    NSLocalizedString(@"not a valid dash address", nil),
+                                                    addr];
+        }
+        break;
+    }
+}
+
 
 @end

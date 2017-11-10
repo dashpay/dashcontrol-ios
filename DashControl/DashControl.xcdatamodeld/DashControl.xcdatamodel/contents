@@ -161,10 +161,11 @@
     </entity>
     <entity name="DCWalletAddressEntity" representedClassName="DCWalletAddressEntity" syncable="YES">
         <attribute name="address" attributeType="String" syncable="YES"/>
-        <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="amount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="extendedKeyHash" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="internal" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="lastUpdatedAmount" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="walletAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DCWalletAccountEntity" inverseName="addresses" inverseEntity="DCWalletAccountEntity" syncable="YES"/>
         <fetchIndex name="address">
             <fetchIndexElement property="address" type="Binary" order="ascending"/>
@@ -196,7 +197,7 @@
         <element name="DCProposalEntity" positionX="-63" positionY="81" width="128" height="435"/>
         <element name="DCTriggerEntity" positionX="-45" positionY="135" width="128" height="210"/>
         <element name="DCWalletAccountEntity" positionX="-45" positionY="135" width="128" height="90"/>
-        <element name="DCWalletAddressEntity" positionX="-45" positionY="144" width="128" height="135"/>
+        <element name="DCWalletAddressEntity" positionX="-45" positionY="144" width="128" height="150"/>
         <element name="DCWalletEntity" positionX="-54" positionY="135" width="128" height="105"/>
     </elements>
 </model>

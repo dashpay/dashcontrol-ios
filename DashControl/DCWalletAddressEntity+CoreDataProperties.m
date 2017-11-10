@@ -21,5 +21,6 @@
 @dynamic index;
 @dynamic internal;
 @dynamic walletAccount;
+@dynamic lastUpdatedAmount;
 
 @end

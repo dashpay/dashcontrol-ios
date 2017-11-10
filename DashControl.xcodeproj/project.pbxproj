@@ -56,6 +56,8 @@
 		FB25EA301FAF8509000B41BE /* TriggerTypeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB25EA2F1FAF8509000B41BE /* TriggerTypeTableViewCell.m */; };
 		FB25EA331FAF8559000B41BE /* AddTriggerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB25EA321FAF8559000B41BE /* AddTriggerTableViewCell.m */; };
 		FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */; };
+		FB300E371FB5599400B3CDE0 /* BRScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB300E361FB5599400B3CDE0 /* BRScanViewController.m */; };
+		FB300E391FB55B8000B3CDE0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB300E381FB55B7F00B3CDE0 /* Images.xcassets */; };
 		FB3BEBBE1FB32AF000C8974E /* PriceInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB3BEBBD1FB32AF000C8974E /* PriceInfoTableViewCell.m */; };
 		FB4310D71F9DA96700784EBC /* DCWalletManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310D61F9DA96700784EBC /* DCWalletManager.m */; };
 		FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310D91F9EF4B500784EBC /* DCWalletAccount.m */; };
@@ -73,7 +75,6 @@
 		FB84EDC21F32898700E4D400 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC11F32898700E4D400 /* main.m */; };
 		FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC41F32898700E4D400 /* AppDelegate.m */; };
 		FB84EDCE1F32898700E4D400 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDCC1F32898700E4D400 /* Main.storyboard */; };
-		FB84EDD01F32898700E4D400 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDCF1F32898700E4D400 /* Assets.xcassets */; };
 		FB84EDD31F32898700E4D400 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB84EDD11F32898700E4D400 /* LaunchScreen.storyboard */; };
 		FB9CC1611F83E38A0079309F /* NSData+Dash.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEF66E61F83DA75003424D2 /* NSData+Dash.m */; };
 		FB9CC1621F83E38D0079309F /* NSString+Dash.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEF66E51F83DA4F003424D2 /* NSString+Dash.m */; };
@@ -225,6 +226,9 @@
 		FB25EA321FAF8559000B41BE /* AddTriggerTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddTriggerTableViewCell.m; sourceTree = "<group>"; };
 		FB2F9B3B1F5C9F960035180D /* NSArray+SWAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+SWAdditions.h"; sourceTree = "<group>"; };
 		FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+SWAdditions.m"; sourceTree = "<group>"; };
+		FB300E351FB5599400B3CDE0 /* BRScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRScanViewController.h; sourceTree = "<group>"; };
+		FB300E361FB5599400B3CDE0 /* BRScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRScanViewController.m; sourceTree = "<group>"; };
+		FB300E381FB55B7F00B3CDE0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FB3BEBBC1FB32AF000C8974E /* PriceInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceInfoTableViewCell.h; sourceTree = "<group>"; };
 		FB3BEBBD1FB32AF000C8974E /* PriceInfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceInfoTableViewCell.m; sourceTree = "<group>"; };
 		FB4310D51F9DA96700784EBC /* DCWalletManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCWalletManager.h; sourceTree = "<group>"; };
@@ -285,7 +289,6 @@
 		FB84EDC31F32898700E4D400 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FB84EDC41F32898700E4D400 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FB84EDCD1F32898700E4D400 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		FB84EDCF1F32898700E4D400 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB84EDD21F32898700E4D400 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FB84EDD41F32898700E4D400 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB84EDDB1F32908C00E4D400 /* DCDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCDataManager.h; sourceTree = "<group>"; };
@@ -585,12 +588,22 @@
 		FB2F9B3E1F5CA0050035180D /* Views Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FB300E341FB5598C00B3CDE0 /* General */,
 				24E584011F3ADA0100A12087 /* RSSFeed */,
 				241719C31F4D9EC30045C2D6 /* Proposals */,
 				24FE253D1F4C7DA200E32652 /* Price */,
 				FB4F93B71F8252210078E259 /* Portfolio */,
 			);
 			name = "Views Controllers";
+			sourceTree = "<group>";
+		};
+		FB300E341FB5598C00B3CDE0 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				FB300E351FB5599400B3CDE0 /* BRScanViewController.h */,
+				FB300E361FB5599400B3CDE0 /* BRScanViewController.m */,
+			);
+			name = General;
 			sourceTree = "<group>";
 		};
 		FB4310F21FA204F700784EBC /* Server */ = {
@@ -676,7 +689,7 @@
 			children = (
 				2442A01B1F4D6CDC006FAC0D /* DashControl.entitlements */,
 				FB84EDD41F32898700E4D400 /* Info.plist */,
-				FB84EDCF1F32898700E4D400 /* Assets.xcassets */,
+				FB300E381FB55B7F00B3CDE0 /* Images.xcassets */,
 				FB84EDC11F32898700E4D400 /* main.m */,
 				24E584151F3ADCEF00A12087 /* DashControl-PrefixHeader.pch */,
 				241A708F1FA33A6E00FCC808 /* Localizable.stringsdict */,
@@ -1012,13 +1025,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				24FC99F61F5EA0F40054C2A8 /* iconReply.png in Resources */,
+				FB300E391FB55B8000B3CDE0 /* Images.xcassets in Resources */,
 				24FC99F71F5EA0F40054C2A8 /* iconReply@2x.png in Resources */,
 				241A70901FA33A6E00FCC808 /* Localizable.stringsdict in Resources */,
 				24FC99F41F5EA0F40054C2A8 /* iconAttachment.png in Resources */,
 				24FC99F51F5EA0F40054C2A8 /* iconAttachment@2x.png in Resources */,
 				247B8F551F5FBFFB005BC14A /* dash_icon_tmp.png in Resources */,
 				FB84EDD31F32898700E4D400 /* LaunchScreen.storyboard in Resources */,
-				FB84EDD01F32898700E4D400 /* Assets.xcassets in Resources */,
 				FB84EDCE1F32898700E4D400 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1134,6 +1147,7 @@
 				FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */,
 				FB9CC1801F83E45F0079309F /* DCMasternodeEntity+CoreDataClass.m in Sources */,
 				241719E31F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m in Sources */,
+				FB300E371FB5599400B3CDE0 /* BRScanViewController.m in Sources */,
 				FB9CC1881F83E8000079309F /* NSMutableData+Dash.m in Sources */,
 				FB4550D71FB1C1A4001CC1ED /* DCWalletEntity+CoreDataClass.m in Sources */,
 				FBEBE5461F5986510056D921 /* DCCoreDataManager.m in Sources */,

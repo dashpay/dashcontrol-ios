@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *address;
 @property (nonatomic) int64_t amount;
 @property (nullable, nonatomic, retain) NSData *extendedKeyHash;
+@property (nullable, nonatomic, retain) NSDate *lastUpdatedAmount;
 @property (nonatomic) int32_t index;
 @property (nonatomic) BOOL internal;
 @property (nullable, nonatomic, retain) DCWalletAccountEntity *walletAccount;
