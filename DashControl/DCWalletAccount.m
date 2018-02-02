@@ -32,12 +32,21 @@
 -(id)initWithAccountPublicKey:(NSData*)accountPublicKey hash:(NSString*)hash inContext:(NSManagedObjectContext*)context {
     if (self = [super init]) {
         NSError * error = nil;
-        DCWalletAccountEntity * walletAccountEntity = [[DCCoreDataManager sharedInstance] walletAccountWithPublicKeyHash:hash inContext:context error:&error];
+        DCWalletAccountEntity * walletAccountEntity = nil;
+        NSArray * previousInternalAddresses;
+        NSArray * previousExternalAddresses;
+        if (hash) {
+            walletAccountEntity = [[DCCoreDataManager sharedInstance] walletAccountWithPublicKeyHash:hash inContext:context error:&error];
+            previousInternalAddresses = [[walletAccountEntity.addresses filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"internal == %@",[NSNumber numberWithBool:TRUE]]] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:TRUE]]];
+            previousExternalAddresses = [[walletAccountEntity.addresses filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"internal == %@",[NSNumber numberWithBool:FALSE]]] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:TRUE]]];
+        } else {
+            previousInternalAddresses = [NSArray array];
+            previousExternalAddresses = [NSArray array];
+        }
         self.publicKey = accountPublicKey;
         self.state = WalletAccountStopped;
 
-        NSArray * previousInternalAddresses = [[walletAccountEntity.addresses filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"internal == %@",[NSNumber numberWithBool:TRUE]]] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:TRUE]]];
-        NSArray * previousExternalAddresses = [[walletAccountEntity.addresses filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"internal == %@",[NSNumber numberWithBool:FALSE]]] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:TRUE]]];
+
         self.internalAddresses = [previousInternalAddresses mutableArrayReferencedByKeyPath:@"address"] ;
         self.externalAddresses = [previousExternalAddresses mutableArrayReferencedByKeyPath:@"address"];
         self.usedAddresses = [NSMutableArray array];
@@ -83,6 +92,7 @@
             [a addObject:addr];
             n++;
         }
+        if (walletAccountEntity) {
         for (NSDictionary * createdAddress in createdAddresses) {
             DCWalletAddressEntity *e = [NSEntityDescription insertNewObjectForEntityForName:@"DCWalletAddressEntity" inManagedObjectContext:walletAccountEntity.managedObjectContext];
             e.address = createdAddress[@"address"];
@@ -93,6 +103,7 @@
         NSError * error = nil;
         if (![walletAccountEntity.managedObjectContext save:&error]) {
             NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+        }
         }
     }
     return a;

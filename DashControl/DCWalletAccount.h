@@ -23,10 +23,10 @@ typedef NS_ENUM(uint32_t,WalletAccountState) {
 @property (nonatomic, readonly) NSSet * _Nonnull allReceivingAddresses;
 @property (nonatomic, readonly) NSSet * _Nonnull allChangeAddresses;
 
--(id _Nonnull)initWithAccountPublicKey:(NSData* _Nonnull)accountPublicKey hash:(NSString* _Nonnull)hash inContext:(NSManagedObjectContext* _Nullable)context;
+-(id _Nonnull)initWithAccountPublicKey:(NSData* _Nonnull)accountPublicKey hash:(NSString* _Nullable)hash inContext:(NSManagedObjectContext* _Nullable)context;
 
 -(void)startUpWithWalletAccountEntity:(DCWalletAccountEntity* _Nonnull)walletAccountEntity;
 
--(NSArray * _Nonnull)addressesWithGapLimit:(NSUInteger)gapLimit internal:(BOOL)internal withWalletAccountEntity:(DCWalletAccountEntity* _Nonnull)walletAccountEntity;
+-(NSArray * _Nonnull)addressesWithGapLimit:(NSUInteger)gapLimit internal:(BOOL)internal withWalletAccountEntity:(DCWalletAccountEntity* _Nullable)walletAccountEntity;
 
 @end

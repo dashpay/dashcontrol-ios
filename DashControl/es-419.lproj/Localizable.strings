@@ -240,7 +240,13 @@
 "You must input a value" = "You must input a value";
 
 /* Price Alert Screen */
+"You will receive a notification on your device when the Dash price crashes" = "You will receive a notification on your device when the Dash price crashes";
+
+/* Price Alert Screen */
 "You will receive a notification on your device when the Dash price falls below the value entered above." = "You will receive a notification on your device when the Dash price falls below the value entered above.";
 
 /* Price Alert Screen */
 "You will receive a notification on your device when the Dash price raises above the value entered above." = "You will receive a notification on your device when the Dash price raises above the value entered above.";
+
+/* Price Alert Screen */
+"You will receive a notification on your device when the Dash price spikes up by the amount." = "You will receive a notification on your device when the Dash price spikes up by the amount.";

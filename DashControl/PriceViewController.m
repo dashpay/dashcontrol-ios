@@ -37,6 +37,8 @@
 {
     [super viewDidLoad];
     
+    
+    
     self.options = @[
                      @{@"key": @"toggleValues", @"label": @"Toggle Values"},
                      @{@"key": @"toggleIcons", @"label": @"Toggle Icons"},
@@ -96,6 +98,55 @@
         }
     }
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
+}
+
+-(void)setSelectedExchange:(DCExchangeEntity *)selectedExchange {
+    _selectedExchange = selectedExchange;
+    [self.exchangeButton setTitle:selectedExchange.name forState:UIControlStateNormal];
+    NSUserDefaults * standardDefaults = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary * currentExchangeMarketPair = [[standardDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR] mutableCopy];
+    NSSet * possibleMarkets = selectedExchange.markets;
+    if (![possibleMarkets containsObject:self.selectedMarket]) {
+        //first try to mimic tether
+        BOOL replaced = FALSE;
+        if ([self.selectedMarket.name isEqualToString:@"DASH_USDT"] || [self.selectedMarket.name isEqualToString:@"DASH_USD"]) {
+            NSString * invertedName = [self.selectedMarket.name isEqualToString:@"DASH_USDT"]?@"DASH_USD":@"DASH_USDT";
+            for (DCMarketEntity * market in possibleMarkets) {
+                if ([market.name isEqualToString:invertedName]) {
+                    self.selectedMarket = market;
+                    replaced = true;
+                    break;
+                }
+            }
+        }
+        if (!replaced) {
+            for (DCMarketEntity * market in possibleMarkets) {
+                if ([market.name isEqualToString:@"DASH_BTC"]) {
+                    self.selectedMarket = market;
+                    replaced = true;
+                    break;
+                }
+            }
+        }
+        if (!replaced) {
+            self.selectedMarket = [possibleMarkets anyObject];
+            if (!self.selectedMarket) {
+                [self.marketButton setTitle:@"DASH_BTC" forState:UIControlStateNormal];
+            }
+        }
+    }
+    
+    [currentExchangeMarketPair setObject:selectedExchange.name forKey:@"exchange"];
+    [standardDefaults setObject:[currentExchangeMarketPair copy] forKey:CURRENT_EXCHANGE_MARKET_PAIR];
+}
+
+-(void)setSelectedMarket:(DCMarketEntity *)selectedMarket {
+    _selectedMarket = selectedMarket;
+    [self.marketButton setTitle:selectedMarket.name forState:UIControlStateNormal];
+    NSUserDefaults * standardDefaults = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary * currentExchangeMarketPair = [[standardDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR] mutableCopy];
+    [currentExchangeMarketPair setObject:selectedMarket.name forKey:@"market"];
+    [standardDefaults setObject:[currentExchangeMarketPair copy] forKey:CURRENT_EXCHANGE_MARKET_PAIR];
 }
 
 -(NSManagedObjectContext*)managedObjectContext {
@@ -300,7 +351,6 @@
         for (DCMarketEntity * market in markets) {
             [alertController addAction:[UIAlertAction actionWithTitle:market.name style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 self.selectedMarket = market;
-                ((UIButton*)sender).titleLabel.text = market.name;
                 [self updateChartData];
             }]];
         }

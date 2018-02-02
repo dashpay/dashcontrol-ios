@@ -13,9 +13,9 @@ typedef NS_ENUM(uint16_t,DCTriggerType) {
     DCTriggerUnknown = 0,
     DCTriggerAbove = 1 << 1,
     DCTriggerBelow = 1 << 2,
-    DCTriggerForType = 1 << 3,
-    DCTriggerAboveFor = DCTriggerForType | DCTriggerAbove,
-    DCTriggerBelowFor = DCTriggerForType | DCTriggerBelow,
+    DCTriggerMovingAverageType = 1 << 3,
+    DCTriggerMovingAverageAbove = DCTriggerMovingAverageType | DCTriggerAbove,
+    DCTriggerMovingAverageBelow = DCTriggerMovingAverageType | DCTriggerBelow,
     DCTriggerSpikeType = 1 << 4,
     DCTriggerSpikeUp = DCTriggerSpikeType | DCTriggerAbove,
     DCTriggerSpikeDown = DCTriggerSpikeType | DCTriggerBelow

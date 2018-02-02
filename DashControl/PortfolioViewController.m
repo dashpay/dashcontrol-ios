@@ -23,6 +23,8 @@
 @property (nonatomic, strong) NSFetchedResultsController* masternodeAddressFetchedResultsController;
 @property id balanceObserver;
 
+- (IBAction)refreshAmounts:(UIRefreshControl *)sender;
+
 @end
 
 @implementation PortfolioViewController
@@ -36,7 +38,7 @@
     self.balanceObserver =
     [[NSNotificationCenter defaultCenter] addObserverForName:PORTFOLIO_DID_UPDATE_NOTIFICATION object:nil
                                                        queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-                                                           
+                                                           [self refreshTotalWorth];
                                                        }];
     [self refreshTotalWorth];
 }
@@ -56,6 +58,11 @@
          
          self.balanceLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@ DASH worth %@ USD", nil),[numberFormatter stringFromNumber:@(worthDash)],@"0"];
      }
+
+- (IBAction)refreshAmounts:(UIRefreshControl *)sender {
+    [[DCPortfolioManager sharedInstance] updateAmounts];
+    
+}
 
 -(void)onNavButtonTapped:(UIBarButtonItem *)sender event:(UIEvent *)event
 {

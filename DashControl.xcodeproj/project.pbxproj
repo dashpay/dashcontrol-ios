@@ -12,7 +12,6 @@
 		241719E21F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DC1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m */; };
 		241719E31F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DE1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m */; };
 		241719E41F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719E01F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m */; };
-		241A70901FA33A6E00FCC808 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 241A708F1FA33A6E00FCC808 /* Localizable.stringsdict */; };
 		241A70961FA356DF00FCC808 /* PriceAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 241A70951FA356DF00FCC808 /* PriceAlertViewController.m */; };
 		2432DDA01F54395600A14112 /* ProposalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432DD9F1F54395600A14112 /* ProposalCell.m */; };
 		24438DEF1F5FCE7D00763A14 /* ProposalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 244857901F59CCBF004DE273 /* ProposalDetailViewController.m */; };
@@ -53,11 +52,17 @@
 		FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AEDA1FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m */; };
 		FB17AEE51FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AEDC1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m */; };
 		FB17AEE61FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AEDE1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m */; };
+		FB1F8AA61FBCAACA00175311 /* DashControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1F8AA51FBCAACA00175311 /* DashControlTests.m */; };
+		FB1F8AB01FBCABD200175311 /* BRBIP39Mnemonic.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1F8AAF1FBCABD100175311 /* BRBIP39Mnemonic.m */; };
+		FB1F8AB11FBCABD200175311 /* BRBIP39Mnemonic.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1F8AAF1FBCABD100175311 /* BRBIP39Mnemonic.m */; };
+		FB1F8AB51FBCD2EA00175311 /* BIP39Words.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB1F8AB81FBCD2EA00175311 /* BIP39Words.plist */; };
+		FB1F8AB61FBCD2EA00175311 /* BIP39Words.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB1F8AB81FBCD2EA00175311 /* BIP39Words.plist */; };
 		FB25EA301FAF8509000B41BE /* TriggerTypeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB25EA2F1FAF8509000B41BE /* TriggerTypeTableViewCell.m */; };
 		FB25EA331FAF8559000B41BE /* AddTriggerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB25EA321FAF8559000B41BE /* AddTriggerTableViewCell.m */; };
 		FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */; };
 		FB300E371FB5599400B3CDE0 /* BRScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB300E361FB5599400B3CDE0 /* BRScanViewController.m */; };
 		FB300E391FB55B8000B3CDE0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB300E381FB55B7F00B3CDE0 /* Images.xcassets */; };
+		FB300E3C1FB71BEA00B3CDE0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FB300E3E1FB71BEA00B3CDE0 /* Localizable.strings */; };
 		FB3BEBBE1FB32AF000C8974E /* PriceInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB3BEBBD1FB32AF000C8974E /* PriceInfoTableViewCell.m */; };
 		FB4310D71F9DA96700784EBC /* DCWalletManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310D61F9DA96700784EBC /* DCWalletManager.m */; };
 		FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310D91F9EF4B500784EBC /* DCWalletAccount.m */; };
@@ -103,6 +108,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		FB1F8AA81FBCAACA00175311 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB84EDB51F32898700E4D400 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FB84EDBC1F32898700E4D400;
+			remoteInfo = DashControl;
+		};
 		FB9CC26D1F88A89F0079309F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FB84EDB51F32898700E4D400 /* Project object */;
@@ -139,7 +151,6 @@
 		241719DE1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCCommentEntity+CoreDataClass.m"; sourceTree = "<group>"; };
 		241719DF1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCCommentEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
 		241719E01F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCCommentEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
-		241A708F1FA33A6E00FCC808 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		241A70941FA356DF00FCC808 /* PriceAlertViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceAlertViewController.h; sourceTree = "<group>"; };
 		241A70951FA356DF00FCC808 /* PriceAlertViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceAlertViewController.m; sourceTree = "<group>"; };
 		2432DD9E1F54395600A14112 /* ProposalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalCell.h; sourceTree = "<group>"; };
@@ -220,6 +231,17 @@
 		FB17AEDC1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletAddressEntity+CoreDataClass.m"; sourceTree = "<group>"; };
 		FB17AEDD1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCWalletAddressEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
 		FB17AEDE1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletAddressEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FB1F8AA31FBCAACA00175311 /* DashControlTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DashControlTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB1F8AA51FBCAACA00175311 /* DashControlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DashControlTests.m; sourceTree = "<group>"; };
+		FB1F8AA71FBCAACA00175311 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FB1F8AAD1FBCABD100175311 /* BRBIP39Mnemonic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBIP39Mnemonic.h; sourceTree = "<group>"; };
+		FB1F8AAE1FBCABD100175311 /* BRMnemonic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMnemonic.h; sourceTree = "<group>"; };
+		FB1F8AAF1FBCABD100175311 /* BRBIP39Mnemonic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBIP39Mnemonic.m; sourceTree = "<group>"; };
+		FB1F8AB71FBCD2EA00175311 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = fr; path = fr.lproj/BIP39Words.plist; sourceTree = "<group>"; };
+		FB1F8ABA1FBCD2F100175311 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/BIP39Words.plist; sourceTree = "<group>"; };
+		FB1F8ABB1FBCD31200175311 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ja; path = ja.lproj/BIP39Words.plist; sourceTree = "<group>"; };
+		FB1F8ABC1FBCD31500175311 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "zh-Hans"; path = "zh-Hans.lproj/BIP39Words.plist"; sourceTree = "<group>"; };
+		FB1F8ABD1FBCD32200175311 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = es; path = es.lproj/BIP39Words.plist; sourceTree = "<group>"; };
 		FB25EA2E1FAF8509000B41BE /* TriggerTypeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriggerTypeTableViewCell.h; sourceTree = "<group>"; };
 		FB25EA2F1FAF8509000B41BE /* TriggerTypeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriggerTypeTableViewCell.m; sourceTree = "<group>"; };
 		FB25EA311FAF8559000B41BE /* AddTriggerTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddTriggerTableViewCell.h; sourceTree = "<group>"; };
@@ -229,6 +251,26 @@
 		FB300E351FB5599400B3CDE0 /* BRScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRScanViewController.h; sourceTree = "<group>"; };
 		FB300E361FB5599400B3CDE0 /* BRScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRScanViewController.m; sourceTree = "<group>"; };
 		FB300E381FB55B7F00B3CDE0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		FB300E3D1FB71BEA00B3CDE0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E3F1FB71BF800B3CDE0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E401FB71C0200B3CDE0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E411FB71C0400B3CDE0 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E421FB71C0700B3CDE0 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E431FB71C0A00B3CDE0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E441FB71C0C00B3CDE0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		FB300E451FB71C0E00B3CDE0 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E461FB71C1000B3CDE0 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E471FB71C1100B3CDE0 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E481FB71C1200B3CDE0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E491FB71C1300B3CDE0 /* ms */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ms; path = ms.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E4A1FB71C1400B3CDE0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E4B1FB71C1500B3CDE0 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E4C1FB71C1500B3CDE0 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E4D1FB71C1600B3CDE0 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E4E1FB71C1700B3CDE0 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E4F1FB71C1800B3CDE0 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E501FB71C1900B3CDE0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB300E511FB71C1A00B3CDE0 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FB3BEBBC1FB32AF000C8974E /* PriceInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceInfoTableViewCell.h; sourceTree = "<group>"; };
 		FB3BEBBD1FB32AF000C8974E /* PriceInfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceInfoTableViewCell.m; sourceTree = "<group>"; };
 		FB4310D51F9DA96700784EBC /* DCWalletManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCWalletManager.h; sourceTree = "<group>"; };
@@ -407,6 +449,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FB1F8AA01FBCAACA00175311 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FB84EDBA1F32898700E4D400 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -585,6 +634,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FB1F8AA41FBCAACA00175311 /* DashControlTests */ = {
+			isa = PBXGroup;
+			children = (
+				FB1F8AA51FBCAACA00175311 /* DashControlTests.m */,
+				FB1F8AA71FBCAACA00175311 /* Info.plist */,
+			);
+			path = DashControlTests;
+			sourceTree = "<group>";
+		};
 		FB2F9B3E1F5CA0050035180D /* Views Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -651,6 +709,7 @@
 			isa = PBXGroup;
 			children = (
 				FB84EDBF1F32898700E4D400 /* DashControl */,
+				FB1F8AA41FBCAACA00175311 /* DashControlTests */,
 				FB84EDBE1F32898700E4D400 /* Products */,
 				F8F9FBF8277751CF40134EEE /* Frameworks */,
 				3A3DCF867D724725B2BA999A /* Pods */,
@@ -661,6 +720,7 @@
 			isa = PBXGroup;
 			children = (
 				FB84EDBD1F32898700E4D400 /* DashControl.app */,
+				FB1F8AA31FBCAACA00175311 /* DashControlTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -687,12 +747,13 @@
 		FB84EDC01F32898700E4D400 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FB1F8AB81FBCD2EA00175311 /* BIP39Words.plist */,
 				2442A01B1F4D6CDC006FAC0D /* DashControl.entitlements */,
 				FB84EDD41F32898700E4D400 /* Info.plist */,
 				FB300E381FB55B7F00B3CDE0 /* Images.xcassets */,
 				FB84EDC11F32898700E4D400 /* main.m */,
 				24E584151F3ADCEF00A12087 /* DashControl-PrefixHeader.pch */,
-				241A708F1FA33A6E00FCC808 /* Localizable.stringsdict */,
+				FB300E3E1FB71BEA00B3CDE0 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -895,6 +956,9 @@
 				FB9CC1A41F87D4850079309F /* BRKeySequence.h */,
 				FB9CC1A21F87D4850079309F /* BRBIP32Sequence.h */,
 				FB9CC1A31F87D4850079309F /* BRBIP32Sequence.m */,
+				FB1F8AAE1FBCABD100175311 /* BRMnemonic.h */,
+				FB1F8AAD1FBCABD100175311 /* BRBIP39Mnemonic.h */,
+				FB1F8AAF1FBCABD100175311 /* BRBIP39Mnemonic.m */,
 				FB4310DC1F9EFC3F00784EBC /* DCServerBloomFilter.h */,
 				FB4310DB1F9EFC3F00784EBC /* DCServerBloomFilter.m */,
 				FBEBE5401F5802DE0056D921 /* DCChartTimeFormatter.h */,
@@ -944,6 +1008,24 @@
 /* End PBXLegacyTarget section */
 
 /* Begin PBXNativeTarget section */
+		FB1F8AA21FBCAACA00175311 /* DashControlTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB1F8AAC1FBCAACA00175311 /* Build configuration list for PBXNativeTarget "DashControlTests" */;
+			buildPhases = (
+				FB1F8A9F1FBCAACA00175311 /* Sources */,
+				FB1F8AA01FBCAACA00175311 /* Frameworks */,
+				FB1F8AA11FBCAACA00175311 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FB1F8AA91FBCAACA00175311 /* PBXTargetDependency */,
+			);
+			name = DashControlTests;
+			productName = DashControlTests;
+			productReference = FB1F8AA31FBCAACA00175311 /* DashControlTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FB84EDBC1F32898700E4D400 /* DashControl */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FB84EDD71F32898700E4D400 /* Build configuration list for PBXNativeTarget "DashControl" */;
@@ -976,6 +1058,12 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = dashfoundation;
 				TargetAttributes = {
+					FB1F8AA21FBCAACA00175311 = {
+						CreatedOnToolsVersion = 9.1;
+						DevelopmentTeam = 44RJ69WHFF;
+						ProvisioningStyle = Automatic;
+						TestTargetID = FB84EDBC1F32898700E4D400;
+					};
 					FB84EDBC1F32898700E4D400 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 44RJ69WHFF;
@@ -1007,6 +1095,19 @@
 				ko,
 				ru,
 				"zh-Hans",
+				da,
+				nl,
+				vi,
+				de,
+				ms,
+				sv,
+				th,
+				pl,
+				nb,
+				cs,
+				sk,
+				tr,
+				el,
 			);
 			mainGroup = FB84EDB41F32898700E4D400;
 			productRefGroup = FB84EDBE1F32898700E4D400 /* Products */;
@@ -1015,11 +1116,20 @@
 			targets = (
 				FB84EDBC1F32898700E4D400 /* DashControl */,
 				FB9CC2691F88A8460079309F /* submodules */,
+				FB1F8AA21FBCAACA00175311 /* DashControlTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		FB1F8AA11FBCAACA00175311 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB1F8AB61FBCD2EA00175311 /* BIP39Words.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FB84EDBB1F32898700E4D400 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1027,9 +1137,10 @@
 				24FC99F61F5EA0F40054C2A8 /* iconReply.png in Resources */,
 				FB300E391FB55B8000B3CDE0 /* Images.xcassets in Resources */,
 				24FC99F71F5EA0F40054C2A8 /* iconReply@2x.png in Resources */,
-				241A70901FA33A6E00FCC808 /* Localizable.stringsdict in Resources */,
 				24FC99F41F5EA0F40054C2A8 /* iconAttachment.png in Resources */,
+				FB300E3C1FB71BEA00B3CDE0 /* Localizable.strings in Resources */,
 				24FC99F51F5EA0F40054C2A8 /* iconAttachment@2x.png in Resources */,
+				FB1F8AB51FBCD2EA00175311 /* BIP39Words.plist in Resources */,
 				247B8F551F5FBFFB005BC14A /* dash_icon_tmp.png in Resources */,
 				FB84EDD31F32898700E4D400 /* LaunchScreen.storyboard in Resources */,
 				FB84EDCE1F32898700E4D400 /* Main.storyboard in Resources */,
@@ -1119,6 +1230,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		FB1F8A9F1FBCAACA00175311 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB1F8AA61FBCAACA00175311 /* DashControlTests.m in Sources */,
+				FB1F8AB11FBCABD200175311 /* BRBIP39Mnemonic.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FB84EDB91F32898700E4D400 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1144,6 +1264,7 @@
 				FB4310F51FA2142700784EBC /* DCEnvironment.m in Sources */,
 				FB9CC1611F83E38A0079309F /* NSData+Dash.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
+				FB1F8AB01FBCABD200175311 /* BRBIP39Mnemonic.m in Sources */,
 				FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */,
 				FB9CC1801F83E45F0079309F /* DCMasternodeEntity+CoreDataClass.m in Sources */,
 				241719E31F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m in Sources */,
@@ -1204,6 +1325,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		FB1F8AA91FBCAACA00175311 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FB84EDBC1F32898700E4D400 /* DashControl */;
+			targetProxy = FB1F8AA81FBCAACA00175311 /* PBXContainerItemProxy */;
+		};
 		FB9CC26E1F88A89F0079309F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FB9CC2691F88A8460079309F /* submodules */;
@@ -1212,6 +1338,45 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		FB1F8AB81FBCD2EA00175311 /* BIP39Words.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FB1F8AB71FBCD2EA00175311 /* fr */,
+				FB1F8ABA1FBCD2F100175311 /* en */,
+				FB1F8ABB1FBCD31200175311 /* ja */,
+				FB1F8ABC1FBCD31500175311 /* zh-Hans */,
+				FB1F8ABD1FBCD32200175311 /* es */,
+			);
+			name = BIP39Words.plist;
+			sourceTree = "<group>";
+		};
+		FB300E3E1FB71BEA00B3CDE0 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FB300E3D1FB71BEA00B3CDE0 /* en */,
+				FB300E3F1FB71BF800B3CDE0 /* es */,
+				FB300E401FB71C0200B3CDE0 /* fr */,
+				FB300E411FB71C0400B3CDE0 /* ja */,
+				FB300E421FB71C0700B3CDE0 /* ko */,
+				FB300E431FB71C0A00B3CDE0 /* ru */,
+				FB300E441FB71C0C00B3CDE0 /* zh-Hans */,
+				FB300E451FB71C0E00B3CDE0 /* da */,
+				FB300E461FB71C1000B3CDE0 /* nl */,
+				FB300E471FB71C1100B3CDE0 /* vi */,
+				FB300E481FB71C1200B3CDE0 /* de */,
+				FB300E491FB71C1300B3CDE0 /* ms */,
+				FB300E4A1FB71C1400B3CDE0 /* sv */,
+				FB300E4B1FB71C1500B3CDE0 /* th */,
+				FB300E4C1FB71C1500B3CDE0 /* pl */,
+				FB300E4D1FB71C1600B3CDE0 /* nb */,
+				FB300E4E1FB71C1700B3CDE0 /* cs */,
+				FB300E4F1FB71C1800B3CDE0 /* sk */,
+				FB300E501FB71C1900B3CDE0 /* tr */,
+				FB300E511FB71C1A00B3CDE0 /* el */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		FB84EDCC1F32898700E4D400 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1271,6 +1436,58 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		FB1F8AAA1FBCAACA00175311 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 44RJ69WHFF;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = DashControlTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.DashControlTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DashControl.app/DashControl";
+			};
+			name = Debug;
+		};
+		FB1F8AAB1FBCAACA00175311 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 44RJ69WHFF;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = DashControlTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.DashControlTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DashControl.app/DashControl";
+			};
+			name = Release;
+		};
 		FB84EDD51F32898700E4D400 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1398,6 +1615,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1432,6 +1650,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.dash.Control;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1483,6 +1702,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FB1F8AAC1FBCAACA00175311 /* Build configuration list for PBXNativeTarget "DashControlTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB1F8AAA1FBCAACA00175311 /* Debug */,
+				FB1F8AAB1FBCAACA00175311 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FB84EDB81F32898700E4D400 /* Build configuration list for PBXProject "DashControl" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -46,7 +46,7 @@
         numberFormatter.minimumSignificantDigits = 0;
         numberFormatter.maximumSignificantDigits = 6;
         numberFormatter.usesSignificantDigits = TRUE;
-
+        
         self.priceAmountTableViewCell.priceTextField.text = [numberFormatter stringFromNumber:@(self.editingTrigger.value)];
         self.selectedMarket = self.editingTrigger.market;
         self.selectedExchange = self.editingTrigger.exchange;
@@ -186,7 +186,7 @@
                 }];
                 break;
             }
-
+                
             case 1:
             {
                 UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"market",@"Price Alert Screen") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -207,13 +207,16 @@
             case 3:
             {
                 UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"trigger type",@"Price Alert Screen") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-                for (NSInteger i = 0;i<DCTriggerBelow + 1;i++) {
-                    NSString * triggerText = [self textForTriggerType:i];
-                    [alertController addAction:[UIAlertAction actionWithTitle:triggerText style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        self.triggerType = i;
-                        self.triggerTypeTableViewCell.typeLabel.text = triggerText;
-                    }]];
-                }
+                NSString * triggerTextAbove = [self textForTriggerType:DCTriggerAbove];
+                [alertController addAction:[UIAlertAction actionWithTitle:triggerTextAbove style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    self.triggerType = DCTriggerAbove;
+                    self.triggerTypeTableViewCell.typeLabel.text = triggerTextAbove;
+                }]];
+                NSString * triggerTextBelow = [self textForTriggerType:DCTriggerBelow];
+                [alertController addAction:[UIAlertAction actionWithTitle:triggerTextBelow style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    self.triggerType = DCTriggerBelow;
+                    self.triggerTypeTableViewCell.typeLabel.text = triggerTextBelow;
+                }]];
                 [self presentViewController:alertController animated:TRUE completion:^{
                     
                 }];
@@ -222,7 +225,7 @@
             default:
                 break;
         }
-
+        
     }
 }
 
@@ -244,12 +247,6 @@
         case DCTriggerBelow:
             return NSLocalizedString(@"Alert when under",@"Price Alert Screen");
             break;
-        case DCTriggerAboveFor:
-            return NSLocalizedString(@"Alert when over for a time period",@"Price Alert Screen");
-            break;
-        case DCTriggerBelowFor:
-            return NSLocalizedString(@"Alert when under for a time period",@"Price Alert Screen");
-            break;
         case DCTriggerSpikeUp:
             return NSLocalizedString(@"Alert when price rises quickly",@"Price Alert Screen");
             break;
@@ -269,6 +266,12 @@
             break;
         case DCTriggerBelow:
             return NSLocalizedString(@"You will receive a notification on your device when the Dash price falls below the value entered above.",@"Price Alert Screen");
+            break;
+        case DCTriggerSpikeUp:
+            return NSLocalizedString(@"You will receive a notification on your device when the Dash price spikes up by the amount.",@"Price Alert Screen");
+            break;
+        case DCTriggerSpikeDown:
+            return NSLocalizedString(@"You will receive a notification on your device when the Dash price crashes",@"Price Alert Screen");
             break;
         default:
             return @"";
@@ -349,11 +352,11 @@
                 } else {
                     message = @"Local error, please try again.";
                 }
-                    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"Error" message:message preferredStyle:UIAlertControllerStyleAlert];
-                    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ok",@"ok") style:UIAlertActionStyleDefault handler:nil]];
-                    [self presentViewController:alertController animated:TRUE completion:^{
-                        
-                    }];
+                UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"Error" message:message preferredStyle:UIAlertControllerStyleAlert];
+                [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ok",@"ok") style:UIAlertActionStyleDefault handler:nil]];
+                [self presentViewController:alertController animated:TRUE completion:^{
+                    
+                }];
                 
             });
         }];

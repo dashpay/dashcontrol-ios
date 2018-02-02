@@ -27,7 +27,7 @@
 #import "NSMutableData+Dash.h"
 #import "NSData+Dash.h"
 
-#define BLOOM_MAX_HASH_FUNCS 50
+#define BLOOM_MAX_HASH_FUNCS 1000
 
 #define C1 0xcc9e2d51
 #define C2 0x1b873593
@@ -78,11 +78,33 @@ static uint32_t murmur3_32(const void *data, size_t len, uint32_t seed)
 {
     if (! (self = [self init])) return nil;
     self.elementCount = count;
-    NSUInteger length = (fpRate < DBL_EPSILON) ? BLOOM_MAX_FILTER_LENGTH : (-1.0/(M_LN2*M_LN2))*count*log(fpRate)/8.0;
+    NSUInteger bruteLength = (fpRate < DBL_EPSILON) ? BLOOM_MAX_FILTER_LENGTH : (-1.0/(M_LN2*M_LN2))*count*log(fpRate)/8.0;
+    NSUInteger length;
+    if (count < 10) {
+        length = bruteLength;
+    } else {
+        NSUInteger sqrtBruteLength = sqrt(bruteLength);
+        length = ceil(bruteLength/sqrtBruteLength)*sqrtBruteLength;
+    }
 
     if (length > BLOOM_MAX_FILTER_LENGTH) length = BLOOM_MAX_FILTER_LENGTH;
     self.filterData = [NSMutableData dataWithLength:(length < 1) ? 1 : length];
-    self.hashFuncs = ((self.filterData.length*8.0)/count)*M_LN2;
+//    double foundFpRate = 0;
+//    uint32_t hashFuncs = 1;
+//    while (foundFpRate < fpRate) {
+//        hashFuncs++;
+//        double currentfoundFpRate = [self falsePositiveRateForHashFunctions:hashFuncs];
+//        NSLog(@"hashFuncs %d p %.5f",hashFuncs,currentfoundFpRate);
+//        if (fabs(fpRate - currentfoundFpRate) < fabs(fpRate - foundFpRate)) {
+//            hashFuncs--;
+//            break;
+//        } else {
+//            foundFpRate = currentfoundFpRate;
+//        }
+//
+//    }
+    
+    self.hashFuncs = ((self.filterData.length*8.0)/(double)count)*M_LN2;
     if (self.hashFuncs > BLOOM_MAX_HASH_FUNCS) self.hashFuncs = BLOOM_MAX_HASH_FUNCS;
     return self;
 }
@@ -118,9 +140,14 @@ static uint32_t murmur3_32(const void *data, size_t len, uint32_t seed)
     _elementCount++;
 }
 
+- (double)falsePositiveRateForHashFunctions:(NSUInteger)hashFunctions
+{
+    return pow(1 - pow(M_E, -1.0*hashFunctions*self.elementCount/(self.filterData.length*8.0)), hashFunctions);
+}
+
 - (double)falsePositiveRate
 {
-    return pow(1 - pow(M_E, -1.0*self.hashFuncs*self.elementCount/(self.filterData.length*8.0)), self.hashFuncs);
+    return [self falsePositiveRateForHashFunctions:self.hashFuncs];
 }
 
 -(UInt160)filterHash {

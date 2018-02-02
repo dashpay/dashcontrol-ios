@@ -21,7 +21,7 @@
 
 #define DEVELOPMENT_URL @"https://dev.dashpay.info"
 
-#define USE_PRODUCTION 0
+#define USE_PRODUCTION 1
 
 #define DASHCONTROL_SERVER [NSString stringWithFormat:@"%@/api/v%d/",USE_PRODUCTION?PRODUCTION_URL:DEVELOPMENT_URL,DASHCONTROL_SERVER_VERSION]
 
@@ -628,6 +628,22 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
         if (completion) completion(nil,httpResponse.statusCode,responseObject);
     } failure:^(NSURLSessionTask *task, NSError *error) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+        if (completion) completion(error,httpResponse.statusCode,nil);
+    }];
+}
+
+#pragma mark - Balances
+
+-(void)getBalancesInAddresses:(NSArray* _Nonnull)addresses  completion:(void (^ _Nullable)(NSError * _Nullable error,NSUInteger statusCode, NSArray * _Nullable responseObject))completion {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSDictionary* parameters =@{
+       @"addresses": addresses,
+       };
+    [manager POST:DASHCONTROL_URL(@"address_info") parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+        if (completion) completion(nil,httpResponse.statusCode,responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
         if (completion) completion(error,httpResponse.statusCode,nil);
     }];

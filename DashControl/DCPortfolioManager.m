@@ -11,6 +11,7 @@
 #import "NSArray+SWAdditions.h"
 #import <AFNetworking/AFNetworking.h>
 #import "DCWalletAddressEntity+CoreDataClass.h"
+#import "DCBackendManager.h"
 
 #define INSIGHT_API_URL @"https://insight.dash.org/insight-api-dash"
 
@@ -65,39 +66,36 @@
         NSArray * addresses = [[walletAddresses arrayReferencedByKeyPath:@"address"] arrayByAddingObjectsFromArray:[masternodes arrayReferencedByKeyPath:@"address"]];
         
         if ([addresses count]) {
-            AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-            NSString * addr = [NSString stringWithFormat:@"%@/addrs/%@/utxo",INSIGHT_API_URL,[addresses componentsJoinedByString:@","]];
-            [manager GET:addr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
-                NSDictionary * addressAmountDictionary = [((NSArray*)responseObject) dictionaryReferencedByKeyPath:@"address" objectPath:@"@sum.satoshis"];
-                BOOL updatedAmounts = FALSE;
-                for (DCWalletAddressEntity * address in walletAddresses) {
-                    if ([addressAmountDictionary objectForKey:address.address]) {
-                        updatedAmounts = TRUE;
-                        [address setAmount:[[addressAmountDictionary objectForKey:address.address] longLongValue]];
+            [[DCBackendManager sharedInstance] getBalancesInAddresses:addresses completion:^(NSError * _Nullable error, NSUInteger statusCode, NSArray * _Nullable responseObject) {
+                if (!error && statusCode / 100 == 2) {
+                    NSDictionary * addressAmountDictionary = [((NSArray*)responseObject) dictionaryReferencedByKeyPath:@"address" objectPath:@"@sum.satoshis"];
+                    BOOL updatedAmounts = FALSE;
+                    for (DCWalletAddressEntity * address in walletAddresses) {
+                        if ([addressAmountDictionary objectForKey:address.address]) {
+                            updatedAmounts = TRUE;
+                            [address setAmount:[[addressAmountDictionary objectForKey:address.address] longLongValue]];
+                        }
                     }
-                }
-                context.automaticallyMergesChangesFromParent = TRUE;
-                context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-                
-                NSError *error = nil;
-                if (![context save:&error]) {
-                    NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-                    abort();
-                }
-                else {
+                    context.automaticallyMergesChangesFromParent = TRUE;
+                    context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
                     
-                    if (updatedAmounts) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-                            [notificationCenter postNotificationName:PORTFOLIO_DID_UPDATE_NOTIFICATION
-                                                              object:nil
-                                                            userInfo:nil];
-                        });
+                    NSError *error = nil;
+                    if (![context save:&error]) {
+                        NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
+                        abort();
+                    }
+                    else {
+                        
+                        if (updatedAmounts) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+                                [notificationCenter postNotificationName:PORTFOLIO_DID_UPDATE_NOTIFICATION
+                                                                  object:nil
+                                                                userInfo:nil];
+                            });
+                        }
                     }
                 }
-                
-            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                NSLog(@"%@",error);
             }];
         }
     }];

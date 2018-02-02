@@ -29,11 +29,11 @@
         case DCTriggerBelow:
             return @"below";
             break;
-        case DCTriggerAboveFor:
-            return @"above_for";
+        case DCTriggerMovingAverageAbove:
+            return @"moving_average_above";
             break;
-        case DCTriggerBelowFor:
-            return @"below_for";
+        case DCTriggerMovingAverageBelow:
+            return @"moving_average_below";
             break;
         case DCTriggerSpikeUp:
             return @"spike_up";
@@ -52,10 +52,6 @@
         return DCTriggerAbove;
     } else if ([networkString isEqualToString:@"below"]) {
         return DCTriggerBelow;
-    } else if ([networkString isEqualToString:@"above_for"]) {
-        return DCTriggerAboveFor;
-    } else if ([networkString isEqualToString:@"below_for"]) {
-        return DCTriggerBelowFor;
     } else if ([networkString isEqualToString:@"spike_up"]) {
         return DCTriggerSpikeUp;
     } else if ([networkString isEqualToString:@"spike_down"]) {

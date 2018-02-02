@@ -1,9 +1,9 @@
 //
-//  DCServerBloomFilter.h
-//  DashControl
+//  BRMnemonic.h
+//  BreadWallet
 //
-//  Heavily inspired by Aaron Voisine.
-//  Copyright (c) 2017 Quantum Explorer <quantum@dash.org>
+//  Created by Aaron Voisine on 8/15/13.
+//  Copyright (c) 2013 Aaron Voisine <voisine@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,23 +25,16 @@
 
 #import <Foundation/Foundation.h>
 
-#define BLOOM_DEFAULT_FALSEPOSITIVE_RATE 0.0005 // same as bitcoinj, use 0.00005 for less data, 0.001 for good anonymity
-#define BLOOM_REDUCED_FALSEPOSITIVE_RATE 0.05
-#define BLOOM_MAX_FILTER_LENGTH          50000 // this allows for 10,000 elements with a <0.0001% false positive rate
-#define BLOOM_FILTER_MAGIC 0xfba4c795
+@protocol BRMnemonic<NSObject>
+@required
 
-@interface DCServerBloomFilter : NSObject
-
-@property (nonatomic, readonly) uint8_t flags;
-@property (nonatomic, readonly, strong) NSMutableData *filterData;
-@property (nonatomic, readonly) NSUInteger elementCount;
-@property (nonatomic, assign, readonly) UInt160 filterHash;
-@property (nonatomic, readonly) double falsePositiveRate;
-@property (nonatomic, readonly) NSUInteger length;
-@property (nonatomic, assign,readonly) uint32_t hashFuncs;
-
-- (instancetype)initWithFalsePositiveRate:(double)fpRate forElementCount:(NSUInteger)count;
-- (BOOL)containsData:(NSData *)data;
-- (void)insertData:(NSData *)data;
+- (NSString *)encodePhrase:(NSData *)data;
+- (NSData *)decodePhrase:(NSString *)phrase; // phrase must be normalized
+- (BOOL)wordIsValid:(NSString *)word; // true if word is a member of any known word list
+- (BOOL)wordIsLocal:(NSString *)word; // true if word is a member of the word list for the current locale
+- (BOOL)phraseIsValid:(NSString *)phrase; // true if all words and checksum are valid, phrase must be normalized
+- (NSString *)cleanupPhrase:(NSString *)phrase; // minimally cleans up user input phrase, suitable for display/editing
+- (NSString *)normalizePhrase:(NSString *)phrase; // normalizes phrase, suitable for decode/derivation
+- (NSData *)deriveKeyFromPhrase:(NSString *)phrase withPassphrase:(NSString *)passphrase; // phrase must be normalized
 
 @end
