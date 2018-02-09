@@ -21,13 +21,7 @@
 "Alert type" = "Alert type";
 
 /* Price Alert Screen */
-"Alert when Over" = "Alert when Over";
-
-/* Price Alert Screen */
 "Alert when over" = "Alert when over";
-
-/* Price Alert Screen */
-"Alert when over for a time period" = "Alert when over for a time period";
 
 /* Price Alert Screen */
 "Alert when price drops quickly" = "Alert when price drops quickly";
@@ -37,9 +31,6 @@
 
 /* Price Alert Screen */
 "Alert when under" = "Alert when under";
-
-/* Price Alert Screen */
-"Alert when under for a time period" = "Alert when under for a time period";
 
 /* Budget view */
 "ALLOTED" = "ALLOTED";
@@ -53,7 +44,7 @@
 /* No comment provided by engineer. */
 "Cancel" = "Cancel";
 
-/* Proposal Detail View */
+/* No comment provided by engineer. */
 "Cellular" = "Cellular";
 
 /* Available Languages List */
@@ -65,26 +56,14 @@
 /* Price View Screen */
 "Choose Market" = "Choose Market";
 
-/* As in 'by Username' */
-"comment" = "comment";
-
-/* No comment provided by engineer. */
-"comments" = "comments";
-
 /* Proposal Detail View */
 "Completed payments" = "Completed payments";
 
 /* No comment provided by engineer. */
 "Dash" = "Dash";
 
-/* Proposal Detail View */
+/* No comment provided by engineer. */
 "DASH" = "DASH";
-
-/* Budget view */
-"Day" = "Day";
-
-/* Budget view */
-"Days" = "Days";
 
 /* Proposal Detail View */
 "Description is loading..." = "Description is loading...";
@@ -98,41 +77,20 @@
 /* Price Alert Screen */
 "Exchange" = "Exchange";
 
-/* Price Alert Screen */
-"explanation" = "explanation";
-
 /* Available Languages List */
 "French" = "French";
 
-/* Budget view */
-"in" = "in";
-
 /* Proposals View */
 "in %d Days" = "in %d Days";
-
-/* Price Alert Screen */
-"input" = "input";
 
 /* Available Languages List */
 "Korean" = "Korean";
 
 /* Price Alert Screen */
-"Market" = "Market";
-
-/* Price Alert Screen */
 "market" = "market";
 
-/* Proposal Detail View */
-"month" = "month";
-
-/* Proposal Detail View */
-"month remaining" = "month remaining";
-
-/* Proposal Detail View */
-"months" = "months";
-
-/* Proposal Detail View */
-"months remaining" = "months remaining";
+/* Price Alert Screen */
+"Market" = "Market";
 
 /* Price Alert Screen */
 "New Price Alert" = "New Price Alert";
@@ -140,7 +98,7 @@
 /* Proposal Detail View */
 "No" = "No";
 
-/* Available Languages List */
+/* No comment provided by engineer. */
 "No Connection" = "No Connection";
 
 /* No comment provided by engineer. */
@@ -149,14 +107,11 @@
 /* No comment provided by engineer. */
 "Not a valid masternode address" = "Not a valid masternode address";
 
-/* No comment provided by engineer. */
+/* ok */
 "ok" = "ok";
 
 /* Proposal Detail View */
 "One-time payment" = "One-time payment";
-
-/* Price Alert Screen */
-"Over" = "Over";
 
 /* Price View Screen */
 "Over %@" = "Over %@";
@@ -185,16 +140,13 @@
 /* Proposal Detail View */
 "PROPOSAL ID" = "PROPOSAL ID";
 
-/* No comment provided by engineer. */
-"remaining" = "remaining";
-
 /* Price Alert Screen */
 "required" = "required";
 
 /* Available Languages List */
 "Russian" = "Russian";
 
-/* Available Languages List */
+/* No comment provided by engineer. */
 "Search name or owner" = "Search name or owner";
 
 /* Available Languages List */
@@ -218,23 +170,17 @@
 /* Price Alert Screen */
 "trigger type" = "trigger type";
 
-/* Price Alert Screen */
-"Under" = "Under";
-
 /* Price View Screen */
 "Under %@" = "Under %@";
 
 /* Proposal Detail View */
 "Votes Result" = "Votes Result";
 
-/* Proposal Detail View */
+/* No comment provided by engineer. */
 "WiFi" = "WiFi";
 
 /* Proposal Detail View */
 "Yes" = "Yes";
-
-/* Price Alert Screen */
-"You must imput a value" = "You must imput a value";
 
 /* Price Alert Screen */
 "You must input a value" = "You must input a value";
