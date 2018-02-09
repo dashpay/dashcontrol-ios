@@ -15,6 +15,7 @@
 #import "DCWalletManager.h"
 #import "DCBackendManager.h"
 #import "DCEnvironment.h"
+#import "Injections.h"
 
 #define kRSSFeedViewControllerIndex 0
 #define kProposalsViewControllerIndex 2
@@ -73,6 +74,9 @@ static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    // DI
+    [Injections activate];
     
     self.persistentContainer.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     self.persistentContainer.viewContext.automaticallyMergesChangesFromParent = TRUE;

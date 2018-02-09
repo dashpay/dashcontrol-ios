@@ -51,5 +51,6 @@
 #import "DCProposalsManager.h"
 #import "NSArray+SWAdditions.h"
 
+#import "RunOnMain.h"
 
 #endif /* DashControl_PrefixHeader_pch */

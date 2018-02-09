@@ -47,6 +47,22 @@
 		24FC99F71F5EA0F40054C2A8 /* iconReply@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24FC99F31F5EA0F40054C2A8 /* iconReply@2x.png */; };
 		24FE25491F4C7ECE00E32652 /* DCBackendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE25481F4C7ECE00E32652 /* DCBackendManager.m */; };
 		24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE254B1F4C82C900E32652 /* PriceViewController.m */; };
+		2A04E6DB202DA5E20065F30D /* HTTPLoaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6B2202DA5E20065F30D /* HTTPLoaderManager.m */; };
+		2A04E6DC202DA5E20065F30D /* HTTPLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6B4202DA5E20065F30D /* HTTPLoaderOperation.m */; };
+		2A04E6DD202DA5E20065F30D /* HTTPRateLimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6B9202DA5E20065F30D /* HTTPRateLimiter.m */; };
+		2A04E6DE202DA5E20065F30D /* HTTPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6BB202DA5E20065F30D /* HTTPResponse.m */; };
+		2A04E6DF202DA5E20065F30D /* HTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6BF202DA5E20065F30D /* HTTPRequestOperation.m */; };
+		2A04E6E0202DA5E20065F30D /* HTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6C1202DA5E20065F30D /* HTTPRequest.m */; };
+		2A04E6E1202DA5E20065F30D /* HTTPLoaderFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6C2202DA5E20065F30D /* HTTPLoaderFactory.m */; };
+		2A04E6E2202DA5E20065F30D /* HTTPLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6C5202DA5E20065F30D /* HTTPLoader.m */; };
+		2A04E6E3202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6CB202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m */; };
+		2A04E6E4202DA5E20065F30D /* HTTPCancellationTokenImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6CC202DA5E20065F30D /* HTTPCancellationTokenImpl.m */; };
+		2A04E6E5202DA5E20065F30D /* HTTPURLRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6CE202DA5E20065F30D /* HTTPURLRequestBuilder.m */; };
+		2A04E6E6202DA5E20065F30D /* NetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6D3202DA5E20065F30D /* NetworkActivityIndicatorManager.m */; };
+		2A04E6E7202DA5E20065F30D /* HTTPRateLimiterMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6D6202DA5E20065F30D /* HTTPRateLimiterMap.m */; };
+		2A04E6E8202DA5E20065F30D /* HTTPService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6D8202DA5E20065F30D /* HTTPService.m */; };
+		2A04E6E9202DA5E20065F30D /* Injections.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6DA202DA5E20065F30D /* Injections.m */; };
+		2A04E6ED202DAB340065F30D /* RunOnMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6EB202DAB340065F30D /* RunOnMain.m */; };
 		8B0BD619FFF877813DC0386A /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */; };
 		FB17AEE31FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AED81FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m */; };
 		FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AEDA1FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m */; };
@@ -220,6 +236,49 @@
 		24FE25481F4C7ECE00E32652 /* DCBackendManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCBackendManager.m; sourceTree = "<group>"; };
 		24FE254A1F4C82C900E32652 /* PriceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PriceViewController.h; sourceTree = "<group>"; };
 		24FE254B1F4C82C900E32652 /* PriceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PriceViewController.m; sourceTree = "<group>"; };
+		2A04E6AE202DA5E20065F30D /* Injections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Injections.h; sourceTree = "<group>"; };
+		2A04E6B1202DA5E20065F30D /* HTTPLoaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderOperation.h; sourceTree = "<group>"; };
+		2A04E6B2202DA5E20065F30D /* HTTPLoaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPLoaderManager.m; sourceTree = "<group>"; };
+		2A04E6B3202DA5E20065F30D /* HTTPLoaderBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderBlocks.h; sourceTree = "<group>"; };
+		2A04E6B4202DA5E20065F30D /* HTTPLoaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPLoaderOperation.m; sourceTree = "<group>"; };
+		2A04E6B5202DA5E20065F30D /* HTTPLoaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderManager.h; sourceTree = "<group>"; };
+		2A04E6B6202DA5E20065F30D /* HTTPLoaderOperationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderOperationProtocol.h; sourceTree = "<group>"; };
+		2A04E6B7202DA5E20065F30D /* HTTPLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoader.h; sourceTree = "<group>"; };
+		2A04E6B8202DA5E20065F30D /* HTTPLoaderAuthoriser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderAuthoriser.h; sourceTree = "<group>"; };
+		2A04E6B9202DA5E20065F30D /* HTTPRateLimiter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRateLimiter.m; sourceTree = "<group>"; };
+		2A04E6BA202DA5E20065F30D /* HTTPLoaderFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderFactory.h; sourceTree = "<group>"; };
+		2A04E6BB202DA5E20065F30D /* HTTPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPResponse.m; sourceTree = "<group>"; };
+		2A04E6BC202DA5E20065F30D /* HTTPRequestOperationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRequestOperationHandler.h; sourceTree = "<group>"; };
+		2A04E6BD202DA5E20065F30D /* HTTPService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPService.h; sourceTree = "<group>"; };
+		2A04E6BE202DA5E20065F30D /* HTTPLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderDelegate.h; sourceTree = "<group>"; };
+		2A04E6BF202DA5E20065F30D /* HTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRequestOperation.m; sourceTree = "<group>"; };
+		2A04E6C0202DA5E20065F30D /* HTTPRateLimiterMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRateLimiterMap.h; sourceTree = "<group>"; };
+		2A04E6C1202DA5E20065F30D /* HTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRequest.m; sourceTree = "<group>"; };
+		2A04E6C2202DA5E20065F30D /* HTTPLoaderFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPLoaderFactory.m; sourceTree = "<group>"; };
+		2A04E6C3202DA5E20065F30D /* HTTPCancellationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPCancellationToken.h; sourceTree = "<group>"; };
+		2A04E6C4202DA5E20065F30D /* HTTPRateLimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRateLimiter.h; sourceTree = "<group>"; };
+		2A04E6C5202DA5E20065F30D /* HTTPLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPLoader.m; sourceTree = "<group>"; };
+		2A04E6C7202DA5E20065F30D /* HTTPCancellationTokenImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPCancellationTokenImpl.h; sourceTree = "<group>"; };
+		2A04E6C8202DA5E20065F30D /* SPTDataLoaderExponentialTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTDataLoaderExponentialTimer.h; sourceTree = "<group>"; };
+		2A04E6C9202DA5E20065F30D /* HTTPURLRequestBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPURLRequestBuilder.h; sourceTree = "<group>"; };
+		2A04E6CA202DA5E20065F30D /* HTTPLoader+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPLoader+Private.h"; sourceTree = "<group>"; };
+		2A04E6CB202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTDataLoaderExponentialTimer.m; sourceTree = "<group>"; };
+		2A04E6CC202DA5E20065F30D /* HTTPCancellationTokenImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPCancellationTokenImpl.m; sourceTree = "<group>"; };
+		2A04E6CD202DA5E20065F30D /* HTTPResponse+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPResponse+Private.h"; sourceTree = "<group>"; };
+		2A04E6CE202DA5E20065F30D /* HTTPURLRequestBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPURLRequestBuilder.m; sourceTree = "<group>"; };
+		2A04E6CF202DA5E20065F30D /* HTTPRequest+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPRequest+Private.h"; sourceTree = "<group>"; };
+		2A04E6D0202DA5E20065F30D /* HTTPLoaderFactory+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPLoaderFactory+Private.h"; sourceTree = "<group>"; };
+		2A04E6D1202DA5E20065F30D /* HTTPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPResponse.h; sourceTree = "<group>"; };
+		2A04E6D3202DA5E20065F30D /* NetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
+		2A04E6D4202DA5E20065F30D /* NetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
+		2A04E6D5202DA5E20065F30D /* HTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRequest.h; sourceTree = "<group>"; };
+		2A04E6D6202DA5E20065F30D /* HTTPRateLimiterMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRateLimiterMap.m; sourceTree = "<group>"; };
+		2A04E6D7202DA5E20065F30D /* HTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRequestOperation.h; sourceTree = "<group>"; };
+		2A04E6D8202DA5E20065F30D /* HTTPService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPService.m; sourceTree = "<group>"; };
+		2A04E6D9202DA5E20065F30D /* Networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Networking.h; sourceTree = "<group>"; };
+		2A04E6DA202DA5E20065F30D /* Injections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Injections.m; sourceTree = "<group>"; };
+		2A04E6EB202DAB340065F30D /* RunOnMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunOnMain.m; sourceTree = "<group>"; };
+		2A04E6EC202DAB340065F30D /* RunOnMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunOnMain.h; sourceTree = "<group>"; };
 		481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
 		6385EAF7B5AD9CDA2429BFAE /* Pods-DashControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.debug.xcconfig"; sourceTree = "<group>"; };
 		742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -609,6 +668,104 @@
 			name = Price;
 			sourceTree = "<group>";
 		};
+		2A04E6AC202DA5E20065F30D /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				2A04E6EA202DAB340065F30D /* Helpers */,
+				2A04E6AD202DA5E20065F30D /* Services */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		2A04E6AD202DA5E20065F30D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2A04E6AF202DA5E20065F30D /* Networking */,
+				2A04E6AE202DA5E20065F30D /* Injections.h */,
+				2A04E6DA202DA5E20065F30D /* Injections.m */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		2A04E6AF202DA5E20065F30D /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				2A04E6D2202DA5E20065F30D /* Additional */,
+				2A04E6B0202DA5E20065F30D /* Blocks */,
+				2A04E6C6202DA5E20065F30D /* Private */,
+				2A04E6C3202DA5E20065F30D /* HTTPCancellationToken.h */,
+				2A04E6B7202DA5E20065F30D /* HTTPLoader.h */,
+				2A04E6C5202DA5E20065F30D /* HTTPLoader.m */,
+				2A04E6B8202DA5E20065F30D /* HTTPLoaderAuthoriser.h */,
+				2A04E6BE202DA5E20065F30D /* HTTPLoaderDelegate.h */,
+				2A04E6BA202DA5E20065F30D /* HTTPLoaderFactory.h */,
+				2A04E6C2202DA5E20065F30D /* HTTPLoaderFactory.m */,
+				2A04E6C4202DA5E20065F30D /* HTTPRateLimiter.h */,
+				2A04E6B9202DA5E20065F30D /* HTTPRateLimiter.m */,
+				2A04E6C0202DA5E20065F30D /* HTTPRateLimiterMap.h */,
+				2A04E6D6202DA5E20065F30D /* HTTPRateLimiterMap.m */,
+				2A04E6D5202DA5E20065F30D /* HTTPRequest.h */,
+				2A04E6C1202DA5E20065F30D /* HTTPRequest.m */,
+				2A04E6D7202DA5E20065F30D /* HTTPRequestOperation.h */,
+				2A04E6BF202DA5E20065F30D /* HTTPRequestOperation.m */,
+				2A04E6BC202DA5E20065F30D /* HTTPRequestOperationHandler.h */,
+				2A04E6D1202DA5E20065F30D /* HTTPResponse.h */,
+				2A04E6BB202DA5E20065F30D /* HTTPResponse.m */,
+				2A04E6BD202DA5E20065F30D /* HTTPService.h */,
+				2A04E6D8202DA5E20065F30D /* HTTPService.m */,
+				2A04E6D9202DA5E20065F30D /* Networking.h */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		2A04E6B0202DA5E20065F30D /* Blocks */ = {
+			isa = PBXGroup;
+			children = (
+				2A04E6B3202DA5E20065F30D /* HTTPLoaderBlocks.h */,
+				2A04E6B5202DA5E20065F30D /* HTTPLoaderManager.h */,
+				2A04E6B2202DA5E20065F30D /* HTTPLoaderManager.m */,
+				2A04E6B1202DA5E20065F30D /* HTTPLoaderOperation.h */,
+				2A04E6B4202DA5E20065F30D /* HTTPLoaderOperation.m */,
+				2A04E6B6202DA5E20065F30D /* HTTPLoaderOperationProtocol.h */,
+			);
+			path = Blocks;
+			sourceTree = "<group>";
+		};
+		2A04E6C6202DA5E20065F30D /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				2A04E6C7202DA5E20065F30D /* HTTPCancellationTokenImpl.h */,
+				2A04E6CC202DA5E20065F30D /* HTTPCancellationTokenImpl.m */,
+				2A04E6CA202DA5E20065F30D /* HTTPLoader+Private.h */,
+				2A04E6D0202DA5E20065F30D /* HTTPLoaderFactory+Private.h */,
+				2A04E6CF202DA5E20065F30D /* HTTPRequest+Private.h */,
+				2A04E6CD202DA5E20065F30D /* HTTPResponse+Private.h */,
+				2A04E6C9202DA5E20065F30D /* HTTPURLRequestBuilder.h */,
+				2A04E6CE202DA5E20065F30D /* HTTPURLRequestBuilder.m */,
+				2A04E6C8202DA5E20065F30D /* SPTDataLoaderExponentialTimer.h */,
+				2A04E6CB202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
+		2A04E6D2202DA5E20065F30D /* Additional */ = {
+			isa = PBXGroup;
+			children = (
+				2A04E6D4202DA5E20065F30D /* NetworkActivityIndicatorManager.h */,
+				2A04E6D3202DA5E20065F30D /* NetworkActivityIndicatorManager.m */,
+			);
+			path = Additional;
+			sourceTree = "<group>";
+		};
+		2A04E6EA202DAB340065F30D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				2A04E6EC202DAB340065F30D /* RunOnMain.h */,
+				2A04E6EB202DAB340065F30D /* RunOnMain.m */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		3A3DCF867D724725B2BA999A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -728,6 +885,7 @@
 		FB84EDBF1F32898700E4D400 /* DashControl */ = {
 			isa = PBXGroup;
 			children = (
+				2A04E6AC202DA5E20065F30D /* Sources */,
 				FB4310FA1FA2A2E600784EBC /* Persistence */,
 				FB4310F21FA204F700784EBC /* Server */,
 				FBEF66EB1F83DBEF003424D2 /* Utils */,
@@ -1225,7 +1383,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which bartycrouch > /dev/null; then\n# Incrementally update all Storyboards/XIBs strings files\nbartycrouch interfaces -p \"$PROJECT_DIR\"\n\n# Add new keys to Localizable.strings files from NSLocalizedString in code\nbartycrouch code -p \"$PROJECT_DIR\" -l \"$PROJECT_DIR\" -a -s -k\nelse\necho \"warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch\"\nfi";
+			shellScript = "if which bartycrouch > /dev/null; then\n# Incrementally update all Storyboards/XIBs strings files\nbartycrouch interfaces -p \"$PROJECT_DIR\"\n\n# Add new keys to Localizable.strings files from NSLocalizedString in code\nbartycrouch code -p \"$PROJECT_DIR\" -l \"$PROJECT_DIR\" -c -s -k\nelse\necho \"warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1245,33 +1403,45 @@
 			files = (
 				24A2159C1F52C5E900A63311 /* DCBudgetEntity+CoreDataProperties.m in Sources */,
 				FB9CC1621F83E38D0079309F /* NSString+Dash.m in Sources */,
+				2A04E6E2202DA5E20065F30D /* HTTPLoader.m in Sources */,
 				FB4310D71F9DA96700784EBC /* DCWalletManager.m in Sources */,
 				FB9CC1631F83E38F0079309F /* UIImage+Sugar.m in Sources */,
+				2A04E6E9202DA5E20065F30D /* Injections.m in Sources */,
+				2A04E6E7202DA5E20065F30D /* HTTPRateLimiterMap.m in Sources */,
 				24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */,
 				FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */,
 				241719E41F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m in Sources */,
+				2A04E6DB202DA5E20065F30D /* HTTPLoaderManager.m in Sources */,
+				2A04E6DC202DA5E20065F30D /* HTTPLoaderOperation.m in Sources */,
 				24438DEF1F5FCE7D00763A14 /* ProposalDetailViewController.m in Sources */,
+				2A04E6E1202DA5E20065F30D /* HTTPLoaderFactory.m in Sources */,
 				24438DF31F5FEA6600763A14 /* ProposalHeaderView.m in Sources */,
+				2A04E6E0202DA5E20065F30D /* HTTPRequest.m in Sources */,
 				FB4550DE1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataProperties.m in Sources */,
 				FB25EA301FAF8509000B41BE /* TriggerTypeTableViewCell.m in Sources */,
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
 				FB9CC1861F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m in Sources */,
 				FBE1F50D1F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m in Sources */,
+				2A04E6ED202DAB340065F30D /* RunOnMain.m in Sources */,
 				FBEBE5421F5802DE0056D921 /* DCChartTimeFormatter.m in Sources */,
+				2A04E6E8202DA5E20065F30D /* HTTPService.m in Sources */,
 				249A402F1F62715700155636 /* ProposalScopeButtonsView.m in Sources */,
 				24E584101F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.m in Sources */,
 				24C86F091F5EC09900735785 /* ProposalDetailVotesResultTableViewCell.m in Sources */,
 				FB4310F51FA2142700784EBC /* DCEnvironment.m in Sources */,
 				FB9CC1611F83E38A0079309F /* NSData+Dash.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
+				2A04E6DD202DA5E20065F30D /* HTTPRateLimiter.m in Sources */,
 				FB1F8AB01FBCABD200175311 /* BRBIP39Mnemonic.m in Sources */,
 				FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */,
 				FB9CC1801F83E45F0079309F /* DCMasternodeEntity+CoreDataClass.m in Sources */,
 				241719E31F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m in Sources */,
+				2A04E6E3202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m in Sources */,
 				FB300E371FB5599400B3CDE0 /* BRScanViewController.m in Sources */,
 				FB9CC1881F83E8000079309F /* NSMutableData+Dash.m in Sources */,
 				FB4550D71FB1C1A4001CC1ED /* DCWalletEntity+CoreDataClass.m in Sources */,
 				FBEBE5461F5986510056D921 /* DCCoreDataManager.m in Sources */,
+				2A04E6E4202DA5E20065F30D /* HTTPCancellationTokenImpl.m in Sources */,
 				FBE1F50E1F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.m in Sources */,
 				24E5841C1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m in Sources */,
 				FB9CC1841F83E45F0079309F /* DCMasternodeEntity+CoreDataProperties.m in Sources */,
@@ -1280,6 +1450,7 @@
 				241719D81F4DA4C60045C2D6 /* DCProposalsManager.m in Sources */,
 				FB3BEBBE1FB32AF000C8974E /* PriceInfoTableViewCell.m in Sources */,
 				24C86EFD1F5EC04100735785 /* ProposalDetailNameTableViewCell.m in Sources */,
+				2A04E6DE202DA5E20065F30D /* HTTPResponse.m in Sources */,
 				FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */,
 				24A2159B1F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m in Sources */,
 				FBE1F50C1F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.m in Sources */,
@@ -1289,6 +1460,7 @@
 				FB9CC1AA1F87D4A60079309F /* BRKey+BIP38.m in Sources */,
 				FB4550CC1FAFABD6001CC1ED /* DCTrigger.m in Sources */,
 				FB9CC1AB1F87D4A60079309F /* BRKey.m in Sources */,
+				2A04E6E5202DA5E20065F30D /* HTTPURLRequestBuilder.m in Sources */,
 				24E584111F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.m in Sources */,
 				24C6C6361F544268007F3671 /* ProposalsViewController.m in Sources */,
 				24FE25491F4C7ECE00E32652 /* DCBackendManager.m in Sources */,
@@ -1306,6 +1478,7 @@
 				241719E11F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m in Sources */,
 				FB4F93BA1F82528F0078E259 /* PortfolioViewController.m in Sources */,
 				FB9CC1911F84BB0D0079309F /* AddMasternodeViewController.m in Sources */,
+				2A04E6E6202DA5E20065F30D /* NetworkActivityIndicatorManager.m in Sources */,
 				FB17AEE51FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m in Sources */,
 				FBE1F5091F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m in Sources */,
 				24C86F061F5EC08500735785 /* ProposalDetailCompletedPaymentsTableViewCell.m in Sources */,
@@ -1319,6 +1492,7 @@
 				24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */,
 				FB4550DD1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataClass.m in Sources */,
 				24E584181F3AF18A00A12087 /* RSSFeedListViewController.m in Sources */,
+				2A04E6DF202DA5E20065F30D /* HTTPRequestOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
