@@ -1,0 +1,24 @@
+
+/* No comment provided by engineer. */
+"Expected URL to be a file URL" = "Expected URL to be a file URL";
+
+/* No comment provided by engineer. */
+"File URL not reachable." = "File URL not reachable.";
+
+/* No comment provided by engineer. */
+"Not Reachable" = "Not Reachable";
+
+/* No comment provided by engineer. */
+"Reachable via WiFi" = "Reachable via WiFi";
+
+/* No comment provided by engineer. */
+"Reachable via WWAN" = "Reachable via WWAN";
+
+/* No comment provided by engineer. */
+"Request failed: %@ (%ld)" = "Request failed: %1$@ (%2$ld)";
+
+/* No comment provided by engineer. */
+"Request failed: unacceptable content-type: %@" = "Request failed: unacceptable content-type: %@";
+
+/* No comment provided by engineer. */
+"Unknown" = "Unknown";
