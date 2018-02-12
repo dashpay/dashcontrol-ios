@@ -14,6 +14,7 @@
 #import <sys/utsname.h>
 #import "NSURL+Sugar.h"
 #import "DCEnvironment.h"
+#import "Networking.h"
 
 #define DASHCONTROL_SERVER_VERSION 0
 
@@ -36,7 +37,6 @@
 @interface DCBackendManager ()
 @property (nonatomic, strong) Reachability *reachability;
 @property (nonatomic, strong) NSDateFormatter * dateFormatter;
-@property (nonatomic, strong) AFHTTPSessionManager * authenticatedManager;
 @end
 
 @implementation DCBackendManager
@@ -174,43 +174,35 @@
     
 }
 
--(AFHTTPSessionManager*)authenticatedManager {
-    
-    if (!_authenticatedManager) {
-        @synchronized(self) {
-            if (!_authenticatedManager) { //a second time, this time synchronized
-                AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-                [manager.requestSerializer setAuthorizationHeaderFieldWithUsername:[[DCEnvironment sharedInstance] deviceId] password:[[DCEnvironment sharedInstance] devicePassword]];
-                self.authenticatedManager = manager;
-            }
-        }
-    }
-    return _authenticatedManager;
-    
-}
-
 #pragma mark - Import Chart Data
 
 
 -(void)fetchMarkets:(void (^)(NSError * error, NSUInteger defaultExchangeIdentifier, NSUInteger defaultMarketIdentifier))clb {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager GET:DASHCONTROL_URL(@"markets") parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+    NSURL *url = [NSURL URLWithString:DASHCONTROL_URL(@"markets")];
+    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:nil];
+    [self.httpManager sendRequest:request completion:^(id  _Nullable parsedData, NSDictionary * _Nullable responseHeaders, NSInteger statusCode, NSError * _Nullable error) {
+        if (error) {
+            // TODO: handle error
+            NSLog(@"%@", error);
+            return;
+        }
+        
         NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
         [container performBackgroundTask:^(NSManagedObjectContext *context) {
             DCMarketEntity * defaultMarket = nil;
             DCExchangeEntity * defaultExchange = nil;
             NSString * defaultMarketName = nil;
             NSString * defaultExchangeName = nil;
-            if ([responseObject objectForKey:@"default"]) {
-                NSDictionary * defaultMarketplace = [responseObject objectForKey:@"default"];
+            if ([parsedData objectForKey:@"default"]) {
+                NSDictionary * defaultMarketplace = [parsedData objectForKey:@"default"];
                 if ([defaultMarketplace objectForKey:@"exchange"] && [defaultMarketplace objectForKey:@"market"]) {
                     defaultMarketName = [defaultMarketplace objectForKey:@"market"];
                     defaultExchangeName = [defaultMarketplace objectForKey:@"exchange"];
                 }
             }
-            if ([responseObject objectForKey:@"markets"]) {
-                NSArray * markets = [[responseObject objectForKey:@"markets"] allKeys];
-                NSArray * exchanges = [[[responseObject objectForKey:@"markets"] allValues] valueForKeyPath: @"@distinctUnionOfArrays.self"];
+            if ([parsedData objectForKey:@"markets"]) {
+                NSArray * markets = [[parsedData objectForKey:@"markets"] allKeys];
+                NSArray * exchanges = [[[parsedData objectForKey:@"markets"] allValues] valueForKeyPath: @"@distinctUnionOfArrays.self"];
                 NSError * error = nil;
                 NSMutableArray * knownMarkets = [[[DCCoreDataManager sharedInstance] marketsForNames:markets inContext:context error:&error] mutableCopy];
                 NSMutableArray * knownExchanges = error?nil:[[[DCCoreDataManager sharedInstance] exchangesForNames:exchanges inContext:context error:&error] mutableCopy];
@@ -260,7 +252,7 @@
                 if (!error) {
                     NSDictionary * exchangeDictionary = [knownExchanges dictionaryReferencedByKeyPath:@"name"];
                     for (DCMarketEntity * market in knownMarkets) {
-                        NSArray * serverExchangesForMarket = [[responseObject objectForKey:@"markets"] objectForKey:market.name];
+                        NSArray * serverExchangesForMarket = [[parsedData objectForKey:@"markets"] objectForKey:market.name];
                         NSArray * knownExchangesForMarket = [[market.onExchanges allObjects] arrayReferencedByKeyPath:@"name"];
                         NSArray * novelExchangesForMarket = [serverExchangesForMarket arrayByRemovingObjectsFromArray:knownExchangesForMarket];
                         for (NSString * novelExchangeForMarket in novelExchangesForMarket) {
@@ -282,10 +274,7 @@
                     });
                 }
             }
-            
         }];
-    } failure:^(NSURLSessionTask *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
     }];
 }
 
@@ -563,6 +552,7 @@
 #pragma mark - Registering
 
 -(void)registerDeviceForDeviceToken:(NSData*)deviceToken {
+    NSURL *url = [NSURL URLWithString:DASHCONTROL_URL(@"device")];
     
     struct utsname systemInfo;
     uname(&systemInfo);
@@ -571,8 +561,6 @@
     NSString *token_string = [[[[deviceToken description]    stringByReplacingOccurrencesOfString:@"<"withString:@""]
                                stringByReplacingOccurrencesOfString:@">" withString:@""]
                               stringByReplacingOccurrencesOfString: @" " withString: @""];
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     
     NSMutableDictionary* parameters = [@{
@@ -588,77 +576,99 @@
     if (token_string && ![token_string isEqualToString:@""]) {
         [parameters setObject:token_string forKey:@"token"];
     }
-    
-    [manager POST:DASHCONTROL_URL(@"device") parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [[DCEnvironment sharedInstance] setHasRegistered];
-        NSLog(@"Device registered %@", token_string);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"URL Session Task Failed: %@", [error localizedDescription]);
+    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_POST parameters:parameters];
+    [self.httpManager sendRequest:request completion:^(id  _Nullable parsedData, NSDictionary * _Nullable responseHeaders, NSInteger statusCode, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"%@", error);
+        }
+        else {
+            [[DCEnvironment sharedInstance] setHasRegistered];
+        }
     }];
 }
 
 #pragma mark - Trigger
 
 -(void)postTrigger:(DCTrigger* _Nonnull)trigger completion:(void (^ _Nullable)(NSError * _Nullable error,NSUInteger statusCode, id  _Nullable responseObject))completion {
-    [self.authenticatedManager POST:DASHCONTROL_URL(@"trigger") parameters: @{ @"value":trigger.value, @"type":[DCTrigger networkStringForType:trigger.type], @"market":trigger.market, @"exchange":trigger.exchange?trigger.exchange:@"any", @"standardize_tether":@(trigger.standardizeTether)} progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-        if (completion) completion(nil,httpResponse.statusCode,responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-        if (completion) completion(error,httpResponse.statusCode,nil);
+    NSURL *url = [NSURL URLWithString:DASHCONTROL_URL(@"trigger")];
+    NSDictionary *parameters = @{
+                                 @"value": trigger.value,
+                                 @"type": [DCTrigger networkStringForType:trigger.type],
+                                 @"market": trigger.market,
+                                 @"exchange": trigger.exchange ? trigger.exchange : @"any",
+                                 @"standardize_tether": @(trigger.standardizeTether)
+                                 };
+    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_POST parameters:parameters];
+    [self sendAuthorizedRequest:request completion:^(id  _Nullable parsedData, NSDictionary * _Nullable responseHeaders, NSInteger statusCode, NSError * _Nullable error) {
+        if (completion) {
+            completion(error, statusCode, parsedData);
+        }
     }];
 }
 
 -(void)deleteTriggerWithId:(u_int64_t)triggerId completion:(void (^ _Nullable)(NSError * _Nullable error,NSUInteger statusCode, id  _Nullable responseObject))completion {
-    [self.authenticatedManager DELETE:DASHCONTROL_MODIFY_URL(@"trigger",@(triggerId)) parameters: @{}
-                              success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                  NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-                                  if (completion) completion(nil,httpResponse.statusCode,responseObject);
-                              } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                                  NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-                                  if (completion) completion(error,httpResponse.statusCode,nil);
-                              }];
+    NSURL *url = [NSURL URLWithString:DASHCONTROL_MODIFY_URL(@"trigger", @(triggerId))];
+    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_DELETE parameters:nil];
+    [self sendAuthorizedRequest:request completion:^(id  _Nullable parsedData, NSDictionary * _Nullable responseHeaders, NSInteger statusCode, NSError * _Nullable error) {
+        if (completion) {
+            completion(error, statusCode, parsedData);
+        }
+    }];
 }
 
 
 -(void)getTriggers:(void (^)(NSError * error,NSUInteger statusCode, NSArray * triggers))completion {
-    [self.authenticatedManager GET:DASHCONTROL_URL(@"trigger") parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-        if (completion) completion(nil,httpResponse.statusCode,responseObject);
-    } failure:^(NSURLSessionTask *task, NSError *error) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-        if (completion) completion(error,httpResponse.statusCode,nil);
+    NSURL *url = [NSURL URLWithString:DASHCONTROL_URL(@"trigger")];
+    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:nil];
+    [self sendAuthorizedRequest:request completion:^(id  _Nullable parsedData, NSDictionary * _Nullable responseHeaders, NSInteger statusCode, NSError * _Nullable error) {
+        if (completion) {
+            completion(error, statusCode, parsedData);
+        }
     }];
 }
 
 #pragma mark - Balances
 
 -(void)getBalancesInAddresses:(NSArray* _Nonnull)addresses  completion:(void (^ _Nullable)(NSError * _Nullable error,NSUInteger statusCode, NSArray * _Nullable responseObject))completion {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSURL *url = [NSURL URLWithString:DASHCONTROL_URL(@"address_info")];
     NSDictionary* parameters =@{
-       @"addresses": addresses,
-       };
-    [manager POST:DASHCONTROL_URL(@"address_info") parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-        if (completion) completion(nil,httpResponse.statusCode,responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-        if (completion) completion(error,httpResponse.statusCode,nil);
+                                @"addresses": addresses,
+                                };
+    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_POST parameters:parameters];
+    [self.httpManager sendRequest:request completion:^(id  _Nullable parsedData, NSDictionary * _Nullable responseHeaders, NSInteger statusCode, NSError * _Nullable error) {
+        if (completion) {
+            completion(error, statusCode, parsedData);
+        }
     }];
 }
 
 #pragma mark - Notifications
 
 -(void)updateBloomFilter:(DCServerBloomFilter*)filter completion:(void (^)(NSError * error))completion {
-    [self.authenticatedManager POST:DASHCONTROL_URL(@"filter") parameters:@{@"filter":[filter.filterData base64EncodedStringWithOptions:0],@"filter_length":@(filter.length),@"hash_count":@(filter.hashFuncs)} progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (completion) completion(nil);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (completion) completion(error);
+    NSURL *url = [NSURL URLWithString:DASHCONTROL_URL(@"filter")];
+    NSDictionary *parameters = @{
+                                 @"filter": [filter.filterData base64EncodedStringWithOptions:kNilOptions],
+                                 @"filter_length": @(filter.length),
+                                 @"hash_count": @(filter.hashFuncs),
+                                 };
+    
+    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_POST parameters:parameters];
+    [self sendAuthorizedRequest:request completion:^(id  _Nullable parsedData, NSDictionary * _Nullable responseHeaders, NSInteger statusCode, NSError * _Nullable error) {
+        if (completion) {
+            completion(error);
+        }
     }];
+}
+
+#pragma mark - Private
+
+- (void)sendAuthorizedRequest:(HTTPRequest *)request completion:(HTTPLoaderCompletionBlock)completion {
+    NSString *username = [[DCEnvironment sharedInstance] deviceId];
+    NSString *password = [[DCEnvironment sharedInstance] devicePassword];
+    NSData *basicAuthCredentials = [[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *base64AuthCredentials = [basicAuthCredentials base64EncodedStringWithOptions:kNilOptions];
+    [request addValue:[NSString stringWithFormat:@"Basic %@", base64AuthCredentials] forHeader:@"Authorization"];
+    [self.httpManager sendRequest:request completion:completion];
 }
 
 @end

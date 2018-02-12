@@ -10,7 +10,11 @@
 
 #define PORTFOLIO_DID_UPDATE_NOTIFICATION @"PORTFOLIO_DID_UPDATE_NOTIFICATION"
 
+@class HTTPLoaderManager;
+
 @interface DCPortfolioManager : NSObject
+
+@property (nonatomic, strong, nonnull) InjectedClass(HTTPLoaderManager) httpManager;
 
 @property (nonatomic, strong) NSManagedObjectContext * _Nullable managedObjectContext;
 

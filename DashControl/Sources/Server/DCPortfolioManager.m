@@ -12,6 +12,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "DCWalletAddressEntity+CoreDataClass.h"
 #import "DCBackendManager.h"
+#import "Networking.h"
 
 #define INSIGHT_API_URL @"https://insight.dash.org/insight-api-dash"
 
@@ -43,12 +44,13 @@
 }
 
 -(void)amountAtAddress:(NSString*)address clb:(void (^)(uint64_t amount,NSError * _Nullable error))clb {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSString * addr = [NSString stringWithFormat:@"%@/addr/%@",INSIGHT_API_URL,address];
-    [manager GET:addr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        clb(0,nil);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        clb(0,error);
+    NSString *urlString = [NSString stringWithFormat:@"%@/addr/%@",INSIGHT_API_URL,address];
+    NSURL *url = [NSURL URLWithString:urlString];
+    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:nil];
+    [self.httpManager sendRequest:request completion:^(id  _Nullable parsedData, NSDictionary * _Nullable responseHeaders, NSInteger statusCode, NSError * _Nullable error) {
+        if (clb) {
+            clb(0, error);
+        }
     }];
 }
 

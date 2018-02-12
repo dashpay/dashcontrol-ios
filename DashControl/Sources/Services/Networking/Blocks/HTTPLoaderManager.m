@@ -35,6 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
     return [self sendRequest:httpRequest factory:self.factory completion:completion];
 }
 
+- (id<HTTPLoaderOperationProtocol>)sendRequest:(HTTPRequest *)httpRequest rawCompletion:(HTTPLoaderRawCompletionBlock)rawCompletion {
+    return [self sendRequest:httpRequest factory:self.factory rawCompletion:rawCompletion];
+}
+
 - (id<HTTPLoaderOperationProtocol>)sendRequest:(HTTPRequest *)httpRequest
                                        factory:(HTTPLoaderFactory *)factory
                                     completion:(HTTPLoaderCompletionBlock)completion {

@@ -8,7 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class HTTPLoaderManager;
+
 @interface DCRSSFeedManager : NSObject
+
+@property (nonatomic, strong, nonnull) InjectedClass(HTTPLoaderManager) httpManager;
 
 @property (nonatomic, strong) NSManagedObjectContext * _Nullable managedObjectContext;
 

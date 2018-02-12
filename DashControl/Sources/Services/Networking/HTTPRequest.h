@@ -47,6 +47,9 @@ extern NSString *const HTTPRequestErrorDomain;
 @property (assign, nonatomic) NSUInteger maximumRetryCount;
 @property (copy, nonatomic) NSDictionary *userInfo;
 
++ (instancetype)requestWithURL:(NSURL *)URL
+                        method:(HTTPRequestMethod)method
+                    parameters:(nullable NSDictionary *)parameters;
 - (instancetype)initWithURL:(NSURL *)URL
                      method:(HTTPRequestMethod)method
                 contentType:(HTTPContentType)contentType

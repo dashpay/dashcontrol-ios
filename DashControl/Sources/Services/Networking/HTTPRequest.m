@@ -43,6 +43,17 @@ static NSString *NSStringFromHTTPRequestMethod(HTTPRequestMethod requestMethod) 
 
 @implementation HTTPRequest
 
++ (instancetype)requestWithURL:(NSURL *)URL
+                        method:(HTTPRequestMethod)method
+                    parameters:(nullable NSDictionary *)parameters {
+    return [[[self class] alloc] initWithURL:URL
+                                      method:method
+                                 contentType:HTTPContentType_UrlEncoded
+                                  parameters:parameters
+                                        body:nil
+                            sourceIdentifier:nil];
+}
+
 - (instancetype)initWithURL:(NSURL *)URL
                      method:(HTTPRequestMethod)method
                 contentType:(HTTPContentType)contentType

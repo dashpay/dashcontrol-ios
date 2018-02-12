@@ -8,6 +8,8 @@
 
 #import "DCRSSFeedManager.h"
 
+#import "Networking.h"
+
 #define DASH_RSS_PREFIX_URL @"https://www.dash.org"
 #define DASH_RSS_SUFFIX_URL @"rss/dash_blog_rss.xml"
 
@@ -114,21 +116,27 @@
     if (self.reachability.currentReachabilityStatus == NotReachable) return;
     
     NSURL *URL = [NSURL URLWithString:feedURL.absoluteString];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    //manager.responseSerializer.acceptableContentTypes =  [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/xml"];
-    [manager GET:URL.absoluteString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-        [self parseXML:responseObject forLanguage:feedLanguage];
-    } failure:^(NSURLSessionTask *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        /*
-         NSHTTPURLResponse *response = (NSHTTPURLResponse *) [operation response];
-         NSInteger statusCode = [response statusCode];
-         if (statusCode == 404) {
-         //We may want to remove feedLanguage from available languages array
-         }
-         */
+    
+    HTTPRequest *request = [HTTPRequest requestWithURL:URL method:HTTPRequestMethod_GET parameters:nil];
+    __weak typeof(self) weakSelf = self;
+    [self.httpManager sendRequest:request rawCompletion:^(BOOL success, BOOL cancelled, HTTPResponse * _Nullable response) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) {
+            return;
+        }
+
+        if (cancelled) {
+            return;
+        }
+        
+        if (success) {
+            [strongSelf parseXML:response.body forLanguage:feedLanguage];
+        }
+        else {
+            // TODO: display error state
+        }
     }];
+
 }
 
 -(void)parseXML:(id)responseObject forLanguage:(NSString *)language {

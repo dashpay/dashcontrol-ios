@@ -13,7 +13,11 @@
 
 #define CURRENT_EXCHANGE_MARKET_PAIR @"CURRENT_EXCHANGE_MARKET_PAIR"
 
+@class HTTPLoaderManager;
+
 @interface DCBackendManager : NSObject
+
+@property (nonatomic, strong, nonnull) InjectedClass(HTTPLoaderManager) httpManager;
 
 @property (nonatomic, strong) NSManagedObjectContext * _Nullable mainObjectContext;
 @property (nonatomic, strong) NSPersistentContainer * _Nullable persistentContainer;

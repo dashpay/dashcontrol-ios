@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 
 - (id<HTTPLoaderOperationProtocol>)sendRequest:(HTTPRequest *)httpRequest completion:(HTTPLoaderCompletionBlock)completion;
+- (id<HTTPLoaderOperationProtocol>)sendRequest:(HTTPRequest *)httpRequest rawCompletion:(HTTPLoaderRawCompletionBlock)rawCompletion;
 
 @end
 

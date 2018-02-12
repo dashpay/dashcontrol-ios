@@ -9,6 +9,8 @@
 #ifndef DashControl_PrefixHeader_pch
 #define DashControl_PrefixHeader_pch
 
+#ifdef __OBJC__
+
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
@@ -42,6 +44,11 @@
 #import "DCMarketEntity+CoreDataClass.h"
 #import "DCExchangeEntity+CoreDataClass.h"
 
+// DI
+@protocol DIInject;
+#define InjectedClass(klass) klass<DIInject> *
+#define InjectedProtocol(proto) id<proto, DIInject>
+
 //Other
 #import "IntTypes.h"
 #import "AppDelegate.h"
@@ -52,5 +59,7 @@
 #import "NSArray+SWAdditions.h"
 
 #import "RunOnMain.h"
+
+#endif /* __OBJC__ */
 
 #endif /* DashControl_PrefixHeader_pch */
