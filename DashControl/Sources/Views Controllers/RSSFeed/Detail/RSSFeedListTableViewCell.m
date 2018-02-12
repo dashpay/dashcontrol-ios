@@ -58,7 +58,11 @@
     _lbTitle.text = self.currentPost.title;
 
     BOOL loadingImageFromText = NO;
-    NSDataDetector* detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
+    static NSDataDetector *detector = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
+    });
     NSArray* matches = [detector matchesInString:self.currentPost.text options:0 range:NSMakeRange(0, [self.currentPost.text length])];
     NSArray *imageExtensions = @[@"png", @"jpg", @"jpeg", @"gif"];
     for (NSTextCheckingResult *match in matches) {
@@ -67,14 +71,14 @@
         if ([imageExtensions containsObject:extension]) {
             loadingImageFromText = YES;
             [self loadImageWithURL:url];
+            
             break;
         }
-        if ([url.absoluteString containsString:@"youtube"] || [url.absoluteString containsString:@"youtu.be"]) {
-            NSString *youtubeId = [self extractYoutubeID:url.absoluteString];
-            if (youtubeId) {
-                loadingImageFromText = YES;
-                [self loadImageWithURL:[self youtubeIconURLFromYoutubeId:youtubeId]];
-            }
+        NSString *youtubeId = [self extractYoutubeID:url.absoluteString];
+        if (youtubeId) {
+            loadingImageFromText = YES;
+            [self loadImageWithURL:[self youtubeIconURLFromYoutubeId:youtubeId]];
+            
             break;
         }
     }
@@ -90,27 +94,25 @@
     _lbPubDate.text = [df stringFromDate:self.currentPost.pubDate];
 }
 
--(NSString *)extractYoutubeID:(NSString *)youtubeURL
-{
-    NSString *pattern = @"(?:(?:\.be\/|embed\/|v\/|\\?v=|\&v=|\/videos\/)|(?:[\\w+]+#\\w\/\\w(?:\/[\\w]+)?\/\\w\/))([\\w-_]+)";
-    
-    NSError *error = NULL;
-    NSRegularExpression *regex  = [NSRegularExpression regularExpressionWithPattern: pattern
-                                                                            options: NSRegularExpressionCaseInsensitive
-                                                                              error: &error];
-    NSTextCheckingResult *match = [regex firstMatchInString: youtubeURL
-                                                    options: 0
-                                                      range: NSMakeRange(0, [youtubeURL length])];
-    if ( match ) {
-        NSRange videoIDRange             = [match rangeAtIndex:1];
-        NSString *substringForFirstMatch = [youtubeURL substringWithRange:videoIDRange];
-        
-        //NSLog(@"url: %@, Youtube ID: %@", youtubeURL, substringForFirstMatch);
-        return substringForFirstMatch;
-    } else {
-        //NSLog(@"No string matched! %@", youtubeURL);
+- (NSString *)extractYoutubeID:(NSString *)youtubeURL {
+    if (!youtubeURL) {
         return nil;
     }
+    static NSRegularExpression *regExp = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *regexString = @"((?<=(v|V)/)|(?<=be/)|(?<=(\\?|\\&)v=)|(?<=embed/))([\\w-]++)";
+        regExp = [NSRegularExpression regularExpressionWithPattern:regexString
+                                                           options:NSRegularExpressionCaseInsensitive
+                                                             error:nil];
+    });
+    
+    NSArray *array = [regExp matchesInString:youtubeURL options:0 range:NSMakeRange(0, youtubeURL.length)];
+    if (array.count > 0) {
+        NSTextCheckingResult *result = array.firstObject;
+        return [youtubeURL substringWithRange:result.range];
+    }
+    return nil;
 }
 
 -(NSURL *)youtubeIconURLFromYoutubeId:(NSString *)youtubeId {

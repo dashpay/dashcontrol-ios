@@ -20,29 +20,6 @@
 #define kRSSFeedViewControllerIndex 0
 #define kProposalsViewControllerIndex 2
 
-/*
- * Utils: Add this section before your class implementation
- */
-
-/**
- This creates a new query parameters string from the given NSDictionary. For
- example, if the input is @{@"day":@"Tuesday", @"month":@"January"}, the output
- string will be @"day=Tuesday&month=January".
- @param queryParameters The input dictionary.
- @return The created parameters string.
- */
-static NSString* NSStringFromQueryParameters(NSDictionary* queryParameters)
-{
-    NSMutableArray* parts = [NSMutableArray array];
-    [queryParameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        NSString *part = [NSString stringWithFormat: @"%@=%@",
-                          [key stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]],
-                          [value stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]]
-                          ];
-        [parts addObject:part];
-    }];
-    return [parts componentsJoinedByString: @"&"];
-}
 
 @interface AppDelegate ()
 

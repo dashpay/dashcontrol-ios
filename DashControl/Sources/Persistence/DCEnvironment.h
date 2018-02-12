@@ -22,6 +22,6 @@
 
 -(void)setHasRegistered;
 
--(BOOL)hasRegisteredWithError:(NSError**)error;
+-(BOOL)hasRegisteredWithError:(NSError* _Nullable *_Nullable)error;
 
 @end

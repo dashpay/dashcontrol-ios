@@ -127,7 +127,7 @@
             [mutableDictionary setObject:object forKey:lKey];
         }
     }
-    return (NSDictionary *)mutableDictionary;
+    return mutableDictionary;
     
 }
 
