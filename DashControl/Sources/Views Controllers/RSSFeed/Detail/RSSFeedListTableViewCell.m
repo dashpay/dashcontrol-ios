@@ -7,7 +7,8 @@
 //
 
 #import "RSSFeedListTableViewCell.h"
-#import "UIImageView+AFNetworking.h"
+
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation RSSFeedListTableViewCell
 @synthesize currentPost;
@@ -29,24 +30,27 @@
         [self.imageViewIcon setImage:[UIImage imageNamed:@"dash_icon_tmp"]];
     }
     
-    // You should not call an ivar from a block (so get a weak reference to the imageView)
     __weak UIImageView *weakImageView = self.imageViewIcon;
     __weak DCPostEntity *weakPost = self.currentPost;
-    [self.imageViewIcon setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:[UIImage imageNamed:@"dash_icon_tmp"] success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
-        UIImageView *strongImageView = weakImageView; // make local strong reference to protect against race conditions
-        if (!strongImageView) return;
+    [self.imageViewIcon sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"dash_icon_tmp"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        if (!image) {
+            return;
+        }
+        
+        UIImageView *strongImageView = weakImageView;
+        if (!strongImageView) {
+            return;
+        }
         
         [weakPost updateCoreSpotlightWithImage:image];
         
         [UIView transitionWithView:strongImageView
-                          duration:0.3
+                          duration:cacheType == SDImageCacheTypeNone ? 0.3 : 0.0
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         animations:^{
                             strongImageView.image = image;
                         }
-                        completion:NULL];
-    } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
-        
+                        completion:nil];
     }];
 }
 

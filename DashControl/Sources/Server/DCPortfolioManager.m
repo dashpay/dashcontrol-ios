@@ -9,7 +9,6 @@
 #import "DCPortfolioManager.h"
 #import "DCCoreDataManager.h"
 #import "NSArray+SWAdditions.h"
-#import <AFNetworking/AFNetworking.h>
 #import "DCWalletAddressEntity+CoreDataClass.h"
 #import "DCBackendManager.h"
 #import "Networking.h"

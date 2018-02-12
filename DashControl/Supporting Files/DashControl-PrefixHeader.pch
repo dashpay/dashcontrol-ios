@@ -31,7 +31,6 @@
 
 //Pods
 #import <Reachability/Reachability.h>
-#import <AFNetworking.h>
 #import <RaptureXML/RXMLElement.h>
 
 //CoreData

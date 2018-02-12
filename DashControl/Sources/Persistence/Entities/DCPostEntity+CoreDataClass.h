@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class UIImage;
+
 @interface DCPostEntity : NSManagedObject
 -(void)updateCoreSpotlightWithImage:(UIImage*)image;
 @end

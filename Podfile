@@ -4,7 +4,6 @@ inhibit_all_warnings!
 
 target 'DashControl' do
 
-  pod 'AFNetworking'
   pod 'Reachability'
   pod 'SDWebImage'
   pod 'MBCircularProgressBar'

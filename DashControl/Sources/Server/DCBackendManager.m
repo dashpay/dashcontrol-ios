@@ -7,7 +7,7 @@
 //
 
 #import "DCBackendManager.h"
-#import <AFNetworking/AFNetworking.h>
+
 #import "DCMarketEntity+CoreDataClass.h"
 #import "DCExchangeEntity+CoreDataClass.h"
 #import "DCChartTimeFormatter.h"
