@@ -59,9 +59,6 @@
 /* Class = "UISegmentedControl"; H1s-La-hZw.segmentTitles[6] = "6m"; ObjectID = "H1s-La-hZw"; */
 "H1s-La-hZw.segmentTitles[6]" = "6m";
 
-/* Class = "UINavigationItem"; title = "News"; ObjectID = "IOC-AI-i7l"; */
-"IOC-AI-i7l.title" = "News";
-
 /* Class = "UILabel"; text = "Title"; ObjectID = "JTS-LD-92M"; */
 "JTS-LD-92M.text" = "Title";
 
@@ -116,20 +113,11 @@
 /* Class = "UILabel"; text = "714488 superblock"; ObjectID = "XDq-ql-moX"; */
 "XDq-ql-moX.text" = "714488 superblock";
 
-/* Class = "UILabel"; text = "Post Title"; ObjectID = "XYP-gQ-kza"; */
-"XYP-gQ-kza.text" = "Post Title";
-
 /* Class = "UILabel"; text = "Address"; ObjectID = "Y8d-gt-Avr"; */
 "Y8d-gt-Avr.text" = "Address";
 
 /* Class = "UILabel"; text = "0 month remaining"; ObjectID = "YYb-st-nRS"; */
 "YYb-st-nRS.text" = "0 month remaining";
-
-/* Class = "UITabBarItem"; title = "News"; ObjectID = "acW-dT-cKf"; */
-"acW-dT-cKf.title" = "News";
-
-/* Class = "UILabel"; text = "Post link"; ObjectID = "bhm-ge-OO2"; */
-"bhm-ge-OO2.text" = "Post link";
 
 /* Class = "UILabel"; text = "QR Code Import"; ObjectID = "bwc-2f-seL"; */
 "bwc-2f-seL.text" = "QR Code Import";
@@ -157,9 +145,6 @@
 
 /* Class = "UINavigationItem"; title = "Add Masternode"; ObjectID = "epc-RK-74o"; */
 "epc-RK-74o.title" = "Add Masternode";
-
-/* Class = "UILabel"; text = "Post Date"; ObjectID = "f9A-tj-Kuo"; */
-"f9A-tj-Kuo.text" = "Post Date";
 
 /* Class = "UILabel"; text = "X No"; ObjectID = "h2P-xn-v7R"; */
 "h2P-xn-v7R.text" = "X No";
@@ -244,3 +229,6 @@
 
 /* Class = "UILabel"; text = "DASH_BTC"; ObjectID = "dDW-tV-7N7"; */
 "dDW-tV-7N7.text" = "";
+
+/* Class = "UITabBarItem"; title = "News"; ObjectID = "iFv-zP-8ij"; */
+"iFv-zP-8ij.title" = "";

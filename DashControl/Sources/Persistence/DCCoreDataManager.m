@@ -14,17 +14,18 @@
 
 #pragma mark - Singleton Init Methods
 
-+ (id)sharedInstance {
-    static DCBackendManager *sharedChartDataImportManager = nil;
++ (instancetype)sharedInstance {
+    static DCCoreDataManager *_sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedChartDataImportManager = [[self alloc] init];
+        _sharedInstance = [[self alloc] init];
     });
-    return sharedChartDataImportManager;
+    return _sharedInstance;
 }
 
-- (id)init {
-    if (self = [super init]) {
+- (instancetype)init {
+    self = [super init];
+    if (self) {
         self.mainObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
     }
     return self;

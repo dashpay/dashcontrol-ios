@@ -109,9 +109,9 @@ NS_ASSUME_NONNULL_BEGIN
     }
     
     NSError *parseError = nil;
-    NSDictionary *parsed = [NSJSONSerialization JSONObjectWithData:data
-                                                           options:NSJSONReadingAllowFragments
-                                                             error:&parseError];
+    id parsed = [NSJSONSerialization JSONObjectWithData:data
+                                                options:NSJSONReadingAllowFragments
+                                                  error:&parseError];
     if (parseError) {
         if (error) {
             *error = parseError;

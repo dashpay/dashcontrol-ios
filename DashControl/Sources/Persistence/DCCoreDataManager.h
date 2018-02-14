@@ -15,7 +15,7 @@
 
 @property (nonatomic, strong) NSManagedObjectContext * _Nullable mainObjectContext;
 
-+ (id _Nonnull )sharedInstance;
++ (instancetype)sharedInstance;
 
 // MARK: - Chart Data
 

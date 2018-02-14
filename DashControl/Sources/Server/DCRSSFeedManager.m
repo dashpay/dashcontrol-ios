@@ -110,7 +110,7 @@
 #pragma mark - Fetch and Persist Feed
 
 - (void)fetchRSSFeed {
-    
+    return;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fetchRSSFeed) object:nil];
     [self performSelector:@selector(fetchRSSFeed) withObject:nil afterDelay:TICKER_REFRESH_TIME];
     if (self.reachability.currentReachabilityStatus == NotReachable) return;

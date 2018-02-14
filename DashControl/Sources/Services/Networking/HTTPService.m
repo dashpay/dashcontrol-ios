@@ -148,11 +148,14 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSURLSessionAuthChallengeDisposition disposition = NSURLSessionAuthChallengePerformDefaultHandling;
     NSURLCredential *credential = nil;
-
-    if (self.allCertificatesAllowed) {
-        disposition = NSURLSessionAuthChallengeUseCredential;
+    
+    if (self.areAllCertificatesAllowed) {
         SecTrustRef trust = challenge.protectionSpace.serverTrust;
+        disposition = NSURLSessionAuthChallengeUseCredential;
         credential = [NSURLCredential credentialForTrust:trust];
+    } else {
+        // No-op
+        // Use default handing
     }
 
     completionHandler(disposition, credential);

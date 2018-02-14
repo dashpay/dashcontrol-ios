@@ -78,6 +78,8 @@
     
     [DCWalletManager sharedInstance];
     
+    [self configureAppearance];
+    
     return YES;
 }
 
@@ -340,6 +342,13 @@
         }
     }
     return TRUE;
+}
+
+#pragma mark - Private
+
+- (void)configureAppearance {
+    [[UITabBarItem appearance] setTitleTextAttributes:@{ NSFontAttributeName: [UIFont fontWithName:@"Montserrat-SemiBold" size:10.0] }
+                                             forState:UIControlStateNormal];
 }
 
 @end

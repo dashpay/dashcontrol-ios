@@ -17,11 +17,12 @@
 //  limitations under the License.
 //
 
+#import "Injections.h"
+
 #import <DeluxeInjection/DeluxeInjection.h>
 
 #import "Networking.h"
-
-#import "Injections.h"
+#import "APINews.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -36,7 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
         dispatch_once(&serviceOnceToken, ^{
             NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
             httpService = [[HTTPService alloc] initWithConfiguration:configuration];
-            httpService.allCertificatesAllowed = YES;
         });
         
         static HTTPLoaderFactory *loaderFactory;
@@ -47,6 +47,11 @@ NS_ASSUME_NONNULL_BEGIN
         
         [[[lets inject] byPropertyClass:[HTTPService class]] getterValue:httpService];
         [[[lets inject] byPropertyClass:[HTTPLoaderManager class]] getterValue:[[HTTPLoaderManager alloc] initWithFactory:loaderFactory]];
+        
+        
+        // Lazy API injections:
+        
+        [[[lets inject] byPropertyClass:[APINews class]] getterValueLazyByClass:[APINews class]];
     }];
 }
 
