@@ -47,6 +47,22 @@
 		24FC99F71F5EA0F40054C2A8 /* iconReply@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24FC99F31F5EA0F40054C2A8 /* iconReply@2x.png */; };
 		24FE25491F4C7ECE00E32652 /* DCBackendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE25481F4C7ECE00E32652 /* DCBackendManager.m */; };
 		24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE254B1F4C82C900E32652 /* PriceViewController.m */; };
+		2A04E6DB202DA5E20065F30D /* HTTPLoaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6B2202DA5E20065F30D /* HTTPLoaderManager.m */; };
+		2A04E6DC202DA5E20065F30D /* HTTPLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6B4202DA5E20065F30D /* HTTPLoaderOperation.m */; };
+		2A04E6DD202DA5E20065F30D /* HTTPRateLimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6B9202DA5E20065F30D /* HTTPRateLimiter.m */; };
+		2A04E6DE202DA5E20065F30D /* HTTPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6BB202DA5E20065F30D /* HTTPResponse.m */; };
+		2A04E6DF202DA5E20065F30D /* HTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6BF202DA5E20065F30D /* HTTPRequestOperation.m */; };
+		2A04E6E0202DA5E20065F30D /* HTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6C1202DA5E20065F30D /* HTTPRequest.m */; };
+		2A04E6E1202DA5E20065F30D /* HTTPLoaderFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6C2202DA5E20065F30D /* HTTPLoaderFactory.m */; };
+		2A04E6E2202DA5E20065F30D /* HTTPLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6C5202DA5E20065F30D /* HTTPLoader.m */; };
+		2A04E6E3202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6CB202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m */; };
+		2A04E6E4202DA5E20065F30D /* HTTPCancellationTokenImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6CC202DA5E20065F30D /* HTTPCancellationTokenImpl.m */; };
+		2A04E6E5202DA5E20065F30D /* HTTPURLRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6CE202DA5E20065F30D /* HTTPURLRequestBuilder.m */; };
+		2A04E6E6202DA5E20065F30D /* NetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6D3202DA5E20065F30D /* NetworkActivityIndicatorManager.m */; };
+		2A04E6E7202DA5E20065F30D /* HTTPRateLimiterMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6D6202DA5E20065F30D /* HTTPRateLimiterMap.m */; };
+		2A04E6E8202DA5E20065F30D /* HTTPService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6D8202DA5E20065F30D /* HTTPService.m */; };
+		2A04E6E9202DA5E20065F30D /* Injections.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6DA202DA5E20065F30D /* Injections.m */; };
+		2A04E6ED202DAB340065F30D /* RunOnMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6EB202DAB340065F30D /* RunOnMain.m */; };
 		8B0BD619FFF877813DC0386A /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */; };
 		FB17AEE31FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AED81FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m */; };
 		FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AEDA1FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m */; };
@@ -220,6 +236,49 @@
 		24FE25481F4C7ECE00E32652 /* DCBackendManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCBackendManager.m; sourceTree = "<group>"; };
 		24FE254A1F4C82C900E32652 /* PriceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PriceViewController.h; sourceTree = "<group>"; };
 		24FE254B1F4C82C900E32652 /* PriceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PriceViewController.m; sourceTree = "<group>"; };
+		2A04E6AE202DA5E20065F30D /* Injections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Injections.h; sourceTree = "<group>"; };
+		2A04E6B1202DA5E20065F30D /* HTTPLoaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderOperation.h; sourceTree = "<group>"; };
+		2A04E6B2202DA5E20065F30D /* HTTPLoaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPLoaderManager.m; sourceTree = "<group>"; };
+		2A04E6B3202DA5E20065F30D /* HTTPLoaderBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderBlocks.h; sourceTree = "<group>"; };
+		2A04E6B4202DA5E20065F30D /* HTTPLoaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPLoaderOperation.m; sourceTree = "<group>"; };
+		2A04E6B5202DA5E20065F30D /* HTTPLoaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderManager.h; sourceTree = "<group>"; };
+		2A04E6B6202DA5E20065F30D /* HTTPLoaderOperationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderOperationProtocol.h; sourceTree = "<group>"; };
+		2A04E6B7202DA5E20065F30D /* HTTPLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoader.h; sourceTree = "<group>"; };
+		2A04E6B8202DA5E20065F30D /* HTTPLoaderAuthoriser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderAuthoriser.h; sourceTree = "<group>"; };
+		2A04E6B9202DA5E20065F30D /* HTTPRateLimiter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRateLimiter.m; sourceTree = "<group>"; };
+		2A04E6BA202DA5E20065F30D /* HTTPLoaderFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderFactory.h; sourceTree = "<group>"; };
+		2A04E6BB202DA5E20065F30D /* HTTPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPResponse.m; sourceTree = "<group>"; };
+		2A04E6BC202DA5E20065F30D /* HTTPRequestOperationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRequestOperationHandler.h; sourceTree = "<group>"; };
+		2A04E6BD202DA5E20065F30D /* HTTPService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPService.h; sourceTree = "<group>"; };
+		2A04E6BE202DA5E20065F30D /* HTTPLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderDelegate.h; sourceTree = "<group>"; };
+		2A04E6BF202DA5E20065F30D /* HTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRequestOperation.m; sourceTree = "<group>"; };
+		2A04E6C0202DA5E20065F30D /* HTTPRateLimiterMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRateLimiterMap.h; sourceTree = "<group>"; };
+		2A04E6C1202DA5E20065F30D /* HTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRequest.m; sourceTree = "<group>"; };
+		2A04E6C2202DA5E20065F30D /* HTTPLoaderFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPLoaderFactory.m; sourceTree = "<group>"; };
+		2A04E6C3202DA5E20065F30D /* HTTPCancellationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPCancellationToken.h; sourceTree = "<group>"; };
+		2A04E6C4202DA5E20065F30D /* HTTPRateLimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRateLimiter.h; sourceTree = "<group>"; };
+		2A04E6C5202DA5E20065F30D /* HTTPLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPLoader.m; sourceTree = "<group>"; };
+		2A04E6C7202DA5E20065F30D /* HTTPCancellationTokenImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPCancellationTokenImpl.h; sourceTree = "<group>"; };
+		2A04E6C8202DA5E20065F30D /* SPTDataLoaderExponentialTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTDataLoaderExponentialTimer.h; sourceTree = "<group>"; };
+		2A04E6C9202DA5E20065F30D /* HTTPURLRequestBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPURLRequestBuilder.h; sourceTree = "<group>"; };
+		2A04E6CA202DA5E20065F30D /* HTTPLoader+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPLoader+Private.h"; sourceTree = "<group>"; };
+		2A04E6CB202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTDataLoaderExponentialTimer.m; sourceTree = "<group>"; };
+		2A04E6CC202DA5E20065F30D /* HTTPCancellationTokenImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPCancellationTokenImpl.m; sourceTree = "<group>"; };
+		2A04E6CD202DA5E20065F30D /* HTTPResponse+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPResponse+Private.h"; sourceTree = "<group>"; };
+		2A04E6CE202DA5E20065F30D /* HTTPURLRequestBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPURLRequestBuilder.m; sourceTree = "<group>"; };
+		2A04E6CF202DA5E20065F30D /* HTTPRequest+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPRequest+Private.h"; sourceTree = "<group>"; };
+		2A04E6D0202DA5E20065F30D /* HTTPLoaderFactory+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPLoaderFactory+Private.h"; sourceTree = "<group>"; };
+		2A04E6D1202DA5E20065F30D /* HTTPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPResponse.h; sourceTree = "<group>"; };
+		2A04E6D3202DA5E20065F30D /* NetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
+		2A04E6D4202DA5E20065F30D /* NetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
+		2A04E6D5202DA5E20065F30D /* HTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRequest.h; sourceTree = "<group>"; };
+		2A04E6D6202DA5E20065F30D /* HTTPRateLimiterMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRateLimiterMap.m; sourceTree = "<group>"; };
+		2A04E6D7202DA5E20065F30D /* HTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRequestOperation.h; sourceTree = "<group>"; };
+		2A04E6D8202DA5E20065F30D /* HTTPService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPService.m; sourceTree = "<group>"; };
+		2A04E6D9202DA5E20065F30D /* Networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Networking.h; sourceTree = "<group>"; };
+		2A04E6DA202DA5E20065F30D /* Injections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Injections.m; sourceTree = "<group>"; };
+		2A04E6EB202DAB340065F30D /* RunOnMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunOnMain.m; sourceTree = "<group>"; };
+		2A04E6EC202DAB340065F30D /* RunOnMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunOnMain.h; sourceTree = "<group>"; };
 		481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
 		6385EAF7B5AD9CDA2429BFAE /* Pods-DashControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.debug.xcconfig"; sourceTree = "<group>"; };
 		742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -477,95 +536,95 @@
 		241719C31F4D9EC30045C2D6 /* Proposals */ = {
 			isa = PBXGroup;
 			children = (
-				24C86EF71F5EBF3700735785 /* List */,
 				24C86EF81F5EBF6A00735785 /* Detail */,
+				24C86EF71F5EBF3700735785 /* List */,
 			);
-			name = Proposals;
+			path = Proposals;
 			sourceTree = "<group>";
 		};
 		241719C81F4DA0280045C2D6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				FB4310D51F9DA96700784EBC /* DCWalletManager.h */,
-				FB4310D61F9DA96700784EBC /* DCWalletManager.m */,
-				FB4310D81F9EF4B500784EBC /* DCWalletAccount.h */,
-				FB4310D91F9EF4B500784EBC /* DCWalletAccount.m */,
 				FB4550CA1FAFABD6001CC1ED /* DCTrigger.h */,
 				FB4550CB1FAFABD6001CC1ED /* DCTrigger.m */,
+				FB4310D81F9EF4B500784EBC /* DCWalletAccount.h */,
+				FB4310D91F9EF4B500784EBC /* DCWalletAccount.m */,
+				FB4310D51F9DA96700784EBC /* DCWalletManager.h */,
+				FB4310D61F9DA96700784EBC /* DCWalletManager.m */,
 			);
-			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		24438DF01F5FCF1C00763A14 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				24C86EFB1F5EC04100735785 /* ProposalDetailNameTableViewCell.h */,
-				24C86EFC1F5EC04100735785 /* ProposalDetailNameTableViewCell.m */,
-				24C86EFE1F5EC05400735785 /* ProposalDetailTitleTableViewCell.h */,
-				24C86EFF1F5EC05400735785 /* ProposalDetailTitleTableViewCell.m */,
-				24C86F011F5EC06C00735785 /* ProposalDetailOneTimePayementTableViewCell.h */,
-				24C86F021F5EC06C00735785 /* ProposalDetailOneTimePayementTableViewCell.m */,
 				24C86F041F5EC08500735785 /* ProposalDetailCompletedPaymentsTableViewCell.h */,
 				24C86F051F5EC08500735785 /* ProposalDetailCompletedPaymentsTableViewCell.m */,
-				24C86F071F5EC09900735785 /* ProposalDetailVotesResultTableViewCell.h */,
-				24C86F081F5EC09900735785 /* ProposalDetailVotesResultTableViewCell.m */,
-				24C86F0A1F5EC0C300735785 /* ProposalDetailDescriptionHeaderTableViewCell.h */,
-				24C86F0B1F5EC0C300735785 /* ProposalDetailDescriptionHeaderTableViewCell.m */,
 				24C86F0D1F5EC0D600735785 /* ProposalDetailDescriptionDetailTableViewCell.h */,
 				24C86F0E1F5EC0D600735785 /* ProposalDetailDescriptionDetailTableViewCell.m */,
+				24C86F0A1F5EC0C300735785 /* ProposalDetailDescriptionHeaderTableViewCell.h */,
+				24C86F0B1F5EC0C300735785 /* ProposalDetailDescriptionHeaderTableViewCell.m */,
+				24C86EFB1F5EC04100735785 /* ProposalDetailNameTableViewCell.h */,
+				24C86EFC1F5EC04100735785 /* ProposalDetailNameTableViewCell.m */,
+				24C86F011F5EC06C00735785 /* ProposalDetailOneTimePayementTableViewCell.h */,
+				24C86F021F5EC06C00735785 /* ProposalDetailOneTimePayementTableViewCell.m */,
+				24C86EFE1F5EC05400735785 /* ProposalDetailTitleTableViewCell.h */,
+				24C86EFF1F5EC05400735785 /* ProposalDetailTitleTableViewCell.m */,
+				24C86F071F5EC09900735785 /* ProposalDetailVotesResultTableViewCell.h */,
+				24C86F081F5EC09900735785 /* ProposalDetailVotesResultTableViewCell.m */,
 			);
-			name = Cells;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		24B08BA21FA734FA00A41566 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				24B08BA31FA739BE00A41566 /* PriceAmountTableViewCell.h */,
-				24B08BA41FA739BE00A41566 /* PriceAmountTableViewCell.m */,
-				FB25EA2E1FAF8509000B41BE /* TriggerTypeTableViewCell.h */,
-				FB25EA2F1FAF8509000B41BE /* TriggerTypeTableViewCell.m */,
 				FB25EA311FAF8559000B41BE /* AddTriggerTableViewCell.h */,
 				FB25EA321FAF8559000B41BE /* AddTriggerTableViewCell.m */,
+				24B08BA31FA739BE00A41566 /* PriceAmountTableViewCell.h */,
+				24B08BA41FA739BE00A41566 /* PriceAmountTableViewCell.m */,
 				FB3BEBBC1FB32AF000C8974E /* PriceInfoTableViewCell.h */,
 				FB3BEBBD1FB32AF000C8974E /* PriceInfoTableViewCell.m */,
+				FB25EA2E1FAF8509000B41BE /* TriggerTypeTableViewCell.h */,
+				FB25EA2F1FAF8509000B41BE /* TriggerTypeTableViewCell.m */,
 			);
-			name = Cells;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		24C86EF71F5EBF3700735785 /* List */ = {
 			isa = PBXGroup;
 			children = (
 				24FC99F81F5EA0F90054C2A8 /* Assets */,
-				241719C41F4D9EE10045C2D6 /* ProposalsViewController.h */,
-				241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */,
+				2432DD9E1F54395600A14112 /* ProposalCell.h */,
+				2432DD9F1F54395600A14112 /* ProposalCell.m */,
 				24438DF11F5FEA6600763A14 /* ProposalHeaderView.h */,
 				24438DF21F5FEA6600763A14 /* ProposalHeaderView.m */,
 				249A402D1F62715700155636 /* ProposalScopeButtonsView.h */,
 				249A402E1F62715700155636 /* ProposalScopeButtonsView.m */,
-				2432DD9E1F54395600A14112 /* ProposalCell.h */,
-				2432DD9F1F54395600A14112 /* ProposalCell.m */,
+				241719C41F4D9EE10045C2D6 /* ProposalsViewController.h */,
+				241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */,
 			);
-			name = List;
+			path = List;
 			sourceTree = "<group>";
 		};
 		24C86EF81F5EBF6A00735785 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				24438DF01F5FCF1C00763A14 /* Cells */,
 				2448578F1F59CCBF004DE273 /* ProposalDetailViewController.h */,
 				244857901F59CCBF004DE273 /* ProposalDetailViewController.m */,
-				24438DF01F5FCF1C00763A14 /* Cells */,
 			);
-			name = Detail;
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		24C86EF91F5EBFDF00735785 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				247B8F541F5FBFFB005BC14A /* dash_icon_tmp.png */,
 				24E584161F3AF18A00A12087 /* RSSFeedListViewController.h */,
 				24E584171F3AF18A00A12087 /* RSSFeedListViewController.m */,
+				247B8F541F5FBFFB005BC14A /* dash_icon_tmp.png */,
 			);
-			name = List;
+			path = List;
 			sourceTree = "<group>";
 		};
 		24C86EFA1F5EBFE500735785 /* Detail */ = {
@@ -574,16 +633,16 @@
 				24E584191F3AFB0F00A12087 /* RSSFeedListTableViewCell.h */,
 				24E5841A1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m */,
 			);
-			name = Detail;
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		24E584011F3ADA0100A12087 /* RSSFeed */ = {
 			isa = PBXGroup;
 			children = (
-				24C86EF91F5EBFDF00735785 /* List */,
 				24C86EFA1F5EBFE500735785 /* Detail */,
+				24C86EF91F5EBFDF00735785 /* List */,
 			);
-			name = RSSFeed;
+			path = RSSFeed;
 			sourceTree = "<group>";
 		};
 		24FC99F81F5EA0F90054C2A8 /* Assets */ = {
@@ -594,19 +653,134 @@
 				24FC99F21F5EA0F40054C2A8 /* iconReply.png */,
 				24FC99F31F5EA0F40054C2A8 /* iconReply@2x.png */,
 			);
-			name = Assets;
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		24FE253D1F4C7DA200E32652 /* Price */ = {
 			isa = PBXGroup;
 			children = (
 				24B08BA21FA734FA00A41566 /* Cells */,
-				24FE254A1F4C82C900E32652 /* PriceViewController.h */,
-				24FE254B1F4C82C900E32652 /* PriceViewController.m */,
 				241A70941FA356DF00FCC808 /* PriceAlertViewController.h */,
 				241A70951FA356DF00FCC808 /* PriceAlertViewController.m */,
+				24FE254A1F4C82C900E32652 /* PriceViewController.h */,
+				24FE254B1F4C82C900E32652 /* PriceViewController.m */,
 			);
-			name = Price;
+			path = Price;
+			sourceTree = "<group>";
+		};
+		2A04E6AC202DA5E20065F30D /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				FBEF66E31F83DA41003424D2 /* Categories */,
+				2A04E6EA202DAB340065F30D /* Helpers */,
+				241719C81F4DA0280045C2D6 /* Models */,
+				FB4310FA1FA2A2E600784EBC /* Persistence */,
+				FB4310F21FA204F700784EBC /* Server */,
+				2A04E6AD202DA5E20065F30D /* Services */,
+				FBEF66EB1F83DBEF003424D2 /* Utils */,
+				FB2F9B3E1F5CA0050035180D /* Views Controllers */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		2A04E6AD202DA5E20065F30D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2A04E6AF202DA5E20065F30D /* Networking */,
+				2A04E6AE202DA5E20065F30D /* Injections.h */,
+				2A04E6DA202DA5E20065F30D /* Injections.m */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		2A04E6AF202DA5E20065F30D /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				2A04E6D2202DA5E20065F30D /* Additional */,
+				2A04E6B0202DA5E20065F30D /* Blocks */,
+				2A04E6C6202DA5E20065F30D /* Private */,
+				2A04E6C3202DA5E20065F30D /* HTTPCancellationToken.h */,
+				2A04E6B7202DA5E20065F30D /* HTTPLoader.h */,
+				2A04E6C5202DA5E20065F30D /* HTTPLoader.m */,
+				2A04E6B8202DA5E20065F30D /* HTTPLoaderAuthoriser.h */,
+				2A04E6BE202DA5E20065F30D /* HTTPLoaderDelegate.h */,
+				2A04E6BA202DA5E20065F30D /* HTTPLoaderFactory.h */,
+				2A04E6C2202DA5E20065F30D /* HTTPLoaderFactory.m */,
+				2A04E6C4202DA5E20065F30D /* HTTPRateLimiter.h */,
+				2A04E6B9202DA5E20065F30D /* HTTPRateLimiter.m */,
+				2A04E6C0202DA5E20065F30D /* HTTPRateLimiterMap.h */,
+				2A04E6D6202DA5E20065F30D /* HTTPRateLimiterMap.m */,
+				2A04E6D5202DA5E20065F30D /* HTTPRequest.h */,
+				2A04E6C1202DA5E20065F30D /* HTTPRequest.m */,
+				2A04E6D7202DA5E20065F30D /* HTTPRequestOperation.h */,
+				2A04E6BF202DA5E20065F30D /* HTTPRequestOperation.m */,
+				2A04E6BC202DA5E20065F30D /* HTTPRequestOperationHandler.h */,
+				2A04E6D1202DA5E20065F30D /* HTTPResponse.h */,
+				2A04E6BB202DA5E20065F30D /* HTTPResponse.m */,
+				2A04E6BD202DA5E20065F30D /* HTTPService.h */,
+				2A04E6D8202DA5E20065F30D /* HTTPService.m */,
+				2A04E6D9202DA5E20065F30D /* Networking.h */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		2A04E6B0202DA5E20065F30D /* Blocks */ = {
+			isa = PBXGroup;
+			children = (
+				2A04E6B3202DA5E20065F30D /* HTTPLoaderBlocks.h */,
+				2A04E6B5202DA5E20065F30D /* HTTPLoaderManager.h */,
+				2A04E6B2202DA5E20065F30D /* HTTPLoaderManager.m */,
+				2A04E6B1202DA5E20065F30D /* HTTPLoaderOperation.h */,
+				2A04E6B4202DA5E20065F30D /* HTTPLoaderOperation.m */,
+				2A04E6B6202DA5E20065F30D /* HTTPLoaderOperationProtocol.h */,
+			);
+			path = Blocks;
+			sourceTree = "<group>";
+		};
+		2A04E6C6202DA5E20065F30D /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				2A04E6C7202DA5E20065F30D /* HTTPCancellationTokenImpl.h */,
+				2A04E6CC202DA5E20065F30D /* HTTPCancellationTokenImpl.m */,
+				2A04E6CA202DA5E20065F30D /* HTTPLoader+Private.h */,
+				2A04E6D0202DA5E20065F30D /* HTTPLoaderFactory+Private.h */,
+				2A04E6CF202DA5E20065F30D /* HTTPRequest+Private.h */,
+				2A04E6CD202DA5E20065F30D /* HTTPResponse+Private.h */,
+				2A04E6C9202DA5E20065F30D /* HTTPURLRequestBuilder.h */,
+				2A04E6CE202DA5E20065F30D /* HTTPURLRequestBuilder.m */,
+				2A04E6C8202DA5E20065F30D /* SPTDataLoaderExponentialTimer.h */,
+				2A04E6CB202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
+		2A04E6D2202DA5E20065F30D /* Additional */ = {
+			isa = PBXGroup;
+			children = (
+				2A04E6D4202DA5E20065F30D /* NetworkActivityIndicatorManager.h */,
+				2A04E6D3202DA5E20065F30D /* NetworkActivityIndicatorManager.m */,
+			);
+			path = Additional;
+			sourceTree = "<group>";
+		};
+		2A04E6EA202DAB340065F30D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				2A04E6EC202DAB340065F30D /* RunOnMain.h */,
+				2A04E6EB202DAB340065F30D /* RunOnMain.m */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		2A6C68C1202EE3400016B2B9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FB1F8AB81FBCD2EA00175311 /* BIP39Words.plist */,
+				FB300E3E1FB71BEA00B3CDE0 /* Localizable.strings */,
+				FB84EDCC1F32898700E4D400 /* Main.storyboard */,
+				FB84EDD11F32898700E4D400 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		3A3DCF867D724725B2BA999A /* Pods */ = {
@@ -647,12 +821,12 @@
 			isa = PBXGroup;
 			children = (
 				FB300E341FB5598C00B3CDE0 /* General */,
-				24E584011F3ADA0100A12087 /* RSSFeed */,
-				241719C31F4D9EC30045C2D6 /* Proposals */,
-				24FE253D1F4C7DA200E32652 /* Price */,
 				FB4F93B71F8252210078E259 /* Portfolio */,
+				24FE253D1F4C7DA200E32652 /* Price */,
+				241719C31F4D9EC30045C2D6 /* Proposals */,
+				24E584011F3ADA0100A12087 /* RSSFeed */,
 			);
-			name = "Views Controllers";
+			path = "Views Controllers";
 			sourceTree = "<group>";
 		};
 		FB300E341FB5598C00B3CDE0 /* General */ = {
@@ -661,7 +835,7 @@
 				FB300E351FB5599400B3CDE0 /* BRScanViewController.h */,
 				FB300E361FB5599400B3CDE0 /* BRScanViewController.m */,
 			);
-			name = General;
+			path = General;
 			sourceTree = "<group>";
 		};
 		FB4310F21FA204F700784EBC /* Server */ = {
@@ -669,40 +843,43 @@
 			children = (
 				24FE25471F4C7ECE00E32652 /* DCBackendManager.h */,
 				24FE25481F4C7ECE00E32652 /* DCBackendManager.m */,
+				FB84EDDB1F32908C00E4D400 /* DCDataManager.h */,
+				FB84EDDC1F32908C00E4D400 /* DCDataManager.m */,
 				FB9CC18A1F8405180079309F /* DCPortfolioManager.h */,
 				FB9CC18B1F8405180079309F /* DCPortfolioManager.m */,
-				24E584121F3ADC4C00A12087 /* DCRSSFeedManager.h */,
-				24E584131F3ADC4C00A12087 /* DCRSSFeedManager.m */,
 				241719D61F4DA4C60045C2D6 /* DCProposalsManager.h */,
 				241719D71F4DA4C60045C2D6 /* DCProposalsManager.m */,
+				24E584121F3ADC4C00A12087 /* DCRSSFeedManager.h */,
+				24E584131F3ADC4C00A12087 /* DCRSSFeedManager.m */,
+				FB84EDDE1F3293C700E4D400 /* DCWalletConstants.h */,
 			);
-			name = Server;
+			path = Server;
 			sourceTree = "<group>";
 		};
 		FB4310FA1FA2A2E600784EBC /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
 				FB9CC18E1F8426CD0079309F /* Entities */,
-				24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */,
-				FB4310F31FA2142700784EBC /* DCEnvironment.h */,
-				FB4310F41FA2142700784EBC /* DCEnvironment.m */,
 				FBEBE5441F5986510056D921 /* DCCoreDataManager.h */,
 				FBEBE5451F5986510056D921 /* DCCoreDataManager.m */,
+				FB4310F31FA2142700784EBC /* DCEnvironment.h */,
+				FB4310F41FA2142700784EBC /* DCEnvironment.m */,
+				24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */,
 			);
-			name = Persistence;
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		FB4F93B71F8252210078E259 /* Portfolio */ = {
 			isa = PBXGroup;
 			children = (
-				FB4F93B81F82528F0078E259 /* PortfolioViewController.h */,
-				FB4F93B91F82528F0078E259 /* PortfolioViewController.m */,
-				FBEF66E01F83D68C003424D2 /* AddWalletAddressViewController.h */,
-				FBEF66E11F83D68C003424D2 /* AddWalletAddressViewController.m */,
 				FB9CC18F1F84BB0D0079309F /* AddMasternodeViewController.h */,
 				FB9CC1901F84BB0D0079309F /* AddMasternodeViewController.m */,
+				FBEF66E01F83D68C003424D2 /* AddWalletAddressViewController.h */,
+				FBEF66E11F83D68C003424D2 /* AddWalletAddressViewController.m */,
+				FB4F93B81F82528F0078E259 /* PortfolioViewController.h */,
+				FB4F93B91F82528F0078E259 /* PortfolioViewController.m */,
 			);
-			name = Portfolio;
+			path = Portfolio;
 			sourceTree = "<group>";
 		};
 		FB84EDB41F32898700E4D400 = {
@@ -710,9 +887,9 @@
 			children = (
 				FB84EDBF1F32898700E4D400 /* DashControl */,
 				FB1F8AA41FBCAACA00175311 /* DashControlTests */,
-				FB84EDBE1F32898700E4D400 /* Products */,
 				F8F9FBF8277751CF40134EEE /* Frameworks */,
 				3A3DCF867D724725B2BA999A /* Pods */,
+				FB84EDBE1F32898700E4D400 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -728,18 +905,11 @@
 		FB84EDBF1F32898700E4D400 /* DashControl */ = {
 			isa = PBXGroup;
 			children = (
-				FB4310FA1FA2A2E600784EBC /* Persistence */,
-				FB4310F21FA204F700784EBC /* Server */,
-				FBEF66EB1F83DBEF003424D2 /* Utils */,
-				FBEF66E31F83DA41003424D2 /* Categories */,
-				241719C81F4DA0280045C2D6 /* Models */,
-				FB2F9B3E1F5CA0050035180D /* Views Controllers */,
-				FB84EDDA1F32906F00E4D400 /* New Group */,
+				2A6C68C1202EE3400016B2B9 /* Resources */,
+				2A04E6AC202DA5E20065F30D /* Sources */,
+				FB84EDC01F32898700E4D400 /* Supporting Files */,
 				FB84EDC31F32898700E4D400 /* AppDelegate.h */,
 				FB84EDC41F32898700E4D400 /* AppDelegate.m */,
-				FB84EDCC1F32898700E4D400 /* Main.storyboard */,
-				FB84EDD11F32898700E4D400 /* LaunchScreen.storyboard */,
-				FB84EDC01F32898700E4D400 /* Supporting Files */,
 			);
 			path = DashControl;
 			sourceTree = "<group>";
@@ -747,74 +917,30 @@
 		FB84EDC01F32898700E4D400 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				FB1F8AB81FBCD2EA00175311 /* BIP39Words.plist */,
-				2442A01B1F4D6CDC006FAC0D /* DashControl.entitlements */,
-				FB84EDD41F32898700E4D400 /* Info.plist */,
-				FB300E381FB55B7F00B3CDE0 /* Images.xcassets */,
-				FB84EDC11F32898700E4D400 /* main.m */,
 				24E584151F3ADCEF00A12087 /* DashControl-PrefixHeader.pch */,
-				FB300E3E1FB71BEA00B3CDE0 /* Localizable.strings */,
+				2442A01B1F4D6CDC006FAC0D /* DashControl.entitlements */,
+				FB300E381FB55B7F00B3CDE0 /* Images.xcassets */,
+				FB84EDD41F32898700E4D400 /* Info.plist */,
+				FB84EDC11F32898700E4D400 /* main.m */,
 			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		FB84EDDA1F32906F00E4D400 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-				FB84EDDE1F3293C700E4D400 /* DCWalletConstants.h */,
-				FB84EDDB1F32908C00E4D400 /* DCDataManager.h */,
-				FB84EDDC1F32908C00E4D400 /* DCDataManager.m */,
-			);
-			name = "New Group";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		FB9CC18E1F8426CD0079309F /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				FB4550D91FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataClass.h */,
-				FB4550DA1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataClass.m */,
-				FB4550DB1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataProperties.h */,
-				FB4550DC1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataProperties.m */,
-				FB4550D51FB1C1A4001CC1ED /* DCWalletEntity+CoreDataClass.h */,
-				FB4550D21FB1C1A3001CC1ED /* DCWalletEntity+CoreDataClass.m */,
-				FB4550D31FB1C1A3001CC1ED /* DCWalletEntity+CoreDataProperties.h */,
-				FB4550D41FB1C1A4001CC1ED /* DCWalletEntity+CoreDataProperties.m */,
-				FB17AED71FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.h */,
-				FB17AED81FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m */,
-				FB17AED91FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.h */,
-				FB17AEDA1FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m */,
-				FB17AEDB1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.h */,
-				FB17AEDC1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m */,
-				FB17AEDD1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.h */,
-				FB17AEDE1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m */,
-				24E5840C1F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.h */,
-				24E5840D1F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.m */,
-				24E5840E1F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.h */,
-				24E5840F1F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.m */,
-				FB9CC17A1F83E45E0079309F /* DCMasternodeEntity+CoreDataClass.h */,
-				FB9CC1721F83E45C0079309F /* DCMasternodeEntity+CoreDataClass.m */,
-				FB9CC1741F83E45D0079309F /* DCMasternodeEntity+CoreDataProperties.h */,
-				FB9CC17B1F83E45E0079309F /* DCMasternodeEntity+CoreDataProperties.m */,
-				FB9CC1711F83E45C0079309F /* DCMasternodePaymentEntity+CoreDataClass.h */,
-				FB9CC17C1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataClass.m */,
-				FB9CC1751F83E45D0079309F /* DCMasternodePaymentEntity+CoreDataProperties.h */,
-				FB9CC17D1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m */,
 				24A215971F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.h */,
 				24A215981F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m */,
 				24A215991F52C5E900A63311 /* DCBudgetEntity+CoreDataProperties.h */,
 				24A2159A1F52C5E900A63311 /* DCBudgetEntity+CoreDataProperties.m */,
-				241719D91F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.h */,
-				241719DA1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m */,
-				241719DB1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.h */,
-				241719DC1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m */,
-				241719DD1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.h */,
-				241719DE1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m */,
-				241719DF1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.h */,
-				241719E01F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m */,
 				FBE1F4FD1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.h */,
 				FBE1F4FE1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m */,
 				FBE1F4FF1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.h */,
 				FBE1F5001F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.m */,
+				241719DD1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.h */,
+				241719DE1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m */,
+				241719DF1F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.h */,
+				241719E01F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m */,
 				FBE1F5011F5D4CF500823A77 /* DCExchangeEntity+CoreDataClass.h */,
 				FBE1F5021F5D4CF500823A77 /* DCExchangeEntity+CoreDataClass.m */,
 				FBE1F5031F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.h */,
@@ -823,8 +949,40 @@
 				FBE1F5061F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m */,
 				FBE1F5071F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.h */,
 				FBE1F5081F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.m */,
+				FB9CC17A1F83E45E0079309F /* DCMasternodeEntity+CoreDataClass.h */,
+				FB9CC1721F83E45C0079309F /* DCMasternodeEntity+CoreDataClass.m */,
+				FB9CC1741F83E45D0079309F /* DCMasternodeEntity+CoreDataProperties.h */,
+				FB9CC17B1F83E45E0079309F /* DCMasternodeEntity+CoreDataProperties.m */,
+				FB9CC1711F83E45C0079309F /* DCMasternodePaymentEntity+CoreDataClass.h */,
+				FB9CC17C1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataClass.m */,
+				FB9CC1751F83E45D0079309F /* DCMasternodePaymentEntity+CoreDataProperties.h */,
+				FB9CC17D1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m */,
+				24E5840C1F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.h */,
+				24E5840D1F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.m */,
+				24E5840E1F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.h */,
+				24E5840F1F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.m */,
+				241719D91F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.h */,
+				241719DA1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m */,
+				241719DB1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.h */,
+				241719DC1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m */,
+				FB4550D91FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataClass.h */,
+				FB4550DA1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataClass.m */,
+				FB4550DB1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataProperties.h */,
+				FB4550DC1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataProperties.m */,
+				FB17AED71FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.h */,
+				FB17AED81FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m */,
+				FB17AED91FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.h */,
+				FB17AEDA1FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m */,
+				FB17AEDB1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.h */,
+				FB17AEDC1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m */,
+				FB17AEDD1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.h */,
+				FB17AEDE1FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m */,
+				FB4550D51FB1C1A4001CC1ED /* DCWalletEntity+CoreDataClass.h */,
+				FB4550D21FB1C1A3001CC1ED /* DCWalletEntity+CoreDataClass.m */,
+				FB4550D31FB1C1A3001CC1ED /* DCWalletEntity+CoreDataProperties.h */,
+				FB4550D41FB1C1A4001CC1ED /* DCWalletEntity+CoreDataProperties.m */,
 			);
-			name = Entities;
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		FB9CC2001F88A7F10079309F /* secp256k1 */ = {
@@ -833,8 +991,9 @@
 				FB9CC2101F88A7F10079309F /* include */,
 				FB9CC2201F88A7F10079309F /* src */,
 			);
-			path = secp256k1;
-			sourceTree = SOURCE_ROOT;
+			name = secp256k1;
+			path = ../../../secp256k1/;
+			sourceTree = "<group>";
 		};
 		FB9CC2101F88A7F10079309F /* include */ = {
 			isa = PBXGroup;
@@ -849,46 +1008,46 @@
 		FB9CC2201F88A7F10079309F /* src */ = {
 			isa = PBXGroup;
 			children = (
+				FB9CC24C1F88A7F10079309F /* modules */,
 				FB9CC2231F88A7F10079309F /* basic-config.h */,
 				FB9CC2241F88A7F10079309F /* bench.h */,
-				FB9CC22A1F88A7F10079309F /* ecdsa.h */,
 				FB9CC22B1F88A7F10079309F /* ecdsa_impl.h */,
-				FB9CC22C1F88A7F10079309F /* eckey.h */,
+				FB9CC22A1F88A7F10079309F /* ecdsa.h */,
 				FB9CC22D1F88A7F10079309F /* eckey_impl.h */,
-				FB9CC22E1F88A7F10079309F /* ecmult.h */,
-				FB9CC22F1F88A7F10079309F /* ecmult_const.h */,
+				FB9CC22C1F88A7F10079309F /* eckey.h */,
 				FB9CC2301F88A7F10079309F /* ecmult_const_impl.h */,
-				FB9CC2311F88A7F10079309F /* ecmult_gen.h */,
+				FB9CC22F1F88A7F10079309F /* ecmult_const.h */,
 				FB9CC2321F88A7F10079309F /* ecmult_gen_impl.h */,
+				FB9CC2311F88A7F10079309F /* ecmult_gen.h */,
 				FB9CC2331F88A7F10079309F /* ecmult_impl.h */,
-				FB9CC2341F88A7F10079309F /* field.h */,
-				FB9CC2351F88A7F10079309F /* field_10x26.h */,
-				FB9CC2361F88A7F10079309F /* field_10x26_impl.h */,
-				FB9CC2371F88A7F10079309F /* field_5x52.h */,
+				FB9CC22E1F88A7F10079309F /* ecmult.h */,
 				FB9CC2381F88A7F10079309F /* field_5x52_asm_impl.h */,
 				FB9CC2391F88A7F10079309F /* field_5x52_impl.h */,
 				FB9CC23A1F88A7F10079309F /* field_5x52_int128_impl.h */,
+				FB9CC2371F88A7F10079309F /* field_5x52.h */,
+				FB9CC2361F88A7F10079309F /* field_10x26_impl.h */,
+				FB9CC2351F88A7F10079309F /* field_10x26.h */,
 				FB9CC23B1F88A7F10079309F /* field_impl.h */,
-				FB9CC23D1F88A7F10079309F /* group.h */,
+				FB9CC2341F88A7F10079309F /* field.h */,
 				FB9CC23E1F88A7F10079309F /* group_impl.h */,
-				FB9CC23F1F88A7F10079309F /* hash.h */,
+				FB9CC23D1F88A7F10079309F /* group.h */,
 				FB9CC2401F88A7F10079309F /* hash_impl.h */,
-				FB9CC24C1F88A7F10079309F /* modules */,
-				FB9CC2551F88A7F10079309F /* num.h */,
-				FB9CC2561F88A7F10079309F /* num_gmp.h */,
+				FB9CC23F1F88A7F10079309F /* hash.h */,
 				FB9CC2571F88A7F10079309F /* num_gmp_impl.h */,
+				FB9CC2561F88A7F10079309F /* num_gmp.h */,
 				FB9CC2581F88A7F10079309F /* num_impl.h */,
-				FB9CC2591F88A7F10079309F /* scalar.h */,
-				FB9CC25A1F88A7F10079309F /* scalar_4x64.h */,
+				FB9CC2551F88A7F10079309F /* num.h */,
 				FB9CC25B1F88A7F10079309F /* scalar_4x64_impl.h */,
-				FB9CC25C1F88A7F10079309F /* scalar_8x32.h */,
+				FB9CC25A1F88A7F10079309F /* scalar_4x64.h */,
 				FB9CC25D1F88A7F10079309F /* scalar_8x32_impl.h */,
+				FB9CC25C1F88A7F10079309F /* scalar_8x32.h */,
 				FB9CC25E1F88A7F10079309F /* scalar_impl.h */,
-				FB9CC25F1F88A7F10079309F /* scalar_low.h */,
 				FB9CC2601F88A7F10079309F /* scalar_low_impl.h */,
+				FB9CC25F1F88A7F10079309F /* scalar_low.h */,
+				FB9CC2591F88A7F10079309F /* scalar.h */,
 				FB9CC2611F88A7F10079309F /* secp256k1.c */,
-				FB9CC2621F88A7F10079309F /* testrand.h */,
 				FB9CC2631F88A7F10079309F /* testrand_impl.h */,
+				FB9CC2621F88A7F10079309F /* testrand.h */,
 				FB9CC2661F88A7F10079309F /* util.h */,
 			);
 			path = src;
@@ -928,50 +1087,49 @@
 			children = (
 				FB2F9B3B1F5C9F960035180D /* NSArray+SWAdditions.h */,
 				FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */,
-				FBEF66FC1F83DD44003424D2 /* NSMutableData+Dash.h */,
-				FBEF66FD1F83DD44003424D2 /* NSMutableData+Dash.m */,
 				FBEF66E71F83DA76003424D2 /* NSData+Dash.h */,
 				FBEF66E61F83DA75003424D2 /* NSData+Dash.m */,
+				FBEF66FC1F83DD44003424D2 /* NSMutableData+Dash.h */,
+				FBEF66FD1F83DD44003424D2 /* NSMutableData+Dash.m */,
 				FBEF66E41F83DA4F003424D2 /* NSString+Dash.h */,
 				FBEF66E51F83DA4F003424D2 /* NSString+Dash.m */,
-				FBEF66FF1F83DE30003424D2 /* UIImage+Sugar.h */,
-				FBEF67001F83DE30003424D2 /* UIImage+Sugar.m */,
 				FB4311001FA2BCD800784EBC /* NSString+Sugar.h */,
 				FB4311011FA2BCD800784EBC /* NSString+Sugar.m */,
 				FB4311031FA2C19800784EBC /* NSURL+Sugar.h */,
 				FB4311041FA2C19800784EBC /* NSURL+Sugar.m */,
+				FBEF66FF1F83DE30003424D2 /* UIImage+Sugar.h */,
+				FBEF67001F83DE30003424D2 /* UIImage+Sugar.m */,
 			);
-			name = Categories;
+			path = Categories;
 			sourceTree = "<group>";
 		};
 		FBEF66EB1F83DBEF003424D2 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				FBEF66EC1F83DBFD003424D2 /* x11 */,
 				FB9CC2001F88A7F10079309F /* secp256k1 */,
-				FB9CC1A91F87D4A50079309F /* BRKey.h */,
-				FB9CC1A81F87D4A50079309F /* BRKey.m */,
-				FB9CC1A71F87D4A40079309F /* BRKey+BIP38.h */,
-				FB9CC1A61F87D4A40079309F /* BRKey+BIP38.m */,
-				FB9CC1A41F87D4850079309F /* BRKeySequence.h */,
+				FBEF66EC1F83DBFD003424D2 /* x11 */,
 				FB9CC1A21F87D4850079309F /* BRBIP32Sequence.h */,
 				FB9CC1A31F87D4850079309F /* BRBIP32Sequence.m */,
-				FB1F8AAE1FBCABD100175311 /* BRMnemonic.h */,
 				FB1F8AAD1FBCABD100175311 /* BRBIP39Mnemonic.h */,
 				FB1F8AAF1FBCABD100175311 /* BRBIP39Mnemonic.m */,
-				FB4310DC1F9EFC3F00784EBC /* DCServerBloomFilter.h */,
-				FB4310DB1F9EFC3F00784EBC /* DCServerBloomFilter.m */,
+				FB9CC1A71F87D4A40079309F /* BRKey+BIP38.h */,
+				FB9CC1A61F87D4A40079309F /* BRKey+BIP38.m */,
+				FB9CC1A91F87D4A50079309F /* BRKey.h */,
+				FB9CC1A81F87D4A50079309F /* BRKey.m */,
+				FB9CC1A41F87D4850079309F /* BRKeySequence.h */,
+				FB1F8AAE1FBCABD100175311 /* BRMnemonic.h */,
 				FBEBE5401F5802DE0056D921 /* DCChartTimeFormatter.h */,
 				FBEBE5411F5802DE0056D921 /* DCChartTimeFormatter.m */,
+				FB4310DC1F9EFC3F00784EBC /* DCServerBloomFilter.h */,
+				FB4310DB1F9EFC3F00784EBC /* DCServerBloomFilter.m */,
 				FBEF66EA1F83DB0C003424D2 /* IntTypes.h */,
 			);
-			name = Utils;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		FBEF66EC1F83DBFD003424D2 /* x11 */ = {
 			isa = PBXGroup;
 			children = (
-				FBEF66EE1F83DC0A003424D2 /* aes_helper.c */,
 				FBEF66F61F83DC0B003424D2 /* Blake.c */,
 				FBEF66F41F83DC0B003424D2 /* Bmw.c */,
 				FBEF66F91F83DC0B003424D2 /* CubeHash.c */,
@@ -983,9 +1141,10 @@
 				FBEF66F51F83DC0B003424D2 /* Shavite.c */,
 				FBEF66F81F83DC0B003424D2 /* Simd.c */,
 				FBEF66F11F83DC0A003424D2 /* Skein.c */,
+				FBEF66EE1F83DC0A003424D2 /* aes_helper.c */,
 				FBEF66ED1F83DC0A003424D2 /* sph_types.h */,
 			);
-			name = x11;
+			path = x11;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1157,11 +1316,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DashControl/Pods-DashControl-resources.sh",
-				$PODS_CONFIGURATION_BUILD_DIR/MBCircularProgressBar/MBCircularProgressBar.bundle,
+				"${PODS_CONFIGURATION_BUILD_DIR}/MBCircularProgressBar/MBCircularProgressBar.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MBCircularProgressBar.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1225,7 +1384,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which bartycrouch > /dev/null; then\n# Incrementally update all Storyboards/XIBs strings files\nbartycrouch interfaces -p \"$PROJECT_DIR\"\n\n# Add new keys to Localizable.strings files from NSLocalizedString in code\nbartycrouch code -p \"$PROJECT_DIR\" -l \"$PROJECT_DIR\" -a -s -k\nelse\necho \"warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch\"\nfi";
+			shellScript = "if which bartycrouch > /dev/null; then\n# Incrementally update all Storyboards/XIBs strings files\nbartycrouch interfaces -p \"$PROJECT_DIR\"\n\n# Add new keys to Localizable.strings files from NSLocalizedString in code\nbartycrouch code -p \"$PROJECT_DIR\" -l \"$PROJECT_DIR\" -c -s -k\nelse\necho \"warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1245,33 +1404,45 @@
 			files = (
 				24A2159C1F52C5E900A63311 /* DCBudgetEntity+CoreDataProperties.m in Sources */,
 				FB9CC1621F83E38D0079309F /* NSString+Dash.m in Sources */,
+				2A04E6E2202DA5E20065F30D /* HTTPLoader.m in Sources */,
 				FB4310D71F9DA96700784EBC /* DCWalletManager.m in Sources */,
 				FB9CC1631F83E38F0079309F /* UIImage+Sugar.m in Sources */,
+				2A04E6E9202DA5E20065F30D /* Injections.m in Sources */,
+				2A04E6E7202DA5E20065F30D /* HTTPRateLimiterMap.m in Sources */,
 				24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */,
 				FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */,
 				241719E41F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m in Sources */,
+				2A04E6DB202DA5E20065F30D /* HTTPLoaderManager.m in Sources */,
+				2A04E6DC202DA5E20065F30D /* HTTPLoaderOperation.m in Sources */,
 				24438DEF1F5FCE7D00763A14 /* ProposalDetailViewController.m in Sources */,
+				2A04E6E1202DA5E20065F30D /* HTTPLoaderFactory.m in Sources */,
 				24438DF31F5FEA6600763A14 /* ProposalHeaderView.m in Sources */,
+				2A04E6E0202DA5E20065F30D /* HTTPRequest.m in Sources */,
 				FB4550DE1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataProperties.m in Sources */,
 				FB25EA301FAF8509000B41BE /* TriggerTypeTableViewCell.m in Sources */,
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
 				FB9CC1861F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m in Sources */,
 				FBE1F50D1F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m in Sources */,
+				2A04E6ED202DAB340065F30D /* RunOnMain.m in Sources */,
 				FBEBE5421F5802DE0056D921 /* DCChartTimeFormatter.m in Sources */,
+				2A04E6E8202DA5E20065F30D /* HTTPService.m in Sources */,
 				249A402F1F62715700155636 /* ProposalScopeButtonsView.m in Sources */,
 				24E584101F3ADBAA00A12087 /* DCPostEntity+CoreDataClass.m in Sources */,
 				24C86F091F5EC09900735785 /* ProposalDetailVotesResultTableViewCell.m in Sources */,
 				FB4310F51FA2142700784EBC /* DCEnvironment.m in Sources */,
 				FB9CC1611F83E38A0079309F /* NSData+Dash.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
+				2A04E6DD202DA5E20065F30D /* HTTPRateLimiter.m in Sources */,
 				FB1F8AB01FBCABD200175311 /* BRBIP39Mnemonic.m in Sources */,
 				FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */,
 				FB9CC1801F83E45F0079309F /* DCMasternodeEntity+CoreDataClass.m in Sources */,
 				241719E31F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataClass.m in Sources */,
+				2A04E6E3202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m in Sources */,
 				FB300E371FB5599400B3CDE0 /* BRScanViewController.m in Sources */,
 				FB9CC1881F83E8000079309F /* NSMutableData+Dash.m in Sources */,
 				FB4550D71FB1C1A4001CC1ED /* DCWalletEntity+CoreDataClass.m in Sources */,
 				FBEBE5461F5986510056D921 /* DCCoreDataManager.m in Sources */,
+				2A04E6E4202DA5E20065F30D /* HTTPCancellationTokenImpl.m in Sources */,
 				FBE1F50E1F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.m in Sources */,
 				24E5841C1F3AFB0F00A12087 /* RSSFeedListTableViewCell.m in Sources */,
 				FB9CC1841F83E45F0079309F /* DCMasternodeEntity+CoreDataProperties.m in Sources */,
@@ -1280,6 +1451,7 @@
 				241719D81F4DA4C60045C2D6 /* DCProposalsManager.m in Sources */,
 				FB3BEBBE1FB32AF000C8974E /* PriceInfoTableViewCell.m in Sources */,
 				24C86EFD1F5EC04100735785 /* ProposalDetailNameTableViewCell.m in Sources */,
+				2A04E6DE202DA5E20065F30D /* HTTPResponse.m in Sources */,
 				FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */,
 				24A2159B1F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m in Sources */,
 				FBE1F50C1F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.m in Sources */,
@@ -1289,6 +1461,7 @@
 				FB9CC1AA1F87D4A60079309F /* BRKey+BIP38.m in Sources */,
 				FB4550CC1FAFABD6001CC1ED /* DCTrigger.m in Sources */,
 				FB9CC1AB1F87D4A60079309F /* BRKey.m in Sources */,
+				2A04E6E5202DA5E20065F30D /* HTTPURLRequestBuilder.m in Sources */,
 				24E584111F3ADBAA00A12087 /* DCPostEntity+CoreDataProperties.m in Sources */,
 				24C6C6361F544268007F3671 /* ProposalsViewController.m in Sources */,
 				24FE25491F4C7ECE00E32652 /* DCBackendManager.m in Sources */,
@@ -1306,6 +1479,7 @@
 				241719E11F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m in Sources */,
 				FB4F93BA1F82528F0078E259 /* PortfolioViewController.m in Sources */,
 				FB9CC1911F84BB0D0079309F /* AddMasternodeViewController.m in Sources */,
+				2A04E6E6202DA5E20065F30D /* NetworkActivityIndicatorManager.m in Sources */,
 				FB17AEE51FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m in Sources */,
 				FBE1F5091F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m in Sources */,
 				24C86F061F5EC08500735785 /* ProposalDetailCompletedPaymentsTableViewCell.m in Sources */,
@@ -1319,6 +1493,7 @@
 				24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */,
 				FB4550DD1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataClass.m in Sources */,
 				24E584181F3AF18A00A12087 /* RSSFeedListViewController.m in Sources */,
+				2A04E6DF202DA5E20065F30D /* HTTPRequestOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1453,7 +1628,6 @@
 				DEVELOPMENT_TEAM = 44RJ69WHFF;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DashControlTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.DashControlTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1479,7 +1653,6 @@
 				DEVELOPMENT_TEAM = 44RJ69WHFF;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DashControlTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.DashControlTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1530,7 +1703,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1574,7 +1747,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1588,12 +1761,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = DashControl/DashControl.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "DashControl/Supporting Files/DashControl.entitlements";
 				DEVELOPMENT_TEAM = 44RJ69WHFF;
 				ENABLE_BITCODE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DashControl/DashControl-PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "DashControl/Supporting Files/DashControl-PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/include/libxml2",
 					"$(inherited)",
@@ -1605,10 +1777,10 @@
 					"\"${PODS_ROOT}/Headers/Public/Reachability\"",
 					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
 					"$(SRCROOT)",
+					"$(SRCROOT)/DashControl/Sources/Utils/x11/",
 					"$(SRCROOT)/secp256k1",
 				);
-				INFOPLIST_FILE = DashControl/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				INFOPLIST_FILE = "DashControl/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.dash.Control;
@@ -1625,12 +1797,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = DashControl/DashControl.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "DashControl/Supporting Files/DashControl.entitlements";
 				DEVELOPMENT_TEAM = 44RJ69WHFF;
 				ENABLE_BITCODE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DashControl/DashControl-PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "DashControl/Supporting Files/DashControl-PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(SDKROOT)/usr/include/libxml2",
 					"$(inherited)",
@@ -1642,10 +1813,10 @@
 					"\"${PODS_ROOT}/Headers/Public/Reachability\"",
 					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
 					"$(SRCROOT)",
+					"$(SRCROOT)/DashControl/Sources/Utils/x11/",
 					"$(SRCROOT)/secp256k1",
 				);
-				INFOPLIST_FILE = DashControl/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				INFOPLIST_FILE = "DashControl/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.dash.Control;
 				PRODUCT_NAME = "$(TARGET_NAME)";

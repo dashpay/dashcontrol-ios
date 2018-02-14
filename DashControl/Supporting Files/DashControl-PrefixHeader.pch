@@ -1,0 +1,64 @@
+//
+//  DashControl-PrefixHeader.pch
+//  DashControl
+//
+//  Created by Manuel Boyer on 09/08/2017.
+//  Copyright © 2017 dashfoundation. All rights reserved.
+//
+
+#ifndef DashControl_PrefixHeader_pch
+#define DashControl_PrefixHeader_pch
+
+#ifdef __OBJC__
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+
+#define DASH_CONTROL_ERROR_DOMAIN @"com.dashfoundation.dash.Control"
+
+#import <UserNotifications/UserNotifications.h>
+#import <CoreSpotlight/CoreSpotlight.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+
+//CSSearchableItem
+#define kDCCSSearchDomainIdentifierFeed @"org.dashfoundation.dash.Control.feed"
+
+//Pods
+#import <Reachability/Reachability.h>
+#import <RaptureXML/RXMLElement.h>
+
+//CoreData
+#import <CoreData/CoreData.h>
+#import "DCPostEntity+CoreDataClass.h"
+#import "DCChartDataEntryEntity+CoreDataClass.h"
+#import "DCBudgetEntity+CoreDataClass.h"
+#import "DCProposalEntity+CoreDataClass.h"
+#import "DCCommentEntity+CoreDataClass.h"
+#import "DCMarketEntity+CoreDataClass.h"
+#import "DCExchangeEntity+CoreDataClass.h"
+
+// DI
+@protocol DIInject;
+#define InjectedClass(klass) klass<DIInject> *
+#define InjectedProtocol(proto) id<proto, DIInject>
+
+//Other
+#import "IntTypes.h"
+#import "AppDelegate.h"
+#import "DCRSSFeedManager.h"
+#import "DCBackendManager.h"
+#import "DCCoreDataManager.h"
+#import "DCProposalsManager.h"
+#import "NSArray+SWAdditions.h"
+
+#import "RunOnMain.h"
+
+#endif /* __OBJC__ */
+
+#endif /* DashControl_PrefixHeader_pch */
