@@ -39,8 +39,10 @@ typedef NS_ENUM(NSUInteger, NewsViewModelState) {
 
 @property (readonly, assign, nonatomic) BOOL canLoadMore;
 
+- (void)performFetch;
+
 - (void)reload;
-- (void)fetchNextPage;
+- (void)loadNextPage;
 
 @end
 

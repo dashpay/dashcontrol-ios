@@ -15,14 +15,14 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import <KVO-MVVM/KVOUIView.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class NewsViewModel;
 
-@interface NewsView : UIView <NSFetchedResultsControllerDelegate>
+@interface NewsView : KVOUIView <NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) NewsViewModel *viewModel;
 

@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.view.viewModel = self.viewModel;
     
     self.viewModel.fetchedResultsController.delegate = self.view;
+    [self.viewModel performFetch];
     [self.viewModel reload];
 }
 

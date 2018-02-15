@@ -23,6 +23,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#define KEY_VIEWMODEL_STATE @"viewModel.state"
+
 static NSString *const NEWS_CELL_ID = @"NewsTableViewCell";
 static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 
@@ -54,6 +56,29 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 
     self.dateFormatter = [[NSDateFormatter alloc] init];
     self.dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    
+    [self mvvm_observe:KEY_VIEWMODEL_STATE with:^(typeof(self) self, NSNumber *value){
+        switch (self.viewModel.state) {
+            case NewsViewModelState_None: {
+                break;
+            }
+            case NewsViewModelState_Loading: {
+                if (self.tableView.contentOffset.y == 0) {
+                    self.tableView.contentOffset = CGPointMake(0.0, -self.tableView.refreshControl.frame.size.height);
+                    [self.tableView.refreshControl beginRefreshing];
+                }
+                break;
+            }
+            case NewsViewModelState_Failed: {
+                [self.tableView.refreshControl endRefreshing];
+                break;
+            }
+            case NewsViewModelState_Success: {
+                [self.tableView.refreshControl endRefreshing];
+                break;
+            }
+        }
+    }];
 }
 
 #pragma mark UITableViewDataSource
@@ -88,7 +113,7 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
         NewsLoadMoreTableViewCell *loadMoreCell = (NewsLoadMoreTableViewCell *)cell;
         [loadMoreCell willDisplay];
 
-        [self.viewModel fetchNextPage];
+        [self.viewModel loadNextPage];
     }
 }
 

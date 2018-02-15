@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) id<HTTPLoaderOperationProtocol> request;
 
 @property (assign, nonatomic) NSInteger currentPage;
-@property (assign, nonatomic) BOOL fetchingNextPage;
+@property (assign, nonatomic) BOOL loadingNextPage;
 @property (assign, nonatomic) BOOL canLoadMore;
 
 @end
@@ -61,25 +61,29 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (void)reload {
+- (void)performFetch {
     NSParameterAssert(self.fetchedResultsController.delegate);
-
+    
     NSError *error = nil;
     if (![self.fetchedResultsController performFetch:&error]) {
         NSLog(@"%@: %@", NSStringFromClass([self class]), error);
     }
+}
+
+- (void)reload {
+    self.state = NewsViewModelState_Loading;
 
     self.canLoadMore = YES;
     self.currentPage = 1;
     [self fetchPage:self.currentPage];
 }
 
-- (void)fetchNextPage {
-    if (self.fetchingNextPage) {
+- (void)loadNextPage {
+    if (self.loadingNextPage) {
         return;
     }
 
-    self.fetchingNextPage = YES;
+    self.loadingNextPage = YES;
 
     self.currentPage += 1;
     [self fetchPage:self.currentPage];
@@ -100,7 +104,11 @@ NS_ASSUME_NONNULL_BEGIN
         }
 
         strongSelf.canLoadMore = !isLastPage;
-        strongSelf.fetchingNextPage = NO;
+        strongSelf.loadingNextPage = NO;
+        
+        if (strongSelf.state == NewsViewModelState_Loading) {
+            strongSelf.state = success ? NewsViewModelState_Success : NewsViewModelState_Failed;
+        }
     }];
 }
 
