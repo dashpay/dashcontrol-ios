@@ -5,7 +5,6 @@ PODS:
   - KVO-MVVM (0.5.0)
   - MBCircularProgressBar (0.3.5)
   - MBProgressHUD (1.0.0)
-  - RaptureXML (1.0.1)
   - Reachability (3.2)
   - RuntimeRoutines (0.3.2)
   - SDWebImage (4.2.1):
@@ -18,7 +17,6 @@ DEPENDENCIES:
   - KVO-MVVM (= 0.5.0)
   - MBCircularProgressBar
   - MBProgressHUD
-  - RaptureXML
   - Reachability
   - SDWebImage
 
@@ -28,11 +26,10 @@ SPEC CHECKSUMS:
   KVO-MVVM: b100a749447a3944953d720351b309dbebce5cfb
   MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   RuntimeRoutines: 9253ad1e61a0e2af32cf2ce37393e9185003b94f
   SDWebImage: 1fa4c9edf525b744f002db89f3f5a38b3cd4c541
 
-PODFILE CHECKSUM: 109bcc2097b6d07672af97951dabab2f44fdfe2b
+PODFILE CHECKSUM: d8e05cdaa2f12b37e6720a13ce805d0504f53484
 
 COCOAPODS: 1.4.0

@@ -108,15 +108,6 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="DCPostEntity" representedClassName="DCPostEntity" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="guid" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="lang" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="pubDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
     <entity name="DCProposalEntity" representedClassName="DCProposalEntity" syncable="YES">
         <attribute name="abstain" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="commentAmount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -205,12 +196,11 @@
         <element name="DCMarketEntity" positionX="-54" positionY="135" width="128" height="105"/>
         <element name="DCMasternodeEntity" positionX="-36" positionY="153" width="128" height="105"/>
         <element name="DCMasternodePaymentEntity" positionX="-27" positionY="162" width="128" height="105"/>
-        <element name="DCPostEntity" positionX="-63" positionY="-18" width="128" height="150"/>
+        <element name="DCNewsPostEntity" positionX="-45" positionY="135" width="128" height="120"/>
         <element name="DCProposalEntity" positionX="-63" positionY="81" width="128" height="435"/>
         <element name="DCTriggerEntity" positionX="-45" positionY="135" width="128" height="210"/>
         <element name="DCWalletAccountEntity" positionX="-45" positionY="135" width="128" height="90"/>
         <element name="DCWalletAddressEntity" positionX="-45" positionY="144" width="128" height="150"/>
         <element name="DCWalletEntity" positionX="-54" positionY="135" width="128" height="105"/>
-        <element name="DCNewsPostEntity" positionX="-45" positionY="135" width="128" height="120"/>
     </elements>
 </model>

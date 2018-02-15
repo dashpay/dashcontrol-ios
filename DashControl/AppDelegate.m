@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 
-#import "RSSFeedListViewController.h"
 #import "ProposalsViewController.h"
 #import "DCPortfolioManager.h"
 #import "DCCoreDataManager.h"
@@ -60,9 +59,6 @@
     
     //Request Device Token For Apple Push Notifications
     [self registerForRemoteNotifications];
-    
-    //Init the RSSFeedManager Manager.
-    [DCRSSFeedManager sharedManager];
     
     //Init the Price Data Manager
     [DCBackendManager sharedInstance];
@@ -133,16 +129,17 @@
         
         NSArray *identifierComponents = [activityIdentifier componentsSeparatedByString:@"/"];
         if ([identifierComponents.firstObject isEqualToString:@"post"]) {
-            
-            activityIdentifier = [activityIdentifier stringByReplacingOccurrencesOfString:@"post/" withString:@""];
-            
-            UITabBarController *tabBarController = (UITabBarController *)_window.rootViewController;
-            [tabBarController setSelectedIndex:kRSSFeedViewControllerIndex];
-            UINavigationController *RSSFeedNavigationController = (UINavigationController*)[tabBarController.viewControllers objectAtIndex:kRSSFeedViewControllerIndex];
-            [RSSFeedNavigationController dismissViewControllerAnimated:NO completion:nil];
-            [RSSFeedNavigationController popToRootViewControllerAnimated:NO];
-            RSSFeedListViewController *vc = (RSSFeedListViewController*)[[RSSFeedNavigationController viewControllers] firstObject];
-            [vc simulateNavitationToPostWithGUID:activityIdentifier];
+
+            // TODO: rewrite core spotlight support
+//            activityIdentifier = [activityIdentifier stringByReplacingOccurrencesOfString:@"post/" withString:@""];
+//
+//            UITabBarController *tabBarController = (UITabBarController *)_window.rootViewController;
+//            [tabBarController setSelectedIndex:kRSSFeedViewControllerIndex];
+//            UINavigationController *RSSFeedNavigationController = (UINavigationController*)[tabBarController.viewControllers objectAtIndex:kRSSFeedViewControllerIndex];
+//            [RSSFeedNavigationController dismissViewControllerAnimated:NO completion:nil];
+//            [RSSFeedNavigationController popToRootViewControllerAnimated:NO];
+//            RSSFeedListViewController *vc = (RSSFeedListViewController*)[[RSSFeedNavigationController viewControllers] firstObject];
+//            [vc simulateNavitationToPostWithGUID:activityIdentifier];
         }
         else if ([identifierComponents.firstObject isEqualToString:@"proposal"]) {
             
