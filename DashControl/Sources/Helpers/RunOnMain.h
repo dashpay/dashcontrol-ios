@@ -1,7 +1,5 @@
 //
-//  RunOnMain.h
-//
-//  Created by Andrew Podkovyrin on 06/12/2017.
+//  Created by Andrew Podkovyrin
 //  Copyright © 2017. All rights reserved.
 //
 //  Licensed under the MIT License (the "License");

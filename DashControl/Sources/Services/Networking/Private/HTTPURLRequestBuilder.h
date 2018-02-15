@@ -1,5 +1,5 @@
 //
-//  Created by Andrew Podkovyrin on 18/03/16.
+//  Created by Andrew Podkovyrin
 //  Copyright © 2016. All rights reserved.
 //
 //  Licensed under the MIT License (the "License");

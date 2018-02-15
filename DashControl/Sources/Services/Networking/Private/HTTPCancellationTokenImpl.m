@@ -1,7 +1,5 @@
 //
-//  HTTPCancellationTokenImpl.m
-//
-//  Created by Andrew Podkovyrin on 07/02/2018.
+//  Created by Andrew Podkovyrin
 //
 //  Copyright (c) 2015-2018 Spotify AB.
 //

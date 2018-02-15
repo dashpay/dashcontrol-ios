@@ -1,7 +1,5 @@
 //
-//  Networking.h
-//
-//  Created by Andrew Podkovyrin on 05/01/2018.
+//  Created by Andrew Podkovyrin
 //  Copyright © 2018 Andrew Podkovyrin. All rights reserved.
 //
 //  Licensed under the MIT License (the "License");
