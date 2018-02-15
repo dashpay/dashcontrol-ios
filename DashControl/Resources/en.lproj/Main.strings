@@ -222,10 +222,10 @@
 "xvx-hB-RIZ.normalTitle" = "DASH_USD";
 
 /* Class = "UILabel"; text = "0 DASH / 0 USD"; ObjectID = "CRy-M5-kWH"; */
-"CRy-M5-kWH.text" = "";
+"CRy-M5-kWH.text" = "0 DASH / 0 USD";
 
 /* Class = "UILabel"; text = "Poloniex"; ObjectID = "MsC-2F-03s"; */
-"MsC-2F-03s.text" = "";
+"MsC-2F-03s.text" = "Poloniex";
 
 /* Class = "UILabel"; text = "DASH_BTC"; ObjectID = "dDW-tV-7N7"; */
-"dDW-tV-7N7.text" = "";
+"dDW-tV-7N7.text" = "DASH_BTC";
