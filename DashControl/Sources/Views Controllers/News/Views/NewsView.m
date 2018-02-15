@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define KEY_VIEWMODEL_STATE @"viewModel.state"
 
+static NSString *const NEWS_FIRST_CELL_ID = @"NewsFirstTableViewCell";
 static NSString *const NEWS_CELL_ID = @"NewsTableViewCell";
 static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 
@@ -96,13 +97,23 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
         return cell;
     }
     else {
-        NewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NEWS_CELL_ID forIndexPath:indexPath];
+        NSString *identifier = indexPath.row == 0 ? NEWS_FIRST_CELL_ID : NEWS_CELL_ID;
+        NewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
         [self configureCell:cell atIndexPath:indexPath];
         return cell;
     }
 }
 
 #pragma mark UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self isLoadMoreIndexPath:indexPath]) {
+        return 104.0;
+    }
+    else {
+        return (indexPath.row == 0 ? 198.0 : 104.0);
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

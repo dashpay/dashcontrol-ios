@@ -401,7 +401,16 @@
         <scene sceneID="WPz-Qy-gup">
             <objects>
                 <viewControllerPlaceholder storyboardName="News" id="tis-BG-zsN" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="News" id="iFv-zP-8ij"/>
+                    <tabBarItem key="tabBarItem" title="News" image="tabBarNews" id="iFv-zP-8ij">
+                        <attributedString key="userComments">
+                            <fragment content="#bc-ignore!">
+                                <attributes>
+                                    <font key="NSFont" metaFont="smallSystem"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </tabBarItem>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5JG-dg-sKO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -411,7 +420,7 @@
         <scene sceneID="gf0-Ld-adm">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PaP-Cg-sTX" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Price" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Price" image="tabBarPrice" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uBQ-pA-ihp">
                         <autoresizingMask key="autoresizingMask"/>
@@ -856,7 +865,7 @@
         <scene sceneID="P5M-q1-l1q">
             <objects>
                 <navigationController id="9q3-4j-0Xk" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Portfolio" id="u8d-7c-7lm"/>
+                    <tabBarItem key="tabBarItem" title="Portfolio" image="tabBarPortfolio" id="u8d-7c-7lm"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nOb-Vu-NOR">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1175,7 +1184,7 @@
         <scene sceneID="mhe-Bh-zbG">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kjH-Cc-qoC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Proposals" id="rHg-Il-wKW"/>
+                    <tabBarItem key="tabBarItem" title="Proposals" image="tabBarProposals" id="rHg-Il-wKW"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aMS-UW-2jR">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1378,5 +1387,9 @@
         <image name="flash" width="33" height="33"/>
         <image name="iconAttachment.png" width="8" height="9"/>
         <image name="iconReply.png" width="8" height="10"/>
+        <image name="tabBarNews" width="31" height="31"/>
+        <image name="tabBarPortfolio" width="31" height="25"/>
+        <image name="tabBarPrice" width="27" height="28"/>
+        <image name="tabBarProposals" width="26" height="26"/>
     </resources>
 </document>
