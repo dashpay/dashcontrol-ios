@@ -19,6 +19,7 @@
 
 #import "APINews.h"
 #import "AppDelegate.h"
+#import "DCPersistenceStack.h"
 #import "HTTPLoaderOperationProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -50,8 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSSortDescriptor *titleSortDescriptor = [[NSSortDescriptor alloc] initWithKey:KEY_TITLE ascending:YES];
         fetchRequest.sortDescriptors = @[ dateSortDescriptor, titleSortDescriptor ];
 
-        NSPersistentContainer *container = [(AppDelegate *)[UIApplication sharedApplication].delegate persistentContainer];
-        NSManagedObjectContext *context = container.viewContext;
+        NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
 
         _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                         managedObjectContext:context
@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)performFetch {
     NSParameterAssert(self.fetchedResultsController.delegate);
-    
+
     NSError *error = nil;
     if (![self.fetchedResultsController performFetch:&error]) {
         NSLog(@"%@: %@", NSStringFromClass([self class]), error);
@@ -105,7 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
 
         strongSelf.canLoadMore = !isLastPage;
         strongSelf.loadingNextPage = NO;
-        
+
         if (strongSelf.state == NewsViewModelState_Loading) {
             strongSelf.state = success ? NewsViewModelState_Success : NewsViewModelState_Failed;
         }

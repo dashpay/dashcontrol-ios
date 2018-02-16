@@ -7,6 +7,8 @@
 //
 
 #import "AddWalletAddressViewController.h"
+
+#import "DCPersistenceStack.h"
 #import "NSString+Dash.h"
 #import "DCWalletAddressEntity+CoreDataClass.h"
 #import "BRScanViewController.h"
@@ -37,11 +39,11 @@
 
 -(IBAction)done:(id)sender {
     if ([[self.inputField text] isValidDashAddress]) {
-        NSManagedObjectContext * context = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
-        DCWalletAddressEntity * walletAddress = [NSEntityDescription insertNewObjectForEntityForName:@"DCWalletAddressEntity" inManagedObjectContext:context];
+        NSManagedObjectContext * viewContext = self.stack.persistentContainer.viewContext;
+        DCWalletAddressEntity * walletAddress = [NSEntityDescription insertNewObjectForEntityForName:@"DCWalletAddressEntity" inManagedObjectContext:viewContext];
         walletAddress.address = [self.inputField text];
         NSError *error = nil;
-        if (![context save:&error]) {
+        if (![viewContext save:&error]) {
             NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
             abort();
         }

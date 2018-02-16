@@ -21,6 +21,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class DCPersistenceStack;
 @class APINews;
 
 typedef NS_ENUM(NSUInteger, NewsViewModelState) {
@@ -32,6 +33,7 @@ typedef NS_ENUM(NSUInteger, NewsViewModelState) {
 
 @interface NewsViewModel : NSObject
 
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 @property (strong, nonatomic) InjectedClass(APINews) api;
 
 @property (readonly, assign, nonatomic) NewsViewModelState state;

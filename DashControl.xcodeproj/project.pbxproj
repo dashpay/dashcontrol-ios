@@ -63,6 +63,8 @@
 		2A6F5967203566A600D7BD85 /* ForwardingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F5966203566A600D7BD85 /* ForwardingNavigationController.m */; };
 		2A6F596B203576C400D7BD85 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6F596D203576C400D7BD85 /* News.storyboard */; };
 		2A6F599820357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F599720357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m */; };
+		2A80B584203699E70015E1AA /* DCPersistenceStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B583203699E70015E1AA /* DCPersistenceStack.m */; };
+		2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B58620369E7F0015E1AA /* NSData+Hash.m */; };
 		2ACFBBC320340C090099727D /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC020340C080099727D /* Montserrat-Light.otf */; };
 		2ACFBBC420340C090099727D /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC120340C080099727D /* Montserrat-Regular.otf */; };
 		2ACFBBC520340C090099727D /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC220340C080099727D /* Montserrat-SemiBold.otf */; };
@@ -306,6 +308,10 @@
 		2A6F59952035771500D7BD85 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/News.strings; sourceTree = "<group>"; };
 		2A6F599620357A0A00D7BD85 /* NewsLoadMoreTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsLoadMoreTableViewCell.h; sourceTree = "<group>"; };
 		2A6F599720357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsLoadMoreTableViewCell.m; sourceTree = "<group>"; };
+		2A80B582203699E70015E1AA /* DCPersistenceStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCPersistenceStack.h; sourceTree = "<group>"; };
+		2A80B583203699E70015E1AA /* DCPersistenceStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCPersistenceStack.m; sourceTree = "<group>"; };
+		2A80B58520369E7F0015E1AA /* NSData+Hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Hash.h"; sourceTree = "<group>"; };
+		2A80B58620369E7F0015E1AA /* NSData+Hash.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hash.m"; sourceTree = "<group>"; };
 		2ACFBBC020340C080099727D /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		2ACFBBC120340C080099727D /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
 		2ACFBBC220340C080099727D /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
@@ -932,6 +938,8 @@
 				FBEBE5451F5986510056D921 /* DCCoreDataManager.m */,
 				FB4310F31FA2142700784EBC /* DCEnvironment.h */,
 				FB4310F41FA2142700784EBC /* DCEnvironment.m */,
+				2A80B582203699E70015E1AA /* DCPersistenceStack.h */,
+				2A80B583203699E70015E1AA /* DCPersistenceStack.m */,
 				24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */,
 			);
 			path = Persistence;
@@ -1157,6 +1165,8 @@
 				FB2F9B3C1F5C9F960035180D /* NSArray+SWAdditions.m */,
 				FBEF66E71F83DA76003424D2 /* NSData+Dash.h */,
 				FBEF66E61F83DA75003424D2 /* NSData+Dash.m */,
+				2A80B58520369E7F0015E1AA /* NSData+Hash.h */,
+				2A80B58620369E7F0015E1AA /* NSData+Hash.m */,
 				FBEF66FC1F83DD44003424D2 /* NSMutableData+Dash.h */,
 				FBEF66FD1F83DD44003424D2 /* NSMutableData+Dash.m */,
 				FBEF66E41F83DA4F003424D2 /* NSString+Dash.h */,
@@ -1522,6 +1532,7 @@
 				FBE1F50A1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.m in Sources */,
 				241719D81F4DA4C60045C2D6 /* DCProposalsManager.m in Sources */,
 				FB3BEBBE1FB32AF000C8974E /* PriceInfoTableViewCell.m in Sources */,
+				2A80B584203699E70015E1AA /* DCPersistenceStack.m in Sources */,
 				24C86EFD1F5EC04100735785 /* ProposalDetailNameTableViewCell.m in Sources */,
 				2AD693C62032C9AC0084D840 /* NewsTableViewCell.m in Sources */,
 				2A6F5967203566A600D7BD85 /* ForwardingNavigationController.m in Sources */,
@@ -1531,6 +1542,7 @@
 				2AE7F50F2034CC7100A8E770 /* NewsViewModel.m in Sources */,
 				FBE1F50C1F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.m in Sources */,
 				FB4311051FA2C19800784EBC /* NSURL+Sugar.m in Sources */,
+				2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */,
 				24B08BA51FA739BE00A41566 /* PriceAmountTableViewCell.m in Sources */,
 				241719E21F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m in Sources */,
 				FB9CC1AA1F87D4A60079309F /* BRKey+BIP38.m in Sources */,

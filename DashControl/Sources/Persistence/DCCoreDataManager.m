@@ -7,6 +7,8 @@
 //
 
 #import "DCCoreDataManager.h"
+
+#import "DCPersistenceStack.h"
 #import "DCWalletEntity+CoreDataClass.h"
 
 
@@ -26,7 +28,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.mainObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
+        _mainObjectContext = self.stack.persistentContainer.viewContext;
     }
     return self;
 }

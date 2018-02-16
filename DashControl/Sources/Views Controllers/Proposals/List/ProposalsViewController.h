@@ -11,7 +11,11 @@
 #import "ProposalHeaderView.h"
 #import "ProposalScopeButtonsView.h"
 
+@class DCPersistenceStack;
+
 @interface ProposalsViewController : UIViewController <NSFetchedResultsControllerDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate, SFSafariViewControllerDelegate>
+
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 
 @property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;

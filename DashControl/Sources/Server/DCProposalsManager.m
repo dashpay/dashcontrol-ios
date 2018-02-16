@@ -8,6 +8,8 @@
 
 #import "DCProposalsManager.h"
 
+#import "DCPersistenceStack.h"
+
 #define DASH_PROPOSALS_BUDGET_URL @"https://www.dashcentral.org/api/v1/budget"
 #define DASH_PROPOSAL_DETAIL_URL @"https://www.dashcentral.org/api/v1/proposal"
 
@@ -65,7 +67,6 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 
 - (id)init {
     if (self = [super init]) {
-        self.managedObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
         self.reachability = [Reachability reachabilityForInternetConnection];
         [self fetchBudgetAndProposals];
     }
@@ -112,7 +113,8 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                 //Since the list returned include only 'active' proposals at the moment.
                 //We want to update 'non-active' proposals we may still have in coredata by calling fetchProposalsWithHash:
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    NSMutableArray *existingProposals = [self fetchAllObjectsForEntity:@"DCProposalEntity" inContext:_managedObjectContext];
+                    NSManagedObjectContext *viewContext = self.stack.persistentContainer.viewContext;
+                    NSMutableArray *existingProposals = [self fetchAllObjectsForEntity:@"DCProposalEntity" inContext:viewContext];
                     NSMutableArray *proposalsToUpdate = [NSMutableArray new];
                     
                     for (DCProposalEntity *proposal in existingProposals) {
@@ -132,7 +134,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
                         for (DCProposalEntity *proposal in proposalsToUpdate) {
                             proposal.order = INT32_MAX;
                             NSError *error;
-                            [self.managedObjectContext save:&error];
+                            [viewContext save:&error];
                             if (!error) {
                                 NSLog(@"Updating 'non-active' proposal:%@", proposal.title);
                                 [self fetchProposalsWithHash:proposal.hashProposal];
@@ -200,7 +202,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 
 -(void)updateBudget:(NSDictionary *)jsonDic {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
+        NSPersistentContainer *container = self.stack.persistentContainer;
         [container performBackgroundTask:^(NSManagedObjectContext *context) {
             
             DCBudgetEntity *budget;
@@ -243,7 +245,7 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
 
 -(void)updateProposals:(NSArray *)proposalsArray {
     
-    NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
+    NSPersistentContainer *container = self.stack.persistentContainer;
     [container performBackgroundTask:^(NSManagedObjectContext *context) {
         
         NSDateFormatter *df = [[NSDateFormatter alloc] init];

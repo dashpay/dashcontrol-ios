@@ -22,6 +22,7 @@
 #import <DeluxeInjection/DeluxeInjection.h>
 
 #import "Networking.h"
+#import "DCPersistenceStack.h"
 #import "APINews.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -30,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)activate {
     [DeluxeInjection imperative:^(DIImperative *lets) {
+        // CoreData
+        [[[lets inject] byPropertyClass:[DCPersistenceStack class]] getterValue:[[DCPersistenceStack alloc] init]];
+        
         // Networking stack
         
         static HTTPService *httpService;

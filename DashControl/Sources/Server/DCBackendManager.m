@@ -15,6 +15,7 @@
 #import "NSURL+Sugar.h"
 #import "DCEnvironment.h"
 #import "Networking.h"
+#import "DCPersistenceStack.h"
 
 #define DASHCONTROL_SERVER_VERSION 0
 
@@ -61,8 +62,6 @@
         [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
         [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
         self.dateFormatter = dateFormatter;
-        self.persistentContainer = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
-        self.mainObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
         self.reachability = [Reachability reachabilityForInternetConnection];
         [self startUp];
     }
@@ -75,9 +74,10 @@
     [self fetchMarkets: ^void (NSError * error, NSUInteger defaultExchangeIdentifier, NSUInteger defaultMarketIdentifier)
      {
          if (!error) {
+             NSManagedObjectContext *viewContext = self.stack.persistentContainer.viewContext;
              NSError * innerError = nil;
-             DCMarketEntity * defaultMarket = [[DCCoreDataManager sharedInstance] marketWithIdentifier:defaultMarketIdentifier inContext:self.mainObjectContext  error:&innerError];
-             DCExchangeEntity * defaultExchange = innerError?nil:[[DCCoreDataManager sharedInstance] exchangeWithIdentifier:defaultExchangeIdentifier inContext:self.mainObjectContext  error:&innerError];
+             DCMarketEntity * defaultMarket = [[DCCoreDataManager sharedInstance] marketWithIdentifier:defaultMarketIdentifier inContext:viewContext  error:&innerError];
+             DCExchangeEntity * defaultExchange = innerError?nil:[[DCCoreDataManager sharedInstance] exchangeWithIdentifier:defaultExchangeIdentifier inContext:viewContext  error:&innerError];
              if (!innerError) {
                  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
                  if (defaultMarket && ![[userDefaults objectForKey:DEFAULT_MARKET] isEqualToString:defaultMarket.name]) {
@@ -112,7 +112,7 @@
 -(void)startUpFetchTriggers {
     [self getTriggers:^(NSError *triggerError,NSUInteger statusCode, NSArray *responseObject) {
         if (statusCode/100 == 2) {
-            NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
+            NSPersistentContainer *container = self.stack.persistentContainer;
             [container performBackgroundTask:^(NSManagedObjectContext *context) {
                 if (!triggerError) {
                     NSDictionary * triggerIdentifiers = [responseObject dictionaryReferencedByKeyPath:@"identifier"] ;
@@ -187,7 +187,7 @@
             return;
         }
         
-        NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
+        NSPersistentContainer *container = self.stack.persistentContainer;
         [container performBackgroundTask:^(NSManagedObjectContext *context) {
             DCMarketEntity * defaultMarket = nil;
             DCExchangeEntity * defaultExchange = nil;
@@ -402,8 +402,8 @@
         return;
     }
     
-    
-    [self.persistentContainer performBackgroundTask:^(NSManagedObjectContext *context) {
+    NSPersistentContainer *container = self.stack.persistentContainer;
+    [container performBackgroundTask:^(NSManagedObjectContext *context) {
         __block NSError * error;
         DCMarketEntity * market = [[DCCoreDataManager sharedInstance] marketNamed:marketName inContext:context error:&error];
         DCExchangeEntity * exchange = error?nil:[[DCCoreDataManager sharedInstance] exchangeNamed:exchangeName inContext:context error:&error];

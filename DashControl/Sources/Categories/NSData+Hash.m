@@ -15,24 +15,28 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import <CommonCrypto/CommonDigest.h>
+
+#import "NSData+Hash.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSInteger const APINEWS_PAGE_SIZE;
+@implementation NSData (Hash)
 
-@class HTTPLoaderManager;
-@class DCPersistenceStack;
-@protocol HTTPLoaderOperationProtocol;
+- (NSString *)SHA1 {
+    unsigned int outputLength = CC_SHA1_DIGEST_LENGTH;
+    unsigned char output[outputLength];
 
-@interface APINews : NSObject
+    CC_SHA1(self.bytes, (unsigned int)self.length, output);
 
-@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
-@property (strong, nonatomic) InjectedClass(HTTPLoaderManager) httpManager;
+    NSMutableString *hash = [NSMutableString stringWithCapacity:outputLength * 2];
+    for (unsigned int i = 0; i < outputLength; i++) {
+        [hash appendFormat:@"%02x", output[i]];
+        output[i] = 0;
+    }
 
-@property (readonly, copy, nonatomic) NSString *langCode;
-
-- (id<HTTPLoaderOperationProtocol>)fetchNewsForPage:(NSInteger)page completion:(void(^)(BOOL success, BOOL isLastPage))completion;
+    return [hash copy];
+}
 
 @end
 

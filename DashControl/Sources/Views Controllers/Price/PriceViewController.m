@@ -7,7 +7,10 @@
 //
 
 #import "PriceViewController.h"
+
+
 #import "DCCoreDataManager.h"
+#import "DCPersistenceStack.h"
 #import "DCChartDataEntryEntity+CoreDataProperties.h"
 #import "DCChartTimeFormatter.h"
 #import "PriceAlertViewController.h"
@@ -150,13 +153,7 @@
 }
 
 -(NSManagedObjectContext*)managedObjectContext {
-    if (!_managedObjectContext) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            self.managedObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
-        });
-    }
-    return _managedObjectContext;
+    return self.stack.persistentContainer.viewContext;
 }
 
 - (void)didReceiveMemoryWarning

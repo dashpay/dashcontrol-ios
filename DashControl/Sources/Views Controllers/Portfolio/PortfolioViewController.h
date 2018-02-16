@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class DCPersistenceStack;
+
 @interface PortfolioViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 
 @property (nonatomic,strong) IBOutlet UILabel * balanceLabel;
 

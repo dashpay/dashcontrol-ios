@@ -48,7 +48,6 @@
 
 //Other
 #import "IntTypes.h"
-#import "AppDelegate.h"
 #import "DCBackendManager.h"
 #import "DCCoreDataManager.h"
 #import "DCProposalsManager.h"

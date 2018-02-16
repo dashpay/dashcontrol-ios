@@ -8,14 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface DCProposalsManager : NSObject
 
 #define PROPOSAL_DID_UPDATE_NOTIFICATION @"PROPOSAL_DID_UPDATE_NOTIFICATION"
 #define BUDGET_DID_UPDATE_NOTIFICATION @"BUDGET_DID_UPDATE_NOTIFICATION"
 
-@property (nonatomic, strong) NSManagedObjectContext * _Nullable managedObjectContext;
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 
-+ (id _Nonnull )sharedManager;
++ (id)sharedManager;
 
 -(void)fetchBudgetAndProposals;
 -(void)fetchProposalsWithHash:(NSString *_Nullable)hashProposal;
@@ -24,3 +26,5 @@
 -(NSMutableArray*_Nullable)fetchAllObjectsForEntity:(NSString*_Nullable)entityName inContext:(NSManagedObjectContext *_Nullable)context;
 
 @end
+
+NS_ASSUME_NONNULL_END

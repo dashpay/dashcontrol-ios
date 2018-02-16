@@ -15,10 +15,11 @@
 //  limitations under the License.
 //
 
+#import "APINews.h"
+
 #import "Networking.h"
 #import "DCNewsPostEntity+CoreDataClass.h"
-
-#import "APINews.h"
+#import "DCPersistenceStack.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -70,7 +71,7 @@ static NSString *const API_ENDPOINT = @"blogapi/feed-%@.json";
                 return;
             }
             
-            NSPersistentContainer *container = [(AppDelegate *)[UIApplication sharedApplication].delegate persistentContainer];
+            NSPersistentContainer *container = self.stack.persistentContainer;
             [container performBackgroundTask:^(NSManagedObjectContext * _Nonnull context) {
                 context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
                 

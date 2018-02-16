@@ -15,24 +15,17 @@
 //  limitations under the License.
 //
 
+#import <CoreData/CoreData.h>
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSInteger const APINEWS_PAGE_SIZE;
+@interface DCPersistenceStack : NSObject
 
-@class HTTPLoaderManager;
-@class DCPersistenceStack;
-@protocol HTTPLoaderOperationProtocol;
+@property (readonly, strong, nonatomic) NSPersistentContainer *persistentContainer;
 
-@interface APINews : NSObject
-
-@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
-@property (strong, nonatomic) InjectedClass(HTTPLoaderManager) httpManager;
-
-@property (readonly, copy, nonatomic) NSString *langCode;
-
-- (id<HTTPLoaderOperationProtocol>)fetchNewsForPage:(NSInteger)page completion:(void(^)(BOOL success, BOOL isLastPage))completion;
+- (void)loadStack:(void (^_Nullable)(DCPersistenceStack *stack))completion;
+- (void)saveViewContext;
 
 @end
 
