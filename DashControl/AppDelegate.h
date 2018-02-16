@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+@class DCPersistenceStack;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UNUserNotificationCenterDelegate>
+
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (nonatomic,readonly, strong) NSPersistentContainer *persistentContainer;
-
-- (void)saveContext;
-
 @end
 
+NS_ASSUME_NONNULL_END

@@ -7,6 +7,8 @@
 //
 
 #import "PriceAlertViewController.h"
+
+#import "DCPersistenceStack.h"
 #import "PriceAmountTableViewCell.h"
 #import "TriggerTypeTableViewCell.h"
 #import "AddTriggerTableViewCell.h"
@@ -320,22 +322,22 @@
                 NSError * error = triggerError;
                 if (!error && response) {
                     NSDictionary * dictionary = ((NSDictionary*)response);
-                    NSManagedObjectContext * context = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
-                    DCTriggerEntity *triggerEntity = [NSEntityDescription insertNewObjectForEntityForName:@"DCTriggerEntity" inManagedObjectContext:context];
+                    NSManagedObjectContext * viewContext = self.stack.persistentContainer.viewContext;
+                    DCTriggerEntity *triggerEntity = [NSEntityDescription insertNewObjectForEntityForName:@"DCTriggerEntity" inManagedObjectContext:viewContext];
                     triggerEntity.identifier = [[dictionary objectForKey:@"identifier"] unsignedLongLongValue];
                     triggerEntity.value = [[dictionary objectForKey:@"value"] doubleValue];
                     triggerEntity.type = [DCTrigger typeForNetworkString:[dictionary objectForKey:@"type"]];
                     triggerEntity.marketNamed = [dictionary objectForKey:@"market"];
                     triggerEntity.ignoreFor = [[dictionary objectForKey:@"ignoreFor"] unsignedLongLongValue];
-                    triggerEntity.market = [[DCCoreDataManager sharedInstance] marketNamed:[dictionary objectForKey:@"market"] inContext:context error:&error];
+                    triggerEntity.market = [[DCCoreDataManager sharedInstance] marketNamed:[dictionary objectForKey:@"market"] inContext:viewContext error:&error];
                     NSString * exchangeName = [dictionary objectForKey:@"exchange"];
                     if (![exchangeName isEqualToString:@"any"]) {
                         triggerEntity.exchangeNamed = exchangeName;
-                        triggerEntity.exchange = [[DCCoreDataManager sharedInstance] exchangeNamed:exchangeName inContext:context error:&error];
+                        triggerEntity.exchange = [[DCCoreDataManager sharedInstance] exchangeNamed:exchangeName inContext:viewContext error:&error];
                     }
                     
                     NSError * error = nil;
-                    if (![context save:&error]) {
+                    if (![viewContext save:&error]) {
                         NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
                         abort();
                     }

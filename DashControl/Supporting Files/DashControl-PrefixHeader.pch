@@ -31,11 +31,9 @@
 
 //Pods
 #import <Reachability/Reachability.h>
-#import <RaptureXML/RXMLElement.h>
 
 //CoreData
 #import <CoreData/CoreData.h>
-#import "DCPostEntity+CoreDataClass.h"
 #import "DCChartDataEntryEntity+CoreDataClass.h"
 #import "DCBudgetEntity+CoreDataClass.h"
 #import "DCProposalEntity+CoreDataClass.h"
@@ -50,14 +48,13 @@
 
 //Other
 #import "IntTypes.h"
-#import "AppDelegate.h"
-#import "DCRSSFeedManager.h"
 #import "DCBackendManager.h"
 #import "DCCoreDataManager.h"
 #import "DCProposalsManager.h"
 #import "NSArray+SWAdditions.h"
 
 #import "RunOnMain.h"
+#import "DCLogging.h"
 
 #endif /* __OBJC__ */
 

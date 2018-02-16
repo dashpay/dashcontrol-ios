@@ -7,6 +7,8 @@
 //
 
 #import "PortfolioViewController.h"
+
+#import "DCPersistenceStack.h"
 #import "DCWalletAddressEntity+CoreDataClass.h"
 #import "DCWalletAccountEntity+CoreDataClass.h"
 #import "DCWalletEntity+CoreDataClass.h"
@@ -32,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.managedObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
+    self.managedObjectContext = self.stack.persistentContainer.viewContext;
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(onNavButtonTapped:event:)]];
     
     self.balanceObserver =

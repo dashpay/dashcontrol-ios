@@ -9,7 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <Charts/Charts.h>
 
+@class DCPersistenceStack;
+
 @interface PriceViewController : UIViewController <ChartViewDelegate, UITableViewDelegate, UITableViewDataSource,NSFetchedResultsControllerDelegate>
+
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 
 @property (nonatomic, assign) BOOL shouldHideData;
 

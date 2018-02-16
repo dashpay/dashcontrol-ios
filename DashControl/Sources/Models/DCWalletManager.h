@@ -8,12 +8,19 @@
 
 #import <CoreData/CoreData.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+@class DCPersistenceStack;
+
 @interface DCWalletManager : NSObject
 
-+ (id _Nonnull )sharedInstance;
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 
--(void)importWalletMasterAddressFromSource:(NSString* _Nonnull)source withExtended32PublicKey:(NSString* _Nullable)extended32PublicKey extended44PublicKey:(NSString* _Nullable)extended44PublicKey completion:(void (^ _Nullable)(BOOL success))completion;
++ (id)sharedInstance;
 
-- (void)updateBloomFilter;
+-(void)importWalletMasterAddressFromSource:(NSString*)source withExtended32PublicKey:(NSString* _Nullable)extended32PublicKey extended44PublicKey:(NSString* _Nullable)extended44PublicKey completion:(void (^ _Nullable)(BOOL success))completion;
+
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -16,6 +16,7 @@
 #import "DCServerBloomFilter.h"
 #import "DCWalletAddressEntity+CoreDataClass.h"
 #import "DCEnvironment.h"
+#import "DCPersistenceStack.h"
 
 #define SERVER_BLOOM_FILTER_HASH   @"SERVER_BLOOM_FILTER_HASH"
 
@@ -49,7 +50,7 @@
 
 -(void)initializeWallets {
     self.wallets = [NSMutableSet set];
-    [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] performBackgroundTask:^(NSManagedObjectContext *context) {
+    [self.stack.persistentContainer performBackgroundTask:^(NSManagedObjectContext *context) {
         NSError * error = nil;
         NSArray * accountEntities = [[DCCoreDataManager sharedInstance] walletAccountsInContext:context error:&error]; //nil is main context
         if (!error) {
@@ -73,7 +74,7 @@
         if (completion) completion(false);
         return;
     }
-    [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] performBackgroundTask:^(NSManagedObjectContext *context) {
+    [self.stack.persistentContainer performBackgroundTask:^(NSManagedObjectContext *context) {
         BRBIP32Sequence * sequence = [[BRBIP32Sequence alloc] init];
         NSData * data32 = [sequence deserializedMasterPublicKey:extended32PublicKey];
         NSData * data44 = [sequence deserializedMasterPublicKey:extended44PublicKey];

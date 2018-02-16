@@ -7,6 +7,8 @@
 //
 
 #import "ProposalsViewController.h"
+
+#import "DCPersistenceStack.h"
 #import "ProposalCell.h"
 #import "ProposalDetailViewController.h"
 #import "ProposalScopeButtonsView.h"
@@ -24,7 +26,7 @@ static NSString *CellIdentifier = @"ProposalCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    _managedObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
+    _managedObjectContext = self.stack.persistentContainer.viewContext;
 
     [[NSNotificationCenter defaultCenter]
      addObserver:self

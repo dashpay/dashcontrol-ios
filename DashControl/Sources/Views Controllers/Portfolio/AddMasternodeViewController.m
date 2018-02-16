@@ -7,6 +7,8 @@
 //
 
 #import "AddMasternodeViewController.h"
+
+#import "DCPersistenceStack.h"
 #import "NSString+Dash.h"
 #import "DCMasternodeEntity+CoreDataClass.h"
 #import "DCPortfolioManager.h"
@@ -47,7 +49,7 @@
                         
                     }];
                 } else {
-                    NSManagedObjectContext * context = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer] viewContext];
+                    NSManagedObjectContext * context = self.stack.persistentContainer.viewContext;
                     DCMasternodeEntity * masternode = [NSEntityDescription insertNewObjectForEntityForName:@"Masternode" inManagedObjectContext:context];
                     masternode.address = [self.inputField text];
                     masternode.amount = 100000000000; //base amount;

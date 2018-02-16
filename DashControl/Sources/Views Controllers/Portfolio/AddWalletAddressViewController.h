@@ -9,7 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
+@class DCPersistenceStack;
+
 @interface AddWalletAddressViewController : UITableViewController <AVCaptureMetadataOutputObjectsDelegate>
+
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 
 @property (strong, nonatomic) IBOutlet UITextField * inputField;
 

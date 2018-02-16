@@ -86,6 +86,7 @@
         
         NSString *finalString = [NSString stringWithFormat:@"%@ %@", inXDaysString, dateString];
         
+        // TODO: crash dateString may be nil in airplane mode
         NSRange dateStringRange = [finalString rangeOfString:dateString];
         
         NSMutableAttributedString *mutAttributedString = [[NSMutableAttributedString alloc] initWithString:finalString];

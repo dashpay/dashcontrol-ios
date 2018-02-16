@@ -7,6 +7,8 @@
 //
 
 #import "DCPortfolioManager.h"
+
+#import "DCPersistenceStack.h"
 #import "DCCoreDataManager.h"
 #import "NSArray+SWAdditions.h"
 #import "DCWalletAddressEntity+CoreDataClass.h"
@@ -54,7 +56,7 @@
 }
 
 -(void)updateAmounts {
-    NSPersistentContainer *container = [(AppDelegate*)[[UIApplication sharedApplication] delegate] persistentContainer];
+    NSPersistentContainer *container = self.stack.persistentContainer;
     [container performBackgroundTask:^(NSManagedObjectContext *context) {
         NSError * error = nil;
         NSArray * walletAddresses = [[DCCoreDataManager sharedInstance] walletAddressesInContext:context error:&error];

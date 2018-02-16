@@ -10,17 +10,20 @@
 #import "DCServerBloomFilter.h"
 #import "DCTrigger.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 #define CURRENT_EXCHANGE_MARKET_PAIR @"CURRENT_EXCHANGE_MARKET_PAIR"
 
 @class HTTPLoaderManager;
+@class DCPersistenceStack;
 
 @interface DCBackendManager : NSObject
 
-@property (nonatomic, strong, nonnull) InjectedClass(HTTPLoaderManager) httpManager;
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+@property (strong, nonatomic) InjectedClass(HTTPLoaderManager) httpManager;
 
-@property (nonatomic, strong) NSManagedObjectContext * _Nullable mainObjectContext;
-@property (nonatomic, strong) NSPersistentContainer * _Nullable persistentContainer;
+//@property (nonatomic, strong) NSManagedObjectContext * _Nullable mainObjectContext;
+//@property (nonatomic, strong) NSPersistentContainer * _Nullable persistentContainer;
 
 + (id _Nonnull )sharedInstance;
 
@@ -41,3 +44,5 @@
 -(void)getBalancesInAddresses:(NSArray* _Nonnull)addresses  completion:(void (^ _Nullable)(NSError * _Nullable error,NSUInteger statusCode, NSArray * _Nullable responseObject))completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

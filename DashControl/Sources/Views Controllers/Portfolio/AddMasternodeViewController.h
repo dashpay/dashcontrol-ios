@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class DCPersistenceStack;
+
 @interface AddMasternodeViewController : UITableViewController
+
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 
 @property (strong, nonatomic) IBOutlet UITextField * inputField;
 
