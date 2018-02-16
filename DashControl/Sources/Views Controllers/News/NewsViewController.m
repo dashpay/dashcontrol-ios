@@ -17,12 +17,14 @@
 
 #import "NewsViewController.h"
 
-#import "NewsViewModel.h"
+#import <SafariServices/SafariServices.h>
+
 #import "NewsView.h"
+#import "NewsViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NewsViewController ()
+@interface NewsViewController () <NewsViewDelegate, SFSafariViewControllerDelegate>
 
 @property (strong, nonatomic) NewsViewModel *viewModel;
 @property (strong, nonatomic) NewsView *view;
@@ -35,28 +37,40 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.viewModel = [[NewsViewModel alloc] init];
     self.view.viewModel = self.viewModel;
-    
+
     self.viewModel.fetchedResultsController.delegate = self.view;
     [self.viewModel performFetch];
     [self.viewModel reload];
+
+    self.view.delegate = self;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark NewsViewDelegate
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)newsView:(NewsView *)view didSelectNewsPost:(DCNewsPostEntity *)entity {
+    NSURL *url = [NSURL URLWithString:entity.url];
+    if (!url) {
+        return;
+    }
+    SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
+    safariViewController.delegate = self;
+    safariViewController.preferredBarTintColor = [UIColor colorWithRed:0.0 green:102.0 / 255.0 blue:218.0 / 255.0 alpha:1.0];
+    safariViewController.preferredControlTintColor = [UIColor whiteColor];
+    [self presentViewController:safariViewController animated:YES completion:nil];
 }
-*/
+
+#pragma mark SFSafariViewControllerDelegate
+
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end
 

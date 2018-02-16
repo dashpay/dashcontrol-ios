@@ -21,10 +21,19 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class NewsViewModel;
+@class DCNewsPostEntity;
+@protocol NewsViewDelegate;
 
 @interface NewsView : KVOUIView <NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) NewsViewModel *viewModel;
+@property (nullable, weak, nonatomic) id<NewsViewDelegate> delegate;
+
+@end
+
+@protocol NewsViewDelegate <NSObject>
+
+- (void)newsView:(NewsView *)view didSelectNewsPost:(DCNewsPostEntity *)entity;
 
 @end
 

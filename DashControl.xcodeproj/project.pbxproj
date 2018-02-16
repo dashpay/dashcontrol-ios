@@ -661,12 +661,12 @@
 			isa = PBXGroup;
 			children = (
 				247B8F541F5FBFFB005BC14A /* dash_icon_tmp.png */,
+				2A6F599620357A0A00D7BD85 /* NewsLoadMoreTableViewCell.h */,
+				2A6F599720357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m */,
 				2AD693C42032C9AC0084D840 /* NewsTableViewCell.h */,
 				2AD693C52032C9AC0084D840 /* NewsTableViewCell.m */,
 				2A6F5961203543A200D7BD85 /* NewsView.h */,
 				2A6F5962203543A200D7BD85 /* NewsView.m */,
-				2A6F599620357A0A00D7BD85 /* NewsLoadMoreTableViewCell.h */,
-				2A6F599720357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
