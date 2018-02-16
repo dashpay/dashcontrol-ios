@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSError *error = nil;
     if (![self.fetchedResultsController performFetch:&error]) {
-        NSLog(@"%@: %@", NSStringFromClass([self class]), error);
+        DCDebugLog([self class], error);
     }
 }
 

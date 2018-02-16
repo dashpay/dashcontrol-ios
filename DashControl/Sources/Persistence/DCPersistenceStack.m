@@ -77,9 +77,8 @@ static NSURL *StoreURL() {
         }
 
         if (error != nil) {
-#ifdef DEBUG
-            NSLog(@"%@: %@", NSStringFromClass([self class]), error);
-#endif
+            DCDebugLog([self class], error);
+            
             if (cleanStart) {
                 // TODO: handle more gently
 
@@ -125,9 +124,7 @@ static NSURL *StoreURL() {
     if (context.hasChanges) {
         NSError *error = nil;
         if (![context save:&error]) {
-#ifdef DEBUG
-            NSLog(@"%@: %@", NSStringFromClass([self class]), error);
-#endif
+            DCDebugLog([self class], error);
         }
         else {
             [context reset];

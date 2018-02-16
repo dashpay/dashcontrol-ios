@@ -65,6 +65,7 @@
 		2A6F599820357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F599720357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m */; };
 		2A80B584203699E70015E1AA /* DCPersistenceStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B583203699E70015E1AA /* DCPersistenceStack.m */; };
 		2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B58620369E7F0015E1AA /* NSData+Hash.m */; };
+		2A80B58A2036A8F40015E1AA /* DCLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B5892036A8F40015E1AA /* DCLogging.m */; };
 		2ACFBBC320340C090099727D /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC020340C080099727D /* Montserrat-Light.otf */; };
 		2ACFBBC420340C090099727D /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC120340C080099727D /* Montserrat-Regular.otf */; };
 		2ACFBBC520340C090099727D /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC220340C080099727D /* Montserrat-SemiBold.otf */; };
@@ -312,6 +313,8 @@
 		2A80B583203699E70015E1AA /* DCPersistenceStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCPersistenceStack.m; sourceTree = "<group>"; };
 		2A80B58520369E7F0015E1AA /* NSData+Hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Hash.h"; sourceTree = "<group>"; };
 		2A80B58620369E7F0015E1AA /* NSData+Hash.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hash.m"; sourceTree = "<group>"; };
+		2A80B5882036A8F40015E1AA /* DCLogging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCLogging.h; sourceTree = "<group>"; };
+		2A80B5892036A8F40015E1AA /* DCLogging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCLogging.m; sourceTree = "<group>"; };
 		2ACFBBC020340C080099727D /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		2ACFBBC120340C080099727D /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
 		2ACFBBC220340C080099727D /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
@@ -813,6 +816,8 @@
 			children = (
 				2A04E6EC202DAB340065F30D /* RunOnMain.h */,
 				2A04E6EB202DAB340065F30D /* RunOnMain.m */,
+				2A80B5882036A8F40015E1AA /* DCLogging.h */,
+				2A80B5892036A8F40015E1AA /* DCLogging.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1536,6 +1541,7 @@
 				24C86EFD1F5EC04100735785 /* ProposalDetailNameTableViewCell.m in Sources */,
 				2AD693C62032C9AC0084D840 /* NewsTableViewCell.m in Sources */,
 				2A6F5967203566A600D7BD85 /* ForwardingNavigationController.m in Sources */,
+				2A80B58A2036A8F40015E1AA /* DCLogging.m in Sources */,
 				2A04E6DE202DA5E20065F30D /* HTTPResponse.m in Sources */,
 				FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */,
 				24A2159B1F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m in Sources */,

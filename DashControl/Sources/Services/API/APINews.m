@@ -90,9 +90,7 @@ static NSString *const API_ENDPOINT = @"blogapi/feed-%@.json";
                 if (context.hasChanges) {
                     NSError *error = nil;
                     if (![context save:&error]) {
-#ifdef DEBUG
-                        NSLog(@"%@: %@", NSStringFromClass([self class]), error);
-#endif
+                        DCDebugLog([self class], error);
                     }
                     else {
                         [context reset];

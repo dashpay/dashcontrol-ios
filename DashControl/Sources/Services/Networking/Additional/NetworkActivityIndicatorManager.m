@@ -62,9 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)decreaseActivityCounter {
     if (self.counter == 0) {
-#ifdef DEBUG
-        NSLog(@"%@: activity counter < 0, something went wrong", NSStringFromClass([self class]));
-#endif
+        DCDebugLog([self class], @"activity counter < 0, something went wrong");
 
         return;
     }

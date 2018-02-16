@@ -54,6 +54,7 @@
 #import "NSArray+SWAdditions.h"
 
 #import "RunOnMain.h"
+#import "DCLogging.h"
 
 #endif /* __OBJC__ */
 
