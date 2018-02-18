@@ -84,12 +84,12 @@ NS_ASSUME_NONNULL_BEGIN
     [self.searchBar becomeFirstResponder];
 }
 
-#pragma mark UISearchBarDelegate
+#pragma mark DCSearchBarDelegate
 
 - (void)searchBar:(DCSearchBar *)searchBar textDidChange:(NSString *)searchText {
-    NSLog(@">> '%@' value '%@'", searchText, searchBar.text);
-    //    [self.searchTimer invalidate];
-    //    self.searchTimer = [NSTimer scheduledTimerWithTimeInterval:kSearchTimerInterval target:self selector:@selector(performSearch) userInfo:nil repeats:NO];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(performSearch) object:nil];
+    NSTimeInterval const delay = 0.2;
+    [self performSelector:@selector(performSearch) withObject:nil afterDelay:delay];
 }
 
 - (void)searchBarSearchButtonClicked:(DCSearchBar *)searchBar {
@@ -99,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)searchBarCancelButtonClicked:(DCSearchBar *)searchBar {
     searchBar.text = nil;
     [searchBar resignFirstResponder];
-    //    [self performSearch];
+    [self performSearch];
 
     self.navigationItem.titleView = nil;
     self.navigationItem.rightBarButtonItem = self.searchBarButtonItem;
@@ -123,6 +123,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark Private
+
+- (void)performSearch {
+    NSString *query = self.searchBar.text;
+    [self.viewModel searchWithQuery:query];
 }
 
 @end

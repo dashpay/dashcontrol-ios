@@ -32,10 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) NewsViewModelState state;
 @property (strong, nonatomic) NSFetchedResultsController<DCNewsPostEntity *> *fetchedResultsController;
 @property (weak, nonatomic) id<HTTPLoaderOperationProtocol> request;
+@property (strong, nonatomic) NSPredicate *langPredicate;
 
 @property (assign, nonatomic) NSInteger currentPage;
 @property (assign, nonatomic) BOOL loadingNextPage;
 @property (assign, nonatomic) BOOL canLoadMore;
+@property (nullable, copy, nonatomic) NSString *searchQuery;
 
 @end
 
@@ -45,8 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super init];
     if (self) {
         NSFetchRequest<DCNewsPostEntity *> *fetchRequest = [DCNewsPostEntity fetchRequest];
-        NSPredicate *langPredicate = [NSPredicate predicateWithFormat:@"langCode == %@", self.api.langCode];
-        fetchRequest.predicate = langPredicate;
+        _langPredicate = [NSPredicate predicateWithFormat:@"langCode == %@", self.api.langCode];
+        fetchRequest.predicate = _langPredicate;
         NSSortDescriptor *dateSortDescriptor = [[NSSortDescriptor alloc] initWithKey:KEY_DATE ascending:NO];
         NSSortDescriptor *titleSortDescriptor = [[NSSortDescriptor alloc] initWithKey:KEY_TITLE ascending:YES];
         fetchRequest.sortDescriptors = @[ dateSortDescriptor, titleSortDescriptor ];
@@ -87,6 +89,30 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.currentPage += 1;
     [self fetchPage:self.currentPage];
+}
+
+- (void)searchWithQuery:(NSString *)query {
+    NSString *trimmedQuery = [query stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSPredicate *predicate = nil;
+    if (trimmedQuery.length > 0) {
+        NSPredicate *titlePredicate = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", trimmedQuery];
+        NSPredicate *urlPredicate = [NSPredicate predicateWithFormat:@"url CONTAINS[cd] %@", trimmedQuery];
+        NSPredicate *searchPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[ titlePredicate, urlPredicate ]];
+        predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[ self.langPredicate, searchPredicate ]];
+    }
+    else {
+        predicate = self.langPredicate;
+    }
+    
+    if ([predicate isEqual:self.fetchedResultsController.fetchRequest.predicate]) {
+        return;
+    }
+    
+    self.fetchedResultsController.fetchRequest.predicate = predicate;
+    
+    [self performFetch];
+    
+    self.searchQuery = trimmedQuery;
 }
 
 #pragma mark Private

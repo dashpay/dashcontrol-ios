@@ -27,10 +27,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="235-2Q-3Za">
-                    <rect key="frame" x="0.0" y="0.0" width="304" height="44"/>
+                    <rect key="frame" x="0.0" y="0.0" width="312" height="44"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="searchBarBackground" translatesAutoresizingMaskIntoConstraints="NO" id="Bud-X4-0TF">
-                            <rect key="frame" x="0.0" y="7" width="304" height="31"/>
+                            <rect key="frame" x="0.0" y="7" width="312" height="31"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="31" id="Ek4-SS-SBy"/>
                             </constraints>
@@ -42,7 +42,7 @@
                             </constraints>
                         </imageView>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OAP-wm-F71" customClass="DCSearchBarTintedTextField">
-                            <rect key="frame" x="32" y="0.0" width="272" height="44"/>
+                            <rect key="frame" x="32" y="0.0" width="280" height="44"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -68,7 +68,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZrY-vA-dek">
-                    <rect key="frame" x="312" y="6" width="55" height="32"/>
+                    <rect key="frame" x="320" y="6" width="55" height="32"/>
                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Cancel"/>
@@ -83,7 +83,7 @@
                 <constraint firstItem="235-2Q-3Za" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="O0U-II-NAu"/>
                 <constraint firstItem="235-2Q-3Za" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Scj-pe-Hnm"/>
                 <constraint firstItem="ZrY-vA-dek" firstAttribute="leading" secondItem="235-2Q-3Za" secondAttribute="trailing" constant="8" id="WZ5-mL-sQ1"/>
-                <constraint firstAttribute="trailing" secondItem="ZrY-vA-dek" secondAttribute="trailing" constant="8" id="Wy9-Bh-fm1"/>
+                <constraint firstAttribute="trailing" secondItem="ZrY-vA-dek" secondAttribute="trailing" id="Wy9-Bh-fm1"/>
                 <constraint firstItem="ZrY-vA-dek" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Xib-Cm-15d"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

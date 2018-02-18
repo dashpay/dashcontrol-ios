@@ -40,11 +40,14 @@ typedef NS_ENUM(NSUInteger, NewsViewModelState) {
 @property (readonly, strong, nonatomic) NSFetchedResultsController<DCNewsPostEntity *> *fetchedResultsController;
 
 @property (readonly, assign, nonatomic) BOOL canLoadMore;
+@property (nullable, readonly, copy, nonatomic) NSString *searchQuery;
 
 - (void)performFetch;
 
 - (void)reload;
 - (void)loadNextPage;
+
+- (void)searchWithQuery:(NSString *)query;
 
 @end
 

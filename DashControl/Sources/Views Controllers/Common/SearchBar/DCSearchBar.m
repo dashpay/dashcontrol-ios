@@ -101,6 +101,28 @@ NS_ASSUME_NONNULL_BEGIN
     self.textField.text = text;
 }
 
+#pragma mark UIResponder
+
+- (BOOL)canBecomeFirstResponder {
+    return self.textField.canBecomeFirstResponder;
+}
+
+- (BOOL)becomeFirstResponder {
+    return [self.textField becomeFirstResponder];
+}
+
+- (BOOL)canResignFirstResponder {
+    return self.textField.canResignFirstResponder;
+}
+
+- (BOOL)resignFirstResponder {
+    return [self.textField resignFirstResponder];
+}
+
+- (BOOL)isFirstResponder {
+    return self.textField.isFirstResponder;
+}
+
 #pragma mark Actions
 
 - (IBAction)cancelButtonAction:(id)sender {

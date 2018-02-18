@@ -24,6 +24,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #define KEY_VIEWMODEL_STATE @"viewModel.state"
+#define KEY_VIEWMODEL_SEARCHQUERY @"viewModel.searchQuery"
 
 static NSString *const NEWS_FIRST_CELL_ID = @"NewsFirstTableViewCell";
 static NSString *const NEWS_CELL_ID = @"NewsTableViewCell";
@@ -80,13 +81,17 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
             }
         }
     }];
+    
+    [self mvvm_observe:KEY_VIEWMODEL_SEARCHQUERY with:^(typeof(self) self, NSString *value){
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSUInteger numberOfObjects = [self numberOfObjects];
-    self.showingLoadMoreCell = self.viewModel.canLoadMore && (numberOfObjects > 0);
+    self.showingLoadMoreCell = ![self isSearchActive] && self.viewModel.canLoadMore && (numberOfObjects > 0);
 
     return (self.showingLoadMoreCell ? numberOfObjects + 1 : numberOfObjects);
 }
@@ -97,7 +102,7 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
         return cell;
     }
     else {
-        NSString *identifier = indexPath.row == 0 ? NEWS_FIRST_CELL_ID : NEWS_CELL_ID;
+        NSString *identifier = [self isBigNewsCellIndexPath:indexPath] ? NEWS_FIRST_CELL_ID : NEWS_CELL_ID;
         NewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
         [self configureCell:cell atIndexPath:indexPath];
         return cell;
@@ -111,7 +116,7 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
         return 104.0;
     }
     else {
-        return (indexPath.row == 0 ? 198.0 : 104.0);
+        return ([self isBigNewsCellIndexPath:indexPath] ? 198.0 : 104.0);
     }
 }
 
@@ -123,7 +128,7 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([self isLoadMoreIndexPath:indexPath]) {
+    if ([self isLoadMoreIndexPath:indexPath] && [cell isKindOfClass:[NewsLoadMoreTableViewCell class]]) {
         NewsLoadMoreTableViewCell *loadMoreCell = (NewsLoadMoreTableViewCell *)cell;
         [loadMoreCell willDisplay];
 
@@ -132,7 +137,7 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([self isLoadMoreIndexPath:indexPath]) {
+    if ([self isLoadMoreIndexPath:indexPath] && [cell isKindOfClass:[NewsLoadMoreTableViewCell class]]) {
         NewsLoadMoreTableViewCell *loadMoreCell = (NewsLoadMoreTableViewCell *)cell;
         [loadMoreCell didEndDisplaying];
     }
@@ -212,6 +217,14 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     id<NSFetchedResultsSectionInfo> sectionInfo = self.viewModel.fetchedResultsController.sections.firstObject;
     NSInteger numberOfObjects = sectionInfo.numberOfObjects;
     return numberOfObjects;
+}
+
+- (BOOL)isSearchActive {
+    return (self.viewModel.searchQuery.length > 0);
+}
+
+- (BOOL)isBigNewsCellIndexPath:(NSIndexPath *)indexPath {
+    return (![self isSearchActive] && indexPath.row == 0);
 }
 
 @end
