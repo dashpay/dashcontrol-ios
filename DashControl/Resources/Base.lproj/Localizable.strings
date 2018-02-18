@@ -41,7 +41,7 @@
 /* As in 'by Username' */
 "by" = "by";
 
-/* No comment provided by engineer. */
+/* Cancel button */
 "Cancel" = "Cancel";
 
 /* No comment provided by engineer. */
@@ -127,6 +127,9 @@
 
 /* Price Alert Screen */
 "required" = "required";
+
+/* Search bar placeholder */
+"Search" = "Search";
 
 /* No comment provided by engineer. */
 "Search name or owner" = "Search name or owner";

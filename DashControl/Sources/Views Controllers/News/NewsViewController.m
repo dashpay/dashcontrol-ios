@@ -20,14 +20,18 @@
 #import <SafariServices/SafariServices.h>
 
 #import "NewsView.h"
+#import "DCSearchBar.h"
 #import "NewsViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NewsViewController () <NewsViewDelegate, SFSafariViewControllerDelegate>
+@interface NewsViewController () <NewsViewDelegate, DCSearchBarDelegate, SFSafariViewControllerDelegate>
 
 @property (strong, nonatomic) NewsViewModel *viewModel;
 @property (strong, nonatomic) NewsView *view;
+
+@property (strong, nonatomic) DCSearchBar *searchBar;
+@property (strong, nonatomic) UIBarButtonItem *searchBarButtonItem;
 
 @end
 
@@ -46,10 +50,59 @@ NS_ASSUME_NONNULL_BEGIN
     [self.viewModel reload];
 
     self.view.delegate = self;
+
+    self.navigationItem.rightBarButtonItem = self.searchBarButtonItem;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+
+- (DCSearchBar *)searchBar {
+    if (!_searchBar) {
+        _searchBar = [[DCSearchBar alloc] initWithFrame:CGRectMake(0.0, 0.0, [UIScreen mainScreen].bounds.size.width, 44.0)];
+        _searchBar.delegate = self;
+    }
+    return _searchBar;
+}
+
+- (UIBarButtonItem *)searchBarButtonItem {
+    if (!_searchBarButtonItem) {
+        _searchBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"searchBarButton"]
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:self
+                                                               action:@selector(searchBarButtonItemAction:)];
+    }
+    return _searchBarButtonItem;
+}
+
+#pragma mark Actions
+
+- (void)searchBarButtonItemAction:(UIBarButtonItem *)sender {
+    self.navigationItem.rightBarButtonItem = nil;
+    self.navigationItem.titleView = self.searchBar;
+    [self.searchBar becomeFirstResponder];
+}
+
+#pragma mark UISearchBarDelegate
+
+- (void)searchBar:(DCSearchBar *)searchBar textDidChange:(NSString *)searchText {
+    NSLog(@">> '%@' value '%@'", searchText, searchBar.text);
+    //    [self.searchTimer invalidate];
+    //    self.searchTimer = [NSTimer scheduledTimerWithTimeInterval:kSearchTimerInterval target:self selector:@selector(performSearch) userInfo:nil repeats:NO];
+}
+
+- (void)searchBarSearchButtonClicked:(DCSearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+}
+
+- (void)searchBarCancelButtonClicked:(DCSearchBar *)searchBar {
+    searchBar.text = nil;
+    [searchBar resignFirstResponder];
+    //    [self performSearch];
+
+    self.navigationItem.titleView = nil;
+    self.navigationItem.rightBarButtonItem = self.searchBarButtonItem;
 }
 
 #pragma mark NewsViewDelegate

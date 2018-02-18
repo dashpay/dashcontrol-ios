@@ -66,6 +66,9 @@
 		2A80B584203699E70015E1AA /* DCPersistenceStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B583203699E70015E1AA /* DCPersistenceStack.m */; };
 		2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B58620369E7F0015E1AA /* NSData+Hash.m */; };
 		2A80B58A2036A8F40015E1AA /* DCLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B5892036A8F40015E1AA /* DCLogging.m */; };
+		2A80B58D2039B3050015E1AA /* UIFont+DCStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B58C2039B3050015E1AA /* UIFont+DCStyle.m */; };
+		2A80B58F2039BEFE0015E1AA /* DCSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A80B58E2039BEFE0015E1AA /* DCSearchBar.xib */; };
+		2A80B5922039C0DB0015E1AA /* DCSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B5912039C0DB0015E1AA /* DCSearchBar.m */; };
 		2ACFBBC320340C090099727D /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC020340C080099727D /* Montserrat-Light.otf */; };
 		2ACFBBC420340C090099727D /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC120340C080099727D /* Montserrat-Regular.otf */; };
 		2ACFBBC520340C090099727D /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC220340C080099727D /* Montserrat-SemiBold.otf */; };
@@ -315,6 +318,11 @@
 		2A80B58620369E7F0015E1AA /* NSData+Hash.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hash.m"; sourceTree = "<group>"; };
 		2A80B5882036A8F40015E1AA /* DCLogging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCLogging.h; sourceTree = "<group>"; };
 		2A80B5892036A8F40015E1AA /* DCLogging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCLogging.m; sourceTree = "<group>"; };
+		2A80B58B2039B3050015E1AA /* UIFont+DCStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+DCStyle.h"; sourceTree = "<group>"; };
+		2A80B58C2039B3050015E1AA /* UIFont+DCStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+DCStyle.m"; sourceTree = "<group>"; };
+		2A80B58E2039BEFE0015E1AA /* DCSearchBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DCSearchBar.xib; sourceTree = "<group>"; };
+		2A80B5902039C0DB0015E1AA /* DCSearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSearchBar.h; sourceTree = "<group>"; };
+		2A80B5912039C0DB0015E1AA /* DCSearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSearchBar.m; sourceTree = "<group>"; };
 		2ACFBBC020340C080099727D /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		2ACFBBC120340C080099727D /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
 		2ACFBBC220340C080099727D /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
@@ -847,10 +855,21 @@
 		2A6F59642035668300D7BD85 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				2A80B5932039FCC20015E1AA /* SearchBar */,
 				2A6F5965203566A600D7BD85 /* ForwardingNavigationController.h */,
 				2A6F5966203566A600D7BD85 /* ForwardingNavigationController.m */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		2A80B5932039FCC20015E1AA /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				2A80B58E2039BEFE0015E1AA /* DCSearchBar.xib */,
+				2A80B5902039C0DB0015E1AA /* DCSearchBar.h */,
+				2A80B5912039C0DB0015E1AA /* DCSearchBar.m */,
+			);
+			path = SearchBar;
 			sourceTree = "<group>";
 		};
 		2ACFBBBF20340C080099727D /* Fonts */ = {
@@ -1180,6 +1199,8 @@
 				FB4311011FA2BCD800784EBC /* NSString+Sugar.m */,
 				FB4311031FA2C19800784EBC /* NSURL+Sugar.h */,
 				FB4311041FA2C19800784EBC /* NSURL+Sugar.m */,
+				2A80B58B2039B3050015E1AA /* UIFont+DCStyle.h */,
+				2A80B58C2039B3050015E1AA /* UIFont+DCStyle.m */,
 				FBEF66FF1F83DE30003424D2 /* UIImage+Sugar.h */,
 				FBEF67001F83DE30003424D2 /* UIImage+Sugar.m */,
 			);
@@ -1386,6 +1407,7 @@
 				2A6F596B203576C400D7BD85 /* News.storyboard in Resources */,
 				24FC99F51F5EA0F40054C2A8 /* iconAttachment@2x.png in Resources */,
 				FB1F8AB51FBCD2EA00175311 /* BIP39Words.plist in Resources */,
+				2A80B58F2039BEFE0015E1AA /* DCSearchBar.xib in Resources */,
 				247B8F551F5FBFFB005BC14A /* dash_icon_tmp.png in Resources */,
 				FB84EDD31F32898700E4D400 /* LaunchScreen.storyboard in Resources */,
 				FB84EDCE1F32898700E4D400 /* Main.storyboard in Resources */,
@@ -1520,6 +1542,7 @@
 				FB4310F51FA2142700784EBC /* DCEnvironment.m in Sources */,
 				FB9CC1611F83E38A0079309F /* NSData+Dash.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
+				2A80B58D2039B3050015E1AA /* UIFont+DCStyle.m in Sources */,
 				2A04E6DD202DA5E20065F30D /* HTTPRateLimiter.m in Sources */,
 				FB1F8AB01FBCABD200175311 /* BRBIP39Mnemonic.m in Sources */,
 				FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */,
@@ -1554,6 +1577,7 @@
 				FB9CC1AA1F87D4A60079309F /* BRKey+BIP38.m in Sources */,
 				FB4550CC1FAFABD6001CC1ED /* DCTrigger.m in Sources */,
 				2A6F599820357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m in Sources */,
+				2A80B5922039C0DB0015E1AA /* DCSearchBar.m in Sources */,
 				2A6F5963203543A200D7BD85 /* NewsView.m in Sources */,
 				FB9CC1AB1F87D4A60079309F /* BRKey.m in Sources */,
 				2A04E6E5202DA5E20065F30D /* HTTPURLRequestBuilder.m in Sources */,
