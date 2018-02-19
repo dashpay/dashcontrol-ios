@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)loadImageWithURL:(NSURL * _Nullable)url {
-    UIImage *placeholderImage = [UIImage imageNamed:@"dash_icon_tmp"];
+    UIImage *placeholderImage = [UIImage imageNamed:@"dashLogoPlaceholder"];
     __weak typeof(self) weakSelf = self;
     [self.newsImageView sd_setImageWithURL:url placeholderImage:placeholderImage completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         if (!image) {

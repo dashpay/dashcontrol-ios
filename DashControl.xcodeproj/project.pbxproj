@@ -16,7 +16,6 @@
 		2432DDA01F54395600A14112 /* ProposalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432DD9F1F54395600A14112 /* ProposalCell.m */; };
 		24438DEF1F5FCE7D00763A14 /* ProposalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 244857901F59CCBF004DE273 /* ProposalDetailViewController.m */; };
 		24438DF31F5FEA6600763A14 /* ProposalHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24438DF21F5FEA6600763A14 /* ProposalHeaderView.m */; };
-		247B8F551F5FBFFB005BC14A /* dash_icon_tmp.png in Resources */ = {isa = PBXBuildFile; fileRef = 247B8F541F5FBFFB005BC14A /* dash_icon_tmp.png */; };
 		2485235B1F44A71B0027FBA6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2485235A1F44A71B0027FBA6 /* WebKit.framework */; };
 		249A402F1F62715700155636 /* ProposalScopeButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 249A402E1F62715700155636 /* ProposalScopeButtonsView.m */; };
 		24A2159B1F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A215981F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m */; };
@@ -206,7 +205,6 @@
 		24438DF21F5FEA6600763A14 /* ProposalHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalHeaderView.m; sourceTree = "<group>"; };
 		2448578F1F59CCBF004DE273 /* ProposalDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalDetailViewController.h; sourceTree = "<group>"; };
 		244857901F59CCBF004DE273 /* ProposalDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailViewController.m; sourceTree = "<group>"; };
-		247B8F541F5FBFFB005BC14A /* dash_icon_tmp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dash_icon_tmp.png; sourceTree = "<group>"; };
 		2485235A1F44A71B0027FBA6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		249A402D1F62715700155636 /* ProposalScopeButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalScopeButtonsView.h; sourceTree = "<group>"; };
 		249A402E1F62715700155636 /* ProposalScopeButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalScopeButtonsView.m; sourceTree = "<group>"; };
@@ -689,7 +687,6 @@
 		24C86EFA1F5EBFE500735785 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				247B8F541F5FBFFB005BC14A /* dash_icon_tmp.png */,
 				2A6F599620357A0A00D7BD85 /* NewsLoadMoreTableViewCell.h */,
 				2A6F599720357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m */,
 				2AD693C42032C9AC0084D840 /* NewsTableViewCell.h */,
@@ -1437,7 +1434,6 @@
 				24FC99F51F5EA0F40054C2A8 /* iconAttachment@2x.png in Resources */,
 				FB1F8AB51FBCD2EA00175311 /* BIP39Words.plist in Resources */,
 				2A80B58F2039BEFE0015E1AA /* DCSearchBar.xib in Resources */,
-				247B8F551F5FBFFB005BC14A /* dash_icon_tmp.png in Resources */,
 				FB84EDD31F32898700E4D400 /* LaunchScreen.storyboard in Resources */,
 				FB84EDCE1F32898700E4D400 /* Main.storyboard in Resources */,
 				2ACFBBC320340C090099727D /* Montserrat-Light.otf in Resources */,
