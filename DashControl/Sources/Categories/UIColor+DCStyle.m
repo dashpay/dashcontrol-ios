@@ -15,11 +15,19 @@
 //  limitations under the License.
 //
 
-#import "BaseNewsTableViewController.h"
+#import "UIColor+DCStyle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NewsViewController : BaseNewsTableViewController
+@implementation UIColor (DCStyle)
+
++ (UIColor *)dc_barTintColor {
+    return [UIColor colorWithRed:0.0 green:102.0 / 255.0 blue:218.0 / 255.0 alpha:1.0];
+}
+
++ (UIColor *)dc_darkBlueColor {
+    return [UIColor colorWithRed:31.0 / 255.0 green:37.0 / 255.0 blue:51.0 / 255.0 alpha:1.0];
+}
 
 @end
 

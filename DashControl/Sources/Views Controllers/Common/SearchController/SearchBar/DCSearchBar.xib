@@ -18,6 +18,7 @@
             <connections>
                 <outlet property="cancelButton" destination="ZrY-vA-dek" id="aXr-Gs-kpn"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="6J8-G6-vJh"/>
+                <outlet property="searchBarBackgroundImageView" destination="Bud-X4-0TF" id="5Zw-sd-iLE"/>
                 <outlet property="textField" destination="OAP-wm-F71" id="dY2-Nq-17z"/>
             </connections>
         </placeholder>
@@ -27,7 +28,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="235-2Q-3Za">
-                    <rect key="frame" x="0.0" y="0.0" width="312" height="44"/>
+                    <rect key="frame" x="63" y="0.0" width="312" height="44"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="searchBarBackground" translatesAutoresizingMaskIntoConstraints="NO" id="Bud-X4-0TF">
                             <rect key="frame" x="0.0" y="7" width="312" height="31"/>
@@ -36,13 +37,13 @@
                             </constraints>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="searchBarButton" translatesAutoresizingMaskIntoConstraints="NO" id="MIF-ad-Fqj">
-                            <rect key="frame" x="0.0" y="0.0" width="32" height="44"/>
+                            <rect key="frame" x="280" y="0.0" width="32" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="32" id="UuH-Bm-asm"/>
                             </constraints>
                         </imageView>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OAP-wm-F71" customClass="DCSearchBarTintedTextField">
-                            <rect key="frame" x="32" y="0.0" width="280" height="44"/>
+                            <rect key="frame" x="8" y="0.0" width="272" height="44"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -57,18 +58,18 @@
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="OAP-wm-F71" secondAttribute="bottom" id="5BY-3L-qRD"/>
                         <constraint firstItem="Bud-X4-0TF" firstAttribute="leading" secondItem="235-2Q-3Za" secondAttribute="leading" id="8Dv-yL-t6x"/>
-                        <constraint firstItem="OAP-wm-F71" firstAttribute="leading" secondItem="MIF-ad-Fqj" secondAttribute="trailing" id="Ajb-ro-2z6"/>
+                        <constraint firstAttribute="trailing" secondItem="MIF-ad-Fqj" secondAttribute="trailing" id="RKB-1B-n4I"/>
                         <constraint firstAttribute="trailing" secondItem="Bud-X4-0TF" secondAttribute="trailing" id="agQ-M7-qFw"/>
-                        <constraint firstItem="MIF-ad-Fqj" firstAttribute="leading" secondItem="Bud-X4-0TF" secondAttribute="leading" id="mBs-Lt-CTo"/>
+                        <constraint firstItem="OAP-wm-F71" firstAttribute="leading" secondItem="235-2Q-3Za" secondAttribute="leading" constant="8" id="c0U-Qp-NUl"/>
                         <constraint firstItem="MIF-ad-Fqj" firstAttribute="top" secondItem="235-2Q-3Za" secondAttribute="top" id="puL-7Y-XQl"/>
+                        <constraint firstItem="MIF-ad-Fqj" firstAttribute="leading" secondItem="OAP-wm-F71" secondAttribute="trailing" id="rF2-fY-xGt"/>
                         <constraint firstItem="Bud-X4-0TF" firstAttribute="centerY" secondItem="235-2Q-3Za" secondAttribute="centerY" id="rUV-41-4Ez"/>
-                        <constraint firstAttribute="trailing" secondItem="OAP-wm-F71" secondAttribute="trailing" id="tNy-3U-vAr"/>
                         <constraint firstItem="OAP-wm-F71" firstAttribute="top" secondItem="235-2Q-3Za" secondAttribute="top" id="twm-qv-VfZ"/>
                         <constraint firstAttribute="bottom" secondItem="MIF-ad-Fqj" secondAttribute="bottom" id="vbY-gd-kzR"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZrY-vA-dek">
-                    <rect key="frame" x="320" y="6" width="55" height="32"/>
+                    <rect key="frame" x="0.0" y="6" width="55" height="32"/>
                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Cancel"/>
@@ -80,11 +81,11 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="235-2Q-3Za" secondAttribute="bottom" id="F9Q-38-Mzi"/>
-                <constraint firstItem="235-2Q-3Za" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="O0U-II-NAu"/>
+                <constraint firstAttribute="trailing" secondItem="235-2Q-3Za" secondAttribute="trailing" id="J6q-SV-yeG"/>
                 <constraint firstItem="235-2Q-3Za" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Scj-pe-Hnm"/>
-                <constraint firstItem="ZrY-vA-dek" firstAttribute="leading" secondItem="235-2Q-3Za" secondAttribute="trailing" constant="8" id="WZ5-mL-sQ1"/>
-                <constraint firstAttribute="trailing" secondItem="ZrY-vA-dek" secondAttribute="trailing" id="Wy9-Bh-fm1"/>
                 <constraint firstItem="ZrY-vA-dek" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Xib-Cm-15d"/>
+                <constraint firstItem="ZrY-vA-dek" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="YOg-w2-bnv"/>
+                <constraint firstItem="235-2Q-3Za" firstAttribute="leading" secondItem="ZrY-vA-dek" secondAttribute="trailing" constant="8" id="YUz-II-1Au"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="34.5" y="55"/>

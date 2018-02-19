@@ -15,11 +15,14 @@
 //  limitations under the License.
 //
 
-#import "BaseNewsTableViewController.h"
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NewsViewController : BaseNewsTableViewController
+@interface UIColor (DCStyle)
+
++ (UIColor *)dc_barTintColor;
++ (UIColor *)dc_darkBlueColor;
 
 @end
 

@@ -15,11 +15,15 @@
 //  limitations under the License.
 //
 
-#import "BaseNewsTableViewController.h"
+#import <CoreData/CoreData.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NewsViewController : BaseNewsTableViewController
+@interface BaseNewsTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(nullable NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(nullable NSIndexPath *)newIndexPath NS_REQUIRES_SUPER;
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller NS_REQUIRES_SUPER;
 
 @end
 

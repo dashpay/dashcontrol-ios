@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) id<DCSearchBarDelegate> delegate;
 @property (nullable, copy, nonatomic) NSString *text;
 
+- (void)showAnimatedCompletion:(void (^_Nullable)(void))completion;
+- (void)hideAnimatedCompletion:(void (^_Nullable)(void))completion;
+
 @end
 
 @protocol DCSearchBarDelegate <NSObject>
@@ -33,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)searchBar:(DCSearchBar *)searchBar textDidChange:(NSString *)searchText;
 - (void)searchBarSearchButtonClicked:(DCSearchBar *)searchBar;
 - (void)searchBarCancelButtonClicked:(DCSearchBar *)searchBar;
+- (void)searchBarDidBecomeFirstResponder:(DCSearchBar *)searchBar;
 
 @end
 

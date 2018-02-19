@@ -19,7 +19,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NewsViewController : BaseNewsTableViewController
+@interface NewsSearchResultsController : BaseNewsTableViewController
 
 @end
 

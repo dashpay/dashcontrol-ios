@@ -48,6 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DCSearchBar () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIImageView *searchBarBackgroundImageView;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 
@@ -101,6 +102,14 @@ NS_ASSUME_NONNULL_BEGIN
     self.textField.text = text;
 }
 
+- (void)showAnimatedCompletion:(void (^_Nullable)(void))completion {
+    [self animateAllButIconFromAlpha:0.0 toAlpha:1.0 completion:completion];
+}
+
+- (void)hideAnimatedCompletion:(void (^_Nullable)(void))completion {
+    [self animateAllButIconFromAlpha:1.0 toAlpha:0.0 completion:completion];
+}
+
 #pragma mark UIResponder
 
 - (BOOL)canBecomeFirstResponder {
@@ -108,7 +117,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)becomeFirstResponder {
-    return [self.textField becomeFirstResponder];
+    BOOL result = [self.textField becomeFirstResponder];
+    if (result) {
+        [self.delegate searchBarDidBecomeFirstResponder:self];
+    }
+    return result;
 }
 
 - (BOOL)canResignFirstResponder {
@@ -132,7 +145,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    textField.text = [textField.text stringByReplacingCharactersInRange:range withString:string];;
+    textField.text = [textField.text stringByReplacingCharactersInRange:range withString:string];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.delegate searchBar:self textDidChange:self.textField.text];
     });
@@ -145,7 +158,7 @@ NS_ASSUME_NONNULL_BEGIN
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.delegate searchBar:self textDidChange:@""];
     });
-    
+
     return NO;
 }
 
@@ -155,6 +168,26 @@ NS_ASSUME_NONNULL_BEGIN
     });
 
     return YES;
+}
+
+#pragma mark Private
+
+- (void)animateAllButIconFromAlpha:(CGFloat)fromAlpha toAlpha:(CGFloat)toAlpha completion:(void (^_Nullable)(void))completion {
+    self.searchBarBackgroundImageView.alpha = fromAlpha;
+    self.textField.alpha = fromAlpha;
+    self.cancelButton.alpha = fromAlpha;
+
+    NSTimeInterval const animationDuration = 0.25;
+    [UIView animateWithDuration:animationDuration animations:^{
+        self.searchBarBackgroundImageView.alpha = toAlpha;
+        self.textField.alpha = toAlpha;
+        self.cancelButton.alpha = toAlpha;
+    }
+        completion:^(BOOL finished) {
+            if (completion) {
+                completion();
+            }
+        }];
 }
 
 @end

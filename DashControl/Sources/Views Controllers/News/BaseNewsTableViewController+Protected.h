@@ -15,25 +15,26 @@
 //  limitations under the License.
 //
 
-#import <CoreData/CoreData.h>
-#import <KVO-MVVM/KVOUIView.h>
+#import "BaseNewsTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class NewsViewModel;
+extern NSString *const NEWS_CELL_ID;
+
+@class NewsTableViewCell;
 @class DCNewsPostEntity;
-@protocol NewsViewDelegate;
 
-@interface NewsView : KVOUIView <NSFetchedResultsControllerDelegate>
+@interface BaseNewsTableViewController ()
 
-@property (strong, nonatomic) NewsViewModel *viewModel;
-@property (nullable, weak, nonatomic) id<NewsViewDelegate> delegate;
+@property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
-@end
+@property (strong, nonatomic) NSMutableArray<NSIndexPath *> *deletedRowIndexPaths;
+@property (strong, nonatomic) NSMutableArray<NSIndexPath *> *insertedRowIndexPaths;
+@property (strong, nonatomic) NSMutableArray<NSIndexPath *> *updatedRowIndexPaths;
 
-@protocol NewsViewDelegate <NSObject>
-
-- (void)newsView:(NewsView *)view didSelectNewsPost:(DCNewsPostEntity *)entity;
+- (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
+                   configureCell:(NewsTableViewCell *)cell
+                     atIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

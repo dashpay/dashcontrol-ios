@@ -15,11 +15,34 @@
 //  limitations under the License.
 //
 
-#import "BaseNewsTableViewController.h"
+#import "NewsSearchResultsController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NewsViewController : BaseNewsTableViewController
+@interface NewsSearchResultsController ()
+
+@end
+
+@implementation NewsSearchResultsController
+
+- (instancetype)init {
+    self = [super initWithStyle:UITableViewStylePlain];
+    if (self) {
+    }
+    return self;
+}
+
+#pragma mark UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSAssert(NO, @"Parent controller should be datasource");
+    
+    return [[UITableViewCell alloc] init];
+}
 
 @end
 
