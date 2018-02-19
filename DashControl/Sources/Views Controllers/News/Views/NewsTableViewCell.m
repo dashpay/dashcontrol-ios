@@ -31,22 +31,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation NewsTableViewCell
 
-- (void)configureWithTitle:(NSString * _Nullable)title
-                dateString:(NSString * _Nullable)dateString
-                  imageURL:(NSURL * _Nullable)imageURL {
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    [super setHighlighted:highlighted animated:animated];
+
+    if (highlighted) {
+        self.contentView.alpha = 0.65;
+    }
+    else {
+        self.contentView.alpha = 1.0;
+    }
+}
+
+- (void)configureWithTitle:(NSString *_Nullable)title
+                dateString:(NSString *_Nullable)dateString
+                  imageURL:(NSURL *_Nullable)imageURL {
     self.newsTitleLabel.text = title;
     self.newsDateLabel.text = dateString;
     [self loadImageWithURL:imageURL];
 }
 
-- (void)loadImageWithURL:(NSURL * _Nullable)url {
+- (void)loadImageWithURL:(NSURL *_Nullable)url {
     UIImage *placeholderImage = [UIImage imageNamed:@"dashLogoPlaceholder"];
     __weak typeof(self) weakSelf = self;
-    [self.newsImageView sd_setImageWithURL:url placeholderImage:placeholderImage completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    [self.newsImageView sd_setImageWithURL:url placeholderImage:placeholderImage completed:^(UIImage *_Nullable image, NSError *_Nullable error, SDImageCacheType cacheType, NSURL *_Nullable imageURL) {
         if (!image) {
             return;
         }
-        
+
         __strong typeof(weakSelf) strongSelf = weakSelf;
         if (!strongSelf) {
             return;
