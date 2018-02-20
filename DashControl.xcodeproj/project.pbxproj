@@ -16,7 +16,6 @@
 		2432DDA01F54395600A14112 /* ProposalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432DD9F1F54395600A14112 /* ProposalCell.m */; };
 		24438DEF1F5FCE7D00763A14 /* ProposalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 244857901F59CCBF004DE273 /* ProposalDetailViewController.m */; };
 		24438DF31F5FEA6600763A14 /* ProposalHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24438DF21F5FEA6600763A14 /* ProposalHeaderView.m */; };
-		247B8F551F5FBFFB005BC14A /* dash_icon_tmp.png in Resources */ = {isa = PBXBuildFile; fileRef = 247B8F541F5FBFFB005BC14A /* dash_icon_tmp.png */; };
 		2485235B1F44A71B0027FBA6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2485235A1F44A71B0027FBA6 /* WebKit.framework */; };
 		249A402F1F62715700155636 /* ProposalScopeButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 249A402E1F62715700155636 /* ProposalScopeButtonsView.m */; };
 		24A2159B1F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 24A215981F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m */; };
@@ -58,14 +57,21 @@
 		2A04E6E8202DA5E20065F30D /* HTTPService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6D8202DA5E20065F30D /* HTTPService.m */; };
 		2A04E6E9202DA5E20065F30D /* Injections.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6DA202DA5E20065F30D /* Injections.m */; };
 		2A04E6ED202DAB340065F30D /* RunOnMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6EB202DAB340065F30D /* RunOnMain.m */; };
+		2A289A4D203AB00700EDC98E /* DCSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A289A4C203AB00700EDC98E /* DCSearchController.m */; };
+		2A289A50203AB44400EDC98E /* BaseNewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A289A4F203AB44400EDC98E /* BaseNewsTableViewController.m */; };
+		2A289A52203AB6D700EDC98E /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A289A51203AB6D700EDC98E /* NewsTableViewCell.xib */; };
+		2A289A55203AC10E00EDC98E /* NewsSearchResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A289A54203AC10E00EDC98E /* NewsSearchResultsController.m */; };
+		2A4FE281203AE489007FD160 /* UIColor+DCStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FE280203AE489007FD160 /* UIColor+DCStyle.m */; };
 		2A6F59602034259600D7BD85 /* APINews.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F595F2034259600D7BD85 /* APINews.m */; };
-		2A6F5963203543A200D7BD85 /* NewsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F5962203543A200D7BD85 /* NewsView.m */; };
 		2A6F5967203566A600D7BD85 /* ForwardingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F5966203566A600D7BD85 /* ForwardingNavigationController.m */; };
 		2A6F596B203576C400D7BD85 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6F596D203576C400D7BD85 /* News.storyboard */; };
 		2A6F599820357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F599720357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m */; };
 		2A80B584203699E70015E1AA /* DCPersistenceStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B583203699E70015E1AA /* DCPersistenceStack.m */; };
 		2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B58620369E7F0015E1AA /* NSData+Hash.m */; };
 		2A80B58A2036A8F40015E1AA /* DCLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B5892036A8F40015E1AA /* DCLogging.m */; };
+		2A80B58D2039B3050015E1AA /* UIFont+DCStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B58C2039B3050015E1AA /* UIFont+DCStyle.m */; };
+		2A80B58F2039BEFE0015E1AA /* DCSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A80B58E2039BEFE0015E1AA /* DCSearchBar.xib */; };
+		2A80B5922039C0DB0015E1AA /* DCSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B5912039C0DB0015E1AA /* DCSearchBar.m */; };
 		2ACFBBC320340C090099727D /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC020340C080099727D /* Montserrat-Light.otf */; };
 		2ACFBBC420340C090099727D /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC120340C080099727D /* Montserrat-Regular.otf */; };
 		2ACFBBC520340C090099727D /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC220340C080099727D /* Montserrat-SemiBold.otf */; };
@@ -199,7 +205,6 @@
 		24438DF21F5FEA6600763A14 /* ProposalHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalHeaderView.m; sourceTree = "<group>"; };
 		2448578F1F59CCBF004DE273 /* ProposalDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalDetailViewController.h; sourceTree = "<group>"; };
 		244857901F59CCBF004DE273 /* ProposalDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailViewController.m; sourceTree = "<group>"; };
-		247B8F541F5FBFFB005BC14A /* dash_icon_tmp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dash_icon_tmp.png; sourceTree = "<group>"; };
 		2485235A1F44A71B0027FBA6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		249A402D1F62715700155636 /* ProposalScopeButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalScopeButtonsView.h; sourceTree = "<group>"; };
 		249A402E1F62715700155636 /* ProposalScopeButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalScopeButtonsView.m; sourceTree = "<group>"; };
@@ -280,10 +285,18 @@
 		2A04E6DA202DA5E20065F30D /* Injections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Injections.m; sourceTree = "<group>"; };
 		2A04E6EB202DAB340065F30D /* RunOnMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunOnMain.m; sourceTree = "<group>"; };
 		2A04E6EC202DAB340065F30D /* RunOnMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunOnMain.h; sourceTree = "<group>"; };
+		2A289A4B203AB00700EDC98E /* DCSearchController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSearchController.h; sourceTree = "<group>"; };
+		2A289A4C203AB00700EDC98E /* DCSearchController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSearchController.m; sourceTree = "<group>"; };
+		2A289A4E203AB44400EDC98E /* BaseNewsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseNewsTableViewController.h; sourceTree = "<group>"; };
+		2A289A4F203AB44400EDC98E /* BaseNewsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseNewsTableViewController.m; sourceTree = "<group>"; };
+		2A289A51203AB6D700EDC98E /* NewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsTableViewCell.xib; sourceTree = "<group>"; };
+		2A289A53203AC10E00EDC98E /* NewsSearchResultsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsSearchResultsController.h; sourceTree = "<group>"; };
+		2A289A54203AC10E00EDC98E /* NewsSearchResultsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsSearchResultsController.m; sourceTree = "<group>"; };
+		2A4FE27F203AE489007FD160 /* UIColor+DCStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+DCStyle.h"; sourceTree = "<group>"; };
+		2A4FE280203AE489007FD160 /* UIColor+DCStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DCStyle.m"; sourceTree = "<group>"; };
+		2A4FE282203AF2A7007FD160 /* BaseNewsTableViewController+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BaseNewsTableViewController+Protected.h"; sourceTree = "<group>"; };
 		2A6F595E2034259600D7BD85 /* APINews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APINews.h; sourceTree = "<group>"; };
 		2A6F595F2034259600D7BD85 /* APINews.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APINews.m; sourceTree = "<group>"; };
-		2A6F5961203543A200D7BD85 /* NewsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsView.h; sourceTree = "<group>"; };
-		2A6F5962203543A200D7BD85 /* NewsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsView.m; sourceTree = "<group>"; };
 		2A6F5965203566A600D7BD85 /* ForwardingNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForwardingNavigationController.h; sourceTree = "<group>"; };
 		2A6F5966203566A600D7BD85 /* ForwardingNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForwardingNavigationController.m; sourceTree = "<group>"; };
 		2A6F596C203576C400D7BD85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/News.storyboard; sourceTree = "<group>"; };
@@ -315,6 +328,11 @@
 		2A80B58620369E7F0015E1AA /* NSData+Hash.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hash.m"; sourceTree = "<group>"; };
 		2A80B5882036A8F40015E1AA /* DCLogging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCLogging.h; sourceTree = "<group>"; };
 		2A80B5892036A8F40015E1AA /* DCLogging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCLogging.m; sourceTree = "<group>"; };
+		2A80B58B2039B3050015E1AA /* UIFont+DCStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+DCStyle.h"; sourceTree = "<group>"; };
+		2A80B58C2039B3050015E1AA /* UIFont+DCStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+DCStyle.m"; sourceTree = "<group>"; };
+		2A80B58E2039BEFE0015E1AA /* DCSearchBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DCSearchBar.xib; sourceTree = "<group>"; };
+		2A80B5902039C0DB0015E1AA /* DCSearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSearchBar.h; sourceTree = "<group>"; };
+		2A80B5912039C0DB0015E1AA /* DCSearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSearchBar.m; sourceTree = "<group>"; };
 		2ACFBBC020340C080099727D /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		2ACFBBC120340C080099727D /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
 		2ACFBBC220340C080099727D /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
@@ -669,13 +687,11 @@
 		24C86EFA1F5EBFE500735785 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				247B8F541F5FBFFB005BC14A /* dash_icon_tmp.png */,
 				2A6F599620357A0A00D7BD85 /* NewsLoadMoreTableViewCell.h */,
 				2A6F599720357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m */,
 				2AD693C42032C9AC0084D840 /* NewsTableViewCell.h */,
 				2AD693C52032C9AC0084D840 /* NewsTableViewCell.m */,
-				2A6F5961203543A200D7BD85 /* NewsView.h */,
-				2A6F5962203543A200D7BD85 /* NewsView.m */,
+				2A289A51203AB6D700EDC98E /* NewsTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -684,6 +700,11 @@
 			isa = PBXGroup;
 			children = (
 				24C86EFA1F5EBFE500735785 /* Views */,
+				2A289A4E203AB44400EDC98E /* BaseNewsTableViewController.h */,
+				2A289A4F203AB44400EDC98E /* BaseNewsTableViewController.m */,
+				2A4FE282203AF2A7007FD160 /* BaseNewsTableViewController+Protected.h */,
+				2A289A53203AC10E00EDC98E /* NewsSearchResultsController.h */,
+				2A289A54203AC10E00EDC98E /* NewsSearchResultsController.m */,
 				2AD693C12032C99A0084D840 /* NewsViewController.h */,
 				2AD693C22032C99A0084D840 /* NewsViewController.m */,
 				2AE7F50D2034CC7100A8E770 /* NewsViewModel.h */,
@@ -822,6 +843,16 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		2A289A4A203AAF3200EDC98E /* SearchController */ = {
+			isa = PBXGroup;
+			children = (
+				2A80B5932039FCC20015E1AA /* SearchBar */,
+				2A289A4B203AB00700EDC98E /* DCSearchController.h */,
+				2A289A4C203AB00700EDC98E /* DCSearchController.m */,
+			);
+			path = SearchController;
+			sourceTree = "<group>";
+		};
 		2A6C68C1202EE3400016B2B9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -847,10 +878,21 @@
 		2A6F59642035668300D7BD85 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				2A289A4A203AAF3200EDC98E /* SearchController */,
 				2A6F5965203566A600D7BD85 /* ForwardingNavigationController.h */,
 				2A6F5966203566A600D7BD85 /* ForwardingNavigationController.m */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		2A80B5932039FCC20015E1AA /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				2A80B58E2039BEFE0015E1AA /* DCSearchBar.xib */,
+				2A80B5902039C0DB0015E1AA /* DCSearchBar.h */,
+				2A80B5912039C0DB0015E1AA /* DCSearchBar.m */,
+			);
+			path = SearchBar;
 			sourceTree = "<group>";
 		};
 		2ACFBBBF20340C080099727D /* Fonts */ = {
@@ -1180,6 +1222,10 @@
 				FB4311011FA2BCD800784EBC /* NSString+Sugar.m */,
 				FB4311031FA2C19800784EBC /* NSURL+Sugar.h */,
 				FB4311041FA2C19800784EBC /* NSURL+Sugar.m */,
+				2A4FE27F203AE489007FD160 /* UIColor+DCStyle.h */,
+				2A4FE280203AE489007FD160 /* UIColor+DCStyle.m */,
+				2A80B58B2039B3050015E1AA /* UIFont+DCStyle.h */,
+				2A80B58C2039B3050015E1AA /* UIFont+DCStyle.m */,
 				FBEF66FF1F83DE30003424D2 /* UIImage+Sugar.h */,
 				FBEF67001F83DE30003424D2 /* UIImage+Sugar.m */,
 			);
@@ -1382,11 +1428,12 @@
 				24FC99F71F5EA0F40054C2A8 /* iconReply@2x.png in Resources */,
 				24FC99F41F5EA0F40054C2A8 /* iconAttachment.png in Resources */,
 				FB300E3C1FB71BEA00B3CDE0 /* Localizable.strings in Resources */,
+				2A289A52203AB6D700EDC98E /* NewsTableViewCell.xib in Resources */,
 				2ACFBBC420340C090099727D /* Montserrat-Regular.otf in Resources */,
 				2A6F596B203576C400D7BD85 /* News.storyboard in Resources */,
 				24FC99F51F5EA0F40054C2A8 /* iconAttachment@2x.png in Resources */,
 				FB1F8AB51FBCD2EA00175311 /* BIP39Words.plist in Resources */,
-				247B8F551F5FBFFB005BC14A /* dash_icon_tmp.png in Resources */,
+				2A80B58F2039BEFE0015E1AA /* DCSearchBar.xib in Resources */,
 				FB84EDD31F32898700E4D400 /* LaunchScreen.storyboard in Resources */,
 				FB84EDCE1F32898700E4D400 /* Main.storyboard in Resources */,
 				2ACFBBC320340C090099727D /* Montserrat-Light.otf in Resources */,
@@ -1518,8 +1565,10 @@
 				249A402F1F62715700155636 /* ProposalScopeButtonsView.m in Sources */,
 				24C86F091F5EC09900735785 /* ProposalDetailVotesResultTableViewCell.m in Sources */,
 				FB4310F51FA2142700784EBC /* DCEnvironment.m in Sources */,
+				2A289A50203AB44400EDC98E /* BaseNewsTableViewController.m in Sources */,
 				FB9CC1611F83E38A0079309F /* NSData+Dash.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
+				2A80B58D2039B3050015E1AA /* UIFont+DCStyle.m in Sources */,
 				2A04E6DD202DA5E20065F30D /* HTTPRateLimiter.m in Sources */,
 				FB1F8AB01FBCABD200175311 /* BRBIP39Mnemonic.m in Sources */,
 				FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */,
@@ -1554,11 +1603,13 @@
 				FB9CC1AA1F87D4A60079309F /* BRKey+BIP38.m in Sources */,
 				FB4550CC1FAFABD6001CC1ED /* DCTrigger.m in Sources */,
 				2A6F599820357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m in Sources */,
-				2A6F5963203543A200D7BD85 /* NewsView.m in Sources */,
+				2A80B5922039C0DB0015E1AA /* DCSearchBar.m in Sources */,
 				FB9CC1AB1F87D4A60079309F /* BRKey.m in Sources */,
 				2A04E6E5202DA5E20065F30D /* HTTPURLRequestBuilder.m in Sources */,
+				2A4FE281203AE489007FD160 /* UIColor+DCStyle.m in Sources */,
 				24C6C6361F544268007F3671 /* ProposalsViewController.m in Sources */,
 				24FE25491F4C7ECE00E32652 /* DCBackendManager.m in Sources */,
+				2A289A55203AC10E00EDC98E /* NewsSearchResultsController.m in Sources */,
 				FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */,
 				24C86F031F5EC06C00735785 /* ProposalDetailOneTimePayementTableViewCell.m in Sources */,
 				FBEF66E21F83D68C003424D2 /* AddWalletAddressViewController.m in Sources */,
@@ -1571,6 +1622,7 @@
 				2432DDA01F54395600A14112 /* ProposalCell.m in Sources */,
 				241719E11F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m in Sources */,
 				FB4F93BA1F82528F0078E259 /* PortfolioViewController.m in Sources */,
+				2A289A4D203AB00700EDC98E /* DCSearchController.m in Sources */,
 				FB9CC1911F84BB0D0079309F /* AddMasternodeViewController.m in Sources */,
 				2A04E6E6202DA5E20065F30D /* NetworkActivityIndicatorManager.m in Sources */,
 				FB17AEE51FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m in Sources */,

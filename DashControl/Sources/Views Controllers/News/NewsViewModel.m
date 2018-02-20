@@ -29,9 +29,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NewsViewModel ()
 
-@property (assign, nonatomic) NewsViewModelState state;
-@property (strong, nonatomic) NSFetchedResultsController<DCNewsPostEntity *> *fetchedResultsController;
 @property (weak, nonatomic) id<HTTPLoaderOperationProtocol> request;
+
+@property (strong, nonatomic) NSFetchedResultsController<DCNewsPostEntity *> *fetchedResultsController;
+@property (nullable, strong, nonatomic) NSFetchedResultsController<DCNewsPostEntity *> *searchFetchedResultsController;
+@property (strong, nonatomic) NSPredicate *langPredicate;
+@property (nullable, strong, nonatomic) NSPredicate *searchPredicate;
 
 @property (assign, nonatomic) NSInteger currentPage;
 @property (assign, nonatomic) BOOL loadingNextPage;
@@ -44,38 +47,35 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init {
     self = [super init];
     if (self) {
-        NSFetchRequest<DCNewsPostEntity *> *fetchRequest = [DCNewsPostEntity fetchRequest];
-        NSPredicate *langPredicate = [NSPredicate predicateWithFormat:@"langCode == %@", self.api.langCode];
-        fetchRequest.predicate = langPredicate;
-        NSSortDescriptor *dateSortDescriptor = [[NSSortDescriptor alloc] initWithKey:KEY_DATE ascending:NO];
-        NSSortDescriptor *titleSortDescriptor = [[NSSortDescriptor alloc] initWithKey:KEY_TITLE ascending:YES];
-        fetchRequest.sortDescriptors = @[ dateSortDescriptor, titleSortDescriptor ];
-
-        NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
-
-        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                        managedObjectContext:context
-                                                                          sectionNameKeyPath:nil
-                                                                                   cacheName:nil];
+        _langPredicate = [NSPredicate predicateWithFormat:@"langCode == %@", self.api.langCode];
     }
     return self;
 }
 
-- (void)performFetch {
-    NSParameterAssert(self.fetchedResultsController.delegate);
-
-    NSError *error = nil;
-    if (![self.fetchedResultsController performFetch:&error]) {
-        DCDebugLog([self class], error);
+- (NSFetchedResultsController<DCNewsPostEntity *> *)fetchedResultsController {
+    if (!_fetchedResultsController) {
+        NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
+        _fetchedResultsController = [[self class] fetchedResultsControllerWithPredicate:self.langPredicate
+                                                                                context:context
+                                                                              cacheName:@"AllNewsRequestCache"];
     }
+    return _fetchedResultsController;
 }
 
-- (void)reload {
-    self.state = NewsViewModelState_Loading;
+- (NSFetchedResultsController<DCNewsPostEntity *> *_Nullable)searchFetchedResultsController {
+    if (!_searchFetchedResultsController) {
+        NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
+        _searchFetchedResultsController = [[self class] fetchedResultsControllerWithPredicate:self.searchPredicate
+                                                                                      context:context
+                                                                                    cacheName:nil];
+    }
+    return _searchFetchedResultsController;
+}
 
+- (void)reloadWithCompletion:(void (^)(NewsViewModelState state))completion {
     self.canLoadMore = YES;
     self.currentPage = 1;
-    [self fetchPage:self.currentPage];
+    [self fetchPage:self.currentPage completion:completion];
 }
 
 - (void)loadNextPage {
@@ -86,12 +86,37 @@ NS_ASSUME_NONNULL_BEGIN
     self.loadingNextPage = YES;
 
     self.currentPage += 1;
-    [self fetchPage:self.currentPage];
+    [self fetchPage:self.currentPage completion:nil];
+}
+
+- (BOOL)searchWithQuery:(NSString *)query {
+    NSString *trimmedQuery = [query stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSPredicate *predicate = nil;
+    if (trimmedQuery.length > 0) {
+        NSPredicate *titlePredicate = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", trimmedQuery];
+        NSPredicate *urlPredicate = [NSPredicate predicateWithFormat:@"url CONTAINS[cd] %@", trimmedQuery];
+        NSPredicate *searchPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[ titlePredicate, urlPredicate ]];
+        predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[ self.langPredicate, searchPredicate ]];
+    }
+    else {
+        predicate = self.langPredicate;
+    }
+
+    if ([predicate isEqual:self.searchFetchedResultsController.fetchRequest.predicate]) {
+        return NO;
+    }
+
+    self.searchFetchedResultsController.delegate = nil;
+    self.searchFetchedResultsController = nil;
+
+    self.searchPredicate = predicate;
+
+    return YES;
 }
 
 #pragma mark Private
 
-- (void)fetchPage:(NSInteger)page {
+- (void)fetchPage:(NSInteger)page completion:(void (^_Nullable)(NewsViewModelState state))completion {
     if (self.request) {
         [self.request cancel];
     }
@@ -106,10 +131,32 @@ NS_ASSUME_NONNULL_BEGIN
         strongSelf.canLoadMore = !isLastPage;
         strongSelf.loadingNextPage = NO;
 
-        if (strongSelf.state == NewsViewModelState_Loading) {
-            strongSelf.state = success ? NewsViewModelState_Success : NewsViewModelState_Failed;
+        if (completion) {
+            completion(success ? NewsViewModelState_Success : NewsViewModelState_Failed);
         }
     }];
+}
+
++ (NSFetchedResultsController *)fetchedResultsControllerWithPredicate:(NSPredicate *)predicate
+                                                              context:(NSManagedObjectContext *)context
+                                                            cacheName:(NSString *_Nullable)cacheName {
+    NSFetchRequest<DCNewsPostEntity *> *fetchRequest = [DCNewsPostEntity fetchRequest];
+    fetchRequest.predicate = predicate;
+    NSSortDescriptor *dateSortDescriptor = [[NSSortDescriptor alloc] initWithKey:KEY_DATE ascending:NO];
+    NSSortDescriptor *titleSortDescriptor = [[NSSortDescriptor alloc] initWithKey:KEY_TITLE ascending:YES];
+    fetchRequest.sortDescriptors = @[ dateSortDescriptor, titleSortDescriptor ];
+
+    NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                                                                               managedObjectContext:context
+                                                                                                 sectionNameKeyPath:nil
+                                                                                                          cacheName:cacheName];
+
+    NSError *error = nil;
+    if (![fetchedResultsController performFetch:&error]) {
+        DCDebugLog([self class], error);
+    }
+
+    return fetchedResultsController;
 }
 
 @end

@@ -36,15 +36,15 @@ typedef NS_ENUM(NSUInteger, NewsViewModelState) {
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 @property (strong, nonatomic) InjectedClass(APINews) api;
 
-@property (readonly, assign, nonatomic) NewsViewModelState state;
 @property (readonly, strong, nonatomic) NSFetchedResultsController<DCNewsPostEntity *> *fetchedResultsController;
+@property (nullable, readonly, strong, nonatomic) NSFetchedResultsController<DCNewsPostEntity *> *searchFetchedResultsController;
 
 @property (readonly, assign, nonatomic) BOOL canLoadMore;
 
-- (void)performFetch;
-
-- (void)reload;
+- (void)reloadWithCompletion:(void (^)(NewsViewModelState state))completion;
 - (void)loadNextPage;
+
+- (BOOL)searchWithQuery:(NSString *)query;
 
 @end
 

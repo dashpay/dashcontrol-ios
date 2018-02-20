@@ -15,11 +15,11 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseNewsTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NewsViewController : UIViewController
+@interface NewsViewController : BaseNewsTableViewController
 
 @end
 

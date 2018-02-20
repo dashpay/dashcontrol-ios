@@ -15,25 +15,19 @@
 //  limitations under the License.
 //
 
-#import <CoreData/CoreData.h>
-#import <KVO-MVVM/KVOUIView.h>
+#import "UIColor+DCStyle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class NewsViewModel;
-@class DCNewsPostEntity;
-@protocol NewsViewDelegate;
+@implementation UIColor (DCStyle)
 
-@interface NewsView : KVOUIView <NSFetchedResultsControllerDelegate>
++ (UIColor *)dc_barTintColor {
+    return [UIColor colorWithRed:0.0 green:125.0 / 255.0 blue:225.0 / 255.0 alpha:1.0];
+}
 
-@property (strong, nonatomic) NewsViewModel *viewModel;
-@property (nullable, weak, nonatomic) id<NewsViewDelegate> delegate;
-
-@end
-
-@protocol NewsViewDelegate <NSObject>
-
-- (void)newsView:(NewsView *)view didSelectNewsPost:(DCNewsPostEntity *)entity;
++ (UIColor *)dc_darkBlueColor {
+    return [UIColor colorWithRed:30.0 / 255.0 green:37.0 / 255.0 blue:51.0 / 255.0 alpha:1.0];
+}
 
 @end
 
