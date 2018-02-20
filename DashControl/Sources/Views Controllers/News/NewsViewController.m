@@ -152,7 +152,7 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     safariViewController.delegate = self;
     safariViewController.preferredBarTintColor = [UIColor dc_barTintColor];
     safariViewController.preferredControlTintColor = [UIColor whiteColor];
-    [self presentViewController:safariViewController animated:YES completion:nil];
+    [self showDetailViewController:safariViewController sender:self];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
