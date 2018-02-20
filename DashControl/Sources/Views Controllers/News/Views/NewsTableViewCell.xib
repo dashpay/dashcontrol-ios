@@ -69,7 +69,7 @@
                                 </attributedString>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.20000000000000001" green="0.23137254900000001" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.19215686274509802" green="0.23137254901960785" blue="0.29411764705882354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6h8-BW-aUe" firstAttribute="leading" secondItem="hLo-PD-xDk" secondAttribute="leading" constant="12" id="31S-S2-zPK"/>
                             <constraint firstItem="4Lg-iS-rgC" firstAttribute="top" secondItem="hLo-PD-xDk" secondAttribute="top" constant="12" id="Ltn-wf-Fyt"/>
@@ -83,14 +83,14 @@
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" red="0.1215686275" green="0.1450980392" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="hLo-PD-xDk" secondAttribute="trailing" constant="10" id="dXM-SJ-tq8"/>
                     <constraint firstItem="hLo-PD-xDk" firstAttribute="centerY" secondItem="b6D-Q3-6fx" secondAttribute="centerY" id="dwj-I1-NqU"/>
                     <constraint firstItem="hLo-PD-xDk" firstAttribute="leading" secondItem="b6D-Q3-6fx" secondAttribute="leading" constant="10" id="n7d-XM-ubp"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.1215686275" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
                 <outlet property="newsDateLabel" destination="RN9-we-3A2" id="JKx-3v-fsB"/>
                 <outlet property="newsImageView" destination="6h8-BW-aUe" id="lra-7a-vqs"/>

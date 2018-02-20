@@ -28,7 +28,7 @@
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.0" green="0.40000000000000002" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.0" green="0.49207007884979248" blue="0.88408416509628296" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -50,7 +50,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="104" sectionHeaderHeight="28" sectionFooterHeight="28" id="Y2p-DE-cV2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.12156862745098039" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewsFirstTableViewCell" rowHeight="198" id="t4S-US-Ukj" customClass="NewsTableViewCell">
                                 <rect key="frame" x="0.0" y="28" width="375" height="198"/>
@@ -101,7 +101,7 @@
                                                     </attributedString>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.1137254902" green="0.4431372549" blue="0.72156862749999995" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.12869477272033691" green="0.52465921640396118" blue="0.77184158563613892" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="vx0-A4-nzV" secondAttribute="trailing" constant="20" id="3Nh-YY-nF6"/>
                                                 <constraint firstItem="vx0-A4-nzV" firstAttribute="top" secondItem="G8y-6A-hfr" secondAttribute="top" constant="20" id="6Ww-Aa-AeL"/>
@@ -124,7 +124,7 @@
                                         <constraint firstAttribute="bottom" secondItem="G8y-6A-hfr" secondAttribute="bottom" constant="25" id="nv7-MP-sCH"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.1215686275" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="newsDateLabel" destination="THa-Kw-hYx" id="Kwa-Te-THA"/>
                                     <outlet property="newsImageView" destination="HoU-6d-uFz" id="he8-D3-4m0"/>
@@ -140,7 +140,7 @@
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ITd-3x-OQl">
                                             <rect key="frame" x="10" y="4" width="355" height="95.5"/>
-                                            <color key="backgroundColor" red="0.20000000000000001" green="0.23137254900000001" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.19215686274509802" green="0.23137254901960785" blue="0.29411764705882354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="95" id="VNL-4k-cKi"/>
                                             </constraints>
@@ -149,7 +149,7 @@
                                             <rect key="frame" x="178" y="42" width="20" height="20"/>
                                         </activityIndicatorView>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.1215686275" green="0.1450980392" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="ITd-3x-OQl" secondAttribute="trailing" constant="10" id="1I5-IV-iXX"/>
                                         <constraint firstItem="ITd-3x-OQl" firstAttribute="leading" secondItem="qEN-35-aWb" secondAttribute="leading" constant="10" id="ACM-l1-6Ly"/>
@@ -158,7 +158,7 @@
                                         <constraint firstItem="ITd-3x-OQl" firstAttribute="centerY" secondItem="qEN-35-aWb" secondAttribute="centerY" id="yPh-Jl-axt"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.1215686275" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="activityIndicatorView" destination="dbd-Hf-loQ" id="XrH-EK-kyR"/>
                                 </connections>
