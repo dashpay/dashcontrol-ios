@@ -5,9 +5,6 @@
       location = "group:DashControl.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Charts/Charts.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
