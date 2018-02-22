@@ -32,6 +32,14 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+        self.tableView.contentInset = UIEdgeInsetsMake(64.0, 0.0, 49.0, 0.0);
+    }
+}
+
 #pragma mark UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
