@@ -45,9 +45,18 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (nullable NSArray *)dc_objectsWithPredicate:(nullable NSPredicate *)predicate inContext:(NSManagedObjectContext *)context {
+    return [self dc_objectsWithPredicate:predicate inContext:context requestConfigureBlock:nil];
+}
+
++ (nullable NSArray *)dc_objectsWithPredicate:(nullable NSPredicate *)predicate
+                                    inContext:(NSManagedObjectContext *)context
+                        requestConfigureBlock:(void (^_Nullable)(NSFetchRequest *fetchRequest))requestConfigureBlock {
     NSParameterAssert(context);
 
     NSFetchRequest *fetchRequest = [self dc_fetchRequestForPredicate:predicate];
+    if (requestConfigureBlock) {
+        requestConfigureBlock(fetchRequest);
+    }
 
     NSError *error = nil;
     NSArray *objects = [context executeFetchRequest:fetchRequest error:&error];

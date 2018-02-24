@@ -38,12 +38,4 @@ typedef NS_ENUM(NSInteger, ChartTimeFrame) {
 
 +(NSTimeInterval)timeIntervalForChartTimeFrame:(ChartTimeFrame)chartTimeFrame;
 
-+(NSString*)chartDataIntervalStartPathForExchangeNamed:(NSString*)exchange marketNamed:(NSString*)market;
-
-+(NSString*)chartDataIntervalEndPathForExchangeNamed:(NSString*)exchange marketNamed:(NSString*)market;
-
-+(NSDate*)intervalStartForExchangeNamed:(NSString*)exchange marketNamed:(NSString*)market;
-
-+(NSDate*)intervalEndForExchangeNamed:(NSString*)exchange marketNamed:(NSString*)market;
-
 @end

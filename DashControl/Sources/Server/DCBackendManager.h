@@ -17,10 +17,14 @@ NS_ASSUME_NONNULL_BEGIN
 @class HTTPLoaderManager;
 @class DCPersistenceStack;
 
+@class APIPrice;
+
 @interface DCBackendManager : NSObject
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 @property (strong, nonatomic) InjectedClass(HTTPLoaderManager) httpManager;
+
+@property (strong, nonatomic) InjectedClass(APIPrice) apiPrice; // temp, back compatability
 
 //@property (nonatomic, strong) NSManagedObjectContext * _Nullable mainObjectContext;
 //@property (nonatomic, strong) NSPersistentContainer * _Nullable persistentContainer;
@@ -28,8 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (id _Nonnull )sharedInstance;
 
 -(void)startUp;
-
--(void)getChartDataForExchange:(NSString* _Nonnull)exchange forMarket:(NSString* _Nonnull)market start:(NSDate* _Nullable)start end:(NSDate* _Nullable)end clb:(void (^_Nullable)(NSError * _Nullable error))clb;
 
 -(void)updateBloomFilter:(DCServerBloomFilter* _Nonnull)filter completion:(void (^ _Nullable)(NSError * _Nullable error))completion;
 

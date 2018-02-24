@@ -64,28 +64,4 @@
     return ceil(Frame/timeInterval);
 }
 
--(void)maxIndexForChartTimeInterval:(NSDate *)date {
-    
-}
-
-+(NSString*)chartDataIntervalStartPathForExchangeNamed:(NSString*)exchange marketNamed:(NSString*)market {
-    return [[exchange stringByAppendingString:market] stringByAppendingString:@"chartDataIntervalStart"];
-}
-
-+(NSString*)chartDataIntervalEndPathForExchangeNamed:(NSString*)exchange marketNamed:(NSString*)market {
-    return [[exchange stringByAppendingString:market] stringByAppendingString:@"chartDataIntervalEnd"];
-}
-
-+(NSDate*)intervalStartForExchangeNamed:(NSString*)exchange marketNamed:(NSString*)market {
-    NSString * chatDataIntervalStartPath = [self chartDataIntervalStartPathForExchangeNamed:exchange marketNamed:market];
-    if (!chatDataIntervalStartPath) return nil;
-    return [[NSUserDefaults standardUserDefaults] objectForKey:chatDataIntervalStartPath];
-}
-
-+(NSDate*)intervalEndForExchangeNamed:(NSString*)exchange marketNamed:(NSString*)market {
-    NSString * chatDataIntervalEndPath = [self chartDataIntervalEndPathForExchangeNamed:exchange marketNamed:market];
-    if (!chatDataIntervalEndPath) return nil;
-    return [[NSUserDefaults standardUserDefaults] objectForKey:chatDataIntervalEndPath];
-}
-
 @end

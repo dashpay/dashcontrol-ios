@@ -23,6 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation DCMarketEntity (Extensions)
 
++ (nullable DCMarketEntity *)marketForName:(NSString *)name inContext:(NSManagedObjectContext *)context {
+    return [self dc_objectWithPredicate:[NSPredicate predicateWithFormat:@"name == %@", name] inContext:context];
+}
+
 + (nullable NSArray<DCMarketEntity *> *)marketsForNames:(NSArray<NSString *> *)names inContext:(NSManagedObjectContext *)context {
     return [self dc_objectsWithPredicate:[NSPredicate predicateWithFormat:@"name IN %@", names] inContext:context];
 }

@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DCMarketEntity (Extensions)
 
++ (nullable DCMarketEntity *)marketForName:(NSString *)name inContext:(NSManagedObjectContext *)context;
 + (nullable NSArray <DCMarketEntity *> *)marketsForNames:(NSArray <NSString *> *)names inContext:(NSManagedObjectContext *)context;
 + (nullable instancetype)marketWithIdentifier:(NSInteger)marketIdentifier inContext:(NSManagedObjectContext *)context;
 + (NSInteger)autoIncrementIDInContext:(NSManagedObjectContext *)context;

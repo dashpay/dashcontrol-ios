@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DCExchangeEntity (Extensions)
 
++ (nullable DCExchangeEntity *)exchangeForName:(NSString *)name inContext:(NSManagedObjectContext *)context;
 + (nullable NSArray<DCExchangeEntity *> *)exchangesForNames:(NSArray<NSString *> *)names inContext:(NSManagedObjectContext *)context;
 + (nullable instancetype)exchangeWithIdentifier:(NSInteger)exchangeIdentifier inContext:(NSManagedObjectContext *)context;
 + (NSInteger)autoIncrementIDInContext:(NSManagedObjectContext *)context;

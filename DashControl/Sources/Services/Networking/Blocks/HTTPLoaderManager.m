@@ -20,6 +20,7 @@
 #import "HTTPLoaderOperation.h"
 #import "HTTPLoaderFactory.h"
 #import "HTTPResponse.h"
+#import "HTTPRequest.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -56,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
         
         if (success) {
             NSError *_Nullable error = nil;
-            id _Nullable parsedData = [self parseResponse:response.body statusCode:response.statusCode error:&error];
+            id _Nullable parsedData = [self parseResponse:response.body statusCode:response.statusCode request:httpRequest error:&error];
             NSAssert((!error && parsedData) || (error && !parsedData), nil); // sanity check
 
             if (completion) {
@@ -89,7 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Private
 
-- (nullable id)parseResponse:(nullable NSData *)data statusCode:(NSInteger)statusCode error:(NSError *__autoreleasing *)error {
+- (nullable id)parseResponse:(nullable NSData *)data statusCode:(NSInteger)statusCode request:(HTTPRequest *)request error:(NSError *__autoreleasing *)error {
     NSError *statusCodeError = nil;
     if (statusCode < 200 || statusCode > 300) {
         NSDictionary *userInfo = @{NSLocalizedDescriptionKey : [NSHTTPURLResponse localizedStringForStatusCode:statusCode]};
@@ -108,7 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     NSError *parseError = nil;
     id parsed = [NSJSONSerialization JSONObjectWithData:data
-                                                options:NSJSONReadingAllowFragments
+                                                options:request.jsonReadingOptions
                                                   error:&parseError];
     if (parseError) {
         if (error) {

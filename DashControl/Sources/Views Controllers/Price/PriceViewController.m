@@ -8,7 +8,7 @@
 
 #import "PriceViewController.h"
 
-
+#import "APIPrice.h"
 #import "DCCoreDataManager.h"
 #import "DCPersistenceStack.h"
 #import "DCChartDataEntryEntity+CoreDataProperties.h"
@@ -17,6 +17,7 @@
 #import "DCTriggerEntity+CoreDataProperties.h"
 #import "DCExchangeEntity+CoreDataProperties.h"
 #import "DCMarketEntity+CoreDataProperties.h"
+#import "APIPrice.h"
 
 @interface PriceViewController ()
 
@@ -330,12 +331,12 @@
     self.startTime = [NSDate dateWithTimeIntervalSinceNow:-timeFrame];
     [self updateChartData];
     
-    NSDate * intervalStart = [DCChartTimeFormatter intervalStartForExchangeNamed:self.selectedExchange.name marketNamed:self.selectedMarket.name];
+    NSDate * intervalStart = [APIPrice intervalStartDateForExchangeName:self.selectedExchange.name marketName:self.selectedMarket.name];
     if ([intervalStart compare:self.startTime] == NSOrderedDescending) {
         //lets go get more data
         NSDate * oneWeekBefore = [intervalStart dateByAddingTimeInterval:-[DCChartTimeFormatter timeIntervalForChartTimeFrame:ChartTimeFrame_1W]];
         NSDate * getStartTime = ([self.startTime compare:oneWeekBefore] == NSOrderedAscending)?oneWeekBefore:self.startTime;
-        [[DCBackendManager sharedInstance] getChartDataForExchange:self.selectedExchange.name forMarket:self.selectedMarket.name start:getStartTime end:nil clb:^(NSError * _Nullable error) {
+        [self.apiPrice fetchChartDataForExchange:self.selectedExchange market:self.selectedMarket start:getStartTime end:nil completion:^(BOOL success) {
             [self chooseTimeFrame:sender];
         }];
     }

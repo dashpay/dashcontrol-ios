@@ -245,6 +245,7 @@ static NSString *NSStringFromHTTPRequestMethod(HTTPRequestMethod requestMethod) 
                                          uniqueIdentifier:self.uniqueIdentifier];
     copy.chunks = self.chunks;
     copy.cachePolicy = self.cachePolicy;
+    copy.jsonReadingOptions = self.jsonReadingOptions;
     copy.skipNSURLCache = self.skipNSURLCache;
     copy.timeout = self.timeout;
     copy.maximumRetryCount = self.maximumRetryCount;

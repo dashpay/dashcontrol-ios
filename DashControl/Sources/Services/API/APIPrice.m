@@ -17,6 +17,7 @@
 
 #import "APIPrice.h"
 
+#import "DCChartDataEntryEntity+Extensions.h"
 #import "DCExchangeEntity+Extensions.h"
 #import "DCMarketEntity+Extensions.h"
 #import "NSManagedObjectContext+DCExtensions.h"
@@ -54,11 +55,11 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
     return self;
 }
 
-- (void)fetchMarketsCompletion:(void (^)(NSError *_Nullable error, NSInteger defaultExchangeIdentifier, NSInteger defaultMarketIdentifier))completion {
+- (id<HTTPLoaderOperationProtocol>)fetchMarketsCompletion:(void (^)(NSError *_Nullable error, NSInteger defaultExchangeIdentifier, NSInteger defaultMarketIdentifier))completion {
     NSString *urlString = [API_BASE_URL stringByAppendingString:@"markets"];
     NSURL *url = [NSURL URLWithString:urlString];
     HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:nil];
-    [self.httpManager sendRequest:request completion:^(id _Nullable parsedData, NSDictionary *_Nullable responseHeaders, NSInteger statusCode, NSError *_Nullable error) {
+    return [self.httpManager sendRequest:request completion:^(id _Nullable parsedData, NSDictionary *_Nullable responseHeaders, NSInteger statusCode, NSError *_Nullable error) {
         if (error) {
             if (completion) {
                 completion(error, NSNotFound, NSNotFound);
@@ -150,6 +151,315 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
             }
         }];
     }];
+}
+
+- (id<HTTPLoaderOperationProtocol>)fetchChartDataForExchange:(DCExchangeEntity *)exchange
+                                                      market:(DCMarketEntity *)market
+                                                       start:(nullable NSDate *)start
+                                                         end:(nullable NSDate *)end
+                                                  completion:(void (^)(BOOL success))completion {
+    NSParameterAssert(exchange);
+    NSParameterAssert(market);
+    NSAssert(start || end, @"You can not supply both start and end");
+
+    NSString *exchangeName = exchange.name;
+    NSString *marketName = market.name;
+    NSInteger exchangeIdentifier = exchange.identifier;
+    NSInteger marketIdentifier = market.identifier;
+
+    NSString *urlString = [API_BASE_URL stringByAppendingString:@"chart_data"];
+    NSURL *url = [NSURL URLWithString:urlString];
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"market"] = marketName;
+    parameters[@"exchange"] = exchangeName;
+#ifdef DEBUG
+    parameters[@"noLimit"] = @"1";
+#endif
+
+    NSDate *intervalStart = [[self class] intervalStartDateForExchangeName:exchangeName marketName:marketName];
+    NSDate *intervalEnd = [[self class] intervalEndDateForExchangeName:exchangeName marketName:marketName];
+    NSDate *realStart = nil;
+    NSDate *realEnd = nil;
+    NSDate *knownDataStart = nil;
+    NSDate *knownDataEnd = nil;
+    if (start) {
+        // if start is set it must be before interval start if there's an interval start otherwise set it to the end of the interval
+        if (!intervalStart) {
+            realStart = start; // no interval yet
+            knownDataStart = start;
+        }
+        else if ([start compare:intervalStart] != NSOrderedAscending) {
+            realStart = intervalEnd; // after the interval
+            knownDataStart = intervalStart;
+        }
+        else {
+            realStart = start;
+            knownDataStart = start;
+            realEnd = intervalStart;
+            knownDataEnd = intervalEnd;
+        }
+    }
+    else if (end) {
+        // if there is an end it must be after the interval end if there's an interval end otherwise set it to the start of the interval
+        if (!intervalEnd) {
+            realEnd = end;
+            knownDataEnd = end;
+        }
+        else if ([end compare:intervalEnd] != NSOrderedDescending) {
+            realEnd = intervalStart; // before the interval
+            knownDataEnd = intervalEnd;
+        }
+        else {
+            realEnd = end; // after the interval
+            knownDataEnd = end;
+            realStart = intervalEnd;
+            knownDataStart = intervalStart;
+        }
+    }
+    if (realEnd) {
+        parameters[@"end"] = [NSString stringWithFormat:@"%.0f", [realEnd timeIntervalSince1970]];
+    }
+    else {
+        realEnd = [NSDate date];
+        knownDataEnd = realEnd;
+    }
+    if (realStart) {
+        parameters[@"start"] = [NSString stringWithFormat:@"%.0f", [realStart timeIntervalSince1970]];
+    }
+    else {
+        realStart = [NSDate distantPast];
+        knownDataStart = realStart;
+    }
+
+    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:parameters];
+    request.jsonReadingOptions = NSJSONReadingMutableContainers;
+    return [self.httpManager sendRequest:request completion:^(id _Nullable parsedData, NSDictionary *_Nullable responseHeaders, NSInteger statusCode, NSError *_Nullable error) {
+        if (error) {
+            if (completion) {
+                completion(error == nil);
+            }
+        }
+        else {
+            if (![parsedData isKindOfClass:[NSArray class]] || ((NSArray *)parsedData).count == 0) {
+                if (completion) {
+                    completion(NO);
+                }
+
+                return;
+            }
+
+            [self importJSONArray:parsedData exchangeIdentifier:exchangeIdentifier marketIdentifier:marketIdentifier completion:^void(BOOL success) {
+                if (success) {
+                    NSString *intervalStartKey = [[self class] chartDataIntervalStartKeyForExchangeName:exchangeName marketName:marketName];
+                    NSString *intervalEndKey = [[self class] chartDataIntervalEndKeyForExchangeName:exchangeName marketName:marketName];
+                    NSDate *intervalStartDate = [[self class] intervalStartDateForExchangeName:exchangeName marketName:marketName];
+                    NSDate *intervalEndDate = [[self class] intervalEndDateForExchangeName:exchangeName marketName:marketName];
+
+                    if (!intervalEndDate || (intervalEndDate && ([knownDataEnd compare:intervalEndDate] != NSOrderedSame))) {
+                        [[NSUserDefaults standardUserDefaults] setObject:knownDataEnd forKey:intervalEndKey];
+                    }
+                    if (!intervalStartDate || (intervalStartDate && ([knownDataStart compare:intervalStartDate] != NSOrderedSame))) {
+                        [[NSUserDefaults standardUserDefaults] setObject:knownDataStart forKey:intervalStartKey];
+                    }
+                }
+
+                if (completion) {
+                    completion(success);
+                }
+            }];
+        }
+    }];
+}
+
++ (nullable NSDate *)intervalStartDateForExchangeName:(NSString *)exchangeName marketName:(NSString *)marketName {
+    NSString *chatDataIntervalStartKey = [self chartDataIntervalStartKeyForExchangeName:exchangeName marketName:marketName];
+    if (chatDataIntervalStartKey) {
+        return [[NSUserDefaults standardUserDefaults] objectForKey:chatDataIntervalStartKey];
+    }
+    else {
+        return nil;
+    }
+}
+
++ (nullable NSDate *)intervalEndDateForExchangeName:(NSString *)exchangeName marketName:(NSString *)marketName {
+    NSString *chatDataIntervalEndKey = [self chartDataIntervalEndKeyForExchangeName:exchangeName marketName:marketName];
+    if (chatDataIntervalEndKey) {
+        return [[NSUserDefaults standardUserDefaults] objectForKey:chatDataIntervalEndKey];
+    }
+    else {
+        return nil;
+    }
+}
+
+#pragma mark - Private
+
+static NSString *FormatChartTimeInterval(NSInteger timeInterval) {
+    return [NSString stringWithFormat:@"CT%ld", (long)timeInterval];
+}
+
+- (void)importJSONArray:(NSArray *)jsonArray
+     exchangeIdentifier:(NSInteger)exchangeIdentifier
+       marketIdentifier:(NSInteger)marketIdentifier
+             completion:(void (^)(BOOL success))completion {
+    NSInteger const batchSize = 2016; // 1 week of data
+
+    NSPersistentContainer *container = self.stack.persistentContainer;
+    [container performBackgroundTask:^(NSManagedObjectContext *context) {
+        context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+
+        NSInteger const additionalIntervalsCount = 5;
+        ChartTimeInterval const additionalIntervals[additionalIntervalsCount] = {ChartTimeInterval_15Mins, ChartTimeInterval_30Mins, ChartTimeInterval_2Hour, ChartTimeInterval_4Hours, ChartTimeInterval_1Day};
+        for (NSMutableDictionary *jsonObject in jsonArray) {
+            NSDate *date = [self.dateFormatter dateFromString:jsonObject[@"time"]];
+            NSTimeInterval timestamp = date.timeIntervalSince1970;
+            jsonObject[@"time"] = date;
+            for (NSInteger i = 0; i < additionalIntervalsCount; i++) {
+                ChartTimeInterval ti = additionalIntervals[i];
+                jsonObject[FormatChartTimeInterval(ti)] = @(floor(timestamp / [DCChartTimeFormatter timeIntervalForChartTimeInterval:ti]));
+            }
+        }
+
+        BOOL success = YES;
+        NSInteger count = 0;
+        for (NSInteger i = 0; i < additionalIntervalsCount; i++) {
+            if (!success) {
+                break;
+            }
+
+            @autoreleasepool {
+                ChartTimeInterval chartTimeInterval = additionalIntervals[i];
+
+                NSDictionary<NSNumber *, NSMutableArray<NSDictionary *> *> *jsonGroupedArray =
+                    [jsonArray mutableDictionaryOfMutableArraysReferencedByKeyPath:FormatChartTimeInterval(chartTimeInterval)];
+
+                for (NSNumber *intervalNumber in jsonGroupedArray) {
+                    NSMutableArray<NSDictionary *> *intervalArray = jsonGroupedArray[intervalNumber];
+
+                    // there's a slight problem that needs addressing before we start computing aggregates.
+                    // Data is returned from the server by 5 minute intervals.
+                    // To get proper longer intervals we need to combine this with local 5 minute interval data
+                    // And then do the aggregates
+
+                    NSTimeInterval startTimeInterval = [intervalArray.firstObject[FormatChartTimeInterval(chartTimeInterval)] doubleValue] * [DCChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval];
+                    NSDate *intervalStartDate = [NSDate dateWithTimeIntervalSince1970:startTimeInterval];
+
+                    NSTimeInterval const timeInterval5Mins = [DCChartTimeFormatter timeIntervalForChartTimeInterval:ChartTimeInterval_5Mins];
+
+                    if (intervalArray.firstObject == jsonArray.firstObject) {
+                        NSDate *additionalDataPointIntervalEndDate = [intervalArray.firstObject[@"time"] dateByAddingTimeInterval:-timeInterval5Mins];
+                        if ([additionalDataPointIntervalEndDate compare:intervalStartDate] == NSOrderedDescending) {
+                            NSArray<DCChartDataEntryEntity *> *additionalDataPoints =
+                                [DCChartDataEntryEntity chartDataForExchangeIdentifier:exchangeIdentifier
+                                                                      marketIdentifier:marketIdentifier
+                                                                              interval:ChartTimeInterval_5Mins
+                                                                             startTime:intervalStartDate
+                                                                               endTime:additionalDataPointIntervalEndDate
+                                                                             inContext:context];
+                            success = (additionalDataPoints != nil);
+
+                            for (DCChartDataEntryEntity *chartDataEntry in [additionalDataPoints reverseObjectEnumerator]) {
+                                NSMutableDictionary *additionalDataPoint = [NSMutableDictionary dictionary];
+                                additionalDataPoint[@"time"] = chartDataEntry.time;
+                                additionalDataPoint[@"open"] = @(chartDataEntry.open);
+                                additionalDataPoint[@"high"] = @(chartDataEntry.high);
+                                additionalDataPoint[@"low"] = @(chartDataEntry.low);
+                                additionalDataPoint[@"close"] = @(chartDataEntry.close);
+                                additionalDataPoint[@"volume"] = @(chartDataEntry.volume);
+                                additionalDataPoint[@"pairVolume"] = @(chartDataEntry.pairVolume);
+                                additionalDataPoint[@"trades"] = @(chartDataEntry.trades);
+                                [intervalArray insertObject:additionalDataPoint atIndex:0];
+                            }
+                        }
+                    }
+                    else if (intervalArray.lastObject == jsonArray.lastObject) {
+                        NSDate *additionalDataPointIntervalStartDate = [intervalArray.lastObject[@"time"] dateByAddingTimeInterval:timeInterval5Mins];
+                        NSDate *additionalDataPointIntervalEndDate = [intervalStartDate dateByAddingTimeInterval:[DCChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval]];
+                        NSArray<DCChartDataEntryEntity *> *additionalDataPoints =
+                            [DCChartDataEntryEntity chartDataForExchangeIdentifier:exchangeIdentifier
+                                                                  marketIdentifier:marketIdentifier
+                                                                          interval:ChartTimeInterval_5Mins
+                                                                         startTime:additionalDataPointIntervalStartDate
+                                                                           endTime:additionalDataPointIntervalEndDate
+                                                                         inContext:context];
+                        success = (additionalDataPoints != nil);
+
+                        for (DCChartDataEntryEntity *chartDataEntry in additionalDataPoints) {
+                            NSMutableDictionary *additionalDataPoint = [NSMutableDictionary dictionary];
+                            additionalDataPoint[@"time"] = chartDataEntry.time;
+                            additionalDataPoint[@"open"] = @(chartDataEntry.open);
+                            additionalDataPoint[@"high"] = @(chartDataEntry.high);
+                            additionalDataPoint[@"low"] = @(chartDataEntry.low);
+                            additionalDataPoint[@"close"] = @(chartDataEntry.close);
+                            additionalDataPoint[@"volume"] = @(chartDataEntry.volume);
+                            additionalDataPoint[@"pairVolume"] = @(chartDataEntry.pairVolume);
+                            additionalDataPoint[@"trades"] = @(chartDataEntry.trades);
+                            [intervalArray addObject:additionalDataPoint];
+                        }
+                    }
+
+                    if (!success) {
+                        NSAssert(NO, @"TODO: Find out - Does smth really went wrong or it's a valid case?");
+                        break;
+                    }
+
+                    DCChartDataEntryEntity *chartDataEntry = [[DCChartDataEntryEntity alloc] initWithContext:context];
+                    chartDataEntry.time = intervalStartDate;
+                    chartDataEntry.open = [intervalArray.firstObject[@"open"] doubleValue];
+                    chartDataEntry.high = [[intervalArray valueForKeyPath:@"@max.high"] doubleValue];
+                    chartDataEntry.low = [[intervalArray valueForKeyPath:@"@min.low"] doubleValue];
+                    chartDataEntry.close = [intervalArray.lastObject[@"close"] doubleValue];
+                    chartDataEntry.volume = [[intervalArray valueForKeyPath:@"@sum.volume"] doubleValue];
+                    chartDataEntry.pairVolume = [[intervalArray valueForKeyPath:@"@sum.pairVolume"] doubleValue];
+                    chartDataEntry.trades = [[intervalArray valueForKeyPath:@"@sum.trades"] longValue];
+                    chartDataEntry.marketIdentifier = marketIdentifier;
+                    chartDataEntry.exchangeIdentifier = exchangeIdentifier;
+                    chartDataEntry.interval = chartTimeInterval;
+
+                    count++;
+                    if (count % batchSize == 0) {
+                        success = [context dc_saveIfNeeded];
+                    }
+                }
+            }
+        }
+
+        if (success) {
+            for (NSDictionary *jsonObject in jsonArray) {
+                DCChartDataEntryEntity *chartDataEntry = [[DCChartDataEntryEntity alloc] initWithContext:context];
+                chartDataEntry.time = jsonObject[@"time"];
+                chartDataEntry.open = [jsonObject[@"open"] doubleValue];
+                chartDataEntry.high = [jsonObject[@"high"] doubleValue];
+                chartDataEntry.low = [jsonObject[@"low"] doubleValue];
+                chartDataEntry.close = [jsonObject[@"close"] doubleValue];
+                chartDataEntry.volume = [jsonObject[@"volume"] doubleValue];
+                chartDataEntry.pairVolume = [jsonObject[@"pairVolume"] doubleValue];
+                chartDataEntry.trades = [jsonObject[@"trades"] longValue];
+                chartDataEntry.marketIdentifier = marketIdentifier;
+                chartDataEntry.exchangeIdentifier = exchangeIdentifier;
+                chartDataEntry.interval = ChartTimeInterval_5Mins;
+
+                count++;
+                if (count % batchSize == 0) {
+                    success = [context dc_saveIfNeeded];
+                }
+            }
+
+            success = [context dc_saveIfNeeded];
+        }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(success);
+        });
+    }];
+}
+
++ (NSString *)chartDataIntervalStartKeyForExchangeName:(NSString *)exchangeName marketName:(NSString *)marketName {
+    return [[exchangeName stringByAppendingString:marketName] stringByAppendingString:@"chartDataIntervalStart"];
+}
+
++ (NSString *)chartDataIntervalEndKeyForExchangeName:(NSString *)exchangeName marketName:(NSString *)marketName {
+    return [[exchangeName stringByAppendingString:marketName] stringByAppendingString:@"chartDataIntervalEnd"];
 }
 
 @end

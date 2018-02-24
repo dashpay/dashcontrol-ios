@@ -27,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable instancetype)dc_objectWithPredicate:(nullable NSPredicate *)predicate inContext:(NSManagedObjectContext *)context;
 + (nullable NSArray *)dc_objectsWithPredicate:(nullable NSPredicate *)predicate inContext:(NSManagedObjectContext *)context;
 + (NSUInteger)dc_countOfObjectsWithPredicate:(nullable NSPredicate *)predicate inContext:(NSManagedObjectContext *)context;
++ (nullable NSArray *)dc_objectsWithPredicate:(nullable NSPredicate *)predicate
+                                    inContext:(NSManagedObjectContext *)context
+                        requestConfigureBlock:(void (^_Nullable)(NSFetchRequest *fetchRequest))requestConfigureBlock;
 
 @end
 
