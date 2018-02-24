@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PriceViewController.h"
+#import "OldPriceViewController.h"
 #import "DCTriggerEntity+CoreDataProperties.h"
 
 @class DCPersistenceStack;

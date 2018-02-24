@@ -23,6 +23,7 @@
 #import "NSManagedObjectContext+DCExtensions.h"
 #import "DCPersistenceStack.h"
 #import "Networking.h"
+#import "Pair.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -59,6 +60,7 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
     NSString *urlString = [API_BASE_URL stringByAppendingString:@"markets"];
     NSURL *url = [NSURL URLWithString:urlString];
     HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:nil];
+    request.maximumRetryCount = 2; // this request is important
     return [self.httpManager sendRequest:request completion:^(id _Nullable parsedData, NSDictionary *_Nullable responseHeaders, NSInteger statusCode, NSError *_Nullable error) {
         if (error) {
             if (completion) {
@@ -160,7 +162,6 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
                                                   completion:(void (^)(BOOL success))completion {
     NSParameterAssert(exchange);
     NSParameterAssert(market);
-    NSAssert(start || end, @"You can not supply both start and end");
 
     NSString *exchangeName = exchange.name;
     NSString *marketName = market.name;
@@ -179,57 +180,20 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
 
     NSDate *intervalStart = [[self class] intervalStartDateForExchangeName:exchangeName marketName:marketName];
     NSDate *intervalEnd = [[self class] intervalEndDateForExchangeName:exchangeName marketName:marketName];
-    NSDate *realStart = nil;
-    NSDate *realEnd = nil;
-    NSDate *knownDataStart = nil;
-    NSDate *knownDataEnd = nil;
-    if (start) {
-        // if start is set it must be before interval start if there's an interval start otherwise set it to the end of the interval
-        if (!intervalStart) {
-            realStart = start; // no interval yet
-            knownDataStart = start;
-        }
-        else if ([start compare:intervalStart] != NSOrderedAscending) {
-            realStart = intervalEnd; // after the interval
-            knownDataStart = intervalStart;
-        }
-        else {
-            realStart = start;
-            knownDataStart = start;
-            realEnd = intervalStart;
-            knownDataEnd = intervalEnd;
-        }
-    }
-    else if (end) {
-        // if there is an end it must be after the interval end if there's an interval end otherwise set it to the start of the interval
-        if (!intervalEnd) {
-            realEnd = end;
-            knownDataEnd = end;
-        }
-        else if ([end compare:intervalEnd] != NSOrderedDescending) {
-            realEnd = intervalStart; // before the interval
-            knownDataEnd = intervalEnd;
-        }
-        else {
-            realEnd = end; // after the interval
-            knownDataEnd = end;
-            realStart = intervalEnd;
-            knownDataStart = intervalStart;
-        }
-    }
+    Pair<Pair<NSDate *> *> *dateData = [[self class] parametersAndKnownDatesForStart:start
+                                                                                 end:end
+                                                                       intervalStart:intervalStart
+                                                                         intervalEnd:intervalEnd];
+    NSDate *realStart = dateData.first.first;
+    NSDate *realEnd = dateData.first.second;
+    NSDate *knownDataStart = dateData.second.first;
+    NSDate *knownDataEnd = dateData.second.second;
+
     if (realEnd) {
         parameters[@"end"] = [NSString stringWithFormat:@"%.0f", [realEnd timeIntervalSince1970]];
     }
-    else {
-        realEnd = [NSDate date];
-        knownDataEnd = realEnd;
-    }
     if (realStart) {
         parameters[@"start"] = [NSString stringWithFormat:@"%.0f", [realStart timeIntervalSince1970]];
-    }
-    else {
-        realStart = [NSDate distantPast];
-        knownDataStart = realStart;
     }
 
     HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:parameters];
@@ -251,15 +215,15 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
 
             [self importJSONArray:parsedData exchangeIdentifier:exchangeIdentifier marketIdentifier:marketIdentifier completion:^void(BOOL success) {
                 if (success) {
-                    NSString *intervalStartKey = [[self class] chartDataIntervalStartKeyForExchangeName:exchangeName marketName:marketName];
-                    NSString *intervalEndKey = [[self class] chartDataIntervalEndKeyForExchangeName:exchangeName marketName:marketName];
                     NSDate *intervalStartDate = [[self class] intervalStartDateForExchangeName:exchangeName marketName:marketName];
                     NSDate *intervalEndDate = [[self class] intervalEndDateForExchangeName:exchangeName marketName:marketName];
 
                     if (!intervalEndDate || (intervalEndDate && ([knownDataEnd compare:intervalEndDate] != NSOrderedSame))) {
+                        NSString *intervalEndKey = [[self class] chartDataIntervalEndKeyForExchangeName:exchangeName marketName:marketName];
                         [[NSUserDefaults standardUserDefaults] setObject:knownDataEnd forKey:intervalEndKey];
                     }
                     if (!intervalStartDate || (intervalStartDate && ([knownDataStart compare:intervalStartDate] != NSOrderedSame))) {
+                        NSString *intervalStartKey = [[self class] chartDataIntervalStartKeyForExchangeName:exchangeName marketName:marketName];
                         [[NSUserDefaults standardUserDefaults] setObject:knownDataStart forKey:intervalStartKey];
                     }
                 }
@@ -296,6 +260,19 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
 
 static NSString *FormatChartTimeInterval(NSInteger timeInterval) {
     return [NSString stringWithFormat:@"CT%ld", (long)timeInterval];
+}
+
+static NSMutableDictionary *DictionaryFromChartDataEntryEntity(DCChartDataEntryEntity *chartDataEntry) {
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    dictionary[@"time"] = chartDataEntry.time;
+    dictionary[@"open"] = @(chartDataEntry.open);
+    dictionary[@"high"] = @(chartDataEntry.high);
+    dictionary[@"low"] = @(chartDataEntry.low);
+    dictionary[@"close"] = @(chartDataEntry.close);
+    dictionary[@"volume"] = @(chartDataEntry.volume);
+    dictionary[@"pairVolume"] = @(chartDataEntry.pairVolume);
+    dictionary[@"trades"] = @(chartDataEntry.trades);
+    return dictionary;
 }
 
 - (void)importJSONArray:(NSArray *)jsonArray
@@ -359,15 +336,7 @@ static NSString *FormatChartTimeInterval(NSInteger timeInterval) {
                             success = (additionalDataPoints != nil);
 
                             for (DCChartDataEntryEntity *chartDataEntry in [additionalDataPoints reverseObjectEnumerator]) {
-                                NSMutableDictionary *additionalDataPoint = [NSMutableDictionary dictionary];
-                                additionalDataPoint[@"time"] = chartDataEntry.time;
-                                additionalDataPoint[@"open"] = @(chartDataEntry.open);
-                                additionalDataPoint[@"high"] = @(chartDataEntry.high);
-                                additionalDataPoint[@"low"] = @(chartDataEntry.low);
-                                additionalDataPoint[@"close"] = @(chartDataEntry.close);
-                                additionalDataPoint[@"volume"] = @(chartDataEntry.volume);
-                                additionalDataPoint[@"pairVolume"] = @(chartDataEntry.pairVolume);
-                                additionalDataPoint[@"trades"] = @(chartDataEntry.trades);
+                                NSMutableDictionary *additionalDataPoint = DictionaryFromChartDataEntryEntity(chartDataEntry);
                                 [intervalArray insertObject:additionalDataPoint atIndex:0];
                             }
                         }
@@ -385,15 +354,7 @@ static NSString *FormatChartTimeInterval(NSInteger timeInterval) {
                         success = (additionalDataPoints != nil);
 
                         for (DCChartDataEntryEntity *chartDataEntry in additionalDataPoints) {
-                            NSMutableDictionary *additionalDataPoint = [NSMutableDictionary dictionary];
-                            additionalDataPoint[@"time"] = chartDataEntry.time;
-                            additionalDataPoint[@"open"] = @(chartDataEntry.open);
-                            additionalDataPoint[@"high"] = @(chartDataEntry.high);
-                            additionalDataPoint[@"low"] = @(chartDataEntry.low);
-                            additionalDataPoint[@"close"] = @(chartDataEntry.close);
-                            additionalDataPoint[@"volume"] = @(chartDataEntry.volume);
-                            additionalDataPoint[@"pairVolume"] = @(chartDataEntry.pairVolume);
-                            additionalDataPoint[@"trades"] = @(chartDataEntry.trades);
+                            NSMutableDictionary *additionalDataPoint = DictionaryFromChartDataEntryEntity(chartDataEntry);
                             [intervalArray addObject:additionalDataPoint];
                         }
                     }
@@ -460,6 +421,64 @@ static NSString *FormatChartTimeInterval(NSInteger timeInterval) {
 
 + (NSString *)chartDataIntervalEndKeyForExchangeName:(NSString *)exchangeName marketName:(NSString *)marketName {
     return [[exchangeName stringByAppendingString:marketName] stringByAppendingString:@"chartDataIntervalEnd"];
+}
+
++ (Pair<Pair<NSDate *> *> *)parametersAndKnownDatesForStart:(nullable NSDate *)start
+                                                        end:(nullable NSDate *)end
+                                              intervalStart:(nullable NSDate *)intervalStart
+                                                intervalEnd:(nullable NSDate *)intervalEnd {
+    NSAssert(start || end, @"You can not supply both start and end");
+
+    NSDate *realStart = nil;
+    NSDate *realEnd = nil;
+    NSDate *knownDataStart = nil;
+    NSDate *knownDataEnd = nil;
+    if (start) {
+        // if start is set it must be before interval start if there's an interval start otherwise set it to the end of the interval
+        if (!intervalStart) {
+            realStart = start; // no interval yet
+            knownDataStart = start;
+        }
+        else if ([start compare:intervalStart] != NSOrderedAscending) {
+            realStart = intervalEnd; // after the interval
+            knownDataStart = intervalStart;
+        }
+        else {
+            realStart = start;
+            knownDataStart = start;
+            realEnd = intervalStart;
+            knownDataEnd = intervalEnd;
+        }
+    }
+    else if (end) {
+        // if there is an end it must be after the interval end if there's an interval end otherwise set it to the start of the interval
+        if (!intervalEnd) {
+            realEnd = end;
+            knownDataEnd = end;
+        }
+        else if ([end compare:intervalEnd] != NSOrderedDescending) {
+            realEnd = intervalStart; // before the interval
+            knownDataEnd = intervalEnd;
+        }
+        else {
+            realEnd = end; // after the interval
+            knownDataEnd = end;
+            realStart = intervalEnd;
+            knownDataStart = intervalStart;
+        }
+    }
+
+    if (!realEnd) {
+        knownDataEnd = [NSDate date];
+    }
+    if (!realStart) {
+        knownDataStart = [NSDate distantPast];
+    }
+
+    Pair *parametersPair = [Pair first:realStart second:realEnd];
+    Pair *knownDataPair = [Pair first:knownDataStart second:knownDataEnd];
+
+    return [Pair first:parametersPair second:knownDataPair];
 }
 
 @end

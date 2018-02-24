@@ -53,7 +53,9 @@
     [Injections activate];
     
     // CoreData stack
-    [self.stack loadStack:nil];
+    [self.stack loadStack:^(DCPersistenceStack * _Nonnull stack) {
+        [Injections activateCoreDataDependentInjections];
+    }];
     
     //Request Device Token For Apple Push Notifications
     [self registerForRemoteNotifications];

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C181139305CB17017B6C991 /* libPods-DashControlTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E42737D9CE7DB8C1FFDB543 /* libPods-DashControlTests.a */; };
 		241719D81F4DA4C60045C2D6 /* DCProposalsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719D71F4DA4C60045C2D6 /* DCProposalsManager.m */; };
 		241719E11F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DA1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m */; };
 		241719E21F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719DC1F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m */; };
@@ -40,7 +41,7 @@
 		24FC99F61F5EA0F40054C2A8 /* iconReply.png in Resources */ = {isa = PBXBuildFile; fileRef = 24FC99F21F5EA0F40054C2A8 /* iconReply.png */; };
 		24FC99F71F5EA0F40054C2A8 /* iconReply@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24FC99F31F5EA0F40054C2A8 /* iconReply@2x.png */; };
 		24FE25491F4C7ECE00E32652 /* DCBackendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE25481F4C7ECE00E32652 /* DCBackendManager.m */; };
-		24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE254B1F4C82C900E32652 /* PriceViewController.m */; };
+		24FE254C1F4C82C900E32652 /* OldPriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE254B1F4C82C900E32652 /* OldPriceViewController.m */; };
 		2A04E6DB202DA5E20065F30D /* HTTPLoaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6B2202DA5E20065F30D /* HTTPLoaderManager.m */; };
 		2A04E6DC202DA5E20065F30D /* HTTPLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6B4202DA5E20065F30D /* HTTPLoaderOperation.m */; };
 		2A04E6DD202DA5E20065F30D /* HTTPRateLimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6B9202DA5E20065F30D /* HTTPRateLimiter.m */; };
@@ -62,6 +63,11 @@
 		2A289A52203AB6D700EDC98E /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A289A51203AB6D700EDC98E /* NewsTableViewCell.xib */; };
 		2A289A55203AC10E00EDC98E /* NewsSearchResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A289A54203AC10E00EDC98E /* NewsSearchResultsController.m */; };
 		2A44739E20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A44739D20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.m */; };
+		2A4473A0204207E400B52BCB /* Price.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A44739F204207E400B52BCB /* Price.storyboard */; };
+		2A4473A42042096400B52BCB /* PriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4473A32042096400B52BCB /* PriceViewController.m */; };
+		2A4473A720429CC400B52BCB /* ChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4473A620429CC400B52BCB /* ChartViewController.m */; };
+		2A4473AA2042B69D00B52BCB /* ChartViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4473A92042B69D00B52BCB /* ChartViewModel.m */; };
+		2A4473AE2042E8DA00B52BCB /* DCSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4473AD2042E8DA00B52BCB /* DCSegmentedControl.m */; };
 		2A4FE281203AE489007FD160 /* UIColor+DCStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FE280203AE489007FD160 /* UIColor+DCStyle.m */; };
 		2A4FE29D203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FE29C203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m */; };
 		2A6F59602034259600D7BD85 /* APINews.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F595F2034259600D7BD85 /* APINews.m */; };
@@ -79,6 +85,9 @@
 		2A8F8181203E9D2300D3D6C9 /* NSManagedObject+DCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8F8180203E9D2300D3D6C9 /* NSManagedObject+DCExtensions.m */; };
 		2A8F8184203EB74900D3D6C9 /* DCMarketEntity+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8F8183203EB74900D3D6C9 /* DCMarketEntity+Extensions.m */; };
 		2A8F8187203EBB7200D3D6C9 /* DCExchangeEntity+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8F8186203EBB7200D3D6C9 /* DCExchangeEntity+Extensions.m */; };
+		2AB9AA7620453EF9005979C4 /* Pair.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB9AA7520453EF9005979C4 /* Pair.m */; };
+		2AB9AA7820454BC6005979C4 /* APIPriceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB9AA7720454BC6005979C4 /* APIPriceTests.m */; };
+		2AB9AA7C2045500A005979C4 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A8F8179203D413100D3D6C9 /* Charts.framework */; };
 		2ACFBBC320340C090099727D /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC020340C080099727D /* Montserrat-Light.otf */; };
 		2ACFBBC420340C090099727D /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC120340C080099727D /* Montserrat-Regular.otf */; };
 		2ACFBBC520340C090099727D /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC220340C080099727D /* Montserrat-SemiBold.otf */; };
@@ -245,8 +254,8 @@
 		24FC99F31F5EA0F40054C2A8 /* iconReply@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconReply@2x.png"; sourceTree = "<group>"; };
 		24FE25471F4C7ECE00E32652 /* DCBackendManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCBackendManager.h; sourceTree = "<group>"; };
 		24FE25481F4C7ECE00E32652 /* DCBackendManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCBackendManager.m; sourceTree = "<group>"; };
-		24FE254A1F4C82C900E32652 /* PriceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PriceViewController.h; sourceTree = "<group>"; };
-		24FE254B1F4C82C900E32652 /* PriceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PriceViewController.m; sourceTree = "<group>"; };
+		24FE254A1F4C82C900E32652 /* OldPriceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldPriceViewController.h; sourceTree = "<group>"; };
+		24FE254B1F4C82C900E32652 /* OldPriceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldPriceViewController.m; sourceTree = "<group>"; };
 		2A04E6AE202DA5E20065F30D /* Injections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Injections.h; sourceTree = "<group>"; };
 		2A04E6B1202DA5E20065F30D /* HTTPLoaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderOperation.h; sourceTree = "<group>"; };
 		2A04E6B2202DA5E20065F30D /* HTTPLoaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPLoaderManager.m; sourceTree = "<group>"; };
@@ -299,6 +308,15 @@
 		2A289A54203AC10E00EDC98E /* NewsSearchResultsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsSearchResultsController.m; sourceTree = "<group>"; };
 		2A44739C20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCChartDataEntryEntity+Extensions.h"; sourceTree = "<group>"; };
 		2A44739D20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCChartDataEntryEntity+Extensions.m"; sourceTree = "<group>"; };
+		2A44739F204207E400B52BCB /* Price.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Price.storyboard; sourceTree = "<group>"; };
+		2A4473A22042096400B52BCB /* PriceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceViewController.h; sourceTree = "<group>"; };
+		2A4473A32042096400B52BCB /* PriceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceViewController.m; sourceTree = "<group>"; };
+		2A4473A520429CC400B52BCB /* ChartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartViewController.h; sourceTree = "<group>"; };
+		2A4473A620429CC400B52BCB /* ChartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartViewController.m; sourceTree = "<group>"; };
+		2A4473A82042B69D00B52BCB /* ChartViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartViewModel.h; sourceTree = "<group>"; };
+		2A4473A92042B69D00B52BCB /* ChartViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartViewModel.m; sourceTree = "<group>"; };
+		2A4473AC2042E8DA00B52BCB /* DCSegmentedControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSegmentedControl.h; sourceTree = "<group>"; };
+		2A4473AD2042E8DA00B52BCB /* DCSegmentedControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSegmentedControl.m; sourceTree = "<group>"; };
 		2A4FE27F203AE489007FD160 /* UIColor+DCStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+DCStyle.h"; sourceTree = "<group>"; };
 		2A4FE280203AE489007FD160 /* UIColor+DCStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DCStyle.m"; sourceTree = "<group>"; };
 		2A4FE282203AF2A7007FD160 /* BaseNewsTableViewController+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BaseNewsTableViewController+Protected.h"; sourceTree = "<group>"; };
@@ -351,6 +369,9 @@
 		2A8F8183203EB74900D3D6C9 /* DCMarketEntity+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCMarketEntity+Extensions.m"; sourceTree = "<group>"; };
 		2A8F8185203EBB7200D3D6C9 /* DCExchangeEntity+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCExchangeEntity+Extensions.h"; sourceTree = "<group>"; };
 		2A8F8186203EBB7200D3D6C9 /* DCExchangeEntity+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCExchangeEntity+Extensions.m"; sourceTree = "<group>"; };
+		2AB9AA7420453EF9005979C4 /* Pair.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pair.h; sourceTree = "<group>"; };
+		2AB9AA7520453EF9005979C4 /* Pair.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Pair.m; sourceTree = "<group>"; };
+		2AB9AA7720454BC6005979C4 /* APIPriceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIPriceTests.m; sourceTree = "<group>"; };
 		2ACFBBC020340C080099727D /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		2ACFBBC120340C080099727D /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
 		2ACFBBC220340C080099727D /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
@@ -364,7 +385,10 @@
 		2AE7F5092034A99400A8E770 /* DCNewsPostEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCNewsPostEntity+CoreDataClass.h"; sourceTree = "<group>"; };
 		2AE7F50D2034CC7100A8E770 /* NewsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsViewModel.h; sourceTree = "<group>"; };
 		2AE7F50E2034CC7100A8E770 /* NewsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsViewModel.m; sourceTree = "<group>"; };
+		403ADE725BE30A95BD44A394 /* Pods-DashControlTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControlTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests.release.xcconfig"; sourceTree = "<group>"; };
 		481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
+		558B8AE6721A9375C76DBBD3 /* Pods-DashControlTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControlTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5E42737D9CE7DB8C1FFDB543 /* libPods-DashControlTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControlTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6385EAF7B5AD9CDA2429BFAE /* Pods-DashControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.debug.xcconfig"; sourceTree = "<group>"; };
 		742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DashControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB17AED71FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCWalletAccountEntity+CoreDataClass.h"; sourceTree = "<group>"; };
@@ -596,6 +620,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C181139305CB17017B6C991 /* libPods-DashControlTests.a in Frameworks */,
+				2AB9AA7C2045500A005979C4 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,11 +771,18 @@
 		24FE253D1F4C7DA200E32652 /* Price */ = {
 			isa = PBXGroup;
 			children = (
+				2A4473AB2042E8C500B52BCB /* Views */,
 				24B08BA21FA734FA00A41566 /* Cells */,
 				241A70941FA356DF00FCC808 /* PriceAlertViewController.h */,
 				241A70951FA356DF00FCC808 /* PriceAlertViewController.m */,
-				24FE254A1F4C82C900E32652 /* PriceViewController.h */,
-				24FE254B1F4C82C900E32652 /* PriceViewController.m */,
+				24FE254A1F4C82C900E32652 /* OldPriceViewController.h */,
+				24FE254B1F4C82C900E32652 /* OldPriceViewController.m */,
+				2A4473A22042096400B52BCB /* PriceViewController.h */,
+				2A4473A32042096400B52BCB /* PriceViewController.m */,
+				2A4473A520429CC400B52BCB /* ChartViewController.h */,
+				2A4473A620429CC400B52BCB /* ChartViewController.m */,
+				2A4473A82042B69D00B52BCB /* ChartViewModel.h */,
+				2A4473A92042B69D00B52BCB /* ChartViewModel.m */,
 			);
 			path = Price;
 			sourceTree = "<group>";
@@ -857,6 +890,8 @@
 				2A04E6EB202DAB340065F30D /* RunOnMain.m */,
 				2A80B5882036A8F40015E1AA /* DCLogging.h */,
 				2A80B5892036A8F40015E1AA /* DCLogging.m */,
+				2AB9AA7420453EF9005979C4 /* Pair.h */,
+				2AB9AA7520453EF9005979C4 /* Pair.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -871,6 +906,15 @@
 			path = SearchController;
 			sourceTree = "<group>";
 		};
+		2A4473AB2042E8C500B52BCB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2A4473AC2042E8DA00B52BCB /* DCSegmentedControl.h */,
+				2A4473AD2042E8DA00B52BCB /* DCSegmentedControl.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		2A6C68C1202EE3400016B2B9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -880,6 +924,7 @@
 				FB84EDCC1F32898700E4D400 /* Main.storyboard */,
 				FB84EDD11F32898700E4D400 /* LaunchScreen.storyboard */,
 				2A6F596D203576C400D7BD85 /* News.storyboard */,
+				2A44739F204207E400B52BCB /* Price.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -947,6 +992,8 @@
 			children = (
 				6385EAF7B5AD9CDA2429BFAE /* Pods-DashControl.debug.xcconfig */,
 				481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */,
+				558B8AE6721A9375C76DBBD3 /* Pods-DashControlTests.debug.xcconfig */,
+				403ADE725BE30A95BD44A394 /* Pods-DashControlTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -963,6 +1010,7 @@
 				24B0004C1F580FF5007D24A1 /* MobileCoreServices.framework */,
 				24B0004A1F580FEB007D24A1 /* CoreSpotlight.framework */,
 				24B000431F5724B6007D24A1 /* SafariServices.framework */,
+				5E42737D9CE7DB8C1FFDB543 /* libPods-DashControlTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -970,6 +1018,7 @@
 		FB1F8AA41FBCAACA00175311 /* DashControlTests */ = {
 			isa = PBXGroup;
 			children = (
+				2AB9AA7720454BC6005979C4 /* APIPriceTests.m */,
 				FB1F8AA51FBCAACA00175311 /* DashControlTests.m */,
 				FB1F8AA71FBCAACA00175311 /* Info.plist */,
 			);
@@ -1338,9 +1387,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FB1F8AAC1FBCAACA00175311 /* Build configuration list for PBXNativeTarget "DashControlTests" */;
 			buildPhases = (
+				1EF103657C3926929FC56B9B /* [CP] Check Pods Manifest.lock */,
 				FB1F8A9F1FBCAACA00175311 /* Sources */,
 				FB1F8AA01FBCAACA00175311 /* Frameworks */,
 				FB1F8AA11FBCAACA00175311 /* Resources */,
+				2AB9AA7B20454F85005979C4 /* [Carthage] Run Script Copy Frameworks */,
+				879583387DA55FB44D5ED6F3 /* [CP] Embed Pods Frameworks */,
+				9EDCE32632289D723EF39407 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1471,6 +1524,7 @@
 				2ACFBBC420340C090099727D /* Montserrat-Regular.otf in Resources */,
 				2A6F596B203576C400D7BD85 /* News.storyboard in Resources */,
 				24FC99F51F5EA0F40054C2A8 /* iconAttachment@2x.png in Resources */,
+				2A4473A0204207E400B52BCB /* Price.storyboard in Resources */,
 				FB1F8AB51FBCD2EA00175311 /* BIP39Words.plist in Resources */,
 				2A80B58F2039BEFE0015E1AA /* DCSearchBar.xib in Resources */,
 				FB84EDD31F32898700E4D400 /* LaunchScreen.storyboard in Resources */,
@@ -1482,7 +1536,41 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1EF103657C3926929FC56B9B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DashControlTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2A8F817B203D418500D3D6C9 /* [Carthage] Run Script Copy Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Charts.framework",
+			);
+			name = "[Carthage] Run Script Copy Frameworks";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Charts.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		2AB9AA7B20454F85005979C4 /* [Carthage] Run Script Copy Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1544,6 +1632,39 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DashControl/Pods-DashControl-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		879583387DA55FB44D5ED6F3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9EDCE32632289D723EF39407 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/MBCircularProgressBar/MBCircularProgressBar.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MBCircularProgressBar.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B13CDC11D77705DD862345F6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1585,6 +1706,7 @@
 			files = (
 				FB1F8AA61FBCAACA00175311 /* DashControlTests.m in Sources */,
 				FB1F8AB11FBCABD200175311 /* BRBIP39Mnemonic.m in Sources */,
+				2AB9AA7820454BC6005979C4 /* APIPriceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1599,7 +1721,7 @@
 				FB9CC1631F83E38F0079309F /* UIImage+Sugar.m in Sources */,
 				2A04E6E9202DA5E20065F30D /* Injections.m in Sources */,
 				2A04E6E7202DA5E20065F30D /* HTTPRateLimiterMap.m in Sources */,
-				24FE254C1F4C82C900E32652 /* PriceViewController.m in Sources */,
+				24FE254C1F4C82C900E32652 /* OldPriceViewController.m in Sources */,
 				FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */,
 				241719E41F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m in Sources */,
 				2A04E6DB202DA5E20065F30D /* HTTPLoaderManager.m in Sources */,
@@ -1609,12 +1731,14 @@
 				2AD693C32032C99A0084D840 /* NewsViewController.m in Sources */,
 				2A8F8181203E9D2300D3D6C9 /* NSManagedObject+DCExtensions.m in Sources */,
 				24438DEF1F5FCE7D00763A14 /* ProposalDetailViewController.m in Sources */,
+				2A4473A720429CC400B52BCB /* ChartViewController.m in Sources */,
 				2A04E6E1202DA5E20065F30D /* HTTPLoaderFactory.m in Sources */,
 				24438DF31F5FEA6600763A14 /* ProposalHeaderView.m in Sources */,
 				2A04E6E0202DA5E20065F30D /* HTTPRequest.m in Sources */,
 				FB4550DE1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataProperties.m in Sources */,
 				FB25EA301FAF8509000B41BE /* TriggerTypeTableViewCell.m in Sources */,
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
+				2A4473AA2042B69D00B52BCB /* ChartViewModel.m in Sources */,
 				FB9CC1861F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m in Sources */,
 				FBE1F50D1F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m in Sources */,
 				2A04E6ED202DAB340065F30D /* RunOnMain.m in Sources */,
@@ -1655,6 +1779,7 @@
 				24A2159B1F52C5E900A63311 /* DCBudgetEntity+CoreDataClass.m in Sources */,
 				2AE7F50F2034CC7100A8E770 /* NewsViewModel.m in Sources */,
 				FBE1F50C1F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.m in Sources */,
+				2AB9AA7620453EF9005979C4 /* Pair.m in Sources */,
 				FB4311051FA2C19800784EBC /* NSURL+Sugar.m in Sources */,
 				2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */,
 				24B08BA51FA739BE00A41566 /* PriceAmountTableViewCell.m in Sources */,
@@ -1673,9 +1798,11 @@
 				FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */,
 				24C86F031F5EC06C00735785 /* ProposalDetailOneTimePayementTableViewCell.m in Sources */,
 				FBEF66E21F83D68C003424D2 /* AddWalletAddressViewController.m in Sources */,
+				2A4473AE2042E8DA00B52BCB /* DCSegmentedControl.m in Sources */,
 				FB84EDC21F32898700E4D400 /* main.m in Sources */,
 				FBE1F50B1F5D4CF500823A77 /* DCExchangeEntity+CoreDataClass.m in Sources */,
 				FB4311021FA2BCD800784EBC /* NSString+Sugar.m in Sources */,
+				2A4473A42042096400B52BCB /* PriceViewController.m in Sources */,
 				FB9CC1851F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataClass.m in Sources */,
 				24C86F001F5EC05400735785 /* ProposalDetailTitleTableViewCell.m in Sources */,
 				FB17AEE31FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m in Sources */,
@@ -1849,11 +1976,13 @@
 /* Begin XCBuildConfiguration section */
 		FB1F8AAA1FBCAACA00175311 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 558B8AE6721A9375C76DBBD3 /* Pods-DashControlTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1862,7 +1991,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 44RJ69WHFF;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DashControl/Supporting Files/DashControl-PrefixHeader.pch";
 				INFOPLIST_FILE = DashControlTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.DashControlTests;
@@ -1874,11 +2009,13 @@
 		};
 		FB1F8AAB1FBCAACA00175311 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 403ADE725BE30A95BD44A394 /* Pods-DashControlTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1887,7 +2024,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 44RJ69WHFF;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DashControl/Supporting Files/DashControl-PrefixHeader.pch";
 				INFOPLIST_FILE = DashControlTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.DashControlTests;
@@ -2007,6 +2150,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = "DashControl/Supporting Files/DashControl.entitlements";
 				DEVELOPMENT_TEAM = 44RJ69WHFF;
 				ENABLE_BITCODE = YES;
@@ -2047,6 +2191,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = "DashControl/Supporting Files/DashControl.entitlements";
 				DEVELOPMENT_TEAM = 44RJ69WHFF;
 				ENABLE_BITCODE = YES;

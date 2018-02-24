@@ -11,6 +11,45 @@
 /* Proposals View */
 "%d months remaining" = "%d months remaining";
 
+/* 15 minutes */
+"15M" = "15M";
+
+/* 1 day */
+"1D" = "1D";
+
+/* 1 month */
+"1M" = "1M";
+
+/* 1 week */
+"1W" = "1W";
+
+/* 24 hours */
+"24H" = "24H";
+
+/* 2 days */
+"2D" = "2D";
+
+/* 2 hours */
+"2H" = "2H";
+
+/* 30 minutes */
+"30M" = "30M";
+
+/* 4 days */
+"4D" = "4D";
+
+/* 4 hours */
+"4H" = "4H";
+
+/* 5 minutes */
+"5M" = "5M";
+
+/* 6 hours */
+"6H" = "6H";
+
+/* 6 months */
+"6M" = "6M";
+
 /* No comment provided by engineer. */
 "\nallow camera access in\nSettings->Privacy->Camera->%@" = "\nallow camera access in\nSettings->Privacy->Camera->%@";
 
@@ -47,10 +86,12 @@
 /* No comment provided by engineer. */
 "Cellular" = "Cellular";
 
-/* Price View Screen */
+/* Price Screen
+   Price View Screen */
 "Choose Exchange" = "Choose Exchange";
 
-/* Price View Screen */
+/* Price Screen
+   Price View Screen */
 "Choose Market" = "Choose Market";
 
 /* Proposal Detail View */

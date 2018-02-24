@@ -15,7 +15,6 @@
 #import "NSURL+Sugar.h"
 #import "DCEnvironment.h"
 #import "Networking.h"
-#import "APIPrice.h"
 #import "DCPersistenceStack.h"
 
 #define DASHCONTROL_SERVER_VERSION 0
@@ -33,12 +32,8 @@
 
 #define TICKER_REFRESH_TIME 60.0
 
-#define DEFAULT_MARKET @"DEFAULT_MARKET"
-#define DEFAULT_EXCHANGE @"DEFAULT_EXCHANGE"
-
 @interface DCBackendManager ()
 @property (nonatomic, strong) Reachability *reachability;
-@property (nonatomic, strong) NSDateFormatter * dateFormatter;
 @end
 
 @implementation DCBackendManager
@@ -56,13 +51,6 @@
 
 - (id)init {
     if (self = [super init]) {
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-        [dateFormatter setLocale:enUSPOSIXLocale];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-        self.dateFormatter = dateFormatter;
         self.reachability = [Reachability reachabilityForInternetConnection];
         [self startUp];
     }
@@ -70,47 +58,6 @@
 }
 
 #pragma mark - start up
-
--(void)startUpFetchMarkets:(void (^)(NSError * error))completion {
-    [self fetchMarkets: ^void (NSError * error, NSUInteger defaultExchangeIdentifier, NSUInteger defaultMarketIdentifier)
-     {
-         if (!error) {
-             NSManagedObjectContext *viewContext = self.stack.persistentContainer.viewContext;
-             NSError * innerError = nil;
-             DCMarketEntity * defaultMarket = [[DCCoreDataManager sharedInstance] marketWithIdentifier:defaultMarketIdentifier inContext:viewContext  error:&innerError];
-             DCExchangeEntity * defaultExchange = innerError?nil:[[DCCoreDataManager sharedInstance] exchangeWithIdentifier:defaultExchangeIdentifier inContext:viewContext  error:&innerError];
-             if (!innerError) {
-                 NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-                 if (defaultMarket && ![[userDefaults objectForKey:DEFAULT_MARKET] isEqualToString:defaultMarket.name]) {
-                     [userDefaults setObject:defaultMarket.name forKey:DEFAULT_MARKET];
-                 }
-                 if (defaultExchange && ![[userDefaults objectForKey:DEFAULT_EXCHANGE] isEqualToString:defaultExchange.name]) {
-                     [userDefaults setObject:defaultExchange.name forKey:DEFAULT_EXCHANGE];
-                 }
-                 if (defaultExchange && defaultMarket && ![userDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR]) {
-                     NSDictionary * currentMarketExchangePair = @{@"exchange":defaultExchange.name,@"market":defaultMarket.name};
-                     [userDefaults setObject:currentMarketExchangePair forKey:CURRENT_EXCHANGE_MARKET_PAIR];
-                 }
-                 [userDefaults synchronize];
-                 NSDictionary * currentMarketExchangePair = [userDefaults objectForKey:CURRENT_EXCHANGE_MARKET_PAIR];
-                 if (currentMarketExchangePair && [currentMarketExchangePair objectForKey:@"exchange"] && [currentMarketExchangePair objectForKey:@"market"] ) {
-                     NSDate *lastWeek  = [[NSDate date] dateByAddingTimeInterval: -1209600.0]; //one week ago
-                     NSError *error = nil;
-                     DCExchangeEntity *exchange = [[DCCoreDataManager sharedInstance] exchangeNamed:[currentMarketExchangePair objectForKey:@"exchange"] inContext:viewContext error:&error];
-                     DCMarketEntity * market = [[DCCoreDataManager sharedInstance] marketNamed:[currentMarketExchangePair objectForKey:@"market"] inContext:viewContext error:&error];
-                     [self.apiPrice fetchChartDataForExchange:exchange market:market start:lastWeek end:nil completion:^(BOOL success) {
-                         
-                     }];
-                 }
-                 if (completion) completion(nil);
-             } else {
-                 if (completion) completion(innerError);
-             }
-         } else {
-             if (completion) completion(error);
-         }
-     }];
-}
 
 -(void)startUpFetchTriggers {
     [self getTriggers:^(NSError *triggerError,NSUInteger statusCode, NSArray *responseObject) {
@@ -165,120 +112,15 @@
 }
 
 -(void)startUp {
-    [self startUpFetchMarkets:^(NSError *marketError) {
-        if (!marketError) {
-            NSError * error = nil;
-            BOOL hasRegistered = [[DCEnvironment sharedInstance] hasRegisteredWithError:&error];
-            if (!error && hasRegistered) {
-                [self startUpFetchTriggers];
-            }
-        }
-    }];
+    // set CURRENT_EXCHANGE_MARKET_PAIR for back compatability
+    NSDictionary *currentMarketExchangePair = @{@"exchange":@"poloniex", @"market":@"DASH_BTC"};
+    [[NSUserDefaults standardUserDefaults] setObject:currentMarketExchangePair forKey:CURRENT_EXCHANGE_MARKET_PAIR];
     
-}
-
-#pragma mark - Import Chart Data
-
-
--(void)fetchMarkets:(void (^)(NSError * error, NSUInteger defaultExchangeIdentifier, NSUInteger defaultMarketIdentifier))clb {
-    NSURL *url = [NSURL URLWithString:DASHCONTROL_URL(@"markets")];
-    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:nil];
-    [self.httpManager sendRequest:request completion:^(id  _Nullable parsedData, NSDictionary * _Nullable responseHeaders, NSInteger statusCode, NSError * _Nullable error) {
-        if (error) {
-            // TODO: handle error
-            NSLog(@"%@", error);
-            return;
-        }
-        
-        NSPersistentContainer *container = self.stack.persistentContainer;
-        [container performBackgroundTask:^(NSManagedObjectContext *context) {
-            DCMarketEntity * defaultMarket = nil;
-            DCExchangeEntity * defaultExchange = nil;
-            NSString * defaultMarketName = nil;
-            NSString * defaultExchangeName = nil;
-            if ([parsedData objectForKey:@"default"]) {
-                NSDictionary * defaultMarketplace = [parsedData objectForKey:@"default"];
-                if ([defaultMarketplace objectForKey:@"exchange"] && [defaultMarketplace objectForKey:@"market"]) {
-                    defaultMarketName = [defaultMarketplace objectForKey:@"market"];
-                    defaultExchangeName = [defaultMarketplace objectForKey:@"exchange"];
-                }
-            }
-            if ([parsedData objectForKey:@"markets"]) {
-                NSArray * markets = [[parsedData objectForKey:@"markets"] allKeys];
-                NSArray * exchanges = [[[parsedData objectForKey:@"markets"] allValues] valueForKeyPath: @"@distinctUnionOfArrays.self"];
-                NSError * error = nil;
-                NSMutableArray * knownMarkets = [[[DCCoreDataManager sharedInstance] marketsForNames:markets inContext:context error:&error] mutableCopy];
-                NSMutableArray * knownExchanges = error?nil:[[[DCCoreDataManager sharedInstance] exchangesForNames:exchanges inContext:context error:&error] mutableCopy];
-                if (!error) {
-                    NSArray * novelMarkets = [markets arrayByRemovingObjectsFromArray:[knownMarkets  arrayReferencedByKeyPath:@"name"]];
-                    if (novelMarkets.count) {
-                        NSInteger marketIdentifier = [[DCCoreDataManager sharedInstance] fetchAutoIncrementIdForMarketInContext:context error:&error];
-                        if (!error) {
-                            for (NSString * marketName in novelMarkets) {
-                                DCMarketEntity *market = [NSEntityDescription insertNewObjectForEntityForName:@"DCMarketEntity" inManagedObjectContext:context];
-                                market.identifier = marketIdentifier;
-                                market.name = marketName;
-                                marketIdentifier++;
-                                [knownMarkets addObject:market];
-                            }
-                        }
-                    }
-                }
-                if (!error) {
-                    NSArray * novelExchanges = [exchanges arrayByRemovingObjectsFromArray:[knownExchanges arrayReferencedByKeyPath:@"name"]];
-                    if (novelExchanges.count) {
-                        NSInteger exchangeIdentifier = [[DCCoreDataManager sharedInstance] fetchAutoIncrementIdForExchangeinContext:context error:&error];
-                        if (!error) {
-                            for (NSString * exchangeName in novelExchanges) {
-                                DCExchangeEntity *exchange = [NSEntityDescription insertNewObjectForEntityForName:@"DCExchangeEntity" inManagedObjectContext:context];
-                                exchange.identifier = exchangeIdentifier;
-                                exchange.name = exchangeName;
-                                exchangeIdentifier++;
-                                [knownExchanges addObject:exchange];
-                            }
-                        }
-                    }
-                }
-                defaultMarket = [[knownMarkets filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name = %@",defaultMarketName]] firstObject];
-                defaultExchange = [[knownExchanges filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name = %@",defaultExchangeName]] firstObject];
-                if (!error) {
-                    context.automaticallyMergesChangesFromParent = TRUE;
-                    context.mergePolicy = NSRollbackMergePolicy;
-                    
-                    if (![context save:&error]) {
-                        NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-                        abort();
-                    }
-                }
-                
-                //now let's make sure all the relationships are correct
-                if (!error) {
-                    NSDictionary * exchangeDictionary = [knownExchanges dictionaryReferencedByKeyPath:@"name"];
-                    for (DCMarketEntity * market in knownMarkets) {
-                        NSArray * serverExchangesForMarket = [[parsedData objectForKey:@"markets"] objectForKey:market.name];
-                        NSArray * knownExchangesForMarket = [[market.onExchanges allObjects] arrayReferencedByKeyPath:@"name"];
-                        NSArray * novelExchangesForMarket = [serverExchangesForMarket arrayByRemovingObjectsFromArray:knownExchangesForMarket];
-                        for (NSString * novelExchangeForMarket in novelExchangesForMarket) {
-                            DCExchangeEntity * exchange = [exchangeDictionary objectForKey:novelExchangeForMarket];
-                            [market addOnExchangesObject:exchange];
-                        }
-                    }
-                    if (![context save:&error]) {
-                        NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-                        abort();
-                    }
-                    
-                }
-                if (!error && defaultExchange && defaultMarket) {
-                    NSUInteger defaultExhangeIdentifier = defaultExchange.identifier;
-                    NSUInteger defaultMarketIdentifier = defaultMarket.identifier;
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        clb(error,defaultExhangeIdentifier,defaultMarketIdentifier);
-                    });
-                }
-            }
-        }];
-    }];
+    NSError * error = nil;
+    BOOL hasRegistered = [[DCEnvironment sharedInstance] hasRegisteredWithError:&error];
+    if (!error && hasRegistered) {
+        [self startUpFetchTriggers];
+    }
 }
 
 #pragma mark - Registering

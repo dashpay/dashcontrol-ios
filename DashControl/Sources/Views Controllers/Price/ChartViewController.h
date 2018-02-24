@@ -1,8 +1,6 @@
 //
-//  Injections.h
-//
-//  Created by Andrew Podkovyrin on 05/01/2018.
-//  Copyright © 2018 Andrew Podkovyrin. All rights reserved.
+//  Created by Andrew Podkovyrin
+//  Copyright © 2018 dashfoundation. All rights reserved.
 //
 //  Licensed under the MIT License (the "License");
 //  you may not use this file except in compliance with the License.
@@ -17,16 +15,15 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import <KVO-MVVM/KVOUIViewController.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Injections : NSObject
+@class ChartViewModel;
 
-+ (void)activate;
-+ (void)activateCoreDataDependentInjections;
+@interface ChartViewController : KVOUIViewController
 
-- (instancetype)init NS_UNAVAILABLE;
+@property (strong, nonatomic) InjectedClass(ChartViewModel) viewModel;
 
 @end
 

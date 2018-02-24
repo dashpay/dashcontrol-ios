@@ -1,8 +1,6 @@
 //
-//  Injections.h
-//
-//  Created by Andrew Podkovyrin on 05/01/2018.
-//  Copyright © 2018 Andrew Podkovyrin. All rights reserved.
+//  Created by Andrew Podkovyrin
+//  Copyright © 2018 dashfoundation. All rights reserved.
 //
 //  Licensed under the MIT License (the "License");
 //  you may not use this file except in compliance with the License.
@@ -21,11 +19,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Injections : NSObject
+@interface Pair<__covariant ObjectType: NSObject *> : NSObject <NSCopying>
 
-+ (void)activate;
-+ (void)activateCoreDataDependentInjections;
+@property (nullable, readonly, strong, nonatomic) ObjectType first;
+@property (nullable, readonly, strong, nonatomic) ObjectType second;
 
++ (instancetype)first:(nullable ObjectType)first second:(nullable ObjectType)second;
 - (instancetype)init NS_UNAVAILABLE;
 
 @end

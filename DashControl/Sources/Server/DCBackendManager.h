@@ -12,19 +12,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+// deprecated
 #define CURRENT_EXCHANGE_MARKET_PAIR @"CURRENT_EXCHANGE_MARKET_PAIR"
 
 @class HTTPLoaderManager;
 @class DCPersistenceStack;
 
-@class APIPrice;
-
 @interface DCBackendManager : NSObject
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 @property (strong, nonatomic) InjectedClass(HTTPLoaderManager) httpManager;
-
-@property (strong, nonatomic) InjectedClass(APIPrice) apiPrice; // temp, back compatability
 
 //@property (nonatomic, strong) NSManagedObjectContext * _Nullable mainObjectContext;
 //@property (nonatomic, strong) NSPersistentContainer * _Nullable persistentContainer;

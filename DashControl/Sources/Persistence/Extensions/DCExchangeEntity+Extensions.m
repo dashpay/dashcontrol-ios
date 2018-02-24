@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (NSInteger)autoIncrementIDInContext:(NSManagedObjectContext *)context {
-    DCExchangeEntity *entity = [DCExchangeEntity dc_objectWithPredicate:[NSPredicate predicateWithFormat:@"identifier == MAX(identifier)"] inContext:context];
+    DCExchangeEntity *entity = [DCExchangeEntity dc_objectWithPredicate:[NSPredicate predicateWithFormat:@"identifier == max(identifier)"] inContext:context];
     if (entity) {
         return entity.identifier + 1;
     }
