@@ -24,6 +24,7 @@
 #import "Networking.h"
 #import "DCPersistenceStack.h"
 #import "APINews.h"
+#import "APIPrice.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -56,6 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
         // Lazy API injections:
         
         [[[lets inject] byPropertyClass:[APINews class]] getterValueLazyByClass:[APINews class]];
+        [[[lets inject] byPropertyClass:[APIPrice class]] getterValueLazyByClass:[APIPrice class]];
     }];
 }
 

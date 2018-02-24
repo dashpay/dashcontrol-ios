@@ -20,6 +20,7 @@
 #import "Networking.h"
 #import "DCNewsPostEntity+CoreDataClass.h"
 #import "DCPersistenceStack.h"
+#import "NSManagedObjectContext+DCExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -73,8 +74,6 @@ static NSString *const API_ENDPOINT = @"blogapi/feed-%@.json";
             
             NSPersistentContainer *container = self.stack.persistentContainer;
             [container performBackgroundTask:^(NSManagedObjectContext * _Nonnull context) {
-                context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
-                
                 for (NSDictionary *item in items) {
                     DCNewsPostEntity *entity = [[DCNewsPostEntity alloc] initWithContext:context];
                     entity.langCode = self.langCode;
@@ -87,15 +86,8 @@ static NSString *const API_ENDPOINT = @"blogapi/feed-%@.json";
                     }
                 }
                 
-                if (context.hasChanges) {
-                    NSError *error = nil;
-                    if (![context save:&error]) {
-                        DCDebugLog([self class], error);
-                    }
-                    else {
-                        [context reset];
-                    }
-                }
+                context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+                [context dc_saveIfNeeded];
                 
                 if (completion) {
                     dispatch_async(dispatch_get_main_queue(), ^{

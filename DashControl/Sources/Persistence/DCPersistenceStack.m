@@ -18,6 +18,7 @@
 #import "DCPersistenceStack.h"
 
 #import "NSData+Hash.h"
+#import "NSManagedObjectContext+DCExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -121,15 +122,7 @@ static NSURL *StoreURL() {
 
 - (void)saveViewContext {
     NSManagedObjectContext *context = self.persistentContainer.viewContext;
-    if (context.hasChanges) {
-        NSError *error = nil;
-        if (![context save:&error]) {
-            DCDebugLog([self class], error);
-        }
-        else {
-            [context reset];
-        }
-    }
+    [context dc_saveIfNeeded];
 }
 
 @end
