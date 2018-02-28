@@ -19,11 +19,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static CGFloat const CHART_HEIGHT_MULTIPLIER = 0.635;
-
 @interface PriceViewController ()
-
-@property (weak, nonatomic) IBOutlet UIView *chartContainerView;
 
 @end
 
@@ -31,9 +27,6 @@ static CGFloat const CHART_HEIGHT_MULTIPLIER = 0.635;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    CGSize size = [UIScreen mainScreen].bounds.size;
-    self.chartContainerView.frame = CGRectMake(0.0, 0.0, size.width, size.height * CHART_HEIGHT_MULTIPLIER);
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
