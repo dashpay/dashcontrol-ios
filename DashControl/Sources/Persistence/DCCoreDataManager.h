@@ -25,10 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray *)fetchChartDataForExchangeIdentifier:(NSUInteger)exchangeIdentifier forMarketIdentifier:(NSUInteger)marketIdentifier interval:(ChartTimeInterval)timeInterval startTime:(NSDate *_Nullable)startTime endTime:(NSDate *_Nullable)endTime inContext:(NSManagedObjectContext *_Nullable)context error:(NSError *_Nullable *_Nullable)error;
 
-- (NSInteger)fetchAutoIncrementIdForExchangeinContext:(NSManagedObjectContext *_Nullable)context error:(NSError *_Nullable *_Nullable)error;
-
-- (NSInteger)fetchAutoIncrementIdForMarketInContext:(NSManagedObjectContext *_Nullable)context error:(NSError *_Nullable *_Nullable)error;
-
 - (NSArray *)marketsInContext:(NSManagedObjectContext *_Nullable)context error:(NSError *_Nullable *_Nullable)error;
 - (NSArray *)exchangesInContext:(NSManagedObjectContext *_Nullable)context error:(NSError *_Nullable *_Nullable)error;
 

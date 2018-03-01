@@ -58,6 +58,7 @@ extern NSString *const HTTPRequestErrorDomain;
 
 @property (assign, nonatomic) BOOL chunks;
 @property (assign, nonatomic) NSURLRequestCachePolicy cachePolicy;
+@property (assign, nonatomic) NSJSONReadingOptions jsonReadingOptions;
 @property (assign, nonatomic) BOOL skipNSURLCache;
 @property (assign, nonatomic) NSTimeInterval timeout;
 @property (assign, nonatomic) NSUInteger maximumRetryCount;

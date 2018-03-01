@@ -136,44 +136,6 @@
     
 }
 
--(NSInteger)fetchAutoIncrementIdForExchangeinContext:(NSManagedObjectContext * _Nullable)context error:(NSError**)error {
-    if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCExchangeEntity" inManagedObjectContext:context];
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        [request setEntity:entityDescription];
-        request.predicate = [NSPredicate predicateWithFormat:@"identifier==max(identifier)"];
-        
-        NSArray *array = [context executeFetchRequest:request error:error];
-        if (*error || array == nil)
-        {
-            NSLog(@"Error while fetching AI %@", entityDescription.name);
-        }
-        if (![array count]) return 1;
-        return [(DCExchangeEntity*)[array objectAtIndex:0] identifier] + 1;
-    } else {
-        return [self fetchAutoIncrementIdForExchangeinContext:self.mainObjectContext error:error];
-    }
-}
-
--(NSInteger)fetchAutoIncrementIdForMarketInContext:(NSManagedObjectContext * _Nullable)context error:(NSError**)error {
-    if (context) {
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"DCMarketEntity" inManagedObjectContext:context];
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        [request setEntity:entityDescription];
-        request.predicate = [NSPredicate predicateWithFormat:@"identifier==max(identifier)"];
-        
-        NSArray *array = [context executeFetchRequest:request error:error];
-        if (*error || array == nil)
-        {
-            NSLog(@"Error while fetching AI %@", entityDescription.name);
-        }
-        if (![array count]) return 1;
-        return [(DCExchangeEntity*)[array objectAtIndex:0] identifier] + 1;
-    } else {
-        return [self fetchAutoIncrementIdForMarketInContext:self.mainObjectContext error:error];
-    }
-}
-
 -(NSArray* _Nonnull)marketsInContext:(NSManagedObjectContext * _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     return [self objectsWithEntityNamed:@"DCMarketEntity" inContext:context error:error];
 }

@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Injections : NSObject
 
 + (void)activate;
++ (void)activateCoreDataDependentInjections;
 
 - (instancetype)init NS_UNAVAILABLE;
 
