@@ -1,11 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D47" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D102" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="DCBudgetEntity" representedClassName="DCBudgetEntity" syncable="YES">
-        <attribute name="allotedAmount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="paymentDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="paymentDateHuman" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="superblock" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="totalAmount" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="allotedAmount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="paymentDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="superblock" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="totalAmount" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="DCBudgetInfoEntity" representedClassName="DCBudgetInfoEntity" syncable="YES">
+        <attribute name="allotedAmount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="paymentDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="superblock" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="totalAmount" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="DCBudgetProposalCommentEntity" representedClassName="DCBudgetProposalCommentEntity" syncable="YES">
+        <attribute name="content" attributeType="String" syncable="YES"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="identifier" attributeType="String" syncable="YES"/>
+        <attribute name="level" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="postedByOwner" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="recentlyPosted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sortOrder" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="username" attributeType="String" syncable="YES"/>
+        <relationship name="proposal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DCBudgetProposalEntity" inverseName="comments" inverseEntity="DCBudgetProposalEntity" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="identifier"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="DCBudgetProposalEntity" representedClassName="DCBudgetProposalEntity" syncable="YES">
+        <attribute name="abstainVotesCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="commentsCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="dateAdded" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="dateEnd" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="inNextBudget" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="monthlyAmount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="noVotesCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="ownerUsername" attributeType="String" syncable="YES"/>
+        <attribute name="proposalHash" attributeType="String" syncable="YES"/>
+        <attribute name="remainingPaymentCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="remainingYesVotesUntilFunding" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sortOrder" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
+        <attribute name="totalPaymentCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="votingDeadlineInfo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="willBeFunded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="yesVotesCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DCBudgetProposalCommentEntity" inverseName="proposal" inverseEntity="DCBudgetProposalCommentEntity" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="proposalHash"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="DCChartDataEntryEntity" representedClassName="DCChartDataEntryEntity" syncable="YES">
         <attribute name="close" attributeType="Double" minValueString="0" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
@@ -189,18 +236,21 @@
         <relationship name="accounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DCWalletAccountEntity" inverseName="wallet" inverseEntity="DCWalletAccountEntity" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DCBudgetEntity" positionX="-54" positionY="135" width="128" height="120"/>
-        <element name="DCChartDataEntryEntity" positionX="-63" positionY="36" width="128" height="210"/>
-        <element name="DCCommentEntity" positionX="-54" positionY="144" width="128" height="225"/>
-        <element name="DCExchangeEntity" positionX="-45" positionY="144" width="128" height="105"/>
-        <element name="DCMarketEntity" positionX="-54" positionY="135" width="128" height="105"/>
-        <element name="DCMasternodeEntity" positionX="-36" positionY="153" width="128" height="105"/>
-        <element name="DCMasternodePaymentEntity" positionX="-27" positionY="162" width="128" height="105"/>
-        <element name="DCNewsPostEntity" positionX="-45" positionY="135" width="128" height="120"/>
-        <element name="DCProposalEntity" positionX="-63" positionY="81" width="128" height="435"/>
-        <element name="DCTriggerEntity" positionX="-45" positionY="135" width="128" height="210"/>
-        <element name="DCWalletAccountEntity" positionX="-45" positionY="135" width="128" height="90"/>
-        <element name="DCWalletAddressEntity" positionX="-45" positionY="144" width="128" height="150"/>
-        <element name="DCWalletEntity" positionX="-54" positionY="135" width="128" height="105"/>
+        <element name="DCBudgetEntity" positionX="-587" positionY="285" width="128" height="103"/>
+        <element name="DCBudgetInfoEntity" positionX="-407" positionY="-225" width="128" height="105"/>
+        <element name="DCBudgetProposalEntity" positionX="-225" positionY="-225" width="128" height="328"/>
+        <element name="DCChartDataEntryEntity" positionX="142" positionY="567" width="128" height="210"/>
+        <element name="DCCommentEntity" positionX="-200" positionY="198" width="128" height="225"/>
+        <element name="DCExchangeEntity" positionX="88" positionY="189" width="128" height="105"/>
+        <element name="DCMarketEntity" positionX="-2" positionY="408" width="128" height="105"/>
+        <element name="DCMasternodeEntity" positionX="-513" positionY="567" width="128" height="105"/>
+        <element name="DCMasternodePaymentEntity" positionX="-288" positionY="576" width="128" height="105"/>
+        <element name="DCNewsPostEntity" positionX="-864" positionY="342" width="128" height="120"/>
+        <element name="DCProposalEntity" positionX="-396" positionY="60" width="128" height="435"/>
+        <element name="DCTriggerEntity" positionX="322" positionY="312" width="128" height="210"/>
+        <element name="DCWalletAccountEntity" positionX="367" positionY="63" width="128" height="90"/>
+        <element name="DCWalletAddressEntity" positionX="531" positionY="-42" width="128" height="150"/>
+        <element name="DCWalletEntity" positionX="540" positionY="216" width="128" height="105"/>
+        <element name="DCBudgetProposalCommentEntity" positionX="-38" positionY="-225" width="128" height="178"/>
     </elements>
 </model>

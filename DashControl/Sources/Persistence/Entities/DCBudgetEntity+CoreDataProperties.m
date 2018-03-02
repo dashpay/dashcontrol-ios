@@ -1,9 +1,9 @@
 //
 //  DCBudgetEntity+CoreDataProperties.m
-//  DashControl
+//  
 //
-//  Created by Manuel Boyer on 06/09/2017.
-//  Copyright © 2017 dashfoundation. All rights reserved.
+//  Created by Andrew Podkovyrin on 02/03/2018.
+//
 //
 
 #import "DCBudgetEntity+CoreDataProperties.h"
@@ -16,7 +16,6 @@
 
 @dynamic allotedAmount;
 @dynamic paymentDate;
-@dynamic paymentDateHuman;
 @dynamic superblock;
 @dynamic totalAmount;
 

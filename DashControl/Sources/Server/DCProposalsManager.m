@@ -220,7 +220,6 @@ static NSURL* NSURLByAppendingQueryParameters(NSURL* URL, NSDictionary* queryPar
             budget.totalAmount = [[jsonDic objectForKey:@"total_amount"] doubleValue];
             budget.allotedAmount = [[jsonDic objectForKey:@"alloted_amount"] doubleValue];
             budget.paymentDate = [df dateFromString:[jsonDic objectForKey:@"payment_date"]];
-            budget.paymentDateHuman = [jsonDic objectForKey:@"payment_date_human"];
             budget.superblock = [[jsonDic objectForKey:@"superblock"] intValue];
             
             context.automaticallyMergesChangesFromParent = TRUE;
