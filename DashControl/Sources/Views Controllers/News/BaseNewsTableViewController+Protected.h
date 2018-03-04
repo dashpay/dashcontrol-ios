@@ -22,15 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString *const NEWS_CELL_ID;
 
 @class NewsTableViewCell;
-@class DCNewsPostEntity;
 
 @interface BaseNewsTableViewController ()
 
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
-
-@property (strong, nonatomic) NSMutableArray<NSIndexPath *> *deletedRowIndexPaths;
-@property (strong, nonatomic) NSMutableArray<NSIndexPath *> *insertedRowIndexPaths;
-@property (strong, nonatomic) NSMutableArray<NSIndexPath *> *updatedRowIndexPaths;
 
 - (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
                    configureCell:(NewsTableViewCell *)cell

@@ -75,11 +75,11 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 
 - (IBAction)searchBarButtonItemAction:(UIBarButtonItem *)sender {
     self.navigationItem.rightBarButtonItem = nil;
-    
+
     DCSearchBar *searchBar = self.searchController.searchBar;
     self.navigationItem.titleView = searchBar;
     [searchBar showAnimatedCompletion:nil];
-    
+
     self.searchController.active = YES;
     [searchBar becomeFirstResponder];
 }
@@ -254,12 +254,9 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
         [self.tableView.refreshControl beginRefreshing];
     }
 
-    __weak typeof(self) weakSelf = self;
-    [self.viewModel reloadWithCompletion:^(NewsViewModelState state) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        if (!strongSelf) {
-            return;
-        }
+    weakify;
+    [self.viewModel reloadWithCompletion:^(BOOL success) {
+        strongify;
 
         [self.tableView.refreshControl endRefreshing];
     }];

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "ProposalsViewController.h"
+#import "OldProposalsViewController.h"
 #import "DCPortfolioManager.h"
 #import "DCCoreDataManager.h"
 #import "DCWalletManager.h"
@@ -150,7 +150,7 @@
             UINavigationController *proposalsNavigationController = (UINavigationController*)[tabBarController.viewControllers objectAtIndex:kProposalsViewControllerIndex];
             [proposalsNavigationController dismissViewControllerAnimated:NO completion:nil];
             [proposalsNavigationController popToRootViewControllerAnimated:NO];
-            ProposalsViewController *vc = (ProposalsViewController*)[[proposalsNavigationController viewControllers] firstObject];
+            OldProposalsViewController *vc = (OldProposalsViewController*)[[proposalsNavigationController viewControllers] firstObject];
             [vc simulateNavitationToProposalWithHash:activityIdentifier];
         }
         else {

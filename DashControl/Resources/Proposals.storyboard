@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NkP-As-q8N">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Proposals Navigation-->
+        <scene sceneID="6Xb-hn-Z4K">
+            <objects>
+                <navigationController storyboardIdentifier="ProposalsNavigationController" title="Proposals" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NkP-As-q8N" userLabel="Proposals Navigation" customClass="ForwardingNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Proposals" image="tabBarProposals" id="Nqn-7r-Dyb"/>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eCL-Ff-Xj7">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.0" green="0.49207007879999998" blue="0.88408416509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="H2r-wf-G5t" kind="relationship" relationship="rootViewController" id="0U0-ok-epK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Y3-xF-ou1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-665" y="-1811"/>
+        </scene>
+        <!--Proposals-->
+        <scene sceneID="qv2-wM-pvL">
+            <objects>
+                <tableViewController storyboardIdentifier="ProposalsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="H2r-wf-G5t" customClass="ProposalsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="4cO-nt-3b9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.1176470588" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <connections>
+                            <outlet property="dataSource" destination="H2r-wf-G5t" id="NkQ-Ke-l3E"/>
+                            <outlet property="delegate" destination="H2r-wf-G5t" id="JLv-xv-TRe"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Proposals" id="y91-jW-MCj">
+                        <barButtonItem key="rightBarButtonItem" image="searchBarButton" id="Gdi-Zy-oyz">
+                            <connections>
+                                <action selector="searchBarButtonItemAction:" destination="H2r-wf-G5t" id="khV-fn-ok3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Hvc-48-lUc">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <action selector="refreshControlAction:" destination="H2r-wf-G5t" eventType="valueChanged" id="nLv-qn-GtW"/>
+                        </connections>
+                    </refreshControl>
+                    <connections>
+                        <outlet property="searchBarButtonItem" destination="Gdi-Zy-oyz" id="60B-cY-RfY"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AdH-x7-ZDY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="164" y="-1811"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="searchBarButton" width="16" height="18"/>
+        <image name="tabBarProposals" width="26" height="26"/>
+    </resources>
+</document>

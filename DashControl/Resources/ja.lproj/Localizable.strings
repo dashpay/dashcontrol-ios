@@ -80,6 +80,9 @@
 /* As in 'by Username' */
 "by" = "by";
 
+/* As in 'By Username' */
+"By" = "By";
+
 /* Cancel button */
 "Cancel" = "Cancel";
 
@@ -102,6 +105,9 @@
 
 /* No comment provided by engineer. */
 "DASH" = "DASH";
+
+/* No comment provided by engineer. */
+"Dash per month" = "Dash per month";
 
 /* Proposal Detail View */
 "Description is loading..." = "Description is loading...";
@@ -138,6 +144,9 @@
 
 /* ok */
 "ok" = "ok";
+
+/* No comment provided by engineer. */
+"one-time payment" = "one-time payment";
 
 /* Proposal Detail View */
 "One-time payment" = "One-time payment";

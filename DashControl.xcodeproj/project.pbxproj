@@ -25,7 +25,7 @@
 		24B0004B1F580FEB007D24A1 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B0004A1F580FEB007D24A1 /* CoreSpotlight.framework */; };
 		24B0004D1F580FF5007D24A1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B0004C1F580FF5007D24A1 /* MobileCoreServices.framework */; };
 		24B08BA51FA739BE00A41566 /* PriceAmountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B08BA41FA739BE00A41566 /* PriceAmountTableViewCell.m */; };
-		24C6C6361F544268007F3671 /* ProposalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */; };
+		24C6C6361F544268007F3671 /* OldProposalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719C51F4D9EE10045C2D6 /* OldProposalsViewController.m */; };
 		24C86EFD1F5EC04100735785 /* ProposalDetailNameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C86EFC1F5EC04100735785 /* ProposalDetailNameTableViewCell.m */; };
 		24C86F001F5EC05400735785 /* ProposalDetailTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C86EFF1F5EC05400735785 /* ProposalDetailTitleTableViewCell.m */; };
 		24C86F031F5EC06C00735785 /* ProposalDetailOneTimePayementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C86F021F5EC06C00735785 /* ProposalDetailOneTimePayementTableViewCell.m */; };
@@ -69,6 +69,15 @@
 		2A3F49AF204AEC09005EB5D9 /* APIBudget.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49AE204AEC09005EB5D9 /* APIBudget.m */; };
 		2A3F49B4204BFF50005EB5D9 /* DCBudgetProposalCommentEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49B2204BFF50005EB5D9 /* DCBudgetProposalCommentEntity+CoreDataClass.m */; };
 		2A3F49B5204BFF50005EB5D9 /* DCBudgetProposalCommentEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49B3204BFF50005EB5D9 /* DCBudgetProposalCommentEntity+CoreDataProperties.m */; };
+		2A3F49B8204C4341005EB5D9 /* FetchedResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49B7204C4341005EB5D9 /* FetchedResultsTableViewController.m */; };
+		2A3F49BB204C73CF005EB5D9 /* BaseProposalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49BA204C73CF005EB5D9 /* BaseProposalViewController.m */; };
+		2A3F49C0204C7EB4005EB5D9 /* ProposalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49BE204C7EB4005EB5D9 /* ProposalTableViewCell.m */; };
+		2A3F49C1204C7EB4005EB5D9 /* ProposalTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A3F49BF204C7EB4005EB5D9 /* ProposalTableViewCell.xib */; };
+		2A3F49CA204C8244005EB5D9 /* ProposalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49C9204C8244005EB5D9 /* ProposalsViewController.m */; };
+		2A3F49CC204C826C005EB5D9 /* ProposalsSearchResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49CB204C826B005EB5D9 /* ProposalsSearchResultsController.m */; };
+		2A3F49CF204C833D005EB5D9 /* ProposalsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49CE204C833D005EB5D9 /* ProposalsViewModel.m */; };
+		2A3F49D1204C9705005EB5D9 /* Proposals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A3F49D0204C9705005EB5D9 /* Proposals.storyboard */; };
+		2A3F49D4204E8167005EB5D9 /* ProposalTableViewCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49D3204E8167005EB5D9 /* ProposalTableViewCellModel.m */; };
 		2A44739E20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A44739D20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.m */; };
 		2A4473A0204207E400B52BCB /* Price.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A44739F204207E400B52BCB /* Price.storyboard */; };
 		2A4473A42042096400B52BCB /* PriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4473A32042096400B52BCB /* PriceViewController.m */; };
@@ -193,8 +202,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		241719C41F4D9EE10045C2D6 /* ProposalsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalsViewController.h; sourceTree = "<group>"; };
-		241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalsViewController.m; sourceTree = "<group>"; };
+		241719C41F4D9EE10045C2D6 /* OldProposalsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldProposalsViewController.h; sourceTree = "<group>"; };
+		241719C51F4D9EE10045C2D6 /* OldProposalsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldProposalsViewController.m; sourceTree = "<group>"; };
 		241719D61F4DA4C60045C2D6 /* DCProposalsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCProposalsManager.h; sourceTree = "<group>"; };
 		241719D71F4DA4C60045C2D6 /* DCProposalsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCProposalsManager.m; sourceTree = "<group>"; };
 		241719D91F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCProposalEntity+CoreDataClass.h"; sourceTree = "<group>"; };
@@ -327,6 +336,23 @@
 		2A3F49B1204BFF50005EB5D9 /* DCBudgetProposalCommentEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCBudgetProposalCommentEntity+CoreDataClass.h"; sourceTree = "<group>"; };
 		2A3F49B2204BFF50005EB5D9 /* DCBudgetProposalCommentEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCBudgetProposalCommentEntity+CoreDataClass.m"; sourceTree = "<group>"; };
 		2A3F49B3204BFF50005EB5D9 /* DCBudgetProposalCommentEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCBudgetProposalCommentEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		2A3F49B6204C4341005EB5D9 /* FetchedResultsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FetchedResultsTableViewController.h; sourceTree = "<group>"; };
+		2A3F49B7204C4341005EB5D9 /* FetchedResultsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetchedResultsTableViewController.m; sourceTree = "<group>"; };
+		2A3F49B9204C73CF005EB5D9 /* BaseProposalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseProposalViewController.h; sourceTree = "<group>"; };
+		2A3F49BA204C73CF005EB5D9 /* BaseProposalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseProposalViewController.m; sourceTree = "<group>"; };
+		2A3F49BD204C7EB4005EB5D9 /* ProposalTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalTableViewCell.h; sourceTree = "<group>"; };
+		2A3F49BE204C7EB4005EB5D9 /* ProposalTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalTableViewCell.m; sourceTree = "<group>"; };
+		2A3F49BF204C7EB4005EB5D9 /* ProposalTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProposalTableViewCell.xib; sourceTree = "<group>"; };
+		2A3F49C2204C80B2005EB5D9 /* BaseProposalViewController+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BaseProposalViewController+Protected.h"; sourceTree = "<group>"; };
+		2A3F49C5204C819B005EB5D9 /* ProposalsSearchResultsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalsSearchResultsController.h; sourceTree = "<group>"; };
+		2A3F49C8204C8244005EB5D9 /* ProposalsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalsViewController.h; sourceTree = "<group>"; };
+		2A3F49C9204C8244005EB5D9 /* ProposalsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalsViewController.m; sourceTree = "<group>"; };
+		2A3F49CB204C826B005EB5D9 /* ProposalsSearchResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalsSearchResultsController.m; sourceTree = "<group>"; };
+		2A3F49CD204C833D005EB5D9 /* ProposalsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalsViewModel.h; sourceTree = "<group>"; };
+		2A3F49CE204C833D005EB5D9 /* ProposalsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalsViewModel.m; sourceTree = "<group>"; };
+		2A3F49D0204C9705005EB5D9 /* Proposals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Proposals.storyboard; sourceTree = "<group>"; };
+		2A3F49D2204E8167005EB5D9 /* ProposalTableViewCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalTableViewCellModel.h; sourceTree = "<group>"; };
+		2A3F49D3204E8167005EB5D9 /* ProposalTableViewCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalTableViewCellModel.m; sourceTree = "<group>"; };
 		2A44739C20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCChartDataEntryEntity+Extensions.h"; sourceTree = "<group>"; };
 		2A44739D20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCChartDataEntryEntity+Extensions.m"; sourceTree = "<group>"; };
 		2A44739F204207E400B52BCB /* Price.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Price.storyboard; sourceTree = "<group>"; };
@@ -726,15 +752,25 @@
 		24C86EF71F5EBF3700735785 /* List */ = {
 			isa = PBXGroup;
 			children = (
+				2A3F49BC204C7E9D005EB5D9 /* Views */,
 				24FC99F81F5EA0F90054C2A8 /* Assets */,
+				2A3F49B9204C73CF005EB5D9 /* BaseProposalViewController.h */,
+				2A3F49BA204C73CF005EB5D9 /* BaseProposalViewController.m */,
+				2A3F49C2204C80B2005EB5D9 /* BaseProposalViewController+Protected.h */,
+				241719C41F4D9EE10045C2D6 /* OldProposalsViewController.h */,
+				241719C51F4D9EE10045C2D6 /* OldProposalsViewController.m */,
 				2432DD9E1F54395600A14112 /* ProposalCell.h */,
 				2432DD9F1F54395600A14112 /* ProposalCell.m */,
 				24438DF11F5FEA6600763A14 /* ProposalHeaderView.h */,
 				24438DF21F5FEA6600763A14 /* ProposalHeaderView.m */,
 				249A402D1F62715700155636 /* ProposalScopeButtonsView.h */,
 				249A402E1F62715700155636 /* ProposalScopeButtonsView.m */,
-				241719C41F4D9EE10045C2D6 /* ProposalsViewController.h */,
-				241719C51F4D9EE10045C2D6 /* ProposalsViewController.m */,
+				2A3F49C5204C819B005EB5D9 /* ProposalsSearchResultsController.h */,
+				2A3F49CB204C826B005EB5D9 /* ProposalsSearchResultsController.m */,
+				2A3F49C8204C8244005EB5D9 /* ProposalsViewController.h */,
+				2A3F49C9204C8244005EB5D9 /* ProposalsViewController.m */,
+				2A3F49CD204C833D005EB5D9 /* ProposalsViewModel.h */,
+				2A3F49CE204C833D005EB5D9 /* ProposalsViewModel.m */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -927,6 +963,18 @@
 			path = SearchController;
 			sourceTree = "<group>";
 		};
+		2A3F49BC204C7E9D005EB5D9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2A3F49BD204C7EB4005EB5D9 /* ProposalTableViewCell.h */,
+				2A3F49BE204C7EB4005EB5D9 /* ProposalTableViewCell.m */,
+				2A3F49BF204C7EB4005EB5D9 /* ProposalTableViewCell.xib */,
+				2A3F49D2204E8167005EB5D9 /* ProposalTableViewCellModel.h */,
+				2A3F49D3204E8167005EB5D9 /* ProposalTableViewCellModel.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		2A4473AB2042E8C500B52BCB /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -946,6 +994,7 @@
 				FB84EDD11F32898700E4D400 /* LaunchScreen.storyboard */,
 				2A6F596D203576C400D7BD85 /* News.storyboard */,
 				2A44739F204207E400B52BCB /* Price.storyboard */,
+				2A3F49D0204C9705005EB5D9 /* Proposals.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -967,6 +1016,8 @@
 			isa = PBXGroup;
 			children = (
 				2A289A4A203AAF3200EDC98E /* SearchController */,
+				2A3F49B6204C4341005EB5D9 /* FetchedResultsTableViewController.h */,
+				2A3F49B7204C4341005EB5D9 /* FetchedResultsTableViewController.m */,
 				2A6F5965203566A600D7BD85 /* ForwardingNavigationController.h */,
 				2A6F5966203566A600D7BD85 /* ForwardingNavigationController.m */,
 			);
@@ -1551,9 +1602,11 @@
 			files = (
 				24FC99F61F5EA0F40054C2A8 /* iconReply.png in Resources */,
 				2ACFBBC520340C090099727D /* Montserrat-SemiBold.otf in Resources */,
+				2A3F49D1204C9705005EB5D9 /* Proposals.storyboard in Resources */,
 				FB300E391FB55B8000B3CDE0 /* Images.xcassets in Resources */,
 				24FC99F71F5EA0F40054C2A8 /* iconReply@2x.png in Resources */,
 				24FC99F41F5EA0F40054C2A8 /* iconAttachment.png in Resources */,
+				2A3F49C1204C7EB4005EB5D9 /* ProposalTableViewCell.xib in Resources */,
 				FB300E3C1FB71BEA00B3CDE0 /* Localizable.strings in Resources */,
 				2A289A52203AB6D700EDC98E /* NewsTableViewCell.xib in Resources */,
 				2ACFBBC420340C090099727D /* Montserrat-Regular.otf in Resources */,
@@ -1807,6 +1860,7 @@
 				FB9CC1841F83E45F0079309F /* DCMasternodeEntity+CoreDataProperties.m in Sources */,
 				FB4550D81FB1C1A4001CC1ED /* DCWalletEntity+CoreDataProperties.m in Sources */,
 				FBE1F50A1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.m in Sources */,
+				2A3F49CC204C826C005EB5D9 /* ProposalsSearchResultsController.m in Sources */,
 				241719D81F4DA4C60045C2D6 /* DCProposalsManager.m in Sources */,
 				FB3BEBBE1FB32AF000C8974E /* PriceInfoTableViewCell.m in Sources */,
 				2A80B584203699E70015E1AA /* DCPersistenceStack.m in Sources */,
@@ -1823,9 +1877,11 @@
 				2AB9AA7620453EF9005979C4 /* Pair.m in Sources */,
 				FB4311051FA2C19800784EBC /* NSURL+Sugar.m in Sources */,
 				2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */,
+				2A3F49D4204E8167005EB5D9 /* ProposalTableViewCellModel.m in Sources */,
 				24B08BA51FA739BE00A41566 /* PriceAmountTableViewCell.m in Sources */,
 				241719E21F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m in Sources */,
 				FB9CC1AA1F87D4A60079309F /* BRKey+BIP38.m in Sources */,
+				2A3F49BB204C73CF005EB5D9 /* BaseProposalViewController.m in Sources */,
 				FB4550CC1FAFABD6001CC1ED /* DCTrigger.m in Sources */,
 				2A6F599820357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m in Sources */,
 				2A80B5922039C0DB0015E1AA /* DCSearchBar.m in Sources */,
@@ -1834,7 +1890,7 @@
 				2A3F49A92049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.m in Sources */,
 				2A04E6E5202DA5E20065F30D /* HTTPURLRequestBuilder.m in Sources */,
 				2A4FE281203AE489007FD160 /* UIColor+DCStyle.m in Sources */,
-				24C6C6361F544268007F3671 /* ProposalsViewController.m in Sources */,
+				24C6C6361F544268007F3671 /* OldProposalsViewController.m in Sources */,
 				24FE25491F4C7ECE00E32652 /* DCBackendManager.m in Sources */,
 				2A289A55203AC10E00EDC98E /* NewsSearchResultsController.m in Sources */,
 				FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */,
@@ -1846,11 +1902,13 @@
 				FB4311021FA2BCD800784EBC /* NSString+Sugar.m in Sources */,
 				2A4473A42042096400B52BCB /* PriceViewController.m in Sources */,
 				FB9CC1851F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataClass.m in Sources */,
+				2A3F49B8204C4341005EB5D9 /* FetchedResultsTableViewController.m in Sources */,
 				24C86F001F5EC05400735785 /* ProposalDetailTitleTableViewCell.m in Sources */,
 				FB17AEE31FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m in Sources */,
 				2432DDA01F54395600A14112 /* ProposalCell.m in Sources */,
 				241719E11F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataClass.m in Sources */,
 				FB4F93BA1F82528F0078E259 /* PortfolioViewController.m in Sources */,
+				2A3F49CA204C8244005EB5D9 /* ProposalsViewController.m in Sources */,
 				2A289A4D203AB00700EDC98E /* DCSearchController.m in Sources */,
 				FB9CC1911F84BB0D0079309F /* AddMasternodeViewController.m in Sources */,
 				2A04E6E6202DA5E20065F30D /* NetworkActivityIndicatorManager.m in Sources */,
@@ -1869,7 +1927,9 @@
 				24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */,
 				2A6F59602034259600D7BD85 /* APINews.m in Sources */,
 				FB4550DD1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataClass.m in Sources */,
+				2A3F49C0204C7EB4005EB5D9 /* ProposalTableViewCell.m in Sources */,
 				2AE7F50B2034A99500A8E770 /* DCNewsPostEntity+CoreDataProperties.m in Sources */,
+				2A3F49CF204C833D005EB5D9 /* ProposalsViewModel.m in Sources */,
 				2A04E6DF202DA5E20065F30D /* HTTPRequestOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

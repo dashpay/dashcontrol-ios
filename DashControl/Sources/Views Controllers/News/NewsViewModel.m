@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
     return _searchFetchedResultsController;
 }
 
-- (void)reloadWithCompletion:(void (^)(NewsViewModelState state))completion {
+- (void)reloadWithCompletion:(void (^)(BOOL success))completion {
     self.canLoadMore = YES;
     self.currentPage = 1;
     [self fetchPage:self.currentPage completion:completion];
@@ -116,23 +116,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Private
 
-- (void)fetchPage:(NSInteger)page completion:(void (^_Nullable)(NewsViewModelState state))completion {
+- (void)fetchPage:(NSInteger)page completion:(void (^_Nullable)(BOOL success))completion {
     if (self.request) {
         [self.request cancel];
     }
 
-    __weak typeof(self) weakSelf = self;
+    weakify;
     self.request = [self.api fetchNewsForPage:page completion:^(BOOL success, BOOL isLastPage) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        if (!strongSelf) {
-            return;
-        }
+        strongify;
 
-        strongSelf.canLoadMore = !isLastPage;
-        strongSelf.loadingNextPage = NO;
+        self.canLoadMore = !isLastPage;
+        self.loadingNextPage = NO;
 
         if (completion) {
-            completion(success ? NewsViewModelState_Success : NewsViewModelState_Failed);
+            completion(success);
         }
     }];
 }

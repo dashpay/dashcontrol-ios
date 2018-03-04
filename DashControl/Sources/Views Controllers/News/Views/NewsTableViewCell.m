@@ -52,22 +52,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)loadImageWithURL:(NSURL *_Nullable)url {
     UIImage *placeholderImage = [UIImage imageNamed:@"dashLogoPlaceholder"];
-    __weak typeof(self) weakSelf = self;
+    weakify;
     [self.newsImageView sd_setImageWithURL:url placeholderImage:placeholderImage completed:^(UIImage *_Nullable image, NSError *_Nullable error, SDImageCacheType cacheType, NSURL *_Nullable imageURL) {
+        strongify;
+        
         if (!image) {
             return;
         }
 
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        if (!strongSelf) {
-            return;
-        }
-
-        [UIView transitionWithView:strongSelf.newsImageView
+        [UIView transitionWithView:self.newsImageView
                           duration:cacheType == SDImageCacheTypeNone ? 0.3 : 0.0
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         animations:^{
-                            strongSelf.newsImageView.image = image;
+                            self.newsImageView.image = image;
                         }
                         completion:nil];
     }];

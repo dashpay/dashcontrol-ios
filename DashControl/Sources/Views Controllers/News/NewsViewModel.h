@@ -24,13 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 @class DCPersistenceStack;
 @class APINews;
 
-typedef NS_ENUM(NSUInteger, NewsViewModelState) {
-    NewsViewModelState_None,
-    NewsViewModelState_Loading,
-    NewsViewModelState_Success,
-    NewsViewModelState_Failed,
-};
-
 @interface NewsViewModel : NSObject
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
@@ -41,7 +34,7 @@ typedef NS_ENUM(NSUInteger, NewsViewModelState) {
 
 @property (readonly, assign, nonatomic) BOOL canLoadMore;
 
-- (void)reloadWithCompletion:(void (^)(NewsViewModelState state))completion;
+- (void)reloadWithCompletion:(void (^)(BOOL success))completion;
 - (void)loadNextPage;
 
 - (BOOL)searchWithQuery:(NSString *)query;

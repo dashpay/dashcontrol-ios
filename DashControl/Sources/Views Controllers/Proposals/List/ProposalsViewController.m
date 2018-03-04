@@ -1,427 +1,152 @@
 //
-//  ProposalsViewController.m
-//  DashControl
+//  Created by Andrew Podkovyrin
+//  Copyright © 2018 dashfoundation. All rights reserved.
 //
-//  Created by Manuel Boyer on 23/08/2017.
-//  Copyright © 2017 dashfoundation. All rights reserved.
+//  Licensed under the MIT License (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//  https://opensource.org/licenses/MIT
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 //
 
 #import "ProposalsViewController.h"
 
-#import "DCPersistenceStack.h"
-#import "ProposalCell.h"
-#import "ProposalDetailViewController.h"
-#import "ProposalScopeButtonsView.h"
+#import "BaseProposalViewController+Protected.h"
+#import "UIColor+DCStyle.h"
+#import "DCSearchController.h"
+#import "ProposalTableViewCell.h"
+#import "ProposalsSearchResultsController.h"
+#import "ProposalsViewModel.h"
 
-@interface ProposalsViewController ()
-@property BOOL searchControllerWasActive;
-@property BOOL searchControllerSearchFieldWasFirstResponder;
+NS_ASSUME_NONNULL_BEGIN
+
+@interface ProposalsViewController () <DCSearchControllerDelegate, DCSearchResultsUpdating>
+
+@property (strong, nonatomic) ProposalsViewModel *viewModel;
+
+@property (strong, nonatomic) DCSearchController *searchController;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *searchBarButtonItem;
+
 @end
 
 @implementation ProposalsViewController
 
-static NSString *CellIdentifier = @"ProposalCell";
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    _managedObjectContext = self.stack.persistentContainer.viewContext;
 
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(budgetDidUpdate:)
-     name:BUDGET_DID_UPDATE_NOTIFICATION
-     object:nil];
-    
-    [self budgetDidUpdate:nil];
-    
-    [self cfgSearchController];
-    [self.proposalHeaderView addSubview:self.searchController.searchBar];
-    [self.proposalScopeButtonsView.scopeSegmentedControl addTarget:self action:@selector(updateScopeSelectedButton:) forControlEvents:UIControlEventValueChanged];
+    self.viewModel.fetchedResultsController.delegate = self;
+    [self reload];
 
-    NSError *error;
-    if (![[self fetchedResultsController] performFetch:&error]) {
-        // Update to handle the error appropriately.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        exit(-1);  // Fail
+    ProposalsSearchResultsController *searchResultsController = [[ProposalsSearchResultsController alloc] init];
+    searchResultsController.tableView.dataSource = self;
+    searchResultsController.tableView.delegate = self;
+    self.searchController = [[DCSearchController alloc] initWithController:searchResultsController];
+    self.searchController.delegate = self;
+    self.searchController.searchResultsUpdater = self;
+    self.definesPresentationContext = YES;
+}
+
+- (ProposalsViewModel *)viewModel {
+    if (!_viewModel) {
+        _viewModel = [[ProposalsViewModel alloc] init];
     }
-
+    return _viewModel;
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    
-    self.fetchedResultsController = nil;
+#pragma mark Actions
+
+- (IBAction)refreshControlAction:(UIRefreshControl *)sender {
+    [self reload];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)searchBarButtonItemAction:(UIBarButtonItem *)sender {
+    self.navigationItem.rightBarButtonItem = nil;
+
+    DCSearchBar *searchBar = self.searchController.searchBar;
+    self.navigationItem.titleView = searchBar;
+    [searchBar showAnimatedCompletion:nil];
+
+    self.searchController.active = YES;
+    [searchBar becomeFirstResponder];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    // restore the searchController's active state
-    if (self.searchControllerWasActive) {
-        self.searchController.active = self.searchControllerWasActive;
-        _searchControllerWasActive = NO;
-        
-        if (self.searchControllerSearchFieldWasFirstResponder) {
-            [self.searchController.searchBar becomeFirstResponder];
-            _searchControllerSearchFieldWasFirstResponder = NO;
-        }
-    }
-    
-    /*
-    NSArray *proposals = [[ProposalsManager sharedManager] fetchAllObjectsForEntity:@"DCProposalEntity" inContext:self.managedObjectContext];
-    NSLog(@"All proposals count:%lu", (unsigned long)[proposals count]);
-    for (DCProposalEntity *proposal in proposals) {
-        NSLog(@"order:%d ## %@", proposal.order, proposal.title);
-    }
-    */
+#pragma mark UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSFetchedResultsController *frc = [self fetchedResultsControllerForTableView:tableView];
+    id<NSFetchedResultsSectionInfo> sectionInfo = frc.sections.firstObject;
+    NSUInteger numberOfObjects = sectionInfo.numberOfObjects;
+    return numberOfObjects;
 }
 
-#pragma mark - Budget Updates
-
--(void)budgetDidUpdate:(NSNotification*)notification {
-    DCBudgetEntity *budget = [[[DCProposalsManager sharedManager] fetchAllObjectsForEntity:@"DCBudgetEntity" inContext:_managedObjectContext] firstObject];
-    [_proposalHeaderView configureWithBudget:budget];
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    id  sectionInfo =
-    [[_fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
-}
-
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    DCProposalEntity *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
-    [(ProposalCell*)cell setCurrentProposal:proposal];
-    [(ProposalCell*)cell cfgViews];
-    [(ProposalCell*)cell progressView].value = proposal.lastProgressDisplayed;
-}
-
--(void) tableView:(UITableView *) tableView willDisplayCell:(UITableViewCell *) cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    DCProposalEntity *proposal = [_fetchedResultsController objectAtIndexPath:indexPath];
-
-    float currentProgress =  ((proposal.yes *1.0f) / (proposal.yes + proposal.remainingYesVotesUntilFunding)) * 100;
-
-    if (proposal.lastProgressDisplayed != currentProgress) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:1.f delay:CGFLOAT_MIN options:UIViewAnimationOptionTransitionNone animations:^{
-                [(ProposalCell*)cell progressView].value = currentProgress;
-            } completion:^(BOOL finished) {
-                proposal.lastProgressDisplayed = currentProgress;
-                NSError *error = nil;
-                [_managedObjectContext save:&error];
-            }];
-        });
-    }
-    else {
-        [(ProposalCell*)cell progressView].value = currentProgress;
-    }
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    ProposalCell *cell = (ProposalCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    [self configureCell:cell atIndexPath:indexPath];
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ProposalTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:PROPOSAL_CELL_ID forIndexPath:indexPath];
+    NSFetchedResultsController *frc = [self fetchedResultsControllerForTableView:tableView];
+    [self fetchedResultsController:frc configureCell:cell atIndexPath:indexPath];
     return cell;
 }
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
+#pragma mark UITableViewDelegate
 
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-#pragma mark - Table view delegate
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    // TODO
+    //    [self showDetailViewController:detailViewController sender:self];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Make sure your segue name in storyboard is the same as this line
-     if ([[segue identifier] isEqualToString:@"pushProposalDetail"])
-     {
-         //Get reference to the destination view controller
-         ProposalDetailViewController *vc = [segue destinationViewController];
-         [vc setManagedObjectContext:_managedObjectContext];
-         [vc setCurrentProposal:[(ProposalCell*)sender currentProposal]];
-         vc.hidesBottomBarWhenPushed = YES;
-     }
+#pragma mark DCSearchControllerDelegate
+
+- (void)willDismissSearchController:(DCSearchController *)searchController {
+    self.navigationItem.titleView = nil;
+    self.navigationItem.rightBarButtonItem = self.searchBarButtonItem;
 }
 
-#pragma mark - fetchedResultsController
+#pragma mark DCSearchResultsUpdating
 
-- (NSFetchedResultsController *)fetchedResultsController {
-    
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
-    }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"DCProposalEntity" inManagedObjectContext:_managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSString *searchString = self.searchController.searchBar.text;
-    
-    NSPredicate *scopePredicate;
-    if (self.proposalScopeButtonsView.scopeSegmentedControl.selectedSegmentIndex == 0) {
-        scopePredicate = [NSPredicate predicateWithFormat:@"dateEnd > %@", [NSDate date]];
-    }
-    else if (self.proposalScopeButtonsView.scopeSegmentedControl.selectedSegmentIndex == 1) {
-        scopePredicate = [NSPredicate predicateWithFormat:@"dateEnd < %@", [NSDate date]];
-    }
-    else {
-        scopePredicate = [NSPredicate predicateWithFormat:@"dateEnd > %@ AND remainingPaymentCount > 0 AND willBeFunded == YES AND inNextBudget == YES", [NSDate date]];
-    }
-    
-    if (searchString.length > 0)
-    {
-        NSPredicate *titlePredicate = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchString];
-        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString];
-        NSPredicate *ownerPredicate = [NSPredicate predicateWithFormat:@"ownerUsername CONTAINS[cd] %@", searchString];
-        NSPredicate *orPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:[NSArray arrayWithObjects:namePredicate, titlePredicate, ownerPredicate, nil]];
-        
-        NSPredicate *andPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:scopePredicate, nil]];
-        
-        NSPredicate *finalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:orPredicate, andPredicate, nil]];
-        [fetchRequest setPredicate:finalPredicate];
-    }
-    else
-    {
-        [fetchRequest setPredicate:scopePredicate];
-    }
-    
-    if (self.proposalScopeButtonsView.scopeSegmentedControl.selectedSegmentIndex == 0 || self.proposalScopeButtonsView.scopeSegmentedControl.selectedSegmentIndex == 2) {
-        NSSortDescriptor *orderSort = [[NSSortDescriptor alloc]
-                                       initWithKey:@"order" ascending:YES];
-        NSSortDescriptor *dateAddedSort = [[NSSortDescriptor alloc]
-                                           initWithKey:@"dateAdded" ascending:NO];
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:orderSort, dateAddedSort, nil]];
-    }
-    else {
-        NSSortDescriptor *dateEndSort = [[NSSortDescriptor alloc]
-                                         initWithKey:@"dateEnd" ascending:NO];
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:dateEndSort, nil]];
-    }
-
-
-    NSFetchedResultsController *theFetchedResultsController =
-    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                        managedObjectContext:_managedObjectContext sectionNameKeyPath:nil
-                                                   cacheName:nil];
-    self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = self;
-    
-    return _fetchedResultsController;
-    
+- (void)updateSearchResultsForSearchController:(DCSearchController *)searchController {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(performSearch) object:nil];
+    NSTimeInterval const delay = 0.2;
+    [self performSelector:@selector(performSearch) withObject:nil afterDelay:delay];
 }
 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
-    [self.tableView beginUpdates];
+#pragma mark Private
+
+- (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView {
+    return (tableView == self.tableView ? self.viewModel.fetchedResultsController : self.viewModel.searchFetchedResultsController);
 }
 
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    
-    UITableView *tableView = self.tableView;
-    
-    switch(type) {
-            
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [self configureCell:[tableView cellForRowAtIndexPath:newIndexPath] atIndexPath:indexPath];
-            
-            break;
+- (void)performSearch {
+    NSString *query = self.searchController.searchBar.text;
+    BOOL result = [self.viewModel searchWithQuery:query];
+    if (!result) {
+        return; // nothing changed
     }
+
+    ProposalsSearchResultsController *searchResultsController = (ProposalsSearchResultsController *)self.searchController.searchResultsController;
+    [searchResultsController.tableView reloadData];
 }
 
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-    
-    switch(type) {
-            
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            break;
+- (void)reload {
+    if (self.tableView.contentOffset.y == 0) {
+        self.tableView.contentOffset = CGPointMake(0.0, -self.tableView.refreshControl.frame.size.height);
+        [self.tableView.refreshControl beginRefreshing];
     }
+
+    weakify;
+    [self.viewModel reloadWithCompletion:^(BOOL success) {
+        strongify;
+
+        [self.tableView.refreshControl endRefreshing];
+    }];
 }
-
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
-    [self.tableView endUpdates];
-}
-
-#pragma mark - UISearchController
-
--(void)cfgSearchController {
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    self.searchController.searchResultsUpdater = self;
-    self.searchController.dimsBackgroundDuringPresentation = NO;
-    //self.searchController.searchBar.placeholder = NSLocalizedString(@"Search name or owner", nil);
-    self.searchController.searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.searchController.searchBar.delegate = self;
-    self.definesPresentationContext = YES;
-    [self.searchController.searchBar sizeToFit];
-}
-
-#pragma mark - UISearchResultsUpdating
-
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    self.fetchedResultsController = nil;
-    
-    NSError *error;
-    if (![[self fetchedResultsController] performFetch:&error]) {
-        // Update to handle the error appropriately.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        exit(-1);  // Fail
-    }
-    
-    [self.tableView reloadData];
-}
-
-#pragma mark - UIScopeBarUpdate
-
--(void)updateScopeSelectedButton:(UISegmentedControl *)segmentedControl {
-    self.fetchedResultsController = nil;
-    
-    NSError *error;
-    if (![[self fetchedResultsController] performFetch:&error]) {
-        // Update to handle the error appropriately.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        exit(-1);  // Fail
-    }
-    
-    [self.tableView reloadData];
-}
-
-#pragma mark - NSUserActivity continueUserActivity
-
--(void)simulateNavitationToProposalWithHash:(NSString*)hash {
-    
-    if (!_managedObjectContext) {
-        _managedObjectContext = [[DCProposalsManager sharedManager] managedObjectContext];
-    }
-    
-    DCProposalEntity *proposal;
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Proposal" inManagedObjectContext:_managedObjectContext];
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:entityDescription];
-    NSPredicate *hashPredicate = [NSPredicate predicateWithFormat:@"hashProposal == %@", hash];
-    [request setPredicate:hashPredicate];
-    NSError *error;
-    NSArray *array = [_managedObjectContext executeFetchRequest:request error:&error];
-    if (array == nil)
-    {
-        NSLog(@"Error while festching %@ with predicate %@", entityDescription.name, hashPredicate);
-    }
-    else {
-        proposal = array.firstObject;
-    }
-    if (proposal) {
-        if (![[self fetchedResultsController] performFetch:&error]) {
-            return;
-        }
-        NSIndexPath *indexPath = [_fetchedResultsController indexPathForObject:proposal];
-        if (indexPath) {
-            if (![[self.tableView indexPathsForVisibleRows] containsObject:indexPath]) {
-                [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-            }
-            [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:indexPath];
-                [self performSegueWithIdentifier:@"pushProposalDetail" sender:[self.tableView cellForRowAtIndexPath:indexPath]];
-            });
-        }
-    }
-}
-
 
 @end
+
+NS_ASSUME_NONNULL_END

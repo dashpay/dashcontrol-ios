@@ -1,31 +1,26 @@
 //
-//  ProposalsViewController.h
-//  DashControl
+//  Created by Andrew Podkovyrin
+//  Copyright © 2018 dashfoundation. All rights reserved.
 //
-//  Created by Manuel Boyer on 23/08/2017.
-//  Copyright © 2017 dashfoundation. All rights reserved.
+//  Licensed under the MIT License (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//  https://opensource.org/licenses/MIT
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
-#import <SafariServices/SafariServices.h>
-#import "ProposalHeaderView.h"
-#import "ProposalScopeButtonsView.h"
+#import "BaseProposalViewController.h"
 
-@class DCPersistenceStack;
+NS_ASSUME_NONNULL_BEGIN
 
-@interface ProposalsViewController : UIViewController <NSFetchedResultsControllerDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate, SFSafariViewControllerDelegate>
-
-@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
-
-@property (nonatomic, strong) NSManagedObjectContext* managedObjectContext;
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-
-@property (strong, nonatomic) IBOutlet ProposalHeaderView *proposalHeaderView;
-@property (strong, nonatomic) IBOutlet ProposalScopeButtonsView *proposalScopeButtonsView;
-
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) UISearchController *searchController;
-
--(void)simulateNavitationToProposalWithHash:(NSString*)hash;
+@interface ProposalsViewController : BaseProposalViewController
 
 @end
+
+NS_ASSUME_NONNULL_END

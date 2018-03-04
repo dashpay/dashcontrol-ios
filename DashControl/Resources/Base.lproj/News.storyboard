@@ -46,7 +46,7 @@
         <!--News-->
         <scene sceneID="Hg8-if-EDv">
             <objects>
-                <tableViewController storyboardIdentifier="NewsViewController" id="C7f-Fe-Oet" customClass="NewsViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="NewsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="C7f-Fe-Oet" customClass="NewsViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="104" sectionHeaderHeight="28" sectionFooterHeight="28" id="Y2p-DE-cV2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
