@@ -17,6 +17,7 @@
 
 #import "ProposalsViewModel.h"
 
+#import "NSManagedObject+DCExtensions.h"
 #import "APIBudget.h"
 #import "AppDelegate.h"
 #import "DCPersistenceStack.h"
@@ -31,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) id<HTTPLoaderOperationProtocol> request;
 
+@property (nullable, strong, nonatomic) DCBudgetInfoEntity *budgetInfoEntity;
 @property (strong, nonatomic) NSFetchedResultsController<DCBudgetProposalEntity *> *fetchedResultsController;
 @property (nullable, strong, nonatomic) NSFetchedResultsController<DCBudgetProposalEntity *> *searchFetchedResultsController;
 @property (nullable, strong, nonatomic) NSPredicate *searchPredicate;
@@ -64,7 +66,16 @@ NS_ASSUME_NONNULL_BEGIN
         [self.request cancel];
     }
 
-    self.request = [self.api fetchActiveProposalsCompletion:completion];
+    weakify;
+    self.request = [self.api fetchActiveProposalsCompletion:^(BOOL success) {
+        strongify;
+        NSManagedObjectContext *viewContext = self.stack.persistentContainer.viewContext;
+        self.budgetInfoEntity = [DCBudgetInfoEntity dc_objectWithPredicate:nil inContext:viewContext];
+
+        if (completion) {
+            completion(success);
+        }
+    }];
 }
 
 - (BOOL)searchWithQuery:(NSString *)query {

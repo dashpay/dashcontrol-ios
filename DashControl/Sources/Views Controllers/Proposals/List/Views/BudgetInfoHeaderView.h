@@ -15,19 +15,15 @@
 //  limitations under the License.
 //
 
-#import "UIColor+DCStyle.h"
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation UIColor (DCStyle)
+@class BudgetInfoHeaderViewModel;
 
-+ (UIColor *)dc_barTintColor {
-    return [UIColor colorWithRed:0.0 green:113.0 / 255.0 blue:190.0 / 255.0 alpha:1.0];
-}
+@interface BudgetInfoHeaderView : UIView
 
-+ (UIColor *)dc_darkBlueColor {
-    return [UIColor colorWithRed:30.0 / 255.0 green:37.0 / 255.0 blue:51.0 / 255.0 alpha:1.0];
-}
+- (void)configureWithViewModel:(BudgetInfoHeaderViewModel *)viewModel;
 
 @end
 

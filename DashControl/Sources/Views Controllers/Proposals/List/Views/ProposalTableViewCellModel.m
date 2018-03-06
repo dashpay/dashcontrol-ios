@@ -41,7 +41,12 @@ static NSUInteger MASTERNODES_COUNT = 4733; // TODO get from server
             _repeatInterval = NSLocalizedString(@"Dash per month", nil);
         }
         _monthlyAmount = [NSString stringWithFormat:@"%d", proposal.monthlyAmount];
-        _ownerUsername = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"By", @"As in 'By Username'"), proposal.ownerUsername];
+        if (proposal.ownerUsername.length > 0) {
+            _ownerUsername = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"By", @"As in 'By Username'"), proposal.ownerUsername];
+        }
+        else {
+            _ownerUsername = @"";
+        }
         _likes = [NSString stringWithFormat:@"%d", proposal.yesVotesCount - proposal.noVotesCount];
         _comments = [NSString stringWithFormat:@"%d", proposal.commentsCount];
     }

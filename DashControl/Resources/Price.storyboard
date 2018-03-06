@@ -23,11 +23,11 @@
                     <tabBarItem key="tabBarItem" title="Price" image="tabBarPrice" id="0Wg-qn-U2e"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iT0-zw-hyB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="iT0-zw-hyB">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.0" green="0.49207007879999998" blue="0.88408416509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.0" green="0.44317391509999998" blue="0.74421042199999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -47,17 +47,17 @@
             <objects>
                 <viewController storyboardIdentifier="PriceViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="F8Y-bX-HtH" customClass="PriceViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rq8-C1-kA8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2C6-Bp-jnC">
-                                <rect key="frame" x="0.0" y="20" width="375" height="424"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="383"/>
                                 <connections>
                                     <segue destination="lTd-NO-Fxm" kind="embed" id="4Zc-v0-r2b"/>
                                 </connections>
                             </containerView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YCZ-fH-y3J">
-                                <rect key="frame" x="0.0" y="444" width="375" height="223"/>
+                                <rect key="frame" x="0.0" y="383" width="375" height="220"/>
                                 <color key="backgroundColor" red="0.1176470588" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                         </subviews>
@@ -85,29 +85,29 @@
             <objects>
                 <viewController storyboardIdentifier="ChartViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lTd-NO-Fxm" customClass="ChartViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="acU-t9-P7e">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="424"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="383"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zBe-AQ-lrw" customClass="CombinedChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="335.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="295"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="30" translatesAutoresizingMaskIntoConstraints="NO" id="C5J-nd-mYZ" customClass="DCSegmentedControl">
-                                <rect key="frame" x="125" y="343.5" width="240" height="30"/>
+                                <rect key="frame" x="125" y="303" width="240" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="timeFrameValueChangedAction:" destination="lTd-NO-Fxm" eventType="valueChanged" id="NnL-JQ-xqo"/>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="30" translatesAutoresizingMaskIntoConstraints="NO" id="Xta-xv-g09" customClass="DCSegmentedControl">
-                                <rect key="frame" x="125" y="383.5" width="240" height="30"/>
+                                <rect key="frame" x="125" y="343" width="240" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="intervalValueChangedAction:" destination="lTd-NO-Fxm" eventType="valueChanged" id="Zf5-XW-HRN"/>
                                 </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9D-6q-Pve">
-                                <rect key="frame" x="10" y="344.5" width="48" height="28"/>
+                                <rect key="frame" x="10" y="304" width="48" height="28"/>
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="13"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Market"/>
@@ -124,7 +124,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUr-9F-ZLi">
-                                <rect key="frame" x="10" y="384.5" width="67" height="28"/>
+                                <rect key="frame" x="10" y="344" width="67" height="28"/>
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="13"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Exchange"/>
@@ -141,7 +141,7 @@
                                 </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="oL1-p7-mol">
-                                <rect key="frame" x="178" y="202" width="20" height="20"/>
+                                <rect key="frame" x="178" y="181.5" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.1176470588" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

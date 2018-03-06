@@ -75,6 +75,9 @@
 "ALLOTED" = "ALLOTED";
 
 /* No comment provided by engineer. */
+"Alloted" = "Alloted";
+
+/* No comment provided by engineer. */
 "any" = "any";
 
 /* As in 'by Username' */
@@ -192,6 +195,9 @@
 
 /* Proposal Detail View */
 "Title" = "Title";
+
+/* No comment provided by engineer. */
+"Total" = "Total";
 
 /* Budget view */
 "TOTAL" = "TOTAL";

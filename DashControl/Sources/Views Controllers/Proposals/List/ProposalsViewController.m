@@ -19,10 +19,12 @@
 
 #import "BaseProposalViewController+Protected.h"
 #import "UIColor+DCStyle.h"
+#import "BudgetInfoHeaderView.h"
 #import "DCSearchController.h"
 #import "ProposalTableViewCell.h"
 #import "ProposalsSearchResultsController.h"
 #import "ProposalsViewModel.h"
+#import "BudgetInfoHeaderViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) ProposalsViewModel *viewModel;
 
+@property (strong, nonatomic) BudgetInfoHeaderView *budgetInfoHeaderView;
 @property (strong, nonatomic) DCSearchController *searchController;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *searchBarButtonItem;
 
@@ -39,6 +42,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+
+    // blue bg view above the tableView
+    CGRect frame = [UIScreen mainScreen].bounds;
+    frame.origin.y = -frame.size.height;
+    UIView *topBackgroundView = [[UIView alloc] initWithFrame:frame];
+    topBackgroundView.backgroundColor = [UIColor dc_barTintColor];
+    [self.tableView insertSubview:topBackgroundView atIndex:0];
+
+    self.tableView.tableHeaderView = self.budgetInfoHeaderView;
 
     self.viewModel.fetchedResultsController.delegate = self;
     [self reload];
@@ -118,6 +132,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Private
 
+- (BudgetInfoHeaderView *)budgetInfoHeaderView {
+    if (!_budgetInfoHeaderView) {
+        CGRect frame = CGRectMake(0.0, 0.0, [UIScreen mainScreen].bounds.size.width, 122.0);
+        _budgetInfoHeaderView = [[BudgetInfoHeaderView alloc] initWithFrame:frame];
+    }
+    return _budgetInfoHeaderView;
+}
+
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView {
     return (tableView == self.tableView ? self.viewModel.fetchedResultsController : self.viewModel.searchFetchedResultsController);
 }
@@ -142,6 +164,9 @@ NS_ASSUME_NONNULL_BEGIN
     weakify;
     [self.viewModel reloadWithCompletion:^(BOOL success) {
         strongify;
+        
+        BudgetInfoHeaderViewModel *headerViewModel = [[BudgetInfoHeaderViewModel alloc] initWithBudgetInfo:self.viewModel.budgetInfoEntity];
+        [self.budgetInfoHeaderView configureWithViewModel:headerViewModel];
 
         [self.tableView.refreshControl endRefreshing];
     }];
