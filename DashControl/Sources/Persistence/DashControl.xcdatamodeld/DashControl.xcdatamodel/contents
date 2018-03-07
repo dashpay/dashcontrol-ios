@@ -238,6 +238,7 @@
     <elements>
         <element name="DCBudgetEntity" positionX="-587" positionY="285" width="128" height="103"/>
         <element name="DCBudgetInfoEntity" positionX="-407" positionY="-225" width="128" height="105"/>
+        <element name="DCBudgetProposalCommentEntity" positionX="-38" positionY="-225" width="128" height="178"/>
         <element name="DCBudgetProposalEntity" positionX="-225" positionY="-225" width="128" height="328"/>
         <element name="DCChartDataEntryEntity" positionX="142" positionY="567" width="128" height="210"/>
         <element name="DCCommentEntity" positionX="-200" positionY="198" width="128" height="225"/>
@@ -251,6 +252,5 @@
         <element name="DCWalletAccountEntity" positionX="367" positionY="63" width="128" height="90"/>
         <element name="DCWalletAddressEntity" positionX="531" positionY="-42" width="128" height="150"/>
         <element name="DCWalletEntity" positionX="540" positionY="216" width="128" height="105"/>
-        <element name="DCBudgetProposalCommentEntity" positionX="-38" positionY="-225" width="128" height="178"/>
     </elements>
 </model>

@@ -18,6 +18,7 @@
 #import "ProposalsViewModel.h"
 
 #import "NSManagedObject+DCExtensions.h"
+#import "ProposalsHeaderViewModel+Protected.h"
 #import "APIBudget.h"
 #import "AppDelegate.h"
 #import "DCPersistenceStack.h"
@@ -28,35 +29,43 @@ NS_ASSUME_NONNULL_BEGIN
 #define KEY_DATEADDED @"dateAdded"
 #define KEY_SORTORDER @"sortOrder"
 
-@interface ProposalsViewModel ()
+@interface ProposalsViewModel () <ProposalsHeaderViewModelDelegate>
 
 @property (weak, nonatomic) id<HTTPLoaderOperationProtocol> request;
 
-@property (nullable, strong, nonatomic) DCBudgetInfoEntity *budgetInfoEntity;
-@property (strong, nonatomic) NSFetchedResultsController<DCBudgetProposalEntity *> *fetchedResultsController;
+@property (nullable, strong, nonatomic) NSFetchedResultsController<DCBudgetProposalEntity *> *fetchedResultsController;
 @property (nullable, strong, nonatomic) NSFetchedResultsController<DCBudgetProposalEntity *> *searchFetchedResultsController;
+@property (nullable, strong, nonatomic) NSPredicate *segmentPredicate;
 @property (nullable, strong, nonatomic) NSPredicate *searchPredicate;
 
 @end
 
 @implementation ProposalsViewModel
 
+@synthesize headerViewModel = _headerViewModel;
+
+- (ProposalsHeaderViewModel *)headerViewModel {
+    if (!_headerViewModel) {
+        _headerViewModel = [[ProposalsHeaderViewModel alloc] init];
+        _headerViewModel.delegate = self;
+    }
+    return _headerViewModel;
+}
+
 - (NSFetchedResultsController<DCBudgetProposalEntity *> *)fetchedResultsController {
     if (!_fetchedResultsController) {
         NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
-        _fetchedResultsController = [[self class] fetchedResultsControllerWithPredicate:nil
-                                                                                context:context
-                                                                              cacheName:@"AllProposalsRequestCache"];
+        _fetchedResultsController = [[self class] fetchedResultsControllerWithPredicate:self.segmentPredicate
+                                                                                context:context];
     }
     return _fetchedResultsController;
 }
 
-- (NSFetchedResultsController<DCBudgetProposalEntity *> *_Nullable)searchFetchedResultsController {
+- (NSFetchedResultsController<DCBudgetProposalEntity *> *)searchFetchedResultsController {
     if (!_searchFetchedResultsController) {
         NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
         _searchFetchedResultsController = [[self class] fetchedResultsControllerWithPredicate:self.searchPredicate
-                                                                                      context:context
-                                                                                    cacheName:nil];
+                                                                                      context:context];
     }
     return _searchFetchedResultsController;
 }
@@ -69,8 +78,12 @@ NS_ASSUME_NONNULL_BEGIN
     weakify;
     self.request = [self.api fetchActiveProposalsCompletion:^(BOOL success) {
         strongify;
+
+        NSAssert([NSThread isMainThread], nil);
+
         NSManagedObjectContext *viewContext = self.stack.persistentContainer.viewContext;
-        self.budgetInfoEntity = [DCBudgetInfoEntity dc_objectWithPredicate:nil inContext:viewContext];
+        DCBudgetInfoEntity *budgetInfoEntity = [DCBudgetInfoEntity dc_objectWithPredicate:nil inContext:viewContext];
+        [self.headerViewModel updateWithBudgetInfo:budgetInfoEntity];
 
         if (completion) {
             completion(success);
@@ -78,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (BOOL)searchWithQuery:(NSString *)query {
+- (void)searchWithQuery:(NSString *)query {
     NSString *trimmedQuery = [query stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSPredicate *predicate = nil;
     if (trimmedQuery.length > 0) {
@@ -89,22 +102,42 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     if ([predicate isEqual:self.searchFetchedResultsController.fetchRequest.predicate]) {
-        return NO;
+        return;
     }
 
+    self.searchPredicate = predicate;
+    
     self.searchFetchedResultsController.delegate = nil;
     self.searchFetchedResultsController = nil;
+}
 
-    self.searchPredicate = predicate;
+#pragma mark ProposalsHeaderViewModelDelegate
 
-    return YES;
+- (void)proposalsHeaderViewModelDidSetSegmentIndex:(ProposalsHeaderViewModel *)viewModel {
+    NSPredicate *segmentPredicate = nil;
+    switch (viewModel.segmentIndex) {
+        case ProposalsSegmentIndex_Current: {
+            break;
+        }
+        case ProposalsSegmentIndex_Ongoing: {
+            segmentPredicate = [NSPredicate predicateWithFormat:@"dateEnd > %@ AND remainingPaymentCount > 0 AND willBeFunded == YES AND inNextBudget == YES", [NSDate date]];
+            break;
+        }
+        case ProposalsSegmentIndex_Past: {
+            break;
+        }
+    }
+    
+    self.segmentPredicate = segmentPredicate;
+    
+    self.fetchedResultsController.delegate = nil;
+    self.fetchedResultsController = nil;
 }
 
 #pragma mark Private
 
 + (NSFetchedResultsController *)fetchedResultsControllerWithPredicate:(nullable NSPredicate *)predicate
-                                                              context:(NSManagedObjectContext *)context
-                                                            cacheName:(nullable NSString *)cacheName {
+                                                              context:(NSManagedObjectContext *)context {
     NSFetchRequest<DCBudgetProposalEntity *> *fetchRequest = [DCBudgetProposalEntity fetchRequest];
     fetchRequest.predicate = predicate;
     NSSortDescriptor *orderSortDescriptor = [[NSSortDescriptor alloc] initWithKey:KEY_SORTORDER ascending:YES];
@@ -114,7 +147,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                                                managedObjectContext:context
                                                                                                  sectionNameKeyPath:nil
-                                                                                                          cacheName:cacheName];
+                                                                                                          cacheName:nil];
 
     NSError *error = nil;
     if (![fetchedResultsController performFetch:&error]) {

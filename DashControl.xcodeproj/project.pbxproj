@@ -78,8 +78,8 @@
 		2A3F49CF204C833D005EB5D9 /* ProposalsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49CE204C833D005EB5D9 /* ProposalsViewModel.m */; };
 		2A3F49D1204C9705005EB5D9 /* Proposals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A3F49D0204C9705005EB5D9 /* Proposals.storyboard */; };
 		2A3F49D4204E8167005EB5D9 /* ProposalTableViewCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49D3204E8167005EB5D9 /* ProposalTableViewCellModel.m */; };
-		2A3F49D7204E88D3005EB5D9 /* BudgetInfoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49D6204E88D3005EB5D9 /* BudgetInfoHeaderView.m */; };
-		2A3F49D9204E88E5005EB5D9 /* BudgetInfoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A3F49D8204E88E5005EB5D9 /* BudgetInfoHeaderView.xib */; };
+		2A3F49D7204E88D3005EB5D9 /* ProposalsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49D6204E88D3005EB5D9 /* ProposalsHeaderView.m */; };
+		2A3F49D9204E88E5005EB5D9 /* ProposalsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A3F49D8204E88E5005EB5D9 /* ProposalsHeaderView.xib */; };
 		2A44739E20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A44739D20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.m */; };
 		2A4473A0204207E400B52BCB /* Price.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A44739F204207E400B52BCB /* Price.storyboard */; };
 		2A4473A42042096400B52BCB /* PriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4473A32042096400B52BCB /* PriceViewController.m */; };
@@ -103,7 +103,8 @@
 		2A8F8181203E9D2300D3D6C9 /* NSManagedObject+DCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8F8180203E9D2300D3D6C9 /* NSManagedObject+DCExtensions.m */; };
 		2A8F8184203EB74900D3D6C9 /* DCMarketEntity+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8F8183203EB74900D3D6C9 /* DCMarketEntity+Extensions.m */; };
 		2A8F8187203EBB7200D3D6C9 /* DCExchangeEntity+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8F8186203EBB7200D3D6C9 /* DCExchangeEntity+Extensions.m */; };
-		2A972205204F29B600545079 /* BudgetInfoHeaderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A972204204F29B600545079 /* BudgetInfoHeaderViewModel.m */; };
+		2A972205204F29B600545079 /* ProposalsHeaderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A972204204F29B600545079 /* ProposalsHeaderViewModel.m */; };
+		2A972208204F343100545079 /* NavigationTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A972207204F343100545079 /* NavigationTitleButton.m */; };
 		2AB9AA7620453EF9005979C4 /* Pair.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB9AA7520453EF9005979C4 /* Pair.m */; };
 		2AB9AA7820454BC6005979C4 /* APIPriceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB9AA7720454BC6005979C4 /* APIPriceTests.m */; };
 		2AB9AA7C2045500A005979C4 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A8F8179203D413100D3D6C9 /* Charts.framework */; };
@@ -356,9 +357,9 @@
 		2A3F49D0204C9705005EB5D9 /* Proposals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Proposals.storyboard; sourceTree = "<group>"; };
 		2A3F49D2204E8167005EB5D9 /* ProposalTableViewCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalTableViewCellModel.h; sourceTree = "<group>"; };
 		2A3F49D3204E8167005EB5D9 /* ProposalTableViewCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalTableViewCellModel.m; sourceTree = "<group>"; };
-		2A3F49D5204E88D3005EB5D9 /* BudgetInfoHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BudgetInfoHeaderView.h; sourceTree = "<group>"; };
-		2A3F49D6204E88D3005EB5D9 /* BudgetInfoHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BudgetInfoHeaderView.m; sourceTree = "<group>"; };
-		2A3F49D8204E88E5005EB5D9 /* BudgetInfoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BudgetInfoHeaderView.xib; sourceTree = "<group>"; };
+		2A3F49D5204E88D3005EB5D9 /* ProposalsHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalsHeaderView.h; sourceTree = "<group>"; };
+		2A3F49D6204E88D3005EB5D9 /* ProposalsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalsHeaderView.m; sourceTree = "<group>"; };
+		2A3F49D8204E88E5005EB5D9 /* ProposalsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProposalsHeaderView.xib; sourceTree = "<group>"; };
 		2A44739C20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCChartDataEntryEntity+Extensions.h"; sourceTree = "<group>"; };
 		2A44739D20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCChartDataEntryEntity+Extensions.m"; sourceTree = "<group>"; };
 		2A44739F204207E400B52BCB /* Price.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Price.storyboard; sourceTree = "<group>"; };
@@ -422,8 +423,11 @@
 		2A8F8183203EB74900D3D6C9 /* DCMarketEntity+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCMarketEntity+Extensions.m"; sourceTree = "<group>"; };
 		2A8F8185203EBB7200D3D6C9 /* DCExchangeEntity+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCExchangeEntity+Extensions.h"; sourceTree = "<group>"; };
 		2A8F8186203EBB7200D3D6C9 /* DCExchangeEntity+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCExchangeEntity+Extensions.m"; sourceTree = "<group>"; };
-		2A972203204F29B600545079 /* BudgetInfoHeaderViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BudgetInfoHeaderViewModel.h; sourceTree = "<group>"; };
-		2A972204204F29B600545079 /* BudgetInfoHeaderViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BudgetInfoHeaderViewModel.m; sourceTree = "<group>"; };
+		2A972203204F29B600545079 /* ProposalsHeaderViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalsHeaderViewModel.h; sourceTree = "<group>"; };
+		2A972204204F29B600545079 /* ProposalsHeaderViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalsHeaderViewModel.m; sourceTree = "<group>"; };
+		2A972206204F343100545079 /* NavigationTitleButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationTitleButton.h; sourceTree = "<group>"; };
+		2A972207204F343100545079 /* NavigationTitleButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationTitleButton.m; sourceTree = "<group>"; };
+		2A97220E2051332B00545079 /* ProposalsHeaderViewModel+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProposalsHeaderViewModel+Protected.h"; sourceTree = "<group>"; };
 		2AB9AA7420453EF9005979C4 /* Pair.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pair.h; sourceTree = "<group>"; };
 		2AB9AA7520453EF9005979C4 /* Pair.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Pair.m; sourceTree = "<group>"; };
 		2AB9AA7720454BC6005979C4 /* APIPriceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIPriceTests.m; sourceTree = "<group>"; };
@@ -974,11 +978,14 @@
 		2A3F49BC204C7E9D005EB5D9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2A3F49D5204E88D3005EB5D9 /* BudgetInfoHeaderView.h */,
-				2A3F49D6204E88D3005EB5D9 /* BudgetInfoHeaderView.m */,
-				2A3F49D8204E88E5005EB5D9 /* BudgetInfoHeaderView.xib */,
-				2A972203204F29B600545079 /* BudgetInfoHeaderViewModel.h */,
-				2A972204204F29B600545079 /* BudgetInfoHeaderViewModel.m */,
+				2A3F49D5204E88D3005EB5D9 /* ProposalsHeaderView.h */,
+				2A3F49D6204E88D3005EB5D9 /* ProposalsHeaderView.m */,
+				2A3F49D8204E88E5005EB5D9 /* ProposalsHeaderView.xib */,
+				2A972203204F29B600545079 /* ProposalsHeaderViewModel.h */,
+				2A972204204F29B600545079 /* ProposalsHeaderViewModel.m */,
+				2A97220E2051332B00545079 /* ProposalsHeaderViewModel+Protected.h */,
+				2A972206204F343100545079 /* NavigationTitleButton.h */,
+				2A972207204F343100545079 /* NavigationTitleButton.m */,
 				2A3F49BD204C7EB4005EB5D9 /* ProposalTableViewCell.h */,
 				2A3F49BE204C7EB4005EB5D9 /* ProposalTableViewCell.m */,
 				2A3F49BF204C7EB4005EB5D9 /* ProposalTableViewCell.xib */,
@@ -1629,7 +1636,7 @@
 				FB1F8AB51FBCD2EA00175311 /* BIP39Words.plist in Resources */,
 				2A80B58F2039BEFE0015E1AA /* DCSearchBar.xib in Resources */,
 				FB84EDD31F32898700E4D400 /* LaunchScreen.storyboard in Resources */,
-				2A3F49D9204E88E5005EB5D9 /* BudgetInfoHeaderView.xib in Resources */,
+				2A3F49D9204E88E5005EB5D9 /* ProposalsHeaderView.xib in Resources */,
 				FB84EDCE1F32898700E4D400 /* Main.storyboard in Resources */,
 				2ACFBBC320340C090099727D /* Montserrat-Light.otf in Resources */,
 			);
@@ -1854,7 +1861,7 @@
 				FB4310F51FA2142700784EBC /* DCEnvironment.m in Sources */,
 				2A289A50203AB44400EDC98E /* BaseNewsTableViewController.m in Sources */,
 				FB9CC1611F83E38A0079309F /* NSData+Dash.m in Sources */,
-				2A972205204F29B600545079 /* BudgetInfoHeaderViewModel.m in Sources */,
+				2A972205204F29B600545079 /* ProposalsHeaderViewModel.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
 				2A80B58D2039B3050015E1AA /* UIFont+DCStyle.m in Sources */,
 				2A04E6DD202DA5E20065F30D /* HTTPRateLimiter.m in Sources */,
@@ -1892,6 +1899,7 @@
 				2AB9AA7620453EF9005979C4 /* Pair.m in Sources */,
 				FB4311051FA2C19800784EBC /* NSURL+Sugar.m in Sources */,
 				2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */,
+				2A972208204F343100545079 /* NavigationTitleButton.m in Sources */,
 				2A3F49D4204E8167005EB5D9 /* ProposalTableViewCellModel.m in Sources */,
 				24B08BA51FA739BE00A41566 /* PriceAmountTableViewCell.m in Sources */,
 				241719E21F4DB0FB0045C2D6 /* DCProposalEntity+CoreDataProperties.m in Sources */,
@@ -1937,7 +1945,7 @@
 				2A4FE29D203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m in Sources */,
 				FB9CC18C1F8405180079309F /* DCPortfolioManager.m in Sources */,
 				24C86F0F1F5EC0D600735785 /* ProposalDetailDescriptionDetailTableViewCell.m in Sources */,
-				2A3F49D7204E88D3005EB5D9 /* BudgetInfoHeaderView.m in Sources */,
+				2A3F49D7204E88D3005EB5D9 /* ProposalsHeaderView.m in Sources */,
 				24C86F0C1F5EC0C300735785 /* ProposalDetailDescriptionHeaderTableViewCell.m in Sources */,
 				FB25EA331FAF8559000B41BE /* AddTriggerTableViewCell.m in Sources */,
 				24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */,

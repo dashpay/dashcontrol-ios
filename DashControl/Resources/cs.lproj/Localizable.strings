@@ -103,6 +103,9 @@
 /* Proposal Detail View */
 "Completed payments" = "Completed payments";
 
+/* Current proposals */
+"Current" = "Current";
+
 /* No comment provided by engineer. */
 "Dash" = "Dash";
 
@@ -154,11 +157,17 @@
 /* Proposal Detail View */
 "One-time payment" = "One-time payment";
 
+/* Ongoing proposals */
+"Ongoing" = "Ongoing";
+
 /* Price View Screen */
 "Over %@" = "Over %@";
 
 /* Proposal Detail View */
 "Owner" = "Owner";
+
+/* Past proposals */
+"Past" = "Past";
 
 /* No comment provided by engineer. */
 "per month" = "per month";
@@ -177,6 +186,9 @@
 
 /* Proposal Detail View */
 "PROPOSAL ID" = "PROPOSAL ID";
+
+/* No comment provided by engineer. */
+"Proposals" = "Proposals";
 
 /* Price Alert Screen */
 "required" = "required";

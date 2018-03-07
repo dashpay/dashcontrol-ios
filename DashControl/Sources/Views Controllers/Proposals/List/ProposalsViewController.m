@@ -19,12 +19,13 @@
 
 #import "BaseProposalViewController+Protected.h"
 #import "UIColor+DCStyle.h"
-#import "BudgetInfoHeaderView.h"
+#import "ProposalsHeaderView.h"
+#import "ProposalsHeaderViewModel.h"
 #import "DCSearchController.h"
+#import "NavigationTitleButton.h"
 #import "ProposalTableViewCell.h"
 #import "ProposalsSearchResultsController.h"
 #import "ProposalsViewModel.h"
-#import "BudgetInfoHeaderViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,7 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) ProposalsViewModel *viewModel;
 
-@property (strong, nonatomic) BudgetInfoHeaderView *budgetInfoHeaderView;
+@property (strong, nonatomic) NavigationTitleButton *navigationTitleButton;
+@property (strong, nonatomic) ProposalsHeaderView *proposalsHeaderView;
 @property (strong, nonatomic) DCSearchController *searchController;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *searchBarButtonItem;
 
@@ -44,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidLoad];
 
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    self.navigationItem.titleView = self.navigationTitleButton;
 
     // blue bg view above the tableView
     CGRect frame = [UIScreen mainScreen].bounds;
@@ -52,9 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
     topBackgroundView.backgroundColor = [UIColor dc_barTintColor];
     [self.tableView insertSubview:topBackgroundView atIndex:0];
 
-    self.tableView.tableHeaderView = self.budgetInfoHeaderView;
+    self.tableView.tableHeaderView = self.proposalsHeaderView;
 
-    self.viewModel.fetchedResultsController.delegate = self;
     [self reload];
 
     ProposalsSearchResultsController *searchResultsController = [[ProposalsSearchResultsController alloc] init];
@@ -64,6 +66,19 @@ NS_ASSUME_NONNULL_BEGIN
     self.searchController.delegate = self;
     self.searchController.searchResultsUpdater = self;
     self.definesPresentationContext = YES;
+    
+    // KVO
+    
+    [self mvvm_observe:@"viewModel.fetchedResultsController" with:^(typeof(self) self, id value) {
+        self.viewModel.fetchedResultsController.delegate = self;
+        [self.tableView reloadData];
+    }];
+    
+    [self mvvm_observe:@"viewModel.searchFetchedResultsController" with:^(typeof(self) self, id value){
+        ProposalsSearchResultsController *searchResultsController = (ProposalsSearchResultsController *)self.searchController.searchResultsController;
+        [searchResultsController.tableView reloadData];
+        self.viewModel.searchFetchedResultsController.delegate = searchResultsController;
+    }];
 }
 
 - (ProposalsViewModel *)viewModel {
@@ -118,7 +133,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark DCSearchControllerDelegate
 
 - (void)willDismissSearchController:(DCSearchController *)searchController {
-    self.navigationItem.titleView = nil;
+    self.navigationItem.titleView = self.navigationTitleButton;
     self.navigationItem.rightBarButtonItem = self.searchBarButtonItem;
 }
 
@@ -132,12 +147,31 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Private
 
-- (BudgetInfoHeaderView *)budgetInfoHeaderView {
-    if (!_budgetInfoHeaderView) {
-        CGRect frame = CGRectMake(0.0, 0.0, [UIScreen mainScreen].bounds.size.width, 122.0);
-        _budgetInfoHeaderView = [[BudgetInfoHeaderView alloc] initWithFrame:frame];
+- (NavigationTitleButton *)navigationTitleButton {
+    if (!_navigationTitleButton) {
+        _navigationTitleButton = [[NavigationTitleButton alloc] initWithFrame:CGRectZero];
+        _navigationTitleButton.title = NSLocalizedString(@"Proposals", nil);
+        [_navigationTitleButton addTarget:self action:@selector(navigationTitleButtonAction) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _budgetInfoHeaderView;
+    return _navigationTitleButton;
+}
+
+- (void)navigationTitleButtonAction {
+    self.navigationTitleButton.opened = !self.navigationTitleButton.opened;
+
+    if (self.navigationTitleButton.opened) {
+        [self.tableView setContentOffset:CGPointZero animated:YES];
+    }
+    [self.proposalsHeaderView setOpened:self.navigationTitleButton.opened animated:YES];
+    self.tableView.tableHeaderView = self.proposalsHeaderView;
+}
+
+- (ProposalsHeaderView *)proposalsHeaderView {
+    if (!_proposalsHeaderView) {
+        _proposalsHeaderView = [[ProposalsHeaderView alloc] initWithFrame:CGRectZero];
+        _proposalsHeaderView.viewModel = self.viewModel.headerViewModel;
+    }
+    return _proposalsHeaderView;
 }
 
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView {
@@ -146,13 +180,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)performSearch {
     NSString *query = self.searchController.searchBar.text;
-    BOOL result = [self.viewModel searchWithQuery:query];
-    if (!result) {
-        return; // nothing changed
-    }
-
-    ProposalsSearchResultsController *searchResultsController = (ProposalsSearchResultsController *)self.searchController.searchResultsController;
-    [searchResultsController.tableView reloadData];
+    [self.viewModel searchWithQuery:query];
 }
 
 - (void)reload {
@@ -164,9 +192,6 @@ NS_ASSUME_NONNULL_BEGIN
     weakify;
     [self.viewModel reloadWithCompletion:^(BOOL success) {
         strongify;
-        
-        BudgetInfoHeaderViewModel *headerViewModel = [[BudgetInfoHeaderViewModel alloc] initWithBudgetInfo:self.viewModel.budgetInfoEntity];
-        [self.budgetInfoHeaderView configureWithViewModel:headerViewModel];
 
         [self.tableView.refreshControl endRefreshing];
     }];

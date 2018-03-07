@@ -48,7 +48,6 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.viewModel.fetchedResultsController.delegate = self;
     [self reload];
 
     NewsSearchResultsController *searchResultsController = [[NewsSearchResultsController alloc] init];
@@ -58,6 +57,19 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     self.searchController.delegate = self;
     self.searchController.searchResultsUpdater = self;
     self.definesPresentationContext = YES;
+    
+    // KVO
+    
+    [self mvvm_observe:@"viewModel.fetchedResultsController" with:^(typeof(self) self, id value) {
+        self.viewModel.fetchedResultsController.delegate = self;
+        [self.tableView reloadData];
+    }];
+    
+    [self mvvm_observe:@"viewModel.searchFetchedResultsController" with:^(typeof(self) self, id value){
+        NewsSearchResultsController *searchResultsController = (NewsSearchResultsController *)self.searchController.searchResultsController;
+        [searchResultsController.tableView reloadData];
+        self.viewModel.searchFetchedResultsController.delegate = searchResultsController;
+    }];
 }
 
 - (NewsViewModel *)viewModel {
@@ -224,13 +236,7 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 
 - (void)performSearch {
     NSString *query = self.searchController.searchBar.text;
-    BOOL result = [self.viewModel searchWithQuery:query];
-    if (!result) {
-        return; // nothing changed
-    }
-
-    NewsSearchResultsController *searchResultsController = (NewsSearchResultsController *)self.searchController.searchResultsController;
-    [searchResultsController.tableView reloadData];
+    [self.viewModel searchWithQuery:query];
 }
 
 - (BOOL)isLoadMoreIndexPath:(NSIndexPath *)indexPath {

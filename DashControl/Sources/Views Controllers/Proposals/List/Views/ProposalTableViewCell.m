@@ -41,12 +41,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
 
-    if (highlighted) {
-        self.contentView.alpha = 0.65;
-    }
-    else {
-        self.contentView.alpha = 1.0;
-    }
+    [UIView animateWithDuration:0.25 animations:^{
+        self.contentView.alpha = highlighted ? 0.65 : 1.0;
+    }];
 }
 
 - (void)configureWithViewModel:(ProposalTableViewCellModel *)viewModel {

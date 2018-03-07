@@ -15,12 +15,12 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import <KVO-MVVM/KVOUITableViewController.h>
 #import <CoreData/CoreData.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FetchedResultsTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface FetchedResultsTableViewController : KVOUITableViewController <NSFetchedResultsControllerDelegate>
 
 @property (readonly, strong, nonatomic) NSMutableArray<NSIndexPath *> *deletedRowIndexPaths;
 @property (readonly, strong, nonatomic) NSMutableArray<NSIndexPath *> *insertedRowIndexPaths;

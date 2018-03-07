@@ -17,27 +17,25 @@
 
 #import <Foundation/Foundation.h>
 
-#import "DCNewsPostEntity+CoreDataClass.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCPersistenceStack;
-@class APINews;
+@class DCBudgetInfoEntity;
 
-@interface NewsViewModel : NSObject
+typedef NS_ENUM(NSUInteger, ProposalsSegmentIndex) {
+    ProposalsSegmentIndex_Current,
+    ProposalsSegmentIndex_Ongoing,
+    ProposalsSegmentIndex_Past,
+};
 
-@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
-@property (strong, nonatomic) InjectedClass(APINews) api;
+@interface ProposalsHeaderViewModel : NSObject
 
-@property (readonly, strong, nonatomic) NSFetchedResultsController<DCNewsPostEntity *> *fetchedResultsController;
-@property (readonly, strong, nonatomic) NSFetchedResultsController<DCNewsPostEntity *> *searchFetchedResultsController;
+@property (readonly, copy, nonatomic) NSString *total;
+@property (readonly, copy, nonatomic) NSString *alloted;
+@property (readonly, copy, nonatomic) NSString *superblockPaymentInfo;
 
-@property (readonly, assign, nonatomic) BOOL canLoadMore;
+@property (assign, nonatomic) ProposalsSegmentIndex segmentIndex;
 
-- (void)reloadWithCompletion:(void (^)(BOOL success))completion;
-- (void)loadNextPage;
-
-- (void)searchWithQuery:(NSString *)query;
+- (void)updateWithBudgetInfo:(nullable DCBudgetInfoEntity *)budgetInfo;
 
 @end
 

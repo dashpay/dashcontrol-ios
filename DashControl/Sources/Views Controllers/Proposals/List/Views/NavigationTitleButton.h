@@ -15,19 +15,14 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCBudgetInfoEntity;
+@interface NavigationTitleButton : UIControl
 
-@interface BudgetInfoHeaderViewModel : NSObject
-
-@property (readonly, copy, nonatomic) NSString *total;
-@property (readonly, copy, nonatomic) NSString *alloted;
-@property (readonly, copy, nonatomic) NSString *superblocksPaymentInfo;
-
-- (instancetype)initWithBudgetInfo:(nullable DCBudgetInfoEntity *)budgetInfo;
+@property (nullable, copy, nonatomic) NSString *title;
+@property (assign, nonatomic) BOOL opened;
 
 @end
 

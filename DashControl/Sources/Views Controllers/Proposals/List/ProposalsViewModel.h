@@ -24,19 +24,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class DCPersistenceStack;
 @class APIBudget;
+@class ProposalsHeaderViewModel;
 
 @interface ProposalsViewModel : NSObject
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 @property (strong, nonatomic) InjectedClass(APIBudget) api;
 
-@property (nullable, readonly, strong, nonatomic) DCBudgetInfoEntity *budgetInfoEntity;
+@property (strong, nonatomic) ProposalsHeaderViewModel *headerViewModel;
+
 @property (readonly, strong, nonatomic) NSFetchedResultsController<DCBudgetProposalEntity *> *fetchedResultsController;
-@property (readonly, nullable, strong, nonatomic) NSFetchedResultsController<DCBudgetProposalEntity *> *searchFetchedResultsController;
+@property (readonly, strong, nonatomic) NSFetchedResultsController<DCBudgetProposalEntity *> *searchFetchedResultsController;
 
 - (void)reloadWithCompletion:(void (^)(BOOL success))completion;
 
-- (BOOL)searchWithQuery:(NSString *)query;
+- (void)searchWithQuery:(NSString *)query;
 
 @end
 

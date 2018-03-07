@@ -15,15 +15,17 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import <KVO-MVVM/KVOUIView.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class BudgetInfoHeaderViewModel;
+@class ProposalsHeaderViewModel;
 
-@interface BudgetInfoHeaderView : UIView
+@interface ProposalsHeaderView : KVOUIView
 
-- (void)configureWithViewModel:(BudgetInfoHeaderViewModel *)viewModel;
+@property (strong, nonatomic) ProposalsHeaderViewModel *viewModel;
+
+- (void)setOpened:(BOOL)opened animated:(BOOL)animated;
 
 @end
 

@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
     return _fetchedResultsController;
 }
 
-- (NSFetchedResultsController<DCNewsPostEntity *> *_Nullable)searchFetchedResultsController {
+- (NSFetchedResultsController<DCNewsPostEntity *> *)searchFetchedResultsController {
     if (!_searchFetchedResultsController) {
         NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
         _searchFetchedResultsController = [[self class] fetchedResultsControllerWithPredicate:self.searchPredicate
@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self fetchPage:self.currentPage completion:nil];
 }
 
-- (BOOL)searchWithQuery:(NSString *)query {
+- (void)searchWithQuery:(NSString *)query {
     NSString *trimmedQuery = [query stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSPredicate *predicate = nil;
     if (trimmedQuery.length > 0) {
@@ -103,15 +103,13 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     if ([predicate isEqual:self.searchFetchedResultsController.fetchRequest.predicate]) {
-        return NO;
+        return;
     }
-
-    self.searchFetchedResultsController.delegate = nil;
-    self.searchFetchedResultsController = nil;
 
     self.searchPredicate = predicate;
 
-    return YES;
+    self.searchFetchedResultsController.delegate = nil;
+    self.searchFetchedResultsController = nil;
 }
 
 #pragma mark Private
