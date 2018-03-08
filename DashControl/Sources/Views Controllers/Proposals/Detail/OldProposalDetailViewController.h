@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <SafariServices/SafariServices.h>
 
-@interface ProposalDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, SFSafariViewControllerDelegate>
+@interface OldProposalDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, SFSafariViewControllerDelegate>
 
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 

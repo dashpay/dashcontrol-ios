@@ -6,7 +6,7 @@
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
 
-#import "ProposalDetailViewController.h"
+#import "OldProposalDetailViewController.h"
 #import "ProposalDetailNameTableViewCell.h"
 #import "ProposalDetailTitleTableViewCell.h"
 #import "ProposalDetailOneTimePayementTableViewCell.h"
@@ -25,11 +25,11 @@ static NSString *CellDetailVotesResultIdentifier = @"ProposalDetailVotesResultCe
 static NSString *CellDetailDescriptionHeaderIdentifier = @"ProposalDetailDescriptionHeaderCell";
 static NSString *CellDetailDescriptionDetailIdentifier = @"ProposalDetailDescriptionDetailCell";
 
-@interface ProposalDetailViewController ()
+@interface OldProposalDetailViewController ()
 
 @end
 
-@implementation ProposalDetailViewController
+@implementation OldProposalDetailViewController
 @synthesize managedObjectContext;
 
 - (void)viewDidLoad {

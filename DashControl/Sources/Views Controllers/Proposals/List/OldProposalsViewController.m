@@ -10,7 +10,7 @@
 
 #import "DCPersistenceStack.h"
 #import "ProposalCell.h"
-#import "ProposalDetailViewController.h"
+#import "OldProposalDetailViewController.h"
 #import "ProposalScopeButtonsView.h"
 
 @interface OldProposalsViewController ()
@@ -202,7 +202,7 @@ static NSString *CellIdentifier = @"ProposalCell";
      if ([[segue identifier] isEqualToString:@"pushProposalDetail"])
      {
          //Get reference to the destination view controller
-         ProposalDetailViewController *vc = [segue destinationViewController];
+         OldProposalDetailViewController *vc = [segue destinationViewController];
          [vc setManagedObjectContext:_managedObjectContext];
          [vc setCurrentProposal:[(ProposalCell*)sender currentProposal]];
          vc.hidesBottomBarWhenPushed = YES;

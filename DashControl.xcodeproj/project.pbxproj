@@ -15,7 +15,7 @@
 		241719E41F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 241719E01F4DB0FB0045C2D6 /* DCCommentEntity+CoreDataProperties.m */; };
 		241A70961FA356DF00FCC808 /* PriceAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 241A70951FA356DF00FCC808 /* PriceAlertViewController.m */; };
 		2432DDA01F54395600A14112 /* ProposalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432DD9F1F54395600A14112 /* ProposalCell.m */; };
-		24438DEF1F5FCE7D00763A14 /* ProposalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 244857901F59CCBF004DE273 /* ProposalDetailViewController.m */; };
+		24438DEF1F5FCE7D00763A14 /* OldProposalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 244857901F59CCBF004DE273 /* OldProposalDetailViewController.m */; };
 		24438DF31F5FEA6600763A14 /* ProposalHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24438DF21F5FEA6600763A14 /* ProposalHeaderView.m */; };
 		2485235B1F44A71B0027FBA6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2485235A1F44A71B0027FBA6 /* WebKit.framework */; };
 		249A402F1F62715700155636 /* ProposalScopeButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 249A402E1F62715700155636 /* ProposalScopeButtonsView.m */; };
@@ -237,8 +237,8 @@
 		2442A01B1F4D6CDC006FAC0D /* DashControl.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DashControl.entitlements; sourceTree = "<group>"; };
 		24438DF11F5FEA6600763A14 /* ProposalHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalHeaderView.h; sourceTree = "<group>"; };
 		24438DF21F5FEA6600763A14 /* ProposalHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalHeaderView.m; sourceTree = "<group>"; };
-		2448578F1F59CCBF004DE273 /* ProposalDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalDetailViewController.h; sourceTree = "<group>"; };
-		244857901F59CCBF004DE273 /* ProposalDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailViewController.m; sourceTree = "<group>"; };
+		2448578F1F59CCBF004DE273 /* OldProposalDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldProposalDetailViewController.h; sourceTree = "<group>"; };
+		244857901F59CCBF004DE273 /* OldProposalDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldProposalDetailViewController.m; sourceTree = "<group>"; };
 		2485235A1F44A71B0027FBA6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		249A402D1F62715700155636 /* ProposalScopeButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProposalScopeButtonsView.h; sourceTree = "<group>"; };
 		249A402E1F62715700155636 /* ProposalScopeButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProposalScopeButtonsView.m; sourceTree = "<group>"; };
@@ -791,8 +791,8 @@
 			isa = PBXGroup;
 			children = (
 				24438DF01F5FCF1C00763A14 /* Cells */,
-				2448578F1F59CCBF004DE273 /* ProposalDetailViewController.h */,
-				244857901F59CCBF004DE273 /* ProposalDetailViewController.m */,
+				2448578F1F59CCBF004DE273 /* OldProposalDetailViewController.h */,
+				244857901F59CCBF004DE273 /* OldProposalDetailViewController.m */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -1840,7 +1840,7 @@
 				2A44739E20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.m in Sources */,
 				2AD693C32032C99A0084D840 /* NewsViewController.m in Sources */,
 				2A8F8181203E9D2300D3D6C9 /* NSManagedObject+DCExtensions.m in Sources */,
-				24438DEF1F5FCE7D00763A14 /* ProposalDetailViewController.m in Sources */,
+				24438DEF1F5FCE7D00763A14 /* OldProposalDetailViewController.m in Sources */,
 				2A4473A720429CC400B52BCB /* ChartViewController.m in Sources */,
 				2A04E6E1202DA5E20065F30D /* HTTPLoaderFactory.m in Sources */,
 				2A3F49B4204BFF50005EB5D9 /* DCBudgetProposalCommentEntity+CoreDataClass.m in Sources */,
