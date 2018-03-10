@@ -15,30 +15,24 @@
 //  limitations under the License.
 //
 
-#import "NavigationTitleButton.h"
+#import "ProposalDetailTitleView.h"
 
 #import "UIFont+DCStyle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NavigationTitleButton ()
+@interface ProposalDetailTitleView ()
 
-@property (strong, nonatomic) UIImageView *arrowImageView;
 @property (strong, nonatomic) UILabel *titleLabel;
+@property (assign, nonatomic) CGFloat contentOffset;
 
 @end
 
-@implementation NavigationTitleButton
+@implementation ProposalDetailTitleView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"disclosureIcon"]];
-        arrowImageView.contentMode = UIViewContentModeCenter;
-        arrowImageView.userInteractionEnabled = NO;
-        [self addSubview:arrowImageView];
-        _arrowImageView = arrowImageView;
-
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         titleLabel.font = [UIFont dc_montserratRegularFontOfSize:17.0];
         titleLabel.textColor = [UIColor whiteColor];
@@ -49,28 +43,17 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-#define IMAGE_WIDTH 30.0
 #define HEIGHT 44.0
 
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    self.arrowImageView.frame = CGRectMake(0.0, 0.0, IMAGE_WIDTH, HEIGHT);
-    self.titleLabel.frame = CGRectMake(IMAGE_WIDTH, 0.0, self.titleLabel.bounds.size.width, HEIGHT);
+    CGFloat y = self.contentOffset == 0.0 ? CGRectGetMaxY(self.bounds) : [self titleVerticalPositionAdjustedBy:self.contentOffset];
+    self.titleLabel.frame = CGRectMake(0.0, y, self.bounds.size.width, HEIGHT);
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
-    return CGSizeMake(IMAGE_WIDTH + self.titleLabel.bounds.size.width + IMAGE_WIDTH, HEIGHT);
-}
-
-- (void)setHighlighted:(BOOL)highlighted {
-    [super setHighlighted:highlighted];
-
-    [UIView animateWithDuration:0.25 animations:^{
-        CGFloat alpha = highlighted ? 0.5 : 1.0;
-        self.arrowImageView.alpha = alpha;
-        self.titleLabel.alpha = alpha;
-    }];
+    return CGSizeMake(self.titleLabel.bounds.size.width, HEIGHT);
 }
 
 - (nullable NSString *)title {
@@ -83,14 +66,23 @@ NS_ASSUME_NONNULL_BEGIN
     [self setNeedsLayout];
 }
 
-#define DEGREES_TO_RADIANS(x) (M_PI * (x) / 180.0)
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView threshold:(CGFloat)threshold {
+    self.contentOffset = scrollView.contentOffset.y - threshold;
+}
 
-- (void)setOpened:(BOOL)opened {
-    _opened = opened;
+#pragma mark Private
 
-    [UIView animateWithDuration:0.25 animations:^{
-        self.arrowImageView.transform = self.opened ? CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(90)) : CGAffineTransformIdentity;
-    }];
+- (void)setContentOffset:(CGFloat)contentOffset {
+    _contentOffset = contentOffset;
+
+    CGRect frame = self.titleLabel.frame;
+    frame.origin.y = [self titleVerticalPositionAdjustedBy:_contentOffset];
+    self.titleLabel.frame = frame;
+}
+
+- (CGFloat)titleVerticalPositionAdjustedBy:(CGFloat)offset {
+    CGFloat midY = CGRectGetMidY(self.bounds) - self.titleLabel.bounds.size.height * 0.5;
+    return round(MAX(CGRectGetMaxY(self.bounds) - offset, midY));
 }
 
 @end

@@ -79,6 +79,31 @@
             </objects>
             <point key="canvasLocation" x="164" y="-1811"/>
         </scene>
+        <!--Proposal Detail View Controller-->
+        <scene sceneID="9ev-yF-eMi">
+            <objects>
+                <tableViewController storyboardIdentifier="ProposalDetailViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mMm-w8-Z5s" customClass="ProposalDetailViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Hg5-gg-pwR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.0" green="0.44317391509999998" blue="0.74421042199999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <connections>
+                            <outlet property="dataSource" destination="mMm-w8-Z5s" id="UfJ-OY-BaE"/>
+                            <outlet property="delegate" destination="mMm-w8-Z5s" id="dbk-gh-arZ"/>
+                        </connections>
+                    </tableView>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Aso-Y6-9Se">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <action selector="refreshControlAction:" destination="mMm-w8-Z5s" eventType="valueChanged" id="gZP-gX-ebE"/>
+                        </connections>
+                    </refreshControl>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WZo-ud-Tm4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1007" y="-1811"/>
+        </scene>
     </scenes>
     <resources>
         <image name="searchBarButton" width="16" height="18"/>

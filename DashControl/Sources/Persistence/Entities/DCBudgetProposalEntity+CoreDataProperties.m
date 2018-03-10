@@ -39,9 +39,10 @@
 @dynamic sortOrder;
 @dynamic title;
 @dynamic totalPaymentCount;
-@dynamic votingDeadlineInfo;
+@dynamic votingDeadline;
 @dynamic willBeFunded;
 @dynamic yesVotesCount;
+@dynamic descriptionHTML;
 @dynamic comments;
 
 @end

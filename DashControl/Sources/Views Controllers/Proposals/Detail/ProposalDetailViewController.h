@@ -15,27 +15,15 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class HTTPLoaderManager;
-@class DCPersistenceStack;
 @class DCBudgetProposalEntity;
-@protocol HTTPLoaderOperationProtocol;
 
-extern CGFloat const MASTERNODES_SUFFICIENT_VOTING_PERCENT;
+@interface ProposalDetailViewController : UITableViewController
 
-@interface APIBudget : NSObject
-
-@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
-@property (strong, nonatomic) InjectedClass(HTTPLoaderManager) httpManager;
-
-@property (class, readonly, nonatomic) NSInteger masternodesCount;
-
-- (void)updateMasternodesCount;
-- (id<HTTPLoaderOperationProtocol>)fetchActiveProposalsCompletion:(void (^)(BOOL success))completion;
-- (id<HTTPLoaderOperationProtocol>)fetchProposalDetails:(DCBudgetProposalEntity *)entity completion:(void (^)(BOOL success))completion;
++ (instancetype)controllerWithProposal:(DCBudgetProposalEntity *)proposal;
 
 @end
 

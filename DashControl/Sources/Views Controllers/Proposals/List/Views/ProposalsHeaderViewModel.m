@@ -18,6 +18,7 @@
 #import "ProposalsHeaderViewModel+Protected.h"
 
 #import "DCBudgetInfoEntity+CoreDataClass.h"
+#import "NSDate+DCAdditions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -38,11 +39,11 @@ NS_ASSUME_NONNULL_BEGIN
         self.total = [NSString stringWithFormat:@"%.1f", budgetInfo.totalAmount];
         self.alloted = [NSString stringWithFormat:@"%.1f", budgetInfo.allotedAmount];
 
-        NSString *superblockString = [NSString stringWithFormat:@"%@ %d", NSLocalizedString(@"Superblock", nil), budgetInfo.superblock];
+        NSString *superblockString = [NSString localizedStringWithFormat:NSLocalizedString(@"%d Superblock(s)", nil), budgetInfo.superblock];
         NSString *resultString = nil;
         if (budgetInfo.paymentDate) {
-            NSInteger numberOfDays = [[self class] daysBetweenDate:[NSDate date] andDate:budgetInfo.paymentDate];
-            NSString *inXDaysString = [NSString stringWithFormat:NSLocalizedString(@"in %d Days", @"Proposals View"), numberOfDays];
+            NSInteger numberOfDays = [[NSDate date] dc_daysToDate:budgetInfo.paymentDate];
+            NSString *inXDaysString = [NSString localizedStringWithFormat:NSLocalizedString(@"in %ld day(s)", nil), numberOfDays];
             NSString *formattedDateString = [NSDateFormatter localizedStringFromDate:budgetInfo.paymentDate
                                                                            dateStyle:NSDateFormatterLongStyle
                                                                            timeStyle:NSDateFormatterNoStyle];
@@ -70,21 +71,6 @@ NS_ASSUME_NONNULL_BEGIN
     _segmentIndex = segmentIndex;
 
     [self.delegate proposalsHeaderViewModelDidSetSegmentIndex:self];
-}
-
-#pragma mark - Private
-
-+ (NSInteger)daysBetweenDate:(NSDate *)fromDateTime andDate:(NSDate *)toDateTime {
-    NSDate *fromDate = nil;
-    NSDate *toDate = nil;
-
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    [calendar rangeOfUnit:NSCalendarUnitDay startDate:&fromDate interval:NULL forDate:fromDateTime];
-    [calendar rangeOfUnit:NSCalendarUnitDay startDate:&toDate interval:NULL forDate:toDateTime];
-
-    NSDateComponents *difference = [calendar components:NSCalendarUnitDay fromDate:fromDate toDate:toDate options:kNilOptions];
-
-    return difference.day;
 }
 
 @end

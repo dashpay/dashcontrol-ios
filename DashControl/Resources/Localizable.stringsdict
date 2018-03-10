@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>%d Superblock(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@superblocks@</string>
+		<key>superblocks</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d Superblock</string>
+			<key>other</key>
+			<string>%d Superblocks</string>
+		</dict>
+	</dict>
+    <key>in %ld day(s)</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>in %#@days@</string>
+        <key>days</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>ld</string>
+            <key>one</key>
+            <string>%ld day</string>
+            <key>other</key>
+            <string>%ld days</string>
+        </dict>
+    </dict>
+    <key>%d month(s) remaining</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@months@ remaining</string>
+        <key>months</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>one</key>
+            <string>%d month</string>
+            <key>other</key>
+            <string>%d months</string>
+        </dict>
+    </dict>
+    <key>No. This proposal needs additional %d Yes vote(s) to become funded</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>No. This proposal needs additional %#@votes@ to become funded</string>
+        <key>votes</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>d</string>
+            <key>one</key>
+            <string>%d Yes vote</string>
+            <key>other</key>
+            <string>%d Yes votes</string>
+        </dict>
+    </dict>
+</dict>
+</plist>

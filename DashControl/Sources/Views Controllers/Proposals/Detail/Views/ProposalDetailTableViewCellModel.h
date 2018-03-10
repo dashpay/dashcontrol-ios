@@ -19,23 +19,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class HTTPLoaderManager;
-@class DCPersistenceStack;
 @class DCBudgetProposalEntity;
-@protocol HTTPLoaderOperationProtocol;
 
-extern CGFloat const MASTERNODES_SUFFICIENT_VOTING_PERCENT;
+@interface ProposalDetailTableViewCellModel : NSObject
 
-@interface APIBudget : NSObject
+@property (readonly, copy, nonatomic) NSString *html;
 
-@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
-@property (strong, nonatomic) InjectedClass(HTTPLoaderManager) httpManager;
-
-@property (class, readonly, nonatomic) NSInteger masternodesCount;
-
-- (void)updateMasternodesCount;
-- (id<HTTPLoaderOperationProtocol>)fetchActiveProposalsCompletion:(void (^)(BOOL success))completion;
-- (id<HTTPLoaderOperationProtocol>)fetchProposalDetails:(DCBudgetProposalEntity *)entity completion:(void (^)(BOOL success))completion;
+- (void)updateWithProposal:(DCBudgetProposalEntity *)proposal;
 
 @end
 

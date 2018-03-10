@@ -70,6 +70,10 @@ NS_ASSUME_NONNULL_BEGIN
     return _searchFetchedResultsController;
 }
 
+- (void)updateMasternodesCount {
+    [self.api updateMasternodesCount];
+}
+
 - (void)reloadWithCompletion:(void (^)(BOOL success))completion {
     if (self.request) {
         [self.request cancel];

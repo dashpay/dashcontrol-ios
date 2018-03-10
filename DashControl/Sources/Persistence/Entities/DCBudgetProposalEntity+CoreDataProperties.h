@@ -42,9 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t sortOrder;
 @property (nullable, nonatomic, copy) NSString *title;
 @property (nonatomic) int32_t totalPaymentCount;
-@property (nullable, nonatomic, copy) NSString *votingDeadlineInfo;
+@property (nullable, nonatomic, copy) NSDate *votingDeadline;
 @property (nonatomic) BOOL willBeFunded;
 @property (nonatomic) int32_t yesVotesCount;
+@property (nullable, nonatomic, copy) NSString *descriptionHTML;
 @property (nullable, nonatomic, retain) NSSet<DCBudgetProposalCommentEntity *> *comments;
 
 @end

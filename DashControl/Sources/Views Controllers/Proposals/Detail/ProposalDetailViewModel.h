@@ -17,25 +17,27 @@
 
 #import <Foundation/Foundation.h>
 
+#import "DCBudgetProposalEntity+CoreDataClass.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
-@class HTTPLoaderManager;
 @class DCPersistenceStack;
-@class DCBudgetProposalEntity;
-@protocol HTTPLoaderOperationProtocol;
+@class APIBudget;
+@class ProposalDetailHeaderViewModel;
+@class ProposalDetailTableViewCellModel;
 
-extern CGFloat const MASTERNODES_SUFFICIENT_VOTING_PERCENT;
-
-@interface APIBudget : NSObject
+@interface ProposalDetailViewModel : NSObject
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
-@property (strong, nonatomic) InjectedClass(HTTPLoaderManager) httpManager;
+@property (strong, nonatomic) InjectedClass(APIBudget) api;
 
-@property (class, readonly, nonatomic) NSInteger masternodesCount;
+@property (readonly, strong, nonatomic) ProposalDetailHeaderViewModel *headerViewModel;
+@property (readonly, strong, nonatomic) ProposalDetailTableViewCellModel *cellViewModel;
+@property (readonly, strong, nonatomic) DCBudgetProposalEntity *proposal;
 
-- (void)updateMasternodesCount;
-- (id<HTTPLoaderOperationProtocol>)fetchActiveProposalsCompletion:(void (^)(BOOL success))completion;
-- (id<HTTPLoaderOperationProtocol>)fetchProposalDetails:(DCBudgetProposalEntity *)entity completion:(void (^)(BOOL success))completion;
+- (instancetype)initWithProposal:(DCBudgetProposalEntity *)proposal;
+
+- (void)reloadWithCompletion:(void (^)(BOOL success))completion;
 
 @end
 

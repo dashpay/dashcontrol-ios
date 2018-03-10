@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const NEWS_FIRST_CELL_ID = @"NewsFirstTableViewCell";
 static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 
-@interface NewsViewController () <DCSearchControllerDelegate, DCSearchResultsUpdating, SFSafariViewControllerDelegate>
+@interface NewsViewController () <DCSearchControllerDelegate, DCSearchResultsUpdating>
 
 @property (strong, nonatomic) NewsViewModel *viewModel;
 
@@ -161,7 +161,6 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
         return;
     }
     SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
-    safariViewController.delegate = self;
     safariViewController.preferredBarTintColor = [UIColor dc_barTintColor];
     safariViewController.preferredControlTintColor = [UIColor whiteColor];
     [self showDetailViewController:safariViewController sender:self];
@@ -220,12 +219,6 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(performSearch) object:nil];
     NSTimeInterval const delay = 0.2;
     [self performSelector:@selector(performSearch) withObject:nil afterDelay:delay];
-}
-
-#pragma mark SFSafariViewControllerDelegate
-
-- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
-    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark Private

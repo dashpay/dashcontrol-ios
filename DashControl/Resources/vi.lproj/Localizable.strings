@@ -8,8 +8,17 @@
 /* Proposals View */
 "%d comments" = "%d comments";
 
+/* No comment provided by engineer. */
+"%d month(s) remaining" = "%d month(s) remaining";
+
 /* Proposals View */
 "%d months remaining" = "%d months remaining";
+
+/* No comment provided by engineer. */
+"%d Superblock(s)" = "%d Superblock(s)";
+
+/* No comment provided by engineer. */
+"%d totaling in %d DASH" = "%1$d totaling in %2$d DASH";
 
 /* 15 minutes */
 "15M" = "15M";
@@ -53,7 +62,8 @@
 /* No comment provided by engineer. */
 "\nallow camera access in\nSettings->Privacy->Camera->%@" = "\nallow camera access in\nSettings->Privacy->Camera->%@";
 
-/* Proposal Detail View */
+/* Abstain votes count title
+   Proposal Detail View */
 "Abstain" = "Abstain";
 
 /* Price Alert Screen */
@@ -71,20 +81,20 @@
 /* Price Alert Screen */
 "Alert when under" = "Alert when under";
 
+/* No comment provided by engineer. */
+"Alloted" = "Alloted";
+
 /* Budget view */
 "ALLOTED" = "ALLOTED";
 
 /* No comment provided by engineer. */
-"Alloted" = "Alloted";
-
-/* No comment provided by engineer. */
 "any" = "any";
-
-/* As in 'by Username' */
-"by" = "by";
 
 /* As in 'By Username' */
 "By" = "By";
+
+/* As in 'by Username' */
+"by" = "by";
 
 /* Cancel button */
 "Cancel" = "Cancel";
@@ -103,17 +113,20 @@
 /* Proposal Detail View */
 "Completed payments" = "Completed payments";
 
+/* No comment provided by engineer. */
+"Completed\npayments" = "Completed\npayments";
+
 /* Current proposals */
 "Current" = "Current";
-
-/* No comment provided by engineer. */
-"Dash" = "Dash";
 
 /* No comment provided by engineer. */
 "DASH" = "DASH";
 
 /* No comment provided by engineer. */
-"Dash per month" = "Dash per month";
+"Dash" = "Dash";
+
+/* No comment provided by engineer. */
+"DASH per month" = "DASH per month";
 
 /* Proposal Detail View */
 "Description is loading..." = "Description is loading...";
@@ -124,23 +137,39 @@
 /* Price Alert Screen */
 "Exchange" = "Exchange";
 
+/* No comment provided by engineer. */
+"Final voting\ndeadline" = "Final voting\ndeadline";
+
 /* Proposals View */
 "in %d Days" = "in %d Days";
 
-/* Price Alert Screen */
-"market" = "market";
+/* No comment provided by engineer. */
+"in %ld day(s)" = "in %ld day(s)";
 
 /* Price Alert Screen */
 "Market" = "Market";
 
 /* Price Alert Screen */
+"market" = "market";
+
+/* No comment provided by engineer. */
+"Monthly\namount" = "Monthly\namount";
+
+/* Price Alert Screen */
 "New Price Alert" = "New Price Alert";
 
-/* Proposal Detail View */
+/* No votes count title
+   Proposal Detail View */
 "No" = "No";
 
 /* No comment provided by engineer. */
 "No Connection" = "No Connection";
+
+/* No comment provided by engineer. */
+"no payments occurred yet" = "no payments occurred yet";
+
+/* No comment provided by engineer. */
+"No. This proposal needs additional %d Yes vote(s) to become funded" = "No. This proposal needs additional %d Yes vote(s) to become funded";
 
 /* No comment provided by engineer. */
 "not a valid dash address" = "not a valid dash address";
@@ -157,6 +186,9 @@
 /* Proposal Detail View */
 "One-time payment" = "One-time payment";
 
+/* No comment provided by engineer. */
+"One-time\npayment" = "One-time\npayment";
+
 /* Ongoing proposals */
 "Ongoing" = "Ongoing";
 
@@ -168,6 +200,9 @@
 
 /* Past proposals */
 "Past" = "Past";
+
+/* No comment provided by engineer. */
+"Payment\nadded / end" = "Payment\nadded / end";
 
 /* No comment provided by engineer. */
 "per month" = "per month";
@@ -229,7 +264,12 @@
 /* No comment provided by engineer. */
 "WiFi" = "WiFi";
 
-/* Proposal Detail View */
+/* No comment provided by engineer. */
+"Will be\nfunded" = "Will be\nfunded";
+
+/* Proposal Detail View
+   Will be funded - yes
+   Yes votes count title */
 "Yes" = "Yes";
 
 /* Price Alert Screen */

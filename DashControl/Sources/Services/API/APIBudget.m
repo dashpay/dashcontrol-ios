@@ -27,7 +27,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+CGFloat const MASTERNODES_SUFFICIENT_VOTING_PERCENT = 0.1;
+
 static NSString *const API_BASE_URL = @"https://www.dashcentral.org/api/v1";
+static NSString *const MASTERNODES_COUNT_KEY = @"MasternodesCount";
+static NSInteger const LAST_MASTERNODES_COUNT = 4756; // fallback
 
 @interface APIBudget ()
 
@@ -46,6 +50,31 @@ static NSString *const API_BASE_URL = @"https://www.dashcentral.org/api/v1";
         _dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     }
     return self;
+}
+
++ (NSInteger)masternodesCount {
+    NSNumber *masternodesCount = [[NSUserDefaults standardUserDefaults] objectForKey:MASTERNODES_COUNT_KEY];
+    return masternodesCount ? masternodesCount.integerValue : LAST_MASTERNODES_COUNT;
+}
+
+- (void)updateMasternodesCount {
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@", API_BASE_URL, @"public"];
+    NSURL *url = [NSURL URLWithString:urlString];
+    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:nil];
+    request.maximumRetryCount = 2; // this request is important
+    weakify;
+    [self.httpManager sendRequest:request completion:^(id _Nullable parsedData, NSDictionary *_Nullable responseHeaders, NSInteger statusCode, NSError *_Nullable error) {
+        strongify;
+        NSAssert([NSThread isMainThread], nil);
+
+        NSDictionary *dictionary = (NSDictionary *)parsedData;
+        if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
+            NSNumber *masternodesCount = dictionary[@"general"][@"consensus_masternodes"];
+            if (masternodesCount) {
+                [[NSUserDefaults standardUserDefaults] setObject:masternodesCount forKey:MASTERNODES_COUNT_KEY];
+            }
+        }
+    }];
 }
 
 - (id<HTTPLoaderOperationProtocol>)fetchActiveProposalsCompletion:(void (^)(BOOL success))completion {
@@ -102,6 +131,42 @@ static NSString *const API_BASE_URL = @"https://www.dashcentral.org/api/v1";
     }];
 }
 
+- (id<HTTPLoaderOperationProtocol>)fetchProposalDetails:(DCBudgetProposalEntity *)entity completion:(void (^)(BOOL success))completion {
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@", API_BASE_URL, @"proposal"];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSDictionary *parameters = @{ @"hash" : entity.proposalHash ?: @"0" };
+    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:parameters];
+    weakify;
+    return [self.httpManager sendRequest:request completion:^(id _Nullable parsedData, NSDictionary *_Nullable responseHeaders, NSInteger statusCode, NSError *_Nullable error) {
+        strongify;
+        NSAssert([NSThread isMainThread], nil);
+
+        NSDictionary *dictionary = (NSDictionary *)parsedData;
+        if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
+            NSPersistentContainer *container = self.stack.persistentContainer;
+            [container performBackgroundTask:^(NSManagedObjectContext *context) {
+                NSDictionary *proposalDictionary = dictionary[@"proposal"];
+                NSArray *commentsArray = dictionary[@"comments"];
+                [self parseProposalForDictionary:proposalDictionary commentsArray:commentsArray inContext:context];
+
+                context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+                [context dc_saveIfNeeded];
+
+                if (completion) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion(YES);
+                    });
+                }
+            }];
+        }
+        else {
+            if (completion) {
+                completion(NO);
+            }
+        }
+    }];
+}
+
 #pragma mark - Private
 
 - (void)parseProposalForDictionary:(NSDictionary *)proposalDictionary
@@ -119,7 +184,10 @@ static NSString *const API_BASE_URL = @"https://www.dashcentral.org/api/v1";
     if (dateEndString) {
         proposal.dateEnd = [self.dateFormatter dateFromString:dateEndString];
     }
-    proposal.votingDeadlineInfo = proposalDictionary[@"voting_deadline_human"];
+    NSString *votingDeadline = proposalDictionary[@"voting_deadline"];
+    if (votingDeadline) {
+        proposal.votingDeadline = [self.dateFormatter dateFromString:votingDeadline];
+    }
     proposal.willBeFunded = [proposalDictionary[@"will_be_funded"] boolValue];
     proposal.remainingYesVotesUntilFunding = [proposalDictionary[@"remaining_yes_votes_until_funding"] intValue];
     proposal.inNextBudget = [proposalDictionary[@"in_next_budget"] boolValue];
@@ -135,8 +203,12 @@ static NSString *const API_BASE_URL = @"https://www.dashcentral.org/api/v1";
     if (orderValue && orderValue != [NSNull null]) {
         proposal.sortOrder = [orderValue intValue];
     }
+    id descriptionHTML = proposalDictionary[@"description_base64_html"];
+    if (descriptionHTML) {
+        proposal.descriptionHTML = descriptionHTML;
+    }
 
-    if ([commentsArray.firstObject isKindOfClass:[NSDictionary class]]) {
+    if ([commentsArray isKindOfClass:NSArray.class] && [commentsArray.firstObject isKindOfClass:NSDictionary.class]) {
         for (NSDictionary *commentDictionary in commentsArray) {
             DCBudgetProposalCommentEntity *comment = [[DCBudgetProposalCommentEntity alloc] initWithContext:context];
             comment.identifier = commentDictionary[@"id"];

@@ -19,23 +19,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class HTTPLoaderManager;
-@class DCPersistenceStack;
-@class DCBudgetProposalEntity;
-@protocol HTTPLoaderOperationProtocol;
+@interface NSDate (DCAdditions)
 
-extern CGFloat const MASTERNODES_SUFFICIENT_VOTING_PERCENT;
-
-@interface APIBudget : NSObject
-
-@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
-@property (strong, nonatomic) InjectedClass(HTTPLoaderManager) httpManager;
-
-@property (class, readonly, nonatomic) NSInteger masternodesCount;
-
-- (void)updateMasternodesCount;
-- (id<HTTPLoaderOperationProtocol>)fetchActiveProposalsCompletion:(void (^)(BOOL success))completion;
-- (id<HTTPLoaderOperationProtocol>)fetchProposalDetails:(DCBudgetProposalEntity *)entity completion:(void (^)(BOOL success))completion;
+- (NSInteger)dc_daysToDate:(NSDate *)toDate;
 
 @end
 

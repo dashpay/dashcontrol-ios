@@ -33,6 +33,7 @@
         <attribute name="commentsCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="dateAdded" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="dateEnd" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="descriptionHTML" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="inNextBudget" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="monthlyAmount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
@@ -44,7 +45,7 @@
         <attribute name="sortOrder" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
         <attribute name="totalPaymentCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="votingDeadlineInfo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="votingDeadline" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="willBeFunded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="yesVotesCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DCBudgetProposalCommentEntity" inverseName="proposal" inverseEntity="DCBudgetProposalCommentEntity" syncable="YES"/>
@@ -239,7 +240,7 @@
         <element name="DCBudgetEntity" positionX="-587" positionY="285" width="128" height="103"/>
         <element name="DCBudgetInfoEntity" positionX="-407" positionY="-225" width="128" height="105"/>
         <element name="DCBudgetProposalCommentEntity" positionX="-38" positionY="-225" width="128" height="178"/>
-        <element name="DCBudgetProposalEntity" positionX="-225" positionY="-225" width="128" height="328"/>
+        <element name="DCBudgetProposalEntity" positionX="-225" positionY="-225" width="128" height="345"/>
         <element name="DCChartDataEntryEntity" positionX="142" positionY="567" width="128" height="210"/>
         <element name="DCCommentEntity" positionX="-200" positionY="198" width="128" height="225"/>
         <element name="DCExchangeEntity" positionX="88" positionY="189" width="128" height="105"/>

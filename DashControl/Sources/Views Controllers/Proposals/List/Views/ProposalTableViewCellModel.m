@@ -18,27 +18,26 @@
 #import "ProposalTableViewCellModel.h"
 
 #import "DCBudgetProposalEntity+CoreDataClass.h"
+#import "APIBudget.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-static CGFloat MASTERNODES_SUFFICIENT_VOTING_PERCENT = 0.1;
-static NSUInteger MASTERNODES_COUNT = 4733; // TODO get from server
 
 @implementation ProposalTableViewCellModel
 
 - (instancetype)initWithProposal:(DCBudgetProposalEntity *)proposal {
     self = [super init];
     if (self) {
-        CGFloat percent = MASTERNODES_COUNT > 0 ? MIN(MAX((proposal.yesVotesCount - proposal.noVotesCount) / (MASTERNODES_COUNT * MASTERNODES_SUFFICIENT_VOTING_PERCENT), 0.0), 1.0) : 0.0;
+        NSInteger masternodesCount = APIBudget.masternodesCount;
+        CGFloat percent = masternodesCount > 0 ? MIN(MAX((proposal.yesVotesCount - proposal.noVotesCount) / (masternodesCount * MASTERNODES_SUFFICIENT_VOTING_PERCENT), 0.0), 1.0) : 0.0;
         _completedPercent = percent * 100.0;
         _title = proposal.title;
         if (proposal.totalPaymentCount == 1) {
             _remainingPayment = NSLocalizedString(@"one-time payment", nil);
-            _repeatInterval = NSLocalizedString(@"Dash", nil);
+            _repeatInterval = NSLocalizedString(@"DASH", nil);
         }
         else {
-            _remainingPayment = [NSString stringWithFormat:NSLocalizedString(@"%d months remaining", nil), proposal.remainingPaymentCount];
-            _repeatInterval = NSLocalizedString(@"Dash per month", nil);
+            _remainingPayment = [NSString localizedStringWithFormat:NSLocalizedString(@"%d month(s) remaining", nil), proposal.remainingPaymentCount];
+            _repeatInterval = NSLocalizedString(@"DASH per month", nil);
         }
         _monthlyAmount = [NSString stringWithFormat:@"%d", proposal.monthlyAmount];
         if (proposal.ownerUsername.length > 0) {

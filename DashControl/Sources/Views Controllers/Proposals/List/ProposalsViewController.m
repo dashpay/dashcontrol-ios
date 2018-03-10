@@ -26,6 +26,7 @@
 #import "ProposalTableViewCell.h"
 #import "ProposalsSearchResultsController.h"
 #import "ProposalsViewModel.h"
+#import "ProposalDetailViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -57,6 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.tableView.tableHeaderView = self.proposalsHeaderView;
 
+    [self.viewModel updateMasternodesCount];
     [self reload];
 
     ProposalsSearchResultsController *searchResultsController = [[ProposalsSearchResultsController alloc] init];
@@ -126,8 +128,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    // TODO
-    //    [self showDetailViewController:detailViewController sender:self];
+    NSFetchedResultsController *frc = [self fetchedResultsControllerForTableView:tableView];
+    DCBudgetProposalEntity *entity = [frc objectAtIndexPath:indexPath];
+    ProposalDetailViewController *detailViewController = [ProposalDetailViewController controllerWithProposal:entity];
+    [self showViewController:detailViewController sender:self];
 }
 
 #pragma mark DCSearchControllerDelegate
