@@ -55,9 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.tableView registerClass:ProposalDetailTableViewCell.class forCellReuseIdentifier:PROPOSALDETAIL_CELL_ID];
 
-    CGSize headerSize = [self.headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    self.headerView.frame = CGRectMake(0.0, 0.0, headerSize.width, headerSize.height);
-    self.tableView.tableHeaderView = self.headerView;
+    [self updateHeaderView];
 
     [self reload];
 }
@@ -144,6 +142,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self.viewModel reloadWithCompletion:^(BOOL success) {
         strongify;
 
+        [self updateHeaderView];
         [self.tableView reloadData];
 
         [self.tableView.refreshControl endRefreshing];
@@ -151,6 +150,12 @@ NS_ASSUME_NONNULL_BEGIN
             self.tableView.refreshControl = nil;
         }
     }];
+}
+
+- (void)updateHeaderView {
+    CGSize headerSize = [self.headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    self.headerView.frame = CGRectMake(0.0, 0.0, headerSize.width, headerSize.height);
+    self.tableView.tableHeaderView = self.headerView;
 }
 
 @end
