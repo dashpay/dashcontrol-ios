@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class DCPersistenceStack;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UNUserNotificationCenterDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 

@@ -5,14 +5,8 @@
 /* No comment provided by engineer. */
 "%@ is not allowed to access the camera" = "%@ is not allowed to access the camera";
 
-/* Proposals View */
-"%d comments" = "%d comments";
-
 /* No comment provided by engineer. */
 "%d month(s) remaining" = "%d month(s) remaining";
-
-/* Proposals View */
-"%d months remaining" = "%d months remaining";
 
 /* No comment provided by engineer. */
 "%d Superblock(s)" = "%d Superblock(s)";
@@ -62,8 +56,7 @@
 /* No comment provided by engineer. */
 "\nallow camera access in\nSettings->Privacy->Camera->%@" = "\nallow camera access in\nSettings->Privacy->Camera->%@";
 
-/* Abstain votes count title
-   Proposal Detail View */
+/* Abstain votes count title */
 "Abstain" = "Abstain";
 
 /* Price Alert Screen */
@@ -84,17 +77,11 @@
 /* No comment provided by engineer. */
 "Alloted" = "Alloted";
 
-/* Budget view */
-"ALLOTED" = "ALLOTED";
-
 /* No comment provided by engineer. */
 "any" = "any";
 
 /* As in 'By Username' */
 "By" = "By";
-
-/* As in 'by Username' */
-"by" = "by";
 
 /* Cancel button */
 "Cancel" = "Cancel";
@@ -110,9 +97,6 @@
    Price View Screen */
 "Choose Market" = "Choose Market";
 
-/* Proposal Detail View */
-"Completed payments" = "Completed payments";
-
 /* No comment provided by engineer. */
 "Completed\npayments" = "Completed\npayments";
 
@@ -123,13 +107,7 @@
 "DASH" = "DASH";
 
 /* No comment provided by engineer. */
-"Dash" = "Dash";
-
-/* No comment provided by engineer. */
 "DASH per month" = "DASH per month";
-
-/* Proposal Detail View */
-"Description is loading..." = "Description is loading...";
 
 /* Price Alert Screen */
 "exchange" = "exchange";
@@ -140,17 +118,14 @@
 /* No comment provided by engineer. */
 "Final voting\ndeadline" = "Final voting\ndeadline";
 
-/* Proposals View */
-"in %d Days" = "in %d Days";
-
 /* No comment provided by engineer. */
 "in %ld day(s)" = "in %ld day(s)";
 
 /* Price Alert Screen */
-"Market" = "Market";
+"market" = "market";
 
 /* Price Alert Screen */
-"market" = "market";
+"Market" = "Market";
 
 /* No comment provided by engineer. */
 "Monthly\namount" = "Monthly\namount";
@@ -158,8 +133,7 @@
 /* Price Alert Screen */
 "New Price Alert" = "New Price Alert";
 
-/* No votes count title
-   Proposal Detail View */
+/* No votes count title */
 "No" = "No";
 
 /* No comment provided by engineer. */
@@ -183,9 +157,6 @@
 /* No comment provided by engineer. */
 "one-time payment" = "one-time payment";
 
-/* Proposal Detail View */
-"One-time payment" = "One-time payment";
-
 /* No comment provided by engineer. */
 "One-time\npayment" = "One-time\npayment";
 
@@ -195,7 +166,7 @@
 /* Price View Screen */
 "Over %@" = "Over %@";
 
-/* Proposal Detail View */
+/* No comment provided by engineer. */
 "Owner" = "Owner";
 
 /* Past proposals */
@@ -203,9 +174,6 @@
 
 /* No comment provided by engineer. */
 "Payment\nadded / end" = "Payment\nadded / end";
-
-/* No comment provided by engineer. */
-"per month" = "per month";
 
 /* Price Alert Screen */
 "Price" = "Price";
@@ -215,12 +183,6 @@
 
 /* Price Alert Screen */
 "PRICE ALERTS" = "PRICE ALERTS";
-
-/* Proposal Detail View */
-"PROPOSAL DESCRIPTION" = "PROPOSAL DESCRIPTION";
-
-/* Proposal Detail View */
-"PROPOSAL ID" = "PROPOSAL ID";
 
 /* No comment provided by engineer. */
 "Proposals" = "Proposals";
@@ -232,25 +194,10 @@
 "Search" = "Search";
 
 /* No comment provided by engineer. */
-"Search name or owner" = "Search name or owner";
-
-/* Budget view */
-"Superblock" = "Superblock";
-
-/* No comment provided by engineer. */
 "This address does not contain the required 1000 Dash" = "This address does not contain the required 1000 Dash";
-
-/* Proposal Detail View */
-"Title" = "Title";
 
 /* No comment provided by engineer. */
 "Total" = "Total";
-
-/* Budget view */
-"TOTAL" = "TOTAL";
-
-/* Proposal Detail View */
-"totalling in" = "totalling in";
 
 /* Price Alert Screen */
 "trigger type" = "trigger type";
@@ -258,17 +205,13 @@
 /* Price View Screen */
 "Under %@" = "Under %@";
 
-/* Proposal Detail View */
-"Votes Result" = "Votes Result";
-
 /* No comment provided by engineer. */
 "WiFi" = "WiFi";
 
 /* No comment provided by engineer. */
 "Will be\nfunded" = "Will be\nfunded";
 
-/* Proposal Detail View
-   Will be funded - yes
+/* Will be funded - yes
    Yes votes count title */
 "Yes" = "Yes";
 

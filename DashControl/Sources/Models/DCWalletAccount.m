@@ -12,6 +12,7 @@
 #import "BRKey.h"
 #import "DCWalletAddressEntity+CoreDataProperties.h"
 #import "DCWalletAccountEntity+CoreDataProperties.h"
+#import "DCCoreDataManager.h"
 
 #define SEQUENCE_GAP_LIMIT_EXTERNAL 10
 #define SEQUENCE_GAP_LIMIT_INTERNAL 5

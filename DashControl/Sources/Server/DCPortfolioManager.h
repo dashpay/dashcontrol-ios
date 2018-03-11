@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class DCPersistenceStack;
 @class HTTPLoaderManager;
+@class NSManagedObjectContext;
 
 @interface DCPortfolioManager : NSObject
 

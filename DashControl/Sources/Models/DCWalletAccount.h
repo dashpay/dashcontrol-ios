@@ -16,6 +16,7 @@ typedef NS_ENUM(uint32_t,WalletAccountState) {
 };
 
 @class DCWalletAccountEntity;
+@class NSManagedObjectContext;
 
 @interface DCWalletAccount : NSObject
 

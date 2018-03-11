@@ -15,6 +15,8 @@
 #import "PriceInfoTableViewCell.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "DCBackendManager.h"
+#import "DCMarketEntity+CoreDataClass.h"
+#import "DCExchangeEntity+CoreDataClass.h"
 
 @interface PriceAlertViewController ()
 

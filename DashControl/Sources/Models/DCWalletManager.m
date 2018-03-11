@@ -17,6 +17,8 @@
 #import "DCWalletAddressEntity+CoreDataClass.h"
 #import "DCEnvironment.h"
 #import "DCPersistenceStack.h"
+#import "DCCoreDataManager.h"
+#import "DCBackendManager.h"
 
 #define SERVER_BLOOM_FILTER_HASH   @"SERVER_BLOOM_FILTER_HASH"
 

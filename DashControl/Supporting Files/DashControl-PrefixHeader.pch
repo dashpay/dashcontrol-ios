@@ -22,24 +22,8 @@
 
 #define DASH_CONTROL_ERROR_DOMAIN @"com.dashfoundation.dash.Control"
 
-#import <UserNotifications/UserNotifications.h>
-#import <CoreSpotlight/CoreSpotlight.h>
-#import <MobileCoreServices/MobileCoreServices.h>
-
-//CSSearchableItem
-#define kDCCSSearchDomainIdentifierFeed @"org.dashfoundation.dash.Control.feed"
-
-//Pods
-#import <Reachability/Reachability.h>
-
-//CoreData
-#import <CoreData/CoreData.h>
-#import "DCChartDataEntryEntity+CoreDataClass.h"
-#import "DCBudgetEntity+CoreDataClass.h"
-#import "DCProposalEntity+CoreDataClass.h"
-#import "DCCommentEntity+CoreDataClass.h"
-#import "DCMarketEntity+CoreDataClass.h"
-#import "DCExchangeEntity+CoreDataClass.h"
+#import <Foundation/Foundation.h>
+#import <CoreGraphics/CGBase.h> // for CGFloat
 
 // DI
 @protocol DIInject;
@@ -48,11 +32,7 @@
 
 //Other
 #import "IntTypes.h"
-#import "DCBackendManager.h"
-#import "DCCoreDataManager.h"
-#import "DCProposalsManager.h"
 #import "NSArray+SWAdditions.h"
-
 #import "RunOnMain.h"
 #import "DCLogging.h"
 

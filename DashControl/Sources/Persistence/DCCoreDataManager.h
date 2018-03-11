@@ -7,11 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+
 #import "DCChartTimeFormatter.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class DCWalletEntity, DCWalletAccountEntity;
+@class DCMarketEntity;
+@class DCExchangeEntity;
 @class DCPersistenceStack;
 
 @interface DCCoreDataManager : NSObject
