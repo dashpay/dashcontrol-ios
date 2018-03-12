@@ -387,9 +387,9 @@
                     </tabBar>
                     <connections>
                         <segue destination="tis-BG-zsN" kind="relationship" relationship="viewControllers" id="gta-WD-7s9"/>
-                        <segue destination="820-gR-pAB" kind="relationship" relationship="viewControllers" id="tNi-bK-0j3"/>
-                        <segue destination="PaP-Cg-sTX" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                         <segue destination="joo-we-o14" kind="relationship" relationship="viewControllers" id="iEC-DF-qea"/>
+                        <segue destination="PaP-Cg-sTX" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="820-gR-pAB" kind="relationship" relationship="viewControllers" id="tNi-bK-0j3"/>
                         <segue destination="9q3-4j-0Xk" kind="relationship" relationship="viewControllers" id="16j-dY-s6D"/>
                     </connections>
                 </tabBarController>
