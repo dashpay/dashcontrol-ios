@@ -49,6 +49,7 @@
 		2A32D6392054800B004B38A6 /* ProposalDescriptionTemplate.html in Resources */ = {isa = PBXBuildFile; fileRef = 2A32D6382054800B004B38A6 /* ProposalDescriptionTemplate.html */; };
 		2A32D63C20557A48004B38A6 /* NSDate+DCAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A32D63B20557A48004B38A6 /* NSDate+DCAdditions.m */; };
 		2A32D64020558BB7004B38A6 /* ProposalDetailTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A32D63F20558BB7004B38A6 /* ProposalDetailTitleView.m */; };
+		2A32D6442056FBA7004B38A6 /* ChartViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A32D6432056FBA7004B38A6 /* ChartViewDataSource.m */; };
 		2A3F49A92049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49A32049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.m */; };
 		2A3F49AA2049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49A42049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataProperties.m */; };
 		2A3F49AB2049426F005EB5D9 /* DCBudgetInfoEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49A72049426F005EB5D9 /* DCBudgetInfoEntity+CoreDataClass.m */; };
@@ -289,6 +290,8 @@
 		2A32D63B20557A48004B38A6 /* NSDate+DCAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DCAdditions.m"; sourceTree = "<group>"; };
 		2A32D63E20558BB7004B38A6 /* ProposalDetailTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalDetailTitleView.h; sourceTree = "<group>"; };
 		2A32D63F20558BB7004B38A6 /* ProposalDetailTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailTitleView.m; sourceTree = "<group>"; };
+		2A32D6422056FBA7004B38A6 /* ChartViewDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartViewDataSource.h; sourceTree = "<group>"; };
+		2A32D6432056FBA7004B38A6 /* ChartViewDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartViewDataSource.m; sourceTree = "<group>"; };
 		2A3F49A12049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCBudgetProposalEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
 		2A3F49A22049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCBudgetProposalEntity+CoreDataClass.h"; sourceTree = "<group>"; };
 		2A3F49A32049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCBudgetProposalEntity+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -778,6 +781,8 @@
 				2A4473A620429CC400B52BCB /* ChartViewController.m */,
 				2A4473A82042B69D00B52BCB /* ChartViewModel.h */,
 				2A4473A92042B69D00B52BCB /* ChartViewModel.m */,
+				2A32D6422056FBA7004B38A6 /* ChartViewDataSource.h */,
+				2A32D6432056FBA7004B38A6 /* ChartViewDataSource.m */,
 			);
 			path = Price;
 			sourceTree = "<group>";
@@ -1852,6 +1857,7 @@
 				FB9CC1851F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataClass.m in Sources */,
 				2A3F49B8204C4341005EB5D9 /* FetchedResultsTableViewController.m in Sources */,
 				FB17AEE31FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m in Sources */,
+				2A32D6442056FBA7004B38A6 /* ChartViewDataSource.m in Sources */,
 				FB4F93BA1F82528F0078E259 /* PortfolioViewController.m in Sources */,
 				2A3F49CA204C8244005EB5D9 /* ProposalsViewController.m in Sources */,
 				2A289A4D203AB00700EDC98E /* DCSearchController.m in Sources */,

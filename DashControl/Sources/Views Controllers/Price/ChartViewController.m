@@ -19,12 +19,13 @@
 
 #import <Charts/Charts.h>
 
+#import "DCExchangeEntity+CoreDataClass.h"
+#import "DCMarketEntity+CoreDataClass.h"
 #import "UIFont+DCStyle.h"
+#import "ChartViewDataSource.h"
 #import "ChartViewModel.h"
 #import "DCChartTimeFormatter.h"
 #import "DCSegmentedControl.h"
-#import "DCExchangeEntity+CoreDataClass.h"
-#import "DCMarketEntity+CoreDataClass.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -114,8 +115,13 @@ NS_ASSUME_NONNULL_BEGIN
         self.timeFrameSegmentedControl.selectedIndex = value.unsignedIntegerValue;
     }];
 
-    [self mvvm_observe:@"viewModel.chartData" with:^(typeof(self) self, CombinedChartData * value) {
-        self.chartView.data = value;
+    [self mvvm_observe:@"viewModel.chartDataSource" with:^(typeof(self) self, ChartViewDataSource * value) {
+        self.chartView.data = value.chartData;
+        if (value) {
+            ChartYAxis *leftAxis = self.chartView.leftAxis;
+            leftAxis.axisMinimum = value.leftAxisMinimum;
+            leftAxis.axisMaximum = value.leftAxisMaximum;
+        }
         [self.chartView fitScreen];
     }];
 
@@ -176,24 +182,32 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.chartView.delegate = self;
     self.chartView.chartDescription.enabled = NO;
-    self.chartView.maxVisibleCount = 60;
-    self.chartView.pinchZoomEnabled = NO;
     self.chartView.drawGridBackgroundEnabled = NO;
+    self.chartView.drawBarShadowEnabled = NO;
+    self.chartView.highlightFullBarEnabled = NO;
+    self.chartView.drawOrder = @[
+        @(CombinedChartDrawOrderBar),
+        @(CombinedChartDrawOrderCandle),
+    ];
+    self.chartView.pinchZoomEnabled = NO;
     self.chartView.legend.enabled = NO;
 
-    ChartXAxis *xAxis = self.chartView.xAxis;
-    xAxis.labelPosition = XAxisLabelPositionBottom;
-    xAxis.drawGridLinesEnabled = NO;
-    xAxis.labelTextColor = [UIColor colorWithWhite:1.0 alpha:0.6];
+    ChartYAxis *rightAxis = self.chartView.rightAxis;
+    rightAxis.drawGridLinesEnabled = NO;
+    rightAxis.labelTextColor = [UIColor colorWithWhite:1.0 alpha:0.6];
+    rightAxis.axisMinimum = 0.0;
 
     ChartYAxis *leftAxis = self.chartView.leftAxis;
-    leftAxis.labelCount = 7;
     leftAxis.drawGridLinesEnabled = NO;
-    leftAxis.drawAxisLineEnabled = NO;
     leftAxis.labelTextColor = [UIColor colorWithWhite:1.0 alpha:0.6];
+    leftAxis.axisMinimum = 0.0;
 
-    ChartYAxis *rightAxis = self.chartView.rightAxis;
-    rightAxis.enabled = NO;
+    ChartXAxis *xAxis = self.chartView.xAxis;
+    xAxis.drawGridLinesEnabled = NO;
+    xAxis.labelTextColor = [UIColor colorWithWhite:1.0 alpha:0.6];
+    xAxis.axisMinimum = 0.0;
+    xAxis.labelPosition = XAxisLabelPositionBottom;
+    xAxis.granularity = 1.0;
 }
 
 @end

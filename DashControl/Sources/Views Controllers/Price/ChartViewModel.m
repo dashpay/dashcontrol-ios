@@ -17,13 +17,12 @@
 
 #import "ChartViewModel.h"
 
-#import <Charts/Charts.h>
-
 #import "DCChartDataEntryEntity+Extensions.h"
 #import "DCExchangeEntity+Extensions.h"
 #import "DCMarketEntity+Extensions.h"
 #import "NSManagedObject+DCExtensions.h"
 #import "APIPrice.h"
+#import "ChartViewDataSource.h"
 #import "DCPersistenceStack.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -48,7 +47,7 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 
 @property (nullable, strong, nonatomic) DCExchangeEntity *exchange;
 @property (nullable, strong, nonatomic) DCMarketEntity *market;
-@property (nullable, strong, nonatomic) CombinedChartData *chartData;
+@property (nullable, strong, nonatomic) ChartViewDataSource *chartDataSource;
 
 @end
 
@@ -91,7 +90,7 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 }
 
 - (ChartViewModelState)state {
-    if (self.chartData) {
+    if (self.chartDataSource) {
         return ChartViewModelState_Done;
     }
     else if (self.marketsState == ChartViewModelFetchState_Fetching || self.chartPrefetchState == ChartViewModelFetchState_Fetching) {
@@ -275,42 +274,12 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
                                                                                             startTime:startTime
                                                                                               endTime:nil
                                                                                             inContext:viewContext];
-    if (!items || items.count == 0) {
-        self.chartData = nil;
-
-        return;
+    if (items.count > 0) {
+        self.chartDataSource = [[ChartViewDataSource alloc] initWithItems:items timeInterval:self.timeInterval];
     }
-
-    NSMutableArray<CandleChartDataEntry *> *candleValues = [NSMutableArray array];
-
-    NSTimeInterval baseTime = items.firstObject.time.timeIntervalSince1970;
-    NSTimeInterval selectedTimeInterval = [DCChartTimeFormatter timeIntervalForChartTimeInterval:self.timeInterval];
-    for (DCChartDataEntryEntity *entity in items) {
-        NSInteger xIndex = (entity.time.timeIntervalSince1970 - baseTime) / selectedTimeInterval;
-        [candleValues addObject:[[CandleChartDataEntry alloc] initWithX:xIndex
-                                                                shadowH:entity.high
-                                                                shadowL:entity.low
-                                                                   open:entity.open
-                                                                  close:entity.close]];
+    else {
+        self.chartDataSource = nil;
     }
-
-    CandleChartDataSet *candleDataSet = [[CandleChartDataSet alloc] initWithValues:candleValues label:@"Candles"];
-    candleDataSet.axisDependency = AxisDependencyLeft;
-    [candleDataSet setColor:[UIColor whiteColor]];
-    candleDataSet.drawValuesEnabled = NO;
-    candleDataSet.shadowColor = [UIColor colorWithWhite:1.0 alpha:0.75];
-    candleDataSet.valueTextColor = [UIColor colorWithWhite:1.0 alpha:0.4];
-    candleDataSet.shadowWidth = 0.7;
-    candleDataSet.decreasingColor = [UIColor colorWithRed:255.0 / 255.0 green:37.0 / 255.0 blue:101.0 / 255.0 alpha:1.0];
-    candleDataSet.decreasingFilled = YES;
-    candleDataSet.increasingColor = [UIColor colorWithRed:140.0 / 255.0 green:203.0 / 255.f blue:0.0 / 255.f alpha:1.0];
-    candleDataSet.increasingFilled = YES;
-    candleDataSet.neutralColor = [UIColor whiteColor];
-
-    CombinedChartData *chartData = [[CombinedChartData alloc] init];
-    chartData.candleData = [[CandleChartData alloc] initWithDataSet:candleDataSet];
-    
-    self.chartData = chartData;
 }
 
 - (NSNumber *_Nullable)currentExchangeIdentifier {
