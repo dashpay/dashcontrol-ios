@@ -92,14 +92,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="295"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="30" translatesAutoresizingMaskIntoConstraints="NO" id="C5J-nd-mYZ" customClass="DCSegmentedControl">
+                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="800" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="30" translatesAutoresizingMaskIntoConstraints="NO" id="C5J-nd-mYZ" customClass="DCSegmentedControl">
                                 <rect key="frame" x="125" y="303" width="240" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="timeFrameValueChangedAction:" destination="lTd-NO-Fxm" eventType="valueChanged" id="NnL-JQ-xqo"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="30" translatesAutoresizingMaskIntoConstraints="NO" id="Xta-xv-g09" customClass="DCSegmentedControl">
+                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="800" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="30" translatesAutoresizingMaskIntoConstraints="NO" id="Xta-xv-g09" customClass="DCSegmentedControl">
                                 <rect key="frame" x="125" y="343" width="240" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
