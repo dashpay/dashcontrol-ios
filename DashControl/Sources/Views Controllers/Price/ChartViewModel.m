@@ -18,12 +18,15 @@
 #import "ChartViewModel.h"
 
 #import "DCChartDataEntryEntity+Extensions.h"
+#import "DCChartDataTimeIntervalEntity+Extensions.h"
 #import "DCExchangeEntity+Extensions.h"
 #import "DCMarketEntity+Extensions.h"
 #import "NSManagedObject+DCExtensions.h"
+#import "NSManagedObjectContext+DCExtensions.h"
 #import "APIPrice.h"
 #import "ChartViewDataSource.h"
 #import "DCPersistenceStack.h"
+#import "TimestampIntervalArray.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,6 +47,7 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 @property (assign, nonatomic) ChartTimeInterval timeInterval;
 @property (copy, nonatomic) NSArray<NSSortDescriptor *> *defaultSortDescriptors;
 @property (assign, nonatomic) BOOL shouldPerformFirstChartDataPrefetch; // controller is loaded, fresh data needed
+@property (strong, nonatomic) NSMutableArray<TimestampInterval *> *loadPendingIntervals;
 
 @property (nullable, strong, nonatomic) DCExchangeEntity *exchange;
 @property (nullable, strong, nonatomic) DCMarketEntity *market;
@@ -67,6 +71,8 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 - (instancetype)init {
     self = [super init];
     if (self) {
+        _loadPendingIntervals = [NSMutableArray array];
+
         if (self.currentExchangeIdentifier && self.currentMarketIdentifier) {
             NSInteger exchangeIdentifier = self.currentExchangeIdentifier.integerValue;
             NSInteger marketIdentifier = self.currentMarketIdentifier.integerValue;
@@ -217,46 +223,53 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 
 - (void)performFirstChartDataPrefetch {
     NSDate *start = [[NSDate date] dateByAddingTimeInterval:-[self defaultChartDataTimeInterval]];
-    [self fetchChartDataForStart:start end:nil completion:nil];
+    [self fetchChartDataForStartDate:start];
 }
 
 - (void)performChartDataFetch {
-    NSDate *intervalStart = [APIPrice intervalStartDateForExchangeName:self.exchange.name marketName:self.market.name];
-    NSDate *selectedStart = [NSDate dateWithTimeIntervalSinceNow:-[DCChartTimeFormatter timeIntervalForChartTimeFrame:self.timeFrame]];
-    if (!intervalStart || [intervalStart compare:selectedStart] == NSOrderedDescending) {
-        if (!intervalStart) {
-            intervalStart = [NSDate date];
-        }
-        NSDate *oneWeekBefore = [intervalStart dateByAddingTimeInterval:-[self defaultChartDataTimeInterval]];
-        NSDate *start = ([selectedStart compare:oneWeekBefore] == NSOrderedAscending) ? oneWeekBefore : selectedStart;
-        weakify;
-        [self fetchChartDataForStart:start end:nil completion:^(BOOL success) {
-            strongify;
-
-            if (success) {
-                [self performChartDataFetch];
-            }
-        }];
-    }
+    NSDate *start = [NSDate dateWithTimeIntervalSinceNow:-[DCChartTimeFormatter timeIntervalForChartTimeFrame:self.timeFrame]];
+    [self fetchChartDataForStartDate:start];
 }
 
-- (void)fetchChartDataForStart:(nullable NSDate *)start end:(nullable NSDate *)end completion:(void (^_Nullable)(BOOL success))completion {
+- (void)fetchChartDataForStartDate:(NSDate *)start {
+    NSMutableArray<TimestampInterval *> *intervals = [[self intervalsToLoadForExchange:self.exchange
+                                                                                market:self.market
+                                                                                 start:start] mutableCopy];
+    self.loadPendingIntervals = intervals;
+    [self fetchChartDataForPendingIntervals];
+}
+
+- (void)fetchChartDataForPendingIntervals {
+    NSAssert([NSThread isMainThread], nil);
+
+    if (self.loadPendingIntervals.count == 0) {
+        return;
+    }
+
     self.chartPrefetchState = ChartViewModelFetchState_Fetching;
+
+    TimestampInterval *interval = self.loadPendingIntervals.lastObject;
+    [self.loadPendingIntervals removeLastObject];
+    NSUInteger start = interval.start;
+    NSUInteger end = interval.end;
 
     weakify;
     [self.apiPrice fetchChartDataForExchange:self.exchange market:self.market start:start end:end completion:^(BOOL success) {
         strongify;
 
+        NSAssert([NSThread isMainThread], nil);
+
         if (success) {
+            [self updateChartDataTimeIntervalsForExchange:self.exchange market:self.market start:start end:end];
             [self reloadChartData];
             self.chartPrefetchState = ChartViewModelFetchState_Done;
+
+            // load next portion of data recursively
+            [self fetchChartDataForPendingIntervals];
         }
         else {
+            self.loadPendingIntervals = [NSMutableArray array];
             self.chartPrefetchState = ChartViewModelFetchState_Error;
-        }
-
-        if (completion) {
-            completion(success);
         }
     }];
 }
@@ -280,6 +293,85 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
     else {
         self.chartDataSource = nil;
     }
+}
+
+- (void)updateChartDataTimeIntervalsForExchange:(DCExchangeEntity *)exchange
+                                         market:(DCMarketEntity *)market
+                                          start:(NSUInteger)start
+                                            end:(NSUInteger)end {
+    NSInteger exchangeIdentifier = exchange.identifier;
+    NSInteger marketIdentifier = market.identifier;
+
+    NSPersistentContainer *container = self.stack.persistentContainer;
+    [container performBackgroundTask:^(NSManagedObjectContext *context) {
+        context.mergePolicy = NSOverwriteMergePolicy;
+
+        NSArray<DCChartDataTimeIntervalEntity *> *availableIntervals =
+            [DCChartDataTimeIntervalEntity timeIntervalsForExchangeIdentifier:exchangeIdentifier
+                                                             marketIdentifier:marketIdentifier
+                                                                    inContext:context];
+
+        NSMutableArray<TimestampInterval *> *inputIntervals = [NSMutableArray array];
+        for (DCChartDataTimeIntervalEntity *interval in availableIntervals) {
+            TimestampInterval *ti = [TimestampInterval start:interval.start end:interval.end];
+            [inputIntervals addObject:ti];
+        }
+        TimestampInterval *current = [TimestampInterval start:start end:end];
+        [inputIntervals addObject:current];
+
+        NSFetchRequest *fetchRequest = [DCChartDataTimeIntervalEntity fetchRequest];
+        fetchRequest.predicate = [DCChartDataTimeIntervalEntity predicateForExchangeIdentifier:exchangeIdentifier marketIdentifier:marketIdentifier];
+        NSBatchDeleteRequest *batchDeleteRequest = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
+        batchDeleteRequest.resultType = NSBatchDeleteResultTypeStatusOnly;
+        NSError *error = nil;
+        [context executeRequest:batchDeleteRequest error:&error];
+        if (error) {
+            NSAssert(NO, error.description);
+            DCDebugLog([self class], @"Failed to delete time intervals %@", error);
+        }
+
+        TimestampIntervalArray *intervalArray = [[TimestampIntervalArray alloc] initWithArray:inputIntervals];
+        NSArray<TimestampInterval *> *mergedIntervals = intervalArray.mergedOverlappingIntervals;
+
+        for (TimestampInterval *ti in mergedIntervals) {
+            DCChartDataTimeIntervalEntity *interval = [[DCChartDataTimeIntervalEntity alloc] initWithContext:context];
+            interval.exchangeIdentifier = exchangeIdentifier;
+            interval.marketIdentifier = marketIdentifier;
+            interval.start = ti.start;
+            interval.end = ti.end;
+        }
+
+        DCDebugLog([self class], @"Merged %@", mergedIntervals);
+
+        [context dc_saveIfNeeded];
+    }];
+}
+
+- (NSArray<TimestampInterval *> *)intervalsToLoadForExchange:(DCExchangeEntity *)exchange
+                                                      market:(DCMarketEntity *)market
+                                                       start:(NSDate *)start {
+    NSManagedObjectContext *viewContext = self.stack.persistentContainer.viewContext;
+    NSArray<DCChartDataTimeIntervalEntity *> *availableIntervals =
+        [DCChartDataTimeIntervalEntity timeIntervalsForExchangeIdentifier:exchange.identifier
+                                                         marketIdentifier:market.identifier
+                                                                inContext:viewContext];
+
+    NSMutableArray<TimestampInterval *> *inputIntervals = [NSMutableArray array];
+    for (DCChartDataTimeIntervalEntity *interval in availableIntervals) {
+        TimestampInterval *ti = [TimestampInterval start:interval.start end:interval.end];
+        [inputIntervals addObject:ti];
+    }
+    DCDebugLog([self class], @"Existing %@", inputIntervals);
+
+    TimestampIntervalArray *intervalArray = [[TimestampIntervalArray alloc] initWithArray:inputIntervals];
+
+    NSDate *end = [NSDate date]; // an end date is always 'now'
+    TimestampInterval *desired = [TimestampInterval startDate:start endDate:end];
+    NSUInteger allowedDistance = [self defaultChartDataTimeInterval];
+    NSArray<TimestampInterval *> *emptyGaps = [intervalArray findEmptyGapsDesiredInterval:desired
+                                                             maximumAllowedDistanceToJoin:allowedDistance];
+    DCDebugLog([self class], @"Empty %@", emptyGaps);
+    return emptyGaps;
 }
 
 - (NSNumber *_Nullable)currentExchangeIdentifier {

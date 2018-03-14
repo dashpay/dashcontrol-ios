@@ -19,11 +19,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+void DCLog_Impl(Class contextClass, NSString *formatString, va_list argList) {
+    NSString *logMessage = ([formatString isKindOfClass:[NSString class]]
+                            ? [[NSString alloc] initWithFormat:formatString arguments:argList]
+                            : [NSString stringWithFormat:@"%@", formatString]);
+    
+    NSLog(@"%@: %@", NSStringFromClass(contextClass), logMessage);
+}
+
+
 extern void DCDebugLog(Class contextClass, NSString *formatString, ...) {
 #ifdef DEBUG
     va_list args;
     va_start(args, formatString);
-    DCLog(contextClass, formatString, args);
+    DCLog_Impl(contextClass, formatString, args);
     va_end(args);
 #endif
 }
@@ -31,12 +40,8 @@ extern void DCDebugLog(Class contextClass, NSString *formatString, ...) {
 void DCLog(Class contextClass, NSString *formatString, ...) {
     va_list args;
     va_start(args, formatString);
-    NSString *logMessage = ([formatString isKindOfClass:[NSString class]]
-                                ? [[NSString alloc] initWithFormat:formatString arguments:args]
-                                : [NSString stringWithFormat:@"%@", formatString]);
+    DCLog_Impl(contextClass, formatString, args);
     va_end(args);
-
-    NSLog(@"%@: %@", NSStringFromClass(contextClass), logMessage);
 }
 
 NS_ASSUME_NONNULL_END

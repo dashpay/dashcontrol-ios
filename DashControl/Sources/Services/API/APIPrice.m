@@ -23,7 +23,6 @@
 #import "NSManagedObjectContext+DCExtensions.h"
 #import "DCPersistenceStack.h"
 #import "Networking.h"
-#import "Pair.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -157,8 +156,8 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
 
 - (id<HTTPLoaderOperationProtocol>)fetchChartDataForExchange:(DCExchangeEntity *)exchange
                                                       market:(DCMarketEntity *)market
-                                                       start:(nullable NSDate *)start
-                                                         end:(nullable NSDate *)end
+                                                       start:(NSUInteger)start
+                                                         end:(NSUInteger)end
                                                   completion:(void (^)(BOOL success))completion {
     NSParameterAssert(exchange);
     NSParameterAssert(market);
@@ -174,86 +173,61 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"market"] = marketName;
     parameters[@"exchange"] = exchangeName;
+    parameters[@"start"] = [NSString stringWithFormat:@"%lu", start];
+    parameters[@"end"] = [NSString stringWithFormat:@"%lu", end];
 #ifdef DEBUG
     parameters[@"noLimit"] = @"1";
 #endif
 
-    NSDate *intervalStart = [[self class] intervalStartDateForExchangeName:exchangeName marketName:marketName];
-    NSDate *intervalEnd = [[self class] intervalEndDateForExchangeName:exchangeName marketName:marketName];
-    Pair<Pair<NSDate *> *> *dateData = [[self class] parametersAndKnownDatesForStart:start
-                                                                                 end:end
-                                                                       intervalStart:intervalStart
-                                                                         intervalEnd:intervalEnd];
-    NSDate *realStart = dateData.first.first;
-    NSDate *realEnd = dateData.first.second;
-    NSDate *knownDataStart = dateData.second.first;
-    NSDate *knownDataEnd = dateData.second.second;
-
-    if (realEnd) {
-        parameters[@"end"] = [NSString stringWithFormat:@"%.0f", [realEnd timeIntervalSince1970]];
-    }
-    if (realStart) {
-        parameters[@"start"] = [NSString stringWithFormat:@"%.0f", [realStart timeIntervalSince1970]];
-    }
+#ifdef DEBUG
+    DCDebugLog([self class], @"REQ date [ %@ -- %@ ]",
+               [NSDateFormatter localizedStringFromDate:[NSDate dateWithTimeIntervalSince1970:start]
+                                              dateStyle:NSDateFormatterShortStyle
+                                              timeStyle:NSDateFormatterShortStyle],
+               [NSDateFormatter localizedStringFromDate:[NSDate dateWithTimeIntervalSince1970:end]
+                                              dateStyle:NSDateFormatterShortStyle
+                                              timeStyle:NSDateFormatterShortStyle]);
+#endif
 
     HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:parameters];
     request.jsonReadingOptions = NSJSONReadingMutableContainers;
     return [self.httpManager sendRequest:request completion:^(id _Nullable parsedData, NSDictionary *_Nullable responseHeaders, NSInteger statusCode, NSError *_Nullable error) {
         if (error) {
             if (completion) {
-                completion(error == nil);
+                completion(NO);
             }
         }
         else {
+#ifdef DEBUG
+            if (((NSArray *)parsedData).count > 0) {
+                DCDebugLog([self class], @"RCV data [ %@ -- %@ ]",
+                           [NSDateFormatter localizedStringFromDate:[self.dateFormatter dateFromString:((NSArray *)parsedData).firstObject[@"time"]]
+                                                          dateStyle:NSDateFormatterShortStyle
+                                                          timeStyle:NSDateFormatterShortStyle],
+                           [NSDateFormatter localizedStringFromDate:[self.dateFormatter dateFromString:((NSArray *)parsedData).lastObject[@"time"]]
+                                                          dateStyle:NSDateFormatterShortStyle
+                                                          timeStyle:NSDateFormatterShortStyle]);
+            }
+            else {
+                DCDebugLog([self class], @"RCV empty response");
+            }
+#endif
+
             if (![parsedData isKindOfClass:[NSArray class]] || ((NSArray *)parsedData).count == 0) {
                 if (completion) {
-                    completion(NO);
+                    completion(YES);
                 }
 
                 return;
             }
 
             [self importJSONArray:parsedData exchangeIdentifier:exchangeIdentifier marketIdentifier:marketIdentifier completion:^void(BOOL success) {
-                if (success) {
-                    NSDate *intervalStartDate = [[self class] intervalStartDateForExchangeName:exchangeName marketName:marketName];
-                    NSDate *intervalEndDate = [[self class] intervalEndDateForExchangeName:exchangeName marketName:marketName];
-
-                    if (!intervalEndDate || (intervalEndDate && ([knownDataEnd compare:intervalEndDate] != NSOrderedSame))) {
-                        NSString *intervalEndKey = [[self class] chartDataIntervalEndKeyForExchangeName:exchangeName marketName:marketName];
-                        [[NSUserDefaults standardUserDefaults] setObject:knownDataEnd forKey:intervalEndKey];
-                    }
-                    if (!intervalStartDate || (intervalStartDate && ([knownDataStart compare:intervalStartDate] != NSOrderedSame))) {
-                        NSString *intervalStartKey = [[self class] chartDataIntervalStartKeyForExchangeName:exchangeName marketName:marketName];
-                        [[NSUserDefaults standardUserDefaults] setObject:knownDataStart forKey:intervalStartKey];
-                    }
-                }
-
                 if (completion) {
                     completion(success);
                 }
             }];
         }
     }];
-}
-
-+ (nullable NSDate *)intervalStartDateForExchangeName:(NSString *)exchangeName marketName:(NSString *)marketName {
-    NSString *chatDataIntervalStartKey = [self chartDataIntervalStartKeyForExchangeName:exchangeName marketName:marketName];
-    if (chatDataIntervalStartKey) {
-        return [[NSUserDefaults standardUserDefaults] objectForKey:chatDataIntervalStartKey];
-    }
-    else {
-        return nil;
-    }
-}
-
-+ (nullable NSDate *)intervalEndDateForExchangeName:(NSString *)exchangeName marketName:(NSString *)marketName {
-    NSString *chatDataIntervalEndKey = [self chartDataIntervalEndKeyForExchangeName:exchangeName marketName:marketName];
-    if (chatDataIntervalEndKey) {
-        return [[NSUserDefaults standardUserDefaults] objectForKey:chatDataIntervalEndKey];
-    }
-    else {
-        return nil;
-    }
 }
 
 #pragma mark - Private
@@ -413,72 +387,6 @@ static NSMutableDictionary *DictionaryFromChartDataEntryEntity(DCChartDataEntryE
             completion(success);
         });
     }];
-}
-
-+ (NSString *)chartDataIntervalStartKeyForExchangeName:(NSString *)exchangeName marketName:(NSString *)marketName {
-    return [[exchangeName stringByAppendingString:marketName] stringByAppendingString:@"chartDataIntervalStart"];
-}
-
-+ (NSString *)chartDataIntervalEndKeyForExchangeName:(NSString *)exchangeName marketName:(NSString *)marketName {
-    return [[exchangeName stringByAppendingString:marketName] stringByAppendingString:@"chartDataIntervalEnd"];
-}
-
-+ (Pair<Pair<NSDate *> *> *)parametersAndKnownDatesForStart:(nullable NSDate *)start
-                                                        end:(nullable NSDate *)end
-                                              intervalStart:(nullable NSDate *)intervalStart
-                                                intervalEnd:(nullable NSDate *)intervalEnd {
-    NSAssert(start || end, @"You can not supply both start and end");
-
-    NSDate *realStart = nil;
-    NSDate *realEnd = nil;
-    NSDate *knownDataStart = nil;
-    NSDate *knownDataEnd = nil;
-    if (start) {
-        // if start is set it must be before interval start if there's an interval start otherwise set it to the end of the interval
-        if (!intervalStart) {
-            realStart = start; // no interval yet
-            knownDataStart = start;
-        }
-        else if ([start compare:intervalStart] != NSOrderedAscending) {
-            realStart = intervalEnd; // after the interval
-            knownDataStart = intervalStart;
-        }
-        else {
-            realStart = start;
-            knownDataStart = start;
-            realEnd = intervalStart;
-            knownDataEnd = intervalEnd;
-        }
-    }
-    else if (end) {
-        // if there is an end it must be after the interval end if there's an interval end otherwise set it to the start of the interval
-        if (!intervalEnd) {
-            realEnd = end;
-            knownDataEnd = end;
-        }
-        else if ([end compare:intervalEnd] != NSOrderedDescending) {
-            realEnd = intervalStart; // before the interval
-            knownDataEnd = intervalEnd;
-        }
-        else {
-            realEnd = end; // after the interval
-            knownDataEnd = end;
-            realStart = intervalEnd;
-            knownDataStart = intervalStart;
-        }
-    }
-
-    if (!realEnd) {
-        knownDataEnd = [NSDate date];
-    }
-    if (!realStart) {
-        knownDataStart = [NSDate distantPast];
-    }
-
-    Pair *parametersPair = [Pair first:realStart second:realEnd];
-    Pair *knownDataPair = [Pair first:knownDataStart second:knownDataEnd];
-
-    return [Pair first:parametersPair second:knownDataPair];
 }
 
 @end

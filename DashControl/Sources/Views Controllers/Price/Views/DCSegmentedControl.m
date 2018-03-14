@@ -142,6 +142,10 @@ static CGFloat const PADDING() {
     NSUInteger index = [self.labels indexOfObject:subview];
     NSAssert(index != NSNotFound, @"Internal inconsistency");
     
+    if (self.selectedIndex == index) {
+        return;
+    }
+    
     self.selectedIndex = index;
     
     [self sendActionsForControlEvents:UIControlEventValueChanged];

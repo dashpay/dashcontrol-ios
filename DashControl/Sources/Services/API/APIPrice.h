@@ -30,15 +30,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 @property (strong, nonatomic) InjectedClass(HTTPLoaderManager) httpManager;
 
-- (id<HTTPLoaderOperationProtocol>)fetchMarketsCompletion:(void (^)(NSError * _Nullable error, NSInteger defaultExchangeIdentifier, NSInteger defaultMarketIdentifier))completion;
+- (id<HTTPLoaderOperationProtocol>)fetchMarketsCompletion:(void (^)(NSError *_Nullable error, NSInteger defaultExchangeIdentifier, NSInteger defaultMarketIdentifier))completion;
 - (id<HTTPLoaderOperationProtocol>)fetchChartDataForExchange:(DCExchangeEntity *)exchange
                                                       market:(DCMarketEntity *)market
-                                                       start:(nullable NSDate *)start
-                                                         end:(nullable NSDate *)end
+                                                       start:(NSUInteger)start
+                                                         end:(NSUInteger)end
                                                   completion:(void (^)(BOOL success))completion;
-
-+ (nullable NSDate *)intervalStartDateForExchangeName:(NSString *)exchangeName marketName:(NSString *)marketName;
-+ (nullable NSDate *)intervalEndDateForExchangeName:(NSString *)exchangeName marketName:(NSString *)marketName;
 
 @end
 
