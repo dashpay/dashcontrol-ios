@@ -36,6 +36,11 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
 
 #define KEY_NAME @"name"
 
+static NSTimeInterval const RATELIMIT_WINDOW = 60.0;
+static NSUInteger const RATELIMIT_DELAYAFTER = 2;
+static NSTimeInterval const RATELIMIT_DELAY = 1.0;
+static NSUInteger const RATELIMIT_MAXIMUM = 0;
+
 @interface APIPrice ()
 
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
@@ -51,6 +56,14 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
         _dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
         _dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
         _dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+        
+        HTTPRateLimiter *rateLimiter = [[HTTPRateLimiter alloc] initWithWindow:RATELIMIT_WINDOW
+                                                                    delayAfter:RATELIMIT_DELAYAFTER
+                                                                         delay:RATELIMIT_DELAY
+                                                                       maximum:RATELIMIT_MAXIMUM];
+        NSString *urlString = [API_BASE_URL stringByAppendingString:@"chart_data"];
+        NSURL *url = [NSURL URLWithString:urlString];
+        [self.httpService.rateLimiterMap setRateLimiter:rateLimiter forURL:url];
     }
     return self;
 }
@@ -175,9 +188,10 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
     parameters[@"exchange"] = exchangeName;
     parameters[@"start"] = [NSString stringWithFormat:@"%lu", start];
     parameters[@"end"] = [NSString stringWithFormat:@"%lu", end];
-#ifdef DEBUG
-    parameters[@"noLimit"] = @"1";
-#endif
+    // to debug without rate-limits uncomment code below:
+//#ifdef DEBUG
+//    parameters[@"noLimit"] = @"1";
+//#endif
 
 #ifdef DEBUG
     DCDebugLog([self class], @"REQ date [ %@ -- %@ ]",

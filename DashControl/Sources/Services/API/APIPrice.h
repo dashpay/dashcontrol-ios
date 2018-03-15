@@ -23,12 +23,14 @@ NS_ASSUME_NONNULL_BEGIN
 @class DCPersistenceStack;
 @class DCExchangeEntity;
 @class DCMarketEntity;
+@class HTTPService;
 @protocol HTTPLoaderOperationProtocol;
 
 @interface APIPrice : NSObject
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 @property (strong, nonatomic) InjectedClass(HTTPLoaderManager) httpManager;
+@property (strong, nonatomic) InjectedClass(HTTPService) httpService;
 
 - (id<HTTPLoaderOperationProtocol>)fetchMarketsCompletion:(void (^)(NSError *_Nullable error, NSInteger defaultExchangeIdentifier, NSInteger defaultMarketIdentifier))completion;
 - (id<HTTPLoaderOperationProtocol>)fetchChartDataForExchange:(DCExchangeEntity *)exchange
