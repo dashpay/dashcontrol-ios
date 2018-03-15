@@ -39,6 +39,7 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 
 @interface ChartViewModel ()
 
+@property (assign, nonatomic) ChartViewModelState state;
 @property (assign, nonatomic) ChartViewModelFetchState marketsState;
 @property (assign, nonatomic) ChartViewModelFetchState chartPrefetchState;
 @property (nullable, strong, nonatomic) NSNumber *currentExchangeIdentifier;
@@ -56,17 +57,6 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 @end
 
 @implementation ChartViewModel
-
-+ (NSSet<NSString *> *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
-    NSSet *keyPaths = @{
-        @"state" : [NSSet setWithArray:@[
-            @"marketsState",
-            @"chartPrefetchState",
-            @"chartData",
-        ]],
-    }[key];
-    return keyPaths ?: [super keyPathsForValuesAffectingValueForKey:key];
-}
 
 - (instancetype)init {
     self = [super init];
@@ -93,18 +83,6 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
         _defaultSortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
     }
     return self;
-}
-
-- (ChartViewModelState)state {
-    if (self.chartDataSource) {
-        return ChartViewModelState_Done;
-    }
-    else if (self.marketsState == ChartViewModelFetchState_Fetching || self.chartPrefetchState == ChartViewModelFetchState_Fetching) {
-        return ChartViewModelState_Loading;
-    }
-    else {
-        return ChartViewModelState_Done;
-    }
 }
 
 - (void)setExchange:(nullable DCExchangeEntity *)exchange {
@@ -189,6 +167,33 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 
 #pragma mark - Private
 
+- (void)setMarketsState:(ChartViewModelFetchState)marketsState {
+    _marketsState = marketsState;
+    [self updateState];
+}
+
+- (void)setChartPrefetchState:(ChartViewModelFetchState)chartPrefetchState {
+    _chartPrefetchState = chartPrefetchState;
+    [self updateState];
+}
+
+- (void)setChartDataSource:(nullable ChartViewDataSource *)chartDataSource {
+    _chartDataSource = chartDataSource;
+    [self updateState];
+}
+
+- (void)updateState {
+    if (self.chartDataSource) {
+        self.state = ChartViewModelState_Done;
+    }
+    else if (self.marketsState == ChartViewModelFetchState_Fetching || self.chartPrefetchState == ChartViewModelFetchState_Fetching) {
+        self.state = ChartViewModelState_Loading;
+    }
+    else {
+        self.state = ChartViewModelState_Done;
+    }
+}
+
 - (void)performMarketsFetch {
     self.marketsState = ChartViewModelFetchState_Fetching;
     weakify;
@@ -227,7 +232,9 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 }
 
 - (void)performChartDataFetch {
-    NSDate *start = [NSDate dateWithTimeIntervalSinceNow:-[DCChartTimeFormatter timeIntervalForChartTimeFrame:self.timeFrame]];
+    NSDate *selectedStart = [NSDate dateWithTimeIntervalSinceNow:-[DCChartTimeFormatter timeIntervalForChartTimeFrame:self.timeFrame]];
+    NSDate *oneWeekBefore = [[NSDate date] dateByAddingTimeInterval:-[self defaultChartDataTimeInterval]];
+    NSDate *start = ([oneWeekBefore compare:selectedStart] == NSOrderedAscending) ? oneWeekBefore : selectedStart;
     [self fetchChartDataForStartDate:start];
 }
 
@@ -341,7 +348,7 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
             interval.end = ti.end;
         }
 
-        DCDebugLog([self class], @"Merged %@", mergedIntervals);
+        DCDebugLog([self class], @"Merged intervals %@", mergedIntervals);
 
         [context dc_saveIfNeeded];
     }];
@@ -361,7 +368,7 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
         TimestampInterval *ti = [TimestampInterval start:interval.start end:interval.end];
         [inputIntervals addObject:ti];
     }
-    DCDebugLog([self class], @"Existing %@", inputIntervals);
+    DCDebugLog([self class], @"Existing intervals %@", inputIntervals);
 
     TimestampIntervalArray *intervalArray = [[TimestampIntervalArray alloc] initWithArray:inputIntervals];
 
@@ -370,8 +377,25 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
     NSUInteger allowedDistance = [self defaultChartDataTimeInterval];
     NSArray<TimestampInterval *> *emptyGaps = [intervalArray findEmptyGapsDesiredInterval:desired
                                                              maximumAllowedDistanceToJoin:allowedDistance];
-    DCDebugLog([self class], @"Empty %@", emptyGaps);
-    return emptyGaps;
+    
+    NSUInteger maxIntervalLength = (NSUInteger)[self defaultChartDataTimeInterval];
+    const NSUInteger minIntervalLength = 60; // 1 min
+    NSMutableArray<TimestampInterval *> *splittedEmptyGaps = [NSMutableArray array];
+    for (TimestampInterval *interval in emptyGaps) {
+        // case with intervals where interval.start == interval.end intentionally ignored
+        NSUInteger start = interval.start;
+        while (start < interval.end) {
+            TimestampInterval *ti = [TimestampInterval start:start end:MIN(start + maxIntervalLength, interval.end)];
+            if (ti.end - ti.start > minIntervalLength) {
+                [splittedEmptyGaps addObject:ti];
+            }
+            start = ti.end;
+        }
+    }
+    
+    DCDebugLog([self class], @"Gaps to load %@", splittedEmptyGaps);
+    
+    return [splittedEmptyGaps copy];
 }
 
 - (NSNumber *_Nullable)currentExchangeIdentifier {

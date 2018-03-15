@@ -191,6 +191,8 @@ NS_ASSUME_NONNULL_BEGIN
     ];
     self.chartView.pinchZoomEnabled = NO;
     self.chartView.legend.enabled = NO;
+    self.chartView.noDataTextColor = [UIColor colorWithWhite:1.0 alpha:0.6];
+    self.chartView.noDataFont = [UIFont dc_montserratRegularFontOfSize:12.0];
 
     ChartYAxis *rightAxis = self.chartView.rightAxis;
     rightAxis.drawGridLinesEnabled = NO;
