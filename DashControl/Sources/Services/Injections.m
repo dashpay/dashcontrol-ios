@@ -21,6 +21,7 @@
 
 #import <DeluxeInjection/DeluxeInjection.h>
 
+#import "APIBudget.h"
 #import "APINews.h"
 #import "APIPrice.h"
 #import "ChartViewModel.h"
@@ -58,6 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 
         [[[lets inject] byPropertyClass:[APINews class]] getterValueLazyByClass:[APINews class]];
         [[[lets inject] byPropertyClass:[APIPrice class]] getterValueLazyByClass:[APIPrice class]];
+        [[[lets inject] byPropertyClass:[APIBudget class]] getterValueLazyByClass:[APIBudget class]];
 
         // temporary injections, will be satisfied when CoreData stack get initialized
         id nilValue = nil;
@@ -68,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)activateCoreDataDependentInjections {
     [DeluxeInjection imperative:^(DIImperative *lets) {
         [lets skipAsserts];
-        
+
         [[[lets inject] byPropertyClass:[ChartViewModel class]] getterValue:[[ChartViewModel alloc] init]];
     }];
 }

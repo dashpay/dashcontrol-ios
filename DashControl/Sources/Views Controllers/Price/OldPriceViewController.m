@@ -16,6 +16,8 @@
 #import "DCTriggerEntity+CoreDataProperties.h"
 #import "DCExchangeEntity+CoreDataProperties.h"
 #import "DCMarketEntity+CoreDataProperties.h"
+#import "DCTrigger.h"
+#import "DCBackendManager.h"
 
 @interface OldPriceViewController ()
 

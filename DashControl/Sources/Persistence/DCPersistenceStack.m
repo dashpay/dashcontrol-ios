@@ -70,12 +70,9 @@ static NSURL *StoreURL() {
 #pragma mark Private
 
 - (void)loadStack:(void (^_Nullable)(DCPersistenceStack *stack))completion cleanStart:(BOOL)cleanStart {
-    __weak typeof(self) weakSelf = self;
+    weakify;
     [self.persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *storeDescription, NSError *_Nullable error) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        if (!strongSelf) {
-            return;
-        }
+        strongify;
 
         if (error != nil) {
             DCDebugLog([self class], error);
@@ -101,19 +98,19 @@ static NSURL *StoreURL() {
             // remove existing database
             NSManagedObjectModel *mom = [NSManagedObjectModel mergedModelFromBundles:nil];
             NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
-            [psc destroyPersistentStoreAtURL:strongSelf.storeURL withType:NSSQLiteStoreType options:nil error:nil];
+            [psc destroyPersistentStoreAtURL:self.storeURL withType:NSSQLiteStoreType options:nil error:nil];
 
             // try again
-            [strongSelf loadStack:completion cleanStart:YES];
+            [self loadStack:completion cleanStart:YES];
         }
         else {
-            strongSelf.persistentContainer.viewContext.undoManager = nil;
-            strongSelf.persistentContainer.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-            strongSelf.persistentContainer.viewContext.automaticallyMergesChangesFromParent = YES;
+            self.persistentContainer.viewContext.undoManager = nil;
+            self.persistentContainer.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+            self.persistentContainer.viewContext.automaticallyMergesChangesFromParent = YES;
 
             if (completion) {
                 RunOnMainThread(^{
-                    completion(strongSelf);
+                    completion(self);
                 });
             }
         }

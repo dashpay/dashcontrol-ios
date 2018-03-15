@@ -8,6 +8,7 @@
 
 #import "DCBackendManager.h"
 
+#import <Reachability/Reachability.h>
 #import "DCMarketEntity+CoreDataClass.h"
 #import "DCExchangeEntity+CoreDataClass.h"
 #import "DCChartTimeFormatter.h"
@@ -16,6 +17,7 @@
 #import "DCEnvironment.h"
 #import "Networking.h"
 #import "DCPersistenceStack.h"
+#import "DCCoreDataManager.h"
 
 #define DASHCONTROL_SERVER_VERSION 0
 

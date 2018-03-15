@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation UIColor (DCStyle)
 
 + (UIColor *)dc_barTintColor {
-    return [UIColor colorWithRed:0.0 green:125.0 / 255.0 blue:225.0 / 255.0 alpha:1.0];
+    return [UIColor colorWithRed:0.0 green:113.0 / 255.0 blue:190.0 / 255.0 alpha:1.0];
 }
 
 + (UIColor *)dc_darkBlueColor {

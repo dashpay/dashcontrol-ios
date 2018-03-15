@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class HTTPLoaderManager;
 @class DCPersistenceStack;
+@class DCExchangeEntity;
+@class DCMarketEntity;
 @protocol HTTPLoaderOperationProtocol;
 
 @interface APIPrice : NSObject

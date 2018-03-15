@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const NEWS_FIRST_CELL_ID = @"NewsFirstTableViewCell";
 static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 
-@interface NewsViewController () <DCSearchControllerDelegate, DCSearchResultsUpdating, SFSafariViewControllerDelegate>
+@interface NewsViewController () <DCSearchControllerDelegate, DCSearchResultsUpdating>
 
 @property (strong, nonatomic) NewsViewModel *viewModel;
 
@@ -48,7 +48,6 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.viewModel.fetchedResultsController.delegate = self;
     [self reload];
 
     NewsSearchResultsController *searchResultsController = [[NewsSearchResultsController alloc] init];
@@ -58,6 +57,19 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     self.searchController.delegate = self;
     self.searchController.searchResultsUpdater = self;
     self.definesPresentationContext = YES;
+    
+    // KVO
+    
+    [self mvvm_observe:@"viewModel.fetchedResultsController" with:^(typeof(self) self, id value) {
+        self.viewModel.fetchedResultsController.delegate = self;
+        [self.tableView reloadData];
+    }];
+    
+    [self mvvm_observe:@"viewModel.searchFetchedResultsController" with:^(typeof(self) self, id value){
+        NewsSearchResultsController *searchResultsController = (NewsSearchResultsController *)self.searchController.searchResultsController;
+        [searchResultsController.tableView reloadData];
+        self.viewModel.searchFetchedResultsController.delegate = searchResultsController;
+    }];
 }
 
 - (NewsViewModel *)viewModel {
@@ -75,11 +87,11 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 
 - (IBAction)searchBarButtonItemAction:(UIBarButtonItem *)sender {
     self.navigationItem.rightBarButtonItem = nil;
-    
+
     DCSearchBar *searchBar = self.searchController.searchBar;
     self.navigationItem.titleView = searchBar;
     [searchBar showAnimatedCompletion:nil];
-    
+
     self.searchController.active = YES;
     [searchBar becomeFirstResponder];
 }
@@ -149,7 +161,6 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
         return;
     }
     SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
-    safariViewController.delegate = self;
     safariViewController.preferredBarTintColor = [UIColor dc_barTintColor];
     safariViewController.preferredControlTintColor = [UIColor whiteColor];
     [self showDetailViewController:safariViewController sender:self];
@@ -210,12 +221,6 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     [self performSelector:@selector(performSearch) withObject:nil afterDelay:delay];
 }
 
-#pragma mark SFSafariViewControllerDelegate
-
-- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
-    [controller dismissViewControllerAnimated:YES completion:nil];
-}
-
 #pragma mark Private
 
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView {
@@ -224,13 +229,7 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 
 - (void)performSearch {
     NSString *query = self.searchController.searchBar.text;
-    BOOL result = [self.viewModel searchWithQuery:query];
-    if (!result) {
-        return; // nothing changed
-    }
-
-    NewsSearchResultsController *searchResultsController = (NewsSearchResultsController *)self.searchController.searchResultsController;
-    [searchResultsController.tableView reloadData];
+    [self.viewModel searchWithQuery:query];
 }
 
 - (BOOL)isLoadMoreIndexPath:(NSIndexPath *)indexPath {
@@ -254,12 +253,9 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
         [self.tableView.refreshControl beginRefreshing];
     }
 
-    __weak typeof(self) weakSelf = self;
-    [self.viewModel reloadWithCompletion:^(NewsViewModelState state) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        if (!strongSelf) {
-            return;
-        }
+    weakify;
+    [self.viewModel reloadWithCompletion:^(BOOL success) {
+        strongify;
 
         [self.tableView.refreshControl endRefreshing];
     }];

@@ -9,7 +9,7 @@ def app_pods
     pod 'FTPopOverMenu', '1.3.4'
     pod 'MBProgressHUD', '1.1.0'
     pod 'DeluxeInjection', '0.8.4'
-    pod 'KVO-MVVM', '0.5.0'
+    pod 'KVO-MVVM', '0.5.1'
 end
 
 target 'DashControl' do

@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
     return _fetchedResultsController;
 }
 
-- (NSFetchedResultsController<DCNewsPostEntity *> *_Nullable)searchFetchedResultsController {
+- (NSFetchedResultsController<DCNewsPostEntity *> *)searchFetchedResultsController {
     if (!_searchFetchedResultsController) {
         NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
         _searchFetchedResultsController = [[self class] fetchedResultsControllerWithPredicate:self.searchPredicate
@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
     return _searchFetchedResultsController;
 }
 
-- (void)reloadWithCompletion:(void (^)(NewsViewModelState state))completion {
+- (void)reloadWithCompletion:(void (^)(BOOL success))completion {
     self.canLoadMore = YES;
     self.currentPage = 1;
     [self fetchPage:self.currentPage completion:completion];
@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self fetchPage:self.currentPage completion:nil];
 }
 
-- (BOOL)searchWithQuery:(NSString *)query {
+- (void)searchWithQuery:(NSString *)query {
     NSString *trimmedQuery = [query stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSPredicate *predicate = nil;
     if (trimmedQuery.length > 0) {
@@ -103,36 +103,31 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     if ([predicate isEqual:self.searchFetchedResultsController.fetchRequest.predicate]) {
-        return NO;
+        return;
     }
-
-    self.searchFetchedResultsController.delegate = nil;
-    self.searchFetchedResultsController = nil;
 
     self.searchPredicate = predicate;
 
-    return YES;
+    self.searchFetchedResultsController.delegate = nil;
+    self.searchFetchedResultsController = nil;
 }
 
 #pragma mark Private
 
-- (void)fetchPage:(NSInteger)page completion:(void (^_Nullable)(NewsViewModelState state))completion {
+- (void)fetchPage:(NSInteger)page completion:(void (^_Nullable)(BOOL success))completion {
     if (self.request) {
         [self.request cancel];
     }
 
-    __weak typeof(self) weakSelf = self;
+    weakify;
     self.request = [self.api fetchNewsForPage:page completion:^(BOOL success, BOOL isLastPage) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        if (!strongSelf) {
-            return;
-        }
+        strongify;
 
-        strongSelf.canLoadMore = !isLastPage;
-        strongSelf.loadingNextPage = NO;
+        self.canLoadMore = !isLastPage;
+        self.loadingNextPage = NO;
 
         if (completion) {
-            completion(success ? NewsViewModelState_Success : NewsViewModelState_Failed);
+            completion(success);
         }
     }];
 }

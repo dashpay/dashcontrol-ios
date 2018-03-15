@@ -7,6 +7,8 @@
 
 #import "NSArray+SWAdditions.h"
 
+#import <CoreData/CoreData.h>
+
 @implementation NSArray (SWAdditions)
 
 

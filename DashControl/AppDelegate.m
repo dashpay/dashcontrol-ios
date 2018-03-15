@@ -8,7 +8,9 @@
 
 #import "AppDelegate.h"
 
-#import "ProposalsViewController.h"
+#import <UserNotifications/UserNotifications.h>
+#import <CoreSpotlight/CoreSpotlight.h>
+
 #import "DCPortfolioManager.h"
 #import "DCCoreDataManager.h"
 #import "DCWalletManager.h"
@@ -21,7 +23,7 @@
 #define kProposalsViewControllerIndex 2
 
 
-@interface AppDelegate ()
+@interface AppDelegate () <UNUserNotificationCenterDelegate>
 
 @end
 
@@ -62,9 +64,6 @@
     
     //Init the Price Data Manager
     [DCBackendManager sharedInstance];
-    
-    //Init the Proposals Manager
-    [DCProposalsManager sharedManager];
     
     //Init the Core Data Manager
     [DCCoreDataManager sharedInstance];
@@ -127,10 +126,12 @@
         
         wasHandled = YES;
         
+        // TODO: rewrite core spotlight support
+        
         NSArray *identifierComponents = [activityIdentifier componentsSeparatedByString:@"/"];
         if ([identifierComponents.firstObject isEqualToString:@"post"]) {
 
-            // TODO: rewrite core spotlight support
+            
 //            activityIdentifier = [activityIdentifier stringByReplacingOccurrencesOfString:@"post/" withString:@""];
 //
 //            UITabBarController *tabBarController = (UITabBarController *)_window.rootViewController;
@@ -143,15 +144,15 @@
         }
         else if ([identifierComponents.firstObject isEqualToString:@"proposal"]) {
             
-            activityIdentifier = [activityIdentifier stringByReplacingOccurrencesOfString:@"proposal/" withString:@""];
-            
-            UITabBarController *tabBarController = (UITabBarController *)_window.rootViewController;
-            [tabBarController setSelectedIndex:kProposalsViewControllerIndex];
-            UINavigationController *proposalsNavigationController = (UINavigationController*)[tabBarController.viewControllers objectAtIndex:kProposalsViewControllerIndex];
-            [proposalsNavigationController dismissViewControllerAnimated:NO completion:nil];
-            [proposalsNavigationController popToRootViewControllerAnimated:NO];
-            ProposalsViewController *vc = (ProposalsViewController*)[[proposalsNavigationController viewControllers] firstObject];
-            [vc simulateNavitationToProposalWithHash:activityIdentifier];
+//            activityIdentifier = [activityIdentifier stringByReplacingOccurrencesOfString:@"proposal/" withString:@""];
+//
+//            UITabBarController *tabBarController = (UITabBarController *)_window.rootViewController;
+//            [tabBarController setSelectedIndex:kProposalsViewControllerIndex];
+//            UINavigationController *proposalsNavigationController = (UINavigationController*)[tabBarController.viewControllers objectAtIndex:kProposalsViewControllerIndex];
+//            [proposalsNavigationController dismissViewControllerAnimated:NO completion:nil];
+//            [proposalsNavigationController popToRootViewControllerAnimated:NO];
+//            OldProposalsViewController *vc = (OldProposalsViewController*)[[proposalsNavigationController viewControllers] firstObject];
+//            [vc simulateNavitationToProposalWithHash:activityIdentifier];
         }
         else {
             wasHandled = NO;

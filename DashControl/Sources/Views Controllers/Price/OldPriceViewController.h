@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <Charts/Charts.h>
 
+#import "DCCoreDataManager.h"
+
 @class DCPersistenceStack;
 
 @interface OldPriceViewController : UIViewController <ChartViewDelegate, UITableViewDelegate, UITableViewDataSource,NSFetchedResultsControllerDelegate>

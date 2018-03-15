@@ -24,11 +24,11 @@
                     <tabBarItem key="tabBarItem" title="News" image="tabBarNews" id="BCW-YF-pjJ"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="npy-wP-INz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="npy-wP-INz">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.0" green="0.49207007884979248" blue="0.88408416509628296" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.0" green="0.44317391509999998" blue="0.74421042199999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -46,9 +46,9 @@
         <!--News-->
         <scene sceneID="Hg8-if-EDv">
             <objects>
-                <tableViewController storyboardIdentifier="NewsViewController" id="C7f-Fe-Oet" customClass="NewsViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="NewsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="C7f-Fe-Oet" customClass="NewsViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="104" sectionHeaderHeight="28" sectionFooterHeight="28" id="Y2p-DE-cV2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -101,7 +101,7 @@
                                                     </attributedString>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.12869477272033691" green="0.52465921640396118" blue="0.77184158563613892" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.0" green="0.44317391509999998" blue="0.74421042199999998" alpha="0.79864083904109584" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="vx0-A4-nzV" secondAttribute="trailing" constant="20" id="3Nh-YY-nF6"/>
                                                 <constraint firstItem="vx0-A4-nzV" firstAttribute="top" secondItem="G8y-6A-hfr" secondAttribute="top" constant="20" id="6Ww-Aa-AeL"/>

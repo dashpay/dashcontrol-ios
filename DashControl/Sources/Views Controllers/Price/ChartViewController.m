@@ -23,6 +23,8 @@
 #import "ChartViewModel.h"
 #import "DCChartTimeFormatter.h"
 #import "DCSegmentedControl.h"
+#import "DCExchangeEntity+CoreDataClass.h"
+#import "DCMarketEntity+CoreDataClass.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
