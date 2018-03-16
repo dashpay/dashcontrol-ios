@@ -49,6 +49,9 @@
 		2A32D6392054800B004B38A6 /* ProposalDescriptionTemplate.html in Resources */ = {isa = PBXBuildFile; fileRef = 2A32D6382054800B004B38A6 /* ProposalDescriptionTemplate.html */; };
 		2A32D63C20557A48004B38A6 /* NSDate+DCAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A32D63B20557A48004B38A6 /* NSDate+DCAdditions.m */; };
 		2A32D64020558BB7004B38A6 /* ProposalDetailTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A32D63F20558BB7004B38A6 /* ProposalDetailTitleView.m */; };
+		2A32D6442056FBA7004B38A6 /* ChartViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A32D6432056FBA7004B38A6 /* ChartViewDataSource.m */; };
+		2A32D64920571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A32D64720571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataClass.m */; };
+		2A32D64A20571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A32D64820571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataProperties.m */; };
 		2A3F49A92049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49A32049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.m */; };
 		2A3F49AA2049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49A42049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataProperties.m */; };
 		2A3F49AB2049426F005EB5D9 /* DCBudgetInfoEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3F49A72049426F005EB5D9 /* DCBudgetInfoEntity+CoreDataClass.m */; };
@@ -93,12 +96,14 @@
 		2A972205204F29B600545079 /* ProposalsHeaderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A972204204F29B600545079 /* ProposalsHeaderViewModel.m */; };
 		2A972208204F343100545079 /* NavigationTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A972207204F343100545079 /* NavigationTitleButton.m */; };
 		2A97221F2051587700545079 /* ProposalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A97221E2051587700545079 /* ProposalDetailViewController.m */; };
+		2AAB8E582057962F007527CF /* TimestampIntervalArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAB8E572057962F007527CF /* TimestampIntervalArray.m */; };
+		2AAB8E5D2058DE0B007527CF /* TimestampIntervalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAB8E5C2058DE0B007527CF /* TimestampIntervalTests.m */; };
 		2AB9AA7620453EF9005979C4 /* Pair.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB9AA7520453EF9005979C4 /* Pair.m */; };
-		2AB9AA7820454BC6005979C4 /* APIPriceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB9AA7720454BC6005979C4 /* APIPriceTests.m */; };
 		2AB9AA7C2045500A005979C4 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A8F8179203D413100D3D6C9 /* Charts.framework */; };
 		2ACFBBC320340C090099727D /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC020340C080099727D /* Montserrat-Light.otf */; };
 		2ACFBBC420340C090099727D /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC120340C080099727D /* Montserrat-Regular.otf */; };
 		2ACFBBC520340C090099727D /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC220340C080099727D /* Montserrat-SemiBold.otf */; };
+		2AD0973320571DF300033B72 /* DCChartDataTimeIntervalEntity+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD0973220571DF300033B72 /* DCChartDataTimeIntervalEntity+Extensions.m */; };
 		2AD693C32032C99A0084D840 /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD693C22032C99A0084D840 /* NewsViewController.m */; };
 		2AD693C62032C9AC0084D840 /* NewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD693C52032C9AC0084D840 /* NewsTableViewCell.m */; };
 		2AE7F50A2034A99500A8E770 /* DCNewsPostEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE7F5062034A99400A8E770 /* DCNewsPostEntity+CoreDataClass.m */; };
@@ -289,6 +294,12 @@
 		2A32D63B20557A48004B38A6 /* NSDate+DCAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DCAdditions.m"; sourceTree = "<group>"; };
 		2A32D63E20558BB7004B38A6 /* ProposalDetailTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalDetailTitleView.h; sourceTree = "<group>"; };
 		2A32D63F20558BB7004B38A6 /* ProposalDetailTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailTitleView.m; sourceTree = "<group>"; };
+		2A32D6422056FBA7004B38A6 /* ChartViewDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartViewDataSource.h; sourceTree = "<group>"; };
+		2A32D6432056FBA7004B38A6 /* ChartViewDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartViewDataSource.m; sourceTree = "<group>"; };
+		2A32D64520571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCChartDataTimeIntervalEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		2A32D64620571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCChartDataTimeIntervalEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		2A32D64720571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCChartDataTimeIntervalEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		2A32D64820571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCChartDataTimeIntervalEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		2A3F49A12049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCBudgetProposalEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
 		2A3F49A22049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCBudgetProposalEntity+CoreDataClass.h"; sourceTree = "<group>"; };
 		2A3F49A32049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCBudgetProposalEntity+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -393,12 +404,16 @@
 		2A97220E2051332B00545079 /* ProposalsHeaderViewModel+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProposalsHeaderViewModel+Protected.h"; sourceTree = "<group>"; };
 		2A97221D2051587700545079 /* ProposalDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalDetailViewController.h; sourceTree = "<group>"; };
 		2A97221E2051587700545079 /* ProposalDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailViewController.m; sourceTree = "<group>"; };
+		2AAB8E562057962F007527CF /* TimestampIntervalArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimestampIntervalArray.h; sourceTree = "<group>"; };
+		2AAB8E572057962F007527CF /* TimestampIntervalArray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimestampIntervalArray.m; sourceTree = "<group>"; };
+		2AAB8E5C2058DE0B007527CF /* TimestampIntervalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimestampIntervalTests.m; sourceTree = "<group>"; };
 		2AB9AA7420453EF9005979C4 /* Pair.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pair.h; sourceTree = "<group>"; };
 		2AB9AA7520453EF9005979C4 /* Pair.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Pair.m; sourceTree = "<group>"; };
-		2AB9AA7720454BC6005979C4 /* APIPriceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIPriceTests.m; sourceTree = "<group>"; };
 		2ACFBBC020340C080099727D /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		2ACFBBC120340C080099727D /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
 		2ACFBBC220340C080099727D /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
+		2AD0973120571DF300033B72 /* DCChartDataTimeIntervalEntity+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCChartDataTimeIntervalEntity+Extensions.h"; sourceTree = "<group>"; };
+		2AD0973220571DF300033B72 /* DCChartDataTimeIntervalEntity+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCChartDataTimeIntervalEntity+Extensions.m"; sourceTree = "<group>"; };
 		2AD693C12032C99A0084D840 /* NewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsViewController.h; sourceTree = "<group>"; };
 		2AD693C22032C99A0084D840 /* NewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsViewController.m; sourceTree = "<group>"; };
 		2AD693C42032C9AC0084D840 /* NewsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsTableViewCell.h; sourceTree = "<group>"; };
@@ -778,6 +793,8 @@
 				2A4473A620429CC400B52BCB /* ChartViewController.m */,
 				2A4473A82042B69D00B52BCB /* ChartViewModel.h */,
 				2A4473A92042B69D00B52BCB /* ChartViewModel.m */,
+				2A32D6422056FBA7004B38A6 /* ChartViewDataSource.h */,
+				2A32D6432056FBA7004B38A6 /* ChartViewDataSource.m */,
 			);
 			path = Price;
 			sourceTree = "<group>";
@@ -881,12 +898,14 @@
 		2A04E6EA202DAB340065F30D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				2A04E6EC202DAB340065F30D /* RunOnMain.h */,
-				2A04E6EB202DAB340065F30D /* RunOnMain.m */,
+				2AAB8E562057962F007527CF /* TimestampIntervalArray.h */,
+				2AAB8E572057962F007527CF /* TimestampIntervalArray.m */,
 				2A80B5882036A8F40015E1AA /* DCLogging.h */,
 				2A80B5892036A8F40015E1AA /* DCLogging.m */,
 				2AB9AA7420453EF9005979C4 /* Pair.h */,
 				2AB9AA7520453EF9005979C4 /* Pair.m */,
+				2A04E6EC202DAB340065F30D /* RunOnMain.h */,
+				2A04E6EB202DAB340065F30D /* RunOnMain.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1013,6 +1032,8 @@
 				2A8F8186203EBB7200D3D6C9 /* DCExchangeEntity+Extensions.m */,
 				2A44739C20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.h */,
 				2A44739D20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.m */,
+				2AD0973120571DF300033B72 /* DCChartDataTimeIntervalEntity+Extensions.h */,
+				2AD0973220571DF300033B72 /* DCChartDataTimeIntervalEntity+Extensions.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1058,8 +1079,8 @@
 		FB1F8AA41FBCAACA00175311 /* DashControlTests */ = {
 			isa = PBXGroup;
 			children = (
-				2AB9AA7720454BC6005979C4 /* APIPriceTests.m */,
 				FB1F8AA51FBCAACA00175311 /* DashControlTests.m */,
+				2AAB8E5C2058DE0B007527CF /* TimestampIntervalTests.m */,
 				FB1F8AA71FBCAACA00175311 /* Info.plist */,
 			);
 			path = DashControlTests;
@@ -1193,6 +1214,10 @@
 				FBE1F4FE1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m */,
 				FBE1F4FF1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.h */,
 				FBE1F5001F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.m */,
+				2A32D64620571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataClass.h */,
+				2A32D64720571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataClass.m */,
+				2A32D64520571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataProperties.h */,
+				2A32D64820571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataProperties.m */,
 				FBE1F5011F5D4CF500823A77 /* DCExchangeEntity+CoreDataClass.h */,
 				FBE1F5021F5D4CF500823A77 /* DCExchangeEntity+CoreDataClass.m */,
 				FBE1F5031F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.h */,
@@ -1748,7 +1773,7 @@
 			files = (
 				FB1F8AA61FBCAACA00175311 /* DashControlTests.m in Sources */,
 				FB1F8AB11FBCABD200175311 /* BRBIP39Mnemonic.m in Sources */,
-				2AB9AA7820454BC6005979C4 /* APIPriceTests.m in Sources */,
+				2AAB8E5D2058DE0B007527CF /* TimestampIntervalTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1767,6 +1792,7 @@
 				24FE254C1F4C82C900E32652 /* OldPriceViewController.m in Sources */,
 				FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */,
 				2A04E6DB202DA5E20065F30D /* HTTPLoaderManager.m in Sources */,
+				2AD0973320571DF300033B72 /* DCChartDataTimeIntervalEntity+Extensions.m in Sources */,
 				2A04E6DC202DA5E20065F30D /* HTTPLoaderOperation.m in Sources */,
 				2AE7F50A2034A99500A8E770 /* DCNewsPostEntity+CoreDataClass.m in Sources */,
 				2A44739E20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.m in Sources */,
@@ -1792,6 +1818,7 @@
 				2A289A50203AB44400EDC98E /* BaseNewsTableViewController.m in Sources */,
 				FB9CC1611F83E38A0079309F /* NSData+Dash.m in Sources */,
 				2A972205204F29B600545079 /* ProposalsHeaderViewModel.m in Sources */,
+				2A32D64A20571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataProperties.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
 				2A80B58D2039B3050015E1AA /* UIFont+DCStyle.m in Sources */,
 				2A04E6DD202DA5E20065F30D /* HTTPRateLimiter.m in Sources */,
@@ -1828,6 +1855,7 @@
 				2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */,
 				2A972208204F343100545079 /* NavigationTitleButton.m in Sources */,
 				2A32D60320515C1B004B38A6 /* ProposalDetailHeaderView.m in Sources */,
+				2A32D64920571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataClass.m in Sources */,
 				2A3F49D4204E8167005EB5D9 /* ProposalTableViewCellModel.m in Sources */,
 				24B08BA51FA739BE00A41566 /* PriceAmountTableViewCell.m in Sources */,
 				FB9CC1AA1F87D4A60079309F /* BRKey+BIP38.m in Sources */,
@@ -1852,6 +1880,7 @@
 				FB9CC1851F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataClass.m in Sources */,
 				2A3F49B8204C4341005EB5D9 /* FetchedResultsTableViewController.m in Sources */,
 				FB17AEE31FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m in Sources */,
+				2A32D6442056FBA7004B38A6 /* ChartViewDataSource.m in Sources */,
 				FB4F93BA1F82528F0078E259 /* PortfolioViewController.m in Sources */,
 				2A3F49CA204C8244005EB5D9 /* ProposalsViewController.m in Sources */,
 				2A289A4D203AB00700EDC98E /* DCSearchController.m in Sources */,
@@ -1866,6 +1895,7 @@
 				FB17AEE61FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m in Sources */,
 				2A4FE29D203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m in Sources */,
 				2A32D60D2052C3B9004B38A6 /* ProposalDetailViewModel.m in Sources */,
+				2AAB8E582057962F007527CF /* TimestampIntervalArray.m in Sources */,
 				FB9CC18C1F8405180079309F /* DCPortfolioManager.m in Sources */,
 				2A3F49D7204E88D3005EB5D9 /* ProposalsHeaderView.m in Sources */,
 				FB25EA331FAF8559000B41BE /* AddTriggerTableViewCell.m in Sources */,

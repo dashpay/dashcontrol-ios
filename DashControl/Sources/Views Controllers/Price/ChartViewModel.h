@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class APIPrice;
 @class DCExchangeEntity;
 @class DCMarketEntity;
-@class CombinedChartData;
+@class ChartViewDataSource;
 
 typedef NS_ENUM(NSUInteger, ChartViewModelState) {
     ChartViewModelState_None,
@@ -42,7 +42,7 @@ typedef NS_ENUM(NSUInteger, ChartViewModelState) {
 @property (nullable, readonly, strong, nonatomic) DCExchangeEntity *exchange;
 @property (nullable, readonly, strong, nonatomic) DCMarketEntity *market;
 @property (readonly, assign, nonatomic) ChartTimeFrame timeFrame;
-@property (nullable, readonly, strong, nonatomic) CombinedChartData *chartData;
+@property (nullable, readonly, strong, nonatomic) ChartViewDataSource *chartDataSource;
 
 - (nullable NSArray<DCExchangeEntity *> *)availableExchanges;
 - (nullable NSArray<DCMarketEntity *> *)availableMarkets;

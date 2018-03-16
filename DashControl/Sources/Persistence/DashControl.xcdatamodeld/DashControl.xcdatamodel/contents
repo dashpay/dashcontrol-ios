@@ -76,6 +76,16 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
+    <entity name="DCChartDataTimeIntervalEntity" representedClassName="DCChartDataTimeIntervalEntity" syncable="YES">
+        <attribute name="end" attributeType="Date" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="exchangeIdentifier" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="marketIdentifier" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="start" attributeType="Date" usesScalarValueType="YES" syncable="YES"/>
+        <fetchIndex name="compoundIndex">
+            <fetchIndexElement property="exchangeIdentifier" type="Binary" order="ascending"/>
+            <fetchIndexElement property="marketIdentifier" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
     <entity name="DCExchangeEntity" representedClassName="DCExchangeEntity" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -193,6 +203,7 @@
         <element name="DCBudgetProposalCommentEntity" positionX="-245" positionY="126" width="128" height="178"/>
         <element name="DCBudgetProposalEntity" positionX="-432" positionY="126" width="128" height="345"/>
         <element name="DCChartDataEntryEntity" positionX="142" positionY="567" width="128" height="210"/>
+        <element name="DCChartDataTimeIntervalEntity" positionX="-9" positionY="567" width="128" height="105"/>
         <element name="DCExchangeEntity" positionX="88" positionY="189" width="128" height="105"/>
         <element name="DCMarketEntity" positionX="-2" positionY="408" width="128" height="105"/>
         <element name="DCMasternodeEntity" positionX="-513" positionY="567" width="128" height="105"/>

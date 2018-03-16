@@ -17,14 +17,16 @@
 
 #import "ChartViewModel.h"
 
-#import <Charts/Charts.h>
-
 #import "DCChartDataEntryEntity+Extensions.h"
+#import "DCChartDataTimeIntervalEntity+Extensions.h"
 #import "DCExchangeEntity+Extensions.h"
 #import "DCMarketEntity+Extensions.h"
 #import "NSManagedObject+DCExtensions.h"
+#import "NSManagedObjectContext+DCExtensions.h"
 #import "APIPrice.h"
+#import "ChartViewDataSource.h"
 #import "DCPersistenceStack.h"
+#import "TimestampIntervalArray.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -37,6 +39,7 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 
 @interface ChartViewModel ()
 
+@property (assign, nonatomic) ChartViewModelState state;
 @property (assign, nonatomic) ChartViewModelFetchState marketsState;
 @property (assign, nonatomic) ChartViewModelFetchState chartPrefetchState;
 @property (nullable, strong, nonatomic) NSNumber *currentExchangeIdentifier;
@@ -45,29 +48,21 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 @property (assign, nonatomic) ChartTimeInterval timeInterval;
 @property (copy, nonatomic) NSArray<NSSortDescriptor *> *defaultSortDescriptors;
 @property (assign, nonatomic) BOOL shouldPerformFirstChartDataPrefetch; // controller is loaded, fresh data needed
+@property (strong, nonatomic) NSMutableArray<TimestampInterval *> *loadPendingIntervals;
 
 @property (nullable, strong, nonatomic) DCExchangeEntity *exchange;
 @property (nullable, strong, nonatomic) DCMarketEntity *market;
-@property (nullable, strong, nonatomic) CombinedChartData *chartData;
+@property (nullable, strong, nonatomic) ChartViewDataSource *chartDataSource;
 
 @end
 
 @implementation ChartViewModel
 
-+ (NSSet<NSString *> *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
-    NSSet *keyPaths = @{
-        @"state" : [NSSet setWithArray:@[
-            @"marketsState",
-            @"chartPrefetchState",
-            @"chartData",
-        ]],
-    }[key];
-    return keyPaths ?: [super keyPathsForValuesAffectingValueForKey:key];
-}
-
 - (instancetype)init {
     self = [super init];
     if (self) {
+        _loadPendingIntervals = [NSMutableArray array];
+
         if (self.currentExchangeIdentifier && self.currentMarketIdentifier) {
             NSInteger exchangeIdentifier = self.currentExchangeIdentifier.integerValue;
             NSInteger marketIdentifier = self.currentMarketIdentifier.integerValue;
@@ -88,18 +83,6 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
         _defaultSortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
     }
     return self;
-}
-
-- (ChartViewModelState)state {
-    if (self.chartData) {
-        return ChartViewModelState_Done;
-    }
-    else if (self.marketsState == ChartViewModelFetchState_Fetching || self.chartPrefetchState == ChartViewModelFetchState_Fetching) {
-        return ChartViewModelState_Loading;
-    }
-    else {
-        return ChartViewModelState_Done;
-    }
 }
 
 - (void)setExchange:(nullable DCExchangeEntity *)exchange {
@@ -184,6 +167,33 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 
 #pragma mark - Private
 
+- (void)setMarketsState:(ChartViewModelFetchState)marketsState {
+    _marketsState = marketsState;
+    [self updateState];
+}
+
+- (void)setChartPrefetchState:(ChartViewModelFetchState)chartPrefetchState {
+    _chartPrefetchState = chartPrefetchState;
+    [self updateState];
+}
+
+- (void)setChartDataSource:(nullable ChartViewDataSource *)chartDataSource {
+    _chartDataSource = chartDataSource;
+    [self updateState];
+}
+
+- (void)updateState {
+    if (self.chartDataSource) {
+        self.state = ChartViewModelState_Done;
+    }
+    else if (self.marketsState == ChartViewModelFetchState_Fetching || self.chartPrefetchState == ChartViewModelFetchState_Fetching) {
+        self.state = ChartViewModelState_Loading;
+    }
+    else {
+        self.state = ChartViewModelState_Done;
+    }
+}
+
 - (void)performMarketsFetch {
     self.marketsState = ChartViewModelFetchState_Fetching;
     weakify;
@@ -218,46 +228,55 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 
 - (void)performFirstChartDataPrefetch {
     NSDate *start = [[NSDate date] dateByAddingTimeInterval:-[self defaultChartDataTimeInterval]];
-    [self fetchChartDataForStart:start end:nil completion:nil];
+    [self fetchChartDataForStartDate:start];
 }
 
 - (void)performChartDataFetch {
-    NSDate *intervalStart = [APIPrice intervalStartDateForExchangeName:self.exchange.name marketName:self.market.name];
     NSDate *selectedStart = [NSDate dateWithTimeIntervalSinceNow:-[DCChartTimeFormatter timeIntervalForChartTimeFrame:self.timeFrame]];
-    if (!intervalStart || [intervalStart compare:selectedStart] == NSOrderedDescending) {
-        if (!intervalStart) {
-            intervalStart = [NSDate date];
-        }
-        NSDate *oneWeekBefore = [intervalStart dateByAddingTimeInterval:-[self defaultChartDataTimeInterval]];
-        NSDate *start = ([selectedStart compare:oneWeekBefore] == NSOrderedAscending) ? oneWeekBefore : selectedStart;
-        weakify;
-        [self fetchChartDataForStart:start end:nil completion:^(BOOL success) {
-            strongify;
-
-            if (success) {
-                [self performChartDataFetch];
-            }
-        }];
-    }
+    NSDate *oneWeekBefore = [[NSDate date] dateByAddingTimeInterval:-[self defaultChartDataTimeInterval]];
+    NSDate *start = ([oneWeekBefore compare:selectedStart] == NSOrderedAscending) ? oneWeekBefore : selectedStart;
+    [self fetchChartDataForStartDate:start];
 }
 
-- (void)fetchChartDataForStart:(nullable NSDate *)start end:(nullable NSDate *)end completion:(void (^_Nullable)(BOOL success))completion {
+- (void)fetchChartDataForStartDate:(NSDate *)start {
+    NSMutableArray<TimestampInterval *> *intervals = [[self intervalsToLoadForExchange:self.exchange
+                                                                                market:self.market
+                                                                                 start:start] mutableCopy];
+    self.loadPendingIntervals = intervals;
+    [self fetchChartDataForPendingIntervals];
+}
+
+- (void)fetchChartDataForPendingIntervals {
+    NSAssert([NSThread isMainThread], nil);
+
+    if (self.loadPendingIntervals.count == 0) {
+        return;
+    }
+
     self.chartPrefetchState = ChartViewModelFetchState_Fetching;
+
+    TimestampInterval *interval = self.loadPendingIntervals.lastObject;
+    [self.loadPendingIntervals removeLastObject];
+    NSUInteger start = interval.start;
+    NSUInteger end = interval.end;
 
     weakify;
     [self.apiPrice fetchChartDataForExchange:self.exchange market:self.market start:start end:end completion:^(BOOL success) {
         strongify;
 
+        NSAssert([NSThread isMainThread], nil);
+
         if (success) {
+            [self updateChartDataTimeIntervalsForExchange:self.exchange market:self.market start:start end:end];
             [self reloadChartData];
             self.chartPrefetchState = ChartViewModelFetchState_Done;
+
+            // load next portion of data recursively
+            [self fetchChartDataForPendingIntervals];
         }
         else {
+            self.loadPendingIntervals = [NSMutableArray array];
             self.chartPrefetchState = ChartViewModelFetchState_Error;
-        }
-
-        if (completion) {
-            completion(success);
         }
     }];
 }
@@ -275,42 +294,108 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
                                                                                             startTime:startTime
                                                                                               endTime:nil
                                                                                             inContext:viewContext];
-    if (!items || items.count == 0) {
-        self.chartData = nil;
-
-        return;
+    if (items.count > 0) {
+        self.chartDataSource = [[ChartViewDataSource alloc] initWithItems:items timeInterval:self.timeInterval];
     }
-
-    NSMutableArray<CandleChartDataEntry *> *candleValues = [NSMutableArray array];
-
-    NSTimeInterval baseTime = items.firstObject.time.timeIntervalSince1970;
-    NSTimeInterval selectedTimeInterval = [DCChartTimeFormatter timeIntervalForChartTimeInterval:self.timeInterval];
-    for (DCChartDataEntryEntity *entity in items) {
-        NSInteger xIndex = (entity.time.timeIntervalSince1970 - baseTime) / selectedTimeInterval;
-        [candleValues addObject:[[CandleChartDataEntry alloc] initWithX:xIndex
-                                                                shadowH:entity.high
-                                                                shadowL:entity.low
-                                                                   open:entity.open
-                                                                  close:entity.close]];
+    else {
+        self.chartDataSource = nil;
     }
+}
 
-    CandleChartDataSet *candleDataSet = [[CandleChartDataSet alloc] initWithValues:candleValues label:@"Candles"];
-    candleDataSet.axisDependency = AxisDependencyLeft;
-    [candleDataSet setColor:[UIColor whiteColor]];
-    candleDataSet.drawValuesEnabled = NO;
-    candleDataSet.shadowColor = [UIColor colorWithWhite:1.0 alpha:0.75];
-    candleDataSet.valueTextColor = [UIColor colorWithWhite:1.0 alpha:0.4];
-    candleDataSet.shadowWidth = 0.7;
-    candleDataSet.decreasingColor = [UIColor colorWithRed:255.0 / 255.0 green:37.0 / 255.0 blue:101.0 / 255.0 alpha:1.0];
-    candleDataSet.decreasingFilled = YES;
-    candleDataSet.increasingColor = [UIColor colorWithRed:140.0 / 255.0 green:203.0 / 255.f blue:0.0 / 255.f alpha:1.0];
-    candleDataSet.increasingFilled = YES;
-    candleDataSet.neutralColor = [UIColor whiteColor];
+- (void)updateChartDataTimeIntervalsForExchange:(DCExchangeEntity *)exchange
+                                         market:(DCMarketEntity *)market
+                                          start:(NSUInteger)start
+                                            end:(NSUInteger)end {
+    NSInteger exchangeIdentifier = exchange.identifier;
+    NSInteger marketIdentifier = market.identifier;
 
-    CombinedChartData *chartData = [[CombinedChartData alloc] init];
-    chartData.candleData = [[CandleChartData alloc] initWithDataSet:candleDataSet];
+    NSPersistentContainer *container = self.stack.persistentContainer;
+    [container performBackgroundTask:^(NSManagedObjectContext *context) {
+        context.mergePolicy = NSOverwriteMergePolicy;
+
+        NSArray<DCChartDataTimeIntervalEntity *> *availableIntervals =
+            [DCChartDataTimeIntervalEntity timeIntervalsForExchangeIdentifier:exchangeIdentifier
+                                                             marketIdentifier:marketIdentifier
+                                                                    inContext:context];
+
+        NSMutableArray<TimestampInterval *> *inputIntervals = [NSMutableArray array];
+        for (DCChartDataTimeIntervalEntity *interval in availableIntervals) {
+            TimestampInterval *ti = [TimestampInterval start:interval.start end:interval.end];
+            [inputIntervals addObject:ti];
+        }
+        TimestampInterval *current = [TimestampInterval start:start end:end];
+        [inputIntervals addObject:current];
+
+        NSFetchRequest *fetchRequest = [DCChartDataTimeIntervalEntity fetchRequest];
+        fetchRequest.predicate = [DCChartDataTimeIntervalEntity predicateForExchangeIdentifier:exchangeIdentifier marketIdentifier:marketIdentifier];
+        NSBatchDeleteRequest *batchDeleteRequest = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
+        batchDeleteRequest.resultType = NSBatchDeleteResultTypeStatusOnly;
+        NSError *error = nil;
+        [context executeRequest:batchDeleteRequest error:&error];
+        if (error) {
+            NSAssert(NO, error.description);
+            DCDebugLog([self class], @"Failed to delete time intervals %@", error);
+        }
+
+        TimestampIntervalArray *intervalArray = [[TimestampIntervalArray alloc] initWithArray:inputIntervals];
+        NSArray<TimestampInterval *> *mergedIntervals = intervalArray.mergedOverlappingIntervals;
+
+        for (TimestampInterval *ti in mergedIntervals) {
+            DCChartDataTimeIntervalEntity *interval = [[DCChartDataTimeIntervalEntity alloc] initWithContext:context];
+            interval.exchangeIdentifier = exchangeIdentifier;
+            interval.marketIdentifier = marketIdentifier;
+            interval.start = ti.start;
+            interval.end = ti.end;
+        }
+
+        DCDebugLog([self class], @"Merged intervals %@", mergedIntervals);
+
+        [context dc_saveIfNeeded];
+    }];
+}
+
+- (NSArray<TimestampInterval *> *)intervalsToLoadForExchange:(DCExchangeEntity *)exchange
+                                                      market:(DCMarketEntity *)market
+                                                       start:(NSDate *)start {
+    NSManagedObjectContext *viewContext = self.stack.persistentContainer.viewContext;
+    NSArray<DCChartDataTimeIntervalEntity *> *availableIntervals =
+        [DCChartDataTimeIntervalEntity timeIntervalsForExchangeIdentifier:exchange.identifier
+                                                         marketIdentifier:market.identifier
+                                                                inContext:viewContext];
+
+    NSMutableArray<TimestampInterval *> *inputIntervals = [NSMutableArray array];
+    for (DCChartDataTimeIntervalEntity *interval in availableIntervals) {
+        TimestampInterval *ti = [TimestampInterval start:interval.start end:interval.end];
+        [inputIntervals addObject:ti];
+    }
+    DCDebugLog([self class], @"Existing intervals %@", inputIntervals);
+
+    TimestampIntervalArray *intervalArray = [[TimestampIntervalArray alloc] initWithArray:inputIntervals];
+
+    NSDate *end = [NSDate date]; // an end date is always 'now'
+    TimestampInterval *desired = [TimestampInterval startDate:start endDate:end];
+    NSUInteger allowedDistance = [self defaultChartDataTimeInterval];
+    NSArray<TimestampInterval *> *emptyGaps = [intervalArray findEmptyGapsDesiredInterval:desired
+                                                             maximumAllowedDistanceToJoin:allowedDistance];
     
-    self.chartData = chartData;
+    NSUInteger maxIntervalLength = (NSUInteger)[self defaultChartDataTimeInterval];
+    const NSUInteger minIntervalLength = 60; // 1 min
+    NSMutableArray<TimestampInterval *> *splittedEmptyGaps = [NSMutableArray array];
+    for (TimestampInterval *interval in emptyGaps) {
+        // case with intervals where interval.start == interval.end intentionally ignored
+        NSUInteger start = interval.start;
+        while (start < interval.end) {
+            TimestampInterval *ti = [TimestampInterval start:start end:MIN(start + maxIntervalLength, interval.end)];
+            if (ti.end - ti.start > minIntervalLength) {
+                [splittedEmptyGaps addObject:ti];
+            }
+            start = ti.end;
+        }
+    }
+    
+    DCDebugLog([self class], @"Gaps to load %@", splittedEmptyGaps);
+    
+    return [splittedEmptyGaps copy];
 }
 
 - (NSNumber *_Nullable)currentExchangeIdentifier {

@@ -21,8 +21,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static CGFloat const LABEL_WIDTH = 34.0;
-static CGFloat const PADDING = 5.0;
+static CGFloat LABEL_WIDTH() {
+    if ([UIScreen mainScreen].bounds.size.width == 320.0) {
+        return 28.0;
+    }
+    else {
+        return 34.0;
+    }
+}
+static CGFloat const PADDING() {
+    if ([UIScreen mainScreen].bounds.size.width == 320.0) {
+        return 3.0;
+    }
+    else {
+        return 5.0;
+    }
+}
 
 @interface DCSegmentedControl ()
 
@@ -82,7 +96,7 @@ static CGFloat const PADDING = 5.0;
 }
 
 - (CGSize)intrinsicContentSize {
-    return CGSizeMake(self.labels.count * LABEL_WIDTH + (self.labels.count - 1) * PADDING, 30.0);
+    return CGSizeMake(self.labels.count * LABEL_WIDTH() + (self.labels.count - 1) * PADDING(), 30.0);
 }
 
 - (void)layoutSubviews {
@@ -92,15 +106,15 @@ static CGFloat const PADDING = 5.0;
 
     CGFloat left = 0.0;
     for (UILabel *label in self.labels) {
-        label.frame = CGRectMake(left, 0.0, LABEL_WIDTH, self.bounds.size.height);
-        left += LABEL_WIDTH + PADDING;
+        label.frame = CGRectMake(left, 0.0, LABEL_WIDTH(), self.bounds.size.height);
+        left += LABEL_WIDTH() + PADDING();
     }
 }
 
 #pragma mark - Private
 
 - (void)setupView {
-    _selectedView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, LABEL_WIDTH, 18.0)];
+    _selectedView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, LABEL_WIDTH(), 18.0)];
     _selectedView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.2];
     _selectedView.layer.cornerRadius = 2.0;
     _selectedView.layer.masksToBounds = YES;
@@ -113,7 +127,7 @@ static CGFloat const PADDING = 5.0;
 
 - (void)updateSelectedViewFrame {
     CGRect selectedViewFrame = self.selectedView.frame;
-    selectedViewFrame.origin.x = (LABEL_WIDTH + PADDING) * self.selectedIndex;
+    selectedViewFrame.origin.x = (LABEL_WIDTH() + PADDING()) * self.selectedIndex;
     selectedViewFrame.origin.y = (self.bounds.size.height - selectedViewFrame.size.height) / 2.0;
     self.selectedView.frame = selectedViewFrame;
 }
@@ -127,6 +141,10 @@ static CGFloat const PADDING = 5.0;
     }
     NSUInteger index = [self.labels indexOfObject:subview];
     NSAssert(index != NSNotFound, @"Internal inconsistency");
+    
+    if (self.selectedIndex == index) {
+        return;
+    }
     
     self.selectedIndex = index;
     
