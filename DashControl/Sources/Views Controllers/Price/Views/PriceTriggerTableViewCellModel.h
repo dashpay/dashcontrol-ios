@@ -15,11 +15,17 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUIViewController.h>
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceViewController : KVOUIViewController
+@class DCTriggerEntity;
+
+@interface PriceTriggerTableViewCellModel : NSObject
+
+@property (readonly, copy, nonatomic) NSString *title;
+
+- (instancetype)initWithTrigger:(DCTriggerEntity *)trigger;
 
 @end
 

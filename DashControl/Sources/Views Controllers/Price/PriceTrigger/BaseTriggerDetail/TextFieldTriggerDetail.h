@@ -15,11 +15,14 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUIViewController.h>
+#import "BaseTriggerDetail.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceViewController : KVOUIViewController
+@interface TextFieldTriggerDetail : BaseTriggerDetail
+
+@property (nullable, copy, nonatomic) NSString *placeholder;
+@property (nullable, copy, nonatomic) NSString *text;
 
 @end
 

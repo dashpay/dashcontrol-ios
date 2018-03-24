@@ -15,11 +15,25 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUIViewController.h>
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceViewController : KVOUIViewController
+typedef NS_ENUM(NSUInteger, BaseTriggerDetailType) {
+    BaseTriggerDetailType_Exchange,
+    BaseTriggerDetailType_Market,
+    BaseTriggerDetailType_Price,
+    BaseTriggerDetailType_AlertType,
+    BaseTriggerDetailType_AddButton,
+};
+
+@interface BaseTriggerDetail : NSObject
+
+@property (readonly, assign, nonatomic) BaseTriggerDetailType type;
+@property (readonly, copy, nonatomic) NSString *title;
+
+- (instancetype)initWithType:(BaseTriggerDetailType)type title:(NSString *)title NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
 

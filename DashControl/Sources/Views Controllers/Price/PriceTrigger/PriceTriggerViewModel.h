@@ -15,11 +15,23 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUIViewController.h>
+#import <Foundation/Foundation.h>
+
+#import "BaseTriggerDetail.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceViewController : KVOUIViewController
+@class DCPersistenceStack;
+@class DCExchangeEntity;
+@class DCMarketEntity;
+
+@interface PriceTriggerViewModel : NSObject
+
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+
+@property (readonly, strong, nonatomic) NSArray<BaseTriggerDetail *> *items;
+
+- (instancetype)initAsNewWithExchange:(DCExchangeEntity *)exchange market:(DCMarketEntity *)market;
 
 @end
 

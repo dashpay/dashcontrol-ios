@@ -15,11 +15,19 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUIViewController.h>
+#import "PriceTriggerAddTableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceViewController : KVOUIViewController
+@implementation PriceTriggerAddTableViewCell
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    [super setHighlighted:highlighted animated:animated];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.contentView.alpha = highlighted ? 0.65 : 1.0;
+    }];
+}
 
 @end
 

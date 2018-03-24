@@ -15,11 +15,15 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUIViewController.h>
+#import <UIKit/UIKit.h>
+
+#import "PriceTriggerTableViewCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceViewController : KVOUIViewController
+@interface PriceTriggerTableViewCell : UITableViewCell
+
+- (void)configureWithViewModel:(PriceTriggerTableViewCellModel *)viewModel;
 
 @end
 

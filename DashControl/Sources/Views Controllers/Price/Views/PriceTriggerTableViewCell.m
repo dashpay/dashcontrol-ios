@@ -15,11 +15,29 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUIViewController.h>
+#import "PriceTriggerTableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceViewController : KVOUIViewController
+@interface PriceTriggerTableViewCell ()
+
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+
+@end
+
+@implementation PriceTriggerTableViewCell
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    [super setHighlighted:highlighted animated:animated];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.contentView.alpha = highlighted ? 0.65 : 1.0;
+    }];
+}
+
+- (void)configureWithViewModel:(PriceTriggerTableViewCellModel *)viewModel {
+    self.titleLabel.text = viewModel.title;
+}
 
 @end
 

@@ -15,11 +15,24 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUIViewController.h>
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceViewController : KVOUIViewController
+@class DCPersistenceStack;
+@class HTTPLoaderManager;
+@class DCTrigger;
+@protocol HTTPLoaderOperationProtocol;
+
+@interface APITrigger : NSObject
+
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+@property (strong, nonatomic) InjectedClass(HTTPLoaderManager) httpManager;
+
+- (void)performRegisterWithDeviceToken:(NSString *)deviceToken;
+- (nullable id<HTTPLoaderOperationProtocol>)registerWithCompletion:(void (^_Nullable)(BOOL success))completion;
+
+- (id<HTTPLoaderOperationProtocol>)getTriggersCompletion:(void (^)(BOOL success))completion;
 
 @end
 

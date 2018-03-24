@@ -15,11 +15,23 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUIViewController.h>
+#import <Foundation/Foundation.h>
+
+#import "DCTriggerEntity+CoreDataClass.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceViewController : KVOUIViewController
+@class DCPersistenceStack;
+@class APITrigger;
+
+@interface PriceViewModel : NSObject
+
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+@property (strong, nonatomic) InjectedClass(APITrigger) apiTrigger;
+
+@property (readonly, strong, nonatomic) NSFetchedResultsController<DCTriggerEntity *> *fetchedResultsController;
+
+- (void)reloadWithCompletion:(void (^)(BOOL success))completion;
 
 @end
 

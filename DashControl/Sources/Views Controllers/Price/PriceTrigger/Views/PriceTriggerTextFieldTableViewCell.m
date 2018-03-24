@@ -15,11 +15,20 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUIViewController.h>
+#import "PriceTriggerTextFieldTableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceViewController : KVOUIViewController
+@interface PriceTriggerTextFieldTableViewCell ()
+
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UITextField *textField;
+
+@end
+
+@implementation PriceTriggerTextFieldTableViewCell
+
+
 
 @end
 

@@ -100,12 +100,24 @@
 		2AAB8E5D2058DE0B007527CF /* TimestampIntervalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAB8E5C2058DE0B007527CF /* TimestampIntervalTests.m */; };
 		2AB9AA7620453EF9005979C4 /* Pair.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB9AA7520453EF9005979C4 /* Pair.m */; };
 		2AB9AA7C2045500A005979C4 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A8F8179203D413100D3D6C9 /* Charts.framework */; };
+		2AC693EC2061D63D00F64482 /* APITrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC693EB2061D63D00F64482 /* APITrigger.m */; };
+		2AC693F520645FA600F64482 /* PriceTriggerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC693F420645FA600F64482 /* PriceTriggerTableViewCell.m */; };
+		2AC693F8206460CB00F64482 /* PriceTriggerAddTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC693F7206460CB00F64482 /* PriceTriggerAddTableViewCell.m */; };
+		2AC693FB2064E74F00F64482 /* PriceViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC693FA2064E74F00F64482 /* PriceViewModel.m */; };
+		2AC693FE2064F0A000F64482 /* PriceTriggerTableViewCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC693FD2064F0A000F64482 /* PriceTriggerTableViewCellModel.m */; };
 		2ACFBBC320340C090099727D /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC020340C080099727D /* Montserrat-Light.otf */; };
 		2ACFBBC420340C090099727D /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC120340C080099727D /* Montserrat-Regular.otf */; };
 		2ACFBBC520340C090099727D /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2ACFBBC220340C080099727D /* Montserrat-SemiBold.otf */; };
 		2AD0973320571DF300033B72 /* DCChartDataTimeIntervalEntity+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD0973220571DF300033B72 /* DCChartDataTimeIntervalEntity+Extensions.m */; };
 		2AD693C32032C99A0084D840 /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD693C22032C99A0084D840 /* NewsViewController.m */; };
 		2AD693C62032C9AC0084D840 /* NewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD693C52032C9AC0084D840 /* NewsTableViewCell.m */; };
+		2AE4103B2066BA2F00C41AC5 /* PriceTriggerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE4103A2066BA2F00C41AC5 /* PriceTriggerViewController.m */; };
+		2AE4103F2066BC3500C41AC5 /* PriceTriggerDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE4103E2066BC3500C41AC5 /* PriceTriggerDetailTableViewCell.m */; };
+		2AE410432066BD9800C41AC5 /* PriceTriggerTextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE410422066BD9800C41AC5 /* PriceTriggerTextFieldTableViewCell.m */; };
+		2AE410462066C7A100C41AC5 /* PriceTriggerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE410452066C7A100C41AC5 /* PriceTriggerViewModel.m */; };
+		2AE4104A2066C7DF00C41AC5 /* BaseTriggerDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE410492066C7DF00C41AC5 /* BaseTriggerDetail.m */; };
+		2AE4104D2066C8AB00C41AC5 /* ValueTriggerDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE4104C2066C8AB00C41AC5 /* ValueTriggerDetail.m */; };
+		2AE410502066C8C000C41AC5 /* TextFieldTriggerDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE4104F2066C8C000C41AC5 /* TextFieldTriggerDetail.m */; };
 		2AE7F50A2034A99500A8E770 /* DCNewsPostEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE7F5062034A99400A8E770 /* DCNewsPostEntity+CoreDataClass.m */; };
 		2AE7F50B2034A99500A8E770 /* DCNewsPostEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE7F5072034A99400A8E770 /* DCNewsPostEntity+CoreDataProperties.m */; };
 		2AE7F50F2034CC7100A8E770 /* NewsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE7F50E2034CC7100A8E770 /* NewsViewModel.m */; };
@@ -409,6 +421,16 @@
 		2AAB8E5C2058DE0B007527CF /* TimestampIntervalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimestampIntervalTests.m; sourceTree = "<group>"; };
 		2AB9AA7420453EF9005979C4 /* Pair.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pair.h; sourceTree = "<group>"; };
 		2AB9AA7520453EF9005979C4 /* Pair.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Pair.m; sourceTree = "<group>"; };
+		2AC693EA2061D63D00F64482 /* APITrigger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APITrigger.h; sourceTree = "<group>"; };
+		2AC693EB2061D63D00F64482 /* APITrigger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APITrigger.m; sourceTree = "<group>"; };
+		2AC693F320645FA600F64482 /* PriceTriggerTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceTriggerTableViewCell.h; sourceTree = "<group>"; };
+		2AC693F420645FA600F64482 /* PriceTriggerTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceTriggerTableViewCell.m; sourceTree = "<group>"; };
+		2AC693F6206460CB00F64482 /* PriceTriggerAddTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceTriggerAddTableViewCell.h; sourceTree = "<group>"; };
+		2AC693F7206460CB00F64482 /* PriceTriggerAddTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceTriggerAddTableViewCell.m; sourceTree = "<group>"; };
+		2AC693F92064E74F00F64482 /* PriceViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceViewModel.h; sourceTree = "<group>"; };
+		2AC693FA2064E74F00F64482 /* PriceViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceViewModel.m; sourceTree = "<group>"; };
+		2AC693FC2064F0A000F64482 /* PriceTriggerTableViewCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceTriggerTableViewCellModel.h; sourceTree = "<group>"; };
+		2AC693FD2064F0A000F64482 /* PriceTriggerTableViewCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceTriggerTableViewCellModel.m; sourceTree = "<group>"; };
 		2ACFBBC020340C080099727D /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		2ACFBBC120340C080099727D /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
 		2ACFBBC220340C080099727D /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
@@ -418,6 +440,20 @@
 		2AD693C22032C99A0084D840 /* NewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsViewController.m; sourceTree = "<group>"; };
 		2AD693C42032C9AC0084D840 /* NewsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsTableViewCell.h; sourceTree = "<group>"; };
 		2AD693C52032C9AC0084D840 /* NewsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsTableViewCell.m; sourceTree = "<group>"; };
+		2AE410392066BA2F00C41AC5 /* PriceTriggerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceTriggerViewController.h; sourceTree = "<group>"; };
+		2AE4103A2066BA2F00C41AC5 /* PriceTriggerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceTriggerViewController.m; sourceTree = "<group>"; };
+		2AE4103D2066BC3500C41AC5 /* PriceTriggerDetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceTriggerDetailTableViewCell.h; sourceTree = "<group>"; };
+		2AE4103E2066BC3500C41AC5 /* PriceTriggerDetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceTriggerDetailTableViewCell.m; sourceTree = "<group>"; };
+		2AE410412066BD9800C41AC5 /* PriceTriggerTextFieldTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceTriggerTextFieldTableViewCell.h; sourceTree = "<group>"; };
+		2AE410422066BD9800C41AC5 /* PriceTriggerTextFieldTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceTriggerTextFieldTableViewCell.m; sourceTree = "<group>"; };
+		2AE410442066C7A100C41AC5 /* PriceTriggerViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceTriggerViewModel.h; sourceTree = "<group>"; };
+		2AE410452066C7A100C41AC5 /* PriceTriggerViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceTriggerViewModel.m; sourceTree = "<group>"; };
+		2AE410482066C7DF00C41AC5 /* BaseTriggerDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseTriggerDetail.h; sourceTree = "<group>"; };
+		2AE410492066C7DF00C41AC5 /* BaseTriggerDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseTriggerDetail.m; sourceTree = "<group>"; };
+		2AE4104B2066C8AB00C41AC5 /* ValueTriggerDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValueTriggerDetail.h; sourceTree = "<group>"; };
+		2AE4104C2066C8AB00C41AC5 /* ValueTriggerDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ValueTriggerDetail.m; sourceTree = "<group>"; };
+		2AE4104E2066C8C000C41AC5 /* TextFieldTriggerDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextFieldTriggerDetail.h; sourceTree = "<group>"; };
+		2AE4104F2066C8C000C41AC5 /* TextFieldTriggerDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextFieldTriggerDetail.m; sourceTree = "<group>"; };
 		2AE7F5062034A99400A8E770 /* DCNewsPostEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCNewsPostEntity+CoreDataClass.m"; sourceTree = "<group>"; };
 		2AE7F5072034A99400A8E770 /* DCNewsPostEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCNewsPostEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		2AE7F5082034A99400A8E770 /* DCNewsPostEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCNewsPostEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -781,6 +817,7 @@
 		24FE253D1F4C7DA200E32652 /* Price */ = {
 			isa = PBXGroup;
 			children = (
+				2AE410382066BA1600C41AC5 /* PriceTrigger */,
 				2A4473AB2042E8C500B52BCB /* Views */,
 				24B08BA21FA734FA00A41566 /* Cells */,
 				241A70941FA356DF00FCC808 /* PriceAlertViewController.h */,
@@ -795,6 +832,8 @@
 				2A4473A92042B69D00B52BCB /* ChartViewModel.m */,
 				2A32D6422056FBA7004B38A6 /* ChartViewDataSource.h */,
 				2A32D6432056FBA7004B38A6 /* ChartViewDataSource.m */,
+				2AC693F92064E74F00F64482 /* PriceViewModel.h */,
+				2AC693FA2064E74F00F64482 /* PriceViewModel.m */,
 			);
 			path = Price;
 			sourceTree = "<group>";
@@ -963,6 +1002,12 @@
 			children = (
 				2A4473AC2042E8DA00B52BCB /* DCSegmentedControl.h */,
 				2A4473AD2042E8DA00B52BCB /* DCSegmentedControl.m */,
+				2AC693F320645FA600F64482 /* PriceTriggerTableViewCell.h */,
+				2AC693F420645FA600F64482 /* PriceTriggerTableViewCell.m */,
+				2AC693F6206460CB00F64482 /* PriceTriggerAddTableViewCell.h */,
+				2AC693F7206460CB00F64482 /* PriceTriggerAddTableViewCell.m */,
+				2AC693FC2064F0A000F64482 /* PriceTriggerTableViewCellModel.h */,
+				2AC693FD2064F0A000F64482 /* PriceTriggerTableViewCellModel.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -993,6 +1038,8 @@
 				2A6F595F2034259600D7BD85 /* APINews.m */,
 				2A8F817C203E723600D3D6C9 /* APIPrice.h */,
 				2A8F817D203E723600D3D6C9 /* APIPrice.m */,
+				2AC693EA2061D63D00F64482 /* APITrigger.h */,
+				2AC693EB2061D63D00F64482 /* APITrigger.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1046,6 +1093,43 @@
 				2ACFBBC220340C080099727D /* Montserrat-SemiBold.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		2AE410382066BA1600C41AC5 /* PriceTrigger */ = {
+			isa = PBXGroup;
+			children = (
+				2AE410472066C7C500C41AC5 /* BaseTriggerDetail */,
+				2AE4103C2066BC2200C41AC5 /* Views */,
+				2AE410392066BA2F00C41AC5 /* PriceTriggerViewController.h */,
+				2AE4103A2066BA2F00C41AC5 /* PriceTriggerViewController.m */,
+				2AE410442066C7A100C41AC5 /* PriceTriggerViewModel.h */,
+				2AE410452066C7A100C41AC5 /* PriceTriggerViewModel.m */,
+			);
+			path = PriceTrigger;
+			sourceTree = "<group>";
+		};
+		2AE4103C2066BC2200C41AC5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2AE4103D2066BC3500C41AC5 /* PriceTriggerDetailTableViewCell.h */,
+				2AE4103E2066BC3500C41AC5 /* PriceTriggerDetailTableViewCell.m */,
+				2AE410412066BD9800C41AC5 /* PriceTriggerTextFieldTableViewCell.h */,
+				2AE410422066BD9800C41AC5 /* PriceTriggerTextFieldTableViewCell.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2AE410472066C7C500C41AC5 /* BaseTriggerDetail */ = {
+			isa = PBXGroup;
+			children = (
+				2AE410482066C7DF00C41AC5 /* BaseTriggerDetail.h */,
+				2AE410492066C7DF00C41AC5 /* BaseTriggerDetail.m */,
+				2AE4104B2066C8AB00C41AC5 /* ValueTriggerDetail.h */,
+				2AE4104C2066C8AB00C41AC5 /* ValueTriggerDetail.m */,
+				2AE4104E2066C8C000C41AC5 /* TextFieldTriggerDetail.h */,
+				2AE4104F2066C8C000C41AC5 /* TextFieldTriggerDetail.m */,
+			);
+			path = BaseTriggerDetail;
 			sourceTree = "<group>";
 		};
 		3A3DCF867D724725B2BA999A /* Pods */ = {
@@ -1793,6 +1877,7 @@
 				FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */,
 				2A04E6DB202DA5E20065F30D /* HTTPLoaderManager.m in Sources */,
 				2AD0973320571DF300033B72 /* DCChartDataTimeIntervalEntity+Extensions.m in Sources */,
+				2AC693FB2064E74F00F64482 /* PriceViewModel.m in Sources */,
 				2A04E6DC202DA5E20065F30D /* HTTPLoaderOperation.m in Sources */,
 				2AE7F50A2034A99500A8E770 /* DCNewsPostEntity+CoreDataClass.m in Sources */,
 				2A44739E20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.m in Sources */,
@@ -1811,6 +1896,7 @@
 				2A4473AA2042B69D00B52BCB /* ChartViewModel.m in Sources */,
 				FB9CC1861F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m in Sources */,
 				FBE1F50D1F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m in Sources */,
+				2AE4104A2066C7DF00C41AC5 /* BaseTriggerDetail.m in Sources */,
 				2A04E6ED202DAB340065F30D /* RunOnMain.m in Sources */,
 				FBEBE5421F5802DE0056D921 /* DCChartTimeFormatter.m in Sources */,
 				2A04E6E8202DA5E20065F30D /* HTTPService.m in Sources */,
@@ -1826,12 +1912,18 @@
 				FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */,
 				FB9CC1801F83E45F0079309F /* DCMasternodeEntity+CoreDataClass.m in Sources */,
 				2A04E6E3202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m in Sources */,
+				2AC693F8206460CB00F64482 /* PriceTriggerAddTableViewCell.m in Sources */,
 				2A3F49AC2049426F005EB5D9 /* DCBudgetInfoEntity+CoreDataProperties.m in Sources */,
+				2AE410502066C8C000C41AC5 /* TextFieldTriggerDetail.m in Sources */,
 				FB300E371FB5599400B3CDE0 /* BRScanViewController.m in Sources */,
+				2AE410462066C7A100C41AC5 /* PriceTriggerViewModel.m in Sources */,
 				FB9CC1881F83E8000079309F /* NSMutableData+Dash.m in Sources */,
+				2AC693FE2064F0A000F64482 /* PriceTriggerTableViewCellModel.m in Sources */,
 				FB4550D71FB1C1A4001CC1ED /* DCWalletEntity+CoreDataClass.m in Sources */,
 				2A3F49AA2049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataProperties.m in Sources */,
 				FBEBE5461F5986510056D921 /* DCCoreDataManager.m in Sources */,
+				2AE4104D2066C8AB00C41AC5 /* ValueTriggerDetail.m in Sources */,
+				2AC693EC2061D63D00F64482 /* APITrigger.m in Sources */,
 				2A04E6E4202DA5E20065F30D /* HTTPCancellationTokenImpl.m in Sources */,
 				FBE1F50E1F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.m in Sources */,
 				2A8F8187203EBB7200D3D6C9 /* DCExchangeEntity+Extensions.m in Sources */,
@@ -1851,6 +1943,7 @@
 				2A3F49AB2049426F005EB5D9 /* DCBudgetInfoEntity+CoreDataClass.m in Sources */,
 				2AB9AA7620453EF9005979C4 /* Pair.m in Sources */,
 				FB4311051FA2C19800784EBC /* NSURL+Sugar.m in Sources */,
+				2AE4103F2066BC3500C41AC5 /* PriceTriggerDetailTableViewCell.m in Sources */,
 				2A97221F2051587700545079 /* ProposalDetailViewController.m in Sources */,
 				2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */,
 				2A972208204F343100545079 /* NavigationTitleButton.m in Sources */,
@@ -1882,6 +1975,7 @@
 				FB17AEE31FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m in Sources */,
 				2A32D6442056FBA7004B38A6 /* ChartViewDataSource.m in Sources */,
 				FB4F93BA1F82528F0078E259 /* PortfolioViewController.m in Sources */,
+				2AE4103B2066BA2F00C41AC5 /* PriceTriggerViewController.m in Sources */,
 				2A3F49CA204C8244005EB5D9 /* ProposalsViewController.m in Sources */,
 				2A289A4D203AB00700EDC98E /* DCSearchController.m in Sources */,
 				FB9CC1911F84BB0D0079309F /* AddMasternodeViewController.m in Sources */,
@@ -1889,6 +1983,7 @@
 				FB17AEE51FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m in Sources */,
 				FBE1F5091F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m in Sources */,
 				2A8F8184203EB74900D3D6C9 /* DCMarketEntity+Extensions.m in Sources */,
+				2AE410432066BD9800C41AC5 /* PriceTriggerTextFieldTableViewCell.m in Sources */,
 				241A70961FA356DF00FCC808 /* PriceAlertViewController.m in Sources */,
 				FB9CC1A51F87D4860079309F /* BRBIP32Sequence.m in Sources */,
 				2A32D637205471BE004B38A6 /* ProposalDetailTableViewCellModel.m in Sources */,
@@ -1896,6 +1991,7 @@
 				2A4FE29D203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m in Sources */,
 				2A32D60D2052C3B9004B38A6 /* ProposalDetailViewModel.m in Sources */,
 				2AAB8E582057962F007527CF /* TimestampIntervalArray.m in Sources */,
+				2AC693F520645FA600F64482 /* PriceTriggerTableViewCell.m in Sources */,
 				FB9CC18C1F8405180079309F /* DCPortfolioManager.m in Sources */,
 				2A3F49D7204E88D3005EB5D9 /* ProposalsHeaderView.m in Sources */,
 				FB25EA331FAF8559000B41BE /* AddTriggerTableViewCell.m in Sources */,
@@ -2131,6 +2227,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = NO;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -2186,6 +2283,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = NO;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;

@@ -15,11 +15,20 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUIViewController.h>
+#import "BaseTriggerDetail.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceViewController : KVOUIViewController
+@implementation BaseTriggerDetail
+
+- (instancetype)initWithType:(BaseTriggerDetailType)type title:(NSString *)title {
+    self = [super init];
+    if (self) {
+        _type = type;
+        _title = title;
+    }
+    return self;
+}
 
 @end
 

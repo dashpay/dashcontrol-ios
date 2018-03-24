@@ -18,6 +18,7 @@
 #import "DCEnvironment.h"
 #import "Injections.h"
 #import "DCPersistenceStack.h"
+#import "APITrigger.h"
 
 #define kRSSFeedViewControllerIndex 0
 #define kProposalsViewControllerIndex 2
@@ -168,10 +169,11 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    NSString *token = [[[deviceToken.description    stringByReplacingOccurrencesOfString:@"<"withString:@""]
-              stringByReplacingOccurrencesOfString:@">" withString:@""]
-             stringByReplacingOccurrencesOfString: @" " withString: @""];
-    NSLog(@"PTKN: %@", token); // log even in release!
+    NSString *token = [[[deviceToken.description stringByReplacingOccurrencesOfString:@"<"withString:@""]
+                        stringByReplacingOccurrencesOfString:@">" withString:@""]
+                       stringByReplacingOccurrencesOfString: @" " withString: @""];
+    DCLog([self class], @"PTKN: %@", token); // log even in release!
+    [self.apiTrigger performRegisterWithDeviceToken:token];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -242,6 +244,21 @@
 - (void)requestPushToken {
     UNUserNotificationCenter.currentNotificationCenter.delegate = self;
     [[UIApplication sharedApplication] registerForRemoteNotifications];
+    
+    // simulate receiving token on simulator
+#ifdef DEBUG
+#if TARGET_OS_SIMULATOR
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSString *token = [[NSUserDefaults standardUserDefaults] stringForKey:@"DEBUG_SIMULATED_PUSH_TOKEN"];
+        if (!token) {
+            token = [NSUUID UUID].UUIDString;
+            [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"DEBUG_SIMULATED_PUSH_TOKEN"];
+        }
+        
+        [self.apiTrigger performRegisterWithDeviceToken:token];
+    });
+#endif /* TARGET_OS_SIMULATOR */
+#endif /* DEBUG */
 }
 
 - (void)registerForRemoteNotifications {
