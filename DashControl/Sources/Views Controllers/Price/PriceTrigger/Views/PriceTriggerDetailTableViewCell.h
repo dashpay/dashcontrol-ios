@@ -15,11 +15,15 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import <KVO-MVVM/KVOUITableViewCell.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceTriggerDetailTableViewCell : UITableViewCell
+@class ValueTriggerDetail;
+
+@interface PriceTriggerDetailTableViewCell : KVOUITableViewCell
+
+@property (strong, nonatomic) ValueTriggerDetail *detail;
 
 @end
 

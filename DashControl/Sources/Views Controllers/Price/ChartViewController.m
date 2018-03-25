@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Actions
 
 - (IBAction)exchangeButtonAction:(id)sender {
-    NSArray *exchanges = [self.viewModel availableExchanges];
+    NSArray *exchanges = [self.viewModel.exchangeMarketPair availableExchanges];
     if (exchanges.count == 0) {
         return;
     }
@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (IBAction)marketButtonAction:(id)sender {
-    NSArray *markets = [self.viewModel availableMarkets];
+    NSArray *markets = [self.viewModel.exchangeMarketPair availableMarkets];
     if (markets.count == 0) {
         return;
     }
@@ -103,11 +103,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Private
 
 - (void)setupKVO {
-    [self mvvm_observe:@"viewModel.exchange" with:^(typeof(self) self, DCExchangeEntity * value) {
+    [self mvvm_observe:@"viewModel.exchangeMarketPair.exchange" with:^(typeof(self) self, DCExchangeEntity * value) {
         [self.exchangeButton setTitle:value.name ?: @"..." forState:UIControlStateNormal];
     }];
 
-    [self mvvm_observe:@"viewModel.market" with:^(typeof(self) self, DCMarketEntity * value) {
+    [self mvvm_observe:@"viewModel.exchangeMarketPair.market" with:^(typeof(self) self, DCMarketEntity * value) {
         [self.marketButton setTitle:value.name ?: @"..." forState:UIControlStateNormal];
     }];
 

@@ -19,7 +19,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class DCTriggerEntity;
+@protocol ExchangeMarketPair;
+
 @interface PriceTriggerViewController : UITableViewController
+
++ (instancetype)controllerWithExchangeMarketPair:(nullable NSObject<ExchangeMarketPair> *)exchangeMarketPair;
++ (instancetype)controllerWithTrigger:(DCTriggerEntity *)trigger;
 
 @end
 

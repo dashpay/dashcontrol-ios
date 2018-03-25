@@ -15,11 +15,11 @@
 //  limitations under the License.
 //
 
-#import "ExchangeMarketPair.h"
+#import "BaseTriggerDetail.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation ExchangeMarketPair
+@interface ButtonTriggerDetail : BaseTriggerDetail
 
 @end
 

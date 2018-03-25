@@ -19,8 +19,10 @@
 
 #import <CoreData/CoreData.h>
 
-#import "PriceViewModel.h"
+#import "ChartViewModel.h"
 #import "PriceTriggerTableViewCell.h"
+#import "PriceTriggerViewController.h"
+#import "PriceViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -50,16 +52,16 @@ static NSString *const TRIGGER_CELL_ID = @"PriceTriggerTableViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     refreshControl.tintColor = [UIColor whiteColor];
     [refreshControl addTarget:self action:@selector(refreshControlAction:) forControlEvents:UIControlEventValueChanged];
     self.tableView.refreshControl = refreshControl;
-    
+
     [self reload];
-    
+
     // KVO
-    
+
     [self mvvm_observe:@"viewModel.fetchedResultsController" with:^(typeof(self) self, id value) {
         self.viewModel.fetchedResultsController.delegate = self;
         [self.tableView reloadData];
@@ -72,7 +74,7 @@ static NSString *const TRIGGER_CELL_ID = @"PriceTriggerTableViewCell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+
     // explanation https://gist.github.com/smileyborg/ec4812c146f575cd006d98d681108ba8
     NSIndexPath *selectedIndexPath = self.tableView.indexPathForSelectedRow;
     if (selectedIndexPath != nil) {
@@ -80,12 +82,14 @@ static NSString *const TRIGGER_CELL_ID = @"PriceTriggerTableViewCell";
         if (coordinator != nil) {
             [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
                 [self.tableView deselectRowAtIndexPath:selectedIndexPath animated:YES];
-            } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-                if (context.cancelled) {
-                    [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-                }
-            }];
-        } else {
+            }
+                completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+                    if (context.cancelled) {
+                        [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+                    }
+                }];
+        }
+        else {
             [self.tableView deselectRowAtIndexPath:selectedIndexPath animated:animated];
         }
     }
@@ -118,6 +122,21 @@ static NSString *const TRIGGER_CELL_ID = @"PriceTriggerTableViewCell";
         PriceTriggerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TRIGGER_CELL_ID forIndexPath:indexPath];
         [self configureTriggerCell:cell atIndexPath:indexPath];
         return cell;
+    }
+}
+
+#pragma mark UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        PriceTriggerViewController *detailViewController =
+            [PriceTriggerViewController controllerWithExchangeMarketPair:self.chartViewModel.exchangeMarketPair];
+        [self showViewController:detailViewController sender:self];
+    }
+    else {
+        DCTriggerEntity *trigger = [self triggerEntityAtIndexPath:indexPath];
+        PriceTriggerViewController *detailViewController = [PriceTriggerViewController controllerWithTrigger:trigger];
+        [self showViewController:detailViewController sender:self];
     }
 }
 
@@ -172,7 +191,7 @@ static NSString *const TRIGGER_CELL_ID = @"PriceTriggerTableViewCell";
     [self.tableView insertRowsAtIndexPaths:self.insertedRowIndexPaths withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView reloadRowsAtIndexPaths:self.updatedRowIndexPaths withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView endUpdates];
-    
+
     [self.deletedRowIndexPaths removeAllObjects];
     [self.insertedRowIndexPaths removeAllObjects];
     [self.updatedRowIndexPaths removeAllObjects];
@@ -205,11 +224,11 @@ static NSString *const TRIGGER_CELL_ID = @"PriceTriggerTableViewCell";
         self.tableView.contentOffset = CGPointMake(0.0, -self.tableView.refreshControl.frame.size.height);
         [self.tableView.refreshControl beginRefreshing];
     }
-    
+
     weakify;
     [self.viewModel reloadWithCompletion:^(BOOL success) {
         strongify;
-        
+
         [self.tableView.refreshControl endRefreshing];
     }];
 }

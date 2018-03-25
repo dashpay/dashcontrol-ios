@@ -18,13 +18,12 @@
 #import <Foundation/Foundation.h>
 
 #import "DCChartTimeFormatter.h"
+#import "ExchangeMarketPair.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class DCPersistenceStack;
 @class APIPrice;
-@class DCExchangeEntity;
-@class DCMarketEntity;
 @class ChartViewDataSource;
 
 typedef NS_ENUM(NSUInteger, ChartViewModelState) {
@@ -39,13 +38,9 @@ typedef NS_ENUM(NSUInteger, ChartViewModelState) {
 @property (strong, nonatomic) InjectedClass(APIPrice) apiPrice;
 
 @property (readonly, assign, nonatomic) ChartViewModelState state;
-@property (nullable, readonly, strong, nonatomic) DCExchangeEntity *exchange;
-@property (nullable, readonly, strong, nonatomic) DCMarketEntity *market;
+@property (nullable, readonly, strong, nonatomic) id<ExchangeMarketPair> exchangeMarketPair;
 @property (readonly, assign, nonatomic) ChartTimeFrame timeFrame;
 @property (nullable, readonly, strong, nonatomic) ChartViewDataSource *chartDataSource;
-
-- (nullable NSArray<DCExchangeEntity *> *)availableExchanges;
-- (nullable NSArray<DCMarketEntity *> *)availableMarkets;
 
 - (void)selectExchange:(DCExchangeEntity *)exchange;
 - (void)selectMarket:(DCMarketEntity *)market;

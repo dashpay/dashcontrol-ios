@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "DCTriggerEntity+CoreDataProperties.h"
 
-typedef NS_ENUM(uint16_t,DCTriggerType) {
+NS_ASSUME_NONNULL_BEGIN
+
+typedef NS_ENUM(uint16_t, DCTriggerType) {
     DCTriggerUnknown = 0,
     DCTriggerAbove = 1 << 1,
     DCTriggerBelow = 1 << 2,
@@ -21,19 +24,20 @@ typedef NS_ENUM(uint16_t,DCTriggerType) {
     DCTriggerSpikeDown = DCTriggerSpikeType | DCTriggerBelow
 };
 
-
 @interface DCTrigger : NSObject
 
-@property (nonatomic,strong,nonnull) NSNumber * value;
-@property (nonatomic,assign) DCTriggerType type;
-@property (nonatomic,strong,nonnull) NSString * market;
-@property (nonatomic,strong,nonnull) NSString * exchange;
-@property (nonatomic,assign) BOOL standardizeTether;
+@property (readonly, nonatomic, strong) NSNumber *value;
+@property (readonly, nonatomic, assign) DCTriggerType type;
+@property (readonly, nonatomic, copy) NSString *market;
+@property (readonly, nonatomic, copy) NSString *exchange;
+@property (readonly, nonatomic, assign) BOOL standardizeTether;
 
--(id _Nonnull)initWithType:(DCTriggerType)type value:(NSNumber* _Nonnull)value exchange:(NSString*_Nullable)exchange market:(NSString* _Nonnull)market;
+- (instancetype)initWithType:(DCTriggerType)type value:(NSNumber *)value exchange:(NSString *)exchange market:(NSString *)market;
+- (instancetype)init NS_UNAVAILABLE;
 
-+(NSString* _Nonnull)networkStringForType:(DCTriggerType)triggerType;
-
-+(DCTriggerType)typeForNetworkString:(NSString* _Nonnull)networkString;
++ (NSString *)networkStringForType:(DCTriggerType)triggerType;
++ (DCTriggerType)typeForNetworkString:(NSString *)networkString;
 
 @end
+
+NS_ASSUME_NONNULL_END

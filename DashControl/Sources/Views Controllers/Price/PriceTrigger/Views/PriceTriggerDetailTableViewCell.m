@@ -29,6 +29,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation PriceTriggerDetailTableViewCell
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    [self mvvm_observe:@"detail.title" with:^(typeof(self) self, NSString *value){
+        self.titleLabel.text = value;
+    }];
+    
+    [self mvvm_observe:@"detail.detail" with:^(typeof(self) self, NSString *value){
+        self.detailLabel.text = value;
+    }];
+}
+
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
     

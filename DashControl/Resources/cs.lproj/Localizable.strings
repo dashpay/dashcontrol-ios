@@ -59,6 +59,9 @@
 /* Abstain votes count title */
 "Abstain" = "Abstain";
 
+/* No comment provided by engineer. */
+"ADD" = "ADD";
+
 /* Price Alert Screen */
 "Alert type" = "Alert type";
 
@@ -76,6 +79,9 @@
 
 /* No comment provided by engineer. */
 "Alloted" = "Alloted";
+
+/* No comment provided by engineer. */
+"Any" = "Any";
 
 /* No comment provided by engineer. */
 "any" = "any";
@@ -189,6 +195,9 @@
 
 /* Price Alert Screen */
 "required" = "required";
+
+/* No comment provided by engineer. */
+"SAVE" = "SAVE";
 
 /* Search bar placeholder */
 "Search" = "Search";

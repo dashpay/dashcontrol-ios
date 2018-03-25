@@ -19,7 +19,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ExchangeMarketPair : NSObject
+@class DCExchangeEntity;
+@class DCMarketEntity;
+
+@protocol ExchangeMarketPair <NSObject, NSCopying>
+
+@property (nullable, readonly, strong, nonatomic) DCExchangeEntity *exchange;
+@property (nullable, readonly, strong, nonatomic) DCMarketEntity *market;
+
+- (nullable NSArray<DCMarketEntity *> *)availableMarkets;
+- (nullable NSArray<DCExchangeEntity *> *)availableExchanges;
 
 @end
 

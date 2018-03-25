@@ -15,14 +15,11 @@
 //  limitations under the License.
 //
 
-#import "BaseTriggerDetail.h"
+#import "ButtonTriggerDetail.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ValueTriggerDetail : BaseTriggerDetail
-
-@property (nullable, copy, nonatomic) NSString *detail;
-@property (nullable, strong, nonatomic) id value;
+@implementation ButtonTriggerDetail
 
 @end
 

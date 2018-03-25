@@ -42,7 +42,7 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
 @interface APITrigger ()
 
 @property (nullable, copy, nonatomic) NSString *deviceToken;
-@property (strong, nonatomic) NSMutableArray <void (^)(BOOL)> *registerCompletionBlocks;
+@property (strong, nonatomic) NSMutableArray<void (^)(BOOL)> *registerCompletionBlocks;
 @property (weak, nonatomic) id<HTTPLoaderOperationProtocol> registerRequest;
 
 @end
@@ -59,7 +59,7 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
 
 - (void)performRegisterWithDeviceToken:(NSString *)deviceToken {
     self.deviceToken = deviceToken;
-    
+
     self.registerRequest = [self registerWithCompletion:nil];
 }
 
@@ -67,17 +67,17 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
     if (completion) {
         [self.registerCompletionBlocks addObject:[completion copy]];
     }
-    
+
     // token hasn't received yet
     if (!self.deviceToken) {
         return nil;
     }
-    
+
     // token api request is in progress, just wait
     if (self.registerRequest) {
         return self.registerRequest;
     }
-    
+
     NSString *urlString = [API_BASE_URL stringByAppendingString:@"device"];
     NSURL *url = [NSURL URLWithString:urlString];
 
@@ -108,16 +108,16 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
         if (success) {
             [[DCEnvironment sharedInstance] setHasRegistered];
         }
-        
+
         for (void (^completionBlock)(BOOL) in self.registerCompletionBlocks) {
             completionBlock(success);
         }
         [self.registerCompletionBlocks removeAllObjects];
         self.registerRequest = nil;
     }];
-    
+
     self.registerRequest = registerRequest;
-    
+
     return registerRequest;
 }
 
@@ -138,7 +138,7 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
                 NSArray *novelTriggerIdentifiers = [triggerIdentifierKeys arrayByRemovingObjectsFromArray:knownTriggerIdentifierKeys];
                 for (NSString *identifier in novelTriggerIdentifiers) {
                     NSDictionary *triggerToAdd = triggerIdentifiers[identifier];
-                    DCTriggerEntity *trigger = [NSEntityDescription insertNewObjectForEntityForName:@"DCTriggerEntity" inManagedObjectContext:context];
+                    DCTriggerEntity *trigger = [[DCTriggerEntity alloc] initWithContext:context];
                     trigger.identifier = [triggerToAdd[@"identifier"] longLongValue];
                     trigger.value = [triggerToAdd[@"value"] doubleValue];
                     trigger.type = [DCTrigger typeForNetworkString:triggerToAdd[@"type"]];
@@ -149,7 +149,6 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
                         trigger.exchangeNamed = exchangeName;
                         trigger.exchange = [DCExchangeEntity exchangeForName:exchangeName inContext:context];
                     }
-
                     NSString *marketName = triggerToAdd[@"market"];
                     trigger.marketNamed = marketName;
                     trigger.market = [DCMarketEntity marketForName:marketName inContext:context];
@@ -179,7 +178,7 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
     }];
 }
 
-- (id<HTTPLoaderOperationProtocol>)postTrigger:(DCTrigger *)trigger completion:(void (^)(NSError *_Nullable error, NSUInteger statusCode, id _Nullable responseObject))completion {
+- (id<HTTPLoaderOperationProtocol>)postTrigger:(DCTrigger *)trigger completion:(void (^)(NSError *_Nullable error))completion {
     NSString *urlString = [API_BASE_URL stringByAppendingString:@"trigger"];
     NSURL *url = [NSURL URLWithString:urlString];
     NSDictionary *parameters = @{
@@ -192,21 +191,72 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
 
     HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_POST parameters:parameters];
     return [self sendAuthorizedRequest:request completion:^(id _Nullable parsedData, NSDictionary *_Nullable responseHeaders, NSInteger statusCode, NSError *_Nullable error) {
-        if (completion) {
-            completion(error, statusCode, parsedData);
+        if ([parsedData isKindOfClass:NSDictionary.class]) {
+            NSPersistentContainer *container = self.stack.persistentContainer;
+            [container performBackgroundTask:^(NSManagedObjectContext *context) {
+                NSDictionary *dictionary = (NSDictionary *)parsedData;
+                DCTriggerEntity *trigger = [[DCTriggerEntity alloc] initWithContext:context];
+                trigger.identifier = [dictionary[@"identifier"] unsignedLongLongValue];
+                trigger.value = [dictionary [@"value"] doubleValue];
+                trigger.type = [DCTrigger typeForNetworkString:dictionary[@"type"]];
+                trigger.ignoreFor = [dictionary [@"ignoreFor"] unsignedLongLongValue];
+                NSString *marketName = dictionary[@"market"];
+                trigger.marketNamed = marketName;
+                trigger.market = [DCMarketEntity marketForName:marketName inContext:context];
+                NSString *exchangeName = dictionary [@"exchange"];
+                if (![exchangeName isEqualToString:@"any"]) {
+                    trigger.exchangeNamed = exchangeName;
+                    trigger.exchange = [DCExchangeEntity exchangeForName:exchangeName inContext:context];
+                }
+                
+                context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+                [context dc_saveIfNeeded];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (completion) {
+                        completion(nil);
+                    }
+                });
+            }];
+        }
+        else {
+            if (completion) {
+                completion(error);
+            }
         }
     }];
 }
 
-- (id<HTTPLoaderOperationProtocol>)deleteTriggerWithId:(u_int64_t)triggerId completion:(void (^_Nullable)(NSError *_Nullable error, NSUInteger statusCode, id _Nullable responseObject))completion {
+- (id<HTTPLoaderOperationProtocol>)deleteTriggerWithId:(u_int64_t)triggerId completion:(void (^_Nullable)(NSError *_Nullable error))completion {
     NSString *triggerIdParam = [NSString stringWithFormat:@"/%llu", triggerId];
     NSString *urlString = [[API_BASE_URL stringByAppendingString:@"trigger"] stringByAppendingString:triggerIdParam];
     NSURL *url = [NSURL URLWithString:urlString];
 
     HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_DELETE parameters:nil];
     return [self sendAuthorizedRequest:request completion:^(id _Nullable parsedData, NSDictionary *_Nullable responseHeaders, NSInteger statusCode, NSError *_Nullable error) {
-        if (completion) {
-            completion(error, statusCode, parsedData);
+        if (error) {
+            if (completion) {
+                completion(error);
+            }
+        }
+        else {
+            NSPersistentContainer *container = self.stack.persistentContainer;
+            [container performBackgroundTask:^(NSManagedObjectContext *context) {
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier == %llu", triggerId];
+                DCTriggerEntity *trigger = [DCTriggerEntity dc_objectWithPredicate:predicate inContext:context];
+                if (trigger) {
+                    [context deleteObject:trigger];
+                }
+                
+                context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+                [context dc_saveIfNeeded];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (completion) {
+                        completion(nil);
+                    }
+                });
+            }];
         }
     }];
 }

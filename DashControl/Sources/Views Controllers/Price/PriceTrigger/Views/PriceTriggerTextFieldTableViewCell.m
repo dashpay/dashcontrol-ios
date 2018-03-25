@@ -17,9 +17,11 @@
 
 #import "PriceTriggerTextFieldTableViewCell.h"
 
+#import "TextFieldTriggerDetail.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceTriggerTextFieldTableViewCell ()
+@interface PriceTriggerTextFieldTableViewCell () <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UITextField *textField;
@@ -28,7 +30,52 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation PriceTriggerTextFieldTableViewCell
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
 
+    [self mvvm_observe:@"detail.title" with:^(typeof(self) self, NSString * value) {
+        self.titleLabel.text = value;
+    }];
+
+    [self mvvm_observe:@"detail.placeholder" with:^(typeof(self) self, NSString * value) {
+        NSDictionary *attributes = @{NSForegroundColorAttributeName : [UIColor colorWithWhite:1.0 alpha:0.5]};
+        self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:value ?: @"" attributes:attributes];
+    }];
+
+    [self mvvm_observe:@"detail.text" with:^(typeof(self) self, NSString * value) {
+        self.textField.text = value;
+    }];
+}
+
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSString *decimalSeparator = [NSLocale currentLocale].decimalSeparator;
+    NSCharacterSet *decimalSeparatorSet = [NSCharacterSet characterSetWithCharactersInString:decimalSeparator];
+    BOOL allowedString = ([string rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location != NSNotFound ||
+                          [string rangeOfCharacterFromSet:decimalSeparatorSet].location != NSNotFound ||
+                          string.length == 0);
+    if (!allowedString) {
+        return NO;
+    }
+    
+    if ([textField.text rangeOfCharacterFromSet:decimalSeparatorSet].location != NSNotFound &&
+        [string rangeOfCharacterFromSet:decimalSeparatorSet].location != NSNotFound) {
+        return NO;
+    }
+    
+    textField.text = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    self.detail.text = textField.text;
+
+    return NO;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    textField.text = @"";
+    self.detail.text = textField.text;
+
+    return NO;
+}
 
 @end
 

@@ -15,15 +15,16 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUITableViewCell.h>
+#import "BaseTriggerDetail.h"
+
+#import "NamedObject.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class TextFieldTriggerDetail;
+@interface ValueTriggerDetail : BaseTriggerDetail
 
-@interface PriceTriggerTextFieldTableViewCell : KVOUITableViewCell
-
-@property (strong, nonatomic) TextFieldTriggerDetail *detail;
+@property (nullable, readonly, copy, nonatomic) NSString *detail;
+@property (nullable, strong, nonatomic) id<NamedObject> value;
 
 @end
 

@@ -15,15 +15,33 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUITableViewCell.h>
+#import "PriceTriggerButtonTableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class TextFieldTriggerDetail;
+@interface PriceTriggerButtonTableViewCell ()
 
-@interface PriceTriggerTextFieldTableViewCell : KVOUITableViewCell
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
-@property (strong, nonatomic) TextFieldTriggerDetail *detail;
+@end
+
+@implementation PriceTriggerButtonTableViewCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    [self mvvm_observe:@"detail.title" with:^(typeof(self) self, NSString *value){
+        self.titleLabel.text = value;
+    }];
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    [super setHighlighted:highlighted animated:animated];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.contentView.alpha = highlighted ? 0.65 : 1.0;
+    }];
+}
 
 @end
 

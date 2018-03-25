@@ -18,20 +18,34 @@
 #import <Foundation/Foundation.h>
 
 #import "BaseTriggerDetail.h"
+#import "NamedObject.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class DCPersistenceStack;
-@class DCExchangeEntity;
-@class DCMarketEntity;
+@class APITrigger;
+@class ValueTriggerDetail;
+@class DCTriggerEntity;
+@protocol ExchangeMarketPair;
 
 @interface PriceTriggerViewModel : NSObject
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+@property (strong, nonatomic) InjectedClass(APITrigger) apiTrigger;
 
 @property (readonly, strong, nonatomic) NSArray<BaseTriggerDetail *> *items;
+@property (readonly, assign, nonatomic) BOOL deleteAvailable;
 
-- (instancetype)initAsNewWithExchange:(DCExchangeEntity *)exchange market:(DCMarketEntity *)market;
+- (instancetype)initAsNewWithExchangeMarketPair:(nullable NSObject<ExchangeMarketPair> *)exchangeMarketPair;
+- (instancetype)initWithTrigger:(DCTriggerEntity *)trigger;
+- (instancetype)init NS_UNAVAILABLE;
+
+- (nullable NSArray<id<NamedObject>> *)availableValuesForDetail:(ValueTriggerDetail *)detail;
+- (void)selectValue:(id<NamedObject>)value forDetail:(ValueTriggerDetail *)detail;
+
+- (NSInteger)indexOfInvalidDetail;
+- (void)saveCurrentTriggerCompletion:(void(^)(NSString *_Nullable errorMessage))completion;
+- (void)deleteTriggerCompletion:(void (^)(NSString *_Nullable errorMessage))completion;
 
 @end
 

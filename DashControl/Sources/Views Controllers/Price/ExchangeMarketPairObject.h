@@ -15,15 +15,23 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUITableViewCell.h>
+#import <Foundation/Foundation.h>
+
+#import "ExchangeMarketPair.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class TextFieldTriggerDetail;
+@class DCPersistenceStack;
 
-@interface PriceTriggerTextFieldTableViewCell : KVOUITableViewCell
+@interface ExchangeMarketPairObject : NSObject <ExchangeMarketPair>
 
-@property (strong, nonatomic) TextFieldTriggerDetail *detail;
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+
+- (instancetype)initWithExchange:(nullable DCExchangeEntity *)exchange market:(nullable DCMarketEntity *)market;
+- (instancetype)init NS_UNAVAILABLE;
+
+- (void)selectExchange:(nullable DCExchangeEntity *)exchange;
+- (void)selectMarket:(nullable DCMarketEntity *)market;
 
 @end
 

@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable id<HTTPLoaderOperationProtocol>)registerWithCompletion:(void (^_Nullable)(BOOL success))completion;
 
 - (id<HTTPLoaderOperationProtocol>)getTriggersCompletion:(void (^)(BOOL success))completion;
+- (id<HTTPLoaderOperationProtocol>)postTrigger:(DCTrigger *)trigger completion:(void (^)(NSError *_Nullable error))completion;
+- (id<HTTPLoaderOperationProtocol>)deleteTriggerWithId:(u_int64_t)triggerId completion:(void (^_Nullable)(NSError *_Nullable error))completion;
 
 @end
 

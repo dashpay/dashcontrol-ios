@@ -15,15 +15,15 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUITableViewCell.h>
+#import "KVOUITableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class TextFieldTriggerDetail;
+@class ButtonTriggerDetail;
 
-@interface PriceTriggerTextFieldTableViewCell : KVOUITableViewCell
+@interface PriceTriggerButtonTableViewCell : KVOUITableViewCell
 
-@property (strong, nonatomic) TextFieldTriggerDetail *detail;
+@property (strong, nonatomic) ButtonTriggerDetail *detail;
 
 @end
 

@@ -19,7 +19,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class ChartViewModel;
+
 @interface PriceViewController : KVOUIViewController
+
+@property (strong, nonatomic) InjectedClass(ChartViewModel) chartViewModel;
 
 @end
 

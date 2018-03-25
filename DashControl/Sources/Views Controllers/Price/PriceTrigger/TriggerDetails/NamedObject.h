@@ -15,11 +15,13 @@
 //  limitations under the License.
 //
 
-#import "ValueTriggerDetail.h"
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation ValueTriggerDetail
+@protocol NamedObject <NSObject>
+
+@property (nullable, readonly, copy, nonatomic) NSString *name;
 
 @end
 
