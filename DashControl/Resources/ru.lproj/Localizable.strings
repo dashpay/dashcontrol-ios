@@ -62,19 +62,19 @@
 /* No comment provided by engineer. */
 "ADD" = "ADD";
 
-/* Price Alert Screen */
+/* No comment provided by engineer. */
 "Alert type" = "Alert type";
 
-/* Price Alert Screen */
+/* No comment provided by engineer. */
 "Alert when over" = "Alert when over";
 
-/* Price Alert Screen */
+/* No comment provided by engineer. */
 "Alert when price drops quickly" = "Alert when price drops quickly";
 
-/* Price Alert Screen */
+/* No comment provided by engineer. */
 "Alert when price rises quickly" = "Alert when price rises quickly";
 
-/* Price Alert Screen */
+/* No comment provided by engineer. */
 "Alert when under" = "Alert when under";
 
 /* No comment provided by engineer. */
@@ -82,9 +82,6 @@
 
 /* No comment provided by engineer. */
 "Any" = "Any";
-
-/* No comment provided by engineer. */
-"any" = "any";
 
 /* As in 'By Username' */
 "By" = "By";
@@ -95,12 +92,10 @@
 /* No comment provided by engineer. */
 "Cellular" = "Cellular";
 
-/* Price Screen
-   Price View Screen */
+/* Price Screen */
 "Choose Exchange" = "Choose Exchange";
 
-/* Price Screen
-   Price View Screen */
+/* Price Screen */
 "Choose Market" = "Choose Market";
 
 /* No comment provided by engineer. */
@@ -115,10 +110,7 @@
 /* No comment provided by engineer. */
 "DASH per month" = "DASH per month";
 
-/* Price Alert Screen */
-"exchange" = "exchange";
-
-/* Price Alert Screen */
+/* No comment provided by engineer. */
 "Exchange" = "Exchange";
 
 /* No comment provided by engineer. */
@@ -127,17 +119,11 @@
 /* No comment provided by engineer. */
 "in %ld day(s)" = "in %ld day(s)";
 
-/* Price Alert Screen */
-"market" = "market";
-
-/* Price Alert Screen */
+/* No comment provided by engineer. */
 "Market" = "Market";
 
 /* No comment provided by engineer. */
 "Monthly\namount" = "Monthly\namount";
-
-/* Price Alert Screen */
-"New Price Alert" = "New Price Alert";
 
 /* No votes count title */
 "No" = "No";
@@ -169,7 +155,7 @@
 /* Ongoing proposals */
 "Ongoing" = "Ongoing";
 
-/* Price View Screen */
+/* No comment provided by engineer. */
 "Over %@" = "Over %@";
 
 /* No comment provided by engineer. */
@@ -181,19 +167,16 @@
 /* No comment provided by engineer. */
 "Payment\nadded / end" = "Payment\nadded / end";
 
-/* Price Alert Screen */
+/* No comment provided by engineer. */
 "Price" = "Price";
 
-/* Price Alert Screen */
+/* No comment provided by engineer. */
 "Price Alert" = "Price Alert";
-
-/* Price Alert Screen */
-"PRICE ALERTS" = "PRICE ALERTS";
 
 /* No comment provided by engineer. */
 "Proposals" = "Proposals";
 
-/* Price Alert Screen */
+/* No comment provided by engineer. */
 "required" = "required";
 
 /* No comment provided by engineer. */
@@ -208,10 +191,7 @@
 /* No comment provided by engineer. */
 "Total" = "Total";
 
-/* Price Alert Screen */
-"trigger type" = "trigger type";
-
-/* Price View Screen */
+/* No comment provided by engineer. */
 "Under %@" = "Under %@";
 
 /* No comment provided by engineer. */
@@ -223,18 +203,3 @@
 /* Will be funded - yes
    Yes votes count title */
 "Yes" = "Yes";
-
-/* Price Alert Screen */
-"You must input a value" = "You must input a value";
-
-/* Price Alert Screen */
-"You will receive a notification on your device when the Dash price crashes" = "You will receive a notification on your device when the Dash price crashes";
-
-/* Price Alert Screen */
-"You will receive a notification on your device when the Dash price falls below the value entered above." = "You will receive a notification on your device when the Dash price falls below the value entered above.";
-
-/* Price Alert Screen */
-"You will receive a notification on your device when the Dash price raises above the value entered above." = "You will receive a notification on your device when the Dash price raises above the value entered above.";
-
-/* Price Alert Screen */
-"You will receive a notification on your device when the Dash price spikes up by the amount." = "You will receive a notification on your device when the Dash price spikes up by the amount.";
