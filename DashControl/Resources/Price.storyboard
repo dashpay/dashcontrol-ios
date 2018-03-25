@@ -60,7 +60,7 @@
                                 </connections>
                             </containerView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="51" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YCZ-fH-y3J">
-                                <rect key="frame" x="0.0" y="383" width="375" height="220"/>
+                                <rect key="frame" x="0.0" y="393" width="375" height="210"/>
                                 <color key="backgroundColor" red="0.1176470588" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
@@ -80,6 +80,14 @@
                                                             <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
                                                             <color key="textColor" red="0.32549019607843138" green="0.64313725490196072" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
+                                                            <attributedString key="userComments">
+                                                                <fragment content="#bc-ignore!">
+                                                                    <attributes>
+                                                                        <font key="NSFont" metaFont="smallSystem"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lV6-mN-Q6S">
                                                             <rect key="frame" x="274.5" y="7.5" width="70.5" height="35"/>
@@ -89,6 +97,14 @@
                                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="11"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
+                                                                    <attributedString key="userComments">
+                                                                        <fragment content="#bc-ignore!">
+                                                                            <attributes>
+                                                                                <font key="NSFont" metaFont="smallSystem"/>
+                                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                            </attributes>
+                                                                        </fragment>
+                                                                    </attributedString>
                                                                 </label>
                                                             </subviews>
                                                             <color key="backgroundColor" red="0.41568627450980389" green="0.47058823529411764" blue="0.55294117647058827" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -123,6 +139,10 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.1176470588" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="addLabel" destination="hZy-9w-fgy" id="IBk-9l-jkW"/>
+                                            <outlet property="titleLabel" destination="XS0-h9-QEq" id="X05-cN-fHa"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PriceTriggerTableViewCell" id="eR7-1E-abw" customClass="PriceTriggerTableViewCell">
                                         <rect key="frame" x="0.0" y="79" width="375" height="51"/>
@@ -185,7 +205,7 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="YCZ-fH-y3J" secondAttribute="bottom" id="0Sh-mS-n97"/>
                             <constraint firstItem="2C6-Bp-jnC" firstAttribute="height" secondItem="rq8-C1-kA8" secondAttribute="height" multiplier="0.635" id="0V7-hE-Huq"/>
-                            <constraint firstItem="YCZ-fH-y3J" firstAttribute="top" secondItem="2C6-Bp-jnC" secondAttribute="bottom" id="Vzd-5T-gqf"/>
+                            <constraint firstItem="YCZ-fH-y3J" firstAttribute="top" secondItem="2C6-Bp-jnC" secondAttribute="bottom" constant="10" id="Vzd-5T-gqf"/>
                             <constraint firstItem="2C6-Bp-jnC" firstAttribute="trailing" secondItem="RXq-WE-xgF" secondAttribute="trailing" id="Yvq-it-LaW"/>
                             <constraint firstItem="YCZ-fH-y3J" firstAttribute="leading" secondItem="rq8-C1-kA8" secondAttribute="leading" id="aul-WV-Uj6"/>
                             <constraint firstItem="2C6-Bp-jnC" firstAttribute="leading" secondItem="RXq-WE-xgF" secondAttribute="leading" id="jWY-XI-3I9"/>
@@ -194,7 +214,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RXq-WE-xgF"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Price" id="D0z-8d-kBI"/>
+                    <navigationItem key="navigationItem" title="Price" id="D0z-8d-kBI">
+                        <attributedString key="userComments">
+                            <fragment content="#bc-ignore!">
+                                <attributes>
+                                    <font key="NSFont" metaFont="smallSystem"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="YCZ-fH-y3J" id="fpK-q4-rcb"/>
                     </connections>

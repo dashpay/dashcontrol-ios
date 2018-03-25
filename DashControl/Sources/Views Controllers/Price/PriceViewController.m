@@ -53,6 +53,8 @@ static NSString *const TRIGGER_CELL_ID = @"PriceTriggerTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.title = NSLocalizedString(@"Price", nil);
+
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     refreshControl.tintColor = [UIColor whiteColor];
     [refreshControl addTarget:self action:@selector(refreshControlAction:) forControlEvents:UIControlEventValueChanged];
