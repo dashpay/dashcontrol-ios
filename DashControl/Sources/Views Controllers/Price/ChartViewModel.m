@@ -27,6 +27,7 @@
 #import "ChartViewDataSource.h"
 #import "DCPersistenceStack.h"
 #import "TimestampIntervalArray.h"
+#import "ExchangeMarketPairObject.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -50,8 +51,7 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 @property (assign, nonatomic) BOOL shouldPerformFirstChartDataPrefetch; // controller is loaded, fresh data needed
 @property (strong, nonatomic) NSMutableArray<TimestampInterval *> *loadPendingIntervals;
 
-@property (nullable, strong, nonatomic) DCExchangeEntity *exchange;
-@property (nullable, strong, nonatomic) DCMarketEntity *market;
+@property (nullable, strong, nonatomic) ExchangeMarketPairObject *exchangeMarketPair;
 @property (nullable, strong, nonatomic) ChartViewDataSource *chartDataSource;
 
 @end
@@ -73,8 +73,7 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 
             NSAssert(exchange && market, @"");
             if (exchange && market) {
-                _exchange = exchange;
-                _market = market;
+                _exchangeMarketPair = [[ExchangeMarketPairObject alloc] initWithExchange:exchange market:market];
             }
         }
 
@@ -85,41 +84,15 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
     return self;
 }
 
-- (void)setExchange:(nullable DCExchangeEntity *)exchange {
-    _exchange = exchange;
-    self.currentExchangeIdentifier = exchange ? @(exchange.identifier) : nil;
-}
-
-- (void)setMarket:(nullable DCMarketEntity *)market {
-    _market = market;
-    self.currentMarketIdentifier = market ? @(market.identifier) : nil;
-}
-
-- (nullable NSArray<DCExchangeEntity *> *)availableExchanges {
-    NSManagedObjectContext *viewContext = self.stack.persistentContainer.viewContext;
-    NSArray<DCExchangeEntity *> *exchanges = [DCExchangeEntity dc_objectsWithPredicate:nil
-                                                                             inContext:viewContext
-                                                                 requestConfigureBlock:^(NSFetchRequest *_Nonnull fetchRequest) {
-                                                                     fetchRequest.sortDescriptors = self.defaultSortDescriptors;
-                                                                 }];
-    return exchanges;
-}
-
-- (nullable NSArray<DCMarketEntity *> *)availableMarkets {
-    NSArray *markets = [self.exchange.markets sortedArrayUsingDescriptors:self.defaultSortDescriptors];
-    return markets;
-}
-
 - (void)selectExchange:(DCExchangeEntity *)exchange {
     NSParameterAssert(exchange);
 
-    NSSet<DCMarketEntity *> *availableMarketsForExchange = exchange.markets;
-    if (![availableMarketsForExchange containsObject:self.market]) {
-        NSArray *markets = [availableMarketsForExchange sortedArrayUsingDescriptors:self.defaultSortDescriptors];
-        self.market = markets.firstObject;
-    }
-
-    self.exchange = exchange;
+    ExchangeMarketPairObject *exchangeMarketPair = self.exchangeMarketPair;
+    [exchangeMarketPair selectExchange:exchange];
+    self.currentExchangeIdentifier = exchange ? @(exchange.identifier) : nil;
+    DCMarketEntity *market = exchangeMarketPair.market;
+    self.currentMarketIdentifier = market ? @(market.identifier) : nil;
+    
     self.timeFrame = ChartTimeFrame_6H; // reset time frame to load less data
 
     [self reloadChartData];
@@ -129,7 +102,10 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 - (void)selectMarket:(DCMarketEntity *)market {
     NSParameterAssert(market);
 
-    self.market = market;
+    ExchangeMarketPairObject *exchangeMarketPair = self.exchangeMarketPair;
+    [exchangeMarketPair selectMarket:market];
+    self.currentMarketIdentifier = market ? @(market.identifier) : nil;
+    
     self.timeFrame = ChartTimeFrame_6H; // reset time frame to load less data
 
     [self reloadChartData];
@@ -214,8 +190,7 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
         DCMarketEntity *market = [DCMarketEntity marketWithIdentifier:marketIdentifier inContext:viewContext];
 
         NSAssert(exchange && market, @"");
-        self.exchange = exchange;
-        self.market = market;
+        self.exchangeMarketPair = [[ExchangeMarketPairObject alloc] initWithExchange:exchange market:market];
 
         self.marketsState = ChartViewModelFetchState_Done;
 
@@ -239,8 +214,8 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 }
 
 - (void)fetchChartDataForStartDate:(NSDate *)start {
-    NSMutableArray<TimestampInterval *> *intervals = [[self intervalsToLoadForExchange:self.exchange
-                                                                                market:self.market
+    NSMutableArray<TimestampInterval *> *intervals = [[self intervalsToLoadForExchange:self.exchangeMarketPair.exchange
+                                                                                market:self.exchangeMarketPair.market
                                                                                  start:start] mutableCopy];
     self.loadPendingIntervals = intervals;
     [self fetchChartDataForPendingIntervals];
@@ -261,13 +236,13 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
     NSUInteger end = interval.end;
 
     weakify;
-    [self.apiPrice fetchChartDataForExchange:self.exchange market:self.market start:start end:end completion:^(BOOL success) {
+    [self.apiPrice fetchChartDataForExchange:self.exchangeMarketPair.exchange market:self.exchangeMarketPair.market start:start end:end completion:^(BOOL success) {
         strongify;
 
         NSAssert([NSThread isMainThread], nil);
 
         if (success) {
-            [self updateChartDataTimeIntervalsForExchange:self.exchange market:self.market start:start end:end];
+            [self updateChartDataTimeIntervalsForExchange:self.exchangeMarketPair.exchange market:self.exchangeMarketPair.market start:start end:end];
             [self reloadChartData];
             self.chartPrefetchState = ChartViewModelFetchState_Done;
 
@@ -282,14 +257,14 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
 }
 
 - (void)reloadChartData {
-    if (!self.exchange || !self.market) {
+    if (!self.exchangeMarketPair.exchange || !self.exchangeMarketPair.market) {
         return;
     }
 
     NSManagedObjectContext *viewContext = self.stack.persistentContainer.viewContext;
     NSDate *startTime = [NSDate dateWithTimeIntervalSinceNow:-[DCChartTimeFormatter timeIntervalForChartTimeFrame:self.timeFrame]];
-    NSArray<DCChartDataEntryEntity *> *items = [DCChartDataEntryEntity chartDataForExchangeIdentifier:self.exchange.identifier
-                                                                                     marketIdentifier:self.market.identifier
+    NSArray<DCChartDataEntryEntity *> *items = [DCChartDataEntryEntity chartDataForExchangeIdentifier:self.exchangeMarketPair.exchange.identifier
+                                                                                     marketIdentifier:self.exchangeMarketPair.market.identifier
                                                                                              interval:self.timeInterval
                                                                                             startTime:startTime
                                                                                               endTime:nil

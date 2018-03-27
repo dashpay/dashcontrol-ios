@@ -8,56 +8,57 @@
 
 #import "DCTrigger.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @implementation DCTrigger
 
--(id)initWithType:(DCTriggerType)type value:(NSNumber*)value exchange:(NSString*)exchange market:(NSString*)market {
-    if (self = [super init]) {
-        self.type = type;
-        self.value = value;
-        self.exchange = exchange;
-        self.market = market;
-        self.standardizeTether = TRUE;
+- (instancetype)initWithType:(DCTriggerType)type value:(NSNumber *)value exchange:(NSString *)exchange market:(NSString *)market {
+    self = [super init];
+    if (self) {
+        _type = type;
+        _value = value;
+        _exchange = exchange;
+        _market = market;
+        _standardizeTether = YES;
     }
     return self;
 }
 
-+(NSString*)networkStringForType:(DCTriggerType)triggerType {
++ (NSString *)networkStringForType:(DCTriggerType)triggerType {
     switch (triggerType) {
         case DCTriggerAbove:
             return @"above";
-            break;
         case DCTriggerBelow:
             return @"below";
-            break;
         case DCTriggerMovingAverageAbove:
             return @"moving_average_above";
-            break;
         case DCTriggerMovingAverageBelow:
             return @"moving_average_below";
-            break;
         case DCTriggerSpikeUp:
             return @"spike_up";
-            break;
         case DCTriggerSpikeDown:
             return @"spike_down";
-            break;
         default:
-            break;
+            return nil;
     }
-    return nil;
 }
 
-+(DCTriggerType)typeForNetworkString:(NSString* _Nonnull)networkString {
++ (DCTriggerType)typeForNetworkString:(NSString *)networkString {
     if ([networkString isEqualToString:@"above"]) {
         return DCTriggerAbove;
-    } else if ([networkString isEqualToString:@"below"]) {
+    }
+    else if ([networkString isEqualToString:@"below"]) {
         return DCTriggerBelow;
-    } else if ([networkString isEqualToString:@"spike_up"]) {
+    }
+    else if ([networkString isEqualToString:@"spike_up"]) {
         return DCTriggerSpikeUp;
-    } else if ([networkString isEqualToString:@"spike_down"]) {
+    }
+    else if ([networkString isEqualToString:@"spike_down"]) {
         return DCTriggerSpikeDown;
     }
     return DCTriggerUnknown;
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -11,10 +11,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class DCPersistenceStack;
+@class APITrigger;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+@property (strong, nonatomic) InjectedClass(APITrigger) apiTrigger;
 
 @property (strong, nonatomic) UIWindow *window;
 

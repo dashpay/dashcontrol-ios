@@ -18,6 +18,7 @@
 #import "DCEnvironment.h"
 #import "Injections.h"
 #import "DCPersistenceStack.h"
+#import "APITrigger.h"
 
 #define kRSSFeedViewControllerIndex 0
 #define kProposalsViewControllerIndex 2
@@ -59,8 +60,8 @@
         [Injections activateCoreDataDependentInjections];
     }];
     
-    //Request Device Token For Apple Push Notifications
-    [self registerForRemoteNotifications];
+    // Request Device Token For Apple Push Notifications without auth request
+    [self requestPushToken];
     
     //Init the Price Data Manager
     [DCBackendManager sharedInstance];
@@ -167,96 +168,23 @@
     return wasHandled;
 }
 
-#pragma mark - Notifications
-
-- (void)registerForRemoteNotifications {
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    center.delegate = self;
-    [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
-        if(!error){
-            if (granted) {
-#if !TARGET_OS_SIMULATOR
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [[UIApplication sharedApplication] registerForRemoteNotifications];
-                });
-#else
-                [self application:[UIApplication sharedApplication] didRegisterForRemoteNotificationsWithDeviceToken:[NSData data]];
-#endif
-            } else {
-                //Remind the user, when relevant, that he must allow it from setting app
-            }
-        }
-        else {
-            //Push registration FAILED
-            NSLog(@"ERROR: %@ - %@", error.localizedFailureReason, error.localizedDescription );
-            NSLog(@"SUGGESTIONS: %@ - %@", error.localizedRecoveryOptions, error.localizedRecoverySuggestion );
-        }
-    }];
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSString *token = [[[deviceToken.description stringByReplacingOccurrencesOfString:@"<"withString:@""]
+                        stringByReplacingOccurrencesOfString:@">" withString:@""]
+                       stringByReplacingOccurrencesOfString: @" " withString: @""];
+    DCLog([self class], @"PTKN: %@", token); // log even in release!
+    [self.apiTrigger performRegisterWithDeviceToken:token];
 }
 
-//Called when a notification is delivered to a foreground app.
--(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
-    NSLog(@"User Info : %@",notification.request.content.userInfo);
-    completionHandler(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge);
-}
-
-//Called to let your app know which action was selected by the user for a given notification.
--(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)(void))completionHandler{
-    NSLog(@"User Info : %@",response.notification.request.content.userInfo);
-    completionHandler();
-}
-
-
-- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[DCBackendManager sharedInstance] registerDeviceForDeviceToken:deviceToken];
-    });
-}
-
--(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
-{
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     NSLog(@"%@ = %@", NSStringFromSelector(_cmd), error);
     NSLog(@"Error = %@",error);
 }
 
--(void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void
-                                                                                                                               (^)(UIBackgroundFetchResult))completionHandler
-{
-    // iOS 10 will handle notifications through other methods
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+    // Handle silent push here
     
-    if( SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO( @"10.0" ) )
-    {
-        NSLog( @"iOS version >= 10. Let NotificationCenter handle this one." );
-        // set a member variable to tell the new delegate that this is background
-        return;
-    }
-    NSLog( @"HANDLE PUSH, didReceiveRemoteNotification: %@", userInfo );
-    
-    // custom code to handle notification content
-    
-    if( [UIApplication sharedApplication].applicationState == UIApplicationStateInactive )
-    {
-        NSLog( @"INACTIVE" );
-        completionHandler( UIBackgroundFetchResultNewData );
-    }
-    else if( [UIApplication sharedApplication].applicationState == UIApplicationStateBackground )
-    {
-        NSLog( @"BACKGROUND" );
-        completionHandler( UIBackgroundFetchResultNewData );
-    }
-    else
-    {
-        NSLog( @"FOREGROUND" );
-        completionHandler( UIBackgroundFetchResultNewData );
-    }
-}
-
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo  
-{  
-    [self application:application didReceiveRemoteNotification:userInfo fetchCompletionHandler:^(UIBackgroundFetchResult result) {
-    }];
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication
@@ -297,6 +225,46 @@
         }
     }
     return TRUE;
+}
+
+#pragma mark - UNUserNotificationCenterDelegate
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+    completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert);
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
+    NSLog(@"User Info : %@",response.notification.request.content.userInfo);
+    
+    completionHandler();
+}
+
+#pragma mark - Notifications
+
+- (void)requestPushToken {
+    UNUserNotificationCenter.currentNotificationCenter.delegate = self;
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    
+    // simulate receiving token on simulator
+#ifdef DEBUG
+#if TARGET_OS_SIMULATOR
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSString *token = [[NSUserDefaults standardUserDefaults] stringForKey:@"DEBUG_SIMULATED_PUSH_TOKEN"];
+        if (!token) {
+            token = [NSUUID UUID].UUIDString;
+            [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"DEBUG_SIMULATED_PUSH_TOKEN"];
+        }
+        
+        [self.apiTrigger performRegisterWithDeviceToken:token];
+    });
+#endif /* TARGET_OS_SIMULATOR */
+#endif /* DEBUG */
+}
+
+- (void)registerForRemoteNotifications {
+    [UNUserNotificationCenter.currentNotificationCenter requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError *_Nullable error) {
+        DCDebugLog([self class], @"Push auth error: %@", error);
+    }];
 }
 
 #pragma mark - Private
