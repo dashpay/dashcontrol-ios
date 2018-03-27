@@ -38,6 +38,7 @@
                         <segue destination="joo-we-o14" kind="relationship" relationship="viewControllers" id="iEC-DF-qea"/>
                         <segue destination="820-gR-pAB" kind="relationship" relationship="viewControllers" id="tNi-bK-0j3"/>
                         <segue destination="9q3-4j-0Xk" kind="relationship" relationship="viewControllers" id="16j-dY-s6D"/>
+                        <segue destination="7hw-HJ-bXH" kind="relationship" relationship="viewControllers" id="GhI-5D-Z1b"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -82,6 +83,25 @@
             </objects>
             <point key="canvasLocation" x="659" y="79"/>
         </scene>
+        <!--Portfolio-->
+        <scene sceneID="kwK-0P-FzY">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Portfolio" id="7hw-HJ-bXH" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Portfolio" image="tabBarPortfolio" id="78y-uF-Ela">
+                        <attributedString key="userComments">
+                            <fragment content="#bc-ignore!">
+                                <attributes>
+                                    <font key="NSFont" metaFont="smallSystem"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </tabBarItem>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kqn-8T-47M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="674" y="158"/>
+        </scene>
         <!--Proposals-->
         <scene sceneID="uuR-fr-vJr">
             <objects>
@@ -104,7 +124,7 @@
         <!--Portfolio-->
         <scene sceneID="AJU-ZG-UM8">
             <objects>
-                <tableViewController id="cSO-pk-yb7" customClass="PortfolioViewController" sceneMemberID="viewController">
+                <tableViewController id="cSO-pk-yb7" customClass="OldPortfolioViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="LsH-SE-pf2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
