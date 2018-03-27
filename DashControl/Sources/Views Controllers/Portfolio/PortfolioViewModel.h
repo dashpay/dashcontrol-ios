@@ -17,15 +17,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ItemTableViewCellModel.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCTriggerEntity;
-
-@interface PriceTriggerTableViewCellModel : NSObject <ItemTableViewCellModel>
-
-- (instancetype)initWithTrigger:(DCTriggerEntity *)trigger;
+@interface PortfolioViewModel : NSObject
 
 @end
 

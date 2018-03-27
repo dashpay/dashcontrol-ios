@@ -15,15 +15,31 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import "ItemTableViewCell.h"
 
-#import "PriceTriggerTableViewCellModel.h"
+#import "ItemTableViewCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceTriggerTableViewCell : UITableViewCell
+@interface ItemTableViewCell ()
 
-- (void)configureWithViewModel:(PriceTriggerTableViewCellModel *)viewModel;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+
+@end
+
+@implementation ItemTableViewCell
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    [super setHighlighted:highlighted animated:animated];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.contentView.alpha = highlighted ? 0.65 : 1.0;
+    }];
+}
+
+- (void)configureWithViewModel:(id<ItemTableViewCellModel>)viewModel {
+    self.titleLabel.text = viewModel.title;
+}
 
 @end
 

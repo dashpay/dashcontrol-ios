@@ -15,17 +15,24 @@
 //  limitations under the License.
 //
 
-#import "PriceTriggerTableViewCell.h"
+#import "AddItemTableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceTriggerTableViewCell ()
+@interface AddItemTableViewCell ()
 
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *addLabel;
 
 @end
 
-@implementation PriceTriggerTableViewCell
+@implementation AddItemTableViewCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    self.addLabel.text = NSLocalizedString(@"ADD", nil);
+}
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
@@ -35,8 +42,12 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)configureWithViewModel:(PriceTriggerTableViewCellModel *)viewModel {
-    self.titleLabel.text = viewModel.title;
+- (nullable NSString *)titleText {
+    return self.titleLabel.text;
+}
+
+- (void)setTitleText:(nullable NSString *)titleText {
+    self.titleLabel.text = titleText;
 }
 
 @end

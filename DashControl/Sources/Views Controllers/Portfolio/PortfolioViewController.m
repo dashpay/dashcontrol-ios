@@ -17,6 +17,12 @@
 
 #import "PortfolioViewController.h"
 
+#import "AddItemTableViewCell.h"
+#import "ItemTableViewCell.h"
+
+static NSString *const ADD_CELL_ID = @"AddItemTableViewCell";
+static NSString *const CELL_ID = @"ItemTableViewCell";
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PortfolioViewController ()
@@ -28,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"AddItemTableViewCell" bundle:nil] forCellReuseIdentifier:ADD_CELL_ID];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ItemTableViewCell" bundle:nil] forCellReuseIdentifier:CELL_ID];
+
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

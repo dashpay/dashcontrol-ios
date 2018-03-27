@@ -19,15 +19,17 @@
 
 #import <CoreData/CoreData.h>
 
+#import "AddItemTableViewCell.h"
 #import "ChartViewModel.h"
-#import "PriceTriggerTableViewCell.h"
+#import "ItemTableViewCell.h"
+#import "PriceTriggerTableViewCellModel.h"
 #import "PriceTriggerViewController.h"
 #import "PriceViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString *const TRIGGER_ADD_CELL_ID = @"PriceTriggerAddTableViewCell";
-static NSString *const TRIGGER_CELL_ID = @"PriceTriggerTableViewCell";
+static NSString *const ADD_CELL_ID = @"AddItemTableViewCell";
+static NSString *const CELL_ID = @"ItemTableViewCell";
 
 @interface PriceViewController () <UITableViewDataSource, NSFetchedResultsControllerDelegate>
 
@@ -55,6 +57,8 @@ static NSString *const TRIGGER_CELL_ID = @"PriceTriggerTableViewCell";
 
     self.title = NSLocalizedString(@"Price", nil);
 
+    [self.tableView registerNib:[UINib nibWithNibName:@"AddItemTableViewCell" bundle:nil] forCellReuseIdentifier:ADD_CELL_ID];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ItemTableViewCell" bundle:nil] forCellReuseIdentifier:CELL_ID];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     refreshControl.tintColor = [UIColor whiteColor];
     [refreshControl addTarget:self action:@selector(refreshControlAction:) forControlEvents:UIControlEventValueChanged];
@@ -117,11 +121,12 @@ static NSString *const TRIGGER_CELL_ID = @"PriceTriggerTableViewCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TRIGGER_ADD_CELL_ID forIndexPath:indexPath];
+        AddItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ADD_CELL_ID forIndexPath:indexPath];
+        cell.titleText = NSLocalizedString(@"Price alerts", nil);
         return cell;
     }
     else {
-        PriceTriggerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TRIGGER_CELL_ID forIndexPath:indexPath];
+        ItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID forIndexPath:indexPath];
         [self configureTriggerCell:cell atIndexPath:indexPath];
         return cell;
     }
@@ -207,7 +212,7 @@ static NSString *const TRIGGER_CELL_ID = @"PriceTriggerTableViewCell";
 
 #pragma mark Private
 
-- (void)configureTriggerCell:(PriceTriggerTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureTriggerCell:(ItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     DCTriggerEntity *trigger = [self triggerEntityAtIndexPath:indexPath];
     PriceTriggerTableViewCellModel *viewModel = [[PriceTriggerTableViewCellModel alloc] initWithTrigger:trigger];
     [cell configureWithViewModel:viewModel];

@@ -15,17 +15,11 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
-
-#import "ItemTableViewCellModel.h"
+#import "PortfolioViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCTriggerEntity;
-
-@interface PriceTriggerTableViewCellModel : NSObject <ItemTableViewCellModel>
-
-- (instancetype)initWithTrigger:(DCTriggerEntity *)trigger;
+@implementation PortfolioViewModel
 
 @end
 

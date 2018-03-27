@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation PriceTriggerTableViewCellModel
 
+@synthesize title = _title;
+
 - (instancetype)initWithTrigger:(DCTriggerEntity *)trigger {
     self = [super init];
     if (self) {

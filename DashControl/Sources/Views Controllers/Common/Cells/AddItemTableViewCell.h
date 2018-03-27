@@ -19,7 +19,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceTriggerAddTableViewCell : UITableViewCell
+@interface AddItemTableViewCell : UITableViewCell
+
+@property (nullable, copy, nonatomic) NSString *titleText;
 
 @end
 

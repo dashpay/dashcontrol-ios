@@ -17,15 +17,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ItemTableViewCellModel.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCTriggerEntity;
+@protocol ItemTableViewCellModel <NSObject>
 
-@interface PriceTriggerTableViewCellModel : NSObject <ItemTableViewCellModel>
-
-- (instancetype)initWithTrigger:(DCTriggerEntity *)trigger;
+@property (nullable, readonly, copy, nonatomic) NSString *title;
 
 @end
 

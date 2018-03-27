@@ -15,33 +15,15 @@
 //  limitations under the License.
 //
 
-#import "PriceTriggerAddTableViewCell.h"
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceTriggerAddTableViewCell ()
+@protocol ItemTableViewCellModel;
 
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property (strong, nonatomic) IBOutlet UILabel *addLabel;
+@interface ItemTableViewCell : UITableViewCell
 
-@end
-
-@implementation PriceTriggerAddTableViewCell
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-
-    self.titleLabel.text = NSLocalizedString(@"Price alerts", nil);
-    self.addLabel.text = NSLocalizedString(@"ADD", nil);
-}
-
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    [super setHighlighted:highlighted animated:animated];
-
-    [UIView animateWithDuration:0.25 animations:^{
-        self.contentView.alpha = highlighted ? 0.65 : 1.0;
-    }];
-}
+- (void)configureWithViewModel:(id<ItemTableViewCellModel>)viewModel;
 
 @end
 
