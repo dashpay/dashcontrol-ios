@@ -44,7 +44,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pL2-ZH-Z4B">
                             <rect key="frame" x="24" y="10.5" width="327" height="23"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Djm-Y5-hbp">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Djm-Y5-hbp">
                                     <rect key="frame" x="0.0" y="0.0" width="103.5" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="23" id="bpU-Y0-bx7"/>
@@ -68,7 +68,7 @@
                                         <action selector="segmentedButtonAction:" destination="-1" eventType="touchUpInside" id="hbj-OF-ilU"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LsB-R2-xRA">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LsB-R2-xRA">
                                     <rect key="frame" x="111.5" y="0.0" width="104" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="23" id="Ha0-Hb-HiD"/>
@@ -92,7 +92,7 @@
                                         <action selector="segmentedButtonAction:" destination="-1" eventType="touchUpInside" id="dMk-3f-lhj"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="co8-pQ-n0g">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="co8-pQ-n0g">
                                     <rect key="frame" x="223.5" y="0.0" width="103.5" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="23" id="9qg-Br-37t"/>
