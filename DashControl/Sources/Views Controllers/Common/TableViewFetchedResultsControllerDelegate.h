@@ -15,23 +15,17 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
-
-#import "DCMasternodeEntity+CoreDataClass.h"
-#import "DCWalletAddressEntity+CoreDataClass.h"
-#import "DCWalletEntity+CoreDataClass.h"
+#import <CoreData/CoreData.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCPersistenceStack;
+typedef NSIndexPath *_Nonnull (^IndexPathTransformationBlock)(NSIndexPath *indexPath);
 
-@interface PortfolioViewModel : NSObject
+@interface TableViewFetchedResultsControllerDelegate : NSObject <NSFetchedResultsControllerDelegate>
 
-@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
-
-@property (readonly, nonatomic, strong) NSFetchedResultsController<DCWalletEntity *> *walletFetchedResultsController;
-@property (readonly, nonatomic, strong) NSFetchedResultsController<DCWalletAddressEntity *> *walletAddressFetchedResultsController;
-@property (readonly, nonatomic, strong) NSFetchedResultsController<DCMasternodeEntity *> *masternodeFetchedResultsController;
+@property (nullable, weak, nonatomic) UITableView *tableView;
+@property (nullable, copy, nonatomic) IndexPathTransformationBlock transformationBlock;
 
 @end
 

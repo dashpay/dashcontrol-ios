@@ -17,21 +17,15 @@
 
 #import <Foundation/Foundation.h>
 
-#import "DCMasternodeEntity+CoreDataClass.h"
-#import "DCWalletAddressEntity+CoreDataClass.h"
-#import "DCWalletEntity+CoreDataClass.h"
+#import "ItemTableViewCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCPersistenceStack;
+@class DCMasternodeEntity;
 
-@interface PortfolioViewModel : NSObject
+@interface PortfolioMasternodeTableViewCellModel : NSObject <ItemTableViewCellModel>
 
-@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
-
-@property (readonly, nonatomic, strong) NSFetchedResultsController<DCWalletEntity *> *walletFetchedResultsController;
-@property (readonly, nonatomic, strong) NSFetchedResultsController<DCWalletAddressEntity *> *walletAddressFetchedResultsController;
-@property (readonly, nonatomic, strong) NSFetchedResultsController<DCMasternodeEntity *> *masternodeFetchedResultsController;
+- (instancetype)initWithEntity:(DCMasternodeEntity *)entity;
 
 @end
 

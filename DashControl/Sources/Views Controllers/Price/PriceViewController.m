@@ -25,6 +25,7 @@
 #import "PriceTriggerTableViewCellModel.h"
 #import "PriceTriggerViewController.h"
 #import "PriceViewModel.h"
+#import "TableViewFetchedResultsControllerDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,12 +35,9 @@ static NSString *const CELL_ID = @"ItemTableViewCell";
 @interface PriceViewController () <UITableViewDataSource, NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) PriceViewModel *viewModel;
+@property (strong, nonatomic) TableViewFetchedResultsControllerDelegate *fetchedResultsControllerDelegate;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-
-@property (strong, nonatomic) NSMutableArray<NSIndexPath *> *deletedRowIndexPaths;
-@property (strong, nonatomic) NSMutableArray<NSIndexPath *> *insertedRowIndexPaths;
-@property (strong, nonatomic) NSMutableArray<NSIndexPath *> *updatedRowIndexPaths;
 
 @end
 
@@ -63,13 +61,13 @@ static NSString *const CELL_ID = @"ItemTableViewCell";
     refreshControl.tintColor = [UIColor whiteColor];
     [refreshControl addTarget:self action:@selector(refreshControlAction:) forControlEvents:UIControlEventValueChanged];
     self.tableView.refreshControl = refreshControl;
-
+    
     [self reload];
 
     // KVO
 
     [self mvvm_observe:@"viewModel.fetchedResultsController" with:^(typeof(self) self, id value) {
-        self.viewModel.fetchedResultsController.delegate = self;
+        self.viewModel.fetchedResultsController.delegate = self.fetchedResultsControllerDelegate;
         [self.tableView reloadData];
     }];
 }
@@ -147,63 +145,6 @@ static NSString *const CELL_ID = @"ItemTableViewCell";
     }
 }
 
-- (NSMutableArray<NSIndexPath *> *)deletedRowIndexPaths {
-    if (!_deletedRowIndexPaths) {
-        _deletedRowIndexPaths = [NSMutableArray array];
-    }
-    return _deletedRowIndexPaths;
-}
-
-- (NSMutableArray<NSIndexPath *> *)insertedRowIndexPaths {
-    if (!_insertedRowIndexPaths) {
-        _insertedRowIndexPaths = [NSMutableArray array];
-    }
-    return _insertedRowIndexPaths;
-}
-
-- (NSMutableArray<NSIndexPath *> *)updatedRowIndexPaths {
-    if (!_updatedRowIndexPaths) {
-        _updatedRowIndexPaths = [NSMutableArray array];
-    }
-    return _updatedRowIndexPaths;
-}
-
-#pragma mark NSFetchedResultsControllerDelegate
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(nullable NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(nullable NSIndexPath *)newIndexPath {
-    switch (type) {
-        case NSFetchedResultsChangeInsert: {
-            [self.insertedRowIndexPaths addObject:newIndexPath];
-            break;
-        }
-        case NSFetchedResultsChangeDelete: {
-            [self.deletedRowIndexPaths addObject:indexPath];
-            break;
-        }
-        case NSFetchedResultsChangeUpdate: {
-            [self.updatedRowIndexPaths addObject:indexPath];
-            break;
-        }
-        case NSFetchedResultsChangeMove: {
-            [self.insertedRowIndexPaths addObject:newIndexPath];
-            [self.deletedRowIndexPaths addObject:indexPath];
-            break;
-        }
-    }
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView beginUpdates];
-    [self.tableView deleteRowsAtIndexPaths:self.deletedRowIndexPaths withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView insertRowsAtIndexPaths:self.insertedRowIndexPaths withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView reloadRowsAtIndexPaths:self.updatedRowIndexPaths withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView endUpdates];
-
-    [self.deletedRowIndexPaths removeAllObjects];
-    [self.insertedRowIndexPaths removeAllObjects];
-    [self.updatedRowIndexPaths removeAllObjects];
-}
-
 #pragma mark Actions
 
 - (void)refreshControlAction:(UIRefreshControl *)sender {
@@ -211,6 +152,14 @@ static NSString *const CELL_ID = @"ItemTableViewCell";
 }
 
 #pragma mark Private
+
+- (TableViewFetchedResultsControllerDelegate *)fetchedResultsControllerDelegate {
+    if (!_fetchedResultsControllerDelegate) {
+        _fetchedResultsControllerDelegate = [[TableViewFetchedResultsControllerDelegate alloc] init];
+        _fetchedResultsControllerDelegate.tableView = self.tableView;
+    }
+    return _fetchedResultsControllerDelegate;
+}
 
 - (void)configureTriggerCell:(ItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     DCTriggerEntity *trigger = [self triggerEntityAtIndexPath:indexPath];

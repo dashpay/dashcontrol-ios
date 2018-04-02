@@ -15,23 +15,23 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import "PortfolioWalletTableViewCellModel.h"
 
-#import "DCMasternodeEntity+CoreDataClass.h"
-#import "DCWalletAddressEntity+CoreDataClass.h"
 #import "DCWalletEntity+CoreDataClass.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCPersistenceStack;
+@implementation PortfolioWalletTableViewCellModel
 
-@interface PortfolioViewModel : NSObject
+@synthesize title = _title;
 
-@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
-
-@property (readonly, nonatomic, strong) NSFetchedResultsController<DCWalletEntity *> *walletFetchedResultsController;
-@property (readonly, nonatomic, strong) NSFetchedResultsController<DCWalletAddressEntity *> *walletAddressFetchedResultsController;
-@property (readonly, nonatomic, strong) NSFetchedResultsController<DCMasternodeEntity *> *masternodeFetchedResultsController;
+- (instancetype)initWithEntity:(DCWalletEntity *)entity {
+    self = [super init];
+    if (self) {
+        _title = entity.name;
+    }
+    return self;
+}
 
 @end
 

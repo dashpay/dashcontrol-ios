@@ -125,6 +125,15 @@
 /* No comment provided by engineer. */
 "Monthly\namount" = "Monthly\namount";
 
+/* No comment provided by engineer. */
+"My Masternodes" = "My Masternodes";
+
+/* No comment provided by engineer. */
+"My Wallet Addresses" = "My Wallet Addresses";
+
+/* No comment provided by engineer. */
+"My Wallets" = "My Wallets";
+
 /* No votes count title */
 "No" = "No";
 
@@ -166,6 +175,9 @@
 
 /* No comment provided by engineer. */
 "Payment\nadded / end" = "Payment\nadded / end";
+
+/* No comment provided by engineer. */
+"Portfolio" = "Portfolio";
 
 /* No comment provided by engineer. */
 "Price" = "Price";
