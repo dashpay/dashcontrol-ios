@@ -187,9 +187,7 @@
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation
-{
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     if (![url.scheme isEqual:@"dashcontrol"]) {
         UIAlertController * alert = [UIAlertController
                                      alertControllerWithTitle:@"Not a dash URL"
@@ -219,7 +217,7 @@
         if ([[paramDictionary[@"callback"] lowercaseString] isEqualToString:@"masterpublickey"]) {
             [[DCWalletManager sharedInstance] importWalletMasterAddressFromSource:@"Dashwallet" withExtended32PublicKey:paramDictionary[@"masterPublicKeyBIP32"] extended44PublicKey:paramDictionary[@"masterPublicKeyBIP44"] completion:^(BOOL success) {
                 if (success) {
-                
+                    
                 }
             }];
         }

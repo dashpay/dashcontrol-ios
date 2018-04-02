@@ -225,10 +225,10 @@
             [rates addObject:d[@"rate"]];
         }
         
-        _currencyCodes = codes;
-        _currencyNames = names;
-        _currencyPrices = rates;
-        self.localCurrencyCode = _localCurrencyCode; // update localCurrencyPrice and localFormat.maximum
+        self->_currencyCodes = codes;
+        self->_currencyNames = names;
+        self.currencyPrices = rates;
+        self.localCurrencyCode = self.localCurrencyCode; // update localCurrencyPrice and localFormat.maximum
         [defs setObject:self.currencyCodes forKey:CURRENCY_CODES_KEY];
         [defs setObject:self.currencyNames forKey:CURRENCY_NAMES_KEY];
         [defs setObject:self.currencyPrices forKey:CURRENCY_PRICES_KEY];
