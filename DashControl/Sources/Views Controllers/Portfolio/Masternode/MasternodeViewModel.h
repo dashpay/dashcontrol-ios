@@ -15,17 +15,26 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#import "BaseFormCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCTriggerEntity;
-@protocol ExchangeMarketPair;
+@class DCMasternodeEntity;
+@class DCPersistenceStack;
 
-@interface PriceTriggerViewController : UIViewController
+@interface MasternodeViewModel : NSObject
 
-+ (instancetype)controllerWithExchangeMarketPair:(nullable NSObject<ExchangeMarketPair> *)exchangeMarketPair;
-+ (instancetype)controllerWithTrigger:(DCTriggerEntity *)trigger;
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+
+@property (readonly, strong, nonatomic) NSArray<BaseFormCellModel *> *items;
+@property (readonly, assign, nonatomic) BOOL deleteAvailable;
+
+- (instancetype)initWithMasternode:(nullable DCMasternodeEntity *)masternode;
+
+- (NSInteger)indexOfInvalidDetail;
+- (void)saveCurrentWithCompletion:(void (^)(void))completion;
 
 @end
 

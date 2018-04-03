@@ -15,17 +15,11 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import "TextFieldFormCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCTriggerEntity;
-@protocol ExchangeMarketPair;
-
-@interface PriceTriggerViewController : UIViewController
-
-+ (instancetype)controllerWithExchangeMarketPair:(nullable NSObject<ExchangeMarketPair> *)exchangeMarketPair;
-+ (instancetype)controllerWithTrigger:(DCTriggerEntity *)trigger;
+@interface AddressTextFieldFormCellModel : TextFieldFormCellModel
 
 @end
 

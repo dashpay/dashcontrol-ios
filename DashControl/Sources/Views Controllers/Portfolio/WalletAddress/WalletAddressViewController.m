@@ -15,43 +15,43 @@
 //  limitations under the License.
 //
 
-#import "PriceTriggerViewController.h"
+#import "WalletAddressViewController.h"
 
 #import <MBProgressHUD/MBProgressHUD.h>
 
 #import "FormTableViewController.h"
-#import "PriceTriggerViewModel.h"
+#import "WalletAddressViewModel.h"
+#import "QRCodeButton.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceTriggerViewController () <FormTableViewControllerDelegate>
+@interface WalletAddressViewController () <FormTableViewControllerDelegate>
 
-@property (strong, nonatomic) PriceTriggerViewModel *viewModel;
+@property (strong, nonatomic) WalletAddressViewModel *viewModel;
 
 @end
 
-@implementation PriceTriggerViewController
+@implementation WalletAddressViewController
 
-+ (instancetype)controllerWithExchangeMarketPair:(nullable NSObject<ExchangeMarketPair> *)exchangeMarketPair {
-    PriceTriggerViewController *viewController = [[PriceTriggerViewController alloc] initWithNibName:nil bundle:nil];
-    viewController.viewModel = [[PriceTriggerViewModel alloc] initAsNewWithExchangeMarketPair:exchangeMarketPair];
-    return viewController;
-}
-
-+ (instancetype)controllerWithTrigger:(DCTriggerEntity *)trigger {
-    PriceTriggerViewController *viewController = [[PriceTriggerViewController alloc] initWithNibName:nil bundle:nil];
-    viewController.viewModel = [[PriceTriggerViewModel alloc] initWithTrigger:trigger];
-    return viewController;
++ (instancetype)controllerWalletAddress:(nullable DCWalletAddressEntity *)walletAddress {
+    WalletAddressViewController *controller = [[WalletAddressViewController alloc] initWithNibName:nil bundle:nil];
+    controller.viewModel = [[WalletAddressViewModel alloc] initWithWalletAddress:walletAddress];
+    return controller;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = NSLocalizedString(@"Price Alert", nil);
+    self.title = NSLocalizedString(@"Wallet Address", nil);
 
     FormTableViewController *formController = [[FormTableViewController alloc] initWithStyle:UITableViewStylePlain];
     formController.items = self.viewModel.items;
     formController.delegate = self;
+    
+    CGRect frame = CGRectMake(0.0, 0.0, [UIScreen mainScreen].bounds.size.width, 84.0);
+    QRCodeButton *qrCodeButton = [[QRCodeButton alloc] initWithFrame:frame];
+    [qrCodeButton addTarget:self action:@selector(qrCodeButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    formController.tableView.tableFooterView = qrCodeButton;
 
     [self addChildViewController:formController];
     formController.view.frame = self.view.bounds;
@@ -75,13 +75,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSArray<id<NamedObject>> *)formTableViewController:(FormTableViewController *)controller
                                    availableValuesForCellModel:(SelectorFormCellModel *)cellModel {
-    return [self.viewModel availableValuesForDetail:cellModel];
+    return nil;
 }
 
 - (void)formTableViewController:(FormTableViewController *)controller
                     selectValue:(id<NamedObject>)value
                    forCellModel:(SelectorFormCellModel *)cellModel {
-    [self.viewModel selectValue:value forDetail:cellModel];
+    // NOP
 }
 
 - (NSInteger)formTableViewControllerIndexOfInvalidDetail:(FormTableViewController *)controller {
@@ -91,39 +91,19 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)formTableViewControllerDone:(FormTableViewController *)controller {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     weakify;
-    [self.viewModel saveCurrentTriggerCompletion:^(NSString *_Nullable errorMessage) {
+    [self.viewModel saveCurrentWithCompletion:^{
         strongify;
-        [self handleOperationCompletionWithErrorMessage:errorMessage];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 
 #pragma mark Actions
 
 - (void)deleteButtonAction:(id)sender {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    weakify;
-    [self.viewModel deleteTriggerCompletion:^(NSString *_Nullable errorMessage) {
-        strongify;
-        [self handleOperationCompletionWithErrorMessage:errorMessage];
-    }];
 }
 
-#pragma mark Private
-
-- (void)handleOperationCompletionWithErrorMessage:(nullable NSString *)errorMessage {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    if (errorMessage) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error"
-                                                                                 message:errorMessage
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ok", @"ok")
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:nil]];
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
-    else {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+- (void)qrCodeButtonAction {
 }
 
 @end

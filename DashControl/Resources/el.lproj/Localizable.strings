@@ -63,6 +63,9 @@
 "ADD" = "ADD";
 
 /* No comment provided by engineer. */
+"Address" = "Address";
+
+/* No comment provided by engineer. */
 "Alert type" = "Alert type";
 
 /* No comment provided by engineer. */
@@ -117,10 +120,16 @@
 "Final voting\ndeadline" = "Final voting\ndeadline";
 
 /* No comment provided by engineer. */
+"Import using QR code" = "Import using QR code";
+
+/* No comment provided by engineer. */
 "in %ld day(s)" = "in %ld day(s)";
 
 /* No comment provided by engineer. */
 "Market" = "Market";
+
+/* No comment provided by engineer. */
+"Masternode" = "Masternode";
 
 /* No comment provided by engineer. */
 "Monthly\namount" = "Monthly\namount";
@@ -208,6 +217,9 @@
 
 /* No comment provided by engineer. */
 "Under %@" = "Under %@";
+
+/* No comment provided by engineer. */
+"Wallet Address" = "Wallet Address";
 
 /* No comment provided by engineer. */
 "WiFi" = "WiFi";

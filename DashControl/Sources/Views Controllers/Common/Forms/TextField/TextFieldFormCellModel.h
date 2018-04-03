@@ -34,9 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) BOOL enablesReturnKeyAutomatically;
 @property (assign, nonatomic, getter=isSecureTextEntry) BOOL secureTextEntry;
 
-- (BOOL)validateReplacementString:(NSString *)string text:(nullable NSString *)text;
-
 - (instancetype)initWithTitle:(nullable NSString *)title placeholder:(nullable NSString *)placeholder NS_DESIGNATED_INITIALIZER;
+
+- (BOOL)validateReplacementString:(NSString *)string text:(nullable NSString *)text;
 
 @end
 

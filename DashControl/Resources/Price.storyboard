@@ -196,26 +196,6 @@
             </objects>
             <point key="canvasLocation" x="2524" y="-459"/>
         </scene>
-        <!--Price Trigger View Controller-->
-        <scene sceneID="Rys-2Q-FlH">
-            <objects>
-                <tableViewController storyboardIdentifier="PriceTriggerViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="33S-W6-bbj" customClass="PriceTriggerViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="51" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="jDn-bY-Vxe">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="separatorColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
-                        <connections>
-                            <outlet property="dataSource" destination="33S-W6-bbj" id="VBg-6F-49f"/>
-                            <outlet property="delegate" destination="33S-W6-bbj" id="9e8-xk-zGK"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hfh-ny-g7W" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3477" y="-376"/>
-        </scene>
     </scenes>
     <resources>
         <image name="tabBarPrice" width="27" height="28"/>

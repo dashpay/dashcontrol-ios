@@ -19,11 +19,13 @@
 
 #import "AddItemTableViewCell.h"
 #import "ItemTableViewCell.h"
+#import "MasternodeViewController.h"
 #import "PortfolioMasternodeTableViewCellModel.h"
 #import "PortfolioViewModel.h"
 #import "PortfolioWalletAddressTableViewCellModel.h"
 #import "PortfolioWalletTableViewCellModel.h"
 #import "TableViewFetchedResultsControllerDelegate.h"
+#import "WalletAddressViewController.h"
 
 static NSString *const ADD_CELL_ID = @"AddItemTableViewCell";
 static NSString *const CELL_ID = @"ItemTableViewCell";
@@ -154,6 +156,24 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case PortfolioSection_AddWallet: {
+            break;
+        }
+        case PortfolioSection_AddWalletAddress: {
+            WalletAddressViewController *walletAddressController = [WalletAddressViewController controllerWalletAddress:nil];
+            [self showViewController:walletAddressController sender:self];
+            break;
+        }
+        case PortfolioSection_AddMasternode: {
+            MasternodeViewController *masternodeViewController = [MasternodeViewController controllerWithMasternode:nil];
+            [self showViewController:masternodeViewController sender:self];
+            break;
+        }
+        default: {
+            break;
+        }
+    }
 }
 
 #pragma mark Private

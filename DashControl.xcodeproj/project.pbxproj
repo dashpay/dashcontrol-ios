@@ -137,6 +137,14 @@
 		2AEF297F20735DA5008590E4 /* SwitcherFormCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF297E20735DA5008590E4 /* SwitcherFormCellModel.m */; };
 		2AEF298220735DE4008590E4 /* SwitcherFormTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF298120735DE4008590E4 /* SwitcherFormTableViewCell.m */; };
 		2AEF298420735E2B008590E4 /* SwitcherFormTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AEF298320735E2B008590E4 /* SwitcherFormTableViewCell.xib */; };
+		2AEF298A20736C8F008590E4 /* FormTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF298920736C8F008590E4 /* FormTableViewController.m */; };
+		2AEF298E20737904008590E4 /* WalletAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF298D20737904008590E4 /* WalletAddressViewController.m */; };
+		2AEF299120737932008590E4 /* WalletAddressViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF299020737932008590E4 /* WalletAddressViewModel.m */; };
+		2AEF299520737E41008590E4 /* MasternodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF299420737E41008590E4 /* MasternodeViewController.m */; };
+		2AEF299820737E61008590E4 /* MasternodeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF299720737E61008590E4 /* MasternodeViewModel.m */; };
+		2AEF299E20738FF1008590E4 /* AddressTextFieldFormCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF299D20738FF1008590E4 /* AddressTextFieldFormCellModel.m */; };
+		2AEF29B920740626008590E4 /* QRCodeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF29B820740626008590E4 /* QRCodeButton.m */; };
+		2AEF29BB20740647008590E4 /* QRCodeButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AEF29BA20740647008590E4 /* QRCodeButton.xib */; };
 		8B0BD619FFF877813DC0386A /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */; };
 		FB17AEE31FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AED81FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m */; };
 		FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AEDA1FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m */; };
@@ -501,6 +509,21 @@
 		2AEF298020735DE4008590E4 /* SwitcherFormTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitcherFormTableViewCell.h; sourceTree = "<group>"; };
 		2AEF298120735DE4008590E4 /* SwitcherFormTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwitcherFormTableViewCell.m; sourceTree = "<group>"; };
 		2AEF298320735E2B008590E4 /* SwitcherFormTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitcherFormTableViewCell.xib; sourceTree = "<group>"; };
+		2AEF298820736C8F008590E4 /* FormTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormTableViewController.h; sourceTree = "<group>"; };
+		2AEF298920736C8F008590E4 /* FormTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormTableViewController.m; sourceTree = "<group>"; };
+		2AEF298C20737904008590E4 /* WalletAddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletAddressViewController.h; sourceTree = "<group>"; };
+		2AEF298D20737904008590E4 /* WalletAddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletAddressViewController.m; sourceTree = "<group>"; };
+		2AEF298F20737932008590E4 /* WalletAddressViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletAddressViewModel.h; sourceTree = "<group>"; };
+		2AEF299020737932008590E4 /* WalletAddressViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletAddressViewModel.m; sourceTree = "<group>"; };
+		2AEF299320737E41008590E4 /* MasternodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasternodeViewController.h; sourceTree = "<group>"; };
+		2AEF299420737E41008590E4 /* MasternodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasternodeViewController.m; sourceTree = "<group>"; };
+		2AEF299620737E61008590E4 /* MasternodeViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasternodeViewModel.h; sourceTree = "<group>"; };
+		2AEF299720737E61008590E4 /* MasternodeViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasternodeViewModel.m; sourceTree = "<group>"; };
+		2AEF299C20738FF1008590E4 /* AddressTextFieldFormCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressTextFieldFormCellModel.h; sourceTree = "<group>"; };
+		2AEF299D20738FF1008590E4 /* AddressTextFieldFormCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressTextFieldFormCellModel.m; sourceTree = "<group>"; };
+		2AEF29B720740626008590E4 /* QRCodeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRCodeButton.h; sourceTree = "<group>"; };
+		2AEF29B820740626008590E4 /* QRCodeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRCodeButton.m; sourceTree = "<group>"; };
+		2AEF29BA20740647008590E4 /* QRCodeButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QRCodeButton.xib; sourceTree = "<group>"; };
 		403ADE725BE30A95BD44A394 /* Pods-DashControlTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControlTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests.release.xcconfig"; sourceTree = "<group>"; };
 		481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
 		558B8AE6721A9375C76DBBD3 /* Pods-DashControlTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControlTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1157,6 +1180,8 @@
 			children = (
 				2AEF29602072CD25008590E4 /* BaseFormCellModel.h */,
 				2AEF29612072CD25008590E4 /* BaseFormCellModel.m */,
+				2AEF298820736C8F008590E4 /* FormTableViewController.h */,
+				2AEF298920736C8F008590E4 /* FormTableViewController.m */,
 				2AEF297920735664008590E4 /* Button */,
 				2AEF297B20735691008590E4 /* Selector */,
 				2AEF297C20735D89008590E4 /* Switcher */,
@@ -1180,6 +1205,8 @@
 		2AEF297A20735672008590E4 /* TextField */ = {
 			isa = PBXGroup;
 			children = (
+				2AEF299C20738FF1008590E4 /* AddressTextFieldFormCellModel.h */,
+				2AEF299D20738FF1008590E4 /* AddressTextFieldFormCellModel.m */,
 				2AEF29662072D227008590E4 /* DecimalTextFieldFormCellModel.h */,
 				2AEF29672072D227008590E4 /* DecimalTextFieldFormCellModel.m */,
 				2AEF29632072CD8C008590E4 /* TextFieldFormCellModel.h */,
@@ -1214,6 +1241,31 @@
 				2AEF298320735E2B008590E4 /* SwitcherFormTableViewCell.xib */,
 			);
 			path = Switcher;
+			sourceTree = "<group>";
+		};
+		2AEF298B207378D9008590E4 /* WalletAddress */ = {
+			isa = PBXGroup;
+			children = (
+				2AEF298C20737904008590E4 /* WalletAddressViewController.h */,
+				2AEF298D20737904008590E4 /* WalletAddressViewController.m */,
+				2AEF298F20737932008590E4 /* WalletAddressViewModel.h */,
+				2AEF299020737932008590E4 /* WalletAddressViewModel.m */,
+				2AEF29B720740626008590E4 /* QRCodeButton.h */,
+				2AEF29B820740626008590E4 /* QRCodeButton.m */,
+				2AEF29BA20740647008590E4 /* QRCodeButton.xib */,
+			);
+			path = WalletAddress;
+			sourceTree = "<group>";
+		};
+		2AEF299220737E2C008590E4 /* Masternode */ = {
+			isa = PBXGroup;
+			children = (
+				2AEF299320737E41008590E4 /* MasternodeViewController.h */,
+				2AEF299420737E41008590E4 /* MasternodeViewController.m */,
+				2AEF299620737E61008590E4 /* MasternodeViewModel.h */,
+				2AEF299720737E61008590E4 /* MasternodeViewModel.m */,
+			);
+			path = Masternode;
 			sourceTree = "<group>";
 		};
 		3A3DCF867D724725B2BA999A /* Pods */ = {
@@ -1309,6 +1361,8 @@
 		FB4F93B71F8252210078E259 /* Portfolio */ = {
 			isa = PBXGroup;
 			children = (
+				2AEF299220737E2C008590E4 /* Masternode */,
+				2AEF298B207378D9008590E4 /* WalletAddress */,
 				2AEF294A2070DB64008590E4 /* Views */,
 				FB9CC18F1F84BB0D0079309F /* AddMasternodeViewController.h */,
 				FB9CC1901F84BB0D0079309F /* AddMasternodeViewController.m */,
@@ -1766,6 +1820,7 @@
 				FB1F8AB51FBCD2EA00175311 /* BIP39Words.plist in Resources */,
 				2AEF296D207345DB008590E4 /* SelectorFormTableViewCell.xib in Resources */,
 				2A32D6392054800B004B38A6 /* ProposalDescriptionTemplate.html in Resources */,
+				2AEF29BB20740647008590E4 /* QRCodeButton.xib in Resources */,
 				2A80B58F2039BEFE0015E1AA /* DCSearchBar.xib in Resources */,
 				2AEF297820734F53008590E4 /* ButtonFormTableViewCell.xib in Resources */,
 				FB84EDD31F32898700E4D400 /* LaunchScreen.storyboard in Resources */,
@@ -1984,6 +2039,7 @@
 				2AEF29532070DBA3008590E4 /* PortfolioMasternodeTableViewCellModel.m in Sources */,
 				2A4473A720429CC400B52BCB /* ChartViewController.m in Sources */,
 				2AEF294D2070DB87008590E4 /* PortfolioWalletTableViewCellModel.m in Sources */,
+				2AEF29B920740626008590E4 /* QRCodeButton.m in Sources */,
 				2A04E6E1202DA5E20065F30D /* HTTPLoaderFactory.m in Sources */,
 				2AEF296B207345BC008590E4 /* SelectorFormTableViewCell.m in Sources */,
 				2A32D63420546347004B38A6 /* ProposalDetailTableViewCell.m in Sources */,
@@ -2000,6 +2056,7 @@
 				2A04E6ED202DAB340065F30D /* RunOnMain.m in Sources */,
 				2AEF297F20735DA5008590E4 /* SwitcherFormCellModel.m in Sources */,
 				FBEBE5421F5802DE0056D921 /* DCChartTimeFormatter.m in Sources */,
+				2AEF299820737E61008590E4 /* MasternodeViewModel.m in Sources */,
 				2A04E6E8202DA5E20065F30D /* HTTPService.m in Sources */,
 				FB4310F51FA2142700784EBC /* DCEnvironment.m in Sources */,
 				2A289A50203AB44400EDC98E /* BaseNewsTableViewController.m in Sources */,
@@ -2015,6 +2072,7 @@
 				2A04E6E3202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m in Sources */,
 				2A3F49AC2049426F005EB5D9 /* DCBudgetInfoEntity+CoreDataProperties.m in Sources */,
 				FB300E371FB5599400B3CDE0 /* BRScanViewController.m in Sources */,
+				2AEF298E20737904008590E4 /* WalletAddressViewController.m in Sources */,
 				2AE410462066C7A100C41AC5 /* PriceTriggerViewModel.m in Sources */,
 				FB9CC1881F83E8000079309F /* NSMutableData+Dash.m in Sources */,
 				2AC693FE2064F0A000F64482 /* PriceTriggerTableViewCellModel.m in Sources */,
@@ -2030,9 +2088,11 @@
 				FB4550D81FB1C1A4001CC1ED /* DCWalletEntity+CoreDataProperties.m in Sources */,
 				FBE1F50A1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.m in Sources */,
 				2A3F49CC204C826C005EB5D9 /* ProposalsSearchResultsController.m in Sources */,
+				2AEF298A20736C8F008590E4 /* FormTableViewController.m in Sources */,
 				2A80B584203699E70015E1AA /* DCPersistenceStack.m in Sources */,
 				2AD693C62032C9AC0084D840 /* NewsTableViewCell.m in Sources */,
 				2A6F5967203566A600D7BD85 /* ForwardingNavigationController.m in Sources */,
+				2AEF299520737E41008590E4 /* MasternodeViewController.m in Sources */,
 				2A80B58A2036A8F40015E1AA /* DCLogging.m in Sources */,
 				2A04E6DE202DA5E20065F30D /* HTTPResponse.m in Sources */,
 				FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */,
@@ -2088,6 +2148,7 @@
 				FBE1F5091F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m in Sources */,
 				2A8F8184203EB74900D3D6C9 /* DCMarketEntity+Extensions.m in Sources */,
 				FB9CC1A51F87D4860079309F /* BRBIP32Sequence.m in Sources */,
+				2AEF299120737932008590E4 /* WalletAddressViewModel.m in Sources */,
 				2A32D637205471BE004B38A6 /* ProposalDetailTableViewCellModel.m in Sources */,
 				FB17AEE61FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m in Sources */,
 				2A4FE29D203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m in Sources */,
@@ -2104,6 +2165,7 @@
 				2A3F49CF204C833D005EB5D9 /* ProposalsViewModel.m in Sources */,
 				2AEF295C2072B0DF008590E4 /* TextFieldFormTableViewCell.m in Sources */,
 				2A04E6DF202DA5E20065F30D /* HTTPRequestOperation.m in Sources */,
+				2AEF299E20738FF1008590E4 /* AddressTextFieldFormCellModel.m in Sources */,
 				2AE410532066D33000C41AC5 /* ExchangeMarketPairObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
