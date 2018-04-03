@@ -17,14 +17,14 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BaseTriggerDetail.h"
+#import "BaseFormCellModel.h"
 #import "NamedObject.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class DCPersistenceStack;
 @class APITrigger;
-@class ValueTriggerDetail;
+@class SelectorFormCellModel;
 @class DCTriggerEntity;
 @protocol ExchangeMarketPair;
 
@@ -33,15 +33,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 @property (strong, nonatomic) InjectedClass(APITrigger) apiTrigger;
 
-@property (readonly, strong, nonatomic) NSArray<BaseTriggerDetail *> *items;
+@property (readonly, strong, nonatomic) NSArray<BaseFormCellModel *> *items;
 @property (readonly, assign, nonatomic) BOOL deleteAvailable;
 
 - (instancetype)initAsNewWithExchangeMarketPair:(nullable NSObject<ExchangeMarketPair> *)exchangeMarketPair;
 - (instancetype)initWithTrigger:(DCTriggerEntity *)trigger;
 - (instancetype)init NS_UNAVAILABLE;
 
-- (nullable NSArray<id<NamedObject>> *)availableValuesForDetail:(ValueTriggerDetail *)detail;
-- (void)selectValue:(id<NamedObject>)value forDetail:(ValueTriggerDetail *)detail;
+- (nullable NSArray<id<NamedObject>> *)availableValuesForDetail:(SelectorFormCellModel *)detail;
+- (void)selectValue:(id<NamedObject>)value forDetail:(SelectorFormCellModel *)detail;
 
 - (NSInteger)indexOfInvalidDetail;
 - (void)saveCurrentTriggerCompletion:(void(^)(NSString *_Nullable errorMessage))completion;

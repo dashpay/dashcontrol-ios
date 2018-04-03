@@ -15,15 +15,19 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUITableViewCell.h>
+#import "BaseFormCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class TextFieldTriggerDetail;
+@implementation BaseFormCellModel
 
-@interface PriceTriggerTextFieldTableViewCell : KVOUITableViewCell
-
-@property (strong, nonatomic) TextFieldTriggerDetail *detail;
+- (instancetype)initWithTitle:(nullable NSString *)title {
+    self = [super init];
+    if (self) {
+        _title = [title copy];
+    }
+    return self;
+}
 
 @end
 

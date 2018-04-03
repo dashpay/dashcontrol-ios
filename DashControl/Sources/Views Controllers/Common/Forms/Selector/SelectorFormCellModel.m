@@ -15,15 +15,11 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUITableViewCell.h>
+#import "SelectorFormCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ValueTriggerDetail;
-
-@interface PriceTriggerDetailTableViewCell : KVOUITableViewCell
-
-@property (strong, nonatomic) ValueTriggerDetail *detail;
+@implementation SelectorFormCellModel
 
 @end
 

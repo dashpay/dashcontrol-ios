@@ -15,11 +15,33 @@
 //  limitations under the License.
 //
 
-#import "TextFieldTriggerDetail.h"
+#import "ButtonFormTableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation TextFieldTriggerDetail
+@interface ButtonFormTableViewCell ()
+
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+
+@end
+
+@implementation ButtonFormTableViewCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    [self mvvm_observe:@"cellModel.title" with:^(typeof(self) self, NSString * value) {
+        self.titleLabel.text = value;
+    }];
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    [super setHighlighted:highlighted animated:animated];
+
+    [UIView animateWithDuration:0.25 animations:^{
+        self.contentView.alpha = highlighted ? 0.65 : 1.0;
+    }];
+}
 
 @end
 

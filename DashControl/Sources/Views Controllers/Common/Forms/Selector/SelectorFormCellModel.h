@@ -15,20 +15,15 @@
 //  limitations under the License.
 //
 
-#import "BaseTriggerDetail.h"
+#import "BaseFormCellModel.h"
+
+#import "NamedObject.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation BaseTriggerDetail
+@interface SelectorFormCellModel : BaseFormCellModel
 
-- (instancetype)initWithType:(BaseTriggerDetailType)type title:(NSString *)title {
-    self = [super init];
-    if (self) {
-        _type = type;
-        _title = title;
-    }
-    return self;
-}
+@property (nullable, strong, nonatomic) id<NamedObject> selectedValue;
 
 @end
 

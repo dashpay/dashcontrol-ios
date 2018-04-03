@@ -15,22 +15,11 @@
 //  limitations under the License.
 //
 
-#import "ValueTriggerDetail.h"
+#import "TextFieldFormCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ValueTriggerDetail ()
-
-@property (nullable, copy, nonatomic) NSString *detail;
-
-@end
-
-@implementation ValueTriggerDetail
-
-- (void)setValue:(nullable id<NamedObject>)value {
-    _value = value;
-    self.detail = value.name;
-}
+@interface DecimalTextFieldFormCellModel : TextFieldFormCellModel
 
 @end
 

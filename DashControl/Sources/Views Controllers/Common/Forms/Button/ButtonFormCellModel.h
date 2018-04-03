@@ -15,33 +15,11 @@
 //  limitations under the License.
 //
 
-#import "PriceTriggerButtonTableViewCell.h"
+#import "BaseFormCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceTriggerButtonTableViewCell ()
-
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
-
-@end
-
-@implementation PriceTriggerButtonTableViewCell
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    
-    [self mvvm_observe:@"detail.title" with:^(typeof(self) self, NSString *value){
-        self.titleLabel.text = value;
-    }];
-}
-
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    [super setHighlighted:highlighted animated:animated];
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        self.contentView.alpha = highlighted ? 0.65 : 1.0;
-    }];
-}
+@interface ButtonFormCellModel : BaseFormCellModel
 
 @end
 

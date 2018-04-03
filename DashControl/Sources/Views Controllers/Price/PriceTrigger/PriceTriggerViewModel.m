@@ -22,12 +22,12 @@
 #import "NSManagedObject+DCExtensions.h"
 #import "NSManagedObjectContext+DCExtensions.h"
 #import "APITrigger.h"
-#import "ButtonTriggerDetail.h"
+#import "ButtonFormCellModel.h"
 #import "DCPersistenceStack.h"
 #import "DCTrigger.h"
+#import "DecimalTextFieldFormCellModel.h"
 #import "ExchangeMarketPairObject.h"
-#import "TextFieldTriggerDetail.h"
-#import "ValueTriggerDetail.h"
+#import "SelectorFormCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -94,13 +94,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - View Model
 
+typedef NS_ENUM(NSUInteger, TriggerDetailType) {
+    TriggerDetailType_Exchange,
+    TriggerDetailType_Market,
+    TriggerDetailType_Price,
+    TriggerDetailType_AlertType,
+    TriggerDetailType_AddButton,
+};
+
 @interface PriceTriggerViewModel ()
 
 @property (strong, nonatomic) ExchangeMarketPairObject *exchangeMarketPair;
-@property (strong, nonatomic) ValueTriggerDetail *exchangeDetail;
-@property (strong, nonatomic) ValueTriggerDetail *marketDetail;
-@property (strong, nonatomic) TextFieldTriggerDetail *priceDetail;
-@property (strong, nonatomic) ValueTriggerDetail *alertTypeDetail;
+@property (strong, nonatomic) SelectorFormCellModel *exchangeDetail;
+@property (strong, nonatomic) SelectorFormCellModel *marketDetail;
+@property (strong, nonatomic) DecimalTextFieldFormCellModel *priceDetail;
+@property (strong, nonatomic) SelectorFormCellModel *alertTypeDetail;
 
 @property (nullable, strong, nonatomic) DCTriggerEntity *trigger;
 
@@ -121,8 +129,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithTrigger:(DCTriggerEntity *)trigger {
     ExchangeMarketPairObject *exchangeMarketPairObject =
-    [[ExchangeMarketPairObject alloc] initWithExchange:trigger.exchange market:trigger.market];
-    
+        [[ExchangeMarketPairObject alloc] initWithExchange:trigger.exchange market:trigger.market];
+
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
     numberFormatter.roundingMode = NSNumberFormatterRoundHalfDown;
@@ -132,9 +140,9 @@ NS_ASSUME_NONNULL_BEGIN
     numberFormatter.maximumSignificantDigits = 6;
     numberFormatter.usesSignificantDigits = YES;
     NSString *priceValue = [numberFormatter stringFromNumber:@(trigger.value)];
-    
+
     TriggerAlertTypeValue *alertTypeValue = [TriggerAlertTypeValue type:trigger.type];
-    
+
     return [self initWithExchangeMarketPair:exchangeMarketPairObject
                                  priceValue:priceValue
                              alertTypeValue:alertTypeValue
@@ -152,34 +160,35 @@ NS_ASSUME_NONNULL_BEGIN
 
         NSMutableArray *items = [NSMutableArray array];
         {
-            _exchangeDetail = [[ValueTriggerDetail alloc] initWithType:BaseTriggerDetailType_Exchange
-                                                                 title:NSLocalizedString(@"Exchange", nil)];
-            _exchangeDetail.value = _exchangeMarketPair.exchange ?: [[TriggerExchangeAnyValue alloc] init];
+            _exchangeDetail = [[SelectorFormCellModel alloc] initWithTitle:NSLocalizedString(@"Exchange", nil)];
+            _exchangeDetail.tag = TriggerDetailType_Exchange;
+            _exchangeDetail.selectedValue = _exchangeMarketPair.exchange ?: [[TriggerExchangeAnyValue alloc] init];
             [items addObject:_exchangeDetail];
         }
         {
-            _marketDetail = [[ValueTriggerDetail alloc] initWithType:BaseTriggerDetailType_Market
-                                                               title:NSLocalizedString(@"Market", nil)];
-            _marketDetail.value = _exchangeMarketPair.market;
+            _marketDetail = [[SelectorFormCellModel alloc] initWithTitle:NSLocalizedString(@"Market", nil)];
+            _marketDetail.tag = TriggerDetailType_Market;
+            _marketDetail.selectedValue = _exchangeMarketPair.market;
             [items addObject:_marketDetail];
         }
         {
-            _priceDetail = [[TextFieldTriggerDetail alloc] initWithType:BaseTriggerDetailType_Price
-                                                                  title:NSLocalizedString(@"Price", nil)];
-            _priceDetail.placeholder = NSLocalizedString(@"required", nil);
+            _priceDetail = [[DecimalTextFieldFormCellModel alloc] initWithTitle:NSLocalizedString(@"Price", nil)
+                                                                    placeholder:NSLocalizedString(@"required", nil)];
+            _priceDetail.tag = TriggerDetailType_Price;
             _priceDetail.text = priceValue;
+            _priceDetail.returnKeyType = UIReturnKeyDone;
             [items addObject:_priceDetail];
         }
         {
-            _alertTypeDetail = [[ValueTriggerDetail alloc] initWithType:BaseTriggerDetailType_AlertType
-                                                                  title:NSLocalizedString(@"Alert type", nil)];
-            _alertTypeDetail.value = alertTypeValue;
+            _alertTypeDetail = [[SelectorFormCellModel alloc] initWithTitle:NSLocalizedString(@"Alert type", nil)];
+            _alertTypeDetail.tag = TriggerDetailType_AlertType;
+            _alertTypeDetail.selectedValue = alertTypeValue;
             [items addObject:_alertTypeDetail];
         }
         {
             NSString *title = _trigger ? NSLocalizedString(@"SAVE", nil) : NSLocalizedString(@"ADD", nil);
-            ButtonTriggerDetail *detail = [[ButtonTriggerDetail alloc] initWithType:BaseTriggerDetailType_AddButton
-                                                                              title:title];
+            ButtonFormCellModel *detail = [[ButtonFormCellModel alloc] initWithTitle:title];
+            detail.tag = TriggerDetailType_AddButton;
             [items addObject:detail];
         }
         _items = [items copy];
@@ -191,16 +200,16 @@ NS_ASSUME_NONNULL_BEGIN
     return (self.trigger != nil);
 }
 
-- (nullable NSArray<id<NamedObject>> *)availableValuesForDetail:(ValueTriggerDetail *)detail {
-    if (detail.type == BaseTriggerDetailType_Exchange) {
+- (nullable NSArray<id<NamedObject>> *)availableValuesForDetail:(SelectorFormCellModel *)detail {
+    if (detail.tag == TriggerDetailType_Exchange) {
         NSMutableArray<id<NamedObject>> *values = [[self.exchangeMarketPair availableExchanges] mutableCopy];
         [values addObject:[[TriggerExchangeAnyValue alloc] init]];
         return values;
     }
-    else if (detail.type == BaseTriggerDetailType_Market) {
+    else if (detail.tag == TriggerDetailType_Market) {
         return [self.exchangeMarketPair availableMarkets];
     }
-    else if (detail.type == BaseTriggerDetailType_AlertType) {
+    else if (detail.tag == TriggerDetailType_AlertType) {
         NSArray *values = @[
             [TriggerAlertTypeValue type:DCTriggerAbove],
             [TriggerAlertTypeValue type:DCTriggerBelow],
@@ -214,8 +223,8 @@ NS_ASSUME_NONNULL_BEGIN
     return nil;
 }
 
-- (void)selectValue:(id<NamedObject>)value forDetail:(ValueTriggerDetail *)detail {
-    if (detail.type == BaseTriggerDetailType_Exchange) {
+- (void)selectValue:(id<NamedObject>)value forDetail:(SelectorFormCellModel *)detail {
+    if (detail.tag == TriggerDetailType_Exchange) {
         NSAssert([value isKindOfClass:DCExchangeEntity.class] || [value isKindOfClass:TriggerExchangeAnyValue.class], nil);
         if ([value isKindOfClass:TriggerExchangeAnyValue.class]) {
             [self.exchangeMarketPair selectExchange:nil];
@@ -224,18 +233,18 @@ NS_ASSUME_NONNULL_BEGIN
             [self.exchangeMarketPair selectExchange:(DCExchangeEntity *)value];
         }
 
-        self.exchangeDetail.value = value;
-        self.marketDetail.value = self.exchangeMarketPair.market; // update market too, because it might be changed by settings new exchange
+        self.exchangeDetail.selectedValue = value;
+        self.marketDetail.selectedValue = self.exchangeMarketPair.market; // update market too, because it might be changed by settings new exchange
     }
-    else if (detail.type == BaseTriggerDetailType_Market) {
+    else if (detail.tag == TriggerDetailType_Market) {
         NSAssert([value isKindOfClass:DCMarketEntity.class], nil);
         [self.exchangeMarketPair selectMarket:(DCMarketEntity *)value];
 
-        self.marketDetail.value = value;
+        self.marketDetail.selectedValue = value;
     }
-    else if (detail.type == BaseTriggerDetailType_AlertType) {
+    else if (detail.tag == TriggerDetailType_AlertType) {
         NSAssert([value isKindOfClass:TriggerAlertTypeValue.class], nil);
-        self.alertTypeDetail.value = value;
+        self.alertTypeDetail.selectedValue = value;
     }
     else {
         NSAssert(NO, @"unhandled detail type");
@@ -244,14 +253,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSInteger)indexOfInvalidDetail {
     for (NSInteger index = 0; index < self.items.count - 1; index++) {
-        BaseTriggerDetail *detail = self.items[index];
-        if ([detail isKindOfClass:ValueTriggerDetail.class]) {
-            if ([(ValueTriggerDetail *)detail value] == nil) {
+        BaseFormCellModel *detail = self.items[index];
+        if ([detail isKindOfClass:SelectorFormCellModel.class]) {
+            if ([(SelectorFormCellModel *)detail selectedValue] == nil) {
                 return index;
             }
         }
-        else if ([detail isKindOfClass:TextFieldTriggerDetail.class]) {
-            if ([(TextFieldTriggerDetail *)detail text].length == 0) {
+        else if ([detail isKindOfClass:DecimalTextFieldFormCellModel.class]) {
+            if ([(DecimalTextFieldFormCellModel *)detail text].length == 0) {
                 return index;
             }
         }
@@ -263,14 +272,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)saveCurrentTriggerCompletion:(void (^)(NSString *_Nullable errorMessage))completion {
     NSAssert([self indexOfInvalidDetail] == NSNotFound, @"Validate data before saving");
 
-    TriggerAlertTypeValue *typeValue = self.alertTypeDetail.value;
+    TriggerAlertTypeValue *typeValue = self.alertTypeDetail.selectedValue;
     NSNumber *priceValue = @([self.priceDetail.text doubleValue]);
     NSAssert([typeValue isKindOfClass:TriggerAlertTypeValue.class], nil);
     NSString *exchangeName = nil;
-    if ([self.exchangeDetail.value isKindOfClass:DCExchangeEntity.class]) {
-        exchangeName = self.exchangeDetail.value.name;
+    if ([self.exchangeDetail.selectedValue isKindOfClass:DCExchangeEntity.class]) {
+        exchangeName = self.exchangeDetail.selectedValue.name;
     }
-    NSString *marketName = self.marketDetail.value.name;
+    NSString *marketName = self.marketDetail.selectedValue.name;
 
     DCTrigger *trigger = [[DCTrigger alloc] initWithType:typeValue.type
                                                    value:priceValue

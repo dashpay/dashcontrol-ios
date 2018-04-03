@@ -19,19 +19,16 @@
 
 #import <MBProgressHUD/MBProgressHUD.h>
 
-#import "ButtonTriggerDetail.h"
-#import "PriceTriggerButtonTableViewCell.h"
-#import "PriceTriggerDetailTableViewCell.h"
-#import "PriceTriggerTextFieldTableViewCell.h"
+#import "ButtonFormTableViewCell.h"
 #import "PriceTriggerViewModel.h"
-#import "TextFieldTriggerDetail.h"
-#import "ValueTriggerDetail.h"
+#import "SelectorFormTableViewCell.h"
+#import "TextFieldFormTableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString *const DETAIL_CELL_ID = @"PriceTriggerDetailTableViewCell";
-static NSString *const DETAIL_TEXTFIELD_CELL_ID = @"PriceTriggerTextFieldTableViewCell";
-static NSString *const DETAIL_BUTTON_CELL_ID = @"PriceTriggerButtonTableViewCell";
+static NSString *const SELECTOR_CELL_ID = @"SelectorFormTableViewCell";
+static NSString *const TEXTFIELD_CELL_ID = @"TextFieldFormTableViewCell";
+static NSString *const BUTTON_CELL_ID = @"ButtonFormTableViewCell";
 
 @interface PriceTriggerViewController ()
 
@@ -64,6 +61,9 @@ static NSString *const DETAIL_BUTTON_CELL_ID = @"PriceTriggerButtonTableViewCell
 
     self.title = NSLocalizedString(@"Price Alert", nil);
     self.tableView.contentInset = UIEdgeInsetsMake(10.0, 0.0, 0.0, 0.0);
+    [self.tableView registerNib:[UINib nibWithNibName:@"SelectorFormTableViewCell" bundle:nil] forCellReuseIdentifier:SELECTOR_CELL_ID];
+    [self.tableView registerNib:[UINib nibWithNibName:@"TextFieldFormTableViewCell" bundle:nil] forCellReuseIdentifier:TEXTFIELD_CELL_ID];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ButtonFormTableViewCell" bundle:nil] forCellReuseIdentifier:BUTTON_CELL_ID];
 
     if (self.viewModel.deleteAvailable) {
         UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
@@ -84,23 +84,23 @@ static NSString *const DETAIL_BUTTON_CELL_ID = @"PriceTriggerButtonTableViewCell
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BaseTriggerDetail *detail = self.viewModel.items[indexPath.row];
+    BaseFormCellModel *detail = self.viewModel.items[indexPath.row];
 
-    if ([detail isKindOfClass:ValueTriggerDetail.class]) {
-        PriceTriggerDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:DETAIL_CELL_ID forIndexPath:indexPath];
-        cell.detail = (ValueTriggerDetail *)detail;
+    if ([detail isKindOfClass:SelectorFormCellModel.class]) {
+        SelectorFormTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SELECTOR_CELL_ID forIndexPath:indexPath];
+        cell.cellModel = (SelectorFormCellModel *)detail;
         return cell;
     }
-    else if ([detail isKindOfClass:TextFieldTriggerDetail.class]) {
-        PriceTriggerTextFieldTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:DETAIL_TEXTFIELD_CELL_ID forIndexPath:indexPath];
-        cell.detail = (TextFieldTriggerDetail *)detail;
+    else if ([detail isKindOfClass:TextFieldFormCellModel.class]) {
+        TextFieldFormTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TEXTFIELD_CELL_ID forIndexPath:indexPath];
+        cell.cellModel = (TextFieldFormCellModel *)detail;
         return cell;
     }
     else {
-        NSAssert([detail isKindOfClass:ButtonTriggerDetail.class], @"unknown detail model");
+        NSAssert([detail isKindOfClass:ButtonFormCellModel.class], @"unknown detail model");
 
-        PriceTriggerButtonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:DETAIL_BUTTON_CELL_ID forIndexPath:indexPath];
-        cell.detail = (ButtonTriggerDetail *)detail;
+        ButtonFormTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BUTTON_CELL_ID forIndexPath:indexPath];
+        cell.cellModel = (ButtonFormCellModel *)detail;
         return cell;
     }
 }
@@ -111,11 +111,11 @@ static NSString *const DETAIL_BUTTON_CELL_ID = @"PriceTriggerButtonTableViewCell
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.view endEditing:YES];
 
-    BaseTriggerDetail *detail = self.viewModel.items[indexPath.row];
-    if ([detail isKindOfClass:ValueTriggerDetail.class]) {
-        [self showValueSelectorForDetail:(ValueTriggerDetail *)detail];
+    BaseFormCellModel *detail = self.viewModel.items[indexPath.row];
+    if ([detail isKindOfClass:SelectorFormCellModel.class]) {
+        [self showValueSelectorForDetail:(SelectorFormCellModel *)detail];
     }
-    else if ([detail isKindOfClass:ButtonTriggerDetail.class]) {
+    else if ([detail isKindOfClass:ButtonFormCellModel.class]) {
         NSInteger index = [self.viewModel indexOfInvalidDetail];
         if (index == NSNotFound) {
             [self saveCurrentTrigger];
@@ -144,7 +144,7 @@ static NSString *const DETAIL_BUTTON_CELL_ID = @"PriceTriggerButtonTableViewCell
 
 #pragma mark Private
 
-- (void)showValueSelectorForDetail:(ValueTriggerDetail *)detail {
+- (void)showValueSelectorForDetail:(SelectorFormCellModel *)detail {
     NSArray<id<NamedObject>> *values = [self.viewModel availableValuesForDetail:detail];
 
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:detail.title

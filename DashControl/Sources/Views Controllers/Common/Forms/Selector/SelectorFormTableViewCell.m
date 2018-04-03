@@ -15,35 +15,34 @@
 //  limitations under the License.
 //
 
-#import "PriceTriggerDetailTableViewCell.h"
+#import "SelectorFormTableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PriceTriggerDetailTableViewCell ()
+@interface SelectorFormTableViewCell ()
 
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *detailLabel;
 
-
 @end
 
-@implementation PriceTriggerDetailTableViewCell
+@implementation SelectorFormTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
-    [self mvvm_observe:@"detail.title" with:^(typeof(self) self, NSString *value){
+
+    [self mvvm_observe:@"cellModel.title" with:^(typeof(self) self, NSString * value) {
         self.titleLabel.text = value;
     }];
-    
-    [self mvvm_observe:@"detail.detail" with:^(typeof(self) self, NSString *value){
-        self.detailLabel.text = value;
+
+    [self mvvm_observe:@"cellModel.selectedValue" with:^(typeof(self) self, id<NamedObject> value) {
+        self.detailLabel.text = value.name;
     }];
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    
+
     [UIView animateWithDuration:0.25 animations:^{
         self.contentView.alpha = highlighted ? 0.65 : 1.0;
     }];

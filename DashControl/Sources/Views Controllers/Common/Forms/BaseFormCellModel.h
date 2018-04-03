@@ -19,20 +19,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSUInteger, BaseTriggerDetailType) {
-    BaseTriggerDetailType_Exchange,
-    BaseTriggerDetailType_Market,
-    BaseTriggerDetailType_Price,
-    BaseTriggerDetailType_AlertType,
-    BaseTriggerDetailType_AddButton,
-};
+@interface BaseFormCellModel : NSObject
 
-@interface BaseTriggerDetail : NSObject
+@property (nullable, readonly, copy, nonatomic) NSString *title;
+@property (assign, nonatomic) NSUInteger tag;
 
-@property (readonly, assign, nonatomic) BaseTriggerDetailType type;
-@property (readonly, copy, nonatomic) NSString *title;
-
-- (instancetype)initWithType:(BaseTriggerDetailType)type title:(NSString *)title NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithTitle:(nullable NSString *)title NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;
 
 @end

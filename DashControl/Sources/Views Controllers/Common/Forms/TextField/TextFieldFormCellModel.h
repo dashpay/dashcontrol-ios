@@ -15,14 +15,28 @@
 //  limitations under the License.
 //
 
-#import "BaseTriggerDetail.h"
+#import <UIKit/UIKit.h>
+
+#import "BaseFormCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TextFieldTriggerDetail : BaseTriggerDetail
+@interface TextFieldFormCellModel : BaseFormCellModel
 
 @property (nullable, copy, nonatomic) NSString *placeholder;
 @property (nullable, copy, nonatomic) NSString *text;
+
+// Some of UITextInputTraits protocol params
+@property (assign, nonatomic) UITextAutocapitalizationType autocapitalizationType;
+@property (assign, nonatomic) UITextAutocorrectionType autocorrectionType;
+@property (assign, nonatomic) UIKeyboardType keyboardType;
+@property (assign, nonatomic) UIReturnKeyType returnKeyType;
+@property (assign, nonatomic) BOOL enablesReturnKeyAutomatically;
+@property (assign, nonatomic, getter=isSecureTextEntry) BOOL secureTextEntry;
+
+- (BOOL)validateReplacementString:(NSString *)string text:(nullable NSString *)text;
+
+- (instancetype)initWithTitle:(nullable NSString *)title placeholder:(nullable NSString *)placeholder NS_DESIGNATED_INITIALIZER;
 
 @end
 

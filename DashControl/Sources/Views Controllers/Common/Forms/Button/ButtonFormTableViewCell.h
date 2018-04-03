@@ -15,11 +15,15 @@
 //  limitations under the License.
 //
 
-#import "ButtonTriggerDetail.h"
+#import "KVOUITableViewCell.h"
+
+#import "ButtonFormCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation ButtonTriggerDetail
+@interface ButtonFormTableViewCell : KVOUITableViewCell
+
+@property (nullable, strong, nonatomic) ButtonFormCellModel *cellModel;
 
 @end
 

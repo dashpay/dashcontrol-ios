@@ -15,16 +15,11 @@
 //  limitations under the License.
 //
 
-#import "BaseTriggerDetail.h"
-
-#import "NamedObject.h"
+#import "ButtonFormCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ValueTriggerDetail : BaseTriggerDetail
-
-@property (nullable, readonly, copy, nonatomic) NSString *detail;
-@property (nullable, strong, nonatomic) id<NamedObject> value;
+@implementation ButtonFormCellModel
 
 @end
 

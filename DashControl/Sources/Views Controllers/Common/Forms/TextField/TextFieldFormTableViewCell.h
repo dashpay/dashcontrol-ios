@@ -15,11 +15,15 @@
 //  limitations under the License.
 //
 
-#import "BaseTriggerDetail.h"
+#import <KVO-MVVM/KVOUITableViewCell.h>
+
+#import "TextFieldFormCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ButtonTriggerDetail : BaseTriggerDetail
+@interface TextFieldFormTableViewCell : KVOUITableViewCell
+
+@property (nullable, strong, nonatomic) TextFieldFormCellModel *cellModel;
 
 @end
 
