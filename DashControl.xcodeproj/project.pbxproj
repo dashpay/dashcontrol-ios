@@ -134,6 +134,9 @@
 		2AEF297320734F30008590E4 /* ButtonFormCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF297220734F30008590E4 /* ButtonFormCellModel.m */; };
 		2AEF297720734F53008590E4 /* ButtonFormTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF297520734F53008590E4 /* ButtonFormTableViewCell.m */; };
 		2AEF297820734F53008590E4 /* ButtonFormTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AEF297620734F53008590E4 /* ButtonFormTableViewCell.xib */; };
+		2AEF297F20735DA5008590E4 /* SwitcherFormCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF297E20735DA5008590E4 /* SwitcherFormCellModel.m */; };
+		2AEF298220735DE4008590E4 /* SwitcherFormTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF298120735DE4008590E4 /* SwitcherFormTableViewCell.m */; };
+		2AEF298420735E2B008590E4 /* SwitcherFormTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AEF298320735E2B008590E4 /* SwitcherFormTableViewCell.xib */; };
 		8B0BD619FFF877813DC0386A /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */; };
 		FB17AEE31FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AED81FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m */; };
 		FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AEDA1FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m */; };
@@ -493,6 +496,11 @@
 		2AEF297420734F53008590E4 /* ButtonFormTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ButtonFormTableViewCell.h; sourceTree = "<group>"; };
 		2AEF297520734F53008590E4 /* ButtonFormTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ButtonFormTableViewCell.m; sourceTree = "<group>"; };
 		2AEF297620734F53008590E4 /* ButtonFormTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonFormTableViewCell.xib; sourceTree = "<group>"; };
+		2AEF297D20735DA5008590E4 /* SwitcherFormCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitcherFormCellModel.h; sourceTree = "<group>"; };
+		2AEF297E20735DA5008590E4 /* SwitcherFormCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwitcherFormCellModel.m; sourceTree = "<group>"; };
+		2AEF298020735DE4008590E4 /* SwitcherFormTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitcherFormTableViewCell.h; sourceTree = "<group>"; };
+		2AEF298120735DE4008590E4 /* SwitcherFormTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwitcherFormTableViewCell.m; sourceTree = "<group>"; };
+		2AEF298320735E2B008590E4 /* SwitcherFormTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitcherFormTableViewCell.xib; sourceTree = "<group>"; };
 		403ADE725BE30A95BD44A394 /* Pods-DashControlTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControlTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests.release.xcconfig"; sourceTree = "<group>"; };
 		481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
 		558B8AE6721A9375C76DBBD3 /* Pods-DashControlTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControlTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1151,6 +1159,7 @@
 				2AEF29612072CD25008590E4 /* BaseFormCellModel.m */,
 				2AEF297920735664008590E4 /* Button */,
 				2AEF297B20735691008590E4 /* Selector */,
+				2AEF297C20735D89008590E4 /* Switcher */,
 				2AEF297A20735672008590E4 /* TextField */,
 			);
 			path = Forms;
@@ -1185,14 +1194,26 @@
 		2AEF297B20735691008590E4 /* Selector */ = {
 			isa = PBXGroup;
 			children = (
-				2AEF2969207345BC008590E4 /* SelectorFormTableViewCell.h */,
-				2AEF296A207345BC008590E4 /* SelectorFormTableViewCell.m */,
-				2AEF296C207345DB008590E4 /* SelectorFormTableViewCell.xib */,
 				2AE410552067AD0700C41AC5 /* NamedObject.h */,
 				2AEF296E2073465A008590E4 /* SelectorFormCellModel.h */,
 				2AEF296F2073465A008590E4 /* SelectorFormCellModel.m */,
+				2AEF2969207345BC008590E4 /* SelectorFormTableViewCell.h */,
+				2AEF296A207345BC008590E4 /* SelectorFormTableViewCell.m */,
+				2AEF296C207345DB008590E4 /* SelectorFormTableViewCell.xib */,
 			);
 			path = Selector;
+			sourceTree = "<group>";
+		};
+		2AEF297C20735D89008590E4 /* Switcher */ = {
+			isa = PBXGroup;
+			children = (
+				2AEF297D20735DA5008590E4 /* SwitcherFormCellModel.h */,
+				2AEF297E20735DA5008590E4 /* SwitcherFormCellModel.m */,
+				2AEF298020735DE4008590E4 /* SwitcherFormTableViewCell.h */,
+				2AEF298120735DE4008590E4 /* SwitcherFormTableViewCell.m */,
+				2AEF298320735E2B008590E4 /* SwitcherFormTableViewCell.xib */,
+			);
+			path = Switcher;
 			sourceTree = "<group>";
 		};
 		3A3DCF867D724725B2BA999A /* Pods */ = {
@@ -1748,6 +1769,7 @@
 				2A80B58F2039BEFE0015E1AA /* DCSearchBar.xib in Resources */,
 				2AEF297820734F53008590E4 /* ButtonFormTableViewCell.xib in Resources */,
 				FB84EDD31F32898700E4D400 /* LaunchScreen.storyboard in Resources */,
+				2AEF298420735E2B008590E4 /* SwitcherFormTableViewCell.xib in Resources */,
 				2A32D60520515C28004B38A6 /* ProposalDetailHeaderView.xib in Resources */,
 				2A3F49D9204E88E5005EB5D9 /* ProposalsHeaderView.xib in Resources */,
 				FB84EDCE1F32898700E4D400 /* Main.storyboard in Resources */,
@@ -1969,12 +1991,14 @@
 				2A3F49AF204AEC09005EB5D9 /* APIBudget.m in Sources */,
 				2A04E6E0202DA5E20065F30D /* HTTPRequest.m in Sources */,
 				FB4550DE1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataProperties.m in Sources */,
+				2AEF298220735DE4008590E4 /* SwitcherFormTableViewCell.m in Sources */,
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
 				2A4473AA2042B69D00B52BCB /* ChartViewModel.m in Sources */,
 				FB9CC1861F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m in Sources */,
 				2AEF297720734F53008590E4 /* ButtonFormTableViewCell.m in Sources */,
 				FBE1F50D1F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m in Sources */,
 				2A04E6ED202DAB340065F30D /* RunOnMain.m in Sources */,
+				2AEF297F20735DA5008590E4 /* SwitcherFormCellModel.m in Sources */,
 				FBEBE5421F5802DE0056D921 /* DCChartTimeFormatter.m in Sources */,
 				2A04E6E8202DA5E20065F30D /* HTTPService.m in Sources */,
 				FB4310F51FA2142700784EBC /* DCEnvironment.m in Sources */,
