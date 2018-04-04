@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateAddress:(NSString *)address;
 
+- (void)deleteCurrentWithCompletion:(void (^)(void))completion;
+
 - (NSInteger)indexOfInvalidDetail;
 - (void)saveCurrentWithCompletion:(void (^)(void))completion;
 

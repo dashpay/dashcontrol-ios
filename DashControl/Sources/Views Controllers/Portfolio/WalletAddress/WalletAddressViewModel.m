@@ -73,6 +73,28 @@ typedef NS_ENUM(NSUInteger, WalletAddressType) {
     self.addressDetail.text = address;
 }
 
+- (void)deleteCurrentWithCompletion:(void (^)(void))completion {
+    NSParameterAssert(self.walletAddress);
+    
+    NSManagedObjectID *objectID = self.walletAddress.objectID;
+    weakify;
+    [self.stack.persistentContainer performBackgroundTask:^(NSManagedObjectContext *_Nonnull context) {
+        strongify;
+        
+        NSManagedObject *object = [context objectWithID:objectID];
+        [context deleteObject:object];
+        
+        context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+        [context dc_saveIfNeeded];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion) {
+                completion();
+            }
+        });
+    }];
+}
+
 - (NSInteger)indexOfInvalidDetail {
     for (NSInteger index = 0; index < self.items.count - 1; index++) {
         BaseFormCellModel *detail = self.items[index];

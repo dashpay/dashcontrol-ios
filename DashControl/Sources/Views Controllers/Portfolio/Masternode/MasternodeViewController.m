@@ -104,6 +104,13 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Actions
 
 - (void)deleteButtonAction:(id)sender {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    weakify;
+    [self.viewModel deleteCurrentWithCompletion:^{
+        strongify;
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 - (void)qrCodeButtonAction {
