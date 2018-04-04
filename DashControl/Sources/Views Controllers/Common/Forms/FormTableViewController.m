@@ -40,7 +40,7 @@ static NSString *const BUTTON_CELL_ID = @"ButtonFormTableViewCell";
     self.tableView.separatorInset = UIEdgeInsetsMake(0.0, 10.0, 0.0, 10.0);
     self.tableView.separatorColor = [UIColor dc_darkBlueColor];
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    self.tableView.contentInset = UIEdgeInsetsMake(10.0, 0.0, 0.0, 0.0);
+    self.tableView.contentInset = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
 
     NSArray<NSString *> *cellIds = @[
         SELECTOR_CELL_ID,
