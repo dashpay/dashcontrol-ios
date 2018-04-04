@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithMasternode:(nullable DCMasternodeEntity *)masternode;
 
+- (void)updateAddress:(NSString *)address;
+
 - (NSInteger)indexOfInvalidDetail;
 - (void)saveCurrentWithCompletion:(void (^)(void))completion;
 

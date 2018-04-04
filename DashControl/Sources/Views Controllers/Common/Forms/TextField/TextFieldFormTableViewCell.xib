@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -27,8 +26,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l4t-6m-kCY">
                         <rect key="frame" x="10" y="0.0" width="355" height="50.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="Title Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aVF-Ps-DDc">
-                                <rect key="frame" x="10" y="17.5" width="147.5" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" text="Title Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aVF-Ps-DDc">
+                                <rect key="frame" x="10" y="17.5" width="66.5" height="16"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -41,8 +40,8 @@
                                     </fragment>
                                 </attributedString>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9wy-e8-KOP">
-                                <rect key="frame" x="167.5" y="0.0" width="177.5" height="50.5"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="200" horizontalCompressionResistancePriority="800" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9wy-e8-KOP">
+                                <rect key="frame" x="86.5" y="0.0" width="258.5" height="50.5"/>
                                 <color key="textColor" red="0.32549019610000002" green="0.64313725489999995" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
@@ -59,7 +58,6 @@
                             <constraint firstAttribute="trailing" secondItem="9wy-e8-KOP" secondAttribute="trailing" constant="10" id="fIv-kj-8jG"/>
                             <constraint firstAttribute="bottom" secondItem="9wy-e8-KOP" secondAttribute="bottom" id="hT0-Ul-AyF"/>
                             <constraint firstItem="aVF-Ps-DDc" firstAttribute="leading" secondItem="l4t-6m-kCY" secondAttribute="leading" constant="10" id="oQW-sZ-MgR"/>
-                            <constraint firstItem="9wy-e8-KOP" firstAttribute="width" secondItem="l4t-6m-kCY" secondAttribute="width" multiplier="0.5" id="oxJ-jM-MxA"/>
                         </constraints>
                     </view>
                 </subviews>

@@ -145,6 +145,9 @@
 		2AEF299E20738FF1008590E4 /* AddressTextFieldFormCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF299D20738FF1008590E4 /* AddressTextFieldFormCellModel.m */; };
 		2AEF29B920740626008590E4 /* QRCodeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF29B820740626008590E4 /* QRCodeButton.m */; };
 		2AEF29BB20740647008590E4 /* QRCodeButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AEF29BA20740647008590E4 /* QRCodeButton.xib */; };
+		2AEF29E6207421E5008590E4 /* QRScannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF29E0207421E5008590E4 /* QRScannerView.m */; };
+		2AEF29E7207421E5008590E4 /* QRScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF29E2207421E5008590E4 /* QRScannerViewController.m */; };
+		2AEF29E8207421E5008590E4 /* QRScannerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF29E4207421E5008590E4 /* QRScannerViewModel.m */; };
 		8B0BD619FFF877813DC0386A /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */; };
 		FB17AEE31FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AED81FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m */; };
 		FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AEDA1FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m */; };
@@ -524,6 +527,12 @@
 		2AEF29B720740626008590E4 /* QRCodeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRCodeButton.h; sourceTree = "<group>"; };
 		2AEF29B820740626008590E4 /* QRCodeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRCodeButton.m; sourceTree = "<group>"; };
 		2AEF29BA20740647008590E4 /* QRCodeButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QRCodeButton.xib; sourceTree = "<group>"; };
+		2AEF29E0207421E5008590E4 /* QRScannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRScannerView.m; sourceTree = "<group>"; };
+		2AEF29E1207421E5008590E4 /* QRScannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRScannerView.h; sourceTree = "<group>"; };
+		2AEF29E2207421E5008590E4 /* QRScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRScannerViewController.m; sourceTree = "<group>"; };
+		2AEF29E3207421E5008590E4 /* QRScannerViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRScannerViewModel.h; sourceTree = "<group>"; };
+		2AEF29E4207421E5008590E4 /* QRScannerViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRScannerViewModel.m; sourceTree = "<group>"; };
+		2AEF29E5207421E5008590E4 /* QRScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRScannerViewController.h; sourceTree = "<group>"; };
 		403ADE725BE30A95BD44A394 /* Pods-DashControlTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControlTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests.release.xcconfig"; sourceTree = "<group>"; };
 		481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
 		558B8AE6721A9375C76DBBD3 /* Pods-DashControlTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControlTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1268,6 +1277,19 @@
 			path = Masternode;
 			sourceTree = "<group>";
 		};
+		2AEF29DF2074219A008590E4 /* QR Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				2AEF29E1207421E5008590E4 /* QRScannerView.h */,
+				2AEF29E0207421E5008590E4 /* QRScannerView.m */,
+				2AEF29E5207421E5008590E4 /* QRScannerViewController.h */,
+				2AEF29E2207421E5008590E4 /* QRScannerViewController.m */,
+				2AEF29E3207421E5008590E4 /* QRScannerViewModel.h */,
+				2AEF29E4207421E5008590E4 /* QRScannerViewModel.m */,
+			);
+			path = "QR Scanner";
+			sourceTree = "<group>";
+		};
 		3A3DCF867D724725B2BA999A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1361,6 +1383,7 @@
 		FB4F93B71F8252210078E259 /* Portfolio */ = {
 			isa = PBXGroup;
 			children = (
+				2AEF29DF2074219A008590E4 /* QR Scanner */,
 				2AEF299220737E2C008590E4 /* Masternode */,
 				2AEF298B207378D9008590E4 /* WalletAddress */,
 				2AEF294A2070DB64008590E4 /* Views */,
@@ -2078,6 +2101,7 @@
 				2AC693FE2064F0A000F64482 /* PriceTriggerTableViewCellModel.m in Sources */,
 				FB4550D71FB1C1A4001CC1ED /* DCWalletEntity+CoreDataClass.m in Sources */,
 				2A3F49AA2049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataProperties.m in Sources */,
+				2AEF29E8207421E5008590E4 /* QRScannerViewModel.m in Sources */,
 				FBEBE5461F5986510056D921 /* DCCoreDataManager.m in Sources */,
 				2AC693EC2061D63D00F64482 /* APITrigger.m in Sources */,
 				2A587E99206A53A5004BC537 /* PortfolioViewController.m in Sources */,
@@ -2116,6 +2140,7 @@
 				2A8F817E203E723600D3D6C9 /* APIPrice.m in Sources */,
 				2AEF29622072CD25008590E4 /* BaseFormCellModel.m in Sources */,
 				FB9CC1AB1F87D4A60079309F /* BRKey.m in Sources */,
+				2AEF29E7207421E5008590E4 /* QRScannerViewController.m in Sources */,
 				2A3F49A92049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.m in Sources */,
 				2A04E6E5202DA5E20065F30D /* HTTPURLRequestBuilder.m in Sources */,
 				2A4FE281203AE489007FD160 /* UIColor+DCStyle.m in Sources */,
@@ -2152,6 +2177,7 @@
 				2A32D637205471BE004B38A6 /* ProposalDetailTableViewCellModel.m in Sources */,
 				FB17AEE61FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m in Sources */,
 				2A4FE29D203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m in Sources */,
+				2AEF29E6207421E5008590E4 /* QRScannerView.m in Sources */,
 				2A32D60D2052C3B9004B38A6 /* ProposalDetailViewModel.m in Sources */,
 				2AAB8E582057962F007527CF /* TimestampIntervalArray.m in Sources */,
 				FB9CC18C1F8405180079309F /* DCPortfolioManager.m in Sources */,
@@ -2496,6 +2522,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = "DashControl/Supporting Files/DashControl.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 44RJ69WHFF;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2523,6 +2551,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.dash.Control;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2537,6 +2567,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = "DashControl/Supporting Files/DashControl.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 44RJ69WHFF;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2563,6 +2595,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.dash.Control;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

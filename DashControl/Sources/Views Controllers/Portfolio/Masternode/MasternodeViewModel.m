@@ -69,6 +69,10 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
     return (self.masternode != nil);
 }
 
+- (void)updateAddress:(NSString *)address {
+    self.addressDetail.text = address;
+}
+
 - (NSInteger)indexOfInvalidDetail {
     for (NSInteger index = 0; index < self.items.count - 1; index++) {
         BaseFormCellModel *detail = self.items[index];

@@ -20,12 +20,13 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 
 #import "FormTableViewController.h"
-#import "WalletAddressViewModel.h"
 #import "QRCodeButton.h"
+#import "QRScannerViewController.h"
+#import "WalletAddressViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WalletAddressViewController () <FormTableViewControllerDelegate>
+@interface WalletAddressViewController () <FormTableViewControllerDelegate, QRScannerViewControllerDelegate>
 
 @property (strong, nonatomic) WalletAddressViewModel *viewModel;
 
@@ -47,11 +48,13 @@ NS_ASSUME_NONNULL_BEGIN
     FormTableViewController *formController = [[FormTableViewController alloc] initWithStyle:UITableViewStylePlain];
     formController.items = self.viewModel.items;
     formController.delegate = self;
-    
-    CGRect frame = CGRectMake(0.0, 0.0, [UIScreen mainScreen].bounds.size.width, 84.0);
-    QRCodeButton *qrCodeButton = [[QRCodeButton alloc] initWithFrame:frame];
-    [qrCodeButton addTarget:self action:@selector(qrCodeButtonAction) forControlEvents:UIControlEventTouchUpInside];
-    formController.tableView.tableFooterView = qrCodeButton;
+
+    if (!self.viewModel.deleteAvailable) {
+        CGRect frame = CGRectMake(0.0, 0.0, [UIScreen mainScreen].bounds.size.width, 84.0);
+        QRCodeButton *qrCodeButton = [[QRCodeButton alloc] initWithFrame:frame];
+        [qrCodeButton addTarget:self action:@selector(qrCodeButtonAction) forControlEvents:UIControlEventTouchUpInside];
+        formController.tableView.tableFooterView = qrCodeButton;
+    }
 
     [self addChildViewController:formController];
     formController.view.frame = self.view.bounds;
@@ -104,6 +107,20 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)qrCodeButtonAction {
+    QRScannerViewController *controller = [[QRScannerViewController alloc] init];
+    controller.delegate = self;
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+#pragma mark QRScannerViewControllerDelegate
+
+- (void)qrScannerViewControllerDidCancel:(QRScannerViewController *)controller {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)qrScannerViewController:(QRScannerViewController *)controller didScanDASHAddress:(NSString *)address {
+    [self.viewModel updateAddress:address];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

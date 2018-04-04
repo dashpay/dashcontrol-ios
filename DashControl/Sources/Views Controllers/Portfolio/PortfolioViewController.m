@@ -170,6 +170,18 @@ NS_ASSUME_NONNULL_BEGIN
             [self showViewController:masternodeViewController sender:self];
             break;
         }
+        case PortfolioSection_WalletAddress: {
+            DCWalletAddressEntity *walletAddress = [self walletAddressEntityAtIndexPath:indexPath];
+            WalletAddressViewController *walletAddressController = [WalletAddressViewController controllerWalletAddress:walletAddress];
+            [self showViewController:walletAddressController sender:self];
+            break;
+        }
+        case PortfolioSection_Masternode: {
+            DCMasternodeEntity *masternode = [self masternodeEntityAtIndexPath:indexPath];
+            MasternodeViewController *masternodeViewController = [MasternodeViewController controllerWithMasternode:masternode];
+            [self showViewController:masternodeViewController sender:self];
+            break;
+        }
         default: {
             break;
         }

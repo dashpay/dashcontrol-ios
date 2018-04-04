@@ -156,6 +156,9 @@
 "No. This proposal needs additional %d Yes vote(s) to become funded" = "No. This proposal needs additional %d Yes vote(s) to become funded";
 
 /* No comment provided by engineer. */
+"not a DASH QR code" = "not a DASH QR code";
+
+/* No comment provided by engineer. */
 "not a valid dash address" = "not a valid dash address";
 
 /* No comment provided by engineer. */
@@ -208,6 +211,9 @@
 
 /* Search bar placeholder */
 "Search" = "Search";
+
+/* No comment provided by engineer. */
+"Settings" = "Settings";
 
 /* No comment provided by engineer. */
 "This address does not contain the required 1000 Dash" = "This address does not contain the required 1000 Dash";

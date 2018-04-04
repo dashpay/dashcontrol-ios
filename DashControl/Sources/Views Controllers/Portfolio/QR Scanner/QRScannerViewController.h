@@ -15,28 +15,22 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
-
-#import "BaseFormCellModel.h"
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCWalletAddressEntity;
-@class DCPersistenceStack;
+@class QRScannerViewController;
 
-@interface WalletAddressViewModel : NSObject
+@protocol QRScannerViewControllerDelegate <NSObject>
 
-@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+- (void)qrScannerViewControllerDidCancel:(QRScannerViewController *)controller;
+- (void)qrScannerViewController:(QRScannerViewController *)controller didScanDASHAddress:(NSString *)address;
 
-@property (readonly, strong, nonatomic) NSArray<BaseFormCellModel *> *items;
-@property (readonly, assign, nonatomic) BOOL deleteAvailable;
+@end
 
-- (instancetype)initWithWalletAddress:(nullable DCWalletAddressEntity *)walletAddress;
+@interface QRScannerViewController : UIViewController
 
-- (void)updateAddress:(NSString *)address;
-
-- (NSInteger)indexOfInvalidDetail;
-- (void)saveCurrentWithCompletion:(void (^)(void))completion;
+@property (nullable, weak, nonatomic) id<QRScannerViewControllerDelegate> delegate;
 
 @end
 

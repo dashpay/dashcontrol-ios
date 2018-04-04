@@ -56,6 +56,8 @@
 }
 
 -(void)updateAmounts {
+    return;
+    
     NSPersistentContainer *container = self.stack.persistentContainer;
     [container performBackgroundTask:^(NSManagedObjectContext *context) {
         NSError * error = nil;
