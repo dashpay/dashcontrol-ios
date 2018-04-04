@@ -105,6 +105,10 @@ static NSString *const BUTTON_CELL_ID = @"ButtonFormTableViewCell";
     if ([cellModel isKindOfClass:SelectorFormCellModel.class]) {
         [self showValueSelectorForDetail:(SelectorFormCellModel *)cellModel];
     }
+    else if ([cellModel isKindOfClass:SwitcherFormCellModel.class]) {
+        SwitcherFormCellModel *switcherModel = (SwitcherFormCellModel *)cellModel;
+        switcherModel.on = !switcherModel.on;
+    }
     else if ([cellModel isKindOfClass:ButtonFormCellModel.class]) {
         NSInteger index = [self.delegate formTableViewControllerIndexOfInvalidDetail:self];
         if (index == NSNotFound) {

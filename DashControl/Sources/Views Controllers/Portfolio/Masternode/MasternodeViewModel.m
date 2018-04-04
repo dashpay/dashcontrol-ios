@@ -23,11 +23,13 @@
 #import "AddressTextFieldFormCellModel.h"
 #import "ButtonFormCellModel.h"
 #import "DCPersistenceStack.h"
+#import "SwitcherFormCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, MasternodeType) {
     MasternodeType_Address,
+    MasternodeType_PaymentNotification,
     MasternodeType_AddButton,
 };
 
@@ -35,6 +37,7 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
 
 @property (nullable, strong, nonatomic) DCMasternodeEntity *masternode;
 @property (strong, nonatomic) AddressTextFieldFormCellModel *addressDetail;
+@property (strong, nonatomic) SwitcherFormCellModel *notificationDetail;
 
 @end
 
@@ -48,11 +51,16 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
         NSMutableArray *items = [NSMutableArray array];
         {
             _addressDetail = [[AddressTextFieldFormCellModel alloc] initWithTitle:NSLocalizedString(@"Address", nil)
-                                                                      placeholder:nil];
+                                                                      placeholder:NSLocalizedString(@"Wallet Address", nil)];
             _addressDetail.tag = MasternodeType_Address;
             _addressDetail.text = _masternode.address;
             _addressDetail.returnKeyType = UIReturnKeyDone;
             [items addObject:_addressDetail];
+        }
+        {
+            _notificationDetail = [[SwitcherFormCellModel alloc] initWithTitle:NSLocalizedString(@"Payment Notification", nil)];
+            _notificationDetail.tag = MasternodeType_PaymentNotification;
+            [items addObject:_notificationDetail];
         }
         {
             NSString *title = _masternode ? NSLocalizedString(@"SAVE", nil) : NSLocalizedString(@"ADD", nil);

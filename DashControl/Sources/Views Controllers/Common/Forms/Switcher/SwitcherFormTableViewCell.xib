@@ -43,6 +43,7 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dw7-yF-JOb">
                                 <rect key="frame" x="296" y="10" width="51" height="31"/>
                                 <color key="tintColor" red="0.0" green="0.44313725490196076" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="onTintColor" red="0.0" green="0.4431372549" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="switcherAction:" destination="aRA-c7-9bS" eventType="valueChanged" id="m68-9p-yyP"/>
                                 </connections>

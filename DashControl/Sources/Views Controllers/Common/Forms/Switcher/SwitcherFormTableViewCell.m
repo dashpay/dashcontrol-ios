@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
     
     [self mvvm_observe:@"cellModel.on" with:^(typeof(self) self, NSNumber * value) {
-        self.switcher.on = value.boolValue;
+        [self.switcher setOn:value.boolValue animated:YES];
     }];
 }
 

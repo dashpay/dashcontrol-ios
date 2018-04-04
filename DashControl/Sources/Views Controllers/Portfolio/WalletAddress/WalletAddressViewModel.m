@@ -23,11 +23,13 @@
 #import "AddressTextFieldFormCellModel.h"
 #import "ButtonFormCellModel.h"
 #import "DCPersistenceStack.h"
+#import "SwitcherFormCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, WalletAddressType) {
     WalletAddressType_Address,
+    WalletAddressType_PaymentNotification,
     WalletAddressType_AddButton,
 };
 
@@ -35,6 +37,7 @@ typedef NS_ENUM(NSUInteger, WalletAddressType) {
 
 @property (nullable, strong, nonatomic) DCWalletAddressEntity *walletAddress;
 @property (strong, nonatomic) AddressTextFieldFormCellModel *addressDetail;
+@property (strong, nonatomic) SwitcherFormCellModel *notificationDetail;
 
 @end
 
@@ -48,11 +51,16 @@ typedef NS_ENUM(NSUInteger, WalletAddressType) {
         NSMutableArray *items = [NSMutableArray array];
         {
             _addressDetail = [[AddressTextFieldFormCellModel alloc] initWithTitle:NSLocalizedString(@"Address", nil)
-                                                                      placeholder:nil];
+                                                                      placeholder:NSLocalizedString(@"Wallet Address", nil)];
             _addressDetail.tag = WalletAddressType_Address;
             _addressDetail.text = _walletAddress.address;
             _addressDetail.returnKeyType = UIReturnKeyDone;
             [items addObject:_addressDetail];
+        }
+        {
+            _notificationDetail = [[SwitcherFormCellModel alloc] initWithTitle:NSLocalizedString(@"Payment Notification", nil)];
+            _notificationDetail.tag = WalletAddressType_PaymentNotification;
+            [items addObject:_notificationDetail];
         }
         {
             NSString *title = _walletAddress ? NSLocalizedString(@"SAVE", nil) : NSLocalizedString(@"ADD", nil);
@@ -75,18 +83,18 @@ typedef NS_ENUM(NSUInteger, WalletAddressType) {
 
 - (void)deleteCurrentWithCompletion:(void (^)(void))completion {
     NSParameterAssert(self.walletAddress);
-    
+
     NSManagedObjectID *objectID = self.walletAddress.objectID;
     weakify;
     [self.stack.persistentContainer performBackgroundTask:^(NSManagedObjectContext *_Nonnull context) {
         strongify;
-        
+
         NSManagedObject *object = [context objectWithID:objectID];
         [context deleteObject:object];
-        
+
         context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
         [context dc_saveIfNeeded];
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
             if (completion) {
                 completion();
