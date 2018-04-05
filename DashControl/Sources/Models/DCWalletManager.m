@@ -69,11 +69,10 @@
     }];
 }
 
--(void)importWalletMasterAddressFromSource:(NSString*)source withExtended32PublicKey:(NSString*)extended32PublicKey extended44PublicKey:(NSString*)extended44PublicKey completion:(void (^)(BOOL success))completion {
-    BOOL valid = [extended32PublicKey isValidDashSerializedPublicKey];
-    valid |= [extended44PublicKey isValidDashSerializedPublicKey];
+-(void)importWalletMasterAddressFromSource:(NSString*)source withExtended32PublicKey:(NSString*)extended32PublicKey extended44PublicKey:(NSString*)extended44PublicKey {
+    BOOL valid = ([extended32PublicKey isValidDashSerializedPublicKey] || [extended44PublicKey isValidDashSerializedPublicKey]);
+    
     if (!valid)  {
-        if (completion) completion(false);
         return;
     }
     [self.stack.persistentContainer performBackgroundTask:^(NSManagedObjectContext *context) {
@@ -88,7 +87,6 @@
         NSError * error = nil;
         BOOL has32Account = [[DCCoreDataManager sharedInstance] hasWalletAccount:extended32PublicKeyHash inContext:context error:&error];
         if (error) {
-            if (completion) completion(FALSE);
             return;
         }
         
@@ -99,7 +97,6 @@
         }
         BOOL has44Account = [[DCCoreDataManager sharedInstance] hasWalletAccount:extended44PublicKeyHash inContext:context error:&error];
         if (error) {
-            if (completion) completion(FALSE);
             return;
         }
         if (!has44Account) {
@@ -137,11 +134,6 @@
         context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
         if (![context save:&error]) {
             NSLog(@"Failure to save context: %@\n%@", [error localizedDescription], [error userInfo]);
-            if (completion) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                completion(FALSE);
-                        });
-            }
             return;
         }
 
@@ -158,11 +150,6 @@
             }
             
             [self updateBloomFilterInContext:context];
-        if (completion) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completion(FALSE);
-            });
-        }
     }];
 }
 

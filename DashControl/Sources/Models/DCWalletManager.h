@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (id)sharedInstance;
 
--(void)importWalletMasterAddressFromSource:(NSString*)source withExtended32PublicKey:(NSString* _Nullable)extended32PublicKey extended44PublicKey:(NSString* _Nullable)extended44PublicKey completion:(void (^ _Nullable)(BOOL success))completion;
+-(void)importWalletMasterAddressFromSource:(NSString*)source withExtended32PublicKey:(NSString* _Nullable)extended32PublicKey extended44PublicKey:(NSString* _Nullable)extended44PublicKey;
 
 
 @end

@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(uint32_t,WalletAccountState) {
+NS_ASSUME_NONNULL_BEGIN
+
+typedef NS_ENUM(uint32_t, WalletAccountState) {
     WalletAccountFailed = -1,
     WalletAccountStopped = 0,
     WalletAccountStarting = 1,
@@ -20,14 +22,16 @@ typedef NS_ENUM(uint32_t,WalletAccountState) {
 
 @interface DCWalletAccount : NSObject
 
-@property (nonatomic,assign) WalletAccountState state;
-@property (nonatomic, readonly) NSSet * _Nonnull allReceivingAddresses;
-@property (nonatomic, readonly) NSSet * _Nonnull allChangeAddresses;
+@property (nonatomic, assign) WalletAccountState state;
+@property (nonatomic, readonly) NSSet *allReceivingAddresses;
+@property (nonatomic, readonly) NSSet *allChangeAddresses;
 
--(id _Nonnull)initWithAccountPublicKey:(NSData* _Nonnull)accountPublicKey hash:(NSString* _Nullable)hash inContext:(NSManagedObjectContext* _Nullable)context;
+-(instancetype)initWithAccountPublicKey:(NSData*)accountPublicKey hash:(nullable NSString*)hash inContext:(NSManagedObjectContext*)context;
 
--(void)startUpWithWalletAccountEntity:(DCWalletAccountEntity* _Nonnull)walletAccountEntity;
+- (void)startUpWithWalletAccountEntity:(DCWalletAccountEntity *)walletAccountEntity;
 
--(NSArray * _Nonnull)addressesWithGapLimit:(NSUInteger)gapLimit internal:(BOOL)internal withWalletAccountEntity:(DCWalletAccountEntity* _Nullable)walletAccountEntity;
+- (NSArray *)addressesWithGapLimit:(NSUInteger)gapLimit internal:(BOOL)internal withWalletAccountEntity:(nullable DCWalletAccountEntity *)walletAccountEntity;
 
 @end
+
+NS_ASSUME_NONNULL_END
