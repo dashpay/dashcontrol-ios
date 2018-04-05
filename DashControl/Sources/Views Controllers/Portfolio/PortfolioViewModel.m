@@ -21,11 +21,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSString *const DASHWALLET_REQUEST_PUBKEY_URL = @"dashwallet://request=masterPublicKey&account=0&sender=dashcontrol";
+static NSString *const DASHWALLET_APPSTORE_URL = @"https://itunes.apple.com/app/apple-store/id1206647026?mt=8";
+
 @implementation PortfolioViewModel
 
 @synthesize walletFetchedResultsController = _walletFetchedResultsController;
 @synthesize walletAddressFetchedResultsController = _walletAddressFetchedResultsController;
 @synthesize masternodeFetchedResultsController = _masternodeFetchedResultsController;
+@synthesize dashWalletRequestURL = _dashWalletRequestURL;
+@synthesize dashWalletAppStoreURL = _dashWalletAppStoreURL;
 
 - (NSFetchedResultsController<DCWalletEntity *> *)walletFetchedResultsController {
     if (!_walletFetchedResultsController) {
@@ -33,8 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
         _walletFetchedResultsController = [self.class fetchedResultsControllerWithFetchRequest:fetchRequest
                                                                                        sortKey:@"name"
-                                                                                       context:context
-                                                                                     cacheName:@"AllWalletsRequestCache"];
+                                                                                       context:context];
     }
     return _walletFetchedResultsController;
 }
@@ -46,8 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
         _walletAddressFetchedResultsController = [self.class fetchedResultsControllerWithFetchRequest:fetchRequest
                                                                                               sortKey:@"address"
-                                                                                              context:context
-                                                                                            cacheName:@"AllWalletAddressesRequestCache"];
+                                                                                              context:context];
     }
     return _walletAddressFetchedResultsController;
 }
@@ -58,18 +61,30 @@ NS_ASSUME_NONNULL_BEGIN
         NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
         _masternodeFetchedResultsController = [self.class fetchedResultsControllerWithFetchRequest:fetchRequest
                                                                                            sortKey:@"address"
-                                                                                           context:context
-                                                                                         cacheName:@"AllMasternodesRequestCache"];
+                                                                                           context:context];
     }
     return _masternodeFetchedResultsController;
+}
+
+- (NSURL *)dashWalletRequestURL {
+    if (!_dashWalletRequestURL) {
+        _dashWalletRequestURL = [NSURL URLWithString:DASHWALLET_REQUEST_PUBKEY_URL];
+    }
+    return _dashWalletRequestURL;
+}
+
+- (NSURL *)dashWalletAppStoreURL {
+    if (!_dashWalletAppStoreURL) {
+        _dashWalletAppStoreURL = [NSURL URLWithString:DASHWALLET_APPSTORE_URL];
+    }
+    return _dashWalletAppStoreURL;
 }
 
 #pragma mark Private
 
 + (NSFetchedResultsController *)fetchedResultsControllerWithFetchRequest:(NSFetchRequest *)fetchRequest
                                                                  sortKey:(NSString *)sortKey
-                                                                 context:(NSManagedObjectContext *)context
-                                                               cacheName:(NSString *_Nullable)cacheName {
+                                                                 context:(NSManagedObjectContext *)context {
     fetchRequest.sortDescriptors = @[
         [[NSSortDescriptor alloc] initWithKey:sortKey ascending:YES],
     ];
@@ -77,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                                                managedObjectContext:context
                                                                                                  sectionNameKeyPath:nil
-                                                                                                          cacheName:cacheName];
+                                                                                                          cacheName:nil];
 
     NSError *error = nil;
     if (![fetchedResultsController performFetch:&error]) {

@@ -56,8 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_fetchedResultsController) {
         NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
         _fetchedResultsController = [[self class] fetchedResultsControllerWithPredicate:self.langPredicate
-                                                                                context:context
-                                                                              cacheName:@"AllNewsRequestCache"];
+                                                                                context:context];
     }
     return _fetchedResultsController;
 }
@@ -66,8 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_searchFetchedResultsController) {
         NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
         _searchFetchedResultsController = [[self class] fetchedResultsControllerWithPredicate:self.searchPredicate
-                                                                                      context:context
-                                                                                    cacheName:nil];
+                                                                                      context:context];
     }
     return _searchFetchedResultsController;
 }
@@ -133,8 +131,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (NSFetchedResultsController *)fetchedResultsControllerWithPredicate:(NSPredicate *)predicate
-                                                              context:(NSManagedObjectContext *)context
-                                                            cacheName:(NSString *_Nullable)cacheName {
+                                                              context:(NSManagedObjectContext *)context {
     NSFetchRequest<DCNewsPostEntity *> *fetchRequest = [DCNewsPostEntity fetchRequest];
     fetchRequest.predicate = predicate;
     NSSortDescriptor *dateSortDescriptor = [[NSSortDescriptor alloc] initWithKey:KEY_DATE ascending:NO];
@@ -144,7 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                                                managedObjectContext:context
                                                                                                  sectionNameKeyPath:nil
-                                                                                                          cacheName:cacheName];
+                                                                                                          cacheName:nil];
 
     NSError *error = nil;
     if (![fetchedResultsController performFetch:&error]) {

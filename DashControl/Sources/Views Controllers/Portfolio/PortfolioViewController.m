@@ -102,7 +102,8 @@ NS_ASSUME_NONNULL_BEGIN
         return numberOfObjects;
     }
     else {
-        return 1; // 'Add' section
+        // 'Add' section
+        return 1;
     }
 }
 
@@ -110,7 +111,7 @@ NS_ASSUME_NONNULL_BEGIN
     switch (indexPath.section) {
         case PortfolioSection_AddWallet: {
             AddItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ADD_CELL_ID forIndexPath:indexPath];
-            cell.titleText = NSLocalizedString(@"My Wallets", nil);
+            cell.titleText = NSLocalizedString(@"My Dash Wallet", nil);
             return cell;
         }
         case PortfolioSection_AddWalletAddress: {
@@ -158,6 +159,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case PortfolioSection_AddWallet: {
+            if ([[UIApplication sharedApplication] canOpenURL:self.viewModel.dashWalletRequestURL]) {
+                [[UIApplication sharedApplication] openURL:self.viewModel.dashWalletRequestURL options:@{} completionHandler:nil];
+            }
+            else if ([[UIApplication sharedApplication] canOpenURL:self.viewModel.dashWalletAppStoreURL]) {
+                [[UIApplication sharedApplication] openURL:self.viewModel.dashWalletAppStoreURL options:@{} completionHandler:nil];
+            }
             break;
         }
         case PortfolioSection_AddWalletAddress: {

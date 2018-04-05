@@ -40,9 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSFetchedResultsController<DCTriggerEntity *> *)fetchedResultsController {
     if (!_fetchedResultsController) {
         NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
-        _fetchedResultsController = [[self class] fetchedResultsControllerWithPredicate:nil
-                                                                                context:context
-                                                                              cacheName:@"AllTriggersRequestCache"];
+        _fetchedResultsController = [[self class] fetchedResultsControllerInContext:context];
     }
     return _fetchedResultsController;
 }
@@ -68,11 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Private
 
-+ (NSFetchedResultsController *)fetchedResultsControllerWithPredicate:(nullable NSPredicate *)predicate
-                                                              context:(NSManagedObjectContext *)context
-                                                            cacheName:(NSString *_Nullable)cacheName {
++ (NSFetchedResultsController *)fetchedResultsControllerInContext:(NSManagedObjectContext *)context {
     NSFetchRequest<DCTriggerEntity *> *fetchRequest = [DCTriggerEntity fetchRequest];
-    fetchRequest.predicate = predicate;
     fetchRequest.sortDescriptors = @[
         [[NSSortDescriptor alloc] initWithKey:KEY_MARKETNAMED ascending:YES],
         [[NSSortDescriptor alloc] initWithKey:KEY_VALUE ascending:YES],
@@ -81,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                                                managedObjectContext:context
                                                                                                  sectionNameKeyPath:nil
-                                                                                                          cacheName:cacheName];
+                                                                                                          cacheName:nil];
 
     NSError *error = nil;
     if (![fetchedResultsController performFetch:&error]) {
