@@ -23,12 +23,11 @@
 #import "NSManagedObjectContext+DCExtensions.h"
 #import "DCPersistenceStack.h"
 #import "Networking.h"
+#import "DCEnvironment.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define USE_PRODUCTION 1
-
-#ifdef USE_PRODUCTION
+#if USE_PRODUCTION
 static NSString *const API_BASE_URL = @"https://dashpay.info/api/v0/";
 #else
 static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
