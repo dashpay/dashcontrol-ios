@@ -12,7 +12,6 @@
 #import <CoreSpotlight/CoreSpotlight.h>
 
 #import "DCPortfolioManager.h"
-#import "DCCoreDataManager.h"
 #import "DCWalletManager.h"
 #import "DCBackendManager.h"
 #import "DCEnvironment.h"
@@ -66,11 +65,7 @@
     //Init the Price Data Manager
     [DCBackendManager sharedInstance];
     
-    //Init the Core Data Manager
-    [DCCoreDataManager sharedInstance];
-    
     [[DCPortfolioManager sharedInstance] updateAmounts];
-    
     
     [DCWalletManager sharedInstance];
     

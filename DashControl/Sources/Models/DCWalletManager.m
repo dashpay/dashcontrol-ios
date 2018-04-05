@@ -15,9 +15,11 @@
 #import "DCWalletEntity+CoreDataClass.h"
 #import "DCServerBloomFilter.h"
 #import "DCWalletAddressEntity+CoreDataClass.h"
+#import "DCWalletAccountEntity+Extensions.h"
+#import "NSManagedObject+DCExtensions.h"
+#import "DCWalletEntity+Extensions.h"
 #import "DCEnvironment.h"
 #import "DCPersistenceStack.h"
-#import "DCCoreDataManager.h"
 #import "DCBackendManager.h"
 
 #define SERVER_BLOOM_FILTER_HASH   @"SERVER_BLOOM_FILTER_HASH"
@@ -53,9 +55,7 @@
 -(void)initializeWallets {
     self.wallets = [NSMutableSet set];
     [self.stack.persistentContainer performBackgroundTask:^(NSManagedObjectContext *context) {
-        NSError * error = nil;
-        NSArray * accountEntities = [[DCCoreDataManager sharedInstance] walletAccountsInContext:context error:&error]; //nil is main context
-        if (!error) {
+        NSArray <DCWalletAccountEntity *> * accountEntities = [DCWalletAccountEntity dc_objectsInContext:context];
             for (DCWalletAccountEntity * accountEntity in accountEntities) {
                 NSString * locationInKeyValueStore = accountEntity.hash160Key;
                 NSError * error = nil;
@@ -65,7 +65,6 @@
                 [walletAccount startUpWithWalletAccountEntity:accountEntity];
             }
             [self updateBloomFilterInContext:context];
-        }
     }];
 }
 
@@ -85,20 +84,14 @@
         DCWalletAccountEntity * wallet32Account;
         DCWalletAccountEntity * wallet44Account;
         NSError * error = nil;
-        BOOL has32Account = [[DCCoreDataManager sharedInstance] hasWalletAccount:extended32PublicKeyHash inContext:context error:&error];
-        if (error) {
-            return;
-        }
-        
+        BOOL has32Account = [DCWalletAccountEntity hasWalletAccountForPublicKeyHash:extended32PublicKeyHash inContext:context];
         if (!has32Account) {
             wallet32Account = [NSEntityDescription insertNewObjectForEntityForName:@"DCWalletAccountEntity" inManagedObjectContext:context];
             wallet32Account.hash160Key = extended32PublicKeyHash;
             [[DCEnvironment sharedInstance] setKeychainData:data32 forKey:extended32PublicKeyHash authenticated:NO];
         }
-        BOOL has44Account = [[DCCoreDataManager sharedInstance] hasWalletAccount:extended44PublicKeyHash inContext:context error:&error];
-        if (error) {
-            return;
-        }
+        
+        BOOL has44Account = [DCWalletAccountEntity hasWalletAccountForPublicKeyHash:extended44PublicKeyHash inContext:context];
         if (!has44Account) {
             wallet44Account = [NSEntityDescription insertNewObjectForEntityForName:@"DCWalletAccountEntity" inManagedObjectContext:context];
             wallet44Account.hash160Key = extended44PublicKeyHash;
@@ -112,8 +105,7 @@
         
         DCWalletEntity * wallet;
         if (has32Account || has44Account) {
-            NSError * error = nil;
-            wallet = [[DCCoreDataManager sharedInstance] walletHavingOneOfAccounts:@[wallet32Account,wallet44Account] withIdentifier:source inContext:context error:&error];
+            wallet = [DCWalletEntity walletHavingOneOfAccounts:@[wallet32Account,wallet44Account] withIdentifier:source inContext:context];
             if (![wallet.accounts containsObject:wallet44Account]) {
                 [wallet addAccountsObject:wallet44Account];
             }
@@ -155,7 +147,7 @@
 
 -(void)updateBloomFilterInContext:(NSManagedObjectContext*)context {
     NSError * error = nil;
-    NSArray * walletAddressEntities = [[DCCoreDataManager sharedInstance] walletAddressesInContext:context error:&error];
+    NSArray * walletAddressEntities = [DCWalletAddressEntity dc_objectsInContext:context];
     if (!error && [walletAddressEntities count]) {
         NSArray * walletAddresses = [walletAddressEntities arrayReferencedByKeyPath:@"address"];
         DCServerBloomFilter * bloomFilter = [self bloomFilterForAddresses:walletAddresses];
@@ -175,7 +167,7 @@
 {
     DCServerBloomFilter *filter = [[DCServerBloomFilter alloc] initWithFalsePositiveRate:BLOOM_REDUCED_FALSEPOSITIVE_RATE
                                                                          forElementCount:addresses.count];
-    double fpRate = [filter falsePositiveRate];
+    // double fpRate = [filter falsePositiveRate];
     for (NSString *addr in addresses) {// add addresses to watch for tx receiveing money to the wallet
         NSData *hash = addr.addressToHash160;
         

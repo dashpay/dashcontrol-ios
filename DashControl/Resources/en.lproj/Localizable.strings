@@ -1,8 +1,5 @@
 
 /* No comment provided by engineer. */
-"%@ DASH worth %@ USD" = "%1$@ DASH worth %2$@ USD";
-
-/* No comment provided by engineer. */
 "%@ is not allowed to access the camera" = "%@ is not allowed to access the camera";
 
 /* No comment provided by engineer. */
@@ -158,12 +155,6 @@
 /* No comment provided by engineer. */
 "not a DASH QR code" = "not a DASH QR code";
 
-/* No comment provided by engineer. */
-"not a valid dash address" = "not a valid dash address";
-
-/* No comment provided by engineer. */
-"Not a valid masternode address" = "Not a valid masternode address";
-
 /* ok */
 "ok" = "ok";
 
@@ -217,9 +208,6 @@
 
 /* No comment provided by engineer. */
 "Settings" = "Settings";
-
-/* No comment provided by engineer. */
-"This address does not contain the required 1000 Dash" = "This address does not contain the required 1000 Dash";
 
 /* No comment provided by engineer. */
 "Total" = "Total";

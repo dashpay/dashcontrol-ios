@@ -13,7 +13,6 @@
 #import "DCEnvironment.h"
 #import "Networking.h"
 #import "DCPersistenceStack.h"
-#import "DCCoreDataManager.h"
 
 #define DASHCONTROL_SERVER_VERSION 0
 

@@ -7,11 +7,12 @@
 //
 
 #import "DCWalletAccount.h"
+
 #import "DCWalletAccountEntity+CoreDataProperties.h"
+#import "DCWalletAccountEntity+Extensions.h"
 #import "DCWalletAddressEntity+CoreDataProperties.h"
 #import "BRBIP32Sequence.h"
 #import "BRKey.h"
-#import "DCCoreDataManager.h"
 #import "DCServerBloomFilter.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -21,30 +22,40 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DCWalletAccount ()
 
-@property (nonatomic, strong) NSData *publicKey;
-@property (nonatomic, strong) NSMutableArray *internalAddresses;
-@property (nonatomic, strong) NSMutableArray *externalAddresses;
-@property (nonatomic, strong) NSMutableArray *usedAddresses;
-@property (nonatomic, strong) BRBIP32Sequence *sequence;
+@property (assign, nonatomic) WalletAccountState state;
+@property (strong, nonatomic) NSData *publicKey;
+@property (strong, nonatomic) NSMutableArray *internalAddresses;
+@property (strong, nonatomic) NSMutableArray *externalAddresses;
+@property (strong, nonatomic) NSMutableArray *usedAddresses;
+@property (strong, nonatomic) BRBIP32Sequence *sequence;
 
 @end
 
 @implementation DCWalletAccount
 
-- (instancetype)initWithAccountPublicKey:(NSData *)accountPublicKey hash:(nullable NSString *)hash inContext:(NSManagedObjectContext *)context {
+- (instancetype)initWithAccountPublicKey:(NSData *)accountPublicKey
+                                    hash:(nullable NSString *)hash
+                               inContext:(NSManagedObjectContext *)context {
     self = [super init];
     if (self) {
-        NSError *error = nil;
         DCWalletAccountEntity *walletAccountEntity = nil;
-        NSArray *previousInternalAddresses;
-        NSArray *previousExternalAddresses;
+        NSArray<DCWalletAddressEntity *> *previousInternalAddresses = nil;
+        NSArray<DCWalletAddressEntity *> *previousExternalAddresses = nil;
         if (hash) {
-            walletAccountEntity = [[DCCoreDataManager sharedInstance] walletAccountWithPublicKeyHash:hash inContext:context error:&error];
-            previousInternalAddresses = [[walletAccountEntity.addresses filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"internal == %@", [NSNumber numberWithBool:TRUE]]] sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:TRUE] ]];
-            previousExternalAddresses = [[walletAccountEntity.addresses filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"internal == %@", [NSNumber numberWithBool:FALSE]]] sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:TRUE] ]];
+            walletAccountEntity = [DCWalletAccountEntity walletAccountForPublicKeyHash:hash inContext:context];
+
+            NSArray *sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES] ];
+            NSPredicate *internalPredicate = [NSPredicate predicateWithFormat:@"internal == %@", @YES];
+            NSPredicate *externalPredicate = [NSPredicate predicateWithFormat:@"internal == %@", @NO];
+            previousInternalAddresses = [[walletAccountEntity.addresses filteredSetUsingPredicate:internalPredicate]
+                sortedArrayUsingDescriptors:sortDescriptors];
+            previousExternalAddresses = [[walletAccountEntity.addresses filteredSetUsingPredicate:externalPredicate]
+                sortedArrayUsingDescriptors:sortDescriptors];
         }
-        else {
+        if (!previousInternalAddresses) {
             previousInternalAddresses = [NSArray array];
+        }
+        if (!previousExternalAddresses) {
             previousExternalAddresses = [NSArray array];
         }
         self.publicKey = accountPublicKey;

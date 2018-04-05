@@ -22,11 +22,11 @@ typedef NS_ENUM(uint32_t, WalletAccountState) {
 
 @interface DCWalletAccount : NSObject
 
-@property (nonatomic, assign) WalletAccountState state;
-@property (nonatomic, readonly) NSSet *allReceivingAddresses;
-@property (nonatomic, readonly) NSSet *allChangeAddresses;
+@property (readonly, assign, nonatomic) WalletAccountState state;
 
--(instancetype)initWithAccountPublicKey:(NSData*)accountPublicKey hash:(nullable NSString*)hash inContext:(NSManagedObjectContext*)context;
+- (instancetype)initWithAccountPublicKey:(NSData *)accountPublicKey
+                                    hash:(nullable NSString *)hash
+                               inContext:(NSManagedObjectContext *)context;
 
 - (void)startUpWithWalletAccountEntity:(DCWalletAccountEntity *)walletAccountEntity;
 

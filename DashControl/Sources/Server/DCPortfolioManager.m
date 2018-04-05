@@ -9,11 +9,12 @@
 #import "DCPortfolioManager.h"
 
 #import "DCPersistenceStack.h"
-#import "DCCoreDataManager.h"
 #import "NSArray+SWAdditions.h"
 #import "DCWalletAddressEntity+CoreDataClass.h"
 #import "DCBackendManager.h"
 #import "Networking.h"
+#import "NSManagedObject+DCExtensions.h"
+#import "DCMasternodeEntity+CoreDataClass.h"
 
 #define INSIGHT_API_URL @"https://insight.dash.org/insight-api-dash"
 
@@ -31,12 +32,12 @@
 
 -(uint64_t)totalWorthInContext:(NSManagedObjectContext* _Nullable)context error:(NSError*_Nullable* _Nullable)error {
     uint64_t total = 0;
-    NSArray * walletAddresses = [[DCCoreDataManager sharedInstance] walletAddressesInContext:context error:error];
+    NSArray * walletAddresses = [DCWalletAddressEntity dc_objectsInContext:context];
     if (*error) return 0;
     NSNumber * walletSum =  [walletAddresses valueForKeyPath:@"@sum.amount"];
     total += [walletSum longLongValue];
     
-    NSArray * masternodes = [[DCCoreDataManager sharedInstance] masternodesInContext:context error:error];
+    NSArray * masternodes = [DCMasternodeEntity dc_objectsInContext:context];
     if (*error) return 0;
     NSNumber * masternodeSum =  [masternodes valueForKeyPath:@"@sum.amount"];
     total += [masternodeSum longLongValue];
@@ -61,10 +62,10 @@
     NSPersistentContainer *container = self.stack.persistentContainer;
     [container performBackgroundTask:^(NSManagedObjectContext *context) {
         NSError * error = nil;
-        NSArray * walletAddresses = [[DCCoreDataManager sharedInstance] walletAddressesInContext:context error:&error];
+        NSArray * walletAddresses = [DCWalletAddressEntity dc_objectsInContext:context];
         if (error) return;
         
-        NSArray * masternodes = [[DCCoreDataManager sharedInstance] masternodesInContext:context error:&error];
+        NSArray * masternodes = [DCMasternodeEntity dc_objectsInContext:context];
         if (error) return;
         
         
