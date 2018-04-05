@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define USE_PRODUCTION 1
+
 @interface DCEnvironment : NSObject
 
 @property (nonatomic,copy,readonly,nonnull) NSString * deviceId;

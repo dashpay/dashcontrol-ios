@@ -21,8 +21,6 @@
 
 #define DEVELOPMENT_URL @"https://dev.dashpay.info"
 
-#define USE_PRODUCTION 1
-
 #define DASHCONTROL_SERVER [NSString stringWithFormat:@"%@/api/v%d/",USE_PRODUCTION?PRODUCTION_URL:DEVELOPMENT_URL,DASHCONTROL_SERVER_VERSION]
 
 #define DASHCONTROL_URL(x)  [DASHCONTROL_SERVER stringByAppendingString:x]

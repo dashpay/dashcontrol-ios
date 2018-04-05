@@ -26,6 +26,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#define TRIGGER_TABLE_VIEW_SECTION 1
+
 static NSString *const TRIGGER_ADD_CELL_ID = @"PriceTriggerAddTableViewCell";
 static NSString *const TRIGGER_CELL_ID = @"PriceTriggerTableViewCell";
 
@@ -35,9 +37,6 @@ static NSString *const TRIGGER_CELL_ID = @"PriceTriggerTableViewCell";
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
-@property (strong, nonatomic) NSMutableArray<NSIndexPath *> *deletedRowIndexPaths;
-@property (strong, nonatomic) NSMutableArray<NSIndexPath *> *insertedRowIndexPaths;
-@property (strong, nonatomic) NSMutableArray<NSIndexPath *> *updatedRowIndexPaths;
 
 @end
 
@@ -142,61 +141,35 @@ static NSString *const TRIGGER_CELL_ID = @"PriceTriggerTableViewCell";
     }
 }
 
-- (NSMutableArray<NSIndexPath *> *)deletedRowIndexPaths {
-    if (!_deletedRowIndexPaths) {
-        _deletedRowIndexPaths = [NSMutableArray array];
-    }
-    return _deletedRowIndexPaths;
-}
-
-- (NSMutableArray<NSIndexPath *> *)insertedRowIndexPaths {
-    if (!_insertedRowIndexPaths) {
-        _insertedRowIndexPaths = [NSMutableArray array];
-    }
-    return _insertedRowIndexPaths;
-}
-
-- (NSMutableArray<NSIndexPath *> *)updatedRowIndexPaths {
-    if (!_updatedRowIndexPaths) {
-        _updatedRowIndexPaths = [NSMutableArray array];
-    }
-    return _updatedRowIndexPaths;
-}
-
 #pragma mark NSFetchedResultsControllerDelegate
+
+-(void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView beginUpdates];
+}
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(nullable NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(nullable NSIndexPath *)newIndexPath {
     switch (type) {
         case NSFetchedResultsChangeInsert: {
-            [self.insertedRowIndexPaths addObject:newIndexPath];
+            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:newIndexPath.row inSection:TRIGGER_TABLE_VIEW_SECTION]] withRowAnimation:UITableViewRowAnimationFade];
             break;
         }
         case NSFetchedResultsChangeDelete: {
-            [self.deletedRowIndexPaths addObject:indexPath];
+            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row inSection:TRIGGER_TABLE_VIEW_SECTION]] withRowAnimation:UITableViewRowAnimationFade];
             break;
         }
         case NSFetchedResultsChangeUpdate: {
-            [self.updatedRowIndexPaths addObject:indexPath];
+            [self configureTriggerCell:anObject atIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:TRIGGER_TABLE_VIEW_SECTION]];
             break;
         }
         case NSFetchedResultsChangeMove: {
-            [self.insertedRowIndexPaths addObject:newIndexPath];
-            [self.deletedRowIndexPaths addObject:indexPath];
+            [self.tableView moveRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:TRIGGER_TABLE_VIEW_SECTION] toIndexPath:[NSIndexPath indexPathForRow:newIndexPath.row inSection:TRIGGER_TABLE_VIEW_SECTION]];
             break;
         }
     }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView beginUpdates];
-    [self.tableView deleteRowsAtIndexPaths:self.deletedRowIndexPaths withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView insertRowsAtIndexPaths:self.insertedRowIndexPaths withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView reloadRowsAtIndexPaths:self.updatedRowIndexPaths withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView endUpdates];
-
-    [self.deletedRowIndexPaths removeAllObjects];
-    [self.insertedRowIndexPaths removeAllObjects];
-    [self.updatedRowIndexPaths removeAllObjects];
 }
 
 #pragma mark Actions
