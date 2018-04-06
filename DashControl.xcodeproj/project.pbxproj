@@ -865,7 +865,7 @@
 				FB4310FA1FA2A2E600784EBC /* Persistence */,
 				2A04E6AD202DA5E20065F30D /* Services */,
 				FBEF66EB1F83DBEF003424D2 /* Utils */,
-				FB2F9B3E1F5CA0050035180D /* Views Controllers */,
+				FB2F9B3E1F5CA0050035180D /* UI */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1307,7 +1307,7 @@
 			path = DashControlTests;
 			sourceTree = "<group>";
 		};
-		FB2F9B3E1F5CA0050035180D /* Views Controllers */ = {
+		FB2F9B3E1F5CA0050035180D /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				2A6F59642035668300D7BD85 /* Common */,
@@ -1316,7 +1316,7 @@
 				241719C31F4D9EC30045C2D6 /* Proposals */,
 				24E584011F3ADA0100A12087 /* News */,
 			);
-			path = "Views Controllers";
+			path = UI;
 			sourceTree = "<group>";
 		};
 		FB4310FA1FA2A2E600784EBC /* Persistence */ = {
