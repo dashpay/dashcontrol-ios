@@ -17,6 +17,8 @@
 
 #import "PortfolioViewController.h"
 
+#import <StoreKit/StoreKit.h>
+
 #import "AddItemTableViewCell.h"
 #import "ItemTableViewCell.h"
 #import "MasternodeViewController.h"
@@ -41,7 +43,7 @@ typedef NS_ENUM(NSInteger, PortfolioSection) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PortfolioViewController ()
+@interface PortfolioViewController () <SKStoreProductViewControllerDelegate>
 
 @property (strong, nonatomic) PortfolioViewModel *viewModel;
 @property (strong, nonatomic) TableViewFetchedResultsControllerDelegate *walletFRCDelegate;
@@ -162,8 +164,8 @@ NS_ASSUME_NONNULL_BEGIN
             if ([[UIApplication sharedApplication] canOpenURL:self.viewModel.dashWalletRequestURL]) {
                 [[UIApplication sharedApplication] openURL:self.viewModel.dashWalletRequestURL options:@{} completionHandler:nil];
             }
-            else if ([[UIApplication sharedApplication] canOpenURL:self.viewModel.dashWalletAppStoreURL]) {
-                [[UIApplication sharedApplication] openURL:self.viewModel.dashWalletAppStoreURL options:@{} completionHandler:nil];
+            else {
+                [self openAppStoreControllerForDashWallet];
             }
             break;
         }
@@ -317,6 +319,22 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)reload {
+    // TODO
+    [self.tableView.refreshControl endRefreshing];
+}
+
+- (void)openAppStoreControllerForDashWallet {
+    SKStoreProductViewController *storeViewController = [[SKStoreProductViewController alloc] init];
+    storeViewController.delegate = self;
+    NSDictionary *parameters = @{ SKStoreProductParameterITunesItemIdentifier : @(self.viewModel.dashWalletAppStoreID) };
+    [storeViewController loadProductWithParameters:parameters completionBlock:nil];
+    [self presentViewController:storeViewController animated:YES completion:nil];
+}
+
+#pragma mark SKStoreProductViewControllerDelegate
+
+- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

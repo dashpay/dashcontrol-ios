@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nonatomic, strong) NSFetchedResultsController<DCMasternodeEntity *> *masternodeFetchedResultsController;
 
 @property (readonly, strong, nonatomic) NSURL *dashWalletRequestURL;
-@property (readonly, strong, nonatomic) NSURL *dashWalletAppStoreURL;
+@property (readonly, assign, nonatomic) NSInteger dashWalletAppStoreID;
 
 @end
 

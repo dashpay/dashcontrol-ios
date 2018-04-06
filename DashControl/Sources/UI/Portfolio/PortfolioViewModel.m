@@ -22,7 +22,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const DASHWALLET_REQUEST_PUBKEY_URL = @"dashwallet://request=masterPublicKey&account=0&sender=dashcontrol";
-static NSString *const DASHWALLET_APPSTORE_URL = @"https://itunes.apple.com/app/apple-store/id1206647026?mt=8";
+static NSInteger const DASHWALLET_APPSTORE_ID = 1206647026;
 
 @implementation PortfolioViewModel
 
@@ -30,7 +30,6 @@ static NSString *const DASHWALLET_APPSTORE_URL = @"https://itunes.apple.com/app/
 @synthesize walletAddressFetchedResultsController = _walletAddressFetchedResultsController;
 @synthesize masternodeFetchedResultsController = _masternodeFetchedResultsController;
 @synthesize dashWalletRequestURL = _dashWalletRequestURL;
-@synthesize dashWalletAppStoreURL = _dashWalletAppStoreURL;
 
 - (NSFetchedResultsController<DCWalletEntity *> *)walletFetchedResultsController {
     if (!_walletFetchedResultsController) {
@@ -73,11 +72,8 @@ static NSString *const DASHWALLET_APPSTORE_URL = @"https://itunes.apple.com/app/
     return _dashWalletRequestURL;
 }
 
-- (NSURL *)dashWalletAppStoreURL {
-    if (!_dashWalletAppStoreURL) {
-        _dashWalletAppStoreURL = [NSURL URLWithString:DASHWALLET_APPSTORE_URL];
-    }
-    return _dashWalletAppStoreURL;
+- (NSInteger)dashWalletAppStoreID {
+    return DASHWALLET_APPSTORE_ID;
 }
 
 #pragma mark Private
