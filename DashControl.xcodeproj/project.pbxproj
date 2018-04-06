@@ -80,7 +80,7 @@
 		2A587EA3206A85B0004BC537 /* AddItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A587EA2206A85B0004BC537 /* AddItemTableViewCell.m */; };
 		2A587EA7206A88AC004BC537 /* ItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A587EA6206A88AC004BC537 /* ItemTableViewCell.m */; };
 		2A587EA9206A88C3004BC537 /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A587EA8206A88C3004BC537 /* ItemTableViewCell.xib */; };
-		2A587EAD206A8D8E004BC537 /* TableViewFetchedResultsControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A587EAC206A8D8E004BC537 /* TableViewFetchedResultsControllerDelegate.m */; };
+		2A587EAD206A8D8E004BC537 /* TableViewFRCDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A587EAC206A8D8E004BC537 /* TableViewFRCDelegate.m */; };
 		2A6F59602034259600D7BD85 /* APINews.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F595F2034259600D7BD85 /* APINews.m */; };
 		2A6F5967203566A600D7BD85 /* ForwardingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F5966203566A600D7BD85 /* ForwardingNavigationController.m */; };
 		2A6F596B203576C400D7BD85 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6F596D203576C400D7BD85 /* News.storyboard */; };
@@ -381,8 +381,8 @@
 		2A587EA6206A88AC004BC537 /* ItemTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItemTableViewCell.m; sourceTree = "<group>"; };
 		2A587EA8206A88C3004BC537 /* ItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemTableViewCell.xib; sourceTree = "<group>"; };
 		2A587EAA206A895C004BC537 /* ItemTableViewCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemTableViewCellModel.h; sourceTree = "<group>"; };
-		2A587EAB206A8D8E004BC537 /* TableViewFetchedResultsControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewFetchedResultsControllerDelegate.h; sourceTree = "<group>"; };
-		2A587EAC206A8D8E004BC537 /* TableViewFetchedResultsControllerDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewFetchedResultsControllerDelegate.m; sourceTree = "<group>"; };
+		2A587EAB206A8D8E004BC537 /* TableViewFRCDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewFRCDelegate.h; sourceTree = "<group>"; };
+		2A587EAC206A8D8E004BC537 /* TableViewFRCDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewFRCDelegate.m; sourceTree = "<group>"; };
 		2A6F595E2034259600D7BD85 /* APINews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APINews.h; sourceTree = "<group>"; };
 		2A6F595F2034259600D7BD85 /* APINews.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APINews.m; sourceTree = "<group>"; };
 		2A6F5965203566A600D7BD85 /* ForwardingNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForwardingNavigationController.h; sourceTree = "<group>"; };
@@ -1088,8 +1088,8 @@
 				2A3F49B7204C4341005EB5D9 /* FetchedResultsTableViewController.m */,
 				2A6F5965203566A600D7BD85 /* ForwardingNavigationController.h */,
 				2A6F5966203566A600D7BD85 /* ForwardingNavigationController.m */,
-				2A587EAB206A8D8E004BC537 /* TableViewFetchedResultsControllerDelegate.h */,
-				2A587EAC206A8D8E004BC537 /* TableViewFetchedResultsControllerDelegate.m */,
+				2A587EAB206A8D8E004BC537 /* TableViewFRCDelegate.h */,
+				2A587EAC206A8D8E004BC537 /* TableViewFRCDelegate.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2093,7 +2093,7 @@
 				2A3F49A92049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.m in Sources */,
 				2A04E6E5202DA5E20065F30D /* HTTPURLRequestBuilder.m in Sources */,
 				2A4FE281203AE489007FD160 /* UIColor+DCStyle.m in Sources */,
-				2A587EAD206A8D8E004BC537 /* TableViewFetchedResultsControllerDelegate.m in Sources */,
+				2A587EAD206A8D8E004BC537 /* TableViewFRCDelegate.m in Sources */,
 				2A289A55203AC10E00EDC98E /* NewsSearchResultsController.m in Sources */,
 				FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */,
 				2A4473AE2042E8DA00B52BCB /* DCSegmentedControl.m in Sources */,

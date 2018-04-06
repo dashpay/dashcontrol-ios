@@ -23,21 +23,21 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^ConfigureCellBlock)(NSFetchedResultsController *fetchedResultsController, UITableViewCell *cell, NSIndexPath *indexPath);
 typedef NSIndexPath *_Nonnull (^IndexPathTransformationBlock)(NSIndexPath *indexPath);
 
-@class TableViewFetchedResultsControllerDelegate;
+@class TableViewFRCDelegate;
 
-@protocol TableViewFetchedResultsControllerDelegateNotifier <NSObject>
+@protocol TableViewFRCDelegateNotifier <NSObject>
 
 @optional
-- (void)tableViewFetchedResultsControllerDelegateDidUpdate:(TableViewFetchedResultsControllerDelegate *)frcDelegate;
+- (void)tableViewFRCDelegateDidUpdate:(TableViewFRCDelegate *)frcDelegate;
 
 @end
 
-@interface TableViewFetchedResultsControllerDelegate : NSObject <NSFetchedResultsControllerDelegate>
+@interface TableViewFRCDelegate : NSObject <NSFetchedResultsControllerDelegate>
 
 @property (nullable, weak, nonatomic) UITableView *tableView;
 @property (nullable, copy, nonatomic) ConfigureCellBlock configureCellBlock;
 @property (nullable, copy, nonatomic) IndexPathTransformationBlock transformationBlock;
-@property (nullable, weak, nonatomic) id<TableViewFetchedResultsControllerDelegateNotifier> notifier;
+@property (nullable, weak, nonatomic) id<TableViewFRCDelegateNotifier> notifier;
 
 @end
 

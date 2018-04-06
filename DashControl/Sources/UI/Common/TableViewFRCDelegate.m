@@ -15,11 +15,11 @@
 //  limitations under the License.
 //
 
-#import "TableViewFetchedResultsControllerDelegate.h"
+#import "TableViewFRCDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation TableViewFetchedResultsControllerDelegate
+@implementation TableViewFRCDelegate
 
 - (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
                    configureCell:(UITableViewCell *)cell
@@ -70,8 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
     
-    if ([self.notifier respondsToSelector:@selector(tableViewFetchedResultsControllerDelegateDidUpdate:)]) {
-        [self.notifier tableViewFetchedResultsControllerDelegateDidUpdate:self];
+    if ([self.notifier respondsToSelector:@selector(tableViewFRCDelegateDidUpdate:)]) {
+        [self.notifier tableViewFRCDelegateDidUpdate:self];
     }
 }
 

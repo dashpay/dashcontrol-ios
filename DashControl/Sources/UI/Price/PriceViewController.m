@@ -25,7 +25,7 @@
 #import "PriceTriggerTableViewCellModel.h"
 #import "PriceTriggerViewController.h"
 #import "PriceViewModel.h"
-#import "TableViewFetchedResultsControllerDelegate.h"
+#import "TableViewFRCDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,7 +35,7 @@ static NSString *const CELL_ID = @"ItemTableViewCell";
 @interface PriceViewController () <UITableViewDataSource, NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) PriceViewModel *viewModel;
-@property (strong, nonatomic) TableViewFetchedResultsControllerDelegate *fetchedResultsControllerDelegate;
+@property (strong, nonatomic) TableViewFRCDelegate *fetchedResultsControllerDelegate;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
@@ -153,9 +153,9 @@ static NSString *const CELL_ID = @"ItemTableViewCell";
 
 #pragma mark Private
 
-- (TableViewFetchedResultsControllerDelegate *)fetchedResultsControllerDelegate {
+- (TableViewFRCDelegate *)fetchedResultsControllerDelegate {
     if (!_fetchedResultsControllerDelegate) {
-        _fetchedResultsControllerDelegate = [[TableViewFetchedResultsControllerDelegate alloc] init];
+        _fetchedResultsControllerDelegate = [[TableViewFRCDelegate alloc] init];
         _fetchedResultsControllerDelegate.tableView = self.tableView;
         weakify;
         _fetchedResultsControllerDelegate.configureCellBlock = ^(NSFetchedResultsController * _Nonnull fetchedResultsController, UITableViewCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath) {

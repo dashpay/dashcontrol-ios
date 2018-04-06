@@ -26,7 +26,7 @@
 #import "PortfolioViewModel.h"
 #import "PortfolioWalletAddressTableViewCellModel.h"
 #import "PortfolioWalletTableViewCellModel.h"
-#import "TableViewFetchedResultsControllerDelegate.h"
+#import "TableViewFRCDelegate.h"
 #import "WalletAddressViewController.h"
 
 static NSString *const ADD_CELL_ID = @"AddItemTableViewCell";
@@ -43,12 +43,12 @@ typedef NS_ENUM(NSInteger, PortfolioSection) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PortfolioViewController () <TableViewFetchedResultsControllerDelegateNotifier, SKStoreProductViewControllerDelegate>
+@interface PortfolioViewController () <TableViewFRCDelegateNotifier, SKStoreProductViewControllerDelegate>
 
 @property (strong, nonatomic) PortfolioViewModel *viewModel;
-@property (strong, nonatomic) TableViewFetchedResultsControllerDelegate *walletFRCDelegate;
-@property (strong, nonatomic) TableViewFetchedResultsControllerDelegate *walletAddressFRCDelegate;
-@property (strong, nonatomic) TableViewFetchedResultsControllerDelegate *masternodeFRCDelegate;
+@property (strong, nonatomic) TableViewFRCDelegate *walletFRCDelegate;
+@property (strong, nonatomic) TableViewFRCDelegate *walletAddressFRCDelegate;
+@property (strong, nonatomic) TableViewFRCDelegate *masternodeFRCDelegate;
 
 @end
 
@@ -229,9 +229,9 @@ NS_ASSUME_NONNULL_BEGIN
     return _viewModel;
 }
 
-- (TableViewFetchedResultsControllerDelegate *)walletFRCDelegate {
+- (TableViewFRCDelegate *)walletFRCDelegate {
     if (!_walletFRCDelegate) {
-        _walletFRCDelegate = [[TableViewFetchedResultsControllerDelegate alloc] init];
+        _walletFRCDelegate = [[TableViewFRCDelegate alloc] init];
         _walletFRCDelegate.tableView = self.tableView;
         _walletFRCDelegate.notifier = self;
         weakify;
@@ -246,9 +246,9 @@ NS_ASSUME_NONNULL_BEGIN
     return _walletFRCDelegate;
 }
 
-- (TableViewFetchedResultsControllerDelegate *)walletAddressFRCDelegate {
+- (TableViewFRCDelegate *)walletAddressFRCDelegate {
     if (!_walletAddressFRCDelegate) {
-        _walletAddressFRCDelegate = [[TableViewFetchedResultsControllerDelegate alloc] init];
+        _walletAddressFRCDelegate = [[TableViewFRCDelegate alloc] init];
         _walletAddressFRCDelegate.tableView = self.tableView;
         weakify;
         _walletAddressFRCDelegate.configureCellBlock = ^(NSFetchedResultsController *_Nonnull fetchedResultsController, UITableViewCell *_Nonnull cell, NSIndexPath *_Nonnull indexPath) {
@@ -262,9 +262,9 @@ NS_ASSUME_NONNULL_BEGIN
     return _walletAddressFRCDelegate;
 }
 
-- (TableViewFetchedResultsControllerDelegate *)masternodeFRCDelegate {
+- (TableViewFRCDelegate *)masternodeFRCDelegate {
     if (!_masternodeFRCDelegate) {
-        _masternodeFRCDelegate = [[TableViewFetchedResultsControllerDelegate alloc] init];
+        _masternodeFRCDelegate = [[TableViewFRCDelegate alloc] init];
         _masternodeFRCDelegate.tableView = self.tableView;
         weakify;
         _masternodeFRCDelegate.configureCellBlock = ^(NSFetchedResultsController *_Nonnull fetchedResultsController, UITableViewCell *_Nonnull cell, NSIndexPath *_Nonnull indexPath) {
@@ -355,9 +355,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentViewController:storeViewController animated:YES completion:nil];
 }
 
-#pragma mark TableViewFetchedResultsControllerDelegateNotifier
+#pragma mark TableViewFRCDelegateNotifier
 
-- (void)tableViewFetchedResultsControllerDelegateDidUpdate:(TableViewFetchedResultsControllerDelegate *)frcDelegate {
+- (void)tableViewFRCDelegateDidUpdate:(TableViewFRCDelegate *)frcDelegate {
     if (frcDelegate == self.walletFRCDelegate) {
         [self.tableView beginUpdates];
         [self.tableView reloadRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:0 inSection:PortfolioSection_AddWallet] ] withRowAnimation:UITableViewRowAnimationFade];
