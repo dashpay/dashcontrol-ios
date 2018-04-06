@@ -80,10 +80,6 @@ NS_ASSUME_NONNULL_BEGIN
             return NSLocalizedString(@"Alert when over", nil);
         case DCTriggerBelow:
             return NSLocalizedString(@"Alert when under", nil);
-        case DCTriggerSpikeUp:
-            return NSLocalizedString(@"Alert when price rises quickly", nil);
-        case DCTriggerSpikeDown:
-            return NSLocalizedString(@"Alert when price drops quickly", nil);
         default:
             NSAssert(NO, @"unsupported DCTriggerType");
             return nil;
@@ -213,8 +209,6 @@ typedef NS_ENUM(NSUInteger, TriggerDetailType) {
         NSArray *values = @[
             [TriggerAlertTypeValue type:DCTriggerAbove],
             [TriggerAlertTypeValue type:DCTriggerBelow],
-            [TriggerAlertTypeValue type:DCTriggerSpikeUp],
-            [TriggerAlertTypeValue type:DCTriggerSpikeDown],
         ];
         return values;
     }
