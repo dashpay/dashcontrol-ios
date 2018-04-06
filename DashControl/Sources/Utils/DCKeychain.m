@@ -1,23 +1,27 @@
 //
-//  DCEnvironment.m
-//  DashControl
-//
 //  Created by Sam Westrich on 10/26/17.
 //  Copyright © 2017 dashfoundation. All rights reserved.
 //
+//  Licensed under the MIT License (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//  https://opensource.org/licenses/MIT
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//
 
-#import "DCEnvironment.h"
-#import "NSData+Dash.h"
-#import "NSString+Sugar.h"
+#import "DCKeychain.h"
+
 #import "NSMutableData+Dash.h"
-#import <LocalAuthentication/LocalAuthentication.h>
 
 #define SEC_ATTR_SERVICE      @"org.dashfoundation.dash.Control"
-#define DEVICE_ID @"DEVICE_ID"
-#define DEVICE_PASSWORD @"DEVICE_PASSWORD"
-#define DEVICE_HAS_REGISTERED @"DEVICE_REGISTERED"
 
-static BOOL setKeychainData(NSData *data, NSString *key, BOOL authenticated)
+BOOL setKeychainData(NSData *data, NSString *key, BOOL authenticated)
 {
     if (! key) return NO;
     
@@ -61,7 +65,7 @@ static BOOL setKeychainData(NSData *data, NSString *key, BOOL authenticated)
     return NO;
 }
 
-static NSData *getKeychainData(NSString *key, NSError **error)
+NSData *getKeychainData(NSString *key, NSError **error)
 {
     NSDictionary *query = @{(__bridge id)kSecClass:(__bridge id)kSecClassGenericPassword,
                             (__bridge id)kSecAttrService:SEC_ATTR_SERVICE,
@@ -78,7 +82,7 @@ static NSData *getKeychainData(NSString *key, NSError **error)
     return nil;
 }
 
-static BOOL setKeychainInt(int64_t i, NSString *key, BOOL authenticated)
+BOOL setKeychainInt(int64_t i, NSString *key, BOOL authenticated)
 {
     @autoreleasepool {
         NSMutableData *d = [NSMutableData secureDataWithLength:sizeof(int64_t)];
@@ -88,7 +92,7 @@ static BOOL setKeychainInt(int64_t i, NSString *key, BOOL authenticated)
     }
 }
 
-static int64_t getKeychainInt(NSString *key, NSError **error)
+int64_t getKeychainInt(NSString *key, NSError **error)
 {
     @autoreleasepool {
         NSData *d = getKeychainData(key, error);
@@ -97,7 +101,7 @@ static int64_t getKeychainInt(NSString *key, NSError **error)
     }
 }
 
-static BOOL setKeychainBool(Boolean i, NSString *key, BOOL authenticated)
+BOOL setKeychainBool(Boolean i, NSString *key, BOOL authenticated)
 {
     @autoreleasepool {
         NSMutableData *d = [NSMutableData secureDataWithLength:sizeof(Boolean)];
@@ -107,7 +111,7 @@ static BOOL setKeychainBool(Boolean i, NSString *key, BOOL authenticated)
     }
 }
 
-static Boolean getKeychainBool(NSString *key, NSError **error)
+Boolean getKeychainBool(NSString *key, NSError **error)
 {
     @autoreleasepool {
         NSData *d = getKeychainData(key, error);
@@ -116,7 +120,7 @@ static Boolean getKeychainBool(NSString *key, NSError **error)
     }
 }
 
-static BOOL setKeychainString(NSString *s, NSString *key, BOOL authenticated)
+BOOL setKeychainString(NSString *s, NSString *key, BOOL authenticated)
 {
     @autoreleasepool {
         NSData *d = (s) ? CFBridgingRelease(CFStringCreateExternalRepresentation(SecureAllocator(), (CFStringRef)s,
@@ -126,7 +130,7 @@ static BOOL setKeychainString(NSString *s, NSString *key, BOOL authenticated)
     }
 }
 
-static NSString *getKeychainString(NSString *key, NSError **error)
+NSString *getKeychainString(NSString *key, NSError **error)
 {
     @autoreleasepool {
         NSData *d = getKeychainData(key, error);
@@ -136,7 +140,7 @@ static NSString *getKeychainString(NSString *key, NSError **error)
     }
 }
 
-static BOOL setKeychainDict(NSDictionary *dict, NSString *key, BOOL authenticated)
+BOOL setKeychainDict(NSDictionary *dict, NSString *key, BOOL authenticated)
 {
     @autoreleasepool {
         NSData *d = (dict) ? [NSKeyedArchiver archivedDataWithRootObject:dict] : nil;
@@ -145,7 +149,7 @@ static BOOL setKeychainDict(NSDictionary *dict, NSString *key, BOOL authenticate
     }
 }
 
-static NSDictionary *getKeychainDict(NSString *key, NSError **error)
+NSDictionary *getKeychainDict(NSString *key, NSError **error)
 {
     @autoreleasepool {
         NSData *d = getKeychainData(key, error);
@@ -153,82 +157,3 @@ static NSDictionary *getKeychainDict(NSString *key, NSError **error)
         return (d) ? [NSKeyedUnarchiver unarchiveObjectWithData:d] : nil;
     }
 }
-
-@interface DCEnvironment()
-
-@property (nonatomic,copy) NSString * deviceId;
-@property (nonatomic,copy) NSString * devicePassword;
-
-@end
-
-@implementation DCEnvironment
-
-+ (id)sharedInstance {
-    static DCEnvironment *sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[self alloc] init];
-    });
-    return sharedInstance;
-}
-
-- (id)init {
-    if (self = [super init]) {
-        [self deviceId];
-        [self devicePassword];
-    }
-    return self;
-}
-
--(void)setKeychainData:(NSData*)data forKey:(NSString*)key authenticated:(BOOL)authenticated {
-    setKeychainData(data, key, authenticated);
-}
-
--(NSData*)getKeychainDataForKey:(NSString*)key error:(NSError**)error {
-    return getKeychainData(key, error);
-}
-
--(void)setKeychainBoolean:(Boolean)value forKey:(NSString*)key authenticated:(BOOL)authenticated {
-    setKeychainBool(value, key, authenticated);
-}
-
--(Boolean)getKeychainBooleanForKey:(NSString*)key error:(NSError**)error {
-    return getKeychainBool(key, error);
-}
-
-
--(NSString*)deviceId {
-    if (!_deviceId) {
-        NSError * error = nil;
-        self.deviceId = getKeychainString(DEVICE_ID, &error);
-        if (!_deviceId && !error) {
-            NSString * UUIDString = [[NSUUID UUID] UUIDString];
-            setKeychainString(UUIDString, DEVICE_ID, NO);
-            self.deviceId = UUIDString;
-        }
-    }
-    return _deviceId;
-}
-
--(NSString*)devicePassword {
-    if (!_devicePassword) {
-        NSError * error = nil;
-        self.devicePassword = getKeychainString(DEVICE_PASSWORD, &error);
-        if (!_devicePassword && !error) {
-            NSString * password = [NSString randomStringWithLength:12];
-            setKeychainString(password, DEVICE_PASSWORD, NO);
-            _devicePassword = password;
-        }
-    }
-    return _devicePassword;
-}
-
--(void)setHasRegistered {
-    [self setKeychainBoolean:TRUE forKey:DEVICE_HAS_REGISTERED authenticated:NO];
-}
-
--(BOOL)hasRegisteredWithError:(NSError**)error {
-    return [self getKeychainBooleanForKey:DEVICE_HAS_REGISTERED error:error];
-}
-
-@end

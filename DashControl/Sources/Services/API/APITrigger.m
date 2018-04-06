@@ -24,20 +24,12 @@
 #import "DCMarketEntity+Extensions.h"
 #import "NSManagedObject+DCExtensions.h"
 #import "NSManagedObjectContext+DCExtensions.h"
-#import "DCEnvironment.h"
+#import "Credentials.h"
 #import "DCPersistenceStack.h"
 #import "DCTrigger.h"
 #import "Networking.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-#define USE_PRODUCTION 1
-
-#ifdef USE_PRODUCTION
-static NSString *const API_BASE_URL = @"https://dashpay.info/api/v0/";
-#else
-static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
-#endif
 
 @interface APITrigger ()
 
@@ -78,7 +70,7 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
         return self.registerRequest;
     }
 
-    NSString *urlString = [API_BASE_URL stringByAppendingString:@"device"];
+    NSString *urlString = [self.baseURLString stringByAppendingString:@"device"];
     NSURL *url = [NSURL URLWithString:urlString];
 
     struct utsname systemInfo;
@@ -89,8 +81,8 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
         @"version" : [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
         @"model" : deviceName,
         @"os" : @"ios",
-        @"device_id" : [[DCEnvironment sharedInstance] deviceId],
-        @"password" : [[DCEnvironment sharedInstance] devicePassword],
+        @"device_id" : [Credentials deviceId],
+        @"password" : [Credentials devicePassword],
         @"os_version" : [[UIDevice currentDevice] systemVersion],
         @"app_name" : @"dashcontrol",
     } mutableCopy];
@@ -106,7 +98,7 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
 
         BOOL success = (error == nil);
         if (success) {
-            [[DCEnvironment sharedInstance] setHasRegistered];
+            Credentials.hasRegistered = YES;
         }
 
         for (void (^completionBlock)(BOOL) in self.registerCompletionBlocks) {
@@ -122,7 +114,7 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
 }
 
 - (id<HTTPLoaderOperationProtocol>)getTriggersCompletion:(void (^)(BOOL success))completion {
-    NSString *urlString = [API_BASE_URL stringByAppendingString:@"trigger"];
+    NSString *urlString = [self.baseURLString stringByAppendingString:@"trigger"];
     NSURL *url = [NSURL URLWithString:urlString];
 
     HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:nil];
@@ -179,7 +171,7 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
 }
 
 - (id<HTTPLoaderOperationProtocol>)postTrigger:(DCTrigger *)trigger completion:(void (^)(NSError *_Nullable error))completion {
-    NSString *urlString = [API_BASE_URL stringByAppendingString:@"trigger"];
+    NSString *urlString = [self.baseURLString stringByAppendingString:@"trigger"];
     NSURL *url = [NSURL URLWithString:urlString];
     NSDictionary *parameters = @{
         @"value" : trigger.value,
@@ -197,21 +189,21 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
                 NSDictionary *dictionary = (NSDictionary *)parsedData;
                 DCTriggerEntity *trigger = [[DCTriggerEntity alloc] initWithContext:context];
                 trigger.identifier = [dictionary[@"identifier"] unsignedLongLongValue];
-                trigger.value = [dictionary [@"value"] doubleValue];
+                trigger.value = [dictionary[@"value"] doubleValue];
                 trigger.type = [DCTrigger typeForNetworkString:dictionary[@"type"]];
-                trigger.ignoreFor = [dictionary [@"ignoreFor"] unsignedLongLongValue];
+                trigger.ignoreFor = [dictionary[@"ignoreFor"] unsignedLongLongValue];
                 NSString *marketName = dictionary[@"market"];
                 trigger.marketNamed = marketName;
                 trigger.market = [DCMarketEntity marketForName:marketName inContext:context];
-                NSString *exchangeName = dictionary [@"exchange"];
+                NSString *exchangeName = dictionary[@"exchange"];
                 if (![exchangeName isEqualToString:@"any"]) {
                     trigger.exchangeNamed = exchangeName;
                     trigger.exchange = [DCExchangeEntity exchangeForName:exchangeName inContext:context];
                 }
-                
+
                 context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
                 [context dc_saveIfNeeded];
-                
+
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (completion) {
                         completion(nil);
@@ -229,7 +221,7 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
 
 - (id<HTTPLoaderOperationProtocol>)deleteTriggerWithId:(u_int64_t)triggerId completion:(void (^_Nullable)(NSError *_Nullable error))completion {
     NSString *triggerIdParam = [NSString stringWithFormat:@"/%llu", triggerId];
-    NSString *urlString = [[API_BASE_URL stringByAppendingString:@"trigger"] stringByAppendingString:triggerIdParam];
+    NSString *urlString = [[self.baseURLString stringByAppendingString:@"trigger"] stringByAppendingString:triggerIdParam];
     NSURL *url = [NSURL URLWithString:urlString];
 
     HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_DELETE parameters:nil];
@@ -247,10 +239,10 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
                 if (trigger) {
                     [context deleteObject:trigger];
                 }
-                
+
                 context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
                 [context dc_saveIfNeeded];
-                
+
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (completion) {
                         completion(nil);
@@ -259,17 +251,6 @@ static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
             }];
         }
     }];
-}
-
-#pragma mark - Private
-
-- (id<HTTPLoaderOperationProtocol>)sendAuthorizedRequest:(HTTPRequest *)request completion:(HTTPLoaderCompletionBlock)completion {
-    NSString *username = [[DCEnvironment sharedInstance] deviceId];
-    NSString *password = [[DCEnvironment sharedInstance] devicePassword];
-    NSData *basicAuthCredentials = [[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *base64AuthCredentials = [basicAuthCredentials base64EncodedStringWithOptions:kNilOptions];
-    [request addValue:[NSString stringWithFormat:@"Basic %@", base64AuthCredentials] forHeader:@"Authorization"];
-    return [self.httpManager sendRequest:request completion:completion];
 }
 
 @end

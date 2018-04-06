@@ -23,10 +23,12 @@
 
 #import "APIBudget.h"
 #import "APINews.h"
+#import "APIPortfolio.h"
 #import "APIPrice.h"
 #import "APITrigger.h"
 #import "ChartViewModel.h"
 #import "DCPersistenceStack.h"
+#import "DCWalletManager.h"
 #import "Networking.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -62,10 +64,12 @@ NS_ASSUME_NONNULL_BEGIN
         [[[lets inject] byPropertyClass:[APIPrice class]] getterValueLazyByClass:[APIPrice class]];
         [[[lets inject] byPropertyClass:[APIBudget class]] getterValueLazyByClass:[APIBudget class]];
         [[[lets inject] byPropertyClass:[APITrigger class]] getterValueLazyByClass:[APITrigger class]];
+        [[[lets inject] byPropertyClass:[APIPortfolio class]] getterValueLazyByClass:[APIPortfolio class]];
 
         // temporary injections, will be satisfied when CoreData stack get initialized
         id nilValue = nil;
         [[[lets inject] byPropertyClass:[ChartViewModel class]] getterValue:nilValue];
+        [[[lets inject] byPropertyClass:[DCWalletManager class]] getterValue:nilValue];
     }];
 }
 
@@ -74,6 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
         [lets skipAsserts];
 
         [[[lets inject] byPropertyClass:[ChartViewModel class]] getterValue:[[ChartViewModel alloc] init]];
+        [[[lets inject] byPropertyClass:[DCWalletManager class]] getterValue:[[DCWalletManager alloc] init]];
     }];
 }
 

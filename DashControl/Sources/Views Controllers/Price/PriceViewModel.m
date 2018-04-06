@@ -18,7 +18,7 @@
 #import "PriceViewModel.h"
 
 #import "APITrigger.h"
-#import "DCEnvironment.h"
+#import "Credentials.h"
 #import "DCPersistenceStack.h"
 #import "HTTPLoaderOperationProtocol.h"
 
@@ -87,13 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)deviceRegistered {
-    NSError *error = nil;
-    BOOL hasRegistered = [[DCEnvironment sharedInstance] hasRegisteredWithError:&error];
-    if (!error && hasRegistered) {
-        return YES;
-    }
-
-    return NO;
+    return Credentials.hasRegistered;
 }
 
 - (void)performTriggersFetchCompletion:(void (^)(BOOL success))completion {

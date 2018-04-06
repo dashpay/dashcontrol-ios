@@ -21,7 +21,6 @@
 
 #import "QRScannerViewModel.h"
 
-static NSTimeInterval const kReqeustTimeout = 5.0;
 static NSTimeInterval const kResumeSearchTimeInterval = 1.0;
 
 #pragma - QR Object

@@ -19,19 +19,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCPersistenceStack;
-@class DCTrigger;
+@class DCServerBloomFilter;
 
-@interface APITrigger : APIBaseAuthorized
+@interface APIPortfolio : APIBaseAuthorized
 
-@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+- (id<HTTPLoaderOperationProtocol>)balanceSumInAddresses:(NSArray<NSString *> *)addresses
+                                              completion:(void (^)(NSNumber *_Nullable balance))completion;
+- (id<HTTPLoaderOperationProtocol>)balanceAtAddress:(NSString *)address
+                                         completion:(void (^)(NSNumber *_Nullable balance))completion;
 
-- (void)performRegisterWithDeviceToken:(NSString *)deviceToken;
-- (nullable id<HTTPLoaderOperationProtocol>)registerWithCompletion:(void (^_Nullable)(BOOL success))completion;
-
-- (id<HTTPLoaderOperationProtocol>)getTriggersCompletion:(void (^)(BOOL success))completion;
-- (id<HTTPLoaderOperationProtocol>)postTrigger:(DCTrigger *)trigger completion:(void (^)(NSError *_Nullable error))completion;
-- (id<HTTPLoaderOperationProtocol>)deleteTriggerWithId:(u_int64_t)triggerId completion:(void (^_Nullable)(NSError *_Nullable error))completion;
+- (id<HTTPLoaderOperationProtocol>)updateBloomFilter:(DCServerBloomFilter *)filter
+                                          completion:(void (^)(NSError *_Nullable error))completion;
 
 @end
 

@@ -13,9 +13,7 @@
 		24B0004B1F580FEB007D24A1 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B0004A1F580FEB007D24A1 /* CoreSpotlight.framework */; };
 		24B0004D1F580FF5007D24A1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B0004C1F580FF5007D24A1 /* MobileCoreServices.framework */; };
 		24E1D8DE1F4D742D00AE2C47 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */; };
-		24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDDC1F32908C00E4D400 /* DCDataManager.m */; };
 		24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */; };
-		24FE25491F4C7ECE00E32652 /* DCBackendManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FE25481F4C7ECE00E32652 /* DCBackendManager.m */; };
 		2A04E6DB202DA5E20065F30D /* HTTPLoaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6B2202DA5E20065F30D /* HTTPLoaderManager.m */; };
 		2A04E6DC202DA5E20065F30D /* HTTPLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6B4202DA5E20065F30D /* HTTPLoaderOperation.m */; };
 		2A04E6DD202DA5E20065F30D /* HTTPRateLimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6B9202DA5E20065F30D /* HTTPRateLimiter.m */; };
@@ -90,6 +88,9 @@
 		2A6FBEBE207634530055BAC8 /* DCWalletAccountEntity+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEBD207634530055BAC8 /* DCWalletAccountEntity+Extensions.m */; };
 		2A6FBEC120763B2E0055BAC8 /* DCWalletEntity+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEC020763B2E0055BAC8 /* DCWalletEntity+Extensions.m */; };
 		2A6FBEC3207640600055BAC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6FBEC2207640600055BAC8 /* Main.storyboard */; };
+		2A6FBECD2076961C0055BAC8 /* APIBaseAuthorized.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBECC2076961C0055BAC8 /* APIBaseAuthorized.m */; };
+		2A6FBED020769B1D0055BAC8 /* Credentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBECF20769B1D0055BAC8 /* Credentials.m */; };
+		2A6FBED32076A2880055BAC8 /* APIPortfolio.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBED22076A2880055BAC8 /* APIPortfolio.m */; };
 		2A80B584203699E70015E1AA /* DCPersistenceStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B583203699E70015E1AA /* DCPersistenceStack.m */; };
 		2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B58620369E7F0015E1AA /* NSData+Hash.m */; };
 		2A80B58A2036A8F40015E1AA /* DCLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B5892036A8F40015E1AA /* DCLogging.m */; };
@@ -167,7 +168,7 @@
 		FB4310D71F9DA96700784EBC /* DCWalletManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310D61F9DA96700784EBC /* DCWalletManager.m */; };
 		FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310D91F9EF4B500784EBC /* DCWalletAccount.m */; };
 		FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310DB1F9EFC3F00784EBC /* DCServerBloomFilter.m */; };
-		FB4310F51FA2142700784EBC /* DCEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310F41FA2142700784EBC /* DCEnvironment.m */; };
+		FB4310F51FA2142700784EBC /* DCKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4310F41FA2142700784EBC /* DCKeychain.m */; };
 		FB4310FF1FA2B90700784EBC /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4310FE1FA2B8BC00784EBC /* LocalAuthentication.framework */; };
 		FB4311021FA2BCD800784EBC /* NSString+Sugar.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4311011FA2BCD800784EBC /* NSString+Sugar.m */; };
 		FB4311051FA2C19800784EBC /* NSURL+Sugar.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4311041FA2C19800784EBC /* NSURL+Sugar.m */; };
@@ -187,7 +188,6 @@
 		FB9CC1851F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC17C1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataClass.m */; };
 		FB9CC1861F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC17D1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m */; };
 		FB9CC1881F83E8000079309F /* NSMutableData+Dash.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEF66FD1F83DD44003424D2 /* NSMutableData+Dash.m */; };
-		FB9CC18C1F8405180079309F /* DCPortfolioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC18B1F8405180079309F /* DCPortfolioManager.m */; };
 		FB9CC1A51F87D4860079309F /* BRBIP32Sequence.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1A31F87D4850079309F /* BRBIP32Sequence.m */; };
 		FB9CC1AA1F87D4A60079309F /* BRKey+BIP38.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1A61F87D4A40079309F /* BRKey+BIP38.m */; };
 		FB9CC1AB1F87D4A60079309F /* BRKey.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1A81F87D4A50079309F /* BRKey.m */; };
@@ -246,8 +246,6 @@
 		24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		24E584061F3ADAC900A12087 /* DashControl.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DashControl.xcdatamodel; sourceTree = "<group>"; };
 		24E584151F3ADCEF00A12087 /* DashControl-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DashControl-PrefixHeader.pch"; sourceTree = "<group>"; };
-		24FE25471F4C7ECE00E32652 /* DCBackendManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCBackendManager.h; sourceTree = "<group>"; };
-		24FE25481F4C7ECE00E32652 /* DCBackendManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCBackendManager.m; sourceTree = "<group>"; };
 		2A04E6AE202DA5E20065F30D /* Injections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Injections.h; sourceTree = "<group>"; };
 		2A04E6B1202DA5E20065F30D /* HTTPLoaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderOperation.h; sourceTree = "<group>"; };
 		2A04E6B2202DA5E20065F30D /* HTTPLoaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPLoaderManager.m; sourceTree = "<group>"; };
@@ -417,6 +415,12 @@
 		2A6FBEBF20763B2E0055BAC8 /* DCWalletEntity+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCWalletEntity+Extensions.h"; sourceTree = "<group>"; };
 		2A6FBEC020763B2E0055BAC8 /* DCWalletEntity+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCWalletEntity+Extensions.m"; sourceTree = "<group>"; };
 		2A6FBEC2207640600055BAC8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		2A6FBECB2076961C0055BAC8 /* APIBaseAuthorized.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIBaseAuthorized.h; sourceTree = "<group>"; };
+		2A6FBECC2076961C0055BAC8 /* APIBaseAuthorized.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIBaseAuthorized.m; sourceTree = "<group>"; };
+		2A6FBECE20769B1D0055BAC8 /* Credentials.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Credentials.h; sourceTree = "<group>"; };
+		2A6FBECF20769B1D0055BAC8 /* Credentials.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Credentials.m; sourceTree = "<group>"; };
+		2A6FBED12076A2880055BAC8 /* APIPortfolio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIPortfolio.h; sourceTree = "<group>"; };
+		2A6FBED22076A2880055BAC8 /* APIPortfolio.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIPortfolio.m; sourceTree = "<group>"; };
 		2A80B582203699E70015E1AA /* DCPersistenceStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCPersistenceStack.h; sourceTree = "<group>"; };
 		2A80B583203699E70015E1AA /* DCPersistenceStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCPersistenceStack.m; sourceTree = "<group>"; };
 		2A80B58520369E7F0015E1AA /* NSData+Hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Hash.h"; sourceTree = "<group>"; };
@@ -583,8 +587,8 @@
 		FB4310D91F9EF4B500784EBC /* DCWalletAccount.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCWalletAccount.m; sourceTree = "<group>"; };
 		FB4310DB1F9EFC3F00784EBC /* DCServerBloomFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCServerBloomFilter.m; sourceTree = "<group>"; };
 		FB4310DC1F9EFC3F00784EBC /* DCServerBloomFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCServerBloomFilter.h; sourceTree = "<group>"; };
-		FB4310F31FA2142700784EBC /* DCEnvironment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCEnvironment.h; sourceTree = "<group>"; };
-		FB4310F41FA2142700784EBC /* DCEnvironment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCEnvironment.m; sourceTree = "<group>"; };
+		FB4310F31FA2142700784EBC /* DCKeychain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCKeychain.h; sourceTree = "<group>"; };
+		FB4310F41FA2142700784EBC /* DCKeychain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCKeychain.m; sourceTree = "<group>"; };
 		FB4310FE1FA2B8BC00784EBC /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		FB4311001FA2BCD800784EBC /* NSString+Sugar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Sugar.h"; sourceTree = "<group>"; };
 		FB4311011FA2BCD800784EBC /* NSString+Sugar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Sugar.m"; sourceTree = "<group>"; };
@@ -620,9 +624,6 @@
 		FB84EDC41F32898700E4D400 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FB84EDD21F32898700E4D400 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FB84EDD41F32898700E4D400 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FB84EDDB1F32908C00E4D400 /* DCDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCDataManager.h; sourceTree = "<group>"; };
-		FB84EDDC1F32908C00E4D400 /* DCDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCDataManager.m; sourceTree = "<group>"; };
-		FB84EDDE1F3293C700E4D400 /* DCWalletConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCWalletConstants.h; sourceTree = "<group>"; };
 		FB9CC1711F83E45C0079309F /* DCMasternodePaymentEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCMasternodePaymentEntity+CoreDataClass.h"; sourceTree = "<group>"; };
 		FB9CC1721F83E45C0079309F /* DCMasternodeEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCMasternodeEntity+CoreDataClass.m"; sourceTree = "<group>"; };
 		FB9CC1741F83E45D0079309F /* DCMasternodeEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCMasternodeEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -631,8 +632,6 @@
 		FB9CC17B1F83E45E0079309F /* DCMasternodeEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCMasternodeEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FB9CC17C1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCMasternodePaymentEntity+CoreDataClass.m"; sourceTree = "<group>"; };
 		FB9CC17D1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCMasternodePaymentEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
-		FB9CC18A1F8405180079309F /* DCPortfolioManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCPortfolioManager.h; sourceTree = "<group>"; };
-		FB9CC18B1F8405180079309F /* DCPortfolioManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCPortfolioManager.m; sourceTree = "<group>"; };
 		FB9CC1A21F87D4850079309F /* BRBIP32Sequence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRBIP32Sequence.h; sourceTree = "<group>"; };
 		FB9CC1A31F87D4850079309F /* BRBIP32Sequence.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRBIP32Sequence.m; sourceTree = "<group>"; };
 		FB9CC1A41F87D4850079309F /* BRKeySequence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRKeySequence.h; sourceTree = "<group>"; };
@@ -766,17 +765,15 @@
 			path = Proposals;
 			sourceTree = "<group>";
 		};
-		241719C81F4DA0280045C2D6 /* Models */ = {
+		241719C81F4DA0280045C2D6 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
-				FB4550CA1FAFABD6001CC1ED /* DCTrigger.h */,
-				FB4550CB1FAFABD6001CC1ED /* DCTrigger.m */,
 				FB4310D81F9EF4B500784EBC /* DCWalletAccount.h */,
 				FB4310D91F9EF4B500784EBC /* DCWalletAccount.m */,
 				FB4310D51F9DA96700784EBC /* DCWalletManager.h */,
 				FB4310D61F9DA96700784EBC /* DCWalletManager.m */,
 			);
-			path = Models;
+			path = Wallet;
 			sourceTree = "<group>";
 		};
 		24C86EF71F5EBF3700735785 /* List */ = {
@@ -864,9 +861,8 @@
 			children = (
 				FBEF66E31F83DA41003424D2 /* Categories */,
 				2A04E6EA202DAB340065F30D /* Helpers */,
-				241719C81F4DA0280045C2D6 /* Models */,
+				241719C81F4DA0280045C2D6 /* Wallet */,
 				FB4310FA1FA2A2E600784EBC /* Persistence */,
-				FB4310F21FA204F700784EBC /* Server */,
 				2A04E6AD202DA5E20065F30D /* Services */,
 				FBEF66EB1F83DBEF003424D2 /* Utils */,
 				FB2F9B3E1F5CA0050035180D /* Views Controllers */,
@@ -879,6 +875,8 @@
 			children = (
 				2A6F595D2034258600D7BD85 /* API */,
 				2A04E6AF202DA5E20065F30D /* Networking */,
+				2A6FBECE20769B1D0055BAC8 /* Credentials.h */,
+				2A6FBECF20769B1D0055BAC8 /* Credentials.m */,
 				2A04E6AE202DA5E20065F30D /* Injections.h */,
 				2A04E6DA202DA5E20065F30D /* Injections.m */,
 			);
@@ -1064,10 +1062,14 @@
 		2A6F595D2034258600D7BD85 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				2A6FBECB2076961C0055BAC8 /* APIBaseAuthorized.h */,
+				2A6FBECC2076961C0055BAC8 /* APIBaseAuthorized.m */,
 				2A3F49AD204AEC09005EB5D9 /* APIBudget.h */,
 				2A3F49AE204AEC09005EB5D9 /* APIBudget.m */,
 				2A6F595E2034259600D7BD85 /* APINews.h */,
 				2A6F595F2034259600D7BD85 /* APINews.m */,
+				2A6FBED12076A2880055BAC8 /* APIPortfolio.h */,
+				2A6FBED22076A2880055BAC8 /* APIPortfolio.m */,
 				2A8F817C203E723600D3D6C9 /* APIPrice.h */,
 				2A8F817D203E723600D3D6C9 /* APIPrice.m */,
 				2AC693EA2061D63D00F64482 /* APITrigger.h */,
@@ -1138,6 +1140,8 @@
 		2AE410382066BA1600C41AC5 /* PriceTrigger */ = {
 			isa = PBXGroup;
 			children = (
+				FB4550CA1FAFABD6001CC1ED /* DCTrigger.h */,
+				FB4550CB1FAFABD6001CC1ED /* DCTrigger.m */,
 				2AE410392066BA2F00C41AC5 /* PriceTriggerViewController.h */,
 				2AE4103A2066BA2F00C41AC5 /* PriceTriggerViewController.m */,
 				2AE410442066C7A100C41AC5 /* PriceTriggerViewModel.h */,
@@ -1315,28 +1319,12 @@
 			path = "Views Controllers";
 			sourceTree = "<group>";
 		};
-		FB4310F21FA204F700784EBC /* Server */ = {
-			isa = PBXGroup;
-			children = (
-				24FE25471F4C7ECE00E32652 /* DCBackendManager.h */,
-				24FE25481F4C7ECE00E32652 /* DCBackendManager.m */,
-				FB84EDDB1F32908C00E4D400 /* DCDataManager.h */,
-				FB84EDDC1F32908C00E4D400 /* DCDataManager.m */,
-				FB9CC18A1F8405180079309F /* DCPortfolioManager.h */,
-				FB9CC18B1F8405180079309F /* DCPortfolioManager.m */,
-				FB84EDDE1F3293C700E4D400 /* DCWalletConstants.h */,
-			);
-			path = Server;
-			sourceTree = "<group>";
-		};
 		FB4310FA1FA2A2E600784EBC /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
 				FB9CC18E1F8426CD0079309F /* Entities */,
 				2A8F8188203EBC4D00D3D6C9 /* Extensions */,
 				24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */,
-				FB4310F31FA2142700784EBC /* DCEnvironment.h */,
-				FB4310F41FA2142700784EBC /* DCEnvironment.m */,
 				2A80B582203699E70015E1AA /* DCPersistenceStack.h */,
 				2A80B583203699E70015E1AA /* DCPersistenceStack.m */,
 			);
@@ -1600,14 +1588,16 @@
 				FB9CC1A31F87D4850079309F /* BRBIP32Sequence.m */,
 				FB1F8AAD1FBCABD100175311 /* BRBIP39Mnemonic.h */,
 				FB1F8AAF1FBCABD100175311 /* BRBIP39Mnemonic.m */,
-				FB9CC1A71F87D4A40079309F /* BRKey+BIP38.h */,
-				FB9CC1A61F87D4A40079309F /* BRKey+BIP38.m */,
 				FB9CC1A91F87D4A50079309F /* BRKey.h */,
 				FB9CC1A81F87D4A50079309F /* BRKey.m */,
+				FB9CC1A71F87D4A40079309F /* BRKey+BIP38.h */,
+				FB9CC1A61F87D4A40079309F /* BRKey+BIP38.m */,
 				FB9CC1A41F87D4850079309F /* BRKeySequence.h */,
 				FB1F8AAE1FBCABD100175311 /* BRMnemonic.h */,
 				FBEBE5401F5802DE0056D921 /* DCChartTimeFormatter.h */,
 				FBEBE5411F5802DE0056D921 /* DCChartTimeFormatter.m */,
+				FB4310F31FA2142700784EBC /* DCKeychain.h */,
+				FB4310F41FA2142700784EBC /* DCKeychain.m */,
 				FB4310DC1F9EFC3F00784EBC /* DCServerBloomFilter.h */,
 				FB4310DB1F9EFC3F00784EBC /* DCServerBloomFilter.m */,
 				FBEF66EA1F83DB0C003424D2 /* IntTypes.h */,
@@ -2039,7 +2029,7 @@
 				FBEBE5421F5802DE0056D921 /* DCChartTimeFormatter.m in Sources */,
 				2AEF299820737E61008590E4 /* MasternodeViewModel.m in Sources */,
 				2A04E6E8202DA5E20065F30D /* HTTPService.m in Sources */,
-				FB4310F51FA2142700784EBC /* DCEnvironment.m in Sources */,
+				FB4310F51FA2142700784EBC /* DCKeychain.m in Sources */,
 				2A289A50203AB44400EDC98E /* BaseNewsTableViewController.m in Sources */,
 				FB9CC1611F83E38A0079309F /* NSData+Dash.m in Sources */,
 				2A972205204F29B600545079 /* ProposalsHeaderViewModel.m in Sources */,
@@ -2088,8 +2078,10 @@
 				2A972208204F343100545079 /* NavigationTitleButton.m in Sources */,
 				2A32D60320515C1B004B38A6 /* ProposalDetailHeaderView.m in Sources */,
 				2A32D64920571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataClass.m in Sources */,
+				2A6FBED020769B1D0055BAC8 /* Credentials.m in Sources */,
 				2A3F49D4204E8167005EB5D9 /* ProposalTableViewCellModel.m in Sources */,
 				FB9CC1AA1F87D4A60079309F /* BRKey+BIP38.m in Sources */,
+				2A6FBED32076A2880055BAC8 /* APIPortfolio.m in Sources */,
 				2A3F49BB204C73CF005EB5D9 /* BaseProposalViewController.m in Sources */,
 				FB4550CC1FAFABD6001CC1ED /* DCTrigger.m in Sources */,
 				2A6F599820357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m in Sources */,
@@ -2101,7 +2093,6 @@
 				2A3F49A92049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.m in Sources */,
 				2A04E6E5202DA5E20065F30D /* HTTPURLRequestBuilder.m in Sources */,
 				2A4FE281203AE489007FD160 /* UIColor+DCStyle.m in Sources */,
-				24FE25491F4C7ECE00E32652 /* DCBackendManager.m in Sources */,
 				2A587EAD206A8D8E004BC537 /* TableViewFetchedResultsControllerDelegate.m in Sources */,
 				2A289A55203AC10E00EDC98E /* NewsSearchResultsController.m in Sources */,
 				FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */,
@@ -2110,6 +2101,7 @@
 				FBE1F50B1F5D4CF500823A77 /* DCExchangeEntity+CoreDataClass.m in Sources */,
 				FB4311021FA2BCD800784EBC /* NSString+Sugar.m in Sources */,
 				2A587EA3206A85B0004BC537 /* AddItemTableViewCell.m in Sources */,
+				2A6FBECD2076961C0055BAC8 /* APIBaseAuthorized.m in Sources */,
 				2A4473A42042096400B52BCB /* PriceViewController.m in Sources */,
 				FB9CC1851F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataClass.m in Sources */,
 				2A3F49B8204C4341005EB5D9 /* FetchedResultsTableViewController.m in Sources */,
@@ -2134,10 +2126,8 @@
 				2AEF29E6207421E5008590E4 /* QRScannerView.m in Sources */,
 				2A32D60D2052C3B9004B38A6 /* ProposalDetailViewModel.m in Sources */,
 				2AAB8E582057962F007527CF /* TimestampIntervalArray.m in Sources */,
-				FB9CC18C1F8405180079309F /* DCPortfolioManager.m in Sources */,
 				2A3F49D7204E88D3005EB5D9 /* ProposalsHeaderView.m in Sources */,
 				2A32D64020558BB7004B38A6 /* ProposalDetailTitleView.m in Sources */,
-				24E584001F3A35AF00A12087 /* DCDataManager.m in Sources */,
 				2A6F59602034259600D7BD85 /* APINews.m in Sources */,
 				FB4550DD1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataClass.m in Sources */,
 				2A3F49C0204C7EB4005EB5D9 /* ProposalTableViewCell.m in Sources */,
