@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AddItemTableViewCell : UITableViewCell
 
 @property (nullable, copy, nonatomic) NSString *titleText;
+@property (assign, nonatomic) BOOL addViewHidden;
 
 @end
 

@@ -95,6 +95,7 @@
             <color key="backgroundColor" red="0.1176470588" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
                 <outlet property="addLabel" destination="4hU-ax-ZZ5" id="wrs-bp-rDE"/>
+                <outlet property="addView" destination="lnV-Zg-1bW" id="wSD-uf-rAY"/>
                 <outlet property="titleLabel" destination="1rn-V2-Ege" id="5XX-Ln-qhh"/>
             </connections>
         </tableViewCell>

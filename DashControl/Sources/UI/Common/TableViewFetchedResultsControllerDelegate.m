@@ -69,6 +69,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
+    
+    if ([self.notifier respondsToSelector:@selector(tableViewFetchedResultsControllerDelegateDidUpdate:)]) {
+        [self.notifier tableViewFetchedResultsControllerDelegateDidUpdate:self];
+    }
 }
 
 @end

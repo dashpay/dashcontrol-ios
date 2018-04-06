@@ -43,7 +43,7 @@ typedef NS_ENUM(NSInteger, PortfolioSection) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PortfolioViewController () <SKStoreProductViewControllerDelegate>
+@interface PortfolioViewController () <TableViewFetchedResultsControllerDelegateNotifier, SKStoreProductViewControllerDelegate>
 
 @property (strong, nonatomic) PortfolioViewModel *viewModel;
 @property (strong, nonatomic) TableViewFetchedResultsControllerDelegate *walletFRCDelegate;
@@ -114,6 +114,12 @@ NS_ASSUME_NONNULL_BEGIN
         case PortfolioSection_AddWallet: {
             AddItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ADD_CELL_ID forIndexPath:indexPath];
             cell.titleText = NSLocalizedString(@"My Dash Wallet", nil);
+
+            NSFetchedResultsController *frc = self.viewModel.walletFetchedResultsController;
+            id<NSFetchedResultsSectionInfo> sectionInfo = frc.sections.firstObject;
+            NSUInteger numberOfObjects = sectionInfo.numberOfObjects;
+            cell.addViewHidden = (numberOfObjects > 0);
+
             return cell;
         }
         case PortfolioSection_AddWalletAddress: {
@@ -161,6 +167,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case PortfolioSection_AddWallet: {
+            NSFetchedResultsController *frc = self.viewModel.walletFetchedResultsController;
+            id<NSFetchedResultsSectionInfo> sectionInfo = frc.sections.firstObject;
+            NSUInteger numberOfObjects = sectionInfo.numberOfObjects;
+            if (numberOfObjects > 0) {
+                [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                return;
+            }
+
             if ([[UIApplication sharedApplication] canOpenURL:self.viewModel.dashWalletRequestURL]) {
                 [[UIApplication sharedApplication] openURL:self.viewModel.dashWalletRequestURL options:@{} completionHandler:nil];
             }
@@ -177,6 +191,15 @@ NS_ASSUME_NONNULL_BEGIN
         case PortfolioSection_AddMasternode: {
             MasternodeViewController *masternodeViewController = [MasternodeViewController controllerWithMasternode:nil];
             [self showViewController:masternodeViewController sender:self];
+            break;
+        }
+        case PortfolioSection_Wallet: {
+            if ([[UIApplication sharedApplication] canOpenURL:self.viewModel.dashWalletURL]) {
+                [[UIApplication sharedApplication] openURL:self.viewModel.dashWalletURL options:@{} completionHandler:nil];
+            }
+            else {
+                [self openAppStoreControllerForDashWallet];
+            }
             break;
         }
         case PortfolioSection_WalletAddress: {
@@ -210,6 +233,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_walletFRCDelegate) {
         _walletFRCDelegate = [[TableViewFetchedResultsControllerDelegate alloc] init];
         _walletFRCDelegate.tableView = self.tableView;
+        _walletFRCDelegate.notifier = self;
         weakify;
         _walletFRCDelegate.configureCellBlock = ^(NSFetchedResultsController *_Nonnull fetchedResultsController, UITableViewCell *_Nonnull cell, NSIndexPath *_Nonnull indexPath) {
             strongify;
@@ -329,6 +353,16 @@ NS_ASSUME_NONNULL_BEGIN
     NSDictionary *parameters = @{ SKStoreProductParameterITunesItemIdentifier : @(self.viewModel.dashWalletAppStoreID) };
     [storeViewController loadProductWithParameters:parameters completionBlock:nil];
     [self presentViewController:storeViewController animated:YES completion:nil];
+}
+
+#pragma mark TableViewFetchedResultsControllerDelegateNotifier
+
+- (void)tableViewFetchedResultsControllerDelegateDidUpdate:(TableViewFetchedResultsControllerDelegate *)frcDelegate {
+    if (frcDelegate == self.walletFRCDelegate) {
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:0 inSection:PortfolioSection_AddWallet] ] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    }
 }
 
 #pragma mark SKStoreProductViewControllerDelegate

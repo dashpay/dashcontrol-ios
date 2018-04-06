@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AddItemTableViewCell ()
 
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UIView *addView;
 @property (strong, nonatomic) IBOutlet UILabel *addLabel;
 
 @end
@@ -42,12 +43,26 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    
+    self.addViewHidden = NO;
+}
+
 - (nullable NSString *)titleText {
     return self.titleLabel.text;
 }
 
 - (void)setTitleText:(nullable NSString *)titleText {
     self.titleLabel.text = titleText;
+}
+
+- (BOOL)addViewHidden {
+    return self.addView.hidden;
+}
+
+- (void)setAddViewHidden:(BOOL)addViewHidden {
+    self.addView.hidden = addViewHidden;
 }
 
 @end

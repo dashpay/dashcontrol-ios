@@ -21,6 +21,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSString *const DASHWALLET_URL = @"dashwallet://";
 static NSString *const DASHWALLET_REQUEST_PUBKEY_URL = @"dashwallet://request=masterPublicKey&account=0&sender=dashcontrol";
 static NSInteger const DASHWALLET_APPSTORE_ID = 1206647026;
 
@@ -30,6 +31,7 @@ static NSInteger const DASHWALLET_APPSTORE_ID = 1206647026;
 @synthesize walletAddressFetchedResultsController = _walletAddressFetchedResultsController;
 @synthesize masternodeFetchedResultsController = _masternodeFetchedResultsController;
 @synthesize dashWalletRequestURL = _dashWalletRequestURL;
+@synthesize dashWalletURL = _dashWalletURL;
 
 - (NSFetchedResultsController<DCWalletEntity *> *)walletFetchedResultsController {
     if (!_walletFetchedResultsController) {
@@ -63,6 +65,13 @@ static NSInteger const DASHWALLET_APPSTORE_ID = 1206647026;
                                                                                            context:context];
     }
     return _masternodeFetchedResultsController;
+}
+
+- (NSURL *)dashWalletURL {
+    if (!_dashWalletURL) {
+        _dashWalletURL = [NSURL URLWithString:DASHWALLET_URL];
+    }
+    return _dashWalletURL;
 }
 
 - (NSURL *)dashWalletRequestURL {
