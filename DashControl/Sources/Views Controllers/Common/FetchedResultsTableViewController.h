@@ -15,23 +15,16 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUITableViewController.h>
 #import <CoreData/CoreData.h>
+#import <KVO-MVVM/KVOUITableViewController.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FetchedResultsTableViewController : KVOUITableViewController <NSFetchedResultsControllerDelegate>
 
-@property (readonly, strong, nonatomic) NSMutableArray<NSIndexPath *> *deletedRowIndexPaths;
-@property (readonly, strong, nonatomic) NSMutableArray<NSIndexPath *> *insertedRowIndexPaths;
-@property (readonly, strong, nonatomic) NSMutableArray<NSIndexPath *> *updatedRowIndexPaths;
-
-- (void)controller:(NSFetchedResultsController *)controller
-   didChangeObject:(id)anObject
-       atIndexPath:(nullable NSIndexPath *)indexPath
-     forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(nullable NSIndexPath *)newIndexPath NS_REQUIRES_SUPER;
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller NS_REQUIRES_SUPER;
+- (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
+                   configureCell:(UITableViewCell *)cell
+                     atIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

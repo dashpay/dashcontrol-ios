@@ -20,11 +20,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^ConfigureCellBlock)(NSFetchedResultsController *fetchedResultsController, UITableViewCell *cell, NSIndexPath *indexPath);
 typedef NSIndexPath *_Nonnull (^IndexPathTransformationBlock)(NSIndexPath *indexPath);
 
 @interface TableViewFetchedResultsControllerDelegate : NSObject <NSFetchedResultsControllerDelegate>
 
 @property (nullable, weak, nonatomic) UITableView *tableView;
+@property (nullable, copy, nonatomic) ConfigureCellBlock configureCellBlock;
 @property (nullable, copy, nonatomic) IndexPathTransformationBlock transformationBlock;
 
 @end

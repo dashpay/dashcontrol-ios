@@ -19,73 +19,56 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TableViewFetchedResultsControllerDelegate ()
-
-@property (strong, nonatomic) NSMutableArray<NSIndexPath *> *deletedRowIndexPaths;
-@property (strong, nonatomic) NSMutableArray<NSIndexPath *> *insertedRowIndexPaths;
-@property (strong, nonatomic) NSMutableArray<NSIndexPath *> *updatedRowIndexPaths;
-
-@end
-
 @implementation TableViewFetchedResultsControllerDelegate
 
-- (NSMutableArray<NSIndexPath *> *)deletedRowIndexPaths {
-    if (!_deletedRowIndexPaths) {
-        _deletedRowIndexPaths = [NSMutableArray array];
+- (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
+                   configureCell:(UITableViewCell *)cell
+                     atIndexPath:(NSIndexPath *)indexPath {
+    NSParameterAssert(self.configureCellBlock);
+    if (self.configureCellBlock) {
+        self.configureCellBlock(fetchedResultsController, cell, indexPath);
     }
-    return _deletedRowIndexPaths;
-}
-
-- (NSMutableArray<NSIndexPath *> *)insertedRowIndexPaths {
-    if (!_insertedRowIndexPaths) {
-        _insertedRowIndexPaths = [NSMutableArray array];
-    }
-    return _insertedRowIndexPaths;
-}
-
-- (NSMutableArray<NSIndexPath *> *)updatedRowIndexPaths {
-    if (!_updatedRowIndexPaths) {
-        _updatedRowIndexPaths = [NSMutableArray array];
-    }
-    return _updatedRowIndexPaths;
 }
 
 #pragma mark NSFetchedResultsControllerDelegate
 
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    NSParameterAssert(self.tableView);
+    [self.tableView beginUpdates];
+}
+
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(nullable NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(nullable NSIndexPath *)newIndexPath {
+    UITableView *tableView = self.tableView;
+
     switch (type) {
         case NSFetchedResultsChangeInsert: {
-            [self.insertedRowIndexPaths addObject:self.transformationBlock ? self.transformationBlock(newIndexPath) : newIndexPath];
+            NSIndexPath *resultNewIndexPath = self.transformationBlock ? self.transformationBlock(newIndexPath) : newIndexPath;
+            [tableView insertRowsAtIndexPaths:@[ resultNewIndexPath ] withRowAnimation:UITableViewRowAnimationFade];
             break;
         }
         case NSFetchedResultsChangeDelete: {
-            [self.deletedRowIndexPaths addObject:self.transformationBlock ? self.transformationBlock(indexPath) : indexPath];
-            break;
-        }
-        case NSFetchedResultsChangeUpdate: {
-            [self.updatedRowIndexPaths addObject:self.transformationBlock ? self.transformationBlock(indexPath) : indexPath];
+            NSIndexPath *resultIndexPath = self.transformationBlock ? self.transformationBlock(indexPath) : indexPath;
+            [tableView deleteRowsAtIndexPaths:@[ resultIndexPath ] withRowAnimation:UITableViewRowAnimationFade];
             break;
         }
         case NSFetchedResultsChangeMove: {
-            [self.insertedRowIndexPaths addObject:self.transformationBlock ? self.transformationBlock(newIndexPath) : newIndexPath];
-            [self.deletedRowIndexPaths addObject:self.transformationBlock ? self.transformationBlock(indexPath) : indexPath];
+            NSIndexPath *resultIndexPath = self.transformationBlock ? self.transformationBlock(indexPath) : indexPath;
+            NSIndexPath *resultNewIndexPath = self.transformationBlock ? self.transformationBlock(newIndexPath) : newIndexPath;
+            [tableView deleteRowsAtIndexPaths:@[ resultIndexPath ] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[ resultNewIndexPath ] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        }
+        case NSFetchedResultsChangeUpdate: {
+            [self fetchedResultsController:controller
+                             configureCell:[tableView cellForRowAtIndexPath:indexPath]
+                               atIndexPath:indexPath];
             break;
         }
     }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    NSParameterAssert(self.tableView);
-
-    [self.tableView beginUpdates];
-    [self.tableView deleteRowsAtIndexPaths:self.deletedRowIndexPaths withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView insertRowsAtIndexPaths:self.insertedRowIndexPaths withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView reloadRowsAtIndexPaths:self.updatedRowIndexPaths withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView endUpdates];
-
-    [self.deletedRowIndexPaths removeAllObjects];
-    [self.insertedRowIndexPaths removeAllObjects];
-    [self.updatedRowIndexPaths removeAllObjects];
 }
 
 @end

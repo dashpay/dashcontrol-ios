@@ -21,79 +21,59 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation FetchedResultsTableViewController
 
-@synthesize deletedRowIndexPaths = _deletedRowIndexPaths;
-@synthesize insertedRowIndexPaths = _insertedRowIndexPaths;
-@synthesize updatedRowIndexPaths = _updatedRowIndexPaths;
-
-- (NSMutableArray<NSIndexPath *> *)deletedRowIndexPaths {
-    if (!_deletedRowIndexPaths) {
-        _deletedRowIndexPaths = [NSMutableArray array];
-    }
-    return _deletedRowIndexPaths;
-}
-
-- (NSMutableArray<NSIndexPath *> *)insertedRowIndexPaths {
-    if (!_insertedRowIndexPaths) {
-        _insertedRowIndexPaths = [NSMutableArray array];
-    }
-    return _insertedRowIndexPaths;
-}
-
-- (NSMutableArray<NSIndexPath *> *)updatedRowIndexPaths {
-    if (!_updatedRowIndexPaths) {
-        _updatedRowIndexPaths = [NSMutableArray array];
-    }
-    return _updatedRowIndexPaths;
+- (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
+                   configureCell:(UITableViewCell *)cell
+                     atIndexPath:(NSIndexPath *)indexPath {
 }
 
 #pragma mark UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSAssert(NO, @"Should be overriden in a subclass");
-    
+
     return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSAssert(NO, @"Should be overriden in a subclass");
-    
+
     return [[UITableViewCell alloc] init];
 }
 
 #pragma mark NSFetchedResultsControllerDelegate
 
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView beginUpdates];
+}
+
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(nullable NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(nullable NSIndexPath *)newIndexPath {
+    UITableView *tableView = self.tableView;
+
     switch (type) {
         case NSFetchedResultsChangeInsert: {
-            [self.insertedRowIndexPaths addObject:newIndexPath];
+            [tableView insertRowsAtIndexPaths:@[ newIndexPath ] withRowAnimation:UITableViewRowAnimationFade];
             break;
         }
         case NSFetchedResultsChangeDelete: {
-            [self.deletedRowIndexPaths addObject:indexPath];
-            break;
-        }
-        case NSFetchedResultsChangeUpdate: {
-            [self.updatedRowIndexPaths addObject:indexPath];
+            [tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationFade];
             break;
         }
         case NSFetchedResultsChangeMove: {
-            [self.insertedRowIndexPaths addObject:newIndexPath];
-            [self.deletedRowIndexPaths addObject:indexPath];
+            [tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[ newIndexPath ] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        }
+        case NSFetchedResultsChangeUpdate: {
+            [self fetchedResultsController:controller
+                             configureCell:[tableView cellForRowAtIndexPath:indexPath]
+                               atIndexPath:indexPath];
             break;
         }
     }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView beginUpdates];
-    [self.tableView deleteRowsAtIndexPaths:self.deletedRowIndexPaths withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView insertRowsAtIndexPaths:self.insertedRowIndexPaths withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView reloadRowsAtIndexPaths:self.updatedRowIndexPaths withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView endUpdates];
-    
-    [self.deletedRowIndexPaths removeAllObjects];
-    [self.insertedRowIndexPaths removeAllObjects];
-    [self.updatedRowIndexPaths removeAllObjects];
 }
 
 @end

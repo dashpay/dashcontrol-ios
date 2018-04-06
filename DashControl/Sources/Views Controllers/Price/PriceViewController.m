@@ -157,6 +157,11 @@ static NSString *const CELL_ID = @"ItemTableViewCell";
     if (!_fetchedResultsControllerDelegate) {
         _fetchedResultsControllerDelegate = [[TableViewFetchedResultsControllerDelegate alloc] init];
         _fetchedResultsControllerDelegate.tableView = self.tableView;
+        weakify;
+        _fetchedResultsControllerDelegate.configureCellBlock = ^(NSFetchedResultsController * _Nonnull fetchedResultsController, UITableViewCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath) {
+            strongify;
+            [self configureTriggerCell:(ItemTableViewCell *)cell atIndexPath:indexPath];
+        };
         _fetchedResultsControllerDelegate.transformationBlock = ^NSIndexPath *_Nonnull(NSIndexPath *_Nonnull indexPath) {
             return [NSIndexPath indexPathForRow:indexPath.row inSection:1];
         };

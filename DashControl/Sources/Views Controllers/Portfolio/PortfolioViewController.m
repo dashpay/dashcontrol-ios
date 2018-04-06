@@ -208,6 +208,11 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_walletFRCDelegate) {
         _walletFRCDelegate = [[TableViewFetchedResultsControllerDelegate alloc] init];
         _walletFRCDelegate.tableView = self.tableView;
+        weakify;
+        _walletFRCDelegate.configureCellBlock = ^(NSFetchedResultsController *_Nonnull fetchedResultsController, UITableViewCell *_Nonnull cell, NSIndexPath *_Nonnull indexPath) {
+            strongify;
+            [self configureItemCell:(ItemTableViewCell *)cell atIndexPath:indexPath];
+        };
         _walletFRCDelegate.transformationBlock = ^NSIndexPath *_Nonnull(NSIndexPath *_Nonnull indexPath) {
             return [NSIndexPath indexPathForRow:indexPath.row inSection:PortfolioSection_Wallet];
         };
@@ -219,6 +224,11 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_walletAddressFRCDelegate) {
         _walletAddressFRCDelegate = [[TableViewFetchedResultsControllerDelegate alloc] init];
         _walletAddressFRCDelegate.tableView = self.tableView;
+        weakify;
+        _walletAddressFRCDelegate.configureCellBlock = ^(NSFetchedResultsController *_Nonnull fetchedResultsController, UITableViewCell *_Nonnull cell, NSIndexPath *_Nonnull indexPath) {
+            strongify;
+            [self configureItemCell:(ItemTableViewCell *)cell atIndexPath:indexPath];
+        };
         _walletAddressFRCDelegate.transformationBlock = ^NSIndexPath *_Nonnull(NSIndexPath *_Nonnull indexPath) {
             return [NSIndexPath indexPathForRow:indexPath.row inSection:PortfolioSection_WalletAddress];
         };
@@ -230,6 +240,11 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_masternodeFRCDelegate) {
         _masternodeFRCDelegate = [[TableViewFetchedResultsControllerDelegate alloc] init];
         _masternodeFRCDelegate.tableView = self.tableView;
+        weakify;
+        _masternodeFRCDelegate.configureCellBlock = ^(NSFetchedResultsController *_Nonnull fetchedResultsController, UITableViewCell *_Nonnull cell, NSIndexPath *_Nonnull indexPath) {
+            strongify;
+            [self configureItemCell:(ItemTableViewCell *)cell atIndexPath:indexPath];
+        };
         _masternodeFRCDelegate.transformationBlock = ^NSIndexPath *_Nonnull(NSIndexPath *_Nonnull indexPath) {
             return [NSIndexPath indexPathForRow:indexPath.row inSection:PortfolioSection_Masternode];
         };

@@ -57,15 +57,15 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     self.searchController.delegate = self;
     self.searchController.searchResultsUpdater = self;
     self.definesPresentationContext = YES;
-    
+
     // KVO
-    
+
     [self mvvm_observe:@"viewModel.fetchedResultsController" with:^(typeof(self) self, id value) {
         self.viewModel.fetchedResultsController.delegate = self;
         [self.tableView reloadData];
     }];
-    
-    [self mvvm_observe:@"viewModel.searchFetchedResultsController" with:^(typeof(self) self, id value){
+
+    [self mvvm_observe:@"viewModel.searchFetchedResultsController" with:^(typeof(self) self, id value) {
         NewsSearchResultsController *searchResultsController = (NewsSearchResultsController *)self.searchController.searchResultsController;
         [searchResultsController.tableView reloadData];
         self.viewModel.searchFetchedResultsController.delegate = searchResultsController;
@@ -98,17 +98,26 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 
 #pragma mark UITableViewDataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSFetchedResultsController *frc = [self fetchedResultsControllerForTableView:tableView];
     id<NSFetchedResultsSectionInfo> sectionInfo = frc.sections.firstObject;
     NSUInteger numberOfObjects = sectionInfo.numberOfObjects;
 
-    if (tableView == self.tableView) {
-        self.showingLoadMoreCell = self.viewModel.canLoadMore && (numberOfObjects > 0);
-        return (self.showingLoadMoreCell ? numberOfObjects + 1 : numberOfObjects);
+    if (section == 0) {
+        return numberOfObjects;
     }
     else {
-        return numberOfObjects;
+        if (tableView == self.tableView) {
+            self.showingLoadMoreCell = self.viewModel.canLoadMore && (numberOfObjects > 0);
+            return (self.showingLoadMoreCell ? 1 : 0);
+        }
+        else {
+            return 0;
+        }
     }
 }
 
@@ -140,7 +149,12 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat const defaultHeight = 104.0;
     if (tableView == self.tableView) {
-        return (indexPath.row == 0 ? 198.0 : defaultHeight);
+        if ([self isLoadMoreIndexPath:indexPath]) {
+            return defaultHeight;
+        }
+        else {
+            return (indexPath.row == 0 ? 198.0 : defaultHeight);
+        }
     }
     else {
         return defaultHeight;
@@ -196,10 +210,10 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     NSUInteger numberOfObjects = [self numberOfObjectsInMainFetchedResultsController];
     if (numberOfObjects > 0) {
         if (!self.showingLoadMoreCell) {
-            [self.insertedRowIndexPaths addObject:[NSIndexPath indexPathForRow:numberOfObjects inSection:0]];
+            [self.tableView insertRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:0 inSection:1] ] withRowAnimation:UITableViewRowAnimationFade];
         }
         else if (!self.viewModel.canLoadMore) {
-            [self.deletedRowIndexPaths addObject:[NSIndexPath indexPathForRow:numberOfObjects inSection:0]];
+            [self.tableView deleteRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:0 inSection:1] ] withRowAnimation:UITableViewRowAnimationFade];
         }
     }
 
@@ -237,7 +251,7 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
         return NO;
     }
 
-    return (indexPath.row == [self numberOfObjectsInMainFetchedResultsController]);
+    return (indexPath.section == 1);
 }
 
 - (NSUInteger)numberOfObjectsInMainFetchedResultsController {
