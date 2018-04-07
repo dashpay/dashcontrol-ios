@@ -235,12 +235,12 @@ CFAllocatorRef SecureAllocator()
 
 - (void)appendShapeshiftMemoForAddress:(NSString *)address
 {
-    static uint8_t pubkeyAddress = DASH_PUBKEY_ADDRESS, scriptAddress = DASH_SCRIPT_ADDRESS;
+//    static uint8_t pubkeyAddress = DASH_PUBKEY_ADDRESS, scriptAddress = DASH_SCRIPT_ADDRESS;
     NSData *d = address.base58checkToData;
     
     if (d.length != 21) return;
     
-    uint8_t version = *(const uint8_t *)d.bytes;
+//    uint8_t version = *(const uint8_t *)d.bytes;
     NSData *hash = [d subdataWithRange:NSMakeRange(1, d.length - 1)];
     NSMutableData * hashMutableData = [[NSMutableData alloc] init];
     [hashMutableData appendUInt8:OP_SHAPESHIFT]; //shapeshift is actually part of the message

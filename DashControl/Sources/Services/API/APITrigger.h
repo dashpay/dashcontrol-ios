@@ -15,19 +15,16 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import "APIBaseAuthorized.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class DCPersistenceStack;
-@class HTTPLoaderManager;
 @class DCTrigger;
-@protocol HTTPLoaderOperationProtocol;
 
-@interface APITrigger : NSObject
+@interface APITrigger : APIBaseAuthorized
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
-@property (strong, nonatomic) InjectedClass(HTTPLoaderManager) httpManager;
 
 - (void)performRegisterWithDeviceToken:(NSString *)deviceToken;
 - (nullable id<HTTPLoaderOperationProtocol>)registerWithCompletion:(void (^_Nullable)(BOOL success))completion;

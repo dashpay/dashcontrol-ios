@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Regular.otf">
+            <string>Montserrat-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QRCodeButton">
+            <connections>
+                <outlet property="contentView" destination="4KU-JX-ABn" id="Kyp-HX-BEI"/>
+                <outlet property="innerView" destination="tfJ-Iv-72b" id="TSZ-zj-0rD"/>
+                <outlet property="titleLabel" destination="Le5-89-QrV" id="GcD-fy-2fZ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4KU-JX-ABn">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tfJ-Iv-72b">
+                    <rect key="frame" x="10" y="10" width="355" height="74"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="300" text="Title Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Le5-89-QrV">
+                            <rect key="frame" x="10" y="29" width="275" height="16"/>
+                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                            <attributedString key="userComments">
+                                <fragment content="#bc-ignore!">
+                                    <attributes>
+                                        <font key="NSFont" metaFont="smallSystem"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                            </attributedString>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="300" verticalHuggingPriority="251" image="qrCodeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="sNd-Ak-ORA">
+                            <rect key="frame" x="295" y="12" width="50" height="50"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.20000000000000001" green="0.23137254900000001" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="sNd-Ak-ORA" secondAttribute="trailing" constant="10" id="Yi2-uO-4o7"/>
+                        <constraint firstItem="sNd-Ak-ORA" firstAttribute="leading" secondItem="Le5-89-QrV" secondAttribute="trailing" constant="10" id="YiS-fW-SaV"/>
+                        <constraint firstItem="Le5-89-QrV" firstAttribute="leading" secondItem="tfJ-Iv-72b" secondAttribute="leading" constant="10" id="fiH-x9-Xte"/>
+                        <constraint firstItem="Le5-89-QrV" firstAttribute="centerY" secondItem="tfJ-Iv-72b" secondAttribute="centerY" id="mAF-27-bH7"/>
+                        <constraint firstAttribute="height" constant="74" id="s0A-pe-YcK"/>
+                        <constraint firstItem="sNd-Ak-ORA" firstAttribute="centerY" secondItem="tfJ-Iv-72b" secondAttribute="centerY" id="uxP-8y-qqa"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="tfJ-Iv-72b" secondAttribute="bottom" id="b7H-eT-2oD"/>
+                <constraint firstItem="tfJ-Iv-72b" firstAttribute="leading" secondItem="4KU-JX-ABn" secondAttribute="leading" constant="10" id="byE-PV-Dnr"/>
+                <constraint firstAttribute="trailing" secondItem="tfJ-Iv-72b" secondAttribute="trailing" constant="10" id="byM-98-h8O"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-240.5" y="15"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="qrCodeIcon" width="50" height="50"/>
+    </resources>
+</document>

@@ -1,8 +1,5 @@
 
 /* No comment provided by engineer. */
-"%@ DASH worth %@ USD" = "%1$@ DASH worth %2$@ USD";
-
-/* No comment provided by engineer. */
 "%@ is not allowed to access the camera" = "%@ is not allowed to access the camera";
 
 /* No comment provided by engineer. */
@@ -63,16 +60,13 @@
 "ADD" = "ADD";
 
 /* No comment provided by engineer. */
+"Address" = "Address";
+
+/* No comment provided by engineer. */
 "Alert type" = "Alert type";
 
 /* No comment provided by engineer. */
 "Alert when over" = "Alert when over";
-
-/* No comment provided by engineer. */
-"Alert when price drops quickly" = "Alert when price drops quickly";
-
-/* No comment provided by engineer. */
-"Alert when price rises quickly" = "Alert when price rises quickly";
 
 /* No comment provided by engineer. */
 "Alert when under" = "Alert when under";
@@ -117,13 +111,28 @@
 "Final voting\ndeadline" = "Final voting\ndeadline";
 
 /* No comment provided by engineer. */
+"Import using QR code" = "Import using QR code";
+
+/* No comment provided by engineer. */
 "in %ld day(s)" = "in %ld day(s)";
 
 /* No comment provided by engineer. */
 "Market" = "Market";
 
 /* No comment provided by engineer. */
+"Masternode" = "Masternode";
+
+/* No comment provided by engineer. */
 "Monthly\namount" = "Monthly\namount";
+
+/* No comment provided by engineer. */
+"My Dash Wallet" = "My Dash Wallet";
+
+/* No comment provided by engineer. */
+"My Masternodes" = "My Masternodes";
+
+/* No comment provided by engineer. */
+"My Wallet Addresses" = "My Wallet Addresses";
 
 /* No votes count title */
 "No" = "No";
@@ -138,10 +147,7 @@
 "No. This proposal needs additional %d Yes vote(s) to become funded" = "No. This proposal needs additional %d Yes vote(s) to become funded";
 
 /* No comment provided by engineer. */
-"not a valid dash address" = "not a valid dash address";
-
-/* No comment provided by engineer. */
-"Not a valid masternode address" = "Not a valid masternode address";
+"not a DASH QR code" = "not a DASH QR code";
 
 /* ok */
 "ok" = "ok";
@@ -165,7 +171,13 @@
 "Past" = "Past";
 
 /* No comment provided by engineer. */
+"Payment Notification" = "Payment Notification";
+
+/* No comment provided by engineer. */
 "Payment\nadded / end" = "Payment\nadded / end";
+
+/* No comment provided by engineer. */
+"Portfolio" = "Portfolio";
 
 /* No comment provided by engineer. */
 "Price" = "Price";
@@ -189,13 +201,16 @@
 "Search" = "Search";
 
 /* No comment provided by engineer. */
-"This address does not contain the required 1000 Dash" = "This address does not contain the required 1000 Dash";
+"Settings" = "Settings";
 
 /* No comment provided by engineer. */
 "Total" = "Total";
 
 /* No comment provided by engineer. */
 "Under %@" = "Under %@";
+
+/* No comment provided by engineer. */
+"Wallet Address" = "Wallet Address";
 
 /* No comment provided by engineer. */
 "WiFi" = "WiFi";
