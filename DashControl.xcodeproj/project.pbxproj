@@ -647,55 +647,6 @@
 		FB9CC1A71F87D4A40079309F /* BRKey+BIP38.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BRKey+BIP38.h"; sourceTree = "<group>"; };
 		FB9CC1A81F87D4A50079309F /* BRKey.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRKey.m; sourceTree = "<group>"; };
 		FB9CC1A91F87D4A50079309F /* BRKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRKey.h; sourceTree = "<group>"; };
-		FB9CC2111F88A7F10079309F /* secp256k1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = secp256k1.h; sourceTree = "<group>"; };
-		FB9CC2121F88A7F10079309F /* secp256k1_ecdh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = secp256k1_ecdh.h; sourceTree = "<group>"; };
-		FB9CC2131F88A7F10079309F /* secp256k1_recovery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = secp256k1_recovery.h; sourceTree = "<group>"; };
-		FB9CC2231F88A7F10079309F /* basic-config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "basic-config.h"; sourceTree = "<group>"; };
-		FB9CC2241F88A7F10079309F /* bench.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bench.h; sourceTree = "<group>"; };
-		FB9CC22A1F88A7F10079309F /* ecdsa.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecdsa.h; sourceTree = "<group>"; };
-		FB9CC22B1F88A7F10079309F /* ecdsa_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecdsa_impl.h; sourceTree = "<group>"; };
-		FB9CC22C1F88A7F10079309F /* eckey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = eckey.h; sourceTree = "<group>"; };
-		FB9CC22D1F88A7F10079309F /* eckey_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = eckey_impl.h; sourceTree = "<group>"; };
-		FB9CC22E1F88A7F10079309F /* ecmult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecmult.h; sourceTree = "<group>"; };
-		FB9CC22F1F88A7F10079309F /* ecmult_const.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecmult_const.h; sourceTree = "<group>"; };
-		FB9CC2301F88A7F10079309F /* ecmult_const_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecmult_const_impl.h; sourceTree = "<group>"; };
-		FB9CC2311F88A7F10079309F /* ecmult_gen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecmult_gen.h; sourceTree = "<group>"; };
-		FB9CC2321F88A7F10079309F /* ecmult_gen_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecmult_gen_impl.h; sourceTree = "<group>"; };
-		FB9CC2331F88A7F10079309F /* ecmult_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecmult_impl.h; sourceTree = "<group>"; };
-		FB9CC2341F88A7F10079309F /* field.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = field.h; sourceTree = "<group>"; };
-		FB9CC2351F88A7F10079309F /* field_10x26.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = field_10x26.h; sourceTree = "<group>"; };
-		FB9CC2361F88A7F10079309F /* field_10x26_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = field_10x26_impl.h; sourceTree = "<group>"; };
-		FB9CC2371F88A7F10079309F /* field_5x52.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = field_5x52.h; sourceTree = "<group>"; };
-		FB9CC2381F88A7F10079309F /* field_5x52_asm_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = field_5x52_asm_impl.h; sourceTree = "<group>"; };
-		FB9CC2391F88A7F10079309F /* field_5x52_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = field_5x52_impl.h; sourceTree = "<group>"; };
-		FB9CC23A1F88A7F10079309F /* field_5x52_int128_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = field_5x52_int128_impl.h; sourceTree = "<group>"; };
-		FB9CC23B1F88A7F10079309F /* field_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = field_impl.h; sourceTree = "<group>"; };
-		FB9CC23D1F88A7F10079309F /* group.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = group.h; sourceTree = "<group>"; };
-		FB9CC23E1F88A7F10079309F /* group_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = group_impl.h; sourceTree = "<group>"; };
-		FB9CC23F1F88A7F10079309F /* hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hash.h; sourceTree = "<group>"; };
-		FB9CC2401F88A7F10079309F /* hash_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hash_impl.h; sourceTree = "<group>"; };
-		FB9CC24E1F88A7F10079309F /* main_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main_impl.h; sourceTree = "<group>"; };
-		FB9CC24F1F88A7F10079309F /* Makefile.am.include */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am.include; sourceTree = "<group>"; };
-		FB9CC2501F88A7F10079309F /* tests_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tests_impl.h; sourceTree = "<group>"; };
-		FB9CC2521F88A7F10079309F /* main_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main_impl.h; sourceTree = "<group>"; };
-		FB9CC2531F88A7F10079309F /* Makefile.am.include */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am.include; sourceTree = "<group>"; };
-		FB9CC2541F88A7F10079309F /* tests_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tests_impl.h; sourceTree = "<group>"; };
-		FB9CC2551F88A7F10079309F /* num.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = num.h; sourceTree = "<group>"; };
-		FB9CC2561F88A7F10079309F /* num_gmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = num_gmp.h; sourceTree = "<group>"; };
-		FB9CC2571F88A7F10079309F /* num_gmp_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = num_gmp_impl.h; sourceTree = "<group>"; };
-		FB9CC2581F88A7F10079309F /* num_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = num_impl.h; sourceTree = "<group>"; };
-		FB9CC2591F88A7F10079309F /* scalar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scalar.h; sourceTree = "<group>"; };
-		FB9CC25A1F88A7F10079309F /* scalar_4x64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scalar_4x64.h; sourceTree = "<group>"; };
-		FB9CC25B1F88A7F10079309F /* scalar_4x64_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scalar_4x64_impl.h; sourceTree = "<group>"; };
-		FB9CC25C1F88A7F10079309F /* scalar_8x32.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scalar_8x32.h; sourceTree = "<group>"; };
-		FB9CC25D1F88A7F10079309F /* scalar_8x32_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scalar_8x32_impl.h; sourceTree = "<group>"; };
-		FB9CC25E1F88A7F10079309F /* scalar_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scalar_impl.h; sourceTree = "<group>"; };
-		FB9CC25F1F88A7F10079309F /* scalar_low.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scalar_low.h; sourceTree = "<group>"; };
-		FB9CC2601F88A7F10079309F /* scalar_low_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scalar_low_impl.h; sourceTree = "<group>"; };
-		FB9CC2611F88A7F10079309F /* secp256k1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = secp256k1.c; sourceTree = "<group>"; };
-		FB9CC2621F88A7F10079309F /* testrand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testrand.h; sourceTree = "<group>"; };
-		FB9CC2631F88A7F10079309F /* testrand_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testrand_impl.h; sourceTree = "<group>"; };
-		FB9CC2661F88A7F10079309F /* util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
 		FBE1F4FD1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCChartDataEntryEntity+CoreDataClass.h"; sourceTree = "<group>"; };
 		FBE1F4FE1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DCChartDataEntryEntity+CoreDataClass.m"; sourceTree = "<group>"; };
 		FBE1F4FF1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DCChartDataEntryEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -1466,103 +1417,6 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
-		FB9CC2001F88A7F10079309F /* secp256k1 */ = {
-			isa = PBXGroup;
-			children = (
-				FB9CC2101F88A7F10079309F /* include */,
-				FB9CC2201F88A7F10079309F /* src */,
-			);
-			name = secp256k1;
-			path = ../../../secp256k1/;
-			sourceTree = "<group>";
-		};
-		FB9CC2101F88A7F10079309F /* include */ = {
-			isa = PBXGroup;
-			children = (
-				FB9CC2111F88A7F10079309F /* secp256k1.h */,
-				FB9CC2121F88A7F10079309F /* secp256k1_ecdh.h */,
-				FB9CC2131F88A7F10079309F /* secp256k1_recovery.h */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		FB9CC2201F88A7F10079309F /* src */ = {
-			isa = PBXGroup;
-			children = (
-				FB9CC24C1F88A7F10079309F /* modules */,
-				FB9CC2231F88A7F10079309F /* basic-config.h */,
-				FB9CC2241F88A7F10079309F /* bench.h */,
-				FB9CC22B1F88A7F10079309F /* ecdsa_impl.h */,
-				FB9CC22A1F88A7F10079309F /* ecdsa.h */,
-				FB9CC22D1F88A7F10079309F /* eckey_impl.h */,
-				FB9CC22C1F88A7F10079309F /* eckey.h */,
-				FB9CC2301F88A7F10079309F /* ecmult_const_impl.h */,
-				FB9CC22F1F88A7F10079309F /* ecmult_const.h */,
-				FB9CC2321F88A7F10079309F /* ecmult_gen_impl.h */,
-				FB9CC2311F88A7F10079309F /* ecmult_gen.h */,
-				FB9CC2331F88A7F10079309F /* ecmult_impl.h */,
-				FB9CC22E1F88A7F10079309F /* ecmult.h */,
-				FB9CC2381F88A7F10079309F /* field_5x52_asm_impl.h */,
-				FB9CC2391F88A7F10079309F /* field_5x52_impl.h */,
-				FB9CC23A1F88A7F10079309F /* field_5x52_int128_impl.h */,
-				FB9CC2371F88A7F10079309F /* field_5x52.h */,
-				FB9CC2361F88A7F10079309F /* field_10x26_impl.h */,
-				FB9CC2351F88A7F10079309F /* field_10x26.h */,
-				FB9CC23B1F88A7F10079309F /* field_impl.h */,
-				FB9CC2341F88A7F10079309F /* field.h */,
-				FB9CC23E1F88A7F10079309F /* group_impl.h */,
-				FB9CC23D1F88A7F10079309F /* group.h */,
-				FB9CC2401F88A7F10079309F /* hash_impl.h */,
-				FB9CC23F1F88A7F10079309F /* hash.h */,
-				FB9CC2571F88A7F10079309F /* num_gmp_impl.h */,
-				FB9CC2561F88A7F10079309F /* num_gmp.h */,
-				FB9CC2581F88A7F10079309F /* num_impl.h */,
-				FB9CC2551F88A7F10079309F /* num.h */,
-				FB9CC25B1F88A7F10079309F /* scalar_4x64_impl.h */,
-				FB9CC25A1F88A7F10079309F /* scalar_4x64.h */,
-				FB9CC25D1F88A7F10079309F /* scalar_8x32_impl.h */,
-				FB9CC25C1F88A7F10079309F /* scalar_8x32.h */,
-				FB9CC25E1F88A7F10079309F /* scalar_impl.h */,
-				FB9CC2601F88A7F10079309F /* scalar_low_impl.h */,
-				FB9CC25F1F88A7F10079309F /* scalar_low.h */,
-				FB9CC2591F88A7F10079309F /* scalar.h */,
-				FB9CC2611F88A7F10079309F /* secp256k1.c */,
-				FB9CC2631F88A7F10079309F /* testrand_impl.h */,
-				FB9CC2621F88A7F10079309F /* testrand.h */,
-				FB9CC2661F88A7F10079309F /* util.h */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
-		FB9CC24C1F88A7F10079309F /* modules */ = {
-			isa = PBXGroup;
-			children = (
-				FB9CC24D1F88A7F10079309F /* ecdh */,
-				FB9CC2511F88A7F10079309F /* recovery */,
-			);
-			path = modules;
-			sourceTree = "<group>";
-		};
-		FB9CC24D1F88A7F10079309F /* ecdh */ = {
-			isa = PBXGroup;
-			children = (
-				FB9CC24E1F88A7F10079309F /* main_impl.h */,
-				FB9CC24F1F88A7F10079309F /* Makefile.am.include */,
-				FB9CC2501F88A7F10079309F /* tests_impl.h */,
-			);
-			path = ecdh;
-			sourceTree = "<group>";
-		};
-		FB9CC2511F88A7F10079309F /* recovery */ = {
-			isa = PBXGroup;
-			children = (
-				FB9CC2521F88A7F10079309F /* main_impl.h */,
-				FB9CC2531F88A7F10079309F /* Makefile.am.include */,
-				FB9CC2541F88A7F10079309F /* tests_impl.h */,
-			);
-			path = recovery;
-			sourceTree = "<group>";
-		};
 		FBEF66E31F83DA41003424D2 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -1595,7 +1449,6 @@
 		FBEF66EB1F83DBEF003424D2 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				FB9CC2001F88A7F10079309F /* secp256k1 */,
 				FBEF66EC1F83DBFD003424D2 /* x11 */,
 				FB9CC1A21F87D4850079309F /* BRBIP32Sequence.h */,
 				FB9CC1A31F87D4850079309F /* BRBIP32Sequence.m */,
