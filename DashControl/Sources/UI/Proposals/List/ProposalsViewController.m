@@ -19,14 +19,14 @@
 
 #import "BaseProposalViewController+Protected.h"
 #import "UIColor+DCStyle.h"
-#import "ProposalsHeaderView.h"
-#import "ProposalsHeaderViewModel.h"
 #import "DCSearchController.h"
 #import "NavigationTitleButton.h"
+#import "ProposalDetailViewController.h"
 #import "ProposalTableViewCell.h"
+#import "ProposalsHeaderView.h"
+#import "ProposalsHeaderViewModel.h"
 #import "ProposalsSearchResultsController.h"
 #import "ProposalsViewModel.h"
-#import "ProposalDetailViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -42,6 +42,13 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @implementation ProposalsViewController
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    self.title = NSLocalizedString(@"Proposals", nil);
+    self.tabBarItem.title = self.title;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -70,15 +77,15 @@ NS_ASSUME_NONNULL_BEGIN
     self.searchController.delegate = self;
     self.searchController.searchResultsUpdater = self;
     self.definesPresentationContext = YES;
-    
+
     // KVO
-    
+
     [self mvvm_observe:@"viewModel.fetchedResultsController" with:^(typeof(self) self, id value) {
         self.viewModel.fetchedResultsController.delegate = self;
         [self.tableView reloadData];
     }];
-    
-    [self mvvm_observe:@"viewModel.searchFetchedResultsController" with:^(typeof(self) self, id value){
+
+    [self mvvm_observe:@"viewModel.searchFetchedResultsController" with:^(typeof(self) self, id value) {
         ProposalsSearchResultsController *searchResultsController = (ProposalsSearchResultsController *)self.searchController.searchResultsController;
         [searchResultsController.tableView reloadData];
         self.viewModel.searchFetchedResultsController.delegate = searchResultsController;

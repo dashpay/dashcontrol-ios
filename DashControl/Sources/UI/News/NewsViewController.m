@@ -45,6 +45,13 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 
 @implementation NewsViewController
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    self.title = NSLocalizedString(@"News", nil);
+    self.tabBarItem.title = self.title;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 

@@ -19,8 +19,7 @@
         <!--Price Navigation-->
         <scene sceneID="26F-zc-aJg">
             <objects>
-                <navigationController storyboardIdentifier="PriceNavigationController" title="Price" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Aug-XC-Aie" userLabel="Price Navigation" customClass="ForwardingNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Price" image="tabBarPrice" id="0Wg-qn-U2e"/>
+                <navigationController storyboardIdentifier="PriceNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Aug-XC-Aie" userLabel="Price Navigation" customClass="ForwardingNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="iT0-zw-hyB">
@@ -80,6 +79,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RXq-WE-xgF"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Price" image="tabBarPrice" id="0Wg-qn-U2e">
+                        <attributedString key="userComments">
+                            <fragment content="#bc-ignore!">
+                                <attributes>
+                                    <font key="NSFont" metaFont="smallSystem"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" title="Price" id="D0z-8d-kBI">
                         <attributedString key="userComments">
                             <fragment content="#bc-ignore!">
@@ -90,6 +99,7 @@
                             </fragment>
                         </attributedString>
                     </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="YCZ-fH-y3J" id="fpK-q4-rcb"/>
                     </connections>

@@ -50,10 +50,15 @@ static NSString *const CELL_ID = @"ItemTableViewCell";
     return _viewModel;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)awakeFromNib {
+    [super awakeFromNib];
 
     self.title = NSLocalizedString(@"Price", nil);
+    self.tabBarItem.title = self.title;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
 
     [self.tableView registerNib:[UINib nibWithNibName:@"AddItemTableViewCell" bundle:nil] forCellReuseIdentifier:ADD_CELL_ID];
     [self.tableView registerNib:[UINib nibWithNibName:@"ItemTableViewCell" bundle:nil] forCellReuseIdentifier:CELL_ID];
@@ -61,7 +66,7 @@ static NSString *const CELL_ID = @"ItemTableViewCell";
     refreshControl.tintColor = [UIColor whiteColor];
     [refreshControl addTarget:self action:@selector(refreshControlAction:) forControlEvents:UIControlEventValueChanged];
     self.tableView.refreshControl = refreshControl;
-    
+
     [self reload];
 
     // KVO
@@ -158,7 +163,7 @@ static NSString *const CELL_ID = @"ItemTableViewCell";
         _fetchedResultsControllerDelegate = [[TableViewFRCDelegate alloc] init];
         _fetchedResultsControllerDelegate.tableView = self.tableView;
         weakify;
-        _fetchedResultsControllerDelegate.configureCellBlock = ^(NSFetchedResultsController * _Nonnull fetchedResultsController, UITableViewCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath) {
+        _fetchedResultsControllerDelegate.configureCellBlock = ^(NSFetchedResultsController *_Nonnull fetchedResultsController, UITableViewCell *_Nonnull cell, NSIndexPath *_Nonnull indexPath) {
             strongify;
             [self configureTriggerCell:(ItemTableViewCell *)cell atIndexPath:indexPath];
         };

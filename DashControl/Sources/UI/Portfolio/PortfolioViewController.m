@@ -58,10 +58,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation PortfolioViewController
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    self.title = NSLocalizedString(@"Portfolio", nil);
+    self.tabBarItem.title = self.title;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.title = NSLocalizedString(@"Portfolio", nil);
 
     UIImage *emptyImage = [[UIImage alloc] init];
     self.navigationController.navigationBar.shadowImage = emptyImage;
