@@ -83,9 +83,6 @@
 /* Cancel button */
 "Cancel" = "Cancel";
 
-/* No comment provided by engineer. */
-"Cellular" = "Cellular";
-
 /* Price Screen */
 "Choose Exchange" = "Choose Exchange";
 
@@ -136,9 +133,6 @@
 
 /* No votes count title */
 "No" = "No";
-
-/* No comment provided by engineer. */
-"No Connection" = "No Connection";
 
 /* No comment provided by engineer. */
 "no payments occurred yet" = "no payments occurred yet";
@@ -214,9 +208,6 @@
 
 /* No comment provided by engineer. */
 "Wallet Address" = "Wallet Address";
-
-/* No comment provided by engineer. */
-"WiFi" = "WiFi";
 
 /* No comment provided by engineer. */
 "Will be\nfunded" = "Will be\nfunded";

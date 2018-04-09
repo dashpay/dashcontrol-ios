@@ -3,7 +3,6 @@ platform :ios, '10.0'
 inhibit_all_warnings!
 
 def app_pods
-    pod 'Reachability', '3.2'
     pod 'SDWebImage', '4.3.0'
     pod 'MBCircularProgressBar', '0.3.5'
     pod 'MBProgressHUD', '1.1.0'
