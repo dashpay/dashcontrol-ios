@@ -39,8 +39,8 @@
 #pragma clang diagnostic ignored "-Wconversion"
 #pragma clang diagnostic ignored "-Wunused-function"
 #pragma clang diagnostic ignored "-Wconditional-uninitialized"
-#include "secp256k1/src/basic-config.h"
-#include "secp256k1/src/secp256k1.c"
+#import <secp256k1_dash/include/secp256k1.h>
+#import <secp256k1_dash/include/secp256k1_recovery.h>
 #pragma clang diagnostic pop
 
 static secp256k1_context *_ctx = NULL;

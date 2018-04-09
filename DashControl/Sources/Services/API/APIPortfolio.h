@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (id<HTTPLoaderOperationProtocol>)balanceAtAddress:(NSString *)address
                                          completion:(void (^)(NSNumber *_Nullable balance))completion;
 
+- (id<HTTPLoaderOperationProtocol>)dashUSDPrice:(void (^)(NSNumber *_Nullable price))completion;
+
 - (id<HTTPLoaderOperationProtocol>)updateBloomFilter:(DCServerBloomFilter *)filter
                                           completion:(void (^)(NSError *_Nullable error))completion;
 
