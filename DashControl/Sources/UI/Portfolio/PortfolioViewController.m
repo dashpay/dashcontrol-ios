@@ -63,7 +63,9 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.title = NSLocalizedString(@"Portfolio", nil);
 
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    UIImage *emptyImage = [[UIImage alloc] init];
+    self.navigationController.navigationBar.shadowImage = emptyImage;
+    [self.navigationController.navigationBar setBackgroundImage:emptyImage forBarMetrics:UIBarMetricsDefault];
 
     CGSize headerSize = [self.portfolioHeaderView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     self.portfolioHeaderView.frame = CGRectMake(0.0, 0.0, headerSize.width, headerSize.height);

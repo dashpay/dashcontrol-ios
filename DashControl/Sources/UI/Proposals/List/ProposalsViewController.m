@@ -46,7 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    UIImage *emptyImage = [[UIImage alloc] init];
+    self.navigationController.navigationBar.shadowImage = emptyImage;
+    [self.navigationController.navigationBar setBackgroundImage:emptyImage forBarMetrics:UIBarMetricsDefault];
     self.navigationItem.titleView = self.navigationTitleButton;
 
     // blue bg view above the tableView
@@ -155,6 +157,8 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_navigationTitleButton) {
         _navigationTitleButton = [[NavigationTitleButton alloc] initWithFrame:CGRectZero];
         _navigationTitleButton.title = NSLocalizedString(@"Proposals", nil);
+        CGSize size = [_navigationTitleButton sizeThatFits:CGSizeZero];
+        _navigationTitleButton.frame = CGRectMake(0.0, 0.0, size.width, size.height);
         [_navigationTitleButton addTarget:self action:@selector(navigationTitleButtonAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _navigationTitleButton;
