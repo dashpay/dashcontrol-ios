@@ -27,6 +27,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (id<HTTPLoaderOperationProtocol>)balanceSumInAddresses:(NSArray<NSString *> *)addresses
                                               completion:(void (^)(NSNumber *_Nullable balance))completion {
     NSParameterAssert(addresses);
+    if (addresses.count == 0) {
+        if (completion) {
+            completion(@0);
+        }
+        
+        return nil;
+    }
 
     NSString *urlString = [self.baseURLString stringByAppendingString:@"address_info"];
     NSURL *url = [NSURL URLWithString:urlString];
@@ -57,6 +64,34 @@ NS_ASSUME_NONNULL_BEGIN
                 balance = [(NSDictionary *)parsedData objectForKey:@"balanceSat"];
             }
             completion(balance);
+        }
+    }];
+}
+
+- (id<HTTPLoaderOperationProtocol>)dashUSDPrice:(void (^)(NSNumber *_Nullable price))completion {
+    NSString *urlString = [self.baseURLString stringByAppendingString:@"prices"];
+    NSURL *url = [NSURL URLWithString:urlString];
+    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:nil];
+    return [self.httpManager sendRequest:request completion:^(id _Nullable parsedData, NSDictionary *_Nullable responseHeaders, NSInteger statusCode, NSError *_Nullable error) {
+        if (!error && [parsedData isKindOfClass:NSDictionary.class]) {
+            NSDictionary *internationalPrices = parsedData[@"intl"];
+            NSMutableArray <NSNumber *> *dashUsdPrices = [NSMutableArray array];
+            for (NSDictionary *allPrices in internationalPrices.allValues) {
+                NSNumber *dashUsd = allPrices[@"DASH_USD"];
+                if (dashUsd) {
+                    [dashUsdPrices addObject:dashUsd];
+                }
+            }
+            NSNumber *avgPrice = [dashUsdPrices valueForKeyPath:@"@avg.self"];
+            
+            if (completion) {
+                completion(avgPrice);
+            }
+        }
+        else {
+            if (completion) {
+                completion(nil);
+            }
         }
     }];
 }

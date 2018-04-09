@@ -22,6 +22,8 @@
 #import "AddItemTableViewCell.h"
 #import "ItemTableViewCell.h"
 #import "MasternodeViewController.h"
+#import "PortfolioHeaderView.h"
+#import "PortfolioHeaderViewModel.h"
 #import "PortfolioMasternodeTableViewCellModel.h"
 #import "PortfolioViewModel.h"
 #import "PortfolioWalletAddressTableViewCellModel.h"
@@ -46,9 +48,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PortfolioViewController () <TableViewFRCDelegateNotifier, SKStoreProductViewControllerDelegate>
 
 @property (strong, nonatomic) PortfolioViewModel *viewModel;
+@property (strong, nonatomic) PortfolioHeaderViewModel *headerViewModel;
 @property (strong, nonatomic) TableViewFRCDelegate *walletFRCDelegate;
 @property (strong, nonatomic) TableViewFRCDelegate *walletAddressFRCDelegate;
 @property (strong, nonatomic) TableViewFRCDelegate *masternodeFRCDelegate;
+@property (strong, nonatomic) PortfolioHeaderView *portfolioHeaderView;
 
 @end
 
@@ -59,8 +63,15 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.title = NSLocalizedString(@"Portfolio", nil);
 
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+
+    CGSize headerSize = [self.portfolioHeaderView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    self.portfolioHeaderView.frame = CGRectMake(0.0, 0.0, headerSize.width, headerSize.height);
+    self.tableView.tableHeaderView = self.portfolioHeaderView;
     [self.tableView registerNib:[UINib nibWithNibName:@"AddItemTableViewCell" bundle:nil] forCellReuseIdentifier:ADD_CELL_ID];
     [self.tableView registerNib:[UINib nibWithNibName:@"ItemTableViewCell" bundle:nil] forCellReuseIdentifier:CELL_ID];
+
+    [self reload];
 
     // KVO
 
@@ -229,6 +240,13 @@ NS_ASSUME_NONNULL_BEGIN
     return _viewModel;
 }
 
+- (PortfolioHeaderViewModel *)headerViewModel {
+    if (!_headerViewModel) {
+        _headerViewModel = [[PortfolioHeaderViewModel alloc] init];
+    }
+    return _headerViewModel;
+}
+
 - (TableViewFRCDelegate *)walletFRCDelegate {
     if (!_walletFRCDelegate) {
         _walletFRCDelegate = [[TableViewFRCDelegate alloc] init];
@@ -250,6 +268,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_walletAddressFRCDelegate) {
         _walletAddressFRCDelegate = [[TableViewFRCDelegate alloc] init];
         _walletAddressFRCDelegate.tableView = self.tableView;
+        _walletAddressFRCDelegate.notifier = self;
         weakify;
         _walletAddressFRCDelegate.configureCellBlock = ^(NSFetchedResultsController *_Nonnull fetchedResultsController, UITableViewCell *_Nonnull cell, NSIndexPath *_Nonnull indexPath) {
             strongify;
@@ -266,6 +285,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_masternodeFRCDelegate) {
         _masternodeFRCDelegate = [[TableViewFRCDelegate alloc] init];
         _masternodeFRCDelegate.tableView = self.tableView;
+        _masternodeFRCDelegate.notifier = self;
         weakify;
         _masternodeFRCDelegate.configureCellBlock = ^(NSFetchedResultsController *_Nonnull fetchedResultsController, UITableViewCell *_Nonnull cell, NSIndexPath *_Nonnull indexPath) {
             strongify;
@@ -276,6 +296,14 @@ NS_ASSUME_NONNULL_BEGIN
         };
     }
     return _masternodeFRCDelegate;
+}
+
+- (PortfolioHeaderView *)portfolioHeaderView {
+    if (!_portfolioHeaderView) {
+        _portfolioHeaderView = [[PortfolioHeaderView alloc] initWithFrame:CGRectZero];
+        _portfolioHeaderView.viewModel = self.headerViewModel;
+    }
+    return _portfolioHeaderView;
 }
 
 - (NSFetchedResultsController *)frcForSection:(PortfolioSection)section {
@@ -343,8 +371,17 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)reload {
-    // TODO
-    [self.tableView.refreshControl endRefreshing];
+    if (self.tableView.contentOffset.y == 0) {
+        self.tableView.contentOffset = CGPointMake(0.0, -self.tableView.refreshControl.frame.size.height);
+        [self.tableView.refreshControl beginRefreshing];
+    }
+
+    weakify;
+    [self.headerViewModel reloadWithCompletion:^{
+        strongify;
+
+        [self.tableView.refreshControl endRefreshing];
+    }];
 }
 
 - (void)openAppStoreControllerForDashWallet {
@@ -363,6 +400,8 @@ NS_ASSUME_NONNULL_BEGIN
         [self.tableView reloadRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:0 inSection:PortfolioSection_AddWallet] ] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     }
+
+    [self.headerViewModel updateDashTotalWorth];
 }
 
 #pragma mark SKStoreProductViewControllerDelegate

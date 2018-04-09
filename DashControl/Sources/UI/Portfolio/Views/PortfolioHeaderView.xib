@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Light.otf">
+            <string>Montserrat-Light</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PortfolioHeaderView">
+            <connections>
+                <outlet property="contentView" destination="Duk-US-sMi" id="lDt-1K-aaX"/>
+                <outlet property="dashLabel" destination="mqk-FG-UcS" id="zmb-5z-9HP"/>
+                <outlet property="dashTitleLabel" destination="bE4-p9-PN6" id="9L2-vj-ZAN"/>
+                <outlet property="usdLabel" destination="jdl-tZ-bAc" id="9D5-RK-yu6"/>
+                <outlet property="usdTitleLabel" destination="uWv-rt-bNO" id="fEC-8H-CUM"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Duk-US-sMi" userLabel="Content View">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="Your DASH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bE4-p9-PN6">
+                    <rect key="frame" x="24" y="12" width="60" height="13.5"/>
+                    <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="11"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                    <attributedString key="userComments">
+                        <fragment content="#bc-ignore!">
+                            <attributes>
+                                <font key="NSFont" metaFont="smallSystem"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" text="Value in USD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWv-rt-bNO">
+                    <rect key="frame" x="280" y="12" width="71" height="13.5"/>
+                    <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="11"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                    <attributedString key="userComments">
+                        <fragment content="#bc-ignore!">
+                            <attributes>
+                                <font key="NSFont" size="11" name="HelveticaNeue"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqk-FG-UcS">
+                    <rect key="frame" x="24" y="32" width="22" height="44"/>
+                    <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="36"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                    <attributedString key="userComments">
+                        <fragment content="#bc-ignore!">
+                            <attributes>
+                                <font key="NSFont" size="11" name="HelveticaNeue"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdl-tZ-bAc">
+                    <rect key="frame" x="329" y="32" width="22" height="44"/>
+                    <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="36"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                    <attributedString key="userComments">
+                        <fragment content="#bc-ignore!">
+                            <attributes>
+                                <font key="NSFont" size="11" name="HelveticaNeue"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.44317391509999998" blue="0.74421042199999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="uWv-rt-bNO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bE4-p9-PN6" secondAttribute="trailing" constant="24" id="2bT-zg-T1H"/>
+                <constraint firstAttribute="bottom" secondItem="mqk-FG-UcS" secondAttribute="bottom" constant="12" id="9wk-Gt-8ol"/>
+                <constraint firstAttribute="bottom" secondItem="jdl-tZ-bAc" secondAttribute="bottom" constant="12" id="AIZ-UE-OJs"/>
+                <constraint firstAttribute="trailing" secondItem="uWv-rt-bNO" secondAttribute="trailing" constant="24" id="Er0-Fs-Ve6"/>
+                <constraint firstItem="mqk-FG-UcS" firstAttribute="leading" secondItem="Duk-US-sMi" secondAttribute="leading" constant="24" id="LuX-yt-wK0"/>
+                <constraint firstAttribute="trailing" secondItem="jdl-tZ-bAc" secondAttribute="trailing" constant="24" id="RFR-FI-FKa"/>
+                <constraint firstItem="bE4-p9-PN6" firstAttribute="top" secondItem="Duk-US-sMi" secondAttribute="top" constant="12" id="aFZ-bV-fhO"/>
+                <constraint firstItem="jdl-tZ-bAc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mqk-FG-UcS" secondAttribute="trailing" constant="24" id="aZX-0R-12j"/>
+                <constraint firstItem="bE4-p9-PN6" firstAttribute="leading" secondItem="Duk-US-sMi" secondAttribute="leading" constant="24" id="eTl-0O-K0l"/>
+                <constraint firstItem="uWv-rt-bNO" firstAttribute="top" secondItem="Duk-US-sMi" secondAttribute="top" constant="12" id="g9P-HC-PAN"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

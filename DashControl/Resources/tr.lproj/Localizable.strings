@@ -210,6 +210,9 @@
 "Under %@" = "Under %@";
 
 /* No comment provided by engineer. */
+"Value in USD" = "Value in USD";
+
+/* No comment provided by engineer. */
 "Wallet Address" = "Wallet Address";
 
 /* No comment provided by engineer. */
@@ -221,3 +224,6 @@
 /* Will be funded - yes
    Yes votes count title */
 "Yes" = "Yes";
+
+/* No comment provided by engineer. */
+"Your DASH" = "Your DASH";
