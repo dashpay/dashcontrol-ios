@@ -137,6 +137,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+    DCSearchBar *searchBar = self.searchController.searchBar;
+    [searchBar resignFirstResponder];
+    
     NSFetchedResultsController *frc = [self fetchedResultsControllerForTableView:tableView];
     DCBudgetProposalEntity *entity = [frc objectAtIndexPath:indexPath];
     ProposalDetailViewController *detailViewController = [ProposalDetailViewController controllerWithProposal:entity];
