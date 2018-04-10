@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
             [lineView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
             [lineView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
             [lineView.heightAnchor constraintEqualToConstant:1.0],
-            
+
             [self.heightAnchor constraintGreaterThanOrEqualToConstant:40.0],
         ] enumerateObjectsUsingBlock:^(NSLayoutConstraint *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             obj.active = YES;
@@ -93,20 +93,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProposalDetailHeaderView ()
 
-@property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (strong, nonatomic) IBOutlet UIView *contentView;
 
-@property (weak, nonatomic) IBOutlet UILabel *yesVotesTitleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *yesVotesLabel;
-@property (weak, nonatomic) IBOutlet UILabel *noVotesTitleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *noVotesLabel;
-@property (weak, nonatomic) IBOutlet UILabel *abstainTitleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *abstainLabel;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *ownerUsernameLabel;
+@property (strong, nonatomic) IBOutlet MBCircularProgressBarView *progressBarView;
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ownerUsernameLabel;
-@property (weak, nonatomic) IBOutlet MBCircularProgressBarView *progressBarView;
-
-@property (weak, nonatomic) IBOutlet UIStackView *rowsStackView;
+@property (strong, nonatomic) IBOutlet UIStackView *rowsStackView;
 
 @end
 
@@ -138,10 +131,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self.contentView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor].active = YES;
     [self.contentView.widthAnchor constraintEqualToAnchor:self.widthAnchor].active = YES;
 
-    self.yesVotesLabel.text = NSLocalizedString(@"Yes", @"Yes votes count title");
-    self.noVotesLabel.text = NSLocalizedString(@"No", @"No votes count title");
-    self.abstainLabel.text = NSLocalizedString(@"Abstain", @"Abstain votes count title");
-
     // KVO
 
     [self mvvm_observe:@"viewModel.completedPercent" with:^(typeof(self) self, NSNumber * value) {
@@ -154,18 +143,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self mvvm_observe:@"viewModel.ownerUsername" with:^(typeof(self) self, NSString * value) {
         self.ownerUsernameLabel.text = value;
-    }];
-
-    [self mvvm_observe:@"viewModel.yesVotes" with:^(typeof(self) self, NSString * value) {
-        self.yesVotesLabel.text = value;
-    }];
-
-    [self mvvm_observe:@"viewModel.noVotes" with:^(typeof(self) self, NSString * value) {
-        self.noVotesLabel.text = value;
-    }];
-
-    [self mvvm_observe:@"viewModel.abstainVotes" with:^(typeof(self) self, NSString * value) {
-        self.abstainLabel.text = value;
     }];
 
     [self mvvm_observe:@"viewModel.rows" with:^(typeof(self) self, NSArray<Pair<NSString *> *> * value) {

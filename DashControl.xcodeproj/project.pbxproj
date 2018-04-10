@@ -95,6 +95,8 @@
 		2A6FBEEB207B28880055BAC8 /* PortfolioHeaderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEEA207B28880055BAC8 /* PortfolioHeaderViewModel.m */; };
 		2A6FBEF3207C087A0055BAC8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6FBEF2207C087A0055BAC8 /* Launch Screen.storyboard */; };
 		2A6FBEF5207C0CFF0055BAC8 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6FBEF4207C0CFF0055BAC8 /* News.storyboard */; };
+		2A6FBEFA207C97510055BAC8 /* ProposalDetailVotesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEF9207C97510055BAC8 /* ProposalDetailVotesView.m */; };
+		2A6FBEFD207C98410055BAC8 /* ProposalDetailVotesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEFC207C98410055BAC8 /* ProposalDetailVotesViewModel.m */; };
 		2A80B584203699E70015E1AA /* DCPersistenceStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B583203699E70015E1AA /* DCPersistenceStack.m */; };
 		2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B58620369E7F0015E1AA /* NSData+Hash.m */; };
 		2A80B58A2036A8F40015E1AA /* DCLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B5892036A8F40015E1AA /* DCLogging.m */; };
@@ -397,6 +399,10 @@
 		2A6FBEEA207B28880055BAC8 /* PortfolioHeaderViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PortfolioHeaderViewModel.m; sourceTree = "<group>"; };
 		2A6FBEF2207C087A0055BAC8 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		2A6FBEF4207C0CFF0055BAC8 /* News.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
+		2A6FBEF8207C97510055BAC8 /* ProposalDetailVotesView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalDetailVotesView.h; sourceTree = "<group>"; };
+		2A6FBEF9207C97510055BAC8 /* ProposalDetailVotesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailVotesView.m; sourceTree = "<group>"; };
+		2A6FBEFB207C98410055BAC8 /* ProposalDetailVotesViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalDetailVotesViewModel.h; sourceTree = "<group>"; };
+		2A6FBEFC207C98410055BAC8 /* ProposalDetailVotesViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailVotesViewModel.m; sourceTree = "<group>"; };
 		2A80B582203699E70015E1AA /* DCPersistenceStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCPersistenceStack.h; sourceTree = "<group>"; };
 		2A80B583203699E70015E1AA /* DCPersistenceStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCPersistenceStack.m; sourceTree = "<group>"; };
 		2A80B58520369E7F0015E1AA /* NSData+Hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Hash.h"; sourceTree = "<group>"; };
@@ -904,6 +910,10 @@
 				2A32D636205471BE004B38A6 /* ProposalDetailTableViewCellModel.m */,
 				2A32D63E20558BB7004B38A6 /* ProposalDetailTitleView.h */,
 				2A32D63F20558BB7004B38A6 /* ProposalDetailTitleView.m */,
+				2A6FBEF8207C97510055BAC8 /* ProposalDetailVotesView.h */,
+				2A6FBEF9207C97510055BAC8 /* ProposalDetailVotesView.m */,
+				2A6FBEFB207C98410055BAC8 /* ProposalDetailVotesViewModel.h */,
+				2A6FBEFC207C98410055BAC8 /* ProposalDetailVotesViewModel.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1891,6 +1901,7 @@
 				2A04E6E5202DA5E20065F30D /* HTTPURLRequestBuilder.m in Sources */,
 				2A4FE281203AE489007FD160 /* UIColor+DCStyle.m in Sources */,
 				2A587EAD206A8D8E004BC537 /* TableViewFRCDelegate.m in Sources */,
+				2A6FBEFA207C97510055BAC8 /* ProposalDetailVotesView.m in Sources */,
 				2A289A55203AC10E00EDC98E /* NewsSearchResultsController.m in Sources */,
 				FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */,
 				2A4473AE2042E8DA00B52BCB /* DCSegmentedControl.m in Sources */,
@@ -1913,6 +1924,7 @@
 				2A04E6E6202DA5E20065F30D /* NetworkActivityIndicatorManager.m in Sources */,
 				FB17AEE51FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m in Sources */,
 				2AEF29682072D227008590E4 /* DecimalTextFieldFormCellModel.m in Sources */,
+				2A6FBEFD207C98410055BAC8 /* ProposalDetailVotesViewModel.m in Sources */,
 				FBE1F5091F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m in Sources */,
 				2A6FBEEB207B28880055BAC8 /* PortfolioHeaderViewModel.m in Sources */,
 				2A8F8184203EB74900D3D6C9 /* DCMarketEntity+Extensions.m in Sources */,

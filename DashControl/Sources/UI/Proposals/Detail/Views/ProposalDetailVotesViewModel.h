@@ -15,15 +15,19 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class DCBudgetProposalEntity;
 
-@interface ProposalDetailViewController : UIViewController
+@interface ProposalDetailVotesViewModel : NSObject
 
-+ (instancetype)controllerWithProposal:(DCBudgetProposalEntity *)proposal;
+@property (nullable, readonly, copy, nonatomic) NSString *yesVotes;
+@property (nullable, readonly, copy, nonatomic) NSString *noVotes;
+@property (nullable, readonly, copy, nonatomic) NSString *abstainVotes;
+
+- (void)updateWithProposal:(DCBudgetProposalEntity *)proposal;
 
 @end
 

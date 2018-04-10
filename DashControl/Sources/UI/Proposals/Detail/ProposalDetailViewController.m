@@ -25,13 +25,18 @@
 #import "ProposalDetailTableViewCell.h"
 #import "ProposalDetailTitleView.h"
 #import "ProposalDetailViewModel.h"
+#import "ProposalDetailVotesView.h"
 
 static NSString *const PROPOSALDETAIL_CELL_ID = @"ProposalDetailTableViewCell";
+static CGFloat const VOTES_VIEW_HEIGHT = 90.0;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ProposalDetailViewController () <ProposalDetailTableViewCellDelegate>
+@interface ProposalDetailViewController () <UITableViewDelegate, UITableViewDataSource, ProposalDetailTableViewCellDelegate>
 
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet ProposalDetailVotesView *votesView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *votesViewTopConstraint;
 @property (strong, nonatomic) ProposalDetailHeaderView *headerView;
 @property (strong, nonatomic) ProposalDetailTitleView *titleView;
 @property (strong, nonatomic) ProposalDetailViewModel *viewModel;
@@ -53,7 +58,14 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.navigationItem.titleView = self.titleView;
 
+    self.votesView.viewModel = self.viewModel.votesViewModel;
+
     [self.tableView registerClass:ProposalDetailTableViewCell.class forCellReuseIdentifier:PROPOSALDETAIL_CELL_ID];
+    self.tableView.contentInset = UIEdgeInsetsMake(VOTES_VIEW_HEIGHT, 0.0, 0.0, 0.0);
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.tintColor = [UIColor dc_barTintColor];
+    [refreshControl addTarget:self action:@selector(refreshControlAction:) forControlEvents:UIControlEventValueChanged];
+    self.tableView.refreshControl = refreshControl;
 
     [self updateHeaderView];
 
@@ -95,8 +107,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    const CGFloat threshold = 90.0; // height of the blue view above title in header view
-    [self.titleView scrollViewDidScroll:scrollView threshold:threshold];
+    [self.titleView scrollViewDidScroll:scrollView threshold:VOTES_VIEW_HEIGHT];
+
+    self.votesViewTopConstraint.constant = MIN(-(scrollView.contentOffset.y + VOTES_VIEW_HEIGHT), 0.0);
 }
 
 #pragma mark ProposalDetailTableViewCellDelegate
@@ -128,6 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_titleView) {
         _titleView = [[ProposalDetailTitleView alloc] initWithFrame:CGRectZero];
         _titleView.title = self.viewModel.proposal.title;
+        [_titleView sizeToFit];
     }
     return _titleView;
 }

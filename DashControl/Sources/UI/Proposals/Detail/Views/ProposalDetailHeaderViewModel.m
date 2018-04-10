@@ -29,10 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic) NSString *title;
 @property (copy, nonatomic) NSString *ownerUsername;
 
-@property (copy, nonatomic) NSString *yesVotes;
-@property (copy, nonatomic) NSString *noVotes;
-@property (copy, nonatomic) NSString *abstainVotes;
-
 @property (copy, nonatomic) NSArray<Pair *> *rows;
 
 @end
@@ -50,10 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
     else {
         self.ownerUsername = @"";
     }
-
-    self.yesVotes = [NSString stringWithFormat:@"%d", proposal.yesVotesCount];
-    self.noVotes = [NSString stringWithFormat:@"%d", proposal.noVotesCount];
-    self.abstainVotes = [NSString stringWithFormat:@"%d", proposal.abstainVotesCount];
 
     NSMutableArray<Pair *> *rows = [NSMutableArray array];
 
