@@ -110,6 +110,14 @@ NS_ASSUME_NONNULL_BEGIN
     [self.titleView scrollViewDidScroll:scrollView threshold:VOTES_VIEW_HEIGHT];
 
     self.votesViewTopConstraint.constant = MIN(-(scrollView.contentOffset.y + VOTES_VIEW_HEIGHT), 0.0);
+
+    if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+        for (ProposalDetailTableViewCell *cell in self.tableView.visibleCells) {
+            if ([cell isKindOfClass:ProposalDetailTableViewCell.class]) {
+                [cell performSetNeedLayoutOnWebView];
+            }
+        }
+    }
 }
 
 #pragma mark ProposalDetailTableViewCellDelegate
