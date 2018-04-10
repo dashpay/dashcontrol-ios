@@ -19,6 +19,7 @@
 
 #import <StoreKit/StoreKit.h>
 
+#import "UIColor+DCStyle.h"
 #import "AddItemTableViewCell.h"
 #import "ItemTableViewCell.h"
 #import "MasternodeViewController.h"
@@ -58,12 +59,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation PortfolioViewController
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    self.title = NSLocalizedString(@"Portfolio", nil);
+    self.tabBarItem.title = self.title;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = NSLocalizedString(@"Portfolio", nil);
+    UIImage *emptyImage = [[UIImage alloc] init];
+    self.navigationController.navigationBar.shadowImage = emptyImage;
+    [self.navigationController.navigationBar setBackgroundImage:emptyImage forBarMetrics:UIBarMetricsDefault];
 
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    // blue bg view above the tableView
+    CGRect frame = [UIScreen mainScreen].bounds;
+    frame.origin.y = -frame.size.height;
+    UIView *topBackgroundView = [[UIView alloc] initWithFrame:frame];
+    topBackgroundView.backgroundColor = [UIColor dc_barTintColor];
+    [self.tableView insertSubview:topBackgroundView atIndex:0];
 
     CGSize headerSize = [self.portfolioHeaderView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     self.portfolioHeaderView.frame = CGRectMake(0.0, 0.0, headerSize.width, headerSize.height);

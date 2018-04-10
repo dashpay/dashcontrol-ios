@@ -19,14 +19,14 @@
 
 #import "BaseProposalViewController+Protected.h"
 #import "UIColor+DCStyle.h"
-#import "ProposalsHeaderView.h"
-#import "ProposalsHeaderViewModel.h"
 #import "DCSearchController.h"
 #import "NavigationTitleButton.h"
+#import "ProposalDetailViewController.h"
 #import "ProposalTableViewCell.h"
+#import "ProposalsHeaderView.h"
+#import "ProposalsHeaderViewModel.h"
 #import "ProposalsSearchResultsController.h"
 #import "ProposalsViewModel.h"
-#import "ProposalDetailViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -43,10 +43,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation ProposalsViewController
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    self.title = NSLocalizedString(@"Proposals", nil);
+    self.tabBarItem.title = self.title;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    UIImage *emptyImage = [[UIImage alloc] init];
+    self.navigationController.navigationBar.shadowImage = emptyImage;
+    [self.navigationController.navigationBar setBackgroundImage:emptyImage forBarMetrics:UIBarMetricsDefault];
     self.navigationItem.titleView = self.navigationTitleButton;
 
     // blue bg view above the tableView
@@ -68,15 +77,15 @@ NS_ASSUME_NONNULL_BEGIN
     self.searchController.delegate = self;
     self.searchController.searchResultsUpdater = self;
     self.definesPresentationContext = YES;
-    
+
     // KVO
-    
+
     [self mvvm_observe:@"viewModel.fetchedResultsController" with:^(typeof(self) self, id value) {
         self.viewModel.fetchedResultsController.delegate = self;
         [self.tableView reloadData];
     }];
-    
-    [self mvvm_observe:@"viewModel.searchFetchedResultsController" with:^(typeof(self) self, id value){
+
+    [self mvvm_observe:@"viewModel.searchFetchedResultsController" with:^(typeof(self) self, id value) {
         ProposalsSearchResultsController *searchResultsController = (ProposalsSearchResultsController *)self.searchController.searchResultsController;
         [searchResultsController.tableView reloadData];
         self.viewModel.searchFetchedResultsController.delegate = searchResultsController;
@@ -155,6 +164,8 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_navigationTitleButton) {
         _navigationTitleButton = [[NavigationTitleButton alloc] initWithFrame:CGRectZero];
         _navigationTitleButton.title = NSLocalizedString(@"Proposals", nil);
+        CGSize size = [_navigationTitleButton sizeThatFits:CGSizeZero];
+        _navigationTitleButton.frame = CGRectMake(0.0, 0.0, size.width, size.height);
         [_navigationTitleButton addTarget:self action:@selector(navigationTitleButtonAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _navigationTitleButton;
