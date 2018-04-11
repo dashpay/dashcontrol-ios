@@ -17,7 +17,7 @@
 
 #import "ChartViewDataSource.h"
 
-#import <Charts/Charts.h>
+@import Charts;
 
 #import "DCChartDataEntryEntity+CoreDataClass.h"
 

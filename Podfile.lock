@@ -1,4 +1,7 @@
 PODS:
+  - Charts (3.1.1):
+    - Charts/Core (= 3.1.1)
+  - Charts/Core (3.1.1)
   - DeluxeInjection (0.8.6):
     - RuntimeRoutines (~> 0.3.2)
   - KVO-MVVM (0.5.1)
@@ -11,6 +14,7 @@ PODS:
   - secp256k1_dash (0.1.0)
 
 DEPENDENCIES:
+  - Charts (= 3.1.1)
   - DeluxeInjection (= 0.8.6)
   - KVO-MVVM (= 0.5.1)
   - MBCircularProgressBar (= 0.3.5)
@@ -18,7 +22,19 @@ DEPENDENCIES:
   - SDWebImage (= 4.3.3)
   - secp256k1_dash (= 0.1.0)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Charts
+    - DeluxeInjection
+    - KVO-MVVM
+    - MBCircularProgressBar
+    - MBProgressHUD
+    - RuntimeRoutines
+    - SDWebImage
+    - secp256k1_dash
+
 SPEC CHECKSUMS:
+  Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
   DeluxeInjection: 03964b27f8aa5a787221907e1f82364ef7bafef7
   KVO-MVVM: 4df3afd1f7ebcb69735458b85db59c4271ada7c6
   MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
@@ -27,6 +43,6 @@ SPEC CHECKSUMS:
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
   secp256k1_dash: 16bc4c20423f88dc264db75d5611c9c6a5fd1f77
 
-PODFILE CHECKSUM: 8983b9f3bc4565fd8b568bbebb5b326259d6f297
+PODFILE CHECKSUM: cccf8a2ea6c9d5920cf7f68ac5ee2cdd8a98a6c9
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0

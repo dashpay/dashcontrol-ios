@@ -81,6 +81,7 @@
 		2A587EA7206A88AC004BC537 /* ItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A587EA6206A88AC004BC537 /* ItemTableViewCell.m */; };
 		2A587EA9206A88C3004BC537 /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A587EA8206A88C3004BC537 /* ItemTableViewCell.xib */; };
 		2A587EAD206A8D8E004BC537 /* TableViewFRCDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A587EAC206A8D8E004BC537 /* TableViewFRCDelegate.m */; };
+		2A5BFC83207DCF0E005328B8 /* DummySwiftFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BFC82207DCF0E005328B8 /* DummySwiftFile.swift */; };
 		2A6F59602034259600D7BD85 /* APINews.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F595F2034259600D7BD85 /* APINews.m */; };
 		2A6F5967203566A600D7BD85 /* ForwardingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F5966203566A600D7BD85 /* ForwardingNavigationController.m */; };
 		2A6F599820357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F599720357A0A00D7BD85 /* NewsLoadMoreTableViewCell.m */; };
@@ -103,7 +104,6 @@
 		2A80B58D2039B3050015E1AA /* UIFont+DCStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B58C2039B3050015E1AA /* UIFont+DCStyle.m */; };
 		2A80B58F2039BEFE0015E1AA /* DCSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A80B58E2039BEFE0015E1AA /* DCSearchBar.xib */; };
 		2A80B5922039C0DB0015E1AA /* DCSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B5912039C0DB0015E1AA /* DCSearchBar.m */; };
-		2A8F817A203D413200D3D6C9 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A8F8179203D413100D3D6C9 /* Charts.framework */; };
 		2A8F817E203E723600D3D6C9 /* APIPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8F817D203E723600D3D6C9 /* APIPrice.m */; };
 		2A8F8181203E9D2300D3D6C9 /* NSManagedObject+DCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8F8180203E9D2300D3D6C9 /* NSManagedObject+DCExtensions.m */; };
 		2A8F8184203EB74900D3D6C9 /* DCMarketEntity+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8F8183203EB74900D3D6C9 /* DCMarketEntity+Extensions.m */; };
@@ -114,7 +114,6 @@
 		2AAB8E582057962F007527CF /* TimestampIntervalArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAB8E572057962F007527CF /* TimestampIntervalArray.m */; };
 		2AAB8E5D2058DE0B007527CF /* TimestampIntervalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAB8E5C2058DE0B007527CF /* TimestampIntervalTests.m */; };
 		2AB9AA7620453EF9005979C4 /* Pair.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB9AA7520453EF9005979C4 /* Pair.m */; };
-		2AB9AA7C2045500A005979C4 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A8F8179203D413100D3D6C9 /* Charts.framework */; };
 		2AC693EC2061D63D00F64482 /* APITrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC693EB2061D63D00F64482 /* APITrigger.m */; };
 		2AC693FB2064E74F00F64482 /* PriceViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC693FA2064E74F00F64482 /* PriceViewModel.m */; };
 		2AC693FE2064F0A000F64482 /* PriceTriggerTableViewCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC693FD2064F0A000F64482 /* PriceTriggerTableViewCellModel.m */; };
@@ -375,6 +374,7 @@
 		2A587EAA206A895C004BC537 /* ItemTableViewCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemTableViewCellModel.h; sourceTree = "<group>"; };
 		2A587EAB206A8D8E004BC537 /* TableViewFRCDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewFRCDelegate.h; sourceTree = "<group>"; };
 		2A587EAC206A8D8E004BC537 /* TableViewFRCDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewFRCDelegate.m; sourceTree = "<group>"; };
+		2A5BFC82207DCF0E005328B8 /* DummySwiftFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummySwiftFile.swift; sourceTree = "<group>"; };
 		2A6F595E2034259600D7BD85 /* APINews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APINews.h; sourceTree = "<group>"; };
 		2A6F595F2034259600D7BD85 /* APINews.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APINews.m; sourceTree = "<group>"; };
 		2A6F5965203566A600D7BD85 /* ForwardingNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForwardingNavigationController.h; sourceTree = "<group>"; };
@@ -414,7 +414,6 @@
 		2A80B58E2039BEFE0015E1AA /* DCSearchBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DCSearchBar.xib; sourceTree = "<group>"; };
 		2A80B5902039C0DB0015E1AA /* DCSearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSearchBar.h; sourceTree = "<group>"; };
 		2A80B5912039C0DB0015E1AA /* DCSearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSearchBar.m; sourceTree = "<group>"; };
-		2A8F8179203D413100D3D6C9 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/iOS/Charts.framework; sourceTree = "<group>"; };
 		2A8F817C203E723600D3D6C9 /* APIPrice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIPrice.h; sourceTree = "<group>"; };
 		2A8F817D203E723600D3D6C9 /* APIPrice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIPrice.m; sourceTree = "<group>"; };
 		2A8F817F203E9D2300D3D6C9 /* NSManagedObject+DCExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+DCExtensions.h"; sourceTree = "<group>"; };
@@ -651,7 +650,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C181139305CB17017B6C991 /* libPods-DashControlTests.a in Frameworks */,
-				2AB9AA7C2045500A005979C4 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -659,7 +657,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A8F817A203D413200D3D6C9 /* Charts.framework in Frameworks */,
 				FBEF66FB1F83DCED003424D2 /* Security.framework in Frameworks */,
 				24B0004D1F580FF5007D24A1 /* MobileCoreServices.framework in Frameworks */,
 				24B0004B1F580FEB007D24A1 /* CoreSpotlight.framework in Frameworks */,
@@ -1210,7 +1207,6 @@
 		F8F9FBF8277751CF40134EEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2A8F8179203D413100D3D6C9 /* Charts.framework */,
 				FB4310FE1FA2B8BC00784EBC /* LocalAuthentication.framework */,
 				FBEF66FA1F83DCED003424D2 /* Security.framework */,
 				24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */,
@@ -1308,6 +1304,7 @@
 		FB84EDC01F32898700E4D400 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2A5BFC82207DCF0E005328B8 /* DummySwiftFile.swift */,
 				24E584151F3ADCEF00A12087 /* DashControl-PrefixHeader.pch */,
 				2442A01B1F4D6CDC006FAC0D /* DashControl.entitlements */,
 				FB300E381FB55B7F00B3CDE0 /* Images.xcassets */,
@@ -1466,7 +1463,6 @@
 				FB1F8AA01FBCAACA00175311 /* Frameworks */,
 				FB1F8AA11FBCAACA00175311 /* Resources */,
 				2AB9AA7B20454F85005979C4 /* [Carthage] Run Script Copy Frameworks */,
-				879583387DA55FB44D5ED6F3 /* [CP] Embed Pods Frameworks */,
 				9EDCE32632289D723EF39407 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -1487,8 +1483,6 @@
 				FB84EDB91F32898700E4D400 /* Sources */,
 				FB84EDBA1F32898700E4D400 /* Frameworks */,
 				FB84EDBB1F32898700E4D400 /* Resources */,
-				2A8F817B203D418500D3D6C9 /* [Carthage] Run Script Copy Frameworks */,
-				779A0EF1233194D4FD01D2DF /* [CP] Embed Pods Frameworks */,
 				75B0D16B75B1B72896B89E51 /* [CP] Copy Pods Resources */,
 				FBEBE53A1F5776400056D921 /* Embed Frameworks */,
 				FB43110A1FA2D12300784EBC /* [User] Run Script BartyCrouch */,
@@ -1520,7 +1514,7 @@
 					FB84EDBC1F32898700E4D400 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 44RJ69WHFF;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0930;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -1632,22 +1626,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2A8F817B203D418500D3D6C9 /* [Carthage] Run Script Copy Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Charts.framework",
-			);
-			name = "[Carthage] Run Script Copy Frameworks";
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Charts.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
 		2AB9AA7B20454F85005979C4 /* [Carthage] Run Script Copy Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1680,49 +1658,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DashControl/Pods-DashControl-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		779A0EF1233194D4FD01D2DF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DashControl/Pods-DashControl-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
-				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
-				"${BUILT_PRODUCTS_DIR}/MBCircularProgressBar/MBCircularProgressBar.framework",
-				"${BUILT_PRODUCTS_DIR}/RaptureXML/RaptureXML.framework",
-				"${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBCircularProgressBar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RaptureXML.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DashControl/Pods-DashControl-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		879583387DA55FB44D5ED6F3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9EDCE32632289D723EF39407 /* [CP] Copy Pods Resources */ = {
@@ -1920,6 +1855,7 @@
 				2A3F49CA204C8244005EB5D9 /* ProposalsViewController.m in Sources */,
 				2A289A4D203AB00700EDC98E /* DCSearchController.m in Sources */,
 				2AEF297320734F30008590E4 /* ButtonFormCellModel.m in Sources */,
+				2A5BFC83207DCF0E005328B8 /* DummySwiftFile.swift in Sources */,
 				2A587EA7206A88AC004BC537 /* ItemTableViewCell.m in Sources */,
 				2A04E6E6202DA5E20065F30D /* NetworkActivityIndicatorManager.m in Sources */,
 				FB17AEE51FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m in Sources */,
@@ -2007,6 +1943,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 558B8AE6721A9375C76DBBD3 /* Pods-DashControlTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
@@ -2040,6 +1977,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 403ADE725BE30A95BD44A394 /* Pods-DashControlTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
@@ -2185,18 +2123,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6385EAF7B5AD9CDA2429BFAE /* Pods-DashControl.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = "DashControl/Supporting Files/DashControl.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 44RJ69WHFF;
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DashControl/Supporting Files/DashControl-PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
@@ -2221,7 +2155,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.1;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2230,18 +2164,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = "DashControl/Supporting Files/DashControl.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 44RJ69WHFF;
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DashControl/Supporting Files/DashControl-PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
@@ -2263,7 +2193,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.dash.Control;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.1;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Charts/Charts.h>
+
+@import Charts;
 
 typedef NS_ENUM(NSInteger, ChartTimeInterval) {
     ChartTimeInterval_5Mins = 0,
