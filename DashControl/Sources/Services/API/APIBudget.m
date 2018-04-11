@@ -33,6 +33,25 @@ static NSString *const API_BASE_URL = @"https://www.dashcentral.org/api/v1";
 static NSString *const MASTERNODES_COUNT_KEY = @"MasternodesCount";
 static NSInteger const LAST_MASTERNODES_COUNT = 4756; // fallback
 
+/**
+ @discussion https://medium.com/hacking-and-gonzo/how-reddit-ranking-algorithms-work-ef111e33d0d9
+ */
+static int32_t RedditHotRanking(NSDate *date, int32_t upVotes, int32_t downVotes) {
+    // 1390003200 == January 18, 2014, Dash release date
+    NSTimeInterval seconds = [date timeIntervalSince1970] - 1390003200;
+    int32_t score = upVotes - downVotes;
+    double order = log10(MAX(ABS(score), 1.0));
+    int8_t sign = 0;
+    if (score > 0) {
+        sign = 1;
+    }
+    else if (score < 0) {
+        sign = -1;
+    }
+    int32_t sortOrder = round(sign * order + seconds / 45000.0);
+    return sortOrder;
+}
+
 @interface APIBudget ()
 
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
@@ -199,10 +218,7 @@ static NSInteger const LAST_MASTERNODES_COUNT = 4756; // fallback
     proposal.abstainVotesCount = [proposalDictionary[@"abstain"] intValue];
     proposal.commentsCount = [proposalDictionary[@"comment_amount"] intValue];
     proposal.ownerUsername = proposalDictionary[@"owner_username"];
-    id orderValue = proposalDictionary[@"order"];
-    if (orderValue && orderValue != [NSNull null]) {
-        proposal.sortOrder = [orderValue intValue];
-    }
+    proposal.sortOrder = RedditHotRanking(proposal.dateAdded, proposal.yesVotesCount, proposal.noVotesCount);
     id descriptionHTML = proposalDictionary[@"description_base64_html"];
     if (descriptionHTML) {
         proposal.descriptionHTML = descriptionHTML;
