@@ -15,15 +15,27 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import "ProposalDetailVotesViewModel.h"
+
+#import "DCBudgetProposalEntity+CoreDataClass.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCBudgetProposalEntity;
+@interface ProposalDetailVotesViewModel ()
 
-@interface ProposalDetailViewController : UIViewController
+@property (copy, nonatomic) NSString *yesVotes;
+@property (copy, nonatomic) NSString *noVotes;
+@property (copy, nonatomic) NSString *abstainVotes;
 
-+ (instancetype)controllerWithProposal:(DCBudgetProposalEntity *)proposal;
+@end
+
+@implementation ProposalDetailVotesViewModel
+
+- (void)updateWithProposal:(DCBudgetProposalEntity *)proposal {
+    self.yesVotes = [NSString stringWithFormat:@"%d", proposal.yesVotesCount];
+    self.noVotes = [NSString stringWithFormat:@"%d", proposal.noVotesCount];
+    self.abstainVotes = [NSString stringWithFormat:@"%d", proposal.abstainVotesCount];
+}
 
 @end
 

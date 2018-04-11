@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView threshold:(CGFloat)threshold {
-    self.contentOffset = scrollView.contentOffset.y - threshold;
+    self.contentOffset = scrollView.contentOffset.y + scrollView.contentInset.top - threshold;
 }
 
 #pragma mark Private
@@ -78,6 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
     CGRect frame = self.titleLabel.frame;
     frame.origin.y = [self titleVerticalPositionAdjustedBy:_contentOffset];
     self.titleLabel.frame = frame;
+    self.titleLabel.hidden = (frame.origin.y > self.bounds.size.height);
 }
 
 - (CGFloat)titleVerticalPositionAdjustedBy:(CGFloat)offset {

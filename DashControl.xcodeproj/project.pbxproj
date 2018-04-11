@@ -95,6 +95,8 @@
 		2A6FBEEB207B28880055BAC8 /* PortfolioHeaderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEEA207B28880055BAC8 /* PortfolioHeaderViewModel.m */; };
 		2A6FBEF3207C087A0055BAC8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6FBEF2207C087A0055BAC8 /* Launch Screen.storyboard */; };
 		2A6FBEF5207C0CFF0055BAC8 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6FBEF4207C0CFF0055BAC8 /* News.storyboard */; };
+		2A6FBEFA207C97510055BAC8 /* ProposalDetailVotesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEF9207C97510055BAC8 /* ProposalDetailVotesView.m */; };
+		2A6FBEFD207C98410055BAC8 /* ProposalDetailVotesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEFC207C98410055BAC8 /* ProposalDetailVotesViewModel.m */; };
 		2A80B584203699E70015E1AA /* DCPersistenceStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B583203699E70015E1AA /* DCPersistenceStack.m */; };
 		2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B58620369E7F0015E1AA /* NSData+Hash.m */; };
 		2A80B58A2036A8F40015E1AA /* DCLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B5892036A8F40015E1AA /* DCLogging.m */; };
@@ -211,13 +213,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = FB84EDBC1F32898700E4D400;
 			remoteInfo = DashControl;
-		};
-		FB9CC26D1F88A89F0079309F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FB84EDB51F32898700E4D400 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FB9CC2691F88A8460079309F;
-			remoteInfo = submodules;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -404,6 +399,10 @@
 		2A6FBEEA207B28880055BAC8 /* PortfolioHeaderViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PortfolioHeaderViewModel.m; sourceTree = "<group>"; };
 		2A6FBEF2207C087A0055BAC8 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		2A6FBEF4207C0CFF0055BAC8 /* News.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
+		2A6FBEF8207C97510055BAC8 /* ProposalDetailVotesView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalDetailVotesView.h; sourceTree = "<group>"; };
+		2A6FBEF9207C97510055BAC8 /* ProposalDetailVotesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailVotesView.m; sourceTree = "<group>"; };
+		2A6FBEFB207C98410055BAC8 /* ProposalDetailVotesViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalDetailVotesViewModel.h; sourceTree = "<group>"; };
+		2A6FBEFC207C98410055BAC8 /* ProposalDetailVotesViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailVotesViewModel.m; sourceTree = "<group>"; };
 		2A80B582203699E70015E1AA /* DCPersistenceStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCPersistenceStack.h; sourceTree = "<group>"; };
 		2A80B583203699E70015E1AA /* DCPersistenceStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCPersistenceStack.m; sourceTree = "<group>"; };
 		2A80B58520369E7F0015E1AA /* NSData+Hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Hash.h"; sourceTree = "<group>"; };
@@ -911,6 +910,10 @@
 				2A32D636205471BE004B38A6 /* ProposalDetailTableViewCellModel.m */,
 				2A32D63E20558BB7004B38A6 /* ProposalDetailTitleView.h */,
 				2A32D63F20558BB7004B38A6 /* ProposalDetailTitleView.m */,
+				2A6FBEF8207C97510055BAC8 /* ProposalDetailVotesView.h */,
+				2A6FBEF9207C97510055BAC8 /* ProposalDetailVotesView.m */,
+				2A6FBEFB207C98410055BAC8 /* ProposalDetailVotesViewModel.h */,
+				2A6FBEFC207C98410055BAC8 /* ProposalDetailVotesViewModel.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1453,23 +1456,6 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXLegacyTarget section */
-		FB9CC2691F88A8460079309F /* submodules */ = {
-			isa = PBXLegacyTarget;
-			buildArgumentsString = "-c 'git submodule init && git submodule update'";
-			buildConfigurationList = FB9CC26A1F88A8460079309F /* Build configuration list for PBXLegacyTarget "submodules" */;
-			buildPhases = (
-			);
-			buildToolPath = /bin/sh;
-			buildWorkingDirectory = "";
-			dependencies = (
-			);
-			name = submodules;
-			passBuildSettingsInEnvironment = 1;
-			productName = submodules;
-		};
-/* End PBXLegacyTarget section */
-
 /* Begin PBXNativeTarget section */
 		FB1F8AA21FBCAACA00175311 /* DashControlTests */ = {
 			isa = PBXNativeTarget;
@@ -1510,7 +1496,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				FB9CC26E1F88A89F0079309F /* PBXTargetDependency */,
 			);
 			name = DashControl;
 			productName = DashControl;
@@ -1542,11 +1527,6 @@
 								enabled = 1;
 							};
 						};
-					};
-					FB9CC2691F88A8460079309F = {
-						CreatedOnToolsVersion = 9.0;
-						DevelopmentTeam = 44RJ69WHFF;
-						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1583,7 +1563,6 @@
 			projectRoot = "";
 			targets = (
 				FB84EDBC1F32898700E4D400 /* DashControl */,
-				FB9CC2691F88A8460079309F /* submodules */,
 				FB1F8AA21FBCAACA00175311 /* DashControlTests */,
 			);
 		};
@@ -1922,6 +1901,7 @@
 				2A04E6E5202DA5E20065F30D /* HTTPURLRequestBuilder.m in Sources */,
 				2A4FE281203AE489007FD160 /* UIColor+DCStyle.m in Sources */,
 				2A587EAD206A8D8E004BC537 /* TableViewFRCDelegate.m in Sources */,
+				2A6FBEFA207C97510055BAC8 /* ProposalDetailVotesView.m in Sources */,
 				2A289A55203AC10E00EDC98E /* NewsSearchResultsController.m in Sources */,
 				FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */,
 				2A4473AE2042E8DA00B52BCB /* DCSegmentedControl.m in Sources */,
@@ -1944,6 +1924,7 @@
 				2A04E6E6202DA5E20065F30D /* NetworkActivityIndicatorManager.m in Sources */,
 				FB17AEE51FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m in Sources */,
 				2AEF29682072D227008590E4 /* DecimalTextFieldFormCellModel.m in Sources */,
+				2A6FBEFD207C98410055BAC8 /* ProposalDetailVotesViewModel.m in Sources */,
 				FBE1F5091F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m in Sources */,
 				2A6FBEEB207B28880055BAC8 /* PortfolioHeaderViewModel.m in Sources */,
 				2A8F8184203EB74900D3D6C9 /* DCMarketEntity+Extensions.m in Sources */,
@@ -1976,11 +1957,6 @@
 			isa = PBXTargetDependency;
 			target = FB84EDBC1F32898700E4D400 /* DashControl */;
 			targetProxy = FB1F8AA81FBCAACA00175311 /* PBXContainerItemProxy */;
-		};
-		FB9CC26E1F88A89F0079309F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FB9CC2691F88A8460079309F /* submodules */;
-			targetProxy = FB9CC26D1F88A89F0079309F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2104,6 +2080,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_UNDEFINED_BEHAVIOR_SANITIZER_NULLABILITY = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = NO;
@@ -2162,6 +2139,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_UNDEFINED_BEHAVIOR_SANITIZER_NULLABILITY = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = NO;
@@ -2290,51 +2268,6 @@
 			};
 			name = Release;
 		};
-		FB9CC26B1F88A8460079309F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				DEBUGGING_SYMBOLS = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 44RJ69WHFF;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		FB9CC26C1F88A8460079309F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 44RJ69WHFF;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2361,15 +2294,6 @@
 			buildConfigurations = (
 				FB84EDD81F32898700E4D400 /* Debug */,
 				FB84EDD91F32898700E4D400 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FB9CC26A1F88A8460079309F /* Build configuration list for PBXLegacyTarget "submodules" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FB9CC26B1F88A8460079309F /* Debug */,
-				FB9CC26C1F88A8460079309F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

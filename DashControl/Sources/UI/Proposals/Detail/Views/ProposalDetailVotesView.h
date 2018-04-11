@@ -15,15 +15,15 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import <KVO-MVVM/KVOUIView.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCBudgetProposalEntity;
+@class ProposalDetailVotesViewModel;
 
-@interface ProposalDetailViewController : UIViewController
+@interface ProposalDetailVotesView : KVOUIView
 
-+ (instancetype)controllerWithProposal:(DCBudgetProposalEntity *)proposal;
+@property (strong, nonatomic) ProposalDetailVotesViewModel *viewModel;
 
 @end
 

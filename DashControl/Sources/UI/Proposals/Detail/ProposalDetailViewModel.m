@@ -23,6 +23,7 @@
 #import "HTTPLoaderOperationProtocol.h"
 #import "ProposalDetailHeaderViewModel.h"
 #import "ProposalDetailTableViewCellModel.h"
+#import "ProposalDetailVotesViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,6 +41,9 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super init];
     if (self) {
         _proposal = proposal;
+
+        _votesViewModel = [[ProposalDetailVotesViewModel alloc] init];
+        [_votesViewModel updateWithProposal:_proposal];
 
         _headerViewModel = [[ProposalDetailHeaderViewModel alloc] init];
         [_headerViewModel updateWithProposal:_proposal];
@@ -66,6 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
         DCBudgetProposalEntity *proposal = [DCBudgetProposalEntity dc_objectWithPredicate:predicate inContext:viewContext];
         self.proposal = proposal;
 
+        [self.votesViewModel updateWithProposal:self.proposal];
         [self.headerViewModel updateWithProposal:self.proposal];
         [self.cellViewModel updateWithProposal:self.proposal];
 

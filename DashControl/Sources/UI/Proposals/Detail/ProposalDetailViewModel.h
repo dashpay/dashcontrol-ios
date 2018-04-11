@@ -25,12 +25,14 @@ NS_ASSUME_NONNULL_BEGIN
 @class APIBudget;
 @class ProposalDetailHeaderViewModel;
 @class ProposalDetailTableViewCellModel;
+@class ProposalDetailVotesViewModel;
 
 @interface ProposalDetailViewModel : NSObject
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 @property (strong, nonatomic) InjectedClass(APIBudget) api;
 
+@property (readonly, strong, nonatomic) ProposalDetailVotesViewModel *votesViewModel;
 @property (readonly, strong, nonatomic) ProposalDetailHeaderViewModel *headerViewModel;
 @property (readonly, strong, nonatomic) ProposalDetailTableViewCellModel *cellViewModel;
 @property (readonly, strong, nonatomic) DCBudgetProposalEntity *proposal;

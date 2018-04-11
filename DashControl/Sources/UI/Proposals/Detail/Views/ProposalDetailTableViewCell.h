@@ -35,6 +35,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) id<ProposalDetailTableViewCellDelegate> delegate;
 @property (nullable, strong, nonatomic) ProposalDetailTableViewCellModel *viewModel;
 
+/**
+ Workaround for iOS 10
+ @discussion https://stackoverflow.com/questions/39549103/wkwebview-not-rendering-correctly-in-ios-10
+ */
+- (void)performSetNeedLayoutOnWebView;
+
 @end
 
 NS_ASSUME_NONNULL_END

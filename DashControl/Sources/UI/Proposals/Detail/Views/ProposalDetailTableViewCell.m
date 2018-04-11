@@ -71,6 +71,10 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+- (void)performSetNeedLayoutOnWebView {
+    [self.webView setNeedsLayout];
+}
+
 #pragma mark WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {

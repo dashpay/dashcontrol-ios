@@ -29,10 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy, nonatomic) NSString *title;
 @property (readonly, copy, nonatomic) NSString *ownerUsername;
 
-@property (readonly, copy, nonatomic) NSString *yesVotes;
-@property (readonly, copy, nonatomic) NSString *noVotes;
-@property (readonly, copy, nonatomic) NSString *abstainVotes;
-
 @property (readonly, copy, nonatomic) NSArray<Pair<NSString *> *> *rows;
 
 - (void)updateWithProposal:(DCBudgetProposalEntity *)proposal;
