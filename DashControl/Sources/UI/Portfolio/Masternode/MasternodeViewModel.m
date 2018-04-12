@@ -37,7 +37,6 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
 
 @property (nullable, strong, nonatomic) DCMasternodeEntity *masternode;
 @property (strong, nonatomic) AddressTextFieldFormCellModel *addressDetail;
-@property (strong, nonatomic) SwitcherFormCellModel *notificationDetail;
 
 @end
 
@@ -56,11 +55,6 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
             _addressDetail.text = _masternode.address;
             _addressDetail.returnKeyType = UIReturnKeyDone;
             [items addObject:_addressDetail];
-        }
-        {
-            _notificationDetail = [[SwitcherFormCellModel alloc] initWithTitle:NSLocalizedString(@"Payment Notification", nil)];
-            _notificationDetail.tag = MasternodeType_PaymentNotification;
-            [items addObject:_notificationDetail];
         }
         {
             NSString *title = _masternode ? NSLocalizedString(@"SAVE", nil) : NSLocalizedString(@"ADD", nil);
