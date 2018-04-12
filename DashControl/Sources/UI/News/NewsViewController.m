@@ -219,7 +219,14 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     if (!url) {
         return;
     }
-    SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
+    SFSafariViewController *safariViewController = nil;
+    if (@available(iOS 11.0, *)) {
+        SFSafariViewControllerConfiguration *configuration = [[SFSafariViewControllerConfiguration alloc] init];
+        configuration.entersReaderIfAvailable = YES;
+        safariViewController = [[SFSafariViewController alloc] initWithURL:url configuration:configuration];
+    } else {
+        safariViewController = [[SFSafariViewController alloc] initWithURL:url];
+    }
     safariViewController.preferredBarTintColor = [UIColor dc_barTintColor];
     safariViewController.preferredControlTintColor = [UIColor whiteColor];
     [self showDetailViewController:safariViewController sender:self];
