@@ -80,6 +80,9 @@
 /* As in 'By Username' */
 "By" = "By";
 
+/* No comment provided by engineer. */
+"Can't check the address contains 1000 Dash" = "Can't check the address contains 1000 Dash";
+
 /* Cancel button */
 "Cancel" = "Cancel";
 
@@ -100,6 +103,9 @@
 
 /* No comment provided by engineer. */
 "DASH per month" = "DASH per month";
+
+/* No comment provided by engineer. */
+"Error" = "Error";
 
 /* No comment provided by engineer. */
 "Exchange" = "Exchange";
@@ -145,6 +151,9 @@
 
 /* No comment provided by engineer. */
 "not a DASH QR code" = "not a DASH QR code";
+
+/* No comment provided by engineer. */
+"Not a valid masternode address. This address does not contain the required 1000 Dash" = "Not a valid masternode address. This address does not contain the required 1000 Dash";
 
 /* ok */
 "ok" = "ok";

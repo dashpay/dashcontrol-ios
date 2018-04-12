@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MasternodeViewController () <FormTableViewControllerDelegate, QRScannerViewControllerDelegate>
 
+@property (strong, nonatomic) FormTableViewController *formController;
 @property (strong, nonatomic) MasternodeViewModel *viewModel;
 
 @end
@@ -61,6 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
     formController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:formController.view];
     [formController didMoveToParentViewController:self];
+    self.formController = formController;
 
     if (self.viewModel.deleteAvailable) {
         UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
@@ -94,10 +96,32 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)formTableViewControllerDone:(FormTableViewController *)controller {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     weakify;
-    [self.viewModel saveCurrentWithCompletion:^{
+
+    [self.viewModel checkBalanceAtAddressCompletion:^(NSString *_Nullable errorMessage, NSInteger indexOfInvalidDetail) {
         strongify;
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self.navigationController popViewControllerAnimated:YES];
+        if (errorMessage) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil)
+                                                                                     message:errorMessage
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ok", @"ok")
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:nil]];
+            [self presentViewController:alertController animated:YES completion:nil];
+
+            if (indexOfInvalidDetail != NSNotFound) {
+                [self.formController displayErrorStateForCellAtIndex:indexOfInvalidDetail];
+            }
+            
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        }
+        else {
+            weakify;
+            [self.viewModel saveCurrentWithCompletion:^{
+                strongify;
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+        }
     }];
 }
 

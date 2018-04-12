@@ -20,6 +20,7 @@
 #import "DCMasternodeEntity+CoreDataClass.h"
 #import "NSManagedObjectContext+DCExtensions.h"
 #import "NSString+Dash.h"
+#import "APIPortfolio.h"
 #import "AddressTextFieldFormCellModel.h"
 #import "ButtonFormCellModel.h"
 #import "DCPersistenceStack.h"
@@ -109,6 +110,26 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
     }
 
     return NSNotFound;
+}
+
+- (void)checkBalanceAtAddressCompletion:(void (^)(NSString *_Nullable errorMessage, NSInteger indexOfInvalidDetail))completion {
+    weakify;
+    [self.apiPortfolio balanceSumInAddresses:@[ self.addressDetail.text ] completion:^(NSNumber *_Nullable balance) {
+        strongify;
+
+        if (completion) {
+            if (!balance) {
+                completion(NSLocalizedString(@"Can't check the address contains 1000 Dash", nil), NSNotFound);
+            }
+            else if (balance.unsignedLongLongValue < 100000000000) {
+                NSInteger index = [self.items indexOfObject:self.addressDetail];
+                completion(NSLocalizedString(@"Not a valid masternode address. This address does not contain the required 1000 Dash", nil), index);
+            }
+            else {
+                completion(nil, NSNotFound);
+            }
+        }
+    }];
 }
 
 - (void)saveCurrentWithCompletion:(void (^)(void))completion {

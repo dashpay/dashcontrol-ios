@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
                                    availableValuesForCellModel:(SelectorFormCellModel *)cellModel;
 - (void)formTableViewController:(FormTableViewController *)controller
                     selectValue:(id<NamedObject>)value
-                      forCellModel:(SelectorFormCellModel *)cellModel;
+                   forCellModel:(SelectorFormCellModel *)cellModel;
 
 - (NSInteger)formTableViewControllerIndexOfInvalidDetail:(FormTableViewController *)controller;
 - (void)formTableViewControllerDone:(FormTableViewController *)controller;
@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, strong, nonatomic) NSArray<BaseFormCellModel *> *items;
 @property (nullable, weak, nonatomic) id<FormTableViewControllerDelegate> delegate;
+
+- (void)displayErrorStateForCellAtIndex:(NSInteger)index;
 
 @end
 
