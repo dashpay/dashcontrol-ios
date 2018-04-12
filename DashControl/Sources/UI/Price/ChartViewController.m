@@ -17,7 +17,7 @@
 
 #import "ChartViewController.h"
 
-#import <Charts/Charts.h>
+@import Charts;
 
 #import "DCExchangeEntity+CoreDataClass.h"
 #import "DCMarketEntity+CoreDataClass.h"
