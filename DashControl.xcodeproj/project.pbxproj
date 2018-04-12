@@ -30,6 +30,7 @@
 		2A04E6E8202DA5E20065F30D /* HTTPService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6D8202DA5E20065F30D /* HTTPService.m */; };
 		2A04E6E9202DA5E20065F30D /* Injections.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6DA202DA5E20065F30D /* Injections.m */; };
 		2A04E6ED202DAB340065F30D /* RunOnMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6EB202DAB340065F30D /* RunOnMain.m */; };
+		2A08CF57207F0FAE002C1192 /* NSURLRequest+DCcURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A08CF56207F0FAE002C1192 /* NSURLRequest+DCcURL.m */; };
 		2A289A4D203AB00700EDC98E /* DCSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A289A4C203AB00700EDC98E /* DCSearchController.m */; };
 		2A289A50203AB44400EDC98E /* BaseNewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A289A4F203AB44400EDC98E /* BaseNewsTableViewController.m */; };
 		2A289A52203AB6D700EDC98E /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A289A51203AB6D700EDC98E /* NewsTableViewCell.xib */; };
@@ -280,6 +281,8 @@
 		2A04E6DA202DA5E20065F30D /* Injections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Injections.m; sourceTree = "<group>"; };
 		2A04E6EB202DAB340065F30D /* RunOnMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunOnMain.m; sourceTree = "<group>"; };
 		2A04E6EC202DAB340065F30D /* RunOnMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunOnMain.h; sourceTree = "<group>"; };
+		2A08CF55207F0FAE002C1192 /* NSURLRequest+DCcURL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+DCcURL.h"; sourceTree = "<group>"; };
+		2A08CF56207F0FAE002C1192 /* NSURLRequest+DCcURL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+DCcURL.m"; sourceTree = "<group>"; };
 		2A289A4B203AB00700EDC98E /* DCSearchController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSearchController.h; sourceTree = "<group>"; };
 		2A289A4C203AB00700EDC98E /* DCSearchController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSearchController.m; sourceTree = "<group>"; };
 		2A289A4E203AB44400EDC98E /* BaseNewsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseNewsTableViewController.h; sourceTree = "<group>"; };
@@ -864,6 +867,8 @@
 			children = (
 				2A04E6D4202DA5E20065F30D /* NetworkActivityIndicatorManager.h */,
 				2A04E6D3202DA5E20065F30D /* NetworkActivityIndicatorManager.m */,
+				2A08CF55207F0FAE002C1192 /* NSURLRequest+DCcURL.h */,
+				2A08CF56207F0FAE002C1192 /* NSURLRequest+DCcURL.m */,
 			);
 			path = Additional;
 			sourceTree = "<group>";
@@ -1830,6 +1835,7 @@
 				2A80B5922039C0DB0015E1AA /* DCSearchBar.m in Sources */,
 				2A8F817E203E723600D3D6C9 /* APIPrice.m in Sources */,
 				2AEF29622072CD25008590E4 /* BaseFormCellModel.m in Sources */,
+				2A08CF57207F0FAE002C1192 /* NSURLRequest+DCcURL.m in Sources */,
 				FB9CC1AB1F87D4A60079309F /* BRKey.m in Sources */,
 				2AEF29E7207421E5008590E4 /* QRScannerViewController.m in Sources */,
 				2A3F49A92049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.m in Sources */,

@@ -23,12 +23,12 @@
 
 #import "HTTPService.h"
 
-#import "HTTPCancellationToken.h"
-#import "HTTPRateLimiterMap.h"
-
 #import "HTTPLoaderFactory+Private.h"
 #import "HTTPRequest+Private.h"
 #import "HTTPResponse+Private.h"
+#import "NSURLRequest+DCcURL.h"
+#import "HTTPCancellationToken.h"
+#import "HTTPRateLimiterMap.h"
 #import "HTTPRequestOperation.h"
 #import "HTTPRequestOperationHandler.h"
 
@@ -146,12 +146,13 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSURLSessionAuthChallengeDisposition disposition = NSURLSessionAuthChallengePerformDefaultHandling;
     NSURLCredential *credential = nil;
-    
+
     if (self.areAllCertificatesAllowed) {
         SecTrustRef trust = challenge.protectionSpace.serverTrust;
         disposition = NSURLSessionAuthChallengeUseCredential;
         credential = [NSURLCredential credentialForTrust:trust];
-    } else {
+    }
+    else {
         // No-op
         // Use default handing
     }
@@ -211,6 +212,9 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     NSURLRequest *urlRequest = request.urlRequest;
+#ifdef DEBUG
+    __unused NSString *cURLSting = [urlRequest dc_cURL];
+#endif
     HTTPRateLimiter *rateLimiter = [self.rateLimiterMap rateLimiterForURL:request.URL];
     NSURLSessionTask *task = [self.session dataTaskWithRequest:urlRequest];
     HTTPRequestOperation *operation = [[HTTPRequestOperation alloc] initWithTask:task
