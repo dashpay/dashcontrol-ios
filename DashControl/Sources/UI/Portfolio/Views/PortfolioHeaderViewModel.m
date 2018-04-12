@@ -55,6 +55,8 @@ static int64_t const DUFFS = 100000000;
 
         _usdNumberFormatter = [[NSNumberFormatter alloc] init];
         _usdNumberFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
+        _usdNumberFormatter.maximumFractionDigits = 2;
+        _usdNumberFormatter.minimumFractionDigits = 0;
         _usdNumberFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
     }
     return self;
