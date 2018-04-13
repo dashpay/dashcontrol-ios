@@ -197,7 +197,7 @@
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="wLm-RR-rt0">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <connections>
                             <action selector="refreshControlAction:" destination="C7f-Fe-Oet" eventType="valueChanged" id="3yO-Ho-MGZ"/>
                         </connections>
@@ -213,6 +213,6 @@
     </scenes>
     <resources>
         <image name="searchBarButton" width="16" height="18"/>
-        <image name="tabBarNews" width="31" height="31"/>
+        <image name="tabBarNews" width="23" height="23"/>
     </resources>
 </document>

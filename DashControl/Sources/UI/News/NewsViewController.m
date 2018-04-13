@@ -168,6 +168,44 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     }
 }
 
+#pragma mark UITableViewDelegate
+
+#define TABLEVIEW_TOPBOTTOM_PADDING 6.0
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (tableView == self.tableView) {
+        return CGFLOAT_MIN;
+    }
+    
+    if (section == 0) {
+        return TABLEVIEW_TOPBOTTOM_PADDING;
+    }
+    else {
+        return CGFLOAT_MIN;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return TABLEVIEW_TOPBOTTOM_PADDING;
+}
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (tableView == self.tableView) {
+        return nil;
+    }
+    
+    if (section == 0) {
+        return [[UIView alloc] initWithFrame:CGRectZero];
+    }
+    else {
+        return nil;
+    }
+}
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return [[UIView alloc] initWithFrame:CGRectZero];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
@@ -181,7 +219,14 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     if (!url) {
         return;
     }
-    SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:url];
+    SFSafariViewController *safariViewController = nil;
+    if (@available(iOS 11.0, *)) {
+        SFSafariViewControllerConfiguration *configuration = [[SFSafariViewControllerConfiguration alloc] init];
+        configuration.entersReaderIfAvailable = YES;
+        safariViewController = [[SFSafariViewController alloc] initWithURL:url configuration:configuration];
+    } else {
+        safariViewController = [[SFSafariViewController alloc] initWithURL:url];
+    }
     safariViewController.preferredBarTintColor = [UIColor dc_barTintColor];
     safariViewController.preferredControlTintColor = [UIColor whiteColor];
     [self showDetailViewController:safariViewController sender:self];

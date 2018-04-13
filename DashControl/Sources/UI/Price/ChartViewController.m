@@ -29,7 +29,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ChartViewController () <ChartViewDelegate>
+@interface ChartViewController () <ChartViewDelegate, IChartAxisValueFormatter>
 
 @property (weak, nonatomic) IBOutlet CombinedChartView *chartView;
 @property (weak, nonatomic) IBOutlet DCSegmentedControl *timeFrameSegmentedControl;
@@ -121,6 +121,12 @@ NS_ASSUME_NONNULL_BEGIN
             ChartYAxis *leftAxis = self.chartView.leftAxis;
             leftAxis.axisMinimum = value.leftAxisMinimum;
             leftAxis.axisMaximum = value.leftAxisMaximum;
+            
+            ChartXAxis *xAxis = self.chartView.xAxis;
+            id<IChartDataSet> dataSet = value.chartData.candleData.dataSets.firstObject;
+            const NSInteger numberOfAxisLabels = 6;
+            NSInteger granularity = dataSet.entryCount / numberOfAxisLabels;
+            xAxis.granularity = granularity;
         }
         [self.chartView fitScreen];
     }];
@@ -207,9 +213,39 @@ NS_ASSUME_NONNULL_BEGIN
     ChartXAxis *xAxis = self.chartView.xAxis;
     xAxis.drawGridLinesEnabled = NO;
     xAxis.labelTextColor = [UIColor colorWithWhite:1.0 alpha:0.6];
+    xAxis.labelFont = [UIFont systemFontOfSize:9.0];
     xAxis.axisMinimum = 0.0;
     xAxis.labelPosition = XAxisLabelPositionBottom;
-    xAxis.granularity = 1.0;
+    xAxis.granularityEnabled = YES;
+    xAxis.valueFormatter = self;
+}
+
+#pragma mark - IChartAxisValueFormatter
+
+- (NSString *)stringForValue:(double)value axis:(nullable ChartAxisBase *)axis {
+    NSInteger index = (NSUInteger)value;
+    id<IChartDataSet> dataSet = self.viewModel.chartDataSource.chartData.candleData.dataSets.firstObject;
+    if (dataSet.entryCount <= index) {
+        return @"";
+    }
+    NSDate *date = [dataSet entryForIndex:index].data;
+    if (!date) {
+        return @"";
+    }
+
+    static NSDateFormatter *dateFormatter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setLocalizedDateFormatFromTemplate:@"MMM d"];
+        dateFormatter.locale = [NSLocale autoupdatingCurrentLocale];
+    });
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    NSString *timeString = [NSDateFormatter localizedStringFromDate:date
+                                                          dateStyle:NSDateFormatterNoStyle
+                                                          timeStyle:NSDateFormatterShortStyle];
+    NSString *resultString = [NSString stringWithFormat:@"%@\n%@", dateString, timeString];
+    return resultString;
 }
 
 @end

@@ -47,12 +47,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Public
 
+#define DASH_USDT @"DASH_USDT"
+#define DASH_USD @"DASH_USD"
+
 - (void)selectExchange:(nullable DCExchangeEntity *)exchange {
     if (exchange) {
         NSSet<DCMarketEntity *> *availableMarketsForExchange = exchange.markets;
         if (![availableMarketsForExchange containsObject:self.market]) {
-            NSArray *markets = [availableMarketsForExchange sortedArrayUsingDescriptors:self.defaultSortDescriptors];
-            self.market = markets.firstObject;
+            if ([self.market.name isEqualToString:DASH_USDT] || [self.market.name isEqualToString:DASH_USD]) {
+                NSString *invertedName = [self.market.name isEqualToString:DASH_USDT] ? DASH_USD : DASH_USDT;
+                for (DCMarketEntity * market in availableMarketsForExchange) {
+                    if ([market.name isEqualToString:invertedName]) {
+                        self.market = market;
+                        break;
+                    }
+                }
+            }
+            else {
+                NSArray *markets = [availableMarketsForExchange sortedArrayUsingDescriptors:self.defaultSortDescriptors];
+                self.market = markets.firstObject;
+            }
         }
     }
 

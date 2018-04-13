@@ -47,16 +47,16 @@ static int64_t const DUFFS = 100000000;
     self = [super init];
     if (self) {
         _dashNumberFormatter = [[NSNumberFormatter alloc] init];
-        _dashNumberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-        _dashNumberFormatter.roundingMode = NSNumberFormatterRoundHalfDown;
-        _dashNumberFormatter.maximumFractionDigits = 6;
+        _dashNumberFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
+        _dashNumberFormatter.generatesDecimalNumbers = YES;
+        _dashNumberFormatter.maximumFractionDigits = 8;
         _dashNumberFormatter.minimumFractionDigits = 0;
-        _dashNumberFormatter.minimumSignificantDigits = 0;
-        _dashNumberFormatter.maximumSignificantDigits = 6;
-        _dashNumberFormatter.usesSignificantDigits = YES;
+        _dashNumberFormatter.currencySymbol = @"";
 
         _usdNumberFormatter = [[NSNumberFormatter alloc] init];
         _usdNumberFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
+        _usdNumberFormatter.maximumFractionDigits = 2;
+        _usdNumberFormatter.minimumFractionDigits = 0;
         _usdNumberFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
     }
     return self;
@@ -79,11 +79,11 @@ static int64_t const DUFFS = 100000000;
 
 - (void)updateTotalValues {
     if (self.lastDashTotal) {
-        CGFloat worthDash = self.lastDashTotal.longLongValue / DUFFS;
+        double worthDash = self.lastDashTotal.longLongValue / (double)DUFFS;
         self.dashTotal = [self.dashNumberFormatter stringFromNumber:@(worthDash)];
         if (self.lastDashUsdPrice) {
             CGFloat totalUSD = worthDash * self.lastDashUsdPrice.doubleValue;
-            self.dashTotalInUSD = [self.dashNumberFormatter stringFromNumber:@(totalUSD)];
+            self.dashTotalInUSD = [self.usdNumberFormatter stringFromNumber:@(totalUSD)];
         }
         else {
             self.dashTotalInUSD = @"?";

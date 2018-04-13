@@ -144,7 +144,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                               context:(NSManagedObjectContext *)context {
     NSFetchRequest<DCBudgetProposalEntity *> *fetchRequest = [DCBudgetProposalEntity fetchRequest];
     fetchRequest.predicate = predicate;
-    NSSortDescriptor *orderSortDescriptor = [[NSSortDescriptor alloc] initWithKey:KEY_SORTORDER ascending:YES];
+    NSSortDescriptor *orderSortDescriptor = [[NSSortDescriptor alloc] initWithKey:KEY_SORTORDER ascending:NO];
     NSSortDescriptor *dateAddedSortDescriptor = [[NSSortDescriptor alloc] initWithKey:KEY_DATEADDED ascending:NO];
     fetchRequest.sortDescriptors = @[ orderSortDescriptor, dateAddedSortDescriptor ];
 

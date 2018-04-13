@@ -63,7 +63,7 @@ static NSString *const CELL_ID = @"ItemTableViewCell";
     [self.tableView registerNib:[UINib nibWithNibName:@"AddItemTableViewCell" bundle:nil] forCellReuseIdentifier:ADD_CELL_ID];
     [self.tableView registerNib:[UINib nibWithNibName:@"ItemTableViewCell" bundle:nil] forCellReuseIdentifier:CELL_ID];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    refreshControl.tintColor = [UIColor whiteColor];
+    refreshControl.tintColor = [UIColor colorWithWhite:1.0 alpha:0.6];
     [refreshControl addTarget:self action:@selector(refreshControlAction:) forControlEvents:UIControlEventValueChanged];
     self.tableView.refreshControl = refreshControl;
 

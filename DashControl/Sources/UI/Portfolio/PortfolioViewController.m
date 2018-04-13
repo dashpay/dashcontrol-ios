@@ -175,7 +175,7 @@ NS_ASSUME_NONNULL_BEGIN
         case PortfolioSection_AddMasternode:
             return 12.0;
         default:
-            return 0.0;
+            return CGFLOAT_MIN;
     }
 }
 

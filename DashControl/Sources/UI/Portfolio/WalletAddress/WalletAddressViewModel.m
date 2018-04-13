@@ -37,7 +37,6 @@ typedef NS_ENUM(NSUInteger, WalletAddressType) {
 
 @property (nullable, strong, nonatomic) DCWalletAddressEntity *walletAddress;
 @property (strong, nonatomic) AddressTextFieldFormCellModel *addressDetail;
-@property (strong, nonatomic) SwitcherFormCellModel *notificationDetail;
 
 @end
 
@@ -56,11 +55,6 @@ typedef NS_ENUM(NSUInteger, WalletAddressType) {
             _addressDetail.text = _walletAddress.address;
             _addressDetail.returnKeyType = UIReturnKeyDone;
             [items addObject:_addressDetail];
-        }
-        {
-            _notificationDetail = [[SwitcherFormCellModel alloc] initWithTitle:NSLocalizedString(@"Payment Notification", nil)];
-            _notificationDetail.tag = WalletAddressType_PaymentNotification;
-            [items addObject:_notificationDetail];
         }
         {
             NSString *title = _walletAddress ? NSLocalizedString(@"SAVE", nil) : NSLocalizedString(@"ADD", nil);

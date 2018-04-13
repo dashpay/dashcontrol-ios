@@ -39,16 +39,15 @@ NS_ASSUME_NONNULL_BEGIN
             double leftAxisMinimum = DBL_MAX;
             double leftAxisMaximum = 0.0;
 
-            NSTimeInterval baseTime = items.firstObject.time.timeIntervalSince1970;
-            NSTimeInterval selectedTimeInterval = [DCChartTimeFormatter timeIntervalForChartTimeInterval:timeInterval];
+            NSUInteger index = 0;
             for (DCChartDataEntryEntity *entity in items) {
-                NSInteger xIndex = (entity.time.timeIntervalSince1970 - baseTime) / selectedTimeInterval;
-                [candleValues addObject:[[CandleChartDataEntry alloc] initWithX:xIndex
+                [candleValues addObject:[[CandleChartDataEntry alloc] initWithX:index
                                                                         shadowH:entity.high
                                                                         shadowL:entity.low
                                                                            open:entity.open
-                                                                          close:entity.close]];
-                [barValues addObject:[[BarChartDataEntry alloc] initWithX:xIndex y:entity.volume]];
+                                                                          close:entity.close
+                                                                           data:entity.time]];
+                [barValues addObject:[[BarChartDataEntry alloc] initWithX:index y:entity.volume]];
 
                 if (entity.low < leftAxisMinimum) {
                     leftAxisMinimum = entity.low;
@@ -56,6 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
                 if (entity.high > leftAxisMaximum) {
                     leftAxisMaximum = entity.high;
                 }
+                index += 1;
             }
 
             CandleChartDataSet *candleDataSet = [[CandleChartDataSet alloc] initWithValues:candleValues label:@"Candles"];

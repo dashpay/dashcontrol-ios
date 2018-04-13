@@ -113,7 +113,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)handleOperationCompletionWithErrorMessage:(nullable NSString *)errorMessage {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     if (errorMessage) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error"
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil)
                                                                                  message:errorMessage
                                                                           preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ok", @"ok")

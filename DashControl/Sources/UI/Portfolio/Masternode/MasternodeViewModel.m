@@ -20,6 +20,7 @@
 #import "DCMasternodeEntity+CoreDataClass.h"
 #import "NSManagedObjectContext+DCExtensions.h"
 #import "NSString+Dash.h"
+#import "APIPortfolio.h"
 #import "AddressTextFieldFormCellModel.h"
 #import "ButtonFormCellModel.h"
 #import "DCPersistenceStack.h"
@@ -37,7 +38,6 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
 
 @property (nullable, strong, nonatomic) DCMasternodeEntity *masternode;
 @property (strong, nonatomic) AddressTextFieldFormCellModel *addressDetail;
-@property (strong, nonatomic) SwitcherFormCellModel *notificationDetail;
 
 @end
 
@@ -56,11 +56,6 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
             _addressDetail.text = _masternode.address;
             _addressDetail.returnKeyType = UIReturnKeyDone;
             [items addObject:_addressDetail];
-        }
-        {
-            _notificationDetail = [[SwitcherFormCellModel alloc] initWithTitle:NSLocalizedString(@"Payment Notification", nil)];
-            _notificationDetail.tag = MasternodeType_PaymentNotification;
-            [items addObject:_notificationDetail];
         }
         {
             NSString *title = _masternode ? NSLocalizedString(@"SAVE", nil) : NSLocalizedString(@"ADD", nil);
@@ -115,6 +110,26 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
     }
 
     return NSNotFound;
+}
+
+- (void)checkBalanceAtAddressCompletion:(void (^)(NSString *_Nullable errorMessage, NSInteger indexOfInvalidDetail))completion {
+    weakify;
+    [self.apiPortfolio balanceSumInAddresses:@[ self.addressDetail.text ] completion:^(NSNumber *_Nullable balance) {
+        strongify;
+
+        if (completion) {
+            if (!balance) {
+                completion(NSLocalizedString(@"Can't check the address contains 1000 Dash", nil), NSNotFound);
+            }
+            else if (balance.unsignedLongLongValue < 100000000000) {
+                NSInteger index = [self.items indexOfObject:self.addressDetail];
+                completion(NSLocalizedString(@"Not a valid masternode address. This address does not contain the required 1000 Dash", nil), index);
+            }
+            else {
+                completion(nil, NSNotFound);
+            }
+        }
+    }];
 }
 
 - (void)saveCurrentWithCompletion:(void (^)(void))completion {

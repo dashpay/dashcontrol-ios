@@ -23,10 +23,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class DCMasternodeEntity;
 @class DCPersistenceStack;
+@class APIPortfolio;
 
 @interface MasternodeViewModel : NSObject
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+@property (strong, nonatomic) InjectedClass(APIPortfolio) apiPortfolio;
 
 @property (readonly, strong, nonatomic) NSArray<BaseFormCellModel *> *items;
 @property (readonly, assign, nonatomic) BOOL deleteAvailable;
@@ -38,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteCurrentWithCompletion:(void (^)(void))completion;
 
 - (NSInteger)indexOfInvalidDetail;
+- (void)checkBalanceAtAddressCompletion:(void (^)(NSString *_Nullable errorMessage, NSInteger indexOfInvalidDetail))completion;
 - (void)saveCurrentWithCompletion:(void (^)(void))completion;
 
 @end

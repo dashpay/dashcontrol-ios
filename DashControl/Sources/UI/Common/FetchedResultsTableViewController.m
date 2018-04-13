@@ -59,8 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         }
         case NSFetchedResultsChangeMove: {
-            [tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:@[ newIndexPath ] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
             break;
         }
         case NSFetchedResultsChangeUpdate: {

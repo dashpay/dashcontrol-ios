@@ -26,14 +26,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define USE_PRODUCTION 1
-
-#ifdef USE_PRODUCTION
-static NSString *const API_BASE_URL = @"https://dashpay.info/api/v0/";
-#else
-static NSString *const API_BASE_URL = @"https://dev.dashpay.info/api/v0/";
-#endif
-
 #define KEY_NAME @"name"
 
 static NSTimeInterval const RATELIMIT_WINDOW = 60.0;
@@ -61,7 +53,7 @@ static NSUInteger const RATELIMIT_MAXIMUM = 0;
                                                                     delayAfter:RATELIMIT_DELAYAFTER
                                                                          delay:RATELIMIT_DELAY
                                                                        maximum:RATELIMIT_MAXIMUM];
-        NSString *urlString = [API_BASE_URL stringByAppendingString:@"chart_data"];
+        NSString *urlString = [self.baseURLString stringByAppendingString:@"chart_data"];
         NSURL *url = [NSURL URLWithString:urlString];
         [self.httpService.rateLimiterMap setRateLimiter:rateLimiter forURL:url];
     }
@@ -69,7 +61,7 @@ static NSUInteger const RATELIMIT_MAXIMUM = 0;
 }
 
 - (id<HTTPLoaderOperationProtocol>)fetchMarketsCompletion:(void (^)(NSError *_Nullable error, NSInteger defaultExchangeIdentifier, NSInteger defaultMarketIdentifier))completion {
-    NSString *urlString = [API_BASE_URL stringByAppendingString:@"markets"];
+    NSString *urlString = [self.baseURLString stringByAppendingString:@"markets"];
     NSURL *url = [NSURL URLWithString:urlString];
     HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:nil];
     request.maximumRetryCount = 2; // this request is important
@@ -180,7 +172,7 @@ static NSUInteger const RATELIMIT_MAXIMUM = 0;
     NSInteger exchangeIdentifier = exchange.identifier;
     NSInteger marketIdentifier = market.identifier;
 
-    NSString *urlString = [API_BASE_URL stringByAppendingString:@"chart_data"];
+    NSString *urlString = [self.baseURLString stringByAppendingString:@"chart_data"];
     NSURL *url = [NSURL URLWithString:urlString];
 
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];

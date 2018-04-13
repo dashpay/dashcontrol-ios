@@ -15,7 +15,7 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import "APIBaseAuthorized.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,10 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 @class HTTPService;
 @protocol HTTPLoaderOperationProtocol;
 
-@interface APIPrice : NSObject
+@interface APIPrice : APIBaseAuthorized
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
-@property (strong, nonatomic) InjectedClass(HTTPLoaderManager) httpManager;
 @property (strong, nonatomic) InjectedClass(HTTPService) httpService;
 
 - (id<HTTPLoaderOperationProtocol>)fetchMarketsCompletion:(void (^)(NSError *_Nullable error, NSInteger defaultExchangeIdentifier, NSInteger defaultMarketIdentifier))completion;

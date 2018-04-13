@@ -56,7 +56,7 @@
                         </fragment>
                     </attributedString>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqk-FG-UcS">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="mqk-FG-UcS">
                     <rect key="frame" x="24" y="32" width="22" height="44"/>
                     <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="36"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -70,7 +70,7 @@
                         </fragment>
                     </attributedString>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdl-tZ-bAc">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" text="..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="jdl-tZ-bAc">
                     <rect key="frame" x="329" y="32" width="22" height="44"/>
                     <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="36"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -90,6 +90,7 @@
                 <constraint firstItem="uWv-rt-bNO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bE4-p9-PN6" secondAttribute="trailing" constant="24" id="2bT-zg-T1H"/>
                 <constraint firstAttribute="bottom" secondItem="mqk-FG-UcS" secondAttribute="bottom" constant="12" id="9wk-Gt-8ol"/>
                 <constraint firstAttribute="bottom" secondItem="jdl-tZ-bAc" secondAttribute="bottom" constant="12" id="AIZ-UE-OJs"/>
+                <constraint firstItem="jdl-tZ-bAc" firstAttribute="width" secondItem="mqk-FG-UcS" secondAttribute="width" id="EZ3-V8-Poe"/>
                 <constraint firstAttribute="trailing" secondItem="uWv-rt-bNO" secondAttribute="trailing" constant="24" id="Er0-Fs-Ve6"/>
                 <constraint firstItem="mqk-FG-UcS" firstAttribute="leading" secondItem="Duk-US-sMi" secondAttribute="leading" constant="24" id="LuX-yt-wK0"/>
                 <constraint firstAttribute="trailing" secondItem="jdl-tZ-bAc" secondAttribute="trailing" constant="24" id="RFR-FI-FKa"/>
