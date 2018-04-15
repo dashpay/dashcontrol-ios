@@ -86,10 +86,8 @@ NS_ASSUME_NONNULL_BEGIN
     [rows addObject:[Pair first:NSLocalizedString(@"Payment\nadded / end", nil) second:paymentStartEnd]];
 
     if (!proposal.willBeFunded && proposal.votingDeadline) {
-        NSDate *votingDeadline = proposal.votingDeadline;
-        NSInteger numberOfDays = [[NSDate date] dc_daysToDate:votingDeadline];
-        NSString *inXDaysString = [NSString localizedStringWithFormat:NSLocalizedString(@"in %ld day(s)", nil), numberOfDays];
-        [rows addObject:[Pair first:NSLocalizedString(@"Final voting\ndeadline", nil) second:inXDaysString]];
+        NSString *dateString = [proposal.votingDeadline dc_asInDateString];
+        [rows addObject:[Pair first:NSLocalizedString(@"Final voting\ndeadline", nil) second:dateString]];
     }
 
     NSString *funded = proposal.willBeFunded

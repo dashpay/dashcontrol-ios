@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDate (DCAdditions)
 
-- (NSInteger)dc_daysToDate:(NSDate *)toDate;
+- (NSString *)dc_asInDateString;
 
 @end
 

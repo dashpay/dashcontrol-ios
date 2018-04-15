@@ -6,9 +6,6 @@
 "%d month(s) remaining" = "%d month(s) remaining";
 
 /* No comment provided by engineer. */
-"%d Superblock(s)" = "%d Superblock(s)";
-
-/* No comment provided by engineer. */
 "%d totaling in %d DASH" = "%1$d totaling in %2$d DASH";
 
 /* 15 minutes */
@@ -117,9 +114,6 @@
 "Import using QR code" = "Import using QR code";
 
 /* No comment provided by engineer. */
-"in %ld day(s)" = "in %ld day(s)";
-
-/* No comment provided by engineer. */
 "Market" = "Market";
 
 /* No comment provided by engineer. */
@@ -207,6 +201,9 @@
 "Settings" = "Settings";
 
 /* No comment provided by engineer. */
+"Superblock" = "Superblock";
+
+/* No comment provided by engineer. */
 "Total" = "Total";
 
 /* No comment provided by engineer. */
@@ -214,6 +211,9 @@
 
 /* No comment provided by engineer. */
 "Value in USD" = "Value in USD";
+
+/* No comment provided by engineer. */
+"Voting deadline" = "Voting deadline";
 
 /* No comment provided by engineer. */
 "Wallet Address" = "Wallet Address";

@@ -22,6 +22,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+// Constants below based on https://gist.github.com/strophy/9eb743f7bc717c17a2e776e461f24c49
+// And https://docs.dash.org/en/latest/governance.html#budget-cycles
+// And https://github.com/dashpay/dash/blob/master/src/chainparams.cpp#L81
+
+static NSUInteger const BLOCKS_BEFORE_DEADLINE = 1662;
+static double const AVG_BLOCKS_PER_MINUTE = 2.6;
+static NSTimeInterval DEADLINE_SECONDS_BEFORE_VOTING_DATE = BLOCKS_BEFORE_DEADLINE * AVG_BLOCKS_PER_MINUTE * 60;
+
 @implementation ProposalsHeaderViewModel
 
 - (instancetype)init {
@@ -39,22 +47,21 @@ NS_ASSUME_NONNULL_BEGIN
         self.total = [NSString stringWithFormat:@"%.1f", budgetInfo.totalAmount];
         self.alloted = [NSString stringWithFormat:@"%.1f", budgetInfo.allotedAmount];
 
-        NSString *superblockString = [NSString localizedStringWithFormat:NSLocalizedString(@"%d Superblock(s)", nil), budgetInfo.superblock];
-        NSString *resultString = nil;
-        if (budgetInfo.paymentDate) {
-            NSInteger numberOfDays = [[NSDate date] dc_daysToDate:budgetInfo.paymentDate];
-            NSString *inXDaysString = [NSString localizedStringWithFormat:NSLocalizedString(@"in %ld day(s)", nil), numberOfDays];
-            NSString *formattedDateString = [NSDateFormatter localizedStringFromDate:budgetInfo.paymentDate
-                                                                           dateStyle:NSDateFormatterLongStyle
-                                                                           timeStyle:NSDateFormatterNoStyle];
-            NSString *dateString = [NSString stringWithFormat:@"%@, %@", inXDaysString, formattedDateString];
-
-            resultString = [NSString stringWithFormat:@"%@ %@", superblockString, dateString];
+        NSDate *votingDeadlineDate = [budgetInfo.paymentDate dateByAddingTimeInterval:-DEADLINE_SECONDS_BEFORE_VOTING_DATE];
+        NSDate *now = [NSDate date];
+        if ([now compare:votingDeadlineDate] == NSOrderedAscending) {
+            self.superblockPaymentInfo = [NSString stringWithFormat:@"%@ %@, %@ %d",
+                                                                    NSLocalizedString(@"Voting deadline", nil),
+                                                                    [votingDeadlineDate dc_asInDateString],
+                                                                    NSLocalizedString(@"Superblock", nil),
+                                                                    budgetInfo.superblock];
         }
         else {
-            resultString = superblockString;
+            self.superblockPaymentInfo = [NSString stringWithFormat:@"%@ %d %@",
+                                                                    NSLocalizedString(@"Superblock", nil),
+                                                                    budgetInfo.superblock,
+                                                                    [budgetInfo.paymentDate dc_asInDateString]];
         }
-        self.superblockPaymentInfo = resultString;
     }
     else {
         self.total = @"...";
@@ -67,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (_segmentIndex == segmentIndex) {
         return;
     }
-    
+
     _segmentIndex = segmentIndex;
 
     [self.delegate proposalsHeaderViewModelDidSetSegmentIndex:self];
