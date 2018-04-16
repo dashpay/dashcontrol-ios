@@ -17,10 +17,12 @@
 
 #import "APINews.h"
 
-#import "Networking.h"
+#import <UIKit/NSAttributedString.h>
+
 #import "DCNewsPostEntity+CoreDataClass.h"
-#import "DCPersistenceStack.h"
 #import "NSManagedObjectContext+DCExtensions.h"
+#import "DCPersistenceStack.h"
+#import "Networking.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,7 +46,7 @@ static NSString *const API_ENDPOINT = @"blogapi/feed-%@.json";
     if (self) {
         _dateFormatter = [[NSDateFormatter alloc] init];
         _dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss ZZZ";
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(currentLocaleDidChangeNotification:)
                                                      name:NSCurrentLocaleDidChangeNotification
@@ -54,14 +56,14 @@ static NSString *const API_ENDPOINT = @"blogapi/feed-%@.json";
     return self;
 }
 
-- (id<HTTPLoaderOperationProtocol>)fetchNewsForPage:(NSInteger)page completion:(void(^)(BOOL success, BOOL isLastPage))completion {
+- (id<HTTPLoaderOperationProtocol>)fetchNewsForPage:(NSInteger)page completion:(void (^)(BOOL success, BOOL isLastPage))completion {
     NSString *urlString = [NSString stringWithFormat:self.apiURLFormat, @(page)];
     NSURL *url = [NSURL URLWithString:urlString];
-    
+
     HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:nil];
-    return [self.httpManager sendRequest:request completion:^(id _Nullable parsedData, NSDictionary * _Nullable responseHeaders, NSInteger statusCode, NSError * _Nullable error) {
+    return [self.httpManager sendRequest:request completion:^(id _Nullable parsedData, NSDictionary *_Nullable responseHeaders, NSInteger statusCode, NSError *_Nullable error) {
         NSAssert([NSThread isMainThread], nil);
-        
+
         NSArray *items = (NSArray *)parsedData;
         if (items && [items isKindOfClass:[NSArray class]]) {
             if (items.count == 0) {
@@ -71,24 +73,34 @@ static NSString *const API_ENDPOINT = @"blogapi/feed-%@.json";
 
                 return;
             }
-            
+
             NSPersistentContainer *container = self.stack.persistentContainer;
-            [container performBackgroundTask:^(NSManagedObjectContext * _Nonnull context) {
+            [container performBackgroundTask:^(NSManagedObjectContext *_Nonnull context) {
                 for (NSDictionary *item in items) {
                     DCNewsPostEntity *entity = [[DCNewsPostEntity alloc] initWithContext:context];
                     entity.langCode = self.langCode;
                     entity.url = [NSString stringWithFormat:@"%@%@", API_BASE_URL, item[@"url"]];
-                    entity.title = item[@"title"];
+                    NSData *titleData = [item[@"title"] dataUsingEncoding:NSUTF8StringEncoding];
+                    NSDictionary *attributedStringOptions = @{
+                        NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType,
+                        NSCharacterEncodingDocumentAttribute : @(NSUTF8StringEncoding),
+                    };
+                    NSAttributedString *titleAttributedString =
+                        [[NSAttributedString alloc] initWithData:titleData
+                                                         options:attributedStringOptions
+                                              documentAttributes:nil
+                                                           error:nil];
+                    entity.title = titleAttributedString.string;
                     entity.date = [self.dateFormatter dateFromString:item[@"date"]];
                     NSString *imageURLPart = item[@"image"];
                     if (imageURLPart) {
                         entity.imageURL = [NSString stringWithFormat:@"%@%@", API_BASE_URL, imageURLPart];
                     }
                 }
-                
+
                 context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
                 [context dc_saveIfNeeded];
-                
+
                 if (completion) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         completion(YES, items.count < APINEWS_PAGE_SIZE);
@@ -108,7 +120,7 @@ static NSString *const API_ENDPOINT = @"blogapi/feed-%@.json";
 
 - (void)updateAPIURL {
     self.langCode = [self preferredLangCode];
-    
+
     if ([self.langCode isEqualToString:@"en"]) {
         self.apiURLFormat = [NSString stringWithFormat:@"%@/%@", API_BASE_URL, API_ENDPOINT];
     }
@@ -123,11 +135,11 @@ static NSString *const API_ENDPOINT = @"blogapi/feed-%@.json";
 
 - (NSString *)preferredLangCode {
     NSString *langCode = nil;
-    
+
     NSString *preferredLanguage = [NSLocale preferredLanguages].firstObject;
     if (preferredLanguage.length >= 2) {
         NSString *langCode = [preferredLanguage substringToIndex:2];
-        
+
         if ([langCode isEqualToString:@"zh"]) {
             langCode = @"cn";
         }
@@ -141,11 +153,11 @@ static NSString *const API_ENDPOINT = @"blogapi/feed-%@.json";
             //
         }
     }
-    
+
     if (!langCode) {
         langCode = @"en";
     }
-    
+
     return langCode;
 }
 

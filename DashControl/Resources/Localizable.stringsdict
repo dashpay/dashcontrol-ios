@@ -18,53 +18,149 @@
 			<string>%d Superblocks</string>
 		</dict>
 	</dict>
-    <key>in %ld day(s)</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>in %#@days@</string>
-        <key>days</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>one</key>
-            <string>%ld day</string>
-            <key>other</key>
-            <string>%ld days</string>
-        </dict>
-    </dict>
-    <key>%d month(s) remaining</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@months@ remaining</string>
-        <key>months</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>d</string>
-            <key>one</key>
-            <string>%d month</string>
-            <key>other</key>
-            <string>%d months</string>
-        </dict>
-    </dict>
-    <key>No. This proposal needs additional %d Yes vote(s) to become funded</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>No. This proposal needs additional %#@votes@ to become funded</string>
-        <key>votes</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>d</string>
-            <key>one</key>
-            <string>%d Yes vote</string>
-            <key>other</key>
-            <string>%d Yes votes</string>
-        </dict>
-    </dict>
+	<key>in %ld second(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>in %#@seconds@</string>
+		<key>seconds</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld second</string>
+			<key>other</key>
+			<string>%ld seconds</string>
+		</dict>
+	</dict>
+	<key>in %ld minute(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>in %#@minutes@</string>
+		<key>minutes</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld minute</string>
+			<key>other</key>
+			<string>%ld minutes</string>
+		</dict>
+	</dict>
+	<key>in %ld hour(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>in %#@hours@</string>
+		<key>hours</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld hour</string>
+			<key>other</key>
+			<string>%ld hours</string>
+		</dict>
+	</dict>
+	<key>in %ld day(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>in %#@days@</string>
+		<key>days</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld day</string>
+			<key>other</key>
+			<string>%ld days</string>
+		</dict>
+	</dict>
+	<key>in %ld week(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>in %#@weeks@</string>
+		<key>weeks</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld week</string>
+			<key>other</key>
+			<string>%ld weeks</string>
+		</dict>
+	</dict>
+	<key>in %ld month(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>in %#@months@</string>
+		<key>months</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld month</string>
+			<key>other</key>
+			<string>%ld months</string>
+		</dict>
+	</dict>
+	<key>in %ld year(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>in %#@years@</string>
+		<key>years</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld year</string>
+			<key>other</key>
+			<string>%ld years</string>
+		</dict>
+	</dict>
+	<key>%d month(s) remaining</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@months@ remaining</string>
+		<key>months</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d month</string>
+			<key>other</key>
+			<string>%d months</string>
+		</dict>
+	</dict>
+	<key>No. This proposal needs additional %d Yes vote(s) to become funded</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>No. This proposal needs additional %#@votes@ to become funded</string>
+		<key>votes</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d Yes vote</string>
+			<key>other</key>
+			<string>%d Yes votes</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
