@@ -46,8 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-    self.title = NSLocalizedString(@"Proposals", nil);
-    self.tabBarItem.title = self.title;
+    self.title = @""; // hides back button title in the detail controller
+    self.tabBarItem.title = NSLocalizedString(@"Proposals", nil);
 }
 
 - (void)viewDidLoad {
