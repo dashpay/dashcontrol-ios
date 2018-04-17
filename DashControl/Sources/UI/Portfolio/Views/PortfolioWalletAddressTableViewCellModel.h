@@ -32,8 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithEntity:(DCWalletAddressEntity *)entity;
 
-- (void)updateIfNeeded;
-
 @end
 
 NS_ASSUME_NONNULL_END

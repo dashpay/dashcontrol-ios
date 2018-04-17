@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, WalletAddressType) {
     WalletAddressType_Address,
-    WalletAddressType_PaymentNotification,
+    WalletAddressType_Name,
     WalletAddressType_AddButton,
 };
 
@@ -37,6 +37,7 @@ typedef NS_ENUM(NSUInteger, WalletAddressType) {
 
 @property (nullable, strong, nonatomic) DCWalletAddressEntity *walletAddress;
 @property (strong, nonatomic) AddressTextFieldFormCellModel *addressDetail;
+@property (strong, nonatomic) TextFieldFormCellModel *nameDetail;
 
 @end
 
@@ -53,8 +54,16 @@ typedef NS_ENUM(NSUInteger, WalletAddressType) {
                                                                       placeholder:NSLocalizedString(@"Wallet Address", nil)];
             _addressDetail.tag = WalletAddressType_Address;
             _addressDetail.text = _walletAddress.address;
-            _addressDetail.returnKeyType = UIReturnKeyDone;
+            _addressDetail.returnKeyType = UIReturnKeyNext;
             [items addObject:_addressDetail];
+        }
+        {
+            _nameDetail = [[TextFieldFormCellModel alloc] initWithTitle:NSLocalizedString(@"Name", nil)
+                                                            placeholder:NSLocalizedString(@"Wallet name (optional)", nil)];
+            _nameDetail.tag = WalletAddressType_Name;
+            _nameDetail.text = _walletAddress.name;
+            _nameDetail.returnKeyType = UIReturnKeyDone;
+            [items addObject:_nameDetail];
         }
         {
             NSString *title = _walletAddress ? NSLocalizedString(@"SAVE", nil) : NSLocalizedString(@"ADD", nil);
@@ -114,14 +123,24 @@ typedef NS_ENUM(NSUInteger, WalletAddressType) {
 - (void)saveCurrentWithCompletion:(void (^)(void))completion {
     NSAssert([self indexOfInvalidDetail] == NSNotFound, @"Validate data before saving");
 
+    NSManagedObjectID * _Nullable objectID = self.walletAddress.objectID;
+    
     weakify;
     [self.stack.persistentContainer performBackgroundTask:^(NSManagedObjectContext *_Nonnull context) {
         strongify;
 
-        DCWalletAddressEntity *walletAddress = [[DCWalletAddressEntity alloc] initWithContext:context];
+        DCWalletAddressEntity *walletAddress = nil;
+        if (objectID) {
+            walletAddress = [context objectWithID:objectID];
+        }
+        else {
+            walletAddress = [[DCWalletAddressEntity alloc] initWithContext:context];
+        }
         walletAddress.address = self.addressDetail.text;
+        NSString *trimmedName = [self.nameDetail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        walletAddress.name = trimmedName.length > 0 ? trimmedName : nil;
 
-        context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
         [context dc_saveIfNeeded];
 
         dispatch_async(dispatch_get_main_queue(), ^{

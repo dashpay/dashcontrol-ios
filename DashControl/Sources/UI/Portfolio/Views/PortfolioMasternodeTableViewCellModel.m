@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithEntity:(DCMasternodeEntity *)entity {
     self = [super init];
     if (self) {
-        _title = entity.address;
+        _title = entity.name ?: entity.address;
         double worthDash = entity.amount / (double)DUFFS;
         _subtitle = [DCFormattingUtils.dashNumberFormatter stringFromNumber:@(worthDash)];
     }

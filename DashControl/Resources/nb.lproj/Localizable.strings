@@ -132,6 +132,9 @@
 "My Wallet Addresses" = "My Wallet Addresses";
 
 /* No comment provided by engineer. */
+"Name" = "Name";
+
+/* No comment provided by engineer. */
 "News" = "News";
 
 /* No votes count title */
@@ -220,6 +223,9 @@
 
 /* No comment provided by engineer. */
 "Wallet Address" = "Wallet Address";
+
+/* No comment provided by engineer. */
+"Wallet name (optional)" = "Wallet name (optional)";
 
 /* No comment provided by engineer. */
 "Will be\nfunded" = "Will be\nfunded";

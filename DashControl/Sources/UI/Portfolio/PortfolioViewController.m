@@ -207,20 +207,6 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch (indexPath.section) {
-        case PortfolioSection_WalletAddress: {
-            SubtitleTableViewCell *subtitleCell = (SubtitleTableViewCell *)cell;
-            PortfolioWalletAddressTableViewCellModel *cellModel = (PortfolioWalletAddressTableViewCellModel *)subtitleCell.viewModel;
-            [cellModel updateIfNeeded];
-            break;
-        }
-        default: {
-            break;
-        }
-    }
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case PortfolioSection_AddWallet: {

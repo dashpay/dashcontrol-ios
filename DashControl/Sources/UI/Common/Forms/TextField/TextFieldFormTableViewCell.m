@@ -56,6 +56,10 @@ NS_ASSUME_NONNULL_BEGIN
     self.textField.secureTextEntry = _cellModel.secureTextEntry;
 }
 
+- (void)textFieldBecomeFirstResponder {
+    [self.textField becomeFirstResponder];
+}
+
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -73,6 +77,17 @@ NS_ASSUME_NONNULL_BEGIN
     self.cellModel.text = @"";
 
     return NO;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField.returnKeyType == UIReturnKeyNext) {
+        [self.delegate textFieldFormTableViewCellActivateNextFirstResponder:self];
+    }
+    else if (textField.returnKeyType == UIReturnKeyDone) {
+        [self endEditing:YES];
+    }
+
+    return YES;
 }
 
 @end

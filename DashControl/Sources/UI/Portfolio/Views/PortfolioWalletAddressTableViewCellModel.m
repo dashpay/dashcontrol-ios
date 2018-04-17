@@ -46,30 +46,23 @@ static NSTimeInterval const UPDATE_INTERVAL = 30.0; // 30 sec
     self = [super init];
     if (self) {
         _entity = entity;
-        _title = entity.address;
+        _title = entity.name ?: entity.address;
 
-        if (![self needsUpdate]) {
+        BOOL needsUpdate = !_entity.lastUpdatedAmount || (-[_entity.lastUpdatedAmount timeIntervalSinceNow] >= UPDATE_INTERVAL);
+        if (!needsUpdate) {
             _state = SubtitleTableViewCellModelState_Ready;
             double worthDash = _entity.amount / (double)DUFFS;
             _subtitle = [DCFormattingUtils.dashNumberFormatter stringFromNumber:@(worthDash)];
+        }
+        else {
+            [self update];
         }
     }
     return self;
 }
 
-- (BOOL)needsUpdate {
-    BOOL needsUpdate = !self.entity.lastUpdatedAmount || (-[self.entity.lastUpdatedAmount timeIntervalSinceNow] >= UPDATE_INTERVAL);
-    return needsUpdate;
-}
-
-- (void)updateIfNeeded {
+- (void)update {
     NSParameterAssert([NSThread isMainThread]);
-
-    if (![self needsUpdate]) {
-        return;
-    }
-
-    [self.request cancel];
 
     self.state = SubtitleTableViewCellModelState_Loading;
 
@@ -92,7 +85,7 @@ static NSTimeInterval const UPDATE_INTERVAL = 30.0; // 30 sec
                 entity.amount = balance.longLongValue;
                 entity.lastUpdatedAmount = [NSDate date];
 
-                context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+                context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
                 [context dc_saveIfNeeded];
 
                 dispatch_async(dispatch_get_main_queue(), ^{
