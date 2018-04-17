@@ -15,35 +15,15 @@
 //  limitations under the License.
 //
 
-#import "ItemTableViewCell.h"
-
-#import "ItemTableViewCellModel.h"
+#import <KVO-MVVM/KVOUITableViewCell.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ItemTableViewCell ()
+@protocol SubtitleTableViewCellModel;
 
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@interface SubtitleTableViewCell : KVOUITableViewCell
 
-@end
-
-@implementation ItemTableViewCell
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    
-    [self mvvm_observe:@"viewModel.title" with:^(typeof(self) self, NSString * value) {
-        self.titleLabel.text = value;
-    }];
-}
-
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    [super setHighlighted:highlighted animated:animated];
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        self.contentView.alpha = highlighted ? 0.65 : 1.0;
-    }];
-}
+@property (nullable, strong, nonatomic) id<SubtitleTableViewCellModel> viewModel;
 
 @end
 

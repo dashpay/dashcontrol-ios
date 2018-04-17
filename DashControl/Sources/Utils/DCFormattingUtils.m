@@ -15,34 +15,27 @@
 //  limitations under the License.
 //
 
-#import "ItemTableViewCell.h"
-
-#import "ItemTableViewCellModel.h"
+#import "DCFormattingUtils.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ItemTableViewCell ()
+int64_t const DUFFS = 100000000;
 
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@implementation DCFormattingUtils
 
-@end
++ (NSNumberFormatter *)dashNumberFormatter {
+    static NSNumberFormatter *_dashNumberFormatter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _dashNumberFormatter = [[NSNumberFormatter alloc] init];
+        _dashNumberFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
+        _dashNumberFormatter.generatesDecimalNumbers = YES;
+        _dashNumberFormatter.maximumFractionDigits = 8;
+        _dashNumberFormatter.minimumFractionDigits = 0;
+        _dashNumberFormatter.currencySymbol = @"";
 
-@implementation ItemTableViewCell
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    
-    [self mvvm_observe:@"viewModel.title" with:^(typeof(self) self, NSString * value) {
-        self.titleLabel.text = value;
-    }];
-}
-
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    [super setHighlighted:highlighted animated:animated];
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        self.contentView.alpha = highlighted ? 0.65 : 1.0;
-    }];
+    });
+    return _dashNumberFormatter;
 }
 
 @end

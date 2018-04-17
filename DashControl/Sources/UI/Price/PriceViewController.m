@@ -177,7 +177,7 @@ static NSString *const CELL_ID = @"ItemTableViewCell";
 - (void)configureTriggerCell:(ItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     DCTriggerEntity *trigger = [self triggerEntityAtIndexPath:indexPath];
     PriceTriggerTableViewCellModel *viewModel = [[PriceTriggerTableViewCellModel alloc] initWithTrigger:trigger];
-    [cell configureWithViewModel:viewModel];
+    cell.viewModel = viewModel;
 }
 
 - (DCTriggerEntity *)triggerEntityAtIndexPath:(NSIndexPath *)indexPath {

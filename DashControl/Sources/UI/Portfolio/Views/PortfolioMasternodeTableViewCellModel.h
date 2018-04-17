@@ -17,13 +17,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ItemTableViewCellModel.h"
+#import "SubtitleTableViewCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class DCMasternodeEntity;
 
-@interface PortfolioMasternodeTableViewCellModel : NSObject <ItemTableViewCellModel>
+@interface PortfolioMasternodeTableViewCellModel : NSObject <SubtitleTableViewCellModel>
 
 - (instancetype)initWithEntity:(DCMasternodeEntity *)entity;
 

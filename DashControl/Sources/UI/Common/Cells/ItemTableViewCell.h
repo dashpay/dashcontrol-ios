@@ -15,15 +15,15 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import <KVO-MVVM/KVOUITableViewCell.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol ItemTableViewCellModel;
 
-@interface ItemTableViewCell : UITableViewCell
+@interface ItemTableViewCell : KVOUITableViewCell
 
-- (void)configureWithViewModel:(id<ItemTableViewCellModel>)viewModel;
+@property (nullable, strong, nonatomic) id<ItemTableViewCellModel> viewModel;
 
 @end
 

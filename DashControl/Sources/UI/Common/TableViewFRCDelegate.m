@@ -58,9 +58,10 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         }
         case NSFetchedResultsChangeUpdate: {
+            NSIndexPath *resultIndexPath = self.transformationBlock ? self.transformationBlock(indexPath) : indexPath;
             [self fetchedResultsController:controller
-                             configureCell:[tableView cellForRowAtIndexPath:indexPath]
-                               atIndexPath:indexPath];
+                             configureCell:[tableView cellForRowAtIndexPath:resultIndexPath]
+                               atIndexPath:resultIndexPath];
             break;
         }
     }

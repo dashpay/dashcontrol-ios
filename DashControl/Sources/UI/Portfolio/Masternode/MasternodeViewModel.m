@@ -25,6 +25,7 @@
 #import "ButtonFormCellModel.h"
 #import "DCPersistenceStack.h"
 #import "SwitcherFormCellModel.h"
+#import "DCFormattingUtils.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -112,27 +113,27 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
     return NSNotFound;
 }
 
-- (void)checkBalanceAtAddressCompletion:(void (^)(NSString *_Nullable errorMessage, NSInteger indexOfInvalidDetail))completion {
+- (void)checkBalanceAtAddressCompletion:(void (^)(NSString *_Nullable errorMessage, NSNumber *_Nullable balance, NSInteger indexOfInvalidDetail))completion {
     weakify;
     [self.apiPortfolio balanceSumInAddresses:@[ self.addressDetail.text ] completion:^(NSNumber *_Nullable balance) {
         strongify;
 
         if (completion) {
             if (!balance) {
-                completion(NSLocalizedString(@"Can't check the address contains 1000 Dash", nil), NSNotFound);
+                completion(NSLocalizedString(@"Can't check the address contains 1000 Dash", nil), nil, NSNotFound);
             }
-            else if (balance.unsignedLongLongValue < 100000000000) {
+            else if (balance.unsignedLongLongValue < 1000 * DUFFS) {
                 NSInteger index = [self.items indexOfObject:self.addressDetail];
-                completion(NSLocalizedString(@"Not a valid masternode address. This address does not contain the required 1000 Dash", nil), index);
+                completion(NSLocalizedString(@"Not a valid masternode address. This address does not contain the required 1000 Dash", nil), balance, index);
             }
             else {
-                completion(nil, NSNotFound);
+                completion(nil, balance, NSNotFound);
             }
         }
     }];
 }
 
-- (void)saveCurrentWithCompletion:(void (^)(void))completion {
+- (void)saveCurrentWithBalance:(NSNumber *)balance completion:(void (^)(void))completion {
     NSAssert([self indexOfInvalidDetail] == NSNotFound, @"Validate data before saving");
 
     weakify;
@@ -141,6 +142,7 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
 
         DCMasternodeEntity *masternode = [[DCMasternodeEntity alloc] initWithContext:context];
         masternode.address = self.addressDetail.text;
+        masternode.amount = balance.longLongValue;
 
         context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
         [context dc_saveIfNeeded];

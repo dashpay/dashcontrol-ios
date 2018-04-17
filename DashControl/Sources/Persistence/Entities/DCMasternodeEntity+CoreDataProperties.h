@@ -19,16 +19,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *address;
 @property (nonatomic) int64_t amount;
 @property (nullable, nonatomic, copy) NSString *secureVotingKeyPath;
-@property (nullable, nonatomic, retain) NSSet<MasternodePayment *> *payments;
+@property (nullable, nonatomic, retain) NSSet<DCMasternodePaymentEntity *> *payments;
 
 @end
 
 @interface DCMasternodeEntity (CoreDataGeneratedAccessors)
 
-- (void)addPaymentsObject:(MasternodePayment *)value;
-- (void)removePaymentsObject:(MasternodePayment *)value;
-- (void)addPayments:(NSSet<MasternodePayment *> *)values;
-- (void)removePayments:(NSSet<MasternodePayment *> *)values;
+- (void)addPaymentsObject:(DCMasternodePaymentEntity *)value;
+- (void)removePaymentsObject:(DCMasternodePaymentEntity *)value;
+- (void)addPayments:(NSSet<DCMasternodePaymentEntity *> *)values;
+- (void)removePayments:(NSSet<DCMasternodePaymentEntity *> *)values;
 
 @end
 

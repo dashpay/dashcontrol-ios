@@ -29,11 +29,13 @@
 #import "PortfolioViewModel.h"
 #import "PortfolioWalletAddressTableViewCellModel.h"
 #import "PortfolioWalletTableViewCellModel.h"
+#import "SubtitleTableViewCell.h"
 #import "TableViewFRCDelegate.h"
 #import "WalletAddressViewController.h"
 
 static NSString *const ADD_CELL_ID = @"AddItemTableViewCell";
-static NSString *const CELL_ID = @"ItemTableViewCell";
+static NSString *const ITEM_CELL_ID = @"ItemTableViewCell";
+static NSString *const SUBTITLE_CELL_ID = @"SubtitleTableViewCell";
 
 typedef NS_ENUM(NSInteger, PortfolioSection) {
     PortfolioSection_AddWallet = 0,
@@ -83,8 +85,17 @@ NS_ASSUME_NONNULL_BEGIN
     CGSize headerSize = [self.portfolioHeaderView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     self.portfolioHeaderView.frame = CGRectMake(0.0, 0.0, headerSize.width, headerSize.height);
     self.tableView.tableHeaderView = self.portfolioHeaderView;
-    [self.tableView registerNib:[UINib nibWithNibName:@"AddItemTableViewCell" bundle:nil] forCellReuseIdentifier:ADD_CELL_ID];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ItemTableViewCell" bundle:nil] forCellReuseIdentifier:CELL_ID];
+
+    NSArray<NSString *> *cellIds = @[
+        ADD_CELL_ID,
+        ITEM_CELL_ID,
+        SUBTITLE_CELL_ID,
+    ];
+    for (NSString *cellId in cellIds) {
+        UINib *nib = [UINib nibWithNibName:cellId bundle:nil];
+        NSParameterAssert(nib);
+        [self.tableView registerNib:nib forCellReuseIdentifier:cellId];
+    }
 
     [self reload];
 
@@ -158,8 +169,14 @@ NS_ASSUME_NONNULL_BEGIN
             cell.titleText = NSLocalizedString(@"My Masternodes", nil);
             return cell;
         }
+        case PortfolioSection_WalletAddress:
+        case PortfolioSection_Masternode: {
+            SubtitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SUBTITLE_CELL_ID forIndexPath:indexPath];
+            [self configureSubtitleCell:cell atIndexPath:indexPath];
+            return cell;
+        }
         default: {
-            ItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID forIndexPath:indexPath];
+            ItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ITEM_CELL_ID forIndexPath:indexPath];
             [self configureItemCell:cell atIndexPath:indexPath];
             return cell;
         }
@@ -187,6 +204,20 @@ NS_ASSUME_NONNULL_BEGIN
             return [[UIView alloc] initWithFrame:CGRectZero];
         default:
             return nil;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case PortfolioSection_WalletAddress: {
+            SubtitleTableViewCell *subtitleCell = (SubtitleTableViewCell *)cell;
+            PortfolioWalletAddressTableViewCellModel *cellModel = (PortfolioWalletAddressTableViewCellModel *)subtitleCell.viewModel;
+            [cellModel updateIfNeeded];
+            break;
+        }
+        default: {
+            break;
+        }
     }
 }
 
@@ -287,7 +318,7 @@ NS_ASSUME_NONNULL_BEGIN
         weakify;
         _walletAddressFRCDelegate.configureCellBlock = ^(NSFetchedResultsController *_Nonnull fetchedResultsController, UITableViewCell *_Nonnull cell, NSIndexPath *_Nonnull indexPath) {
             strongify;
-            [self configureItemCell:(ItemTableViewCell *)cell atIndexPath:indexPath];
+            [self configureSubtitleCell:(SubtitleTableViewCell *)cell atIndexPath:indexPath];
         };
         _walletAddressFRCDelegate.transformationBlock = ^NSIndexPath *_Nonnull(NSIndexPath *_Nonnull indexPath) {
             return [NSIndexPath indexPathForRow:indexPath.row inSection:PortfolioSection_WalletAddress];
@@ -304,7 +335,7 @@ NS_ASSUME_NONNULL_BEGIN
         weakify;
         _masternodeFRCDelegate.configureCellBlock = ^(NSFetchedResultsController *_Nonnull fetchedResultsController, UITableViewCell *_Nonnull cell, NSIndexPath *_Nonnull indexPath) {
             strongify;
-            [self configureItemCell:(ItemTableViewCell *)cell atIndexPath:indexPath];
+            [self configureSubtitleCell:(SubtitleTableViewCell *)cell atIndexPath:indexPath];
         };
         _masternodeFRCDelegate.transformationBlock = ^NSIndexPath *_Nonnull(NSIndexPath *_Nonnull indexPath) {
             return [NSIndexPath indexPathForRow:indexPath.row inSection:PortfolioSection_Masternode];
@@ -366,6 +397,18 @@ NS_ASSUME_NONNULL_BEGIN
             viewModel = [[PortfolioWalletTableViewCellModel alloc] initWithEntity:entity];
             break;
         }
+        default: {
+            NSAssert(NO, @"Invalid section");
+            break;
+        }
+    }
+
+    cell.viewModel = viewModel;
+}
+
+- (void)configureSubtitleCell:(SubtitleTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    id<SubtitleTableViewCellModel> viewModel = nil;
+    switch (indexPath.section) {
         case PortfolioSection_WalletAddress: {
             DCWalletAddressEntity *entity = [self walletAddressEntityAtIndexPath:indexPath];
             viewModel = [[PortfolioWalletAddressTableViewCellModel alloc] initWithEntity:entity];
@@ -381,8 +424,7 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         }
     }
-
-    [cell configureWithViewModel:viewModel];
+    cell.viewModel = viewModel;
 }
 
 - (void)reload {
@@ -390,6 +432,9 @@ NS_ASSUME_NONNULL_BEGIN
         self.tableView.contentOffset = CGPointMake(0.0, -self.tableView.refreshControl.frame.size.height);
         [self.tableView.refreshControl beginRefreshing];
     }
+
+    // triggers update on wallet address view models
+    [self.tableView reloadData];
 
     weakify;
     [self.headerViewModel reloadWithCompletion:^{
