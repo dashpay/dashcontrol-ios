@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
         _usdNumberFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
         _usdNumberFormatter.maximumFractionDigits = 2;
         _usdNumberFormatter.minimumFractionDigits = 0;
-        _usdNumberFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        _usdNumberFormatter.currencySymbol = @"$";
     }
     return self;
 }
