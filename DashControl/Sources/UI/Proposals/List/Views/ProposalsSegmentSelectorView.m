@@ -15,25 +15,22 @@
 //  limitations under the License.
 //
 
-#import "ProposalsHeaderView.h"
-
-#import "ProposalsHeaderViewModel.h"
+#import "ProposalsSegmentSelectorView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ProposalsHeaderView ()
+#define SEGMENTED_HEIGHT 88.0
+
+@interface ProposalsSegmentSelectorView ()
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
-@property (strong, nonatomic) IBOutlet UILabel *totalTitleLabel;
-@property (strong, nonatomic) IBOutlet UILabel *allotedTitleLabel;
-@property (strong, nonatomic) IBOutlet UILabel *totalLabel;
-@property (strong, nonatomic) IBOutlet UILabel *allotedLabel;
-@property (strong, nonatomic) IBOutlet UILabel *superblockPaymentInfoLabel;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *topInfoViewTopConstraint;
+@property (strong, nonatomic) IBOutlet UIView *backgroundView;
+@property (strong, nonatomic) IBOutlet ProposalsSegmentedControl *segmentedControl;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *segmentedTopConstraint;
 
 @end
 
-@implementation ProposalsHeaderView
+@implementation ProposalsSegmentSelectorView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -60,27 +57,34 @@ NS_ASSUME_NONNULL_BEGIN
     [self.contentView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
     [self.contentView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor].active = YES;
     [self.contentView.widthAnchor constraintEqualToAnchor:self.widthAnchor].active = YES;
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureRecognizerAction)];
+    [self.backgroundView addGestureRecognizer:tapGestureRecognizer];
+    
+    // initial state
+    self.segmentedTopConstraint.constant = -SEGMENTED_HEIGHT;
+    self.backgroundView.alpha = 0.0;
+}
 
-    self.totalTitleLabel.text = NSLocalizedString(@"Total", nil);
-    self.allotedTitleLabel.text = NSLocalizedString(@"Alloted", nil);
-
-    // KVO
-
-    [self mvvm_observe:@"viewModel.total" with:^(typeof(self) self, NSString * value) {
-        self.totalLabel.text = value;
-    }];
-
-    [self mvvm_observe:@"viewModel.alloted" with:^(typeof(self) self, NSString * value) {
-        self.allotedLabel.text = value;
-    }];
-
-    [self mvvm_observe:@"viewModel.superblockPaymentInfo" with:^(typeof(self) self, NSString * value) {
-        self.superblockPaymentInfoLabel.text = value;
+- (void)setOpen:(BOOL)open {
+    if (open == NO && !self.window) {
+        return;
+    }
+    
+    self.segmentedTopConstraint.constant = open ? 0.0 : -SEGMENTED_HEIGHT;
+    
+    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        [self layoutIfNeeded];
+        self.backgroundView.alpha = open ? 1.0 : 0.0;
+    } completion:^(BOOL finished) {
+        if (!open && finished) {
+            [self.delegate proposalsSegmentSelectorViewDidClose:self];
+        }
     }];
 }
 
-- (CGSize)sizeThatFits:(CGSize)size {
-    return CGSizeMake([UIScreen mainScreen].bounds.size.width, 122.0);
+- (void)tapGestureRecognizerAction {
+    [self setOpen:NO];
 }
 
 @end

@@ -15,19 +15,26 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+#import "ProposalsSegmentedControl.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCBudgetInfoEntity;
+@class ProposalsSegmentSelectorView;
 
-@interface ProposalsHeaderViewModel : NSObject
+@protocol ProposalsSegmentSelectorViewDelegate <NSObject>
 
-@property (readonly, copy, nonatomic) NSString *total;
-@property (readonly, copy, nonatomic) NSString *alloted;
-@property (readonly, copy, nonatomic) NSString *superblockPaymentInfo;
+- (void)proposalsSegmentSelectorViewDidClose:(ProposalsSegmentSelectorView *)view;
 
-- (void)updateWithBudgetInfo:(nullable DCBudgetInfoEntity *)budgetInfo;
+@end
+
+@interface ProposalsSegmentSelectorView : UIView
+
+@property (readonly, strong, nonatomic) ProposalsSegmentedControl *segmentedControl;
+@property (nullable, weak, nonatomic) id<ProposalsSegmentSelectorViewDelegate> delegate;
+
+- (void)setOpen:(BOOL)open;
 
 @end
 

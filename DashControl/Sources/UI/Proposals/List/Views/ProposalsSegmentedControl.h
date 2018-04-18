@@ -15,25 +15,15 @@
 //  limitations under the License.
 //
 
-#import "ProposalsHeaderViewModel.h"
+#import <UIKit/UIKit.h>
+
+#import "ProposalsViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ProposalsHeaderViewModel;
+@interface ProposalsSegmentedControl : UIControl
 
-@protocol ProposalsHeaderViewModelDelegate <NSObject>
-
-- (void)proposalsHeaderViewModelDidSetSegmentIndex:(ProposalsHeaderViewModel *)viewModel;
-
-@end
-
-@interface ProposalsHeaderViewModel ()
-
-@property (copy, nonatomic) NSString *total;
-@property (copy, nonatomic) NSString *alloted;
-@property (copy, nonatomic) NSString *superblockPaymentInfo;
-
-@property (weak, nonatomic) id<ProposalsHeaderViewModelDelegate> delegate;
+@property (assign, nonatomic) ProposalsSegmentIndex selectedIndex;
 
 @end
 

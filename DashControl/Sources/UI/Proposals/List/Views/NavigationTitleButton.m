@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setOpened:(BOOL)opened {
     _opened = opened;
 
-    [UIView animateWithDuration:0.25 animations:^{
+    [UIView animateWithDuration:0.15 animations:^{
         self.arrowImageView.transform = self.opened ? CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(90)) : CGAffineTransformIdentity;
     }];
 }

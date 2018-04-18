@@ -18,18 +18,18 @@
 #import "ProposalsViewModel.h"
 
 #import "NSManagedObject+DCExtensions.h"
-#import "ProposalsHeaderViewModel+Protected.h"
 #import "APIBudget.h"
 #import "AppDelegate.h"
 #import "DCPersistenceStack.h"
 #import "HTTPLoaderOperationProtocol.h"
+#import "ProposalsHeaderViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 #define KEY_DATEADDED @"dateAdded"
 #define KEY_SORTORDER @"sortOrder"
 
-@interface ProposalsViewModel () <ProposalsHeaderViewModelDelegate>
+@interface ProposalsViewModel ()
 
 @property (weak, nonatomic) id<HTTPLoaderOperationProtocol> request;
 
@@ -47,7 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (ProposalsHeaderViewModel *)headerViewModel {
     if (!_headerViewModel) {
         _headerViewModel = [[ProposalsHeaderViewModel alloc] init];
-        _headerViewModel.delegate = self;
     }
     return _headerViewModel;
 }
@@ -110,16 +109,14 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     self.searchPredicate = predicate;
-    
+
     self.searchFetchedResultsController.delegate = nil;
     self.searchFetchedResultsController = nil;
 }
 
-#pragma mark ProposalsHeaderViewModelDelegate
-
-- (void)proposalsHeaderViewModelDidSetSegmentIndex:(ProposalsHeaderViewModel *)viewModel {
+- (void)updateSegmentIndex:(ProposalsSegmentIndex)segmentIndex {
     NSPredicate *segmentPredicate = nil;
-    switch (viewModel.segmentIndex) {
+    switch (segmentIndex) {
         case ProposalsSegmentIndex_Current: {
             break;
         }
@@ -131,9 +128,9 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         }
     }
-    
+
     self.segmentPredicate = segmentPredicate;
-    
+
     self.fetchedResultsController.delegate = nil;
     self.fetchedResultsController = nil;
 }
