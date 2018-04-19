@@ -47,6 +47,7 @@ typedef NS_ENUM(NSUInteger, ProposalsSegmentIndex) {
 
 - (void)searchWithQuery:(NSString *)query;
 - (void)updateSegmentIndex:(ProposalsSegmentIndex)segmentIndex;
+- (void)updateSearchSegmentIndex:(ProposalsSegmentIndex)segmentIndex;
 
 @end
 

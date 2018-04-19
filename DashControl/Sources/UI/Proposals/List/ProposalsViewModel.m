@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, strong, nonatomic) NSFetchedResultsController<DCBudgetProposalEntity *> *fetchedResultsController;
 @property (nullable, strong, nonatomic) NSFetchedResultsController<DCBudgetProposalEntity *> *searchFetchedResultsController;
 @property (nullable, strong, nonatomic) NSPredicate *segmentPredicate;
+@property (nullable, strong, nonatomic) NSPredicate *searchSegmentPredicate;
 @property (nullable, strong, nonatomic) NSPredicate *searchPredicate;
 
 @end
@@ -63,7 +64,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSFetchedResultsController<DCBudgetProposalEntity *> *)searchFetchedResultsController {
     if (!_searchFetchedResultsController) {
         NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
-        _searchFetchedResultsController = [[self class] fetchedResultsControllerWithPredicate:self.searchPredicate
+        NSPredicate *resultPredicate = nil;
+        if (self.searchSegmentPredicate && self.searchPredicate) {
+            resultPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[ self.searchSegmentPredicate, self.searchPredicate ]];
+        }
+        else if (self.searchSegmentPredicate) {
+            resultPredicate = self.searchSegmentPredicate;
+        }
+        else if (self.searchPredicate) {
+            resultPredicate = self.searchPredicate;
+        }
+        _searchFetchedResultsController = [[self class] fetchedResultsControllerWithPredicate:resultPredicate
                                                                                       context:context];
     }
     return _searchFetchedResultsController;
@@ -115,6 +126,30 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateSegmentIndex:(ProposalsSegmentIndex)segmentIndex {
+    NSPredicate *segmentPredicate = [self.class segmentPredicateForSegmentIndex:segmentIndex];
+    if ([segmentPredicate isEqual:self.segmentPredicate]) {
+        return;
+    }
+    self.segmentPredicate = segmentPredicate;
+
+    self.fetchedResultsController.delegate = nil;
+    self.fetchedResultsController = nil;
+}
+
+- (void)updateSearchSegmentIndex:(ProposalsSegmentIndex)segmentIndex {
+    NSPredicate *segmentPredicate = [self.class segmentPredicateForSegmentIndex:segmentIndex];
+    if ([segmentPredicate isEqual:self.searchSegmentPredicate]) {
+        return;
+    }
+    self.searchSegmentPredicate = segmentPredicate;
+    
+    self.searchFetchedResultsController.delegate = nil;
+    self.searchFetchedResultsController = nil;
+}
+
+#pragma mark Private
+
++ (nullable NSPredicate *)segmentPredicateForSegmentIndex:(ProposalsSegmentIndex)segmentIndex {
     NSPredicate *segmentPredicate = nil;
     switch (segmentIndex) {
         case ProposalsSegmentIndex_Current: {
@@ -128,14 +163,9 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         }
     }
-
-    self.segmentPredicate = segmentPredicate;
-
-    self.fetchedResultsController.delegate = nil;
-    self.fetchedResultsController = nil;
+    
+    return segmentPredicate;
 }
-
-#pragma mark Private
 
 + (NSFetchedResultsController *)fetchedResultsControllerWithPredicate:(nullable NSPredicate *)predicate
                                                               context:(NSManagedObjectContext *)context {

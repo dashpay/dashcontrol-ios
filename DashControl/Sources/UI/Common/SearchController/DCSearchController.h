@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 // don't touch searchBar's delegate :-P
 @property (strong, nonatomic) DCSearchBar *searchBar;
 
+@property (readonly, strong, nonatomic) UIView *searchAccessoryView;
+
 - (instancetype)initWithController:(UIViewController *)searchResultsController NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil NS_UNAVAILABLE;

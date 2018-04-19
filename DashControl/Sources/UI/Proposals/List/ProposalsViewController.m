@@ -78,6 +78,18 @@ NS_ASSUME_NONNULL_BEGIN
     self.searchController = [[DCSearchController alloc] initWithController:searchResultsController];
     self.searchController.delegate = self;
     self.searchController.searchResultsUpdater = self;
+    UIView *searchAccessoryView = self.searchController.searchAccessoryView;
+    ProposalsSegmentedControl *searchSegmentedControl = [[ProposalsSegmentedControl alloc] initWithFrame:CGRectZero];
+    searchSegmentedControl.translatesAutoresizingMaskIntoConstraints = NO;
+    searchSegmentedControl.backgroundColor = [UIColor dc_barTintColor];
+    [searchSegmentedControl addTarget:self action:@selector(searchSegmentedControlAction:) forControlEvents:UIControlEventValueChanged];
+    [searchAccessoryView addSubview:searchSegmentedControl];
+    [searchSegmentedControl.topAnchor constraintEqualToAnchor:searchAccessoryView.topAnchor].active = YES;
+    [searchSegmentedControl.leadingAnchor constraintEqualToAnchor:searchAccessoryView.leadingAnchor].active = YES;
+    [searchSegmentedControl.bottomAnchor constraintEqualToAnchor:searchAccessoryView.bottomAnchor].active = YES;
+    [searchSegmentedControl.trailingAnchor constraintEqualToAnchor:searchAccessoryView.trailingAnchor].active = YES;
+    [searchSegmentedControl.heightAnchor constraintEqualToConstant:44.0].active = YES;
+
     self.definesPresentationContext = YES;
 
     // KVO
@@ -109,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)searchBarButtonItemAction:(UIBarButtonItem *)sender {
     [self.segmentSelectorView setOpen:NO];
-    
+
     self.navigationItem.rightBarButtonItem = nil;
 
     DCSearchBar *searchBar = self.searchController.searchBar;
@@ -252,7 +264,7 @@ NS_ASSUME_NONNULL_BEGIN
             [self.segmentSelectorView.bottomAnchor constraintEqualToAnchor:self.navigationController.bottomLayoutGuide.topAnchor].active = YES;
         }
         [self.segmentSelectorView layoutIfNeeded];
-        
+
         [self.segmentSelectorView setOpen:YES];
         self.navigationTitleButton.opened = YES;
     }
@@ -265,6 +277,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)segmentSelectorViewCancel:(ProposalsSegmentedControl *)sender {
     [self.segmentSelectorView setOpen:NO];
+}
+
+- (void)searchSegmentedControlAction:(ProposalsSegmentedControl *)sender {
+    [self.viewModel updateSearchSegmentIndex:sender.selectedIndex];
 }
 
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView {
