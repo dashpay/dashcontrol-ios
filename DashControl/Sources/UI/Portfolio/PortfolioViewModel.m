@@ -38,7 +38,7 @@ static NSInteger const DASHWALLET_APPSTORE_ID = 1206647026;
         NSFetchRequest *fetchRequest = [DCWalletEntity fetchRequest];
         NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
         _walletFetchedResultsController = [self.class fetchedResultsControllerWithFetchRequest:fetchRequest
-                                                                                       sortKey:@"name"
+                                                                                      sortKeys:@[ @"name" ]
                                                                                        context:context];
     }
     return _walletFetchedResultsController;
@@ -50,7 +50,7 @@ static NSInteger const DASHWALLET_APPSTORE_ID = 1206647026;
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"walletAccount = nil"];
         NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
         _walletAddressFetchedResultsController = [self.class fetchedResultsControllerWithFetchRequest:fetchRequest
-                                                                                              sortKey:@"address"
+                                                                                             sortKeys:@[ @"name", @"address" ]
                                                                                               context:context];
     }
     return _walletAddressFetchedResultsController;
@@ -61,7 +61,7 @@ static NSInteger const DASHWALLET_APPSTORE_ID = 1206647026;
         NSFetchRequest *fetchRequest = [DCMasternodeEntity fetchRequest];
         NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
         _masternodeFetchedResultsController = [self.class fetchedResultsControllerWithFetchRequest:fetchRequest
-                                                                                           sortKey:@"address"
+                                                                                          sortKeys:@[ @"name", @"address" ]
                                                                                            context:context];
     }
     return _masternodeFetchedResultsController;
@@ -88,11 +88,13 @@ static NSInteger const DASHWALLET_APPSTORE_ID = 1206647026;
 #pragma mark Private
 
 + (NSFetchedResultsController *)fetchedResultsControllerWithFetchRequest:(NSFetchRequest *)fetchRequest
-                                                                 sortKey:(NSString *)sortKey
+                                                                sortKeys:(NSArray<NSString *> *)sortKeys
                                                                  context:(NSManagedObjectContext *)context {
-    fetchRequest.sortDescriptors = @[
-        [[NSSortDescriptor alloc] initWithKey:sortKey ascending:YES],
-    ];
+    NSMutableArray<NSSortDescriptor *> *sortDescriptors = [NSMutableArray array];
+    for (NSString *sortKey in sortKeys) {
+        [sortDescriptors addObject:[[NSSortDescriptor alloc] initWithKey:sortKey ascending:YES]];
+    }
+    fetchRequest.sortDescriptors = sortDescriptors;
 
     NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                                                managedObjectContext:context

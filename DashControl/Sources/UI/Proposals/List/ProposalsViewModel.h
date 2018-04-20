@@ -22,6 +22,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, ProposalsSegmentIndex) {
+    ProposalsSegmentIndex_Current,
+    ProposalsSegmentIndex_Ongoing,
+    ProposalsSegmentIndex_Past,
+};
+
 @class DCPersistenceStack;
 @class APIBudget;
 @class ProposalsHeaderViewModel;
@@ -40,6 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)reloadWithCompletion:(void (^)(BOOL success))completion;
 
 - (void)searchWithQuery:(NSString *)query;
+- (void)updateSegmentIndex:(ProposalsSegmentIndex)segmentIndex;
+- (void)updateSearchSegmentIndex:(ProposalsSegmentIndex)segmentIndex;
 
 @end
 

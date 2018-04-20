@@ -17,13 +17,18 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ItemTableViewCellModel.h"
+#import "SubtitleTableViewCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class DCWalletAddressEntity;
+@class DCPersistenceStack;
+@class APIPortfolio;
 
-@interface PortfolioWalletAddressTableViewCellModel : NSObject <ItemTableViewCellModel>
+@interface PortfolioWalletAddressTableViewCellModel : NSObject <SubtitleTableViewCellModel>
+
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+@property (strong, nonatomic) InjectedClass(APIPortfolio) apiPortfolio;
 
 - (instancetype)initWithEntity:(DCWalletAddressEntity *)entity;
 

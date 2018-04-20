@@ -15,35 +15,26 @@
 //  limitations under the License.
 //
 
-#import "ItemTableViewCell.h"
+#import <UIKit/UIKit.h>
 
-#import "ItemTableViewCellModel.h"
+#import "ProposalsSegmentedControl.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ItemTableViewCell ()
+@class ProposalsSegmentSelectorView;
 
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@protocol ProposalsSegmentSelectorViewDelegate <NSObject>
+
+- (void)proposalsSegmentSelectorViewDidClose:(ProposalsSegmentSelectorView *)view;
 
 @end
 
-@implementation ItemTableViewCell
+@interface ProposalsSegmentSelectorView : UIView
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    
-    [self mvvm_observe:@"viewModel.title" with:^(typeof(self) self, NSString * value) {
-        self.titleLabel.text = value;
-    }];
-}
+@property (readonly, strong, nonatomic) ProposalsSegmentedControl *segmentedControl;
+@property (nullable, weak, nonatomic) id<ProposalsSegmentSelectorViewDelegate> delegate;
 
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    [super setHighlighted:highlighted animated:animated];
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        self.contentView.alpha = highlighted ? 0.65 : 1.0;
-    }];
-}
+- (void)setOpen:(BOOL)open;
 
 @end
 

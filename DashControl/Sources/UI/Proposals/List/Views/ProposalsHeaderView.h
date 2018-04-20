@@ -25,8 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) ProposalsHeaderViewModel *viewModel;
 
-- (void)setOpened:(BOOL)opened animated:(BOOL)animated;
-
 @end
 
 NS_ASSUME_NONNULL_END

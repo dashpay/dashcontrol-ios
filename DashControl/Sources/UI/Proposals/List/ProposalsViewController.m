@@ -26,15 +26,17 @@
 #import "ProposalsHeaderView.h"
 #import "ProposalsHeaderViewModel.h"
 #import "ProposalsSearchResultsController.h"
+#import "ProposalsSegmentSelectorView.h"
 #import "ProposalsViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ProposalsViewController () <DCSearchControllerDelegate, DCSearchResultsUpdating>
+@interface ProposalsViewController () <DCSearchControllerDelegate, DCSearchResultsUpdating, ProposalsSegmentSelectorViewDelegate>
 
 @property (strong, nonatomic) ProposalsViewModel *viewModel;
 
 @property (strong, nonatomic) NavigationTitleButton *navigationTitleButton;
+@property (strong, nonatomic) ProposalsSegmentSelectorView *segmentSelectorView;
 @property (strong, nonatomic) ProposalsHeaderView *proposalsHeaderView;
 @property (strong, nonatomic) DCSearchController *searchController;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *searchBarButtonItem;
@@ -46,8 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-    self.title = NSLocalizedString(@"Proposals", nil);
-    self.tabBarItem.title = self.title;
+    self.title = @""; // hides back button title in the detail controller
+    self.tabBarItem.title = NSLocalizedString(@"Proposals", nil);
 }
 
 - (void)viewDidLoad {
@@ -76,6 +78,18 @@ NS_ASSUME_NONNULL_BEGIN
     self.searchController = [[DCSearchController alloc] initWithController:searchResultsController];
     self.searchController.delegate = self;
     self.searchController.searchResultsUpdater = self;
+    UIView *searchAccessoryView = self.searchController.searchAccessoryView;
+    ProposalsSegmentedControl *searchSegmentedControl = [[ProposalsSegmentedControl alloc] initWithFrame:CGRectZero];
+    searchSegmentedControl.translatesAutoresizingMaskIntoConstraints = NO;
+    searchSegmentedControl.backgroundColor = [UIColor dc_barTintColor];
+    [searchSegmentedControl addTarget:self action:@selector(searchSegmentedControlAction:) forControlEvents:UIControlEventValueChanged];
+    [searchAccessoryView addSubview:searchSegmentedControl];
+    [searchSegmentedControl.topAnchor constraintEqualToAnchor:searchAccessoryView.topAnchor].active = YES;
+    [searchSegmentedControl.leadingAnchor constraintEqualToAnchor:searchAccessoryView.leadingAnchor].active = YES;
+    [searchSegmentedControl.bottomAnchor constraintEqualToAnchor:searchAccessoryView.bottomAnchor].active = YES;
+    [searchSegmentedControl.trailingAnchor constraintEqualToAnchor:searchAccessoryView.trailingAnchor].active = YES;
+    [searchSegmentedControl.heightAnchor constraintEqualToConstant:44.0].active = YES;
+
     self.definesPresentationContext = YES;
 
     // KVO
@@ -106,6 +120,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (IBAction)searchBarButtonItemAction:(UIBarButtonItem *)sender {
+    [self.segmentSelectorView setOpen:NO];
+
     self.navigationItem.rightBarButtonItem = nil;
 
     DCSearchBar *searchBar = self.searchController.searchBar;
@@ -140,7 +156,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (tableView == self.tableView) {
         return CGFLOAT_MIN;
     }
-    
+
     if (section == 0) {
         return TABLEVIEW_TOPBOTTOM_PADDING;
     }
@@ -157,7 +173,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (tableView == self.tableView) {
         return nil;
     }
-    
+
     if (section == 0) {
         return [[UIView alloc] initWithFrame:CGRectZero];
     }
@@ -175,7 +191,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     DCSearchBar *searchBar = self.searchController.searchBar;
     [searchBar resignFirstResponder];
-    
+
     NSFetchedResultsController *frc = [self fetchedResultsControllerForTableView:tableView];
     DCBudgetProposalEntity *entity = [frc objectAtIndexPath:indexPath];
     ProposalDetailViewController *detailViewController = [ProposalDetailViewController controllerWithProposal:entity];
@@ -210,22 +226,61 @@ NS_ASSUME_NONNULL_BEGIN
     return _navigationTitleButton;
 }
 
-- (void)navigationTitleButtonAction {
-    self.navigationTitleButton.opened = !self.navigationTitleButton.opened;
-
-    if (self.navigationTitleButton.opened) {
-        [self.tableView setContentOffset:CGPointZero animated:YES];
+- (ProposalsSegmentSelectorView *)segmentSelectorView {
+    if (!_segmentSelectorView) {
+        _segmentSelectorView = [[ProposalsSegmentSelectorView alloc] initWithFrame:CGRectZero];
+        _segmentSelectorView.translatesAutoresizingMaskIntoConstraints = NO;
+        _segmentSelectorView.delegate = self;
+        [_segmentSelectorView.segmentedControl addTarget:self action:@selector(segmentSelectorViewAction:) forControlEvents:UIControlEventValueChanged];
+        [_segmentSelectorView.segmentedControl addTarget:self action:@selector(segmentSelectorViewCancel:) forControlEvents:UIControlEventTouchCancel];
     }
-    [self.proposalsHeaderView setOpened:self.navigationTitleButton.opened animated:YES];
-    self.tableView.tableHeaderView = self.proposalsHeaderView;
+    return _segmentSelectorView;
 }
 
 - (ProposalsHeaderView *)proposalsHeaderView {
     if (!_proposalsHeaderView) {
         _proposalsHeaderView = [[ProposalsHeaderView alloc] initWithFrame:CGRectZero];
         _proposalsHeaderView.viewModel = self.viewModel.headerViewModel;
+        [_proposalsHeaderView sizeToFit];
     }
     return _proposalsHeaderView;
+}
+
+- (void)navigationTitleButtonAction {
+    if (self.segmentSelectorView.window) {
+        [self.segmentSelectorView setOpen:NO];
+    }
+    else {
+        UIView *view = self.navigationController.view;
+        [view insertSubview:self.segmentSelectorView belowSubview:self.navigationController.navigationBar];
+        [self.segmentSelectorView.topAnchor constraintEqualToAnchor:self.navigationController.navigationBar.bottomAnchor].active = YES;
+        [self.segmentSelectorView.leadingAnchor constraintEqualToAnchor:view.leadingAnchor].active = YES;
+        [self.segmentSelectorView.trailingAnchor constraintEqualToAnchor:view.trailingAnchor].active = YES;
+        [self.segmentSelectorView.widthAnchor constraintEqualToAnchor:view.widthAnchor].active = YES;
+        if (@available(iOS 11.0, *)) {
+            [self.segmentSelectorView.bottomAnchor constraintEqualToAnchor:view.safeAreaLayoutGuide.bottomAnchor].active = YES;
+        }
+        else {
+            [self.segmentSelectorView.bottomAnchor constraintEqualToAnchor:self.navigationController.bottomLayoutGuide.topAnchor].active = YES;
+        }
+        [self.segmentSelectorView layoutIfNeeded];
+
+        [self.segmentSelectorView setOpen:YES];
+        self.navigationTitleButton.opened = YES;
+    }
+}
+
+- (void)segmentSelectorViewAction:(ProposalsSegmentedControl *)sender {
+    [self.viewModel updateSegmentIndex:sender.selectedIndex];
+    [self.segmentSelectorView setOpen:NO];
+}
+
+- (void)segmentSelectorViewCancel:(ProposalsSegmentedControl *)sender {
+    [self.segmentSelectorView setOpen:NO];
+}
+
+- (void)searchSegmentedControlAction:(ProposalsSegmentedControl *)sender {
+    [self.viewModel updateSearchSegmentIndex:sender.selectedIndex];
 }
 
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView {
@@ -249,6 +304,13 @@ NS_ASSUME_NONNULL_BEGIN
 
         [self.tableView.refreshControl endRefreshing];
     }];
+}
+
+#pragma mark ProposalsSegmentSelectorViewDelegate
+
+- (void)proposalsSegmentSelectorViewDidClose:(ProposalsSegmentSelectorView *)view {
+    [view removeFromSuperview];
+    self.navigationTitleButton.opened = NO;
 }
 
 @end

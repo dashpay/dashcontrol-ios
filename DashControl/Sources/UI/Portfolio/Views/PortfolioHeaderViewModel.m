@@ -21,18 +21,16 @@
 #import "DCWalletAddressEntity+CoreDataClass.h"
 #import "NSManagedObject+DCExtensions.h"
 #import "APIPortfolio.h"
+#import "DCFormattingUtils.h"
 #import "DCPersistenceStack.h"
 #import "Networking.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-static int64_t const DUFFS = 100000000;
-
 @interface PortfolioHeaderViewModel ()
 
 @property (weak, nonatomic) id<HTTPLoaderOperationProtocol> priceRequest;
 @property (weak, nonatomic) id<HTTPLoaderOperationProtocol> addressesRequest;
-@property (strong, nonatomic) NSNumberFormatter *dashNumberFormatter;
 @property (strong, nonatomic) NSNumberFormatter *usdNumberFormatter;
 @property (nullable, strong, nonatomic) NSNumber *lastDashTotal;
 @property (nullable, strong, nonatomic) NSNumber *lastDashUsdPrice;
@@ -46,18 +44,11 @@ static int64_t const DUFFS = 100000000;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _dashNumberFormatter = [[NSNumberFormatter alloc] init];
-        _dashNumberFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
-        _dashNumberFormatter.generatesDecimalNumbers = YES;
-        _dashNumberFormatter.maximumFractionDigits = 8;
-        _dashNumberFormatter.minimumFractionDigits = 0;
-        _dashNumberFormatter.currencySymbol = @"";
-
         _usdNumberFormatter = [[NSNumberFormatter alloc] init];
         _usdNumberFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
         _usdNumberFormatter.maximumFractionDigits = 2;
         _usdNumberFormatter.minimumFractionDigits = 0;
-        _usdNumberFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        _usdNumberFormatter.currencySymbol = @"$";
     }
     return self;
 }
@@ -80,7 +71,7 @@ static int64_t const DUFFS = 100000000;
 - (void)updateTotalValues {
     if (self.lastDashTotal) {
         double worthDash = self.lastDashTotal.longLongValue / (double)DUFFS;
-        self.dashTotal = [self.dashNumberFormatter stringFromNumber:@(worthDash)];
+        self.dashTotal = [DCFormattingUtils.dashNumberFormatter stringFromNumber:@(worthDash)];
         if (self.lastDashUsdPrice) {
             CGFloat totalUSD = worthDash * self.lastDashUsdPrice.doubleValue;
             self.dashTotalInUSD = [self.usdNumberFormatter stringFromNumber:@(totalUSD)];

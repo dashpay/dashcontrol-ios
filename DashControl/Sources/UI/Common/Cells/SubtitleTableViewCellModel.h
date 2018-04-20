@@ -15,35 +15,20 @@
 //  limitations under the License.
 //
 
-#import "ItemTableViewCell.h"
-
-#import "ItemTableViewCellModel.h"
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ItemTableViewCell ()
+typedef NS_ENUM(NSUInteger, SubtitleTableViewCellModelState) {
+    SubtitleTableViewCellModelState_Loading,
+    SubtitleTableViewCellModelState_Ready,
+};
 
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@protocol SubtitleTableViewCellModel <NSObject>
 
-@end
-
-@implementation ItemTableViewCell
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    
-    [self mvvm_observe:@"viewModel.title" with:^(typeof(self) self, NSString * value) {
-        self.titleLabel.text = value;
-    }];
-}
-
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    [super setHighlighted:highlighted animated:animated];
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        self.contentView.alpha = highlighted ? 0.65 : 1.0;
-    }];
-}
+@property (nullable, readonly, copy, nonatomic) NSString *title;
+@property (nullable, readonly, copy, nonatomic) NSString *subtitle;
+@property (readonly, assign, nonatomic) SubtitleTableViewCellModelState state;
 
 @end
 

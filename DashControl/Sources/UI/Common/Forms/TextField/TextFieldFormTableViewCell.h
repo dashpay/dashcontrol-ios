@@ -21,9 +21,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class TextFieldFormTableViewCell;
+
+@protocol TextFieldFormTableViewCellDelegate <NSObject>
+
+- (void)textFieldFormTableViewCellActivateNextFirstResponder:(TextFieldFormTableViewCell *)cell;
+
+@end
+
 @interface TextFieldFormTableViewCell : KVOUITableViewCell
 
 @property (nullable, strong, nonatomic) TextFieldFormCellModel *cellModel;
+@property (nullable, weak, nonatomic) id<TextFieldFormTableViewCellDelegate> delegate;
+
+- (void)textFieldBecomeFirstResponder;
 
 @end
 

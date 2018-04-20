@@ -148,6 +148,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (ProposalDetailTitleView *)titleView {
     if (!_titleView) {
         _titleView = [[ProposalDetailTitleView alloc] initWithFrame:CGRectZero];
+        _titleView.dummyTitle = NSLocalizedString(@"Proposal", nil);
         _titleView.title = self.viewModel.proposal.title;
         [_titleView sizeToFit];
     }

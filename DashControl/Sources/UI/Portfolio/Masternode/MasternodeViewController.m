@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     weakify;
 
-    [self.viewModel checkBalanceAtAddressCompletion:^(NSString *_Nullable errorMessage, NSInteger indexOfInvalidDetail) {
+    [self.viewModel checkBalanceAtAddressCompletion:^(NSString *_Nullable errorMessage, NSNumber *_Nullable balance, NSInteger indexOfInvalidDetail) {
         strongify;
         if (errorMessage) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil)
@@ -116,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
         else {
             weakify;
-            [self.viewModel saveCurrentWithCompletion:^{
+            [self.viewModel saveCurrentWithBalance:balance completion:^{
                 strongify;
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [self.navigationController popViewControllerAnimated:YES];

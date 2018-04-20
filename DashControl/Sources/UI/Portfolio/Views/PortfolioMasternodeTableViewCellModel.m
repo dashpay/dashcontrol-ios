@@ -18,19 +18,27 @@
 #import "PortfolioMasternodeTableViewCellModel.h"
 
 #import "DCMasternodeEntity+CoreDataClass.h"
+#import "DCFormattingUtils.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation PortfolioMasternodeTableViewCellModel
 
 @synthesize title = _title;
+@synthesize subtitle = _subtitle;
 
 - (instancetype)initWithEntity:(DCMasternodeEntity *)entity {
     self = [super init];
     if (self) {
-        _title = entity.address;
+        _title = entity.name ?: entity.address;
+        double worthDash = entity.amount / (double)DUFFS;
+        _subtitle = [DCFormattingUtils.dashNumberFormatter stringFromNumber:@(worthDash)];
     }
     return self;
+}
+
+- (SubtitleTableViewCellModelState)state {
+    return SubtitleTableViewCellModelState_Ready;
 }
 
 @end

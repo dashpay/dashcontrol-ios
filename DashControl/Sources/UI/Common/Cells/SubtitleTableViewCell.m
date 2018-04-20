@@ -15,31 +15,54 @@
 //  limitations under the License.
 //
 
-#import "ItemTableViewCell.h"
+#import "SubtitleTableViewCell.h"
 
-#import "ItemTableViewCellModel.h"
+#import "SubtitleTableViewCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ItemTableViewCell ()
+@interface SubtitleTableViewCell ()
 
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *subtitleLabel;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 
 @end
 
-@implementation ItemTableViewCell
+@implementation SubtitleTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+
+    self.activityIndicatorView.transform = CGAffineTransformMakeScale(0.5, 0.5);
+
     [self mvvm_observe:@"viewModel.title" with:^(typeof(self) self, NSString * value) {
         self.titleLabel.text = value;
+    }];
+
+    [self mvvm_observe:@"viewModel.subtitle" with:^(typeof(self) self, NSString * value) {
+        self.subtitleLabel.text = value;
+    }];
+
+    [self mvvm_observe:@"viewModel.state" with:^(typeof(self) self, NSString * value) {
+        switch (self.viewModel.state) {
+            case SubtitleTableViewCellModelState_Loading: {
+                self.subtitleLabel.hidden = YES;
+                [self.activityIndicatorView startAnimating];
+                break;
+            }
+            case SubtitleTableViewCellModelState_Ready: {
+                self.subtitleLabel.hidden = NO;
+                [self.activityIndicatorView stopAnimating];
+                break;
+            }
+        }
     }];
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    
+
     [UIView animateWithDuration:0.25 animations:^{
         self.contentView.alpha = highlighted ? 0.65 : 1.0;
     }];

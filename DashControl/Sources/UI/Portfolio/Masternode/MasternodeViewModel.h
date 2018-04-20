@@ -40,8 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteCurrentWithCompletion:(void (^)(void))completion;
 
 - (NSInteger)indexOfInvalidDetail;
-- (void)checkBalanceAtAddressCompletion:(void (^)(NSString *_Nullable errorMessage, NSInteger indexOfInvalidDetail))completion;
-- (void)saveCurrentWithCompletion:(void (^)(void))completion;
+- (void)checkBalanceAtAddressCompletion:(void (^)(NSString *_Nullable errorMessage, NSNumber *_Nullable balance, NSInteger indexOfInvalidDetail))completion;
+- (void)saveCurrentWithBalance:(NSNumber *)balance completion:(void (^)(void))completion;
 
 @end
 

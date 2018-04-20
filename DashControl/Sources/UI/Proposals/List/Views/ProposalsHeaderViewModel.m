@@ -15,7 +15,7 @@
 //  limitations under the License.
 //
 
-#import "ProposalsHeaderViewModel+Protected.h"
+#import "ProposalsHeaderViewModel.h"
 
 #import "DCBudgetInfoEntity+CoreDataClass.h"
 #import "NSDate+DCAdditions.h"
@@ -29,6 +29,14 @@ NS_ASSUME_NONNULL_BEGIN
 static NSUInteger const BLOCKS_BEFORE_DEADLINE = 1662;
 static double const AVG_BLOCKS_PER_MINUTE = 2.6;
 static NSTimeInterval DEADLINE_SECONDS_BEFORE_VOTING_DATE = BLOCKS_BEFORE_DEADLINE * AVG_BLOCKS_PER_MINUTE * 60;
+
+@interface ProposalsHeaderViewModel ()
+
+@property (copy, nonatomic) NSString *total;
+@property (copy, nonatomic) NSString *alloted;
+@property (copy, nonatomic) NSString *superblockPaymentInfo;
+
+@end
 
 @implementation ProposalsHeaderViewModel
 
@@ -68,16 +76,6 @@ static NSTimeInterval DEADLINE_SECONDS_BEFORE_VOTING_DATE = BLOCKS_BEFORE_DEADLI
         self.alloted = @"...";
         self.superblockPaymentInfo = @"...";
     }
-}
-
-- (void)setSegmentIndex:(ProposalsSegmentIndex)segmentIndex {
-    if (_segmentIndex == segmentIndex) {
-        return;
-    }
-
-    _segmentIndex = segmentIndex;
-
-    [self.delegate proposalsHeaderViewModelDidSetSegmentIndex:self];
 }
 
 @end

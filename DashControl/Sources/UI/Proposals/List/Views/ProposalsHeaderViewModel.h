@@ -21,19 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class DCBudgetInfoEntity;
 
-typedef NS_ENUM(NSUInteger, ProposalsSegmentIndex) {
-    ProposalsSegmentIndex_Current,
-    ProposalsSegmentIndex_Ongoing,
-    ProposalsSegmentIndex_Past,
-};
-
 @interface ProposalsHeaderViewModel : NSObject
 
 @property (readonly, copy, nonatomic) NSString *total;
 @property (readonly, copy, nonatomic) NSString *alloted;
 @property (readonly, copy, nonatomic) NSString *superblockPaymentInfo;
-
-@property (assign, nonatomic) ProposalsSegmentIndex segmentIndex;
 
 - (void)updateWithBudgetInfo:(nullable DCBudgetInfoEntity *)budgetInfo;
 

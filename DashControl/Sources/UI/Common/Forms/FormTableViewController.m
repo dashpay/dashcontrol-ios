@@ -30,6 +30,9 @@ static NSString *const TEXTFIELD_CELL_ID = @"TextFieldFormTableViewCell";
 static NSString *const SWITCHER_CELL_ID = @"SwitcherFormTableViewCell";
 static NSString *const BUTTON_CELL_ID = @"ButtonFormTableViewCell";
 
+@interface FormTableViewController () <TextFieldFormTableViewCellDelegate>
+@end
+
 @implementation FormTableViewController
 
 - (void)viewDidLoad {
@@ -86,6 +89,7 @@ static NSString *const BUTTON_CELL_ID = @"ButtonFormTableViewCell";
     else if ([cellModel isKindOfClass:TextFieldFormCellModel.class]) {
         TextFieldFormTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TEXTFIELD_CELL_ID forIndexPath:indexPath];
         cell.cellModel = (TextFieldFormCellModel *)cellModel;
+        cell.delegate = self;
         return cell;
     }
     else if ([cellModel isKindOfClass:SwitcherFormCellModel.class]) {
@@ -125,6 +129,33 @@ static NSString *const BUTTON_CELL_ID = @"ButtonFormTableViewCell";
         }
         else {
             [self displayErrorStateForCellAtIndex:index];
+        }
+    }
+}
+
+#pragma mark TextFieldFormTableViewCellDelegate
+
+- (void)textFieldFormTableViewCellActivateNextFirstResponder:(TextFieldFormTableViewCell *)cell {
+    TextFieldFormCellModel *cellModel = cell.cellModel;
+    NSParameterAssert((cellModel.returnKeyType == UIReturnKeyNext));
+    NSUInteger indexOfModel = [self.items indexOfObject:cellModel];
+    if (indexOfModel == NSNotFound) {
+        return;
+    }
+    indexOfModel += 1;
+    for (NSUInteger i = indexOfModel; i < self.items.count; i++) {
+        TextFieldFormCellModel *cellModel = (TextFieldFormCellModel *)self.items[i];
+        if ([cellModel isKindOfClass:TextFieldFormCellModel.class]) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            TextFieldFormTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            if ([cell isKindOfClass:TextFieldFormTableViewCell.class]) {
+                [cell textFieldBecomeFirstResponder];
+            }
+            else {
+                NSAssert(NO, @"Invalid cell class for TextFieldFormCellModel");
+            }
+
+            break;
         }
     }
 }

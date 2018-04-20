@@ -15,25 +15,28 @@
 //  limitations under the License.
 //
 
-#import "ProposalsHeaderViewModel.h"
+#import "DCFormattingUtils.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ProposalsHeaderViewModel;
+int64_t const DUFFS = 100000000;
 
-@protocol ProposalsHeaderViewModelDelegate <NSObject>
+@implementation DCFormattingUtils
 
-- (void)proposalsHeaderViewModelDidSetSegmentIndex:(ProposalsHeaderViewModel *)viewModel;
++ (NSNumberFormatter *)dashNumberFormatter {
+    static NSNumberFormatter *_dashNumberFormatter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _dashNumberFormatter = [[NSNumberFormatter alloc] init];
+        _dashNumberFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
+        _dashNumberFormatter.generatesDecimalNumbers = YES;
+        _dashNumberFormatter.maximumFractionDigits = 8;
+        _dashNumberFormatter.minimumFractionDigits = 0;
+        _dashNumberFormatter.currencySymbol = @"";
 
-@end
-
-@interface ProposalsHeaderViewModel ()
-
-@property (copy, nonatomic) NSString *total;
-@property (copy, nonatomic) NSString *alloted;
-@property (copy, nonatomic) NSString *superblockPaymentInfo;
-
-@property (weak, nonatomic) id<ProposalsHeaderViewModelDelegate> delegate;
+    });
+    return _dashNumberFormatter;
+}
 
 @end
 

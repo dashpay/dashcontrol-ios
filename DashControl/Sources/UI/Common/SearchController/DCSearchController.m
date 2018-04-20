@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DCSearchController () <DCSearchBarDelegate>
 
+@property (strong, nonatomic) UIView *searchAccessoryView;
+
 @end
 
 @implementation DCSearchController
@@ -29,8 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _searchResultsController = searchResultsController;
-        
-        self.modalTransitionStyle  = UIModalTransitionStyleCrossDissolve;
+
+        self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     }
     return self;
@@ -38,11 +40,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    [self.view addSubview:self.searchAccessoryView];
+    [self.searchAccessoryView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
+    [self.searchAccessoryView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+    [self.searchAccessoryView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
+    NSLayoutConstraint *heightContraint = [self.searchAccessoryView.heightAnchor constraintEqualToConstant:0.0];
+    heightContraint.priority = UILayoutPriorityRequired - 100;
+    heightContraint.active = YES;
+
+    UIView *searchView = self.searchResultsController.view;
     [self addChildViewController:self.searchResultsController];
-    self.searchResultsController.view.frame = self.view.bounds;
-    self.searchResultsController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.view addSubview:self.searchResultsController.view];
+    searchView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:searchView];
+    [searchView.topAnchor constraintEqualToAnchor:self.searchAccessoryView.bottomAnchor].active = YES;
+    [searchView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+    [searchView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = YES;
+    [searchView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
     [self.searchResultsController didMoveToParentViewController:self];
 }
 
@@ -54,13 +68,21 @@ NS_ASSUME_NONNULL_BEGIN
     return _searchBar;
 }
 
+- (UIView *)searchAccessoryView {
+    if (!_searchAccessoryView) {
+        _searchAccessoryView = [[UIView alloc] initWithFrame:CGRectZero];
+        _searchAccessoryView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _searchAccessoryView;
+}
+
 - (void)setActive:(BOOL)active {
     if (_active == active) {
         return;
     }
-    
+
     _active = active;
-    
+
     if (active) {
         if ([self.delegate respondsToSelector:@selector(willPresentSearchController:)]) {
             [self.delegate willPresentSearchController:self];
@@ -87,7 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)searchBarDidBeginEditing:(DCSearchBar *)searchBar {
     self.active = YES;
-    
+
     [self.searchResultsUpdater updateSearchResultsForSearchController:self];
 }
 
@@ -102,9 +124,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)searchBarCancelButtonClicked:(DCSearchBar *)searchBar {
     searchBar.text = nil;
     [searchBar resignFirstResponder];
-    
+
     self.active = NO;
-    
+
     [self.searchResultsUpdater updateSearchResultsForSearchController:self];
 }
 

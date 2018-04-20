@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProposalDetailTitleView ()
 
+@property (strong, nonatomic) UILabel *dummyTitleLabel;
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (assign, nonatomic) CGFloat contentOffset;
 
@@ -33,10 +34,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.clipsToBounds = YES;
+        
+        UILabel *dummyTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        dummyTitleLabel.font = [UIFont dc_montserratRegularFontOfSize:17.0];
+        dummyTitleLabel.textColor = [UIColor whiteColor];
+        dummyTitleLabel.userInteractionEnabled = NO;
+        [self addSubview:dummyTitleLabel];
+        _dummyTitleLabel = dummyTitleLabel;
+
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         titleLabel.font = [UIFont dc_montserratRegularFontOfSize:17.0];
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.userInteractionEnabled = NO;
+        titleLabel.hidden = YES;
         [self addSubview:titleLabel];
         _titleLabel = titleLabel;
     }
@@ -48,12 +59,22 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    CGFloat y = self.contentOffset == 0.0 ? CGRectGetMaxY(self.bounds) : [self titleVerticalPositionAdjustedBy:self.contentOffset];
-    self.titleLabel.frame = CGRectMake(0.0, y, self.bounds.size.width, HEIGHT);
+    CGFloat contentOffset = self.contentOffset;
+    [self setContentOffset:contentOffset];
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
-    return CGSizeMake(self.titleLabel.bounds.size.width, HEIGHT);
+    return CGSizeMake([UIScreen mainScreen].bounds.size.width, HEIGHT);
+}
+
+- (nullable NSString *)dummyTitle {
+    return self.dummyTitleLabel.text;
+}
+
+- (void)setDummyTitle:(nullable NSString *)dummyTitle {
+    self.dummyTitleLabel.text = dummyTitle;
+    [self.dummyTitleLabel sizeToFit];
+    [self setNeedsLayout];
 }
 
 - (nullable NSString *)title {
@@ -75,15 +96,44 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setContentOffset:(CGFloat)contentOffset {
     _contentOffset = contentOffset;
 
-    CGRect frame = self.titleLabel.frame;
-    frame.origin.y = [self titleVerticalPositionAdjustedBy:_contentOffset];
-    self.titleLabel.frame = frame;
-    self.titleLabel.hidden = (frame.origin.y > self.bounds.size.height);
+    CGFloat viewWidht = self.bounds.size.width;
+    CGRect titleFrame = CGRectMake([self centeredHorizonatalViewPositionForWidth:self.titleLabel.bounds.size.width],
+                                   [self titleVerticalPositionAdjustedBy:_contentOffset],
+                                   MIN(self.titleLabel.bounds.size.width, viewWidht),
+                                   HEIGHT);
+    self.titleLabel.frame = titleFrame;
+    self.titleLabel.hidden = (titleFrame.origin.y > self.bounds.size.height);
+    
+    CGRect dummyFrame = CGRectMake([self centeredHorizonatalViewPositionForWidth:self.dummyTitleLabel.bounds.size.width],
+                                   titleFrame.origin.y - HEIGHT,
+                                   MIN(self.dummyTitleLabel.frame.size.width, viewWidht),
+                                   HEIGHT);
+    self.dummyTitleLabel.frame = dummyFrame;
+    self.dummyTitleLabel.hidden = (dummyFrame.origin.y < -HEIGHT);
 }
 
 - (CGFloat)titleVerticalPositionAdjustedBy:(CGFloat)offset {
     CGFloat midY = CGRectGetMidY(self.bounds) - self.titleLabel.bounds.size.height * 0.5;
-    return round(MAX(CGRectGetMaxY(self.bounds) - offset, midY));
+    return round(MAX(MIN(CGRectGetMaxY(self.bounds) - offset, HEIGHT), midY));
+}
+
+- (CGFloat)centeredHorizonatalViewPositionForWidth:(CGFloat)width {
+    CGFloat viewX = [self viewOriginXPositionInSuperview];
+    CGFloat midX = round((self.bounds.size.width - width) / 2.0);
+    CGFloat viewMidX = round(([UIScreen mainScreen].bounds.size.width - self.bounds.size.width) / 2.0);
+    CGFloat offset = MAX(viewX - viewMidX, 0.0);
+    return MAX(midX - offset, 0.0);
+}
+
+- (CGFloat)viewOriginXPositionInSuperview {
+    UIView *view = self;
+    while (view.superview != nil) {
+        if (view.frame.origin.x > 0.0) {
+            return view.frame.origin.x;
+        }
+        view = view.superview;
+    }
+    return 0.0;
 }
 
 @end

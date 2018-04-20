@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProposalDetailTitleView : UIView
 
+@property (nullable, copy, nonatomic) NSString *dummyTitle;
 @property (nullable, copy, nonatomic) NSString *title;
 
 /**
