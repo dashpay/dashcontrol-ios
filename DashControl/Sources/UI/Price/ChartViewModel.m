@@ -261,20 +261,11 @@ typedef NS_ENUM(NSUInteger, ChartViewModelFetchState) {
         return;
     }
 
-    NSManagedObjectContext *viewContext = self.stack.persistentContainer.viewContext;
     NSDate *startTime = [NSDate dateWithTimeIntervalSinceNow:-[DCChartTimeFormatter timeIntervalForChartTimeFrame:self.timeFrame]];
-    NSArray<DCChartDataEntryEntity *> *items = [DCChartDataEntryEntity chartDataForExchangeIdentifier:self.exchangeMarketPair.exchange.identifier
-                                                                                     marketIdentifier:self.exchangeMarketPair.market.identifier
-                                                                                             interval:self.timeInterval
-                                                                                            startTime:startTime
-                                                                                              endTime:nil
-                                                                                            inContext:viewContext];
-    if (items.count > 0) {
-        self.chartDataSource = [[ChartViewDataSource alloc] initWithItems:items timeInterval:self.timeInterval];
-    }
-    else {
-        self.chartDataSource = nil;
-    }
+    self.chartDataSource = [[ChartViewDataSource alloc] initWithExchangeIdentifier:self.exchangeMarketPair.exchange.identifier
+                                                                  marketIdentifier:self.exchangeMarketPair.market.identifier
+                                                                         startTime:startTime
+                                                                      timeInterval:self.timeInterval];
 }
 
 - (void)updateChartDataTimeIntervalsForExchange:(DCExchangeEntity *)exchange
