@@ -15,11 +15,18 @@
 //  limitations under the License.
 //
 
-#import "FetchedResultsDCTableViewController.h"
+#import <KVO-MVVM/KVOUIViewController.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BaseProposalViewController : FetchedResultsDCTableViewController
+@interface DCTableViewController : KVOUIViewController <UITableViewDelegate, UITableViewDataSource>
+
+- (instancetype)initWithStyle:(UITableViewStyle)style;
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, assign) BOOL clearsSelectionOnViewWillAppear; // defaults to YES
+
+@property (nonatomic, strong, nullable) UIRefreshControl *refreshControl;
 
 @end
 

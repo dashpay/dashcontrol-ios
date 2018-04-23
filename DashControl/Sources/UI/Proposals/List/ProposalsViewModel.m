@@ -23,6 +23,7 @@
 #import "DCPersistenceStack.h"
 #import "HTTPLoaderOperationProtocol.h"
 #import "ProposalsHeaderViewModel.h"
+#import "ProposalsTopViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -43,7 +44,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation ProposalsViewModel
 
+@synthesize topViewModel = _topViewModel;
 @synthesize headerViewModel = _headerViewModel;
+
+- (ProposalsTopViewModel *)topViewModel {
+    if (!_topViewModel) {
+        _topViewModel = [[ProposalsTopViewModel alloc] init];
+    }
+    return _topViewModel;
+}
 
 - (ProposalsHeaderViewModel *)headerViewModel {
     if (!_headerViewModel) {
@@ -97,6 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
 
         NSManagedObjectContext *viewContext = self.stack.persistentContainer.viewContext;
         DCBudgetInfoEntity *budgetInfoEntity = [DCBudgetInfoEntity dc_objectWithPredicate:nil inContext:viewContext];
+        [self.topViewModel updateWithBudgetInfo:budgetInfoEntity];
         [self.headerViewModel updateWithBudgetInfo:budgetInfoEntity];
 
         if (completion) {
@@ -142,7 +152,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     self.searchSegmentPredicate = segmentPredicate;
-    
+
     self.searchFetchedResultsController.delegate = nil;
     self.searchFetchedResultsController = nil;
 }
@@ -163,7 +173,7 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         }
     }
-    
+
     return segmentPredicate;
 }
 

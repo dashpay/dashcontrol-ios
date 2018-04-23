@@ -27,9 +27,12 @@
 #import "ProposalsHeaderViewModel.h"
 #import "ProposalsSearchResultsController.h"
 #import "ProposalsSegmentSelectorView.h"
+#import "ProposalsTopView.h"
 #import "ProposalsViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+static CGFloat const TOP_VIEW_HEIGHT = 88.0;
 
 @interface ProposalsViewController () <DCSearchControllerDelegate, DCSearchResultsUpdating, ProposalsSegmentSelectorViewDelegate>
 
@@ -37,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) NavigationTitleButton *navigationTitleButton;
 @property (strong, nonatomic) ProposalsSegmentSelectorView *segmentSelectorView;
+@property (strong, nonatomic) IBOutlet ProposalsTopView *topView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *topViewTopConstraint;
 @property (strong, nonatomic) ProposalsHeaderView *proposalsHeaderView;
 @property (strong, nonatomic) DCSearchController *searchController;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *searchBarButtonItem;
@@ -60,14 +65,15 @@ NS_ASSUME_NONNULL_BEGIN
     [self.navigationController.navigationBar setBackgroundImage:emptyImage forBarMetrics:UIBarMetricsDefault];
     self.navigationItem.titleView = self.navigationTitleButton;
 
-    // blue bg view above the tableView
-    CGRect frame = [UIScreen mainScreen].bounds;
-    frame.origin.y = -frame.size.height;
-    UIView *topBackgroundView = [[UIView alloc] initWithFrame:frame];
-    topBackgroundView.backgroundColor = [UIColor dc_barTintColor];
-    [self.tableView insertSubview:topBackgroundView atIndex:0];
+    self.topView.viewModel = self.viewModel.topViewModel;
 
+    self.tableView.contentInset = UIEdgeInsetsMake(TOP_VIEW_HEIGHT, 0.0, 0.0, 0.0);
+    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     self.tableView.tableHeaderView = self.proposalsHeaderView;
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.tintColor = [UIColor colorWithWhite:1.0 alpha:0.6];
+    [refreshControl addTarget:self action:@selector(refreshControlAction:) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
 
     [self.viewModel updateMasternodesCount];
     [self reload];
@@ -115,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Actions
 
-- (IBAction)refreshControlAction:(UIRefreshControl *)sender {
+- (void)refreshControlAction:(UIRefreshControl *)sender {
     [self reload];
 }
 
@@ -196,6 +202,13 @@ NS_ASSUME_NONNULL_BEGIN
     DCBudgetProposalEntity *entity = [frc objectAtIndexPath:indexPath];
     ProposalDetailViewController *detailViewController = [ProposalDetailViewController controllerWithProposal:entity];
     [self showViewController:detailViewController sender:self];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView != self.tableView) {
+        return;
+    }
+    self.topViewTopConstraint.constant = MIN(-(scrollView.contentOffset.y + TOP_VIEW_HEIGHT), 0.0);
 }
 
 #pragma mark DCSearchControllerDelegate
@@ -293,8 +306,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)reload {
-    if (self.tableView.contentOffset.y == 0) {
-        self.tableView.contentOffset = CGPointMake(0.0, -self.tableView.refreshControl.frame.size.height);
+    if (self.tableView.contentOffset.y == -TOP_VIEW_HEIGHT) {
+        self.tableView.contentOffset = CGPointMake(0.0, -(self.tableView.refreshControl.frame.size.height + TOP_VIEW_HEIGHT));
         [self.tableView.refreshControl beginRefreshing];
     }
 

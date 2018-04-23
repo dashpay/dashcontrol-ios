@@ -34,6 +34,10 @@
 		2A0DAAD42086910200992DC1 /* ProposalsSegmentSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0DAAD32086910200992DC1 /* ProposalsSegmentSelectorView.m */; };
 		2A0DAAD62086913300992DC1 /* ProposalsSegmentSelectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A0DAAD52086913300992DC1 /* ProposalsSegmentSelectorView.xib */; };
 		2A0DAAD920872CB000992DC1 /* ProposalsSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0DAAD820872CB000992DC1 /* ProposalsSegmentedControl.m */; };
+		2A0DAAEC208DC2BF00992DC1 /* DCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0DAAEB208DC2BF00992DC1 /* DCTableViewController.m */; };
+		2A0DAAEF208DC8C400992DC1 /* FetchedResultsDCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0DAAEE208DC8C400992DC1 /* FetchedResultsDCTableViewController.m */; };
+		2A0DAAF2208DD24500992DC1 /* ProposalsTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0DAAF1208DD24500992DC1 /* ProposalsTopView.m */; };
+		2A0DAAF5208DD25400992DC1 /* ProposalsTopViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0DAAF4208DD25400992DC1 /* ProposalsTopViewModel.m */; };
 		2A289A4D203AB00700EDC98E /* DCSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A289A4C203AB00700EDC98E /* DCSearchController.m */; };
 		2A289A50203AB44400EDC98E /* BaseNewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A289A4F203AB44400EDC98E /* BaseNewsTableViewController.m */; };
 		2A289A52203AB6D700EDC98E /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A289A51203AB6D700EDC98E /* NewsTableViewCell.xib */; };
@@ -294,6 +298,14 @@
 		2A0DAAD52086913300992DC1 /* ProposalsSegmentSelectorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProposalsSegmentSelectorView.xib; sourceTree = "<group>"; };
 		2A0DAAD720872CB000992DC1 /* ProposalsSegmentedControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalsSegmentedControl.h; sourceTree = "<group>"; };
 		2A0DAAD820872CB000992DC1 /* ProposalsSegmentedControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalsSegmentedControl.m; sourceTree = "<group>"; };
+		2A0DAAEA208DC2BF00992DC1 /* DCTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCTableViewController.h; sourceTree = "<group>"; };
+		2A0DAAEB208DC2BF00992DC1 /* DCTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCTableViewController.m; sourceTree = "<group>"; };
+		2A0DAAED208DC8C400992DC1 /* FetchedResultsDCTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FetchedResultsDCTableViewController.h; sourceTree = "<group>"; };
+		2A0DAAEE208DC8C400992DC1 /* FetchedResultsDCTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetchedResultsDCTableViewController.m; sourceTree = "<group>"; };
+		2A0DAAF0208DD24500992DC1 /* ProposalsTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalsTopView.h; sourceTree = "<group>"; };
+		2A0DAAF1208DD24500992DC1 /* ProposalsTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalsTopView.m; sourceTree = "<group>"; };
+		2A0DAAF3208DD25400992DC1 /* ProposalsTopViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalsTopViewModel.h; sourceTree = "<group>"; };
+		2A0DAAF4208DD25400992DC1 /* ProposalsTopViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalsTopViewModel.m; sourceTree = "<group>"; };
 		2A289A4B203AB00700EDC98E /* DCSearchController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSearchController.h; sourceTree = "<group>"; };
 		2A289A4C203AB00700EDC98E /* DCSearchController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSearchController.m; sourceTree = "<group>"; };
 		2A289A4E203AB44400EDC98E /* BaseNewsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseNewsTableViewController.h; sourceTree = "<group>"; };
@@ -956,6 +968,10 @@
 				2A3F49BF204C7EB4005EB5D9 /* ProposalTableViewCell.xib */,
 				2A3F49D2204E8167005EB5D9 /* ProposalTableViewCellModel.h */,
 				2A3F49D3204E8167005EB5D9 /* ProposalTableViewCellModel.m */,
+				2A0DAAF0208DD24500992DC1 /* ProposalsTopView.h */,
+				2A0DAAF1208DD24500992DC1 /* ProposalsTopView.m */,
+				2A0DAAF3208DD25400992DC1 /* ProposalsTopViewModel.h */,
+				2A0DAAF4208DD25400992DC1 /* ProposalsTopViewModel.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1032,8 +1048,12 @@
 				2A587EA4206A887D004BC537 /* Cells */,
 				2AEF295F2072CC11008590E4 /* Forms */,
 				2A289A4A203AAF3200EDC98E /* SearchController */,
+				2A0DAAEA208DC2BF00992DC1 /* DCTableViewController.h */,
+				2A0DAAEB208DC2BF00992DC1 /* DCTableViewController.m */,
 				2A3F49B6204C4341005EB5D9 /* FetchedResultsTableViewController.h */,
 				2A3F49B7204C4341005EB5D9 /* FetchedResultsTableViewController.m */,
+				2A0DAAED208DC8C400992DC1 /* FetchedResultsDCTableViewController.h */,
+				2A0DAAEE208DC8C400992DC1 /* FetchedResultsDCTableViewController.m */,
 				2A6F5965203566A600D7BD85 /* ForwardingNavigationController.h */,
 				2A6F5966203566A600D7BD85 /* ForwardingNavigationController.m */,
 				2A587EAB206A8D8E004BC537 /* TableViewFRCDelegate.h */,
@@ -1815,6 +1835,7 @@
 				2A04E6DD202DA5E20065F30D /* HTTPRateLimiter.m in Sources */,
 				FB1F8AB01FBCABD200175311 /* BRBIP39Mnemonic.m in Sources */,
 				FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */,
+				2A0DAAEF208DC8C400992DC1 /* FetchedResultsDCTableViewController.m in Sources */,
 				FB9CC1801F83E45F0079309F /* DCMasternodeEntity+CoreDataClass.m in Sources */,
 				2A04E6E3202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m in Sources */,
 				2A0DAAD42086910200992DC1 /* ProposalsSegmentSelectorView.m in Sources */,
@@ -1841,11 +1862,13 @@
 				2AD693C62032C9AC0084D840 /* NewsTableViewCell.m in Sources */,
 				2A6F5967203566A600D7BD85 /* ForwardingNavigationController.m in Sources */,
 				2AEF299520737E41008590E4 /* MasternodeViewController.m in Sources */,
+				2A0DAAF5208DD25400992DC1 /* ProposalsTopViewModel.m in Sources */,
 				2A80B58A2036A8F40015E1AA /* DCLogging.m in Sources */,
 				2A04E6DE202DA5E20065F30D /* HTTPResponse.m in Sources */,
 				FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */,
 				2A6FBEBE207634530055BAC8 /* DCWalletAccountEntity+Extensions.m in Sources */,
 				2AE7F50F2034CC7100A8E770 /* NewsViewModel.m in Sources */,
+				2A0DAAEC208DC2BF00992DC1 /* DCTableViewController.m in Sources */,
 				2AEF29502070DB93008590E4 /* PortfolioWalletAddressTableViewCellModel.m in Sources */,
 				FBE1F50C1F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.m in Sources */,
 				2A3F49AB2049426F005EB5D9 /* DCBudgetInfoEntity+CoreDataClass.m in Sources */,
@@ -1896,6 +1919,7 @@
 				2A587EA7206A88AC004BC537 /* ItemTableViewCell.m in Sources */,
 				2A04E6E6202DA5E20065F30D /* NetworkActivityIndicatorManager.m in Sources */,
 				2A0DAAD920872CB000992DC1 /* ProposalsSegmentedControl.m in Sources */,
+				2A0DAAF2208DD24500992DC1 /* ProposalsTopView.m in Sources */,
 				FB17AEE51FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m in Sources */,
 				2AEF29682072D227008590E4 /* DecimalTextFieldFormCellModel.m in Sources */,
 				2A6FBEFD207C98410055BAC8 /* ProposalDetailVotesViewModel.m in Sources */,

@@ -32,8 +32,6 @@ static NSTimeInterval DEADLINE_SECONDS_BEFORE_VOTING_DATE = BLOCKS_BEFORE_DEADLI
 
 @interface ProposalsHeaderViewModel ()
 
-@property (copy, nonatomic) NSString *total;
-@property (copy, nonatomic) NSString *alloted;
 @property (copy, nonatomic) NSString *superblockPaymentInfo;
 
 @end
@@ -43,8 +41,6 @@ static NSTimeInterval DEADLINE_SECONDS_BEFORE_VOTING_DATE = BLOCKS_BEFORE_DEADLI
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _total = @"...";
-        _alloted = @"...";
         _superblockPaymentInfo = @"...";
     }
     return self;
@@ -52,9 +48,6 @@ static NSTimeInterval DEADLINE_SECONDS_BEFORE_VOTING_DATE = BLOCKS_BEFORE_DEADLI
 
 - (void)updateWithBudgetInfo:(nullable DCBudgetInfoEntity *)budgetInfo {
     if (budgetInfo) {
-        self.total = [NSString stringWithFormat:@"%.1f", budgetInfo.totalAmount];
-        self.alloted = [NSString stringWithFormat:@"%.1f", budgetInfo.allotedAmount];
-
         NSDate *votingDeadlineDate = [budgetInfo.paymentDate dateByAddingTimeInterval:-DEADLINE_SECONDS_BEFORE_VOTING_DATE];
         NSDate *now = [NSDate date];
         if ([now compare:votingDeadlineDate] == NSOrderedAscending) {
@@ -72,8 +65,6 @@ static NSTimeInterval DEADLINE_SECONDS_BEFORE_VOTING_DATE = BLOCKS_BEFORE_DEADLI
         }
     }
     else {
-        self.total = @"...";
-        self.alloted = @"...";
         self.superblockPaymentInfo = @"...";
     }
 }

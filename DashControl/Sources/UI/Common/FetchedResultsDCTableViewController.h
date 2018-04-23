@@ -15,11 +15,17 @@
 //  limitations under the License.
 //
 
-#import "FetchedResultsDCTableViewController.h"
+#import <CoreData/CoreData.h>
+
+#import "DCTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BaseProposalViewController : FetchedResultsDCTableViewController
+@interface FetchedResultsDCTableViewController : DCTableViewController <NSFetchedResultsControllerDelegate>
+
+- (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
+                   configureCell:(UITableViewCell *)cell
+                     atIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

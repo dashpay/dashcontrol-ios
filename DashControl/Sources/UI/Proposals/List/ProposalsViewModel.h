@@ -30,6 +30,7 @@ typedef NS_ENUM(NSUInteger, ProposalsSegmentIndex) {
 
 @class DCPersistenceStack;
 @class APIBudget;
+@class ProposalsTopViewModel;
 @class ProposalsHeaderViewModel;
 
 @interface ProposalsViewModel : NSObject
@@ -37,6 +38,7 @@ typedef NS_ENUM(NSUInteger, ProposalsSegmentIndex) {
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 @property (strong, nonatomic) InjectedClass(APIBudget) api;
 
+@property (strong, nonatomic) ProposalsTopViewModel *topViewModel;
 @property (strong, nonatomic) ProposalsHeaderViewModel *headerViewModel;
 
 @property (readonly, strong, nonatomic) NSFetchedResultsController<DCBudgetProposalEntity *> *fetchedResultsController;
