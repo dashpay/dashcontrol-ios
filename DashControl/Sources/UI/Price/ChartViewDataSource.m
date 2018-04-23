@@ -45,14 +45,14 @@ static ChartTimeInterval const DATA_TIMEINTERVAL = ChartTimeInterval_5Mins;
     if (self) {
         weakify;
         [self.stack.persistentContainer performBackgroundTask:^(NSManagedObjectContext *_Nonnull context) {
-            strongify;
-
             NSArray<DCChartDataEntryEntity *> *items = [DCChartDataEntryEntity chartDataForExchangeIdentifier:exchangeIdentifier
                                                                                              marketIdentifier:marketIdentifier
                                                                                                      interval:DATA_TIMEINTERVAL
                                                                                                     startTime:startTime
                                                                                                       endTime:nil
                                                                                                     inContext:context];
+
+            strongify;
             [self processItems:items timeInterval:timeInterval];
         }];
     }
@@ -123,7 +123,7 @@ static ChartTimeInterval const DATA_TIMEINTERVAL = ChartTimeInterval_5Mins;
                                                                               close:close
                                                                                data:date];
         [candleValues addObject:candleEntry];
-        
+
         BarChartDataEntry *barEntry = [[BarChartDataEntry alloc] initWithX:batchNumber y:volume];
         [barValues addObject:barEntry];
 
