@@ -29,7 +29,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ChartViewController () <ChartViewDelegate, IChartAxisValueFormatter>
+@interface ChartViewController () <IChartAxisValueFormatter, ChartViewDataSourceUpdatesDelegate>
 
 @property (weak, nonatomic) IBOutlet CombinedChartView *chartView;
 @property (weak, nonatomic) IBOutlet DCSegmentedControl *timeFrameSegmentedControl;
@@ -51,8 +51,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self setupKVO];
 }
-
-#pragma mark - ChartViewDelegate
 
 #pragma mark - Actions
 
@@ -116,19 +114,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 
     [self mvvm_observe:@"viewModel.chartDataSource" with:^(typeof(self) self, ChartViewDataSource * value) {
-        self.chartView.data = value.chartData;
-        if (value) {
-            ChartYAxis *leftAxis = self.chartView.leftAxis;
-            leftAxis.axisMinimum = value.leftAxisMinimum;
-            leftAxis.axisMaximum = value.leftAxisMaximum;
-            
-            ChartXAxis *xAxis = self.chartView.xAxis;
-            id<IChartDataSet> dataSet = value.chartData.candleData.dataSets.firstObject;
-            const NSInteger numberOfAxisLabels = 6;
-            NSInteger granularity = dataSet.entryCount / numberOfAxisLabels;
-            xAxis.granularity = granularity;
-        }
-        [self.chartView fitScreen];
+        value.updatesDelegate = self;
     }];
 
     [self mvvm_observe:@"viewModel.state" with:^(typeof(self) self, NSNumber * value) {
@@ -186,7 +172,6 @@ NS_ASSUME_NONNULL_BEGIN
         NSLocalizedString(@"1D", @"1 day"),
     ];
 
-    self.chartView.delegate = self;
     self.chartView.chartDescription.enabled = NO;
     self.chartView.drawGridBackgroundEnabled = NO;
     self.chartView.drawBarShadowEnabled = NO;
@@ -218,6 +203,24 @@ NS_ASSUME_NONNULL_BEGIN
     xAxis.labelPosition = XAxisLabelPositionBottom;
     xAxis.granularityEnabled = YES;
     xAxis.valueFormatter = self;
+}
+
+#pragma mark - ChartViewDataSourceUpdatesDelegate
+
+- (void)chartViewDataSourceDidFetch:(ChartViewDataSource *)dataSource {
+    self.chartView.data = dataSource.chartData;
+    if (dataSource.chartData) {
+        ChartYAxis *leftAxis = self.chartView.leftAxis;
+        leftAxis.axisMinimum = dataSource.leftAxisMinimum;
+        leftAxis.axisMaximum = dataSource.leftAxisMaximum;
+
+        ChartXAxis *xAxis = self.chartView.xAxis;
+        id<IChartDataSet> dataSet = dataSource.chartData.candleData.dataSets.firstObject;
+        const NSInteger numberOfAxisLabels = 6;
+        NSInteger granularity = dataSet.entryCount / numberOfAxisLabels;
+        xAxis.granularity = granularity;
+    }
+    [self.chartView fitScreen];
 }
 
 #pragma mark - IChartAxisValueFormatter

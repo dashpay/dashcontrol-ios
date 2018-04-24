@@ -48,7 +48,7 @@ static NSUInteger const RATELIMIT_MAXIMUM = 0;
         _dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
         _dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
         _dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
-        
+
         HTTPRateLimiter *rateLimiter = [[HTTPRateLimiter alloc] initWithWindow:RATELIMIT_WINDOW
                                                                     delayAfter:RATELIMIT_DELAYAFTER
                                                                          delay:RATELIMIT_DELAY
@@ -180,7 +180,7 @@ static NSUInteger const RATELIMIT_MAXIMUM = 0;
     parameters[@"exchange"] = exchangeName;
     parameters[@"start"] = [NSString stringWithFormat:@"%lu", start];
     parameters[@"end"] = [NSString stringWithFormat:@"%lu", end];
-    // to debug without rate-limits uncomment code below:
+// to debug without rate-limits uncomment code below:
 //#ifdef DEBUG
 //    parameters[@"noLimit"] = @"1";
 //#endif
@@ -227,9 +227,9 @@ static NSUInteger const RATELIMIT_MAXIMUM = 0;
                 return;
             }
 
-            [self importJSONArray:parsedData exchangeIdentifier:exchangeIdentifier marketIdentifier:marketIdentifier completion:^void(BOOL success) {
+            [self importJSONArray:parsedData exchangeIdentifier:exchangeIdentifier marketIdentifier:marketIdentifier completion:^{
                 if (completion) {
-                    completion(success);
+                    completion(YES);
                 }
             }];
         }
@@ -238,160 +238,40 @@ static NSUInteger const RATELIMIT_MAXIMUM = 0;
 
 #pragma mark - Private
 
-static NSString *FormatChartTimeInterval(NSInteger timeInterval) {
-    return [NSString stringWithFormat:@"CT%ld", (long)timeInterval];
-}
-
-static NSMutableDictionary *DictionaryFromChartDataEntryEntity(DCChartDataEntryEntity *chartDataEntry) {
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    dictionary[@"time"] = chartDataEntry.time;
-    dictionary[@"open"] = @(chartDataEntry.open);
-    dictionary[@"high"] = @(chartDataEntry.high);
-    dictionary[@"low"] = @(chartDataEntry.low);
-    dictionary[@"close"] = @(chartDataEntry.close);
-    dictionary[@"volume"] = @(chartDataEntry.volume);
-    dictionary[@"pairVolume"] = @(chartDataEntry.pairVolume);
-    dictionary[@"trades"] = @(chartDataEntry.trades);
-    return dictionary;
-}
-
 - (void)importJSONArray:(NSArray *)jsonArray
      exchangeIdentifier:(NSInteger)exchangeIdentifier
        marketIdentifier:(NSInteger)marketIdentifier
-             completion:(void (^)(BOOL success))completion {
+             completion:(void (^)(void))completion {
     NSInteger const batchSize = 2016; // 1 week of data
 
     NSPersistentContainer *container = self.stack.persistentContainer;
     [container performBackgroundTask:^(NSManagedObjectContext *context) {
         context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
 
-        NSInteger const additionalIntervalsCount = 5;
-        ChartTimeInterval const additionalIntervals[additionalIntervalsCount] = {ChartTimeInterval_15Mins, ChartTimeInterval_30Mins, ChartTimeInterval_2Hour, ChartTimeInterval_4Hours, ChartTimeInterval_1Day};
-        for (NSMutableDictionary *jsonObject in jsonArray) {
-            NSDate *date = [self.dateFormatter dateFromString:jsonObject[@"time"]];
-            NSTimeInterval timestamp = date.timeIntervalSince1970;
-            jsonObject[@"time"] = date;
-            for (NSInteger i = 0; i < additionalIntervalsCount; i++) {
-                ChartTimeInterval ti = additionalIntervals[i];
-                jsonObject[FormatChartTimeInterval(ti)] = @(floor(timestamp / [DCChartTimeFormatter timeIntervalForChartTimeInterval:ti]));
-            }
-        }
-
-        BOOL success = YES;
         NSInteger count = 0;
-        for (NSInteger i = 0; i < additionalIntervalsCount; i++) {
-            if (!success) {
-                break;
-            }
+        for (NSDictionary *jsonObject in jsonArray) {
+            DCChartDataEntryEntity *chartDataEntry = [[DCChartDataEntryEntity alloc] initWithContext:context];
+            chartDataEntry.time = [self.dateFormatter dateFromString:jsonObject[@"time"]];
+            chartDataEntry.open = [jsonObject[@"open"] doubleValue];
+            chartDataEntry.high = [jsonObject[@"high"] doubleValue];
+            chartDataEntry.low = [jsonObject[@"low"] doubleValue];
+            chartDataEntry.close = [jsonObject[@"close"] doubleValue];
+            chartDataEntry.volume = [jsonObject[@"volume"] doubleValue];
+            chartDataEntry.pairVolume = [jsonObject[@"pairVolume"] doubleValue];
+            chartDataEntry.trades = [jsonObject[@"trades"] longValue];
+            chartDataEntry.marketIdentifier = marketIdentifier;
+            chartDataEntry.exchangeIdentifier = exchangeIdentifier;
+            chartDataEntry.interval = ChartTimeInterval_5Mins;
 
-            @autoreleasepool {
-                ChartTimeInterval chartTimeInterval = additionalIntervals[i];
-
-                NSDictionary<NSNumber *, NSMutableArray<NSDictionary *> *> *jsonGroupedArray =
-                    [jsonArray mutableDictionaryOfMutableArraysReferencedByKeyPath:FormatChartTimeInterval(chartTimeInterval)];
-
-                for (NSNumber *intervalNumber in jsonGroupedArray) {
-                    NSMutableArray<NSDictionary *> *intervalArray = jsonGroupedArray[intervalNumber];
-
-                    // there's a slight problem that needs addressing before we start computing aggregates.
-                    // Data is returned from the server by 5 minute intervals.
-                    // To get proper longer intervals we need to combine this with local 5 minute interval data
-                    // And then do the aggregates
-
-                    NSTimeInterval startTimeInterval = [intervalArray.firstObject[FormatChartTimeInterval(chartTimeInterval)] doubleValue] * [DCChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval];
-                    NSDate *intervalStartDate = [NSDate dateWithTimeIntervalSince1970:startTimeInterval];
-
-                    NSTimeInterval const timeInterval5Mins = [DCChartTimeFormatter timeIntervalForChartTimeInterval:ChartTimeInterval_5Mins];
-
-                    if (intervalArray.firstObject == jsonArray.firstObject) {
-                        NSDate *additionalDataPointIntervalEndDate = [intervalArray.firstObject[@"time"] dateByAddingTimeInterval:-timeInterval5Mins];
-                        if ([additionalDataPointIntervalEndDate compare:intervalStartDate] == NSOrderedDescending) {
-                            NSArray<DCChartDataEntryEntity *> *additionalDataPoints =
-                                [DCChartDataEntryEntity chartDataForExchangeIdentifier:exchangeIdentifier
-                                                                      marketIdentifier:marketIdentifier
-                                                                              interval:ChartTimeInterval_5Mins
-                                                                             startTime:intervalStartDate
-                                                                               endTime:additionalDataPointIntervalEndDate
-                                                                             inContext:context];
-                            success = (additionalDataPoints != nil);
-
-                            for (DCChartDataEntryEntity *chartDataEntry in [additionalDataPoints reverseObjectEnumerator]) {
-                                NSMutableDictionary *additionalDataPoint = DictionaryFromChartDataEntryEntity(chartDataEntry);
-                                [intervalArray insertObject:additionalDataPoint atIndex:0];
-                            }
-                        }
-                    }
-                    else if (intervalArray.lastObject == jsonArray.lastObject) {
-                        NSDate *additionalDataPointIntervalStartDate = [intervalArray.lastObject[@"time"] dateByAddingTimeInterval:timeInterval5Mins];
-                        NSDate *additionalDataPointIntervalEndDate = [intervalStartDate dateByAddingTimeInterval:[DCChartTimeFormatter timeIntervalForChartTimeInterval:chartTimeInterval]];
-                        NSArray<DCChartDataEntryEntity *> *additionalDataPoints =
-                            [DCChartDataEntryEntity chartDataForExchangeIdentifier:exchangeIdentifier
-                                                                  marketIdentifier:marketIdentifier
-                                                                          interval:ChartTimeInterval_5Mins
-                                                                         startTime:additionalDataPointIntervalStartDate
-                                                                           endTime:additionalDataPointIntervalEndDate
-                                                                         inContext:context];
-                        success = (additionalDataPoints != nil);
-
-                        for (DCChartDataEntryEntity *chartDataEntry in additionalDataPoints) {
-                            NSMutableDictionary *additionalDataPoint = DictionaryFromChartDataEntryEntity(chartDataEntry);
-                            [intervalArray addObject:additionalDataPoint];
-                        }
-                    }
-
-                    if (!success) {
-                        NSAssert(NO, @"TODO: Find out - Does smth really went wrong or it's a valid case?");
-                        break;
-                    }
-
-                    DCChartDataEntryEntity *chartDataEntry = [[DCChartDataEntryEntity alloc] initWithContext:context];
-                    chartDataEntry.time = intervalStartDate;
-                    chartDataEntry.open = [intervalArray.firstObject[@"open"] doubleValue];
-                    chartDataEntry.high = [[intervalArray valueForKeyPath:@"@max.high"] doubleValue];
-                    chartDataEntry.low = [[intervalArray valueForKeyPath:@"@min.low"] doubleValue];
-                    chartDataEntry.close = [intervalArray.lastObject[@"close"] doubleValue];
-                    chartDataEntry.volume = [[intervalArray valueForKeyPath:@"@sum.volume"] doubleValue];
-                    chartDataEntry.pairVolume = [[intervalArray valueForKeyPath:@"@sum.pairVolume"] doubleValue];
-                    chartDataEntry.trades = [[intervalArray valueForKeyPath:@"@sum.trades"] longValue];
-                    chartDataEntry.marketIdentifier = marketIdentifier;
-                    chartDataEntry.exchangeIdentifier = exchangeIdentifier;
-                    chartDataEntry.interval = chartTimeInterval;
-
-                    count++;
-                    if (count % batchSize == 0) {
-                        success = [context dc_saveIfNeeded];
-                    }
-                }
+            count++;
+            if (count % batchSize == 0) {
+                [context dc_saveIfNeeded];
             }
         }
 
-        if (success) {
-            for (NSDictionary *jsonObject in jsonArray) {
-                DCChartDataEntryEntity *chartDataEntry = [[DCChartDataEntryEntity alloc] initWithContext:context];
-                chartDataEntry.time = jsonObject[@"time"];
-                chartDataEntry.open = [jsonObject[@"open"] doubleValue];
-                chartDataEntry.high = [jsonObject[@"high"] doubleValue];
-                chartDataEntry.low = [jsonObject[@"low"] doubleValue];
-                chartDataEntry.close = [jsonObject[@"close"] doubleValue];
-                chartDataEntry.volume = [jsonObject[@"volume"] doubleValue];
-                chartDataEntry.pairVolume = [jsonObject[@"pairVolume"] doubleValue];
-                chartDataEntry.trades = [jsonObject[@"trades"] longValue];
-                chartDataEntry.marketIdentifier = marketIdentifier;
-                chartDataEntry.exchangeIdentifier = exchangeIdentifier;
-                chartDataEntry.interval = ChartTimeInterval_5Mins;
+        [context dc_saveIfNeeded];
 
-                count++;
-                if (count % batchSize == 0) {
-                    success = [context dc_saveIfNeeded];
-                }
-            }
-
-            success = [context dc_saveIfNeeded];
-        }
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            completion(success);
-        });
+        dispatch_async(dispatch_get_main_queue(), completion);
     }];
 }
 

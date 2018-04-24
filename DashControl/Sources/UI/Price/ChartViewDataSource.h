@@ -23,14 +23,28 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CombinedChartData;
 @class DCChartDataEntryEntity;
+@class DCPersistenceStack;
+@class ChartViewDataSource;
+
+@protocol ChartViewDataSourceUpdatesDelegate <NSObject>
+
+- (void)chartViewDataSourceDidFetch:(ChartViewDataSource *)dataSource;
+
+@end
 
 @interface ChartViewDataSource : NSObject
 
-@property (readonly, strong, nonatomic) CombinedChartData *chartData;
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+
+@property (readonly, nullable, strong, nonatomic) CombinedChartData *chartData;
 @property (readonly, assign, nonatomic) double leftAxisMinimum;
 @property (readonly, assign, nonatomic) double leftAxisMaximum;
+@property (nullable, weak, nonatomic) id<ChartViewDataSourceUpdatesDelegate> updatesDelegate;
 
-- (instancetype)initWithItems:(NSArray<DCChartDataEntryEntity *> *)items timeInterval:(ChartTimeInterval)timeInterval;
+- (instancetype)initWithExchangeIdentifier:(NSInteger)exchangeIdentifier
+                          marketIdentifier:(NSInteger)marketIdentifier
+                                 startTime:(NSDate *)startTime
+                              timeInterval:(ChartTimeInterval)timeInterval;
 
 @end
 
