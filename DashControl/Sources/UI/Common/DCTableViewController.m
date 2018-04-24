@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, assign, nonatomic) UITableViewStyle tableViewStyle;
 @property (assign, nonatomic) BOOL hasReloadData;
+@property (strong, nonatomic) UITableView *tableView;
 
 @end
 
@@ -38,7 +39,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil {
-    return [self initWithStyle:UITableViewStylePlain];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        _tableViewStyle = UITableViewStylePlain;
+        _clearsSelectionOnViewWillAppear = YES;
+    }
+    return self;
 }
 
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -52,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)loadView {
     [super loadView];
-    
+
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:self.tableViewStyle];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.dataSource = self;
@@ -67,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [self.view insertSubview:self.tableView atIndex:0];
 }
 
@@ -83,6 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewWillAppear:animated];
 
     if (!self.hasReloadData) {
+        self.hasReloadData = YES;
         [self.tableView reloadData];
     }
 

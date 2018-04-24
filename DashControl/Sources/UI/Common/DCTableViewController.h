@@ -21,12 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DCTableViewController : KVOUIViewController <UITableViewDelegate, UITableViewDataSource>
 
-- (instancetype)initWithStyle:(UITableViewStyle)style;
+- (instancetype)initWithStyle:(UITableViewStyle)style NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, assign) BOOL clearsSelectionOnViewWillAppear; // defaults to YES
-
-@property (nonatomic, strong, nullable) UIRefreshControl *refreshControl;
+@property (readonly, strong, nonatomic) UITableView *tableView;
+@property (assign, nonatomic) BOOL clearsSelectionOnViewWillAppear; // defaults to YES
+@property (nullable, strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
