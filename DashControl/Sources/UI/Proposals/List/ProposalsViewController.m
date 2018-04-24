@@ -208,7 +208,9 @@ static CGFloat const TOP_VIEW_HEIGHT = 88.0;
     if (scrollView != self.tableView) {
         return;
     }
-    self.topViewTopConstraint.constant = MIN(-(scrollView.contentOffset.y + TOP_VIEW_HEIGHT), 0.0);
+    
+    CGFloat offset = scrollView.contentOffset.y + scrollView.contentInset.top;
+    self.topViewTopConstraint.constant = MIN(-offset, 0.0);
 }
 
 #pragma mark DCSearchControllerDelegate

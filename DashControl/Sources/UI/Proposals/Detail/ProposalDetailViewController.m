@@ -110,7 +110,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self.titleView scrollViewDidScroll:scrollView threshold:VOTES_VIEW_HEIGHT];
 
-    self.votesViewTopConstraint.constant = MIN(-(scrollView.contentOffset.y + VOTES_VIEW_HEIGHT), 0.0);
+    CGFloat offset = scrollView.contentOffset.y + scrollView.contentInset.top;
+    self.votesViewTopConstraint.constant = MIN(-offset, 0.0);
 
     if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
         for (ProposalDetailTableViewCell *cell in self.tableView.visibleCells) {
