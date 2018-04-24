@@ -134,6 +134,7 @@
 		2AD0973320571DF300033B72 /* DCChartDataTimeIntervalEntity+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD0973220571DF300033B72 /* DCChartDataTimeIntervalEntity+Extensions.m */; };
 		2AD693C32032C99A0084D840 /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD693C22032C99A0084D840 /* NewsViewController.m */; };
 		2AD693C62032C9AC0084D840 /* NewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD693C52032C9AC0084D840 /* NewsTableViewCell.m */; };
+		2AE3C466208FCE6600CE83A8 /* UIViewController+DCChildControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C465208FCE6600CE83A8 /* UIViewController+DCChildControllers.m */; };
 		2AE4103B2066BA2F00C41AC5 /* PriceTriggerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE4103A2066BA2F00C41AC5 /* PriceTriggerViewController.m */; };
 		2AE410462066C7A100C41AC5 /* PriceTriggerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE410452066C7A100C41AC5 /* PriceTriggerViewModel.m */; };
 		2AE410532066D33000C41AC5 /* ExchangeMarketPairObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE410522066D33000C41AC5 /* ExchangeMarketPairObject.m */; };
@@ -480,6 +481,8 @@
 		2AD693C22032C99A0084D840 /* NewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsViewController.m; sourceTree = "<group>"; };
 		2AD693C42032C9AC0084D840 /* NewsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsTableViewCell.h; sourceTree = "<group>"; };
 		2AD693C52032C9AC0084D840 /* NewsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsTableViewCell.m; sourceTree = "<group>"; };
+		2AE3C464208FCE6600CE83A8 /* UIViewController+DCChildControllers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+DCChildControllers.h"; sourceTree = "<group>"; };
+		2AE3C465208FCE6600CE83A8 /* UIViewController+DCChildControllers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+DCChildControllers.m"; sourceTree = "<group>"; };
 		2AE410392066BA2F00C41AC5 /* PriceTriggerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceTriggerViewController.h; sourceTree = "<group>"; };
 		2AE4103A2066BA2F00C41AC5 /* PriceTriggerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceTriggerViewController.m; sourceTree = "<group>"; };
 		2AE410442066C7A100C41AC5 /* PriceTriggerViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceTriggerViewModel.h; sourceTree = "<group>"; };
@@ -1451,6 +1454,8 @@
 				2A80B58C2039B3050015E1AA /* UIFont+DCStyle.m */,
 				FBEF66FF1F83DE30003424D2 /* UIImage+Sugar.h */,
 				FBEF67001F83DE30003424D2 /* UIImage+Sugar.m */,
+				2AE3C464208FCE6600CE83A8 /* UIViewController+DCChildControllers.h */,
+				2AE3C465208FCE6600CE83A8 /* UIViewController+DCChildControllers.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1832,6 +1837,7 @@
 				2A32D64A20571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataProperties.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
 				2A80B58D2039B3050015E1AA /* UIFont+DCStyle.m in Sources */,
+				2AE3C466208FCE6600CE83A8 /* UIViewController+DCChildControllers.m in Sources */,
 				2A04E6DD202DA5E20065F30D /* HTTPRateLimiter.m in Sources */,
 				FB1F8AB01FBCABD200175311 /* BRBIP39Mnemonic.m in Sources */,
 				FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */,
