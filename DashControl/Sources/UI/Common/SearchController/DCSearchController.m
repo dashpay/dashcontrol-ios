@@ -17,10 +17,14 @@
 
 #import "DCSearchController.h"
 
+#import "UIColor+DCStyle.h"
+#import "UIViewController+DCChildControllers.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DCSearchController () <DCSearchBarDelegate>
 
+@property (strong, nonatomic) UIButton *dismissSearchControllerButton;
 @property (strong, nonatomic) UIView *searchAccessoryView;
 
 @end
@@ -31,15 +35,14 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _searchResultsController = searchResultsController;
-
-        self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self.view addSubview:self.dismissSearchControllerButton];
 
     [self.view addSubview:self.searchAccessoryView];
     [self.searchAccessoryView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
@@ -68,6 +71,19 @@ NS_ASSUME_NONNULL_BEGIN
     return _searchBar;
 }
 
+- (UIButton *)dismissSearchControllerButton {
+    if (!_dismissSearchControllerButton) {
+        _dismissSearchControllerButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _dismissSearchControllerButton.frame = self.view.bounds;
+        _dismissSearchControllerButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _dismissSearchControllerButton.backgroundColor = [[UIColor dc_darkBlueColor] colorWithAlphaComponent:0.65];
+        [_dismissSearchControllerButton addTarget:self
+                                           action:@selector(dismissSearchControllerButtonAction:)
+                                 forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _dismissSearchControllerButton;
+}
+
 - (UIView *)searchAccessoryView {
     if (!_searchAccessoryView) {
         _searchAccessoryView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -87,21 +103,25 @@ NS_ASSUME_NONNULL_BEGIN
         if ([self.delegate respondsToSelector:@selector(willPresentSearchController:)]) {
             [self.delegate willPresentSearchController:self];
         }
-        [self.delegate presentViewController:self animated:YES completion:^{
-            if ([self.delegate respondsToSelector:@selector(didPresentSearchController:)]) {
-                [self.delegate didPresentSearchController:self];
-            }
-        }];
+
+        [self updateSearchResultsControllerVisibility];
+
+        [self.delegate dc_displayController:self];
+
+        if ([self.delegate respondsToSelector:@selector(didPresentSearchController:)]) {
+            [self.delegate didPresentSearchController:self];
+        }
     }
     else {
         if ([self.delegate respondsToSelector:@selector(willDismissSearchController:)]) {
             [self.delegate willDismissSearchController:self];
         }
-        [self.delegate dismissViewControllerAnimated:YES completion:^{
-            if ([self.delegate respondsToSelector:@selector(didDismissSearchController:)]) {
-                [self.delegate didDismissSearchController:self];
-            }
-        }];
+
+        [self.delegate dc_hideController:self];
+
+        if ([self.delegate respondsToSelector:@selector(didDismissSearchController:)]) {
+            [self.delegate didDismissSearchController:self];
+        }
     }
 }
 
@@ -114,6 +134,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)searchBar:(DCSearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [self updateSearchResultsControllerVisibility];
     [self.searchResultsUpdater updateSearchResultsForSearchController:self];
 }
 
@@ -132,6 +153,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)searchBarDidBecomeFirstResponder:(DCSearchBar *)searchBar {
     [self.searchResultsUpdater updateSearchResultsForSearchController:self];
+}
+
+#pragma mark Actions
+
+- (void)dismissSearchControllerButtonAction:(UIButton *)sender {
+    [self searchBarCancelButtonClicked:self.searchBar];
+}
+
+#pragma mark Private
+
+- (void)updateSearchResultsControllerVisibility {
+    BOOL visible = (self.searchBar.text.length > 0);
+    self.searchResultsController.view.alpha = visible ? 1.0 : 0.0;
 }
 
 @end

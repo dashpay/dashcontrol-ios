@@ -96,8 +96,6 @@ static CGFloat const TOP_VIEW_HEIGHT = 88.0;
     [searchSegmentedControl.trailingAnchor constraintEqualToAnchor:searchAccessoryView.trailingAnchor].active = YES;
     [searchSegmentedControl.heightAnchor constraintEqualToConstant:44.0].active = YES;
 
-    self.definesPresentationContext = YES;
-
     // KVO
 
     [self mvvm_observe:@"viewModel.fetchedResultsController" with:^(typeof(self) self, id value) {

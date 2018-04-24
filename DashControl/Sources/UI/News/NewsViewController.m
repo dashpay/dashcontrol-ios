@@ -63,7 +63,6 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     self.searchController = [[DCSearchController alloc] initWithController:searchResultsController];
     self.searchController.delegate = self;
     self.searchController.searchResultsUpdater = self;
-    self.definesPresentationContext = YES;
 
     // KVO
 
