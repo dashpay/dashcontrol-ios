@@ -139,13 +139,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)ka_keyboardShowOrHideAnimationWithHeight:(CGFloat)height
                                animationDuration:(NSTimeInterval)animationDuration
                                   animationCurve:(UIViewAnimationCurve)animationCurve {
-    if (height > 0.0) {
-        self.dismissSearchControllerButton.alpha = 1.0;
+    if (self.active) {
+        if (height > 0.0 || self.searchBar.isFirstResponder) {
+            self.dismissSearchControllerButton.alpha = 1.0;
+        }
     }
     else {
-        if (!self.active) {
-            [self hideSearchControllerViews];
-        }
+        [self hideSearchControllerViews];
     }
 }
 
