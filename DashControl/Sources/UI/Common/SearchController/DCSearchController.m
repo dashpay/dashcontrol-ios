@@ -17,6 +17,8 @@
 
 #import "DCSearchController.h"
 
+#import <UIViewController-KeyboardAdditions/UIViewController+KeyboardAdditions.h>
+
 #import "UIColor+DCStyle.h"
 #import "UIViewController+DCChildControllers.h"
 
@@ -26,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) UIButton *dismissSearchControllerButton;
 @property (strong, nonatomic) UIView *searchAccessoryView;
+@property (assign, nonatomic) BOOL didPresentSearchControllerNotified;
 
 @end
 
@@ -100,27 +103,73 @@ NS_ASSUME_NONNULL_BEGIN
     _active = active;
 
     if (active) {
+        self.didPresentSearchControllerNotified = NO;
+        [self hideSearchControllerViews];
+
+        [self ka_startObservingKeyboardNotifications];
+
         if ([self.delegate respondsToSelector:@selector(willPresentSearchController:)]) {
             [self.delegate willPresentSearchController:self];
         }
 
-        [self updateSearchResultsControllerVisibility];
-
         [self.delegate dc_displayController:self];
 
-        if ([self.delegate respondsToSelector:@selector(didPresentSearchController:)]) {
-            [self.delegate didPresentSearchController:self];
-        }
+        [self.searchBar becomeFirstResponder];
     }
     else {
+        BOOL keyboardWasActive = self.searchBar.isFirstResponder;
+
         if ([self.delegate respondsToSelector:@selector(willDismissSearchController:)]) {
             [self.delegate willDismissSearchController:self];
         }
 
-        [self.delegate dc_hideController:self];
+        if (!keyboardWasActive) {
+            [UIView animateWithDuration:0.25 animations:^{
+                [self hideSearchControllerViews];
+            }
+                completion:^(BOOL finished) {
+                    [self completeSearchControllerDismiss];
+                }];
+        }
+    }
+}
 
-        if ([self.delegate respondsToSelector:@selector(didDismissSearchController:)]) {
-            [self.delegate didDismissSearchController:self];
+#pragma mark Keyboard
+
+- (void)ka_keyboardShowOrHideAnimationWithHeight:(CGFloat)height
+                               animationDuration:(NSTimeInterval)animationDuration
+                                  animationCurve:(UIViewAnimationCurve)animationCurve {
+    if (height > 0.0) {
+        self.dismissSearchControllerButton.alpha = 1.0;
+    }
+    else {
+        if (!self.active) {
+            [self hideSearchControllerViews];
+        }
+    }
+}
+
+- (void)ka_keyboardShowOrHideAnimationDidFinishedWithHeight:(CGFloat)height {
+    if (self.active) {
+        if (height > 0) {
+            if (!self.didPresentSearchControllerNotified) {
+                self.didPresentSearchControllerNotified = YES;
+
+                if ([self.delegate respondsToSelector:@selector(didPresentSearchController:)]) {
+                    [self.delegate didPresentSearchController:self];
+                }
+            }
+        }
+        else {
+            // keyboard just hide
+        }
+    }
+    else {
+        if (height == 0) {
+            [self completeSearchControllerDismiss];
+        }
+        else {
+            NSAssert(NO, @"Inconsistent state: search controller inactive but keyboard was shown");
         }
     }
 }
@@ -134,7 +183,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)searchBar:(DCSearchBar *)searchBar textDidChange:(NSString *)searchText {
-    [self updateSearchResultsControllerVisibility];
+    CGFloat alpha = (self.searchBar.text.length > 0) ? 1.0 : 0.0;
+    self.searchResultsController.view.alpha = alpha;
+    self.searchAccessoryView.alpha = alpha;
+
     [self.searchResultsUpdater updateSearchResultsForSearchController:self];
 }
 
@@ -144,9 +196,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)searchBarCancelButtonClicked:(DCSearchBar *)searchBar {
     searchBar.text = nil;
-    [searchBar resignFirstResponder];
 
     self.active = NO;
+
+    [searchBar resignFirstResponder];
 
     [self.searchResultsUpdater updateSearchResultsForSearchController:self];
 }
@@ -163,9 +216,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Private
 
-- (void)updateSearchResultsControllerVisibility {
-    BOOL visible = (self.searchBar.text.length > 0);
-    self.searchResultsController.view.alpha = visible ? 1.0 : 0.0;
+- (void)hideSearchControllerViews {
+    self.dismissSearchControllerButton.alpha = 0.0;
+    self.searchAccessoryView.alpha = 0.0;
+    self.searchResultsController.view.alpha = 0.0;
+}
+
+- (void)completeSearchControllerDismiss {
+    [self.delegate dc_hideController:self];
+
+    if ([self.delegate respondsToSelector:@selector(didDismissSearchController:)]) {
+        [self.delegate didDismissSearchController:self];
+    }
+
+    [self ka_stopObservingKeyboardNotifications];
 }
 
 @end

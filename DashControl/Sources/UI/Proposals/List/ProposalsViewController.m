@@ -133,7 +133,6 @@ static CGFloat const TOP_VIEW_HEIGHT = 88.0;
     [searchBar showAnimatedCompletion:nil];
 
     self.searchController.active = YES;
-    [searchBar becomeFirstResponder];
 }
 
 #pragma mark UITableViewDataSource
@@ -206,7 +205,7 @@ static CGFloat const TOP_VIEW_HEIGHT = 88.0;
     if (scrollView != self.tableView) {
         return;
     }
-    
+
     CGFloat offset = scrollView.contentOffset.y + scrollView.contentInset.top;
     self.topViewTopConstraint.constant = MIN(-offset, 0.0);
 }

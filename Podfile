@@ -11,6 +11,7 @@ def app_pods
     pod 'DeluxeInjection', '0.8.6'
     pod 'KVO-MVVM', '0.5.1'
     pod 'Charts', '3.1.1'
+    pod 'UIViewController-KeyboardAdditions', '1.2.1'
 end
 
 target 'DashControl' do

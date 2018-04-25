@@ -99,7 +99,6 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     [searchBar showAnimatedCompletion:nil];
 
     self.searchController.active = YES;
-    [searchBar becomeFirstResponder];
 }
 
 #pragma mark UITableViewDataSource
@@ -175,7 +174,7 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     if (tableView == self.tableView) {
         return CGFLOAT_MIN;
     }
-    
+
     if (section == 0) {
         return TABLEVIEW_TOPBOTTOM_PADDING;
     }
@@ -192,7 +191,7 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     if (tableView == self.tableView) {
         return nil;
     }
-    
+
     if (section == 0) {
         return [[UIView alloc] initWithFrame:CGRectZero];
     }
@@ -223,7 +222,8 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
         SFSafariViewControllerConfiguration *configuration = [[SFSafariViewControllerConfiguration alloc] init];
         configuration.entersReaderIfAvailable = YES;
         safariViewController = [[SFSafariViewController alloc] initWithURL:url configuration:configuration];
-    } else {
+    }
+    else {
         safariViewController = [[SFSafariViewController alloc] initWithURL:url];
     }
     safariViewController.preferredBarTintColor = [UIColor dc_barTintColor];
