@@ -35,6 +35,7 @@ extern CGFloat const MASTERNODES_SUFFICIENT_VOTING_PERCENT;
 
 - (void)updateMasternodesCount;
 - (id<HTTPLoaderOperationProtocol>)fetchActiveProposalsCompletion:(void (^)(BOOL success))completion;
+- (id<HTTPLoaderOperationProtocol>)fetchPastProposalsCompletion:(void (^)(BOOL success))completion;
 - (id<HTTPLoaderOperationProtocol>)fetchProposalDetails:(DCBudgetProposalEntity *)entity completion:(void (^)(BOOL success))completion;
 
 @end

@@ -45,7 +45,7 @@ typedef NS_ENUM(NSUInteger, ProposalsSegmentIndex) {
 @property (readonly, strong, nonatomic) NSFetchedResultsController<DCBudgetProposalEntity *> *searchFetchedResultsController;
 
 - (void)updateMasternodesCount;
-- (void)reloadWithCompletion:(void (^)(BOOL success))completion;
+- (void)reloadOnlyCurrentSegment:(BOOL)reloadOnlyCurrent completion:(void (^)(BOOL success))completion;
 
 - (void)searchWithQuery:(NSString *)query;
 - (void)updateSegmentIndex:(ProposalsSegmentIndex)segmentIndex;

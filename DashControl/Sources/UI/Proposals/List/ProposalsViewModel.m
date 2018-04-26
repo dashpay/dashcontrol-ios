@@ -32,8 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProposalsViewModel ()
 
-@property (weak, nonatomic) id<HTTPLoaderOperationProtocol> request;
+@property (weak, nonatomic) id<HTTPLoaderOperationProtocol> activeProposalsRequest;
+@property (weak, nonatomic) id<HTTPLoaderOperationProtocol> pastProposalsRequest;
 
+@property (assign, nonatomic) ProposalsSegmentIndex segmentIndex;
 @property (nullable, strong, nonatomic) NSFetchedResultsController<DCBudgetProposalEntity *> *fetchedResultsController;
 @property (nullable, strong, nonatomic) NSFetchedResultsController<DCBudgetProposalEntity *> *searchFetchedResultsController;
 @property (nullable, strong, nonatomic) NSPredicate *segmentPredicate;
@@ -46,6 +48,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @synthesize topViewModel = _topViewModel;
 @synthesize headerViewModel = _headerViewModel;
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _segmentIndex = ProposalsSegmentIndex_Current;
+        NSPredicate *segmentPredicate = [self.class segmentPredicateForSegmentIndex:_segmentIndex];
+        _segmentPredicate = segmentPredicate;
+        _searchSegmentPredicate = segmentPredicate;
+    }
+    return self;
+}
 
 - (ProposalsTopViewModel *)topViewModel {
     if (!_topViewModel) {
@@ -93,13 +106,56 @@ NS_ASSUME_NONNULL_BEGIN
     [self.api updateMasternodesCount];
 }
 
-- (void)reloadWithCompletion:(void (^)(BOOL success))completion {
-    if (self.request) {
-        [self.request cancel];
+- (void)reloadOnlyCurrentSegment:(BOOL)reloadOnlyCurrent completion:(void (^)(BOOL success))completion {
+    if (reloadOnlyCurrent) {
+        switch (self.segmentIndex) {
+            case ProposalsSegmentIndex_Current:
+            case ProposalsSegmentIndex_Ongoing: {
+                [self reloadActiveProposalsWithCompletion:completion];
+                break;
+            }
+            case ProposalsSegmentIndex_Past: {
+                [self reloadPastProposalsWithCompletion:completion];
+                break;
+            }
+        }
+    }
+    else {
+        [self reloadAllProposalsWithCompletion:completion];
+    }
+}
+
+- (void)reloadAllProposalsWithCompletion:(void (^)(BOOL success))completion {
+    __block BOOL activeProposalsSuccess = NO;
+    __block BOOL pastProposalsSuccess = NO;
+    dispatch_group_t allRequestsGroup = dispatch_group_create();
+    
+    dispatch_group_enter(allRequestsGroup);
+    [self reloadActiveProposalsWithCompletion:^(BOOL success) {
+        activeProposalsSuccess = success;
+        dispatch_group_leave(allRequestsGroup);
+    }];
+    
+    dispatch_group_enter(allRequestsGroup);
+    [self reloadPastProposalsWithCompletion:^(BOOL success) {
+        pastProposalsSuccess = success;
+        dispatch_group_leave(allRequestsGroup);
+    }];
+    
+    dispatch_group_notify(allRequestsGroup, dispatch_get_main_queue(), ^{
+        if (completion) {
+            completion(activeProposalsSuccess && pastProposalsSuccess);
+        }
+    });
+}
+
+- (void)reloadActiveProposalsWithCompletion:(void (^)(BOOL success))completion {
+    if (self.activeProposalsRequest) {
+        [self.activeProposalsRequest cancel];
     }
 
     weakify;
-    self.request = [self.api fetchActiveProposalsCompletion:^(BOOL success) {
+    self.activeProposalsRequest = [self.api fetchActiveProposalsCompletion:^(BOOL success) {
         strongify;
 
         NSAssert([NSThread isMainThread], nil);
@@ -108,6 +164,23 @@ NS_ASSUME_NONNULL_BEGIN
         DCBudgetInfoEntity *budgetInfoEntity = [DCBudgetInfoEntity dc_objectWithPredicate:nil inContext:viewContext];
         [self.topViewModel updateWithBudgetInfo:budgetInfoEntity];
         [self.headerViewModel updateWithBudgetInfo:budgetInfoEntity];
+
+        if (completion) {
+            completion(success);
+        }
+    }];
+}
+
+- (void)reloadPastProposalsWithCompletion:(void (^)(BOOL success))completion {
+    if (self.pastProposalsRequest) {
+        [self.pastProposalsRequest cancel];
+    }
+
+    weakify;
+    self.pastProposalsRequest = [self.api fetchPastProposalsCompletion:^(BOOL success) {
+        strongify;
+
+        NSAssert([NSThread isMainThread], nil);
 
         if (completion) {
             completion(success);
@@ -136,6 +209,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateSegmentIndex:(ProposalsSegmentIndex)segmentIndex {
+    self.segmentIndex = segmentIndex;
     NSPredicate *segmentPredicate = [self.class segmentPredicateForSegmentIndex:segmentIndex];
     if ([segmentPredicate isEqual:self.segmentPredicate]) {
         return;
@@ -163,6 +237,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSPredicate *segmentPredicate = nil;
     switch (segmentIndex) {
         case ProposalsSegmentIndex_Current: {
+            segmentPredicate = [NSPredicate predicateWithFormat:@"dateEnd > %@", [NSDate date]];
             break;
         }
         case ProposalsSegmentIndex_Ongoing: {
@@ -170,6 +245,7 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         }
         case ProposalsSegmentIndex_Past: {
+            segmentPredicate = [NSPredicate predicateWithFormat:@"dateEnd < %@", [NSDate date]];
             break;
         }
     }

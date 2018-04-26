@@ -76,7 +76,7 @@ static CGFloat const TOP_VIEW_HEIGHT = 88.0;
     self.refreshControl = refreshControl;
 
     [self.viewModel updateMasternodesCount];
-    [self reload];
+    [self reloadOnlyCurrentSegment:NO];
 
     ProposalsSearchResultsController *searchResultsController = [[ProposalsSearchResultsController alloc] init];
     searchResultsController.tableView.dataSource = self;
@@ -120,7 +120,7 @@ static CGFloat const TOP_VIEW_HEIGHT = 88.0;
 #pragma mark Actions
 
 - (void)refreshControlAction:(UIRefreshControl *)sender {
-    [self reload];
+    [self reloadOnlyCurrentSegment:YES];
 }
 
 - (IBAction)searchBarButtonItemAction:(UIBarButtonItem *)sender {
@@ -304,14 +304,14 @@ static CGFloat const TOP_VIEW_HEIGHT = 88.0;
     [self.viewModel searchWithQuery:query];
 }
 
-- (void)reload {
+- (void)reloadOnlyCurrentSegment:(BOOL)reloadOnlyCurrent {
     if (self.tableView.contentOffset.y == -TOP_VIEW_HEIGHT) {
         self.tableView.contentOffset = CGPointMake(0.0, -(self.tableView.refreshControl.frame.size.height + TOP_VIEW_HEIGHT));
         [self.tableView.refreshControl beginRefreshing];
     }
 
     weakify;
-    [self.viewModel reloadWithCompletion:^(BOOL success) {
+    [self.viewModel reloadOnlyCurrentSegment:reloadOnlyCurrent completion:^(BOOL success) {
         strongify;
 
         [self.tableView.refreshControl endRefreshing];
