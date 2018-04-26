@@ -15,11 +15,11 @@
 //  limitations under the License.
 //
 
-#import "FetchedResultsDCTableViewController.h"
+#import "FetchedResultsTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BaseProposalViewController : FetchedResultsDCTableViewController
+@interface BaseProposalViewController : FetchedResultsTableViewController
 
 @end
 

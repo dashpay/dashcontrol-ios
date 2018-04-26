@@ -55,6 +55,13 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self.tableView registerNib:[UINib nibWithNibName:NEWS_FIRST_CELL_ID bundle:nil] forCellReuseIdentifier:NEWS_FIRST_CELL_ID];
+    [self.tableView registerNib:[UINib nibWithNibName:NEWS_LOADMORE_CELL_ID bundle:nil] forCellReuseIdentifier:NEWS_LOADMORE_CELL_ID];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.tintColor = [UIColor colorWithWhite:1.0 alpha:0.6];
+    [refreshControl addTarget:self action:@selector(refreshControlAction:) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
+
     [self reload];
 
     NewsSearchResultsController *searchResultsController = [[NewsSearchResultsController alloc] init];
@@ -87,7 +94,7 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 
 #pragma mark Actions
 
-- (IBAction)refreshControlAction:(UIRefreshControl *)sender {
+- (void)refreshControlAction:(UIRefreshControl *)sender {
     [self reload];
 }
 

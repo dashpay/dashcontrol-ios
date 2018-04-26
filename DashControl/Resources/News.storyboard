@@ -6,16 +6,9 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Montserrat-Light.otf">
-            <string>Montserrat-Light</string>
-        </array>
-        <array key="Montserrat-Regular.otf">
-            <string>Montserrat-Regular</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--News Navigation-->
         <scene sceneID="Ok9-nr-whs">
@@ -35,7 +28,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="C7f-Fe-Oet" kind="relationship" relationship="rootViewController" id="N1g-kT-KCN"/>
+                        <segue destination="NAY-bh-3xF" kind="relationship" relationship="rootViewController" id="7QM-ki-0Ao"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0sG-Ub-c7f" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -43,132 +36,16 @@
             <point key="canvasLocation" x="924" y="-321.58920539730138"/>
         </scene>
         <!--News-->
-        <scene sceneID="Hg8-if-EDv">
+        <scene sceneID="eV0-9x-pyz">
             <objects>
-                <tableViewController storyboardIdentifier="NewsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="C7f-Fe-Oet" customClass="NewsViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="104" sectionHeaderHeight="28" sectionFooterHeight="28" id="Y2p-DE-cV2">
+                <viewController title="News" id="NAY-bh-3xF" customClass="NewsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aSN-1f-ZZM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewsFirstTableViewCell" rowHeight="198" id="t4S-US-Ukj" customClass="NewsTableViewCell">
-                                <rect key="frame" x="0.0" y="28" width="375" height="198"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t4S-US-Ukj" id="qSQ-K8-8hf">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="198"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HoU-6d-uFz">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="193"/>
-                                        </imageView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G8y-6A-hfr">
-                                            <rect key="frame" x="10" y="20" width="355" height="153"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vx0-A4-nzV">
-                                                    <rect key="frame" x="20" y="20" width="315" height="24.5"/>
-                                                    <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="20"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <attributedString key="userComments">
-                                                        <fragment content="#bc-ignore!">
-                                                            <attributes>
-                                                                <color key="NSBackgroundColor" red="0.10588235294117647" green="0.12156862745098039" blue="0.13725490196078433" alpha="0.047058823529411764" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <color key="NSColor" red="0.14117647058823529" green="0.16078431372549021" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="13.6" name="SFMono-Regular"/>
-                                                                <real key="NSKern" value="0.0"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" minimumLineHeight="16" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
-                                                                    <tabStops/>
-                                                                </paragraphStyle>
-                                                                <color key="NSStrokeColor" red="0.14117647058823529" green="0.16078431372549021" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <real key="NSStrokeWidth" value="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THa-Kw-hYx">
-                                                    <rect key="frame" x="20" y="122.5" width="315" height="12.5"/>
-                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="10"/>
-                                                    <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <attributedString key="userComments">
-                                                        <fragment content="#bc-ignore!">
-                                                            <attributes>
-                                                                <font key="NSFont" metaFont="smallSystem"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" red="0.0" green="0.44317391509999998" blue="0.74421042199999998" alpha="0.79864083904109584" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="vx0-A4-nzV" secondAttribute="trailing" constant="20" id="3Nh-YY-nF6"/>
-                                                <constraint firstItem="vx0-A4-nzV" firstAttribute="top" secondItem="G8y-6A-hfr" secondAttribute="top" constant="20" id="6Ww-Aa-AeL"/>
-                                                <constraint firstItem="vx0-A4-nzV" firstAttribute="leading" secondItem="G8y-6A-hfr" secondAttribute="leading" constant="20" id="JRu-wM-K88"/>
-                                                <constraint firstItem="THa-Kw-hYx" firstAttribute="trailing" secondItem="vx0-A4-nzV" secondAttribute="trailing" id="Shl-vD-Cva"/>
-                                                <constraint firstItem="THa-Kw-hYx" firstAttribute="leading" secondItem="vx0-A4-nzV" secondAttribute="leading" id="krh-1U-28E"/>
-                                                <constraint firstAttribute="bottom" secondItem="THa-Kw-hYx" secondAttribute="bottom" constant="18" id="lMr-wA-aaj"/>
-                                            </constraints>
-                                        </view>
-                                    </subviews>
-                                    <color key="backgroundColor" red="0.1215686275" green="0.1450980392" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
-                                    <constraints>
-                                        <constraint firstItem="G8y-6A-hfr" firstAttribute="top" secondItem="qSQ-K8-8hf" secondAttribute="top" constant="20" id="ANj-LE-INS"/>
-                                        <constraint firstAttribute="trailing" secondItem="G8y-6A-hfr" secondAttribute="trailing" constant="10" id="Qbc-J6-06A"/>
-                                        <constraint firstItem="HoU-6d-uFz" firstAttribute="leading" secondItem="qSQ-K8-8hf" secondAttribute="leading" id="S8Z-nR-aN7"/>
-                                        <constraint firstAttribute="trailing" secondItem="HoU-6d-uFz" secondAttribute="trailing" id="Syj-jQ-bpu"/>
-                                        <constraint firstItem="G8y-6A-hfr" firstAttribute="leading" secondItem="qSQ-K8-8hf" secondAttribute="leading" constant="10" id="TDF-Zv-L8x"/>
-                                        <constraint firstAttribute="bottom" secondItem="HoU-6d-uFz" secondAttribute="bottom" constant="5" id="egn-6v-pSa"/>
-                                        <constraint firstItem="HoU-6d-uFz" firstAttribute="top" secondItem="qSQ-K8-8hf" secondAttribute="top" id="htY-PG-dlZ"/>
-                                        <constraint firstAttribute="bottom" secondItem="G8y-6A-hfr" secondAttribute="bottom" constant="25" id="nv7-MP-sCH"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="newsDateLabel" destination="THa-Kw-hYx" id="Kwa-Te-THA"/>
-                                    <outlet property="newsImageView" destination="HoU-6d-uFz" id="he8-D3-4m0"/>
-                                    <outlet property="newsTitleLabel" destination="vx0-A4-nzV" id="D3J-Lz-MqS"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewsLoadMoreTableViewCell" rowHeight="104" id="X87-w6-FQo" userLabel="NewsLoadMoreTableViewCell" customClass="NewsLoadMoreTableViewCell">
-                                <rect key="frame" x="0.0" y="226" width="375" height="104"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X87-w6-FQo" id="qEN-35-aWb">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ITd-3x-OQl">
-                                            <rect key="frame" x="10" y="4" width="355" height="95.5"/>
-                                            <color key="backgroundColor" red="0.19215686274509802" green="0.23137254901960785" blue="0.29411764705882354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="95" id="VNL-4k-cKi"/>
-                                            </constraints>
-                                        </view>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="dbd-Hf-loQ">
-                                            <rect key="frame" x="178" y="42" width="20" height="20"/>
-                                        </activityIndicatorView>
-                                    </subviews>
-                                    <color key="backgroundColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="ITd-3x-OQl" secondAttribute="trailing" constant="10" id="1I5-IV-iXX"/>
-                                        <constraint firstItem="ITd-3x-OQl" firstAttribute="leading" secondItem="qEN-35-aWb" secondAttribute="leading" constant="10" id="ACM-l1-6Ly"/>
-                                        <constraint firstItem="dbd-Hf-loQ" firstAttribute="centerX" secondItem="qEN-35-aWb" secondAttribute="centerX" id="DC4-Ze-bPP"/>
-                                        <constraint firstItem="dbd-Hf-loQ" firstAttribute="centerY" secondItem="qEN-35-aWb" secondAttribute="centerY" id="mC3-cX-pxK"/>
-                                        <constraint firstItem="ITd-3x-OQl" firstAttribute="centerY" secondItem="qEN-35-aWb" secondAttribute="centerY" id="yPh-Jl-axt"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="activityIndicatorView" destination="dbd-Hf-loQ" id="XrH-EK-kyR"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="C7f-Fe-Oet" id="Wl0-sI-fDd"/>
-                            <outlet property="delegate" destination="C7f-Fe-Oet" id="jZX-JG-Frh"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" title="News" image="tabBarNews" id="BCW-YF-pjJ">
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="whe-qK-pSQ"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="News" image="tabBarNews" id="7Cr-aD-HrN">
                         <attributedString key="userComments">
                             <fragment content="#bc-ignore!">
                                 <attributes>
@@ -178,37 +55,29 @@
                             </fragment>
                         </attributedString>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" title="News" id="lRc-ng-dE2">
-                        <barButtonItem key="rightBarButtonItem" image="searchBarButton" id="S7y-5d-trq">
+                    <navigationItem key="navigationItem" title="News" id="IIa-Gx-IkE">
+                        <barButtonItem key="rightBarButtonItem" image="searchBarButton" id="qKD-0P-dch">
                             <connections>
-                                <action selector="searchBarButtonItemAction:" destination="C7f-Fe-Oet" id="EBJ-2T-wsR"/>
+                                <action selector="searchBarButtonItemAction:" destination="NAY-bh-3xF" id="2DM-IA-7iq"/>
                             </connections>
                         </barButtonItem>
-                        <attributedString key="userComments">
-                            <fragment content="#bc-ignore!">
-                                <attributes>
-                                    <font key="NSFont" metaFont="smallSystem"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                </attributes>
-                            </fragment>
-                        </attributedString>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="wLm-RR-rt0">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <action selector="refreshControlAction:" destination="C7f-Fe-Oet" eventType="valueChanged" id="3yO-Ho-MGZ"/>
-                        </connections>
-                    </refreshControl>
+                    <attributedString key="userComments">
+                        <fragment content="#bc-ignore!">
+                            <attributes>
+                                <font key="NSFont" metaFont="smallSystem"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
                     <connections>
-                        <outlet property="searchBarButtonItem" destination="S7y-5d-trq" id="3qH-BX-5Cg"/>
+                        <outlet property="searchBarButtonItem" destination="qKD-0P-dch" id="6h7-Cs-ROD"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Upd-Zc-knL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hYk-AC-pU9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1796" y="-322"/>
+            <point key="canvasLocation" x="1782" y="-322"/>
         </scene>
     </scenes>
     <resources>
