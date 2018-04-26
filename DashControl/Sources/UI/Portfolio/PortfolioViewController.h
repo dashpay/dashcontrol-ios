@@ -15,11 +15,11 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUITableViewController.h>
+#import "DCTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PortfolioViewController : KVOUITableViewController
+@interface PortfolioViewController : DCTableViewController
 
 @end
 

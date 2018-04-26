@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PortfolioHeaderView ()
 
-@property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (strong, nonatomic) IBOutlet UILabel *dashTitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *usdTitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *dashLabel;
@@ -31,48 +30,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation PortfolioHeaderView
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self commonInit];
-    }
-    return self;
-}
+- (void)awakeFromNib {
+    [super awakeFromNib];
 
-- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self commonInit];
-    }
-    return self;
-}
-
-- (void)commonInit {
-    [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil];
-    [self addSubview:self.contentView];
-    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
-    [self.contentView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor].active = YES;
-    [self.contentView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-    [self.contentView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor].active = YES;
-    [self.contentView.widthAnchor constraintEqualToAnchor:self.widthAnchor].active = YES;
-    
     self.dashTitleLabel.text = NSLocalizedString(@"Your DASH", nil);
     self.usdTitleLabel.text = NSLocalizedString(@"Value in USD", nil);
-    
+
     // KVO
-    
+
     [self mvvm_observe:@"viewModel.dashTotal" with:^(typeof(self) self, NSString * value) {
         self.dashLabel.text = value;
     }];
-    
+
     [self mvvm_observe:@"viewModel.dashTotalInUSD" with:^(typeof(self) self, NSString * value) {
         self.usdLabel.text = value;
     }];
-}
-
-- (CGSize)intrinsicContentSize {
-    return CGSizeMake([UIScreen mainScreen].bounds.size.width, 88.0);
 }
 
 @end

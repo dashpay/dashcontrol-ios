@@ -6,8 +6,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Light.otf">
+            <string>Montserrat-Light</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Portfolio Navigation-->
         <scene sceneID="r9l-zh-jDP">
@@ -27,7 +33,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="ND7-4T-caO" kind="relationship" relationship="rootViewController" id="nr1-f7-1nf"/>
+                        <segue destination="Fwr-PB-ils" kind="relationship" relationship="rootViewController" id="hAj-xc-Q4P"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WrR-5r-a8J" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -35,21 +41,105 @@
             <point key="canvasLocation" x="-905" y="-1812"/>
         </scene>
         <!--Portfolio-->
-        <scene sceneID="voI-aX-zVI">
+        <scene sceneID="OqT-fx-pEm">
             <objects>
-                <tableViewController storyboardIdentifier="PortfolioViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ND7-4T-caO" customClass="PortfolioViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kb7-Rj-tCe">
+                <viewController title="Portfolio" id="Fwr-PB-ils" customClass="PortfolioViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="f0v-Xk-GkG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="separatorColor" red="0.1176470588" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
-                        <connections>
-                            <outlet property="dataSource" destination="ND7-4T-caO" id="ucY-aM-8dq"/>
-                            <outlet property="delegate" destination="ND7-4T-caO" id="D5i-G5-VVW"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" title="Portfolio" image="tabBarPortfolio" id="Vxm-cS-mU6">
+                        <subviews>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oto-2z-phg" userLabel="PortfolioHeaderView" customClass="PortfolioHeaderView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="Your DASH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYc-7Y-5bt">
+                                        <rect key="frame" x="24" y="12" width="60" height="13.5"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="11"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <attributedString key="userComments">
+                                            <fragment content="#bc-ignore!">
+                                                <attributes>
+                                                    <font key="NSFont" metaFont="smallSystem"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" text="Value in USD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lA-d0-JvZ">
+                                        <rect key="frame" x="280" y="12" width="71" height="13.5"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="11"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <attributedString key="userComments">
+                                            <fragment content="#bc-ignore!">
+                                                <attributes>
+                                                    <font key="NSFont" size="11" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="eyL-Cs-lie">
+                                        <rect key="frame" x="24" y="32" width="22" height="44"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="36"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <attributedString key="userComments">
+                                            <fragment content="#bc-ignore!">
+                                                <attributes>
+                                                    <font key="NSFont" size="11" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" text="..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zfv-4f-5lO">
+                                        <rect key="frame" x="329" y="32" width="22" height="44"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="36"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <attributedString key="userComments">
+                                            <fragment content="#bc-ignore!">
+                                                <attributes>
+                                                    <font key="NSFont" size="11" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.44317391509999998" blue="0.74421042199999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="eyL-Cs-lie" secondAttribute="bottom" constant="12" id="0y2-d8-wG7"/>
+                                    <constraint firstItem="eyL-Cs-lie" firstAttribute="leading" secondItem="Oto-2z-phg" secondAttribute="leading" constant="24" id="22X-QG-MyO"/>
+                                    <constraint firstAttribute="bottom" secondItem="zfv-4f-5lO" secondAttribute="bottom" constant="12" id="5ha-CY-k2T"/>
+                                    <constraint firstItem="bYc-7Y-5bt" firstAttribute="leading" secondItem="Oto-2z-phg" secondAttribute="leading" constant="24" id="CNy-yb-fh5"/>
+                                    <constraint firstAttribute="height" constant="88" id="CWU-8D-oGh"/>
+                                    <constraint firstItem="1lA-d0-JvZ" firstAttribute="top" secondItem="Oto-2z-phg" secondAttribute="top" constant="12" id="dST-pb-ERN"/>
+                                    <constraint firstItem="zfv-4f-5lO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="eyL-Cs-lie" secondAttribute="trailing" constant="24" id="fGF-8Y-Kzg"/>
+                                    <constraint firstItem="zfv-4f-5lO" firstAttribute="width" secondItem="eyL-Cs-lie" secondAttribute="width" id="nM9-7J-YCV"/>
+                                    <constraint firstItem="bYc-7Y-5bt" firstAttribute="top" secondItem="Oto-2z-phg" secondAttribute="top" constant="12" id="rrm-3O-kMq"/>
+                                    <constraint firstAttribute="trailing" secondItem="1lA-d0-JvZ" secondAttribute="trailing" constant="24" id="sMr-Xl-vAT"/>
+                                    <constraint firstItem="1lA-d0-JvZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bYc-7Y-5bt" secondAttribute="trailing" constant="24" id="xob-gw-jT8"/>
+                                    <constraint firstAttribute="trailing" secondItem="zfv-4f-5lO" secondAttribute="trailing" constant="24" id="yv6-l7-UkO"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dashLabel" destination="eyL-Cs-lie" id="Dhs-Kr-ss2"/>
+                                    <outlet property="dashTitleLabel" destination="bYc-7Y-5bt" id="16U-wZ-81I"/>
+                                    <outlet property="usdLabel" destination="zfv-4f-5lO" id="DJg-Ea-ipO"/>
+                                    <outlet property="usdTitleLabel" destination="1lA-d0-JvZ" id="2nS-sM-zeA"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Oto-2z-phg" firstAttribute="top" secondItem="dcp-Do-h3C" secondAttribute="top" id="cqA-MU-AXo"/>
+                            <constraint firstItem="Oto-2z-phg" firstAttribute="leading" secondItem="dcp-Do-h3C" secondAttribute="leading" id="diX-xv-awV"/>
+                            <constraint firstItem="Oto-2z-phg" firstAttribute="trailing" secondItem="dcp-Do-h3C" secondAttribute="trailing" id="g9C-cg-xyA"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dcp-Do-h3C"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Portfolio" image="tabBarPortfolio" id="lP8-F0-typ">
                         <attributedString key="userComments">
                             <fragment content="#bc-ignore!">
                                 <attributes>
@@ -59,32 +149,67 @@
                             </fragment>
                         </attributedString>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" title="Portfolio" id="RM2-zK-a1v">
+                    <navigationItem key="navigationItem" title="Portfolio" id="BBL-rJ-y5C">
                         <attributedString key="userComments">
                             <fragment content="#bc-ignore!">
                                 <attributes>
-                                    <font key="NSFont" metaFont="smallSystem"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    <font key="NSFont" size="11" name="HelveticaNeue"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                        <tabStops>
+                                            <textTab alignment="left" location="28">
+                                                <options/>
+                                            </textTab>
+                                            <textTab alignment="left" location="56">
+                                                <options/>
+                                            </textTab>
+                                            <textTab alignment="left" location="84">
+                                                <options/>
+                                            </textTab>
+                                            <textTab alignment="left" location="112">
+                                                <options/>
+                                            </textTab>
+                                            <textTab alignment="left" location="140">
+                                                <options/>
+                                            </textTab>
+                                            <textTab alignment="left" location="168">
+                                                <options/>
+                                            </textTab>
+                                            <textTab alignment="left" location="196">
+                                                <options/>
+                                            </textTab>
+                                            <textTab alignment="left" location="224">
+                                                <options/>
+                                            </textTab>
+                                            <textTab alignment="left" location="252">
+                                                <options/>
+                                            </textTab>
+                                            <textTab alignment="left" location="280">
+                                                <options/>
+                                            </textTab>
+                                            <textTab alignment="left" location="308">
+                                                <options/>
+                                            </textTab>
+                                            <textTab alignment="left" location="336">
+                                                <options/>
+                                            </textTab>
+                                        </tabStops>
+                                    </paragraphStyle>
                                 </attributes>
                             </fragment>
                         </attributedString>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="20O-uz-wLB">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <action selector="refreshControlAction:" destination="ND7-4T-caO" eventType="valueChanged" id="xoa-H7-khH"/>
-                        </connections>
-                    </refreshControl>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oO2-Yp-UGr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    <connections>
+                        <outlet property="portfolioHeaderView" destination="Oto-2z-phg" id="tX5-DZ-nv6"/>
+                        <outlet property="topViewTopConstraint" destination="cqA-MU-AXo" id="d1X-lU-Pbl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CF0-3U-fbr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-114" y="-1812"/>
+            <point key="canvasLocation" x="-62" y="-1812"/>
         </scene>
     </scenes>
     <resources>
-        <image name="tabBarPortfolio" width="31" height="25"/>
+        <image name="tabBarPortfolio" width="23" height="19"/>
     </resources>
 </document>

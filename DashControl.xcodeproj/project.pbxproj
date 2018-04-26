@@ -99,7 +99,6 @@
 		2A6FBED020769B1D0055BAC8 /* Credentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBECF20769B1D0055BAC8 /* Credentials.m */; };
 		2A6FBED32076A2880055BAC8 /* APIPortfolio.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBED22076A2880055BAC8 /* APIPortfolio.m */; };
 		2A6FBEE3207B18F90055BAC8 /* PortfolioHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEE2207B18F90055BAC8 /* PortfolioHeaderView.m */; };
-		2A6FBEE5207B19180055BAC8 /* PortfolioHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A6FBEE4207B19180055BAC8 /* PortfolioHeaderView.xib */; };
 		2A6FBEEB207B28880055BAC8 /* PortfolioHeaderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEEA207B28880055BAC8 /* PortfolioHeaderViewModel.m */; };
 		2A6FBEF3207C087A0055BAC8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6FBEF2207C087A0055BAC8 /* Launch Screen.storyboard */; };
 		2A6FBEF5207C0CFF0055BAC8 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6FBEF4207C0CFF0055BAC8 /* News.storyboard */; };
@@ -420,7 +419,6 @@
 		2A6FBED22076A2880055BAC8 /* APIPortfolio.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIPortfolio.m; sourceTree = "<group>"; };
 		2A6FBEE1207B18F90055BAC8 /* PortfolioHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PortfolioHeaderView.h; sourceTree = "<group>"; };
 		2A6FBEE2207B18F90055BAC8 /* PortfolioHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PortfolioHeaderView.m; sourceTree = "<group>"; };
-		2A6FBEE4207B19180055BAC8 /* PortfolioHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PortfolioHeaderView.xib; sourceTree = "<group>"; };
 		2A6FBEE9207B28880055BAC8 /* PortfolioHeaderViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PortfolioHeaderViewModel.h; sourceTree = "<group>"; };
 		2A6FBEEA207B28880055BAC8 /* PortfolioHeaderViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PortfolioHeaderViewModel.m; sourceTree = "<group>"; };
 		2A6FBEF2207C087A0055BAC8 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -1127,7 +1125,6 @@
 			children = (
 				2A6FBEE1207B18F90055BAC8 /* PortfolioHeaderView.h */,
 				2A6FBEE2207B18F90055BAC8 /* PortfolioHeaderView.m */,
-				2A6FBEE4207B19180055BAC8 /* PortfolioHeaderView.xib */,
 				2A6FBEE9207B28880055BAC8 /* PortfolioHeaderViewModel.h */,
 				2A6FBEEA207B28880055BAC8 /* PortfolioHeaderViewModel.m */,
 				2AEF29512070DBA3008590E4 /* PortfolioMasternodeTableViewCellModel.h */,
@@ -1651,7 +1648,6 @@
 				2A32D6392054800B004B38A6 /* ProposalDescriptionTemplate.html in Resources */,
 				2AEF29BB20740647008590E4 /* QRCodeButton.xib in Resources */,
 				2AE3C46A2091C2DB00CE83A8 /* NewsFirstTableViewCell.xib in Resources */,
-				2A6FBEE5207B19180055BAC8 /* PortfolioHeaderView.xib in Resources */,
 				2A80B58F2039BEFE0015E1AA /* DCSearchBar.xib in Resources */,
 				2AEF297820734F53008590E4 /* ButtonFormTableViewCell.xib in Resources */,
 				2AEF298420735E2B008590E4 /* SwitcherFormTableViewCell.xib in Resources */,
