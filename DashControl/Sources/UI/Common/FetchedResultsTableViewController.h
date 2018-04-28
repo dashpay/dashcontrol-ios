@@ -16,11 +16,12 @@
 //
 
 #import <CoreData/CoreData.h>
-#import <KVO-MVVM/KVOUITableViewController.h>
+
+#import "DCTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FetchedResultsTableViewController : KVOUITableViewController <NSFetchedResultsControllerDelegate>
+@interface FetchedResultsTableViewController : DCTableViewController <NSFetchedResultsControllerDelegate>
 
 - (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
                    configureCell:(UITableViewCell *)cell

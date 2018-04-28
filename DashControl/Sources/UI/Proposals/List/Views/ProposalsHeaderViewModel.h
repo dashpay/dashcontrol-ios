@@ -23,8 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProposalsHeaderViewModel : NSObject
 
-@property (readonly, copy, nonatomic) NSString *total;
-@property (readonly, copy, nonatomic) NSString *alloted;
 @property (readonly, copy, nonatomic) NSString *superblockPaymentInfo;
 
 - (void)updateWithBudgetInfo:(nullable DCBudgetInfoEntity *)budgetInfo;

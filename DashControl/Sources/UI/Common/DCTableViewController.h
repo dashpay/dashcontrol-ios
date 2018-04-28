@@ -15,11 +15,19 @@
 //  limitations under the License.
 //
 
-#import "DCTableViewController.h"
+#import <KVO-MVVM/KVOUIViewController.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PortfolioViewController : DCTableViewController
+@interface DCTableViewController : KVOUIViewController <UITableViewDelegate, UITableViewDataSource>
+
+- (instancetype)initWithStyle:(UITableViewStyle)style NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
+
+@property (readonly, strong, nonatomic) UITableView *tableView;
+@property (assign, nonatomic) BOOL clearsSelectionOnViewWillAppear; // defaults to YES
+@property (nullable, strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 

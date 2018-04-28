@@ -15,35 +15,37 @@
 //  limitations under the License.
 //
 
-#import "PortfolioHeaderView.h"
+#import "ProposalsTopView.h"
+
+#import "ProposalsTopViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PortfolioHeaderView ()
+@interface ProposalsTopView ()
 
-@property (strong, nonatomic) IBOutlet UILabel *dashTitleLabel;
-@property (strong, nonatomic) IBOutlet UILabel *usdTitleLabel;
-@property (strong, nonatomic) IBOutlet UILabel *dashLabel;
-@property (strong, nonatomic) IBOutlet UILabel *usdLabel;
+@property (strong, nonatomic) IBOutlet UILabel *totalTitleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *allotedTitleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *totalLabel;
+@property (strong, nonatomic) IBOutlet UILabel *allotedLabel;
 
 @end
 
-@implementation PortfolioHeaderView
+@implementation ProposalsTopView
 
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-    self.dashTitleLabel.text = NSLocalizedString(@"Your DASH", nil);
-    self.usdTitleLabel.text = NSLocalizedString(@"Value in USD", nil);
+    self.totalTitleLabel.text = NSLocalizedString(@"Total", nil);
+    self.allotedTitleLabel.text = NSLocalizedString(@"Alloted", nil);
 
     // KVO
 
-    [self mvvm_observe:@"viewModel.dashTotal" with:^(typeof(self) self, NSString * value) {
-        self.dashLabel.text = value;
+    [self mvvm_observe:@"viewModel.total" with:^(typeof(self) self, NSString * value) {
+        self.totalLabel.text = value;
     }];
 
-    [self mvvm_observe:@"viewModel.dashTotalInUSD" with:^(typeof(self) self, NSString * value) {
-        self.usdLabel.text = value;
+    [self mvvm_observe:@"viewModel.alloted" with:^(typeof(self) self, NSString * value) {
+        self.allotedLabel.text = value;
     }];
 }
 

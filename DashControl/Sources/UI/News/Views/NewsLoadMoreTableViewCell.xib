@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewsLoadMoreTableViewCell" rowHeight="104" id="NGW-iO-5de" userLabel="NewsLoadMoreTableViewCell" customClass="NewsLoadMoreTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NGW-iO-5de" id="VLA-7V-yrH">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="103.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uk4-KD-6Bu">
+                        <rect key="frame" x="10" y="4" width="355" height="95.5"/>
+                        <color key="backgroundColor" red="0.19215686269999999" green="0.23137254900000001" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="95" id="h8c-n6-Woq"/>
+                        </constraints>
+                    </view>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Ecd-O1-DXO">
+                        <rect key="frame" x="178" y="42" width="20" height="20"/>
+                    </activityIndicatorView>
+                </subviews>
+                <color key="backgroundColor" red="0.1176470588" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="uk4-KD-6Bu" firstAttribute="centerY" secondItem="VLA-7V-yrH" secondAttribute="centerY" id="5N5-io-5WC"/>
+                    <constraint firstItem="Ecd-O1-DXO" firstAttribute="centerX" secondItem="VLA-7V-yrH" secondAttribute="centerX" id="8WQ-qv-5oe"/>
+                    <constraint firstAttribute="trailing" secondItem="uk4-KD-6Bu" secondAttribute="trailing" constant="10" id="K4c-My-5zN"/>
+                    <constraint firstItem="Ecd-O1-DXO" firstAttribute="centerY" secondItem="VLA-7V-yrH" secondAttribute="centerY" id="vRR-pg-Ux1"/>
+                    <constraint firstItem="uk4-KD-6Bu" firstAttribute="leading" secondItem="VLA-7V-yrH" secondAttribute="leading" constant="10" id="yjy-3P-coz"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.1176470588" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="activityIndicatorView" destination="Ecd-O1-DXO" id="ifH-w7-hQQ"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

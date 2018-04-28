@@ -62,6 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.tableView registerClass:ProposalDetailTableViewCell.class forCellReuseIdentifier:PROPOSALDETAIL_CELL_ID];
     self.tableView.contentInset = UIEdgeInsetsMake(VOTES_VIEW_HEIGHT, 0.0, 0.0, 0.0);
+    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     refreshControl.tintColor = [UIColor dc_barTintColor];
     [refreshControl addTarget:self action:@selector(refreshControlAction:) forControlEvents:UIControlEventValueChanged];
@@ -109,7 +110,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self.titleView scrollViewDidScroll:scrollView threshold:VOTES_VIEW_HEIGHT];
 
-    self.votesViewTopConstraint.constant = MIN(-(scrollView.contentOffset.y + VOTES_VIEW_HEIGHT), 0.0);
+    CGFloat offset = scrollView.contentOffset.y + scrollView.contentInset.top;
+    self.votesViewTopConstraint.constant = MIN(-offset, 0.0);
 
     if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
         for (ProposalDetailTableViewCell *cell in self.tableView.visibleCells) {

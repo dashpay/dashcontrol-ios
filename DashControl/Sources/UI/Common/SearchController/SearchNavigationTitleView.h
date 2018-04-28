@@ -15,11 +15,27 @@
 //  limitations under the License.
 //
 
-#import "DCTableViewController.h"
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PortfolioViewController : DCTableViewController
+@class SearchNavigationTitleView;
+
+@protocol SearchNavigationTitleViewDelegate <NSObject>
+
+- (void)searchNavigationTitleViewSearchButtonAction:(SearchNavigationTitleView *)view;
+
+@end
+
+@interface SearchNavigationTitleView : UIView
+
+@property (nullable, weak, nonatomic) id<SearchNavigationTitleViewDelegate> delegate;
+
+- (void)setMainView:(UIView *)mainView;
+- (void)setSearchBarView:(UIView *)searchBarView;
+
+- (void)showMainView;
+- (void)showSearchView;
 
 @end
 

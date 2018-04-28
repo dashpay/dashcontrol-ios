@@ -24,12 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ProposalsHeaderView ()
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
-@property (strong, nonatomic) IBOutlet UILabel *totalTitleLabel;
-@property (strong, nonatomic) IBOutlet UILabel *allotedTitleLabel;
-@property (strong, nonatomic) IBOutlet UILabel *totalLabel;
-@property (strong, nonatomic) IBOutlet UILabel *allotedLabel;
 @property (strong, nonatomic) IBOutlet UILabel *superblockPaymentInfoLabel;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *topInfoViewTopConstraint;
 
 @end
 
@@ -61,18 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self.contentView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor].active = YES;
     [self.contentView.widthAnchor constraintEqualToAnchor:self.widthAnchor].active = YES;
 
-    self.totalTitleLabel.text = NSLocalizedString(@"Total", nil);
-    self.allotedTitleLabel.text = NSLocalizedString(@"Alloted", nil);
-
     // KVO
-
-    [self mvvm_observe:@"viewModel.total" with:^(typeof(self) self, NSString * value) {
-        self.totalLabel.text = value;
-    }];
-
-    [self mvvm_observe:@"viewModel.alloted" with:^(typeof(self) self, NSString * value) {
-        self.allotedLabel.text = value;
-    }];
 
     [self mvvm_observe:@"viewModel.superblockPaymentInfo" with:^(typeof(self) self, NSString * value) {
         self.superblockPaymentInfoLabel.text = value;
@@ -80,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
-    return CGSizeMake([UIScreen mainScreen].bounds.size.width, 122.0);
+    return CGSizeMake([UIScreen mainScreen].bounds.size.width, 34.0);
 }
 
 @end

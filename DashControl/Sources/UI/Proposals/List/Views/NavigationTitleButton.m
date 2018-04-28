@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.titleLabel.frame = CGRectMake(IMAGE_WIDTH, 0.0, self.titleLabel.bounds.size.width, HEIGHT);
 }
 
-- (CGSize)sizeThatFits:(CGSize)size {
+- (CGSize)intrinsicContentSize {
     return CGSizeMake(IMAGE_WIDTH + self.titleLabel.bounds.size.width + IMAGE_WIDTH, HEIGHT);
 }
 
@@ -80,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setTitle:(nullable NSString *)title {
     self.titleLabel.text = title;
     [self.titleLabel sizeToFit];
-    [self setNeedsLayout];
+    [self invalidateIntrinsicContentSize];
 }
 
 #define DEGREES_TO_RADIANS(x) (M_PI * (x) / 180.0)

@@ -33,6 +33,7 @@ NSString *const PROPOSAL_CELL_ID = @"ProposalTableViewCell";
 
     self.view.backgroundColor = [UIColor dc_darkBlueColor];
 
+    self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.rowHeight = 104.0;
     [self.tableView registerNib:[UINib nibWithNibName:@"ProposalTableViewCell" bundle:nil] forCellReuseIdentifier:PROPOSAL_CELL_ID];

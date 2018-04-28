@@ -15,11 +15,14 @@
 //  limitations under the License.
 //
 
-#import "DCTableViewController.h"
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PortfolioViewController : DCTableViewController
+@interface UIViewController (DCChildControllers)
+
+- (void)dc_displayController:(UIViewController *)controller;
+- (void)dc_hideController:(UIViewController *)controller;
 
 @end
 

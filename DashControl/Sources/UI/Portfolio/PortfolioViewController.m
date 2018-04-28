@@ -37,6 +37,8 @@ static NSString *const ADD_CELL_ID = @"AddItemTableViewCell";
 static NSString *const ITEM_CELL_ID = @"ItemTableViewCell";
 static NSString *const SUBTITLE_CELL_ID = @"SubtitleTableViewCell";
 
+static CGFloat const HEADER_VIEW_HEIGHT = 88.0;
+
 typedef NS_ENUM(NSInteger, PortfolioSection) {
     PortfolioSection_AddWallet = 0,
     PortfolioSection_Wallet = 1,
@@ -50,12 +52,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PortfolioViewController () <TableViewFRCDelegateNotifier, SKStoreProductViewControllerDelegate>
 
-@property (strong, nonatomic) PortfolioViewModel *viewModel;
 @property (strong, nonatomic) PortfolioHeaderViewModel *headerViewModel;
+@property (strong, nonatomic) PortfolioViewModel *viewModel;
 @property (strong, nonatomic) TableViewFRCDelegate *walletFRCDelegate;
 @property (strong, nonatomic) TableViewFRCDelegate *walletAddressFRCDelegate;
 @property (strong, nonatomic) TableViewFRCDelegate *masternodeFRCDelegate;
-@property (strong, nonatomic) PortfolioHeaderView *portfolioHeaderView;
+@property (strong, nonatomic) IBOutlet PortfolioHeaderView *portfolioHeaderView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *topViewTopConstraint;
 
 @end
 
@@ -71,20 +74,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.view.backgroundColor = [UIColor dc_darkBlueColor];
+
     UIImage *emptyImage = [[UIImage alloc] init];
     self.navigationController.navigationBar.shadowImage = emptyImage;
     [self.navigationController.navigationBar setBackgroundImage:emptyImage forBarMetrics:UIBarMetricsDefault];
 
-    // blue bg view above the tableView
-    CGRect frame = [UIScreen mainScreen].bounds;
-    frame.origin.y = -frame.size.height;
-    UIView *topBackgroundView = [[UIView alloc] initWithFrame:frame];
-    topBackgroundView.backgroundColor = [UIColor dc_barTintColor];
-    [self.tableView insertSubview:topBackgroundView atIndex:0];
-
-    CGSize headerSize = [self.portfolioHeaderView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    self.portfolioHeaderView.frame = CGRectMake(0.0, 0.0, headerSize.width, headerSize.height);
-    self.tableView.tableHeaderView = self.portfolioHeaderView;
+    self.portfolioHeaderView.viewModel = self.headerViewModel;
 
     NSArray<NSString *> *cellIds = @[
         ADD_CELL_ID,
@@ -96,6 +92,15 @@ NS_ASSUME_NONNULL_BEGIN
         NSParameterAssert(nib);
         [self.tableView registerNib:nib forCellReuseIdentifier:cellId];
     }
+    self.tableView.backgroundColor = self.view.backgroundColor;
+    self.tableView.contentInset = UIEdgeInsetsMake(HEADER_VIEW_HEIGHT, 0.0, 0.0, 0.0);
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorColor = [UIColor dc_darkBlueColor];
+    self.tableView.separatorInset = UIEdgeInsetsMake(0.0, 10.0, 0.0, 10.0);
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.tintColor = [UIColor colorWithWhite:1.0 alpha:0.6];
+    [refreshControl addTarget:self action:@selector(refreshControlAction:) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
 
     [self reload];
 
@@ -123,7 +128,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Actions
 
-- (IBAction)refreshControlAction:(UIRefreshControl *)sender {
+- (void)refreshControlAction:(UIRefreshControl *)sender {
     [self reload];
 }
 
@@ -263,6 +268,11 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat offset = scrollView.contentOffset.y + scrollView.contentInset.top;
+    self.topViewTopConstraint.constant = MIN(-offset, 0.0);
+}
+
 #pragma mark Private
 
 - (PortfolioViewModel *)viewModel {
@@ -328,14 +338,6 @@ NS_ASSUME_NONNULL_BEGIN
         };
     }
     return _masternodeFRCDelegate;
-}
-
-- (PortfolioHeaderView *)portfolioHeaderView {
-    if (!_portfolioHeaderView) {
-        _portfolioHeaderView = [[PortfolioHeaderView alloc] initWithFrame:CGRectZero];
-        _portfolioHeaderView.viewModel = self.headerViewModel;
-    }
-    return _portfolioHeaderView;
 }
 
 - (NSFetchedResultsController *)frcForSection:(PortfolioSection)section {
@@ -414,8 +416,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)reload {
-    if (self.tableView.contentOffset.y == 0) {
-        self.tableView.contentOffset = CGPointMake(0.0, -self.tableView.refreshControl.frame.size.height);
+    if (self.tableView.contentOffset.y == -HEADER_VIEW_HEIGHT) {
+        self.tableView.contentOffset = CGPointMake(0.0, -(self.tableView.refreshControl.frame.size.height + HEADER_VIEW_HEIGHT));
         [self.tableView.refreshControl beginRefreshing];
     }
 

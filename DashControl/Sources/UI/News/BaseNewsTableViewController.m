@@ -18,8 +18,8 @@
 #import "BaseNewsTableViewController+Protected.h"
 
 #import "DCNewsPostEntity+CoreDataClass.h"
-#import "NewsTableViewCell.h"
 #import "UIColor+DCStyle.h"
+#import "NewsTableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,7 +31,8 @@ NSString *const NEWS_CELL_ID = @"NewsTableViewCell";
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor dc_darkBlueColor];
-    
+
+    self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"NewsTableViewCell" bundle:nil] forCellReuseIdentifier:NEWS_CELL_ID];
 }

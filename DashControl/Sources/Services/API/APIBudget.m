@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 CGFloat const MASTERNODES_SUFFICIENT_VOTING_PERCENT = 0.1;
 
 static NSString *const API_BASE_URL = @"https://www.dashcentral.org/api/v1";
+static NSString *const API_PARTNER_KEY = @"3a726c82338a0df4e663cf6d58f578de";
 static NSString *const MASTERNODES_COUNT_KEY = @"MasternodesCount";
 static NSInteger const LAST_MASTERNODES_COUNT = 4756; // fallback
 
@@ -99,7 +100,7 @@ static int32_t RedditHotRanking(NSDate *date, int32_t upVotes, int32_t downVotes
 - (id<HTTPLoaderOperationProtocol>)fetchActiveProposalsCompletion:(void (^)(BOOL success))completion {
     NSString *urlString = [NSString stringWithFormat:@"%@/%@", API_BASE_URL, @"budget"];
     NSURL *url = [NSURL URLWithString:urlString];
-    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:nil];
+    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:[self authParameters]];
     weakify;
     return [self.httpManager sendRequest:request completion:^(id _Nullable parsedData, NSDictionary *_Nullable responseHeaders, NSInteger statusCode, NSError *_Nullable error) {
         strongify;
@@ -150,10 +151,49 @@ static int32_t RedditHotRanking(NSDate *date, int32_t upVotes, int32_t downVotes
     }];
 }
 
+- (id<HTTPLoaderOperationProtocol>)fetchPastProposalsCompletion:(void (^)(BOOL success))completion {
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@", API_BASE_URL, @"budgethistory"];
+    NSURL *url = [NSURL URLWithString:urlString];
+    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:[self authParameters]];
+    weakify;
+    return [self.httpManager sendRequest:request completion:^(id _Nullable parsedData, NSDictionary *_Nullable responseHeaders, NSInteger statusCode, NSError *_Nullable error) {
+        strongify;
+        NSAssert([NSThread isMainThread], nil);
+
+        NSDictionary *dictionary = (NSDictionary *)parsedData;
+        if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
+            NSPersistentContainer *container = self.stack.persistentContainer;
+            [container performBackgroundTask:^(NSManagedObjectContext *context) {
+                NSArray<NSDictionary *> *proposals = dictionary[@"proposals"];
+                if ([proposals.firstObject isKindOfClass:[NSDictionary class]]) {
+                    for (NSDictionary *proposalDictionary in proposals) {
+                        [self parseProposalForDictionary:proposalDictionary commentsArray:nil inContext:context];
+                    }
+                }
+
+                context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+                [context dc_saveIfNeeded];
+
+                if (completion) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion(YES);
+                    });
+                }
+            }];
+        }
+        else {
+            if (completion) {
+                completion(NO);
+            }
+        }
+    }];
+}
+
 - (id<HTTPLoaderOperationProtocol>)fetchProposalDetails:(DCBudgetProposalEntity *)entity completion:(void (^)(BOOL success))completion {
     NSString *urlString = [NSString stringWithFormat:@"%@/%@", API_BASE_URL, @"proposal"];
     NSURL *url = [NSURL URLWithString:urlString];
-    NSDictionary *parameters = @{ @"hash" : entity.proposalHash ?: @"0" };
+    NSMutableDictionary *parameters = [@{ @"hash" : entity.proposalHash ?: @"0" } mutableCopy];
+    [parameters addEntriesFromDictionary:[self authParameters]];
     HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:parameters];
     weakify;
     return [self.httpManager sendRequest:request completion:^(id _Nullable parsedData, NSDictionary *_Nullable responseHeaders, NSInteger statusCode, NSError *_Nullable error) {
@@ -187,6 +227,10 @@ static int32_t RedditHotRanking(NSDate *date, int32_t upVotes, int32_t downVotes
 }
 
 #pragma mark - Private
+
+- (NSDictionary *)authParameters {
+    return @{ @"partner" : API_PARTNER_KEY };
+}
 
 - (void)parseProposalForDictionary:(NSDictionary *)proposalDictionary
                      commentsArray:(nullable NSArray<NSDictionary *> *)commentsArray

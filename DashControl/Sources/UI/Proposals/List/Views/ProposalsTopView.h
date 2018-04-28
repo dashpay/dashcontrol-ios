@@ -15,11 +15,15 @@
 //  limitations under the License.
 //
 
-#import "DCTableViewController.h"
+#import <KVO-MVVM/KVOUIView.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PortfolioViewController : DCTableViewController
+@class ProposalsTopViewModel;
+
+@interface ProposalsTopView : KVOUIView
+
+@property (strong, nonatomic) ProposalsTopViewModel *viewModel;
 
 @end
 

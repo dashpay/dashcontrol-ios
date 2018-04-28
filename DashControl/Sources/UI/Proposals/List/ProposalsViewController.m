@@ -27,19 +27,25 @@
 #import "ProposalsHeaderViewModel.h"
 #import "ProposalsSearchResultsController.h"
 #import "ProposalsSegmentSelectorView.h"
+#import "ProposalsTopView.h"
 #import "ProposalsViewModel.h"
+#import "SearchNavigationTitleView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ProposalsViewController () <DCSearchControllerDelegate, DCSearchResultsUpdating, ProposalsSegmentSelectorViewDelegate>
+static CGFloat const TOP_VIEW_HEIGHT = 88.0;
+
+@interface ProposalsViewController () <DCSearchControllerDelegate, DCSearchResultsUpdating, ProposalsSegmentSelectorViewDelegate, SearchNavigationTitleViewDelegate>
 
 @property (strong, nonatomic) ProposalsViewModel *viewModel;
 
+@property (strong, nonatomic) SearchNavigationTitleView *navigationTitleView;
 @property (strong, nonatomic) NavigationTitleButton *navigationTitleButton;
 @property (strong, nonatomic) ProposalsSegmentSelectorView *segmentSelectorView;
+@property (strong, nonatomic) IBOutlet ProposalsTopView *topView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *topViewTopConstraint;
 @property (strong, nonatomic) ProposalsHeaderView *proposalsHeaderView;
 @property (strong, nonatomic) DCSearchController *searchController;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *searchBarButtonItem;
 
 @end
 
@@ -58,39 +64,20 @@ NS_ASSUME_NONNULL_BEGIN
     UIImage *emptyImage = [[UIImage alloc] init];
     self.navigationController.navigationBar.shadowImage = emptyImage;
     [self.navigationController.navigationBar setBackgroundImage:emptyImage forBarMetrics:UIBarMetricsDefault];
-    self.navigationItem.titleView = self.navigationTitleButton;
+    self.navigationItem.titleView = self.navigationTitleView;
 
-    // blue bg view above the tableView
-    CGRect frame = [UIScreen mainScreen].bounds;
-    frame.origin.y = -frame.size.height;
-    UIView *topBackgroundView = [[UIView alloc] initWithFrame:frame];
-    topBackgroundView.backgroundColor = [UIColor dc_barTintColor];
-    [self.tableView insertSubview:topBackgroundView atIndex:0];
+    self.topView.viewModel = self.viewModel.topViewModel;
 
+    self.tableView.contentInset = UIEdgeInsetsMake(TOP_VIEW_HEIGHT, 0.0, 0.0, 0.0);
+    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     self.tableView.tableHeaderView = self.proposalsHeaderView;
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.tintColor = [UIColor colorWithWhite:1.0 alpha:0.6];
+    [refreshControl addTarget:self action:@selector(refreshControlAction:) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
 
     [self.viewModel updateMasternodesCount];
-    [self reload];
-
-    ProposalsSearchResultsController *searchResultsController = [[ProposalsSearchResultsController alloc] init];
-    searchResultsController.tableView.dataSource = self;
-    searchResultsController.tableView.delegate = self;
-    self.searchController = [[DCSearchController alloc] initWithController:searchResultsController];
-    self.searchController.delegate = self;
-    self.searchController.searchResultsUpdater = self;
-    UIView *searchAccessoryView = self.searchController.searchAccessoryView;
-    ProposalsSegmentedControl *searchSegmentedControl = [[ProposalsSegmentedControl alloc] initWithFrame:CGRectZero];
-    searchSegmentedControl.translatesAutoresizingMaskIntoConstraints = NO;
-    searchSegmentedControl.backgroundColor = [UIColor dc_barTintColor];
-    [searchSegmentedControl addTarget:self action:@selector(searchSegmentedControlAction:) forControlEvents:UIControlEventValueChanged];
-    [searchAccessoryView addSubview:searchSegmentedControl];
-    [searchSegmentedControl.topAnchor constraintEqualToAnchor:searchAccessoryView.topAnchor].active = YES;
-    [searchSegmentedControl.leadingAnchor constraintEqualToAnchor:searchAccessoryView.leadingAnchor].active = YES;
-    [searchSegmentedControl.bottomAnchor constraintEqualToAnchor:searchAccessoryView.bottomAnchor].active = YES;
-    [searchSegmentedControl.trailingAnchor constraintEqualToAnchor:searchAccessoryView.trailingAnchor].active = YES;
-    [searchSegmentedControl.heightAnchor constraintEqualToConstant:44.0].active = YES;
-
-    self.definesPresentationContext = YES;
+    [self reloadOnlyCurrentSegment:NO];
 
     // KVO
 
@@ -115,21 +102,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Actions
 
-- (IBAction)refreshControlAction:(UIRefreshControl *)sender {
-    [self reload];
-}
-
-- (IBAction)searchBarButtonItemAction:(UIBarButtonItem *)sender {
-    [self.segmentSelectorView setOpen:NO];
-
-    self.navigationItem.rightBarButtonItem = nil;
-
-    DCSearchBar *searchBar = self.searchController.searchBar;
-    self.navigationItem.titleView = searchBar;
-    [searchBar showAnimatedCompletion:nil];
-
-    self.searchController.active = YES;
-    [searchBar becomeFirstResponder];
+- (void)refreshControlAction:(UIRefreshControl *)sender {
+    [self reloadOnlyCurrentSegment:YES];
 }
 
 #pragma mark UITableViewDataSource
@@ -198,11 +172,19 @@ NS_ASSUME_NONNULL_BEGIN
     [self showViewController:detailViewController sender:self];
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView != self.tableView) {
+        return;
+    }
+
+    CGFloat offset = scrollView.contentOffset.y + scrollView.contentInset.top;
+    self.topViewTopConstraint.constant = MIN(-offset, 0.0);
+}
+
 #pragma mark DCSearchControllerDelegate
 
 - (void)willDismissSearchController:(DCSearchController *)searchController {
-    self.navigationItem.titleView = self.navigationTitleButton;
-    self.navigationItem.rightBarButtonItem = self.searchBarButtonItem;
+    [self.navigationTitleView showMainView];
 }
 
 #pragma mark DCSearchResultsUpdating
@@ -213,17 +195,64 @@ NS_ASSUME_NONNULL_BEGIN
     [self performSelector:@selector(performSearch) withObject:nil afterDelay:delay];
 }
 
+#pragma mark ProposalsSegmentSelectorViewDelegate
+
+- (void)proposalsSegmentSelectorViewDidClose:(ProposalsSegmentSelectorView *)view {
+    [view removeFromSuperview];
+    self.navigationTitleButton.opened = NO;
+}
+
+#pragma mark SearchNavigationTitleViewDelegate
+
+- (void)searchNavigationTitleViewSearchButtonAction:(SearchNavigationTitleView *)view {
+    [self.segmentSelectorView setOpen:NO];
+    [self.navigationTitleView showSearchView];
+    self.searchController.active = YES;
+}
+
 #pragma mark Private
+
+- (SearchNavigationTitleView *)navigationTitleView {
+    if (!_navigationTitleView) {
+        CGRect frame = CGRectMake(0.0, 0.0, [UIScreen mainScreen].bounds.size.width, 44.0);
+        _navigationTitleView = [[SearchNavigationTitleView alloc] initWithFrame:frame];
+        _navigationTitleView.delegate = self;
+        [_navigationTitleView setMainView:self.navigationTitleButton];
+        [_navigationTitleView setSearchBarView:self.searchController.searchBar];
+    }
+    return _navigationTitleView;
+}
 
 - (NavigationTitleButton *)navigationTitleButton {
     if (!_navigationTitleButton) {
         _navigationTitleButton = [[NavigationTitleButton alloc] initWithFrame:CGRectZero];
         _navigationTitleButton.title = NSLocalizedString(@"Proposals", nil);
-        CGSize size = [_navigationTitleButton sizeThatFits:CGSizeZero];
-        _navigationTitleButton.frame = CGRectMake(0.0, 0.0, size.width, size.height);
         [_navigationTitleButton addTarget:self action:@selector(navigationTitleButtonAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _navigationTitleButton;
+}
+
+- (DCSearchController *)searchController {
+    if (!_searchController) {
+        ProposalsSearchResultsController *searchResultsController = [[ProposalsSearchResultsController alloc] init];
+        searchResultsController.tableView.dataSource = self;
+        searchResultsController.tableView.delegate = self;
+        _searchController = [[DCSearchController alloc] initWithController:searchResultsController];
+        _searchController.delegate = self;
+        _searchController.searchResultsUpdater = self;
+        UIView *searchAccessoryView = self.searchController.searchAccessoryView;
+        ProposalsSegmentedControl *searchSegmentedControl = [[ProposalsSegmentedControl alloc] initWithFrame:CGRectZero];
+        searchSegmentedControl.translatesAutoresizingMaskIntoConstraints = NO;
+        searchSegmentedControl.backgroundColor = [UIColor dc_barTintColor];
+        [searchSegmentedControl addTarget:self action:@selector(searchSegmentedControlAction:) forControlEvents:UIControlEventValueChanged];
+        [searchAccessoryView addSubview:searchSegmentedControl];
+        [searchSegmentedControl.topAnchor constraintEqualToAnchor:searchAccessoryView.topAnchor].active = YES;
+        [searchSegmentedControl.leadingAnchor constraintEqualToAnchor:searchAccessoryView.leadingAnchor].active = YES;
+        [searchSegmentedControl.bottomAnchor constraintEqualToAnchor:searchAccessoryView.bottomAnchor].active = YES;
+        [searchSegmentedControl.trailingAnchor constraintEqualToAnchor:searchAccessoryView.trailingAnchor].active = YES;
+        [searchSegmentedControl.heightAnchor constraintEqualToConstant:44.0].active = YES;
+    }
+    return _searchController;
 }
 
 - (ProposalsSegmentSelectorView *)segmentSelectorView {
@@ -292,25 +321,18 @@ NS_ASSUME_NONNULL_BEGIN
     [self.viewModel searchWithQuery:query];
 }
 
-- (void)reload {
-    if (self.tableView.contentOffset.y == 0) {
-        self.tableView.contentOffset = CGPointMake(0.0, -self.tableView.refreshControl.frame.size.height);
+- (void)reloadOnlyCurrentSegment:(BOOL)reloadOnlyCurrent {
+    if (self.tableView.contentOffset.y == -TOP_VIEW_HEIGHT) {
+        self.tableView.contentOffset = CGPointMake(0.0, -(self.tableView.refreshControl.frame.size.height + TOP_VIEW_HEIGHT));
         [self.tableView.refreshControl beginRefreshing];
     }
 
     weakify;
-    [self.viewModel reloadWithCompletion:^(BOOL success) {
+    [self.viewModel reloadOnlyCurrentSegment:reloadOnlyCurrent completion:^(BOOL success) {
         strongify;
 
         [self.tableView.refreshControl endRefreshing];
     }];
-}
-
-#pragma mark ProposalsSegmentSelectorViewDelegate
-
-- (void)proposalsSegmentSelectorViewDidClose:(ProposalsSegmentSelectorView *)view {
-    [view removeFromSuperview];
-    self.navigationTitleButton.opened = NO;
 }
 
 @end

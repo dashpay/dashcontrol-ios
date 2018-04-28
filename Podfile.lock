@@ -12,6 +12,7 @@ PODS:
     - SDWebImage/Core (= 4.3.3)
   - SDWebImage/Core (4.3.3)
   - secp256k1_dash (0.1.0)
+  - UIViewController-KeyboardAdditions (1.2.1)
 
 DEPENDENCIES:
   - Charts (= 3.1.1)
@@ -21,6 +22,7 @@ DEPENDENCIES:
   - MBProgressHUD (= 1.1.0)
   - SDWebImage (= 4.3.3)
   - secp256k1_dash (= 0.1.0)
+  - UIViewController-KeyboardAdditions (= 1.2.1)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -32,6 +34,7 @@ SPEC REPOS:
     - RuntimeRoutines
     - SDWebImage
     - secp256k1_dash
+    - UIViewController-KeyboardAdditions
 
 SPEC CHECKSUMS:
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
@@ -42,7 +45,8 @@ SPEC CHECKSUMS:
   RuntimeRoutines: f23869ee8535543ec974146b835dec4b5bdebb6f
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
   secp256k1_dash: 16bc4c20423f88dc264db75d5611c9c6a5fd1f77
+  UIViewController-KeyboardAdditions: a691dc7e63a49854d341455a778ee8497dfc4662
 
-PODFILE CHECKSUM: cccf8a2ea6c9d5920cf7f68ac5ee2cdd8a98a6c9
+PODFILE CHECKSUM: 1c2bd3878c098137306f40e0fb888d3b18167ccc
 
 COCOAPODS: 1.5.0
