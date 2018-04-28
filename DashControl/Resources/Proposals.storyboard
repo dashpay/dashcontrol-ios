@@ -137,16 +137,9 @@
                         <viewLayoutGuide key="safeArea" id="ozb-ip-pRp"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Proposals" image="tabBarProposals" id="Nqn-7r-Dyb"/>
-                    <navigationItem key="navigationItem" id="IKg-Dc-Gze">
-                        <barButtonItem key="rightBarButtonItem" image="searchBarButton" id="Ppt-88-Oy0">
-                            <connections>
-                                <action selector="searchBarButtonItemAction:" destination="YdP-8t-TaT" id="HyI-AQ-pOM"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="IKg-Dc-Gze"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="searchBarButtonItem" destination="Ppt-88-Oy0" id="OmZ-vJ-P9H"/>
                         <outlet property="topView" destination="eX3-Vb-aZy" id="Bh1-id-qLq"/>
                         <outlet property="topViewTopConstraint" destination="H8j-zg-AaI" id="Hze-kM-iP7"/>
                     </connections>
@@ -355,7 +348,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="searchBarButton" width="16" height="18"/>
         <image name="tabBarProposals" width="20" height="20"/>
     </resources>
 </document>

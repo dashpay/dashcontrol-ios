@@ -135,6 +135,7 @@
 		2AE3C466208FCE6600CE83A8 /* UIViewController+DCChildControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C465208FCE6600CE83A8 /* UIViewController+DCChildControllers.m */; };
 		2AE3C46A2091C2DB00CE83A8 /* NewsFirstTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AE3C4692091C2DB00CE83A8 /* NewsFirstTableViewCell.xib */; };
 		2AE3C46C2091C33C00CE83A8 /* NewsLoadMoreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AE3C46B2091C33C00CE83A8 /* NewsLoadMoreTableViewCell.xib */; };
+		2AE3C4722093149C00CE83A8 /* SearchNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C4712093149C00CE83A8 /* SearchNavigationTitleView.m */; };
 		2AE4103B2066BA2F00C41AC5 /* PriceTriggerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE4103A2066BA2F00C41AC5 /* PriceTriggerViewController.m */; };
 		2AE410462066C7A100C41AC5 /* PriceTriggerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE410452066C7A100C41AC5 /* PriceTriggerViewModel.m */; };
 		2AE410532066D33000C41AC5 /* ExchangeMarketPairObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE410522066D33000C41AC5 /* ExchangeMarketPairObject.m */; };
@@ -482,6 +483,8 @@
 		2AE3C465208FCE6600CE83A8 /* UIViewController+DCChildControllers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+DCChildControllers.m"; sourceTree = "<group>"; };
 		2AE3C4692091C2DB00CE83A8 /* NewsFirstTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsFirstTableViewCell.xib; sourceTree = "<group>"; };
 		2AE3C46B2091C33C00CE83A8 /* NewsLoadMoreTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsLoadMoreTableViewCell.xib; sourceTree = "<group>"; };
+		2AE3C4702093149C00CE83A8 /* SearchNavigationTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchNavigationTitleView.h; sourceTree = "<group>"; };
+		2AE3C4712093149C00CE83A8 /* SearchNavigationTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchNavigationTitleView.m; sourceTree = "<group>"; };
 		2AE410392066BA2F00C41AC5 /* PriceTriggerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceTriggerViewController.h; sourceTree = "<group>"; };
 		2AE4103A2066BA2F00C41AC5 /* PriceTriggerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PriceTriggerViewController.m; sourceTree = "<group>"; };
 		2AE410442066C7A100C41AC5 /* PriceTriggerViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PriceTriggerViewModel.h; sourceTree = "<group>"; };
@@ -926,6 +929,8 @@
 				2A80B5932039FCC20015E1AA /* SearchBar */,
 				2A289A4B203AB00700EDC98E /* DCSearchController.h */,
 				2A289A4C203AB00700EDC98E /* DCSearchController.m */,
+				2AE3C4702093149C00CE83A8 /* SearchNavigationTitleView.h */,
+				2AE3C4712093149C00CE83A8 /* SearchNavigationTitleView.m */,
 			);
 			path = SearchController;
 			sourceTree = "<group>";
@@ -1919,6 +1924,7 @@
 				2A3F49CA204C8244005EB5D9 /* ProposalsViewController.m in Sources */,
 				2A289A4D203AB00700EDC98E /* DCSearchController.m in Sources */,
 				2AEF297320734F30008590E4 /* ButtonFormCellModel.m in Sources */,
+				2AE3C4722093149C00CE83A8 /* SearchNavigationTitleView.m in Sources */,
 				2A5BFC83207DCF0E005328B8 /* DummySwiftFile.swift in Sources */,
 				2A587EA7206A88AC004BC537 /* ItemTableViewCell.m in Sources */,
 				2A04E6E6202DA5E20065F30D /* NetworkActivityIndicatorManager.m in Sources */,

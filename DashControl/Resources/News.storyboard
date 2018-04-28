@@ -55,13 +55,7 @@
                             </fragment>
                         </attributedString>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" title="News" id="IIa-Gx-IkE">
-                        <barButtonItem key="rightBarButtonItem" image="searchBarButton" id="qKD-0P-dch">
-                            <connections>
-                                <action selector="searchBarButtonItemAction:" destination="NAY-bh-3xF" id="2DM-IA-7iq"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="News" id="IIa-Gx-IkE"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <attributedString key="userComments">
                         <fragment content="#bc-ignore!">
@@ -71,9 +65,6 @@
                             </attributes>
                         </fragment>
                     </attributedString>
-                    <connections>
-                        <outlet property="searchBarButtonItem" destination="qKD-0P-dch" id="6h7-Cs-ROD"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYk-AC-pU9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -81,7 +72,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="searchBarButton" width="16" height="18"/>
         <image name="tabBarNews" width="23" height="23"/>
     </resources>
 </document>

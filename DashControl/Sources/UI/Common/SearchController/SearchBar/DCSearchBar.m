@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (CGSize)intrinsicContentSize {
-    return CGSizeMake([UIScreen mainScreen].bounds.size.width, 44.0);
+    return CGSizeMake(UIViewNoIntrinsicMetric, 44.0);
 }
 
 - (NSString *_Nullable)text {
@@ -100,14 +100,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setText:(NSString *_Nullable)text {
     self.textField.text = text;
-}
-
-- (void)showAnimatedCompletion:(void (^_Nullable)(void))completion {
-    [self animateAllButIconFromAlpha:0.0 toAlpha:1.0 completion:completion];
-}
-
-- (void)hideAnimatedCompletion:(void (^_Nullable)(void))completion {
-    [self animateAllButIconFromAlpha:1.0 toAlpha:0.0 completion:completion];
 }
 
 #pragma mark UIResponder
@@ -168,26 +160,6 @@ NS_ASSUME_NONNULL_BEGIN
     });
 
     return YES;
-}
-
-#pragma mark Private
-
-- (void)animateAllButIconFromAlpha:(CGFloat)fromAlpha toAlpha:(CGFloat)toAlpha completion:(void (^_Nullable)(void))completion {
-    self.searchBarBackgroundImageView.alpha = fromAlpha;
-    self.textField.alpha = fromAlpha;
-    self.cancelButton.alpha = fromAlpha;
-
-    NSTimeInterval const animationDuration = 0.25;
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.searchBarBackgroundImageView.alpha = toAlpha;
-        self.textField.alpha = toAlpha;
-        self.cancelButton.alpha = toAlpha;
-    }
-        completion:^(BOOL finished) {
-            if (completion) {
-                completion();
-            }
-        }];
 }
 
 @end

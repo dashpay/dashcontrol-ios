@@ -21,23 +21,25 @@
 
 #import "BaseNewsTableViewController+Protected.h"
 #import "UIColor+DCStyle.h"
+#import "UIFont+DCStyle.h"
 #import "DCSearchController.h"
 #import "NewsLoadMoreTableViewCell.h"
 #import "NewsSearchResultsController.h"
 #import "NewsTableViewCell.h"
 #import "NewsViewModel.h"
+#import "SearchNavigationTitleView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const NEWS_FIRST_CELL_ID = @"NewsFirstTableViewCell";
 static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 
-@interface NewsViewController () <DCSearchControllerDelegate, DCSearchResultsUpdating>
+@interface NewsViewController () <DCSearchControllerDelegate, DCSearchResultsUpdating, SearchNavigationTitleViewDelegate>
 
 @property (strong, nonatomic) NewsViewModel *viewModel;
 
 @property (strong, nonatomic) DCSearchController *searchController;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *searchBarButtonItem;
+@property (strong, nonatomic) SearchNavigationTitleView *navigationTitleView;
 
 @property (assign, nonatomic) BOOL showingLoadMoreCell;
 
@@ -55,6 +57,8 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.navigationItem.titleView = self.navigationTitleView;
+
     [self.tableView registerNib:[UINib nibWithNibName:NEWS_FIRST_CELL_ID bundle:nil] forCellReuseIdentifier:NEWS_FIRST_CELL_ID];
     [self.tableView registerNib:[UINib nibWithNibName:NEWS_LOADMORE_CELL_ID bundle:nil] forCellReuseIdentifier:NEWS_LOADMORE_CELL_ID];
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -63,13 +67,6 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     self.refreshControl = refreshControl;
 
     [self reload];
-
-    NewsSearchResultsController *searchResultsController = [[NewsSearchResultsController alloc] init];
-    searchResultsController.tableView.dataSource = self;
-    searchResultsController.tableView.delegate = self;
-    self.searchController = [[DCSearchController alloc] initWithController:searchResultsController];
-    self.searchController.delegate = self;
-    self.searchController.searchResultsUpdater = self;
 
     // KVO
 
@@ -96,16 +93,6 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 
 - (void)refreshControlAction:(UIRefreshControl *)sender {
     [self reload];
-}
-
-- (IBAction)searchBarButtonItemAction:(UIBarButtonItem *)sender {
-    self.navigationItem.rightBarButtonItem = nil;
-
-    DCSearchBar *searchBar = self.searchController.searchBar;
-    self.navigationItem.titleView = searchBar;
-    [searchBar showAnimatedCompletion:nil];
-
-    self.searchController.active = YES;
 }
 
 #pragma mark UITableViewDataSource
@@ -281,8 +268,7 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
 #pragma mark DCSearchControllerDelegate
 
 - (void)willDismissSearchController:(DCSearchController *)searchController {
-    self.navigationItem.titleView = nil;
-    self.navigationItem.rightBarButtonItem = self.searchBarButtonItem;
+    [self.navigationTitleView showMainView];
 }
 
 #pragma mark DCSearchResultsUpdating
@@ -293,7 +279,41 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     [self performSelector:@selector(performSearch) withObject:nil afterDelay:delay];
 }
 
+#pragma mark SearchNavigationTitleViewDelegate
+
+- (void)searchNavigationTitleViewSearchButtonAction:(SearchNavigationTitleView *)view {
+    [self.navigationTitleView showSearchView];
+    self.searchController.active = YES;
+}
+
 #pragma mark Private
+
+- (SearchNavigationTitleView *)navigationTitleView {
+    if (!_navigationTitleView) {
+        CGRect frame = CGRectMake(0.0, 0.0, [UIScreen mainScreen].bounds.size.width, 44.0);
+        _navigationTitleView = [[SearchNavigationTitleView alloc] initWithFrame:frame];
+        _navigationTitleView.delegate = self;
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        titleLabel.text = self.title;
+        titleLabel.font = [UIFont dc_montserratRegularFontOfSize:17.0];
+        titleLabel.textColor = [UIColor whiteColor];
+        [_navigationTitleView setMainView:titleLabel];
+        [_navigationTitleView setSearchBarView:self.searchController.searchBar];
+    }
+    return _navigationTitleView;
+}
+
+- (DCSearchController *)searchController {
+    if (!_searchController) {
+        NewsSearchResultsController *searchResultsController = [[NewsSearchResultsController alloc] init];
+        searchResultsController.tableView.dataSource = self;
+        searchResultsController.tableView.delegate = self;
+        _searchController = [[DCSearchController alloc] initWithController:searchResultsController];
+        _searchController.delegate = self;
+        _searchController.searchResultsUpdater = self;
+    }
+    return _searchController;
+}
 
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView {
     return (tableView == self.tableView ? self.viewModel.fetchedResultsController : self.viewModel.searchFetchedResultsController);

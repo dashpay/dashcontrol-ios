@@ -29,22 +29,23 @@
 #import "ProposalsSegmentSelectorView.h"
 #import "ProposalsTopView.h"
 #import "ProposalsViewModel.h"
+#import "SearchNavigationTitleView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 static CGFloat const TOP_VIEW_HEIGHT = 88.0;
 
-@interface ProposalsViewController () <DCSearchControllerDelegate, DCSearchResultsUpdating, ProposalsSegmentSelectorViewDelegate>
+@interface ProposalsViewController () <DCSearchControllerDelegate, DCSearchResultsUpdating, ProposalsSegmentSelectorViewDelegate, SearchNavigationTitleViewDelegate>
 
 @property (strong, nonatomic) ProposalsViewModel *viewModel;
 
+@property (strong, nonatomic) SearchNavigationTitleView *navigationTitleView;
 @property (strong, nonatomic) NavigationTitleButton *navigationTitleButton;
 @property (strong, nonatomic) ProposalsSegmentSelectorView *segmentSelectorView;
 @property (strong, nonatomic) IBOutlet ProposalsTopView *topView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *topViewTopConstraint;
 @property (strong, nonatomic) ProposalsHeaderView *proposalsHeaderView;
 @property (strong, nonatomic) DCSearchController *searchController;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *searchBarButtonItem;
 
 @end
 
@@ -63,7 +64,7 @@ static CGFloat const TOP_VIEW_HEIGHT = 88.0;
     UIImage *emptyImage = [[UIImage alloc] init];
     self.navigationController.navigationBar.shadowImage = emptyImage;
     [self.navigationController.navigationBar setBackgroundImage:emptyImage forBarMetrics:UIBarMetricsDefault];
-    self.navigationItem.titleView = self.navigationTitleButton;
+    self.navigationItem.titleView = self.navigationTitleView;
 
     self.topView.viewModel = self.viewModel.topViewModel;
 
@@ -77,24 +78,6 @@ static CGFloat const TOP_VIEW_HEIGHT = 88.0;
 
     [self.viewModel updateMasternodesCount];
     [self reloadOnlyCurrentSegment:NO];
-
-    ProposalsSearchResultsController *searchResultsController = [[ProposalsSearchResultsController alloc] init];
-    searchResultsController.tableView.dataSource = self;
-    searchResultsController.tableView.delegate = self;
-    self.searchController = [[DCSearchController alloc] initWithController:searchResultsController];
-    self.searchController.delegate = self;
-    self.searchController.searchResultsUpdater = self;
-    UIView *searchAccessoryView = self.searchController.searchAccessoryView;
-    ProposalsSegmentedControl *searchSegmentedControl = [[ProposalsSegmentedControl alloc] initWithFrame:CGRectZero];
-    searchSegmentedControl.translatesAutoresizingMaskIntoConstraints = NO;
-    searchSegmentedControl.backgroundColor = [UIColor dc_barTintColor];
-    [searchSegmentedControl addTarget:self action:@selector(searchSegmentedControlAction:) forControlEvents:UIControlEventValueChanged];
-    [searchAccessoryView addSubview:searchSegmentedControl];
-    [searchSegmentedControl.topAnchor constraintEqualToAnchor:searchAccessoryView.topAnchor].active = YES;
-    [searchSegmentedControl.leadingAnchor constraintEqualToAnchor:searchAccessoryView.leadingAnchor].active = YES;
-    [searchSegmentedControl.bottomAnchor constraintEqualToAnchor:searchAccessoryView.bottomAnchor].active = YES;
-    [searchSegmentedControl.trailingAnchor constraintEqualToAnchor:searchAccessoryView.trailingAnchor].active = YES;
-    [searchSegmentedControl.heightAnchor constraintEqualToConstant:44.0].active = YES;
 
     // KVO
 
@@ -121,18 +104,6 @@ static CGFloat const TOP_VIEW_HEIGHT = 88.0;
 
 - (void)refreshControlAction:(UIRefreshControl *)sender {
     [self reloadOnlyCurrentSegment:YES];
-}
-
-- (IBAction)searchBarButtonItemAction:(UIBarButtonItem *)sender {
-    [self.segmentSelectorView setOpen:NO];
-
-    self.navigationItem.rightBarButtonItem = nil;
-
-    DCSearchBar *searchBar = self.searchController.searchBar;
-    self.navigationItem.titleView = searchBar;
-    [searchBar showAnimatedCompletion:nil];
-
-    self.searchController.active = YES;
 }
 
 #pragma mark UITableViewDataSource
@@ -213,8 +184,7 @@ static CGFloat const TOP_VIEW_HEIGHT = 88.0;
 #pragma mark DCSearchControllerDelegate
 
 - (void)willDismissSearchController:(DCSearchController *)searchController {
-    self.navigationItem.titleView = self.navigationTitleButton;
-    self.navigationItem.rightBarButtonItem = self.searchBarButtonItem;
+    [self.navigationTitleView showMainView];
 }
 
 #pragma mark DCSearchResultsUpdating
@@ -225,17 +195,64 @@ static CGFloat const TOP_VIEW_HEIGHT = 88.0;
     [self performSelector:@selector(performSearch) withObject:nil afterDelay:delay];
 }
 
+#pragma mark ProposalsSegmentSelectorViewDelegate
+
+- (void)proposalsSegmentSelectorViewDidClose:(ProposalsSegmentSelectorView *)view {
+    [view removeFromSuperview];
+    self.navigationTitleButton.opened = NO;
+}
+
+#pragma mark SearchNavigationTitleViewDelegate
+
+- (void)searchNavigationTitleViewSearchButtonAction:(SearchNavigationTitleView *)view {
+    [self.segmentSelectorView setOpen:NO];
+    [self.navigationTitleView showSearchView];
+    self.searchController.active = YES;
+}
+
 #pragma mark Private
+
+- (SearchNavigationTitleView *)navigationTitleView {
+    if (!_navigationTitleView) {
+        CGRect frame = CGRectMake(0.0, 0.0, [UIScreen mainScreen].bounds.size.width, 44.0);
+        _navigationTitleView = [[SearchNavigationTitleView alloc] initWithFrame:frame];
+        _navigationTitleView.delegate = self;
+        [_navigationTitleView setMainView:self.navigationTitleButton];
+        [_navigationTitleView setSearchBarView:self.searchController.searchBar];
+    }
+    return _navigationTitleView;
+}
 
 - (NavigationTitleButton *)navigationTitleButton {
     if (!_navigationTitleButton) {
         _navigationTitleButton = [[NavigationTitleButton alloc] initWithFrame:CGRectZero];
         _navigationTitleButton.title = NSLocalizedString(@"Proposals", nil);
-        CGSize size = [_navigationTitleButton sizeThatFits:CGSizeZero];
-        _navigationTitleButton.frame = CGRectMake(0.0, 0.0, size.width, size.height);
         [_navigationTitleButton addTarget:self action:@selector(navigationTitleButtonAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _navigationTitleButton;
+}
+
+- (DCSearchController *)searchController {
+    if (!_searchController) {
+        ProposalsSearchResultsController *searchResultsController = [[ProposalsSearchResultsController alloc] init];
+        searchResultsController.tableView.dataSource = self;
+        searchResultsController.tableView.delegate = self;
+        _searchController = [[DCSearchController alloc] initWithController:searchResultsController];
+        _searchController.delegate = self;
+        _searchController.searchResultsUpdater = self;
+        UIView *searchAccessoryView = self.searchController.searchAccessoryView;
+        ProposalsSegmentedControl *searchSegmentedControl = [[ProposalsSegmentedControl alloc] initWithFrame:CGRectZero];
+        searchSegmentedControl.translatesAutoresizingMaskIntoConstraints = NO;
+        searchSegmentedControl.backgroundColor = [UIColor dc_barTintColor];
+        [searchSegmentedControl addTarget:self action:@selector(searchSegmentedControlAction:) forControlEvents:UIControlEventValueChanged];
+        [searchAccessoryView addSubview:searchSegmentedControl];
+        [searchSegmentedControl.topAnchor constraintEqualToAnchor:searchAccessoryView.topAnchor].active = YES;
+        [searchSegmentedControl.leadingAnchor constraintEqualToAnchor:searchAccessoryView.leadingAnchor].active = YES;
+        [searchSegmentedControl.bottomAnchor constraintEqualToAnchor:searchAccessoryView.bottomAnchor].active = YES;
+        [searchSegmentedControl.trailingAnchor constraintEqualToAnchor:searchAccessoryView.trailingAnchor].active = YES;
+        [searchSegmentedControl.heightAnchor constraintEqualToConstant:44.0].active = YES;
+    }
+    return _searchController;
 }
 
 - (ProposalsSegmentSelectorView *)segmentSelectorView {
@@ -316,13 +333,6 @@ static CGFloat const TOP_VIEW_HEIGHT = 88.0;
 
         [self.tableView.refreshControl endRefreshing];
     }];
-}
-
-#pragma mark ProposalsSegmentSelectorViewDelegate
-
-- (void)proposalsSegmentSelectorViewDidClose:(ProposalsSegmentSelectorView *)view {
-    [view removeFromSuperview];
-    self.navigationTitleButton.opened = NO;
 }
 
 @end

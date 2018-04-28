@@ -19,21 +19,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol DCSearchBarDelegate;
+@class SearchNavigationTitleView;
 
-@interface DCSearchBar : UIView
+@protocol SearchNavigationTitleViewDelegate <NSObject>
 
-@property (weak, nonatomic) id<DCSearchBarDelegate> delegate;
-@property (nullable, copy, nonatomic) NSString *text;
+- (void)searchNavigationTitleViewSearchButtonAction:(SearchNavigationTitleView *)view;
 
 @end
 
-@protocol DCSearchBarDelegate <NSObject>
+@interface SearchNavigationTitleView : UIView
 
-- (void)searchBar:(DCSearchBar *)searchBar textDidChange:(NSString *)searchText;
-- (void)searchBarSearchButtonClicked:(DCSearchBar *)searchBar;
-- (void)searchBarCancelButtonClicked:(DCSearchBar *)searchBar;
-- (void)searchBarDidBecomeFirstResponder:(DCSearchBar *)searchBar;
+@property (nullable, weak, nonatomic) id<SearchNavigationTitleViewDelegate> delegate;
+
+- (void)setMainView:(UIView *)mainView;
+- (void)setSearchBarView:(UIView *)searchBarView;
+
+- (void)showMainView;
+- (void)showSearchView;
 
 @end
 
