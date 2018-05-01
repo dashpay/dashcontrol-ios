@@ -101,7 +101,12 @@ static NSUInteger const HTTPRequestOperationMaxRedirects = 10;
             [self.requestOperationHandler receivedDataChunk:dataRange forResponse:self.response];
         }
         else {
-            [self.receivedData appendData:dataRange];
+            if (!self.receivedData) {
+                self.receivedData = [dataRange mutableCopy];
+            }
+            else {
+                [self.receivedData appendData:dataRange];
+            }
         }
     }];
 }
@@ -160,7 +165,12 @@ static NSUInteger const HTTPRequestOperationMaxRedirects = 10;
         self.receivedData = [NSMutableData data];
     }
 
-    return NSURLSessionResponseAllow;
+    if (self.request.downloadTaskPolicy == HTTPRequestDownloadTaskPolicyOnDemand) {
+        return NSURLSessionResponseBecomeDownload;
+    }
+    else {
+        return NSURLSessionResponseAllow;
+    }
 }
 
 - (BOOL)mayRedirect {

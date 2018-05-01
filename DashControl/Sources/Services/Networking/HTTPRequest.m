@@ -243,6 +243,8 @@ static NSString *NSStringFromHTTPRequestMethod(HTTPRequestMethod requestMethod) 
                                                   headers:self.headers
                                          sourceIdentifier:self.sourceIdentifier
                                          uniqueIdentifier:self.uniqueIdentifier];
+    copy.downloadTaskPolicy = self.downloadTaskPolicy;
+    copy.downloadLocationPath = self.downloadLocationPath;
     copy.chunks = self.chunks;
     copy.cachePolicy = self.cachePolicy;
     copy.jsonReadingOptions = self.jsonReadingOptions;

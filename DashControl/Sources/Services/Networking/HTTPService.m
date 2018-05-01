@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HTTPService () <HTTPRequestOperationHandlerDelegate, NSURLSessionDataDelegate, NSURLSessionTaskDelegate>
+@interface HTTPService () <HTTPRequestOperationHandlerDelegate, NSURLSessionDataDelegate, NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate>
 
 @property (strong, nonatomic) NSURLSession *session;
 @property (strong, nonatomic) NSOperationQueue *sessionQueue;
@@ -119,6 +119,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)URLSession:(NSURLSession *)session
+                 dataTask:(NSURLSessionDataTask *)dataTask
+    didBecomeDownloadTask:(NSURLSessionDownloadTask *)downloadTask {
+    HTTPRequestOperation *operation = [self handlerForTask:dataTask];
+    operation.task = downloadTask;
+}
+
+- (void)URLSession:(NSURLSession *)session
           dataTask:(NSURLSessionDataTask *)dataTask
     didReceiveData:(NSData *)data {
     HTTPRequestOperation *operation = [self handlerForTask:dataTask];
@@ -169,7 +176,12 @@ NS_ASSUME_NONNULL_BEGIN
     if (operation == nil) {
         return;
     }
-    operation.task = [self.session dataTaskWithRequest:operation.request.urlRequest];
+    if (operation.request.downloadTaskPolicy == HTTPRequestDownloadTaskPolicyAlways) {
+        operation.task = [self.session downloadTaskWithRequest:operation.request.urlRequest];
+    }
+    else {
+        operation.task = [self.session dataTaskWithRequest:operation.request.urlRequest];
+    }
     HTTPResponse *response = [operation completeWithError:error];
     if (response == nil && !operation.cancelled) {
         return;
@@ -185,6 +197,58 @@ NS_ASSUME_NONNULL_BEGIN
  needNewBodyStream:(void (^)(NSInputStream *_Nullable))completionHandler {
     HTTPRequestOperation *operation = [self handlerForTask:task];
     [operation provideNewBodyStreamWithCompletion:completionHandler];
+}
+
+#pragma mark NSURLSessionDownloadDelegate
+
+- (void)URLSession:(NSURLSession *)session
+                 downloadTask:(NSURLSessionDownloadTask *)downloadTask
+    didFinishDownloadingToURL:(NSURL *)location {
+    if (!location.path || !location.lastPathComponent) {
+        [self URLSession:session task:downloadTask didCompleteWithError:nil];
+
+        return;
+    }
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    HTTPRequestOperation *operation = [self handlerForTask:downloadTask];
+
+    NSString *filePath;
+    if (operation.request.downloadTaskPolicy == HTTPRequestDownloadTaskPolicyAlways) {
+        filePath = operation.request.downloadLocationPath;
+    }
+    else {
+        NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+        cachePath = [cachePath stringByAppendingPathComponent:@"httpservice.temporary"];
+        [fileManager createDirectoryAtPath:cachePath
+               withIntermediateDirectories:YES
+                                attributes:nil
+                                     error:nil];
+        filePath = [cachePath stringByAppendingPathComponent:(NSString * _Nonnull)location.lastPathComponent];
+    }
+    
+    NSError *fileError;
+    if ([fileManager moveItemAtPath:(NSString * _Nonnull)location.path toPath:filePath error:&fileError]) {
+        if (operation.request.downloadTaskPolicy == HTTPRequestDownloadTaskPolicyAlways) {
+            [self URLSession:session task:downloadTask didCompleteWithError:nil];
+        }
+        else {
+            [self.sessionQueue addOperationWithBlock:^{
+                NSError *readError;
+                NSData *data = [NSData dataWithContentsOfFile:filePath options:NSDataReadingUncached error:&readError];
+                
+                [fileManager removeItemAtPath:filePath error:nil];
+                
+                if (!readError) {
+                    [operation receiveData:data];
+                }
+                
+                [self URLSession:session task:downloadTask didCompleteWithError:readError];
+            }];
+        }
+    }
+    else {
+        [self URLSession:session task:downloadTask didCompleteWithError:fileError];
+    }
 }
 
 #pragma mark Private
@@ -216,7 +280,13 @@ NS_ASSUME_NONNULL_BEGIN
     __unused NSString *cURLSting = [urlRequest dc_cURL];
 #endif
     HTTPRateLimiter *rateLimiter = [self.rateLimiterMap rateLimiterForURL:request.URL];
-    NSURLSessionTask *task = [self.session dataTaskWithRequest:urlRequest];
+    NSURLSessionTask *task;
+    if (request.downloadTaskPolicy == HTTPRequestDownloadTaskPolicyAlways) {
+        task = [self.session downloadTaskWithRequest:urlRequest];
+    }
+    else {
+        task = [self.session dataTaskWithRequest:urlRequest];
+    }
     HTTPRequestOperation *operation = [[HTTPRequestOperation alloc] initWithTask:task
                                                                          request:request
                                                          requestOperationHandler:requestOperationHandler
