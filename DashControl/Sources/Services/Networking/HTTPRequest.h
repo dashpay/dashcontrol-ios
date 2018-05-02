@@ -64,6 +64,7 @@ extern NSString *const HTTPRequestErrorDomain;
 
 @property (assign, nonatomic) HTTPRequestDownloadTaskPolicy downloadTaskPolicy;
 @property (nullable, copy, nonatomic) NSString *downloadLocationPath;
+@property (nullable, copy, nonatomic) NSData *resumeData;
 @property (assign, nonatomic) BOOL chunks;
 @property (assign, nonatomic) NSURLRequestCachePolicy cachePolicy;
 @property (assign, nonatomic) NSJSONReadingOptions jsonReadingOptions;

@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol HTTPCancellationTokenDelegate <NSObject>
 
 - (void)cancellationTokenDidCancel:(id<HTTPCancellationToken>)cancellationToken;
+- (void)cancellationTokenDidCancel:(id<HTTPCancellationToken>)cancellationToken producingResumeDataCompletion:(void (^)(NSData *_Nullable resumeData))completionHandler;
 
 @end
 
@@ -40,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly, nullable) id objectToCancel;
 
 - (void)cancel;
+- (void)cancelByProducingResumeData:(void (^)(NSData *_Nullable resumeData))completionHandler;
 
 @end
 

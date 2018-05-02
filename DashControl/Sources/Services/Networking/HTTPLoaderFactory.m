@@ -188,6 +188,14 @@ NS_ASSUME_NONNULL_BEGIN
     [self.requestOperationHandlerDelegate requestOperationHandler:requestOperationHandler cancelRequest:request];
 }
 
+- (void)requestOperationHandler:(id<HTTPRequestOperationHandler>)requestOperationHandler
+                  cancelRequest:(HTTPRequest *)request
+  producingResumeDataCompletion:(nonnull void (^)(NSData *_Nullable))completionHandler {
+    [self.requestOperationHandlerDelegate requestOperationHandler:requestOperationHandler
+                                                    cancelRequest:request
+                                    producingResumeDataCompletion:completionHandler];
+}
+
 #pragma mark HTTPLoaderAuthoriserDelegate
 
 - (void)httpLoaderAuthoriser:(id<HTTPLoaderAuthoriser>)httpLoaderAuthoriser authorisedRequest:(HTTPRequest *)request {

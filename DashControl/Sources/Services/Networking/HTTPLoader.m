@@ -217,6 +217,12 @@ NS_ASSUME_NONNULL_BEGIN
     [self cancelledRequest:request];
 }
 
+- (void)cancellationTokenDidCancel:(id<HTTPCancellationToken>)cancellationToken producingResumeDataCompletion:(void (^)(NSData *_Nullable))completionHandler {
+    HTTPRequest *request = (HTTPRequest *)cancellationToken.objectToCancel;
+    [self.requestOperationHandlerDelegate requestOperationHandler:self cancelRequest:request producingResumeDataCompletion:completionHandler];
+    [self cancelledRequest:request];
+}
+
 #pragma mark Private
 
 - (void)executeDelegateBlock:(dispatch_block_t)block {

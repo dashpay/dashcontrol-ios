@@ -35,6 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)requestOperationHandler:(id<HTTPRequestOperationHandler>)requestOperationHandler performRequest:(HTTPRequest *)request;
 - (void)requestOperationHandler:(id<HTTPRequestOperationHandler>)requestOperationHandler cancelRequest:(HTTPRequest *)request;
+- (void)requestOperationHandler:(id<HTTPRequestOperationHandler>)requestOperationHandler
+                  cancelRequest:(HTTPRequest *)request
+  producingResumeDataCompletion:(void (^)(NSData *_Nullable resumeData))completionHandler;
 
 @optional
 

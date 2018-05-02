@@ -17,12 +17,12 @@
 
 #import "HTTPLoaderOperation.h"
 
-#import "NetworkActivityIndicatorManager.h"
-#import "HTTPLoader.h"
-#import "HTTPRequest.h"
 #import "HTTPCancellationToken.h"
-#import "HTTPLoaderFactory.h"
+#import "HTTPLoader.h"
 #import "HTTPLoaderDelegate.h"
+#import "HTTPLoaderFactory.h"
+#import "HTTPRequest.h"
+#import "NetworkActivityIndicatorManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
     // hold cycle reference to the `self` to keep an operation alive until it completed or cancelled
     //
     __block id referenceToSelf = self;
-    self.completion = ^(BOOL success, BOOL cancelled, HTTPResponse * _Nullable response) {
+    self.completion = ^(BOOL success, BOOL cancelled, HTTPResponse *_Nullable response) {
         if (completion) {
             completion(success, cancelled, response);
         }
@@ -85,6 +85,20 @@ NS_ASSUME_NONNULL_BEGIN
     // @see: performWithCompletion
     //
     self.completion = nil;
+}
+
+- (void)cancelByProducingResumeData:(void (^)(NSData *_Nullable resumeData))completionHandler {
+    [self.cancellationToken cancelByProducingResumeData:^(NSData *_Nullable resumeData) {
+        if (completionHandler) {
+            completionHandler(resumeData);
+        }
+
+        //
+        // nilled out completion block to break the retain cycle
+        // @see: performWithCompletion
+        //
+        self.completion = nil;
+    }];
 }
 
 #pragma mark HTTPLoaderDelegate
@@ -113,7 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
     RunOnMainThread(^{
         [NetworkActivityIndicatorManager decreaseActivityCounter];
     });
-    
+
     if (self.completion) {
         self.completion(NO, YES, nil);
     }

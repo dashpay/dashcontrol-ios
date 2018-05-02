@@ -59,6 +59,16 @@ NS_ASSUME_NONNULL_BEGIN
     self.cancelled = YES;
 }
 
+- (void)cancelByProducingResumeData:(void (^)(NSData *_Nullable resumeData))completionHandler {
+    [self.delegate cancellationTokenDidCancel:self producingResumeDataCompletion:^(NSData *_Nullable resumeData) {
+        if (completionHandler) {
+            RunOnMainThread(^{
+                completionHandler(resumeData);
+            });
+        }
+    }];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END
