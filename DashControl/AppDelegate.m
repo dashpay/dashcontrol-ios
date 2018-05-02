@@ -11,6 +11,8 @@
 #import <CoreSpotlight/CoreSpotlight.h>
 #import <UserNotifications/UserNotifications.h>
 
+#import <SDWebImage/SDImageCache.h>
+
 #import "APITrigger.h"
 #import "DCPersistenceStack.h"
 #import "DCWalletManager.h"
@@ -58,6 +60,7 @@
     [self requestPushToken];
 
     [self configureAppearance];
+    [self configureImageCache];
 
     return YES;
 }
@@ -235,6 +238,12 @@
 - (void)configureAppearance {
     [[UITabBarItem appearance] setTitleTextAttributes:@{ NSFontAttributeName : [UIFont fontWithName:@"Montserrat-SemiBold" size:10.0] }
                                              forState:UIControlStateNormal];
+}
+
+- (void)configureImageCache {
+    SDImageCacheConfig *config = [SDImageCache sharedImageCache].config;
+    config.maxCacheAge = 60 * 60 * 24 * 28;  // 4 weeks
+    config.maxCacheSize = 1024 * 1204 * 200; // 200 mb
 }
 
 @end
