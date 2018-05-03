@@ -9,14 +9,14 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FB84EDBC1F32898700E4D400"
-               BuildableName = "DashControl.app"
-               BlueprintName = "DashControl"
+               BlueprintIdentifier = "2AF39E88209AE7E100479948"
+               BuildableName = "DashControlSnapshots.xctest"
+               BlueprintName = "DashControlSnapshots"
                ReferencedContainer = "container:DashControl.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,16 +32,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FB1F8AA21FBCAACA00175311"
-               BuildableName = "DashControlTests.xctest"
-               BlueprintName = "DashControlTests"
-               ReferencedContainer = "container:DashControl.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "2AF39E88209AE7E100479948"
                BuildableName = "DashControlSnapshots.xctest"
                BlueprintName = "DashControlSnapshots"
@@ -49,15 +39,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FB84EDBC1F32898700E4D400"
-            BuildableName = "DashControl.app"
-            BlueprintName = "DashControl"
-            ReferencedContainer = "container:DashControl.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -69,19 +50,17 @@
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
-      stopOnEveryMainThreadCheckerIssue = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FB84EDBC1F32898700E4D400"
-            BuildableName = "DashControl.app"
-            BlueprintName = "DashControl"
+            BlueprintIdentifier = "2AF39E88209AE7E100479948"
+            BuildableName = "DashControlSnapshots.xctest"
+            BlueprintName = "DashControlSnapshots"
             ReferencedContainer = "container:DashControl.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -91,16 +70,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FB84EDBC1F32898700E4D400"
-            BuildableName = "DashControl.app"
-            BlueprintName = "DashControl"
+            BlueprintIdentifier = "2AF39E88209AE7E100479948"
+            BuildableName = "DashControlSnapshots.xctest"
+            BlueprintName = "DashControlSnapshots"
             ReferencedContainer = "container:DashControl.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

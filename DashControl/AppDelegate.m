@@ -13,10 +13,15 @@
 
 #import <SDWebImage/SDImageCache.h>
 
+#ifdef DEBUG
+#import <SimulatorStatusMagic/SDStatusBarManager.h>
+#endif /* DEBUG */
+
 #import "APITrigger.h"
 #import "DCPersistenceStack.h"
 #import "DCWalletManager.h"
 #import "Injections.h"
+#import "UITestingHelper.h"
 
 #define kRSSFeedViewControllerIndex 0
 #define kProposalsViewControllerIndex 2
@@ -55,6 +60,14 @@
     [self.stack loadStack:^(DCPersistenceStack *_Nonnull stack) {
         [Injections activateCoreDataDependentInjections];
     }];
+
+    // UI Testing
+    if ([UITestingHelper isUITest]) {
+        [UIView setAnimationsEnabled:NO];
+#ifdef DEBUG
+        [[SDStatusBarManager sharedInstance] enableOverrides];
+#endif /* DEBUG */
+    }
 
     // Request Device Token For Apple Push Notifications without auth request
     [self requestPushToken];

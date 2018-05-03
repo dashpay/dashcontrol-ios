@@ -24,6 +24,7 @@
 #import "DCFormattingUtils.h"
 #import "DCPersistenceStack.h"
 #import "Networking.h"
+#import "UITestingHelper.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -74,6 +75,10 @@ static NSTimeInterval const UPDATE_INTERVAL = 30.0; // 30 sec
         strongify;
 
         NSParameterAssert([NSThread isMainThread]);
+
+        if ([UITestingHelper isUITest]) {
+            balance = @(42 * DUFFS);
+        }
 
         if (balance) {
             NSManagedObjectID *objectID = self.entity.objectID;

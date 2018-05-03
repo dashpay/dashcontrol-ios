@@ -18,6 +18,7 @@
 #import "PortfolioViewModel.h"
 
 #import "DCPersistenceStack.h"
+#import "UITestingHelper.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,6 +33,20 @@ static NSInteger const DASHWALLET_APPSTORE_ID = 1206647026;
 @synthesize masternodeFetchedResultsController = _masternodeFetchedResultsController;
 @synthesize dashWalletRequestURL = _dashWalletRequestURL;
 @synthesize dashWalletURL = _dashWalletURL;
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        if ([UITestingHelper isUITest]) {
+            NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
+            DCWalletAddressEntity *wallet = [[DCWalletAddressEntity alloc] initWithContext:context];
+            wallet.name = @"My Main Wallet";
+            wallet.address = @"xxx";
+            [context save:nil];
+        }
+    }
+    return self;
+}
 
 - (NSFetchedResultsController<DCWalletEntity *> *)walletFetchedResultsController {
     if (!_walletFetchedResultsController) {

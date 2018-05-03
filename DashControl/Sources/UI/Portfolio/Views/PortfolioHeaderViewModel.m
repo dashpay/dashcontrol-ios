@@ -24,6 +24,7 @@
 #import "DCFormattingUtils.h"
 #import "DCPersistenceStack.h"
 #import "Networking.h"
+#import "UITestingHelper.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -69,6 +70,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Private
 
 - (void)updateTotalValues {
+    if ([UITestingHelper isUITest]) {
+        self.lastDashTotal = @(42 * DUFFS);
+    }
+
     if (self.lastDashTotal) {
         double worthDash = self.lastDashTotal.longLongValue / (double)DUFFS;
         self.dashTotal = [DCFormattingUtils.dashNumberFormatter stringFromNumber:@(worthDash)];

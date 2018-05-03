@@ -170,6 +170,9 @@
 		2AEF29E6207421E5008590E4 /* QRScannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF29E0207421E5008590E4 /* QRScannerView.m */; };
 		2AEF29E7207421E5008590E4 /* QRScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF29E2207421E5008590E4 /* QRScannerViewController.m */; };
 		2AEF29E8207421E5008590E4 /* QRScannerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF29E4207421E5008590E4 /* QRScannerViewModel.m */; };
+		2AF39E8C209AE7E100479948 /* DashControlSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF39E8B209AE7E100479948 /* DashControlSnapshots.swift */; };
+		2AF39E96209AF85F00479948 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF39E95209AF85F00479948 /* SnapshotHelper.swift */; };
+		2AF39E99209BABC600479948 /* UITestingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF39E98209BABC600479948 /* UITestingHelper.m */; };
 		8B0BD619FFF877813DC0386A /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */; };
 		FB17AEE31FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AED81FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m */; };
 		FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AEDA1FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m */; };
@@ -219,6 +222,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2AF39E8E209AE7E100479948 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB84EDB51F32898700E4D400 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FB84EDBC1F32898700E4D400;
+			remoteInfo = DashControl;
+		};
 		FB1F8AA81FBCAACA00175311 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FB84EDB51F32898700E4D400 /* Project object */;
@@ -550,6 +560,12 @@
 		2AEF29E3207421E5008590E4 /* QRScannerViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRScannerViewModel.h; sourceTree = "<group>"; };
 		2AEF29E4207421E5008590E4 /* QRScannerViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRScannerViewModel.m; sourceTree = "<group>"; };
 		2AEF29E5207421E5008590E4 /* QRScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRScannerViewController.h; sourceTree = "<group>"; };
+		2AF39E89209AE7E100479948 /* DashControlSnapshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DashControlSnapshots.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AF39E8B209AE7E100479948 /* DashControlSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashControlSnapshots.swift; sourceTree = "<group>"; };
+		2AF39E8D209AE7E100479948 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2AF39E95209AF85F00479948 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		2AF39E97209BABC600479948 /* UITestingHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITestingHelper.h; sourceTree = "<group>"; };
+		2AF39E98209BABC600479948 /* UITestingHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UITestingHelper.m; sourceTree = "<group>"; };
 		403ADE725BE30A95BD44A394 /* Pods-DashControlTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControlTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests.release.xcconfig"; sourceTree = "<group>"; };
 		481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
 		558B8AE6721A9375C76DBBD3 /* Pods-DashControlTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControlTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -681,6 +697,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2AF39E86209AE7E100479948 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FB1F8AA01FBCAACA00175311 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -919,6 +942,8 @@
 				2AB9AA7520453EF9005979C4 /* Pair.m */,
 				2A04E6EC202DAB340065F30D /* RunOnMain.h */,
 				2A04E6EB202DAB340065F30D /* RunOnMain.m */,
+				2AF39E97209BABC600479948 /* UITestingHelper.h */,
+				2AF39E98209BABC600479948 /* UITestingHelper.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1248,6 +1273,16 @@
 			path = "QR Scanner";
 			sourceTree = "<group>";
 		};
+		2AF39E8A209AE7E100479948 /* DashControlSnapshots */ = {
+			isa = PBXGroup;
+			children = (
+				2AF39E8B209AE7E100479948 /* DashControlSnapshots.swift */,
+				2AF39E95209AF85F00479948 /* SnapshotHelper.swift */,
+				2AF39E8D209AE7E100479948 /* Info.plist */,
+			);
+			path = DashControlSnapshots;
+			sourceTree = "<group>";
+		};
 		3A3DCF867D724725B2BA999A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1329,6 +1364,7 @@
 			children = (
 				FB84EDBF1F32898700E4D400 /* DashControl */,
 				FB1F8AA41FBCAACA00175311 /* DashControlTests */,
+				2AF39E8A209AE7E100479948 /* DashControlSnapshots */,
 				F8F9FBF8277751CF40134EEE /* Frameworks */,
 				3A3DCF867D724725B2BA999A /* Pods */,
 				FB84EDBE1F32898700E4D400 /* Products */,
@@ -1340,6 +1376,7 @@
 			children = (
 				FB84EDBD1F32898700E4D400 /* DashControl.app */,
 				FB1F8AA31FBCAACA00175311 /* DashControlTests.xctest */,
+				2AF39E89209AE7E100479948 /* DashControlSnapshots.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1513,6 +1550,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2AF39E88209AE7E100479948 /* DashControlSnapshots */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AF39E92209AE7E100479948 /* Build configuration list for PBXNativeTarget "DashControlSnapshots" */;
+			buildPhases = (
+				2AF39E85209AE7E100479948 /* Sources */,
+				2AF39E86209AE7E100479948 /* Frameworks */,
+				2AF39E87209AE7E100479948 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2AF39E8F209AE7E100479948 /* PBXTargetDependency */,
+			);
+			name = DashControlSnapshots;
+			productName = DashControlSnapshots;
+			productReference = 2AF39E89209AE7E100479948 /* DashControlSnapshots.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		FB1F8AA21FBCAACA00175311 /* DashControlTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FB1F8AAC1FBCAACA00175311 /* Build configuration list for PBXNativeTarget "DashControlTests" */;
@@ -1561,9 +1616,15 @@
 		FB84EDB51F32898700E4D400 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = dashfoundation;
 				TargetAttributes = {
+					2AF39E88209AE7E100479948 = {
+						CreatedOnToolsVersion = 9.3;
+						ProvisioningStyle = Automatic;
+						TestTargetID = FB84EDBC1F32898700E4D400;
+					};
 					FB1F8AA21FBCAACA00175311 = {
 						CreatedOnToolsVersion = 9.1;
 						DevelopmentTeam = 44RJ69WHFF;
@@ -1617,11 +1678,19 @@
 			targets = (
 				FB84EDBC1F32898700E4D400 /* DashControl */,
 				FB1F8AA21FBCAACA00175311 /* DashControlTests */,
+				2AF39E88209AE7E100479948 /* DashControlSnapshots */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2AF39E87209AE7E100479948 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FB1F8AA11FBCAACA00175311 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1775,6 +1844,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2AF39E85209AE7E100479948 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AF39E8C209AE7E100479948 /* DashControlSnapshots.swift in Sources */,
+				2AF39E96209AF85F00479948 /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FB1F8A9F1FBCAACA00175311 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1793,6 +1871,7 @@
 				2A04E6E2202DA5E20065F30D /* HTTPLoader.m in Sources */,
 				FB4310D71F9DA96700784EBC /* DCWalletManager.m in Sources */,
 				FB9CC1631F83E38F0079309F /* UIImage+Sugar.m in Sources */,
+				2AF39E99209BABC600479948 /* UITestingHelper.m in Sources */,
 				2A04E6E9202DA5E20065F30D /* Injections.m in Sources */,
 				2A3F49B5204BFF50005EB5D9 /* DCBudgetProposalCommentEntity+CoreDataProperties.m in Sources */,
 				2A6FBEC120763B2E0055BAC8 /* DCWalletEntity+Extensions.m in Sources */,
@@ -1961,6 +2040,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2AF39E8F209AE7E100479948 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FB84EDBC1F32898700E4D400 /* DashControl */;
+			targetProxy = 2AF39E8E209AE7E100479948 /* PBXContainerItemProxy */;
+		};
 		FB1F8AA91FBCAACA00175311 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FB84EDBC1F32898700E4D400 /* DashControl */;
@@ -2011,6 +2095,51 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2AF39E90209AE7E100479948 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = DashControlSnapshots/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.control.snapshots;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DashControl;
+			};
+			name = Debug;
+		};
+		2AF39E91209AE7E100479948 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = DashControlSnapshots/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.dashfoundation.control.snapshots;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DashControl;
+			};
+			name = Release;
+		};
 		FB1F8AAA1FBCAACA00175311 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 558B8AE6721A9375C76DBBD3 /* Pods-DashControlTests.debug.xcconfig */;
@@ -2273,6 +2402,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2AF39E92209AE7E100479948 /* Build configuration list for PBXNativeTarget "DashControlSnapshots" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AF39E90209AE7E100479948 /* Debug */,
+				2AF39E91209AE7E100479948 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FB1F8AAC1FBCAACA00175311 /* Build configuration list for PBXNativeTarget "DashControlTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
