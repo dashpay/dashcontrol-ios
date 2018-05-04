@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithRequest:(HTTPRequest *)request response:(nullable NSURLResponse *)response;
 
+- (void)updateResponseIfNeeded:(nullable NSURLResponse *)response;
 - (BOOL)shouldRetry;
 
 @end

@@ -211,7 +211,7 @@ NS_ASSUME_NONNULL_BEGIN
     else {
         operation.task = [self.session dataTaskWithRequest:operation.request.urlRequest];
     }
-    HTTPResponse *response = [operation completeWithError:error];
+    HTTPResponse *response = [operation completeWithError:error response:task.response];
     if (response == nil && !operation.cancelled) {
         return;
     }
