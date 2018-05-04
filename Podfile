@@ -12,6 +12,7 @@ def app_pods
     pod 'KVO-MVVM', '0.5.1'
     pod 'Charts', '3.1.1'
     pod 'UIViewController-KeyboardAdditions', '1.2.1'
+    pod 'Godzippa', '2.0.0'
 end
 
 target 'DashControl' do

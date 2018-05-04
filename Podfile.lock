@@ -4,6 +4,7 @@ PODS:
   - Charts/Core (3.1.1)
   - DeluxeInjection (0.8.6):
     - RuntimeRoutines (~> 0.3.2)
+  - Godzippa (2.0.0)
   - KVO-MVVM (0.5.1)
   - MBCircularProgressBar (0.3.5)
   - MBProgressHUD (1.1.0)
@@ -17,6 +18,7 @@ PODS:
 DEPENDENCIES:
   - Charts (= 3.1.1)
   - DeluxeInjection (= 0.8.6)
+  - Godzippa (= 2.0.0)
   - KVO-MVVM (= 0.5.1)
   - MBCircularProgressBar (= 0.3.5)
   - MBProgressHUD (= 1.1.0)
@@ -28,6 +30,7 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Charts
     - DeluxeInjection
+    - Godzippa
     - KVO-MVVM
     - MBCircularProgressBar
     - MBProgressHUD
@@ -39,6 +42,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
   DeluxeInjection: 03964b27f8aa5a787221907e1f82364ef7bafef7
+  Godzippa: b423a467a9e4b4cb43bb4f3adb989d312795eb88
   KVO-MVVM: 4df3afd1f7ebcb69735458b85db59c4271ada7c6
   MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
@@ -47,6 +51,6 @@ SPEC CHECKSUMS:
   secp256k1_dash: 16bc4c20423f88dc264db75d5611c9c6a5fd1f77
   UIViewController-KeyboardAdditions: a691dc7e63a49854d341455a778ee8497dfc4662
 
-PODFILE CHECKSUM: 1c2bd3878c098137306f40e0fb888d3b18167ccc
+PODFILE CHECKSUM: a2fa0ba487f852b994682ead1ecdabdcd175708d
 
 COCOAPODS: 1.5.0
