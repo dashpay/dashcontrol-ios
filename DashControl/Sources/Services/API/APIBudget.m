@@ -17,6 +17,8 @@
 
 #import "APIBudget.h"
 
+#import <Godzippa/Godzippa.h>
+
 #import "DCBudgetInfoEntity+CoreDataClass.h"
 #import "DCBudgetProposalCommentEntity+CoreDataClass.h"
 #import "DCBudgetProposalEntity+CoreDataClass.h"
@@ -151,41 +153,113 @@ static int32_t RedditHotRanking(NSDate *date, int32_t upVotes, int32_t downVotes
     }];
 }
 
+#define PAST_PROPOSALS_ETAG_KEY @"PastProposalsEtag"
+
 - (id<HTTPLoaderOperationProtocol>)fetchPastProposalsCompletion:(void (^)(BOOL success))completion {
-    NSString *urlString = [NSString stringWithFormat:@"%@/%@", API_BASE_URL, @"budgethistory"];
-    NSURL *url = [NSURL URLWithString:urlString];
-    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:[self authParameters]];
+    NSURL *url = [NSURL URLWithString:@"https://proposalhistory.dashpay.info/proposal-history"];
+    NSParameterAssert(url);
+
+    HTTPRequest *request = [HTTPRequest requestWithURL:url method:HTTPRequestMethod_GET parameters:nil];
+    request.downloadTaskPolicy = HTTPRequestDownloadTaskPolicyAlways;
+    request.downloadLocationPath = [[[self.class workingDirectory] stringByAppendingPathComponent:[NSUUID UUID].UUIDString] stringByAppendingPathExtension:@"zip"];
+    NSString *etag = [[NSUserDefaults standardUserDefaults] objectForKey:PAST_PROPOSALS_ETAG_KEY];
+    if (etag) {
+        [request addValue:etag forHeader:@"If-None-Match"];
+    }
+
     weakify;
-    return [self.httpManager sendRequest:request completion:^(id _Nullable parsedData, NSDictionary *_Nullable responseHeaders, NSInteger statusCode, NSError *_Nullable error) {
-        strongify;
-        NSAssert([NSThread isMainThread], nil);
+    return [self.httpManager sendRequest:request rawCompletion:^(BOOL success, BOOL cancelled, HTTPResponse *_Nullable response) {
+        if (response.statusCode == HTTPResponseStatusCode_NotModified) {
+            if (completion) {
+                completion(YES);
+            }
 
-        NSDictionary *dictionary = (NSDictionary *)parsedData;
-        if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
-            NSPersistentContainer *container = self.stack.persistentContainer;
-            [container performBackgroundTask:^(NSManagedObjectContext *context) {
-                NSArray<NSDictionary *> *proposals = dictionary[@"proposals"];
-                if ([proposals.firstObject isKindOfClass:[NSDictionary class]]) {
-                    for (NSDictionary *proposalDictionary in proposals) {
-                        [self parseProposalForDictionary:proposalDictionary commentsArray:nil inContext:context];
-                    }
-                }
-
-                context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
-                [context dc_saveIfNeeded];
-
-                if (completion) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completion(YES);
-                    });
-                }
-            }];
+            return;
         }
-        else {
+
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSString *compressedFilePath = response.request.downloadLocationPath;
+        if (!success || ![fileManager fileExistsAtPath:compressedFilePath]) {
             if (completion) {
                 completion(NO);
             }
+
+            return;
         }
+
+        void (^completionOnMainThread)(BOOL success) = ^(BOOL success) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) {
+                    completion(success);
+                }
+            });
+        };
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            strongify;
+
+            NSString *decompressedFilePath = [[self.class workingDirectory] stringByAppendingPathComponent:[NSUUID UUID].UUIDString];
+            NSURL *compressedFileURL = [NSURL fileURLWithPath:compressedFilePath];
+            NSURL *decompressedFileURL = [NSURL fileURLWithPath:decompressedFilePath];
+            BOOL success = [fileManager GZipDecompressFile:compressedFileURL
+                                     writingContentsToFile:decompressedFileURL
+                                                     error:nil];
+            [fileManager removeItemAtPath:compressedFilePath error:nil];
+            if (!success) {
+                completionOnMainThread(NO);
+
+                return;
+            }
+
+            NSData *data = [NSData dataWithContentsOfFile:decompressedFilePath];
+            [fileManager removeItemAtPath:decompressedFilePath error:nil];
+            if (!data) {
+                completionOnMainThread(NO);
+
+                return;
+            }
+
+            NSArray<NSDictionary *> *proposals = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            if (!proposals || ![proposals isKindOfClass:NSArray.class]) {
+                completionOnMainThread(NO);
+
+                return;
+            }
+
+            if (proposals.count == 0) {
+                completionOnMainThread(YES);
+
+                return;
+            }
+
+            if (![proposals.firstObject isKindOfClass:NSDictionary.class]) {
+                completionOnMainThread(NO);
+
+                return;
+            }
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSPersistentContainer *container = self.stack.persistentContainer;
+                [container performBackgroundTask:^(NSManagedObjectContext *context) {
+                    for (NSDictionary *proposalDictionary in proposals) {
+                        [self parseProposalForDictionary:proposalDictionary commentsArray:nil inContext:context];
+                    }
+
+                    context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+                    [context dc_saveIfNeeded];
+
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSDictionary *responseHeaders = response.responseHeaders;
+                        NSString *etag = responseHeaders[@"Etag"];
+                        [[NSUserDefaults standardUserDefaults] setObject:etag forKey:PAST_PROPOSALS_ETAG_KEY];
+
+                        if (completion) {
+                            completion(YES);
+                        }
+                    });
+                }];
+            });
+        });
     }];
 }
 
@@ -288,6 +362,19 @@ static int32_t RedditHotRanking(NSDate *date, int32_t upVotes, int32_t downVotes
             }
         }
     }
+}
+
++ (NSString *)workingDirectory {
+    static NSString *_workingDirectory = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _workingDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:@"dc.files.budget"];
+        [[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:_workingDirectory]
+                                 withIntermediateDirectories:YES
+                                                  attributes:nil
+                                                       error:nil];
+    });
+    return _workingDirectory;
 }
 
 @end
