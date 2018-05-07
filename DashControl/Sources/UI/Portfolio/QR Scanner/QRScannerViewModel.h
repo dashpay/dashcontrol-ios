@@ -52,6 +52,8 @@ typedef NS_ENUM(NSUInteger, QRCodeObjectType) {
 
 - (void)switchTorch;
 
+- (BOOL)validateQRCodeObjectValue:(NSString *_Nullable)stringValue error:(NSError *_Nullable *_Nullable)error;
+
 @end
 
 NS_ASSUME_NONNULL_END

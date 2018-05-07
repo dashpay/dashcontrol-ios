@@ -42,6 +42,7 @@
 		2A289A50203AB44400EDC98E /* BaseNewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A289A4F203AB44400EDC98E /* BaseNewsTableViewController.m */; };
 		2A289A52203AB6D700EDC98E /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A289A51203AB6D700EDC98E /* NewsTableViewCell.xib */; };
 		2A289A55203AC10E00EDC98E /* NewsSearchResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A289A54203AC10E00EDC98E /* NewsSearchResultsController.m */; };
+		2A28DF3C20A0997300132DBF /* AddressQRScannerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A28DF3B20A0997300132DBF /* AddressQRScannerViewModel.m */; };
 		2A32D60320515C1B004B38A6 /* ProposalDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A32D60220515C1B004B38A6 /* ProposalDetailHeaderView.m */; };
 		2A32D60520515C28004B38A6 /* ProposalDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A32D60420515C28004B38A6 /* ProposalDetailHeaderView.xib */; };
 		2A32D6082051D91D004B38A6 /* ProposalDetailHeaderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A32D6072051D91D004B38A6 /* ProposalDetailHeaderViewModel.m */; };
@@ -325,6 +326,8 @@
 		2A289A51203AB6D700EDC98E /* NewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsTableViewCell.xib; sourceTree = "<group>"; };
 		2A289A53203AC10E00EDC98E /* NewsSearchResultsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsSearchResultsController.h; sourceTree = "<group>"; };
 		2A289A54203AC10E00EDC98E /* NewsSearchResultsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsSearchResultsController.m; sourceTree = "<group>"; };
+		2A28DF3A20A0997300132DBF /* AddressQRScannerViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressQRScannerViewModel.h; sourceTree = "<group>"; };
+		2A28DF3B20A0997300132DBF /* AddressQRScannerViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressQRScannerViewModel.m; sourceTree = "<group>"; };
 		2A32D60120515C1B004B38A6 /* ProposalDetailHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalDetailHeaderView.h; sourceTree = "<group>"; };
 		2A32D60220515C1B004B38A6 /* ProposalDetailHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailHeaderView.m; sourceTree = "<group>"; };
 		2A32D60420515C28004B38A6 /* ProposalDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProposalDetailHeaderView.xib; sourceTree = "<group>"; };
@@ -1269,6 +1272,8 @@
 				2AEF29E2207421E5008590E4 /* QRScannerViewController.m */,
 				2AEF29E3207421E5008590E4 /* QRScannerViewModel.h */,
 				2AEF29E4207421E5008590E4 /* QRScannerViewModel.m */,
+				2A28DF3A20A0997300132DBF /* AddressQRScannerViewModel.h */,
+				2A28DF3B20A0997300132DBF /* AddressQRScannerViewModel.m */,
 			);
 			path = "QR Scanner";
 			sourceTree = "<group>";
@@ -1952,6 +1957,7 @@
 				2A6F5967203566A600D7BD85 /* ForwardingNavigationController.m in Sources */,
 				2AEF299520737E41008590E4 /* MasternodeViewController.m in Sources */,
 				2A0DAAF5208DD25400992DC1 /* ProposalsTopViewModel.m in Sources */,
+				2A28DF3C20A0997300132DBF /* AddressQRScannerViewModel.m in Sources */,
 				2A80B58A2036A8F40015E1AA /* DCLogging.m in Sources */,
 				2A04E6DE202DA5E20065F30D /* HTTPResponse.m in Sources */,
 				FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */,

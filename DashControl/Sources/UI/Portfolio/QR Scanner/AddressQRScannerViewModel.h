@@ -15,24 +15,13 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import "QRScannerViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class QRScannerViewController;
+extern NSString * const AddressQRScannerViewModelErrorDomain;
 
-@protocol QRScannerViewControllerDelegate <NSObject>
-
-- (void)qrScannerViewControllerDidCancel:(QRScannerViewController *)controller;
-- (void)qrScannerViewController:(QRScannerViewController *)controller didScanDASHAddress:(NSString *)address;
-
-@end
-
-@interface QRScannerViewController : UIViewController
-
-@property (nullable, weak, nonatomic) id<QRScannerViewControllerDelegate> delegate;
-
-- (instancetype)initAsAddressScanner;
+@interface AddressQRScannerViewModel : QRScannerViewModel
 
 @end
 

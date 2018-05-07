@@ -19,6 +19,9 @@
 
 #import "QRScannerView.h"
 #import "QRScannerViewModel.h"
+#import "AddressQRScannerViewModel.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface QRScannerViewController () <QRScannerViewDelegate>
 
@@ -31,11 +34,12 @@
 
 @dynamic view;
 
-- (QRScannerViewModel *)viewModel {
-    if (!_viewModel) {
-        _viewModel = [[QRScannerViewModel alloc] init];
+- (instancetype)initAsAddressScanner {
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        _viewModel = [[AddressQRScannerViewModel alloc] init];
     }
-    return _viewModel;
+    return self;
 }
 
 - (void)loadView {
@@ -105,3 +109,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

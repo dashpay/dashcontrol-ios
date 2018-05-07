@@ -138,7 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)qrCodeButtonAction {
-    QRScannerViewController *controller = [[QRScannerViewController alloc] init];
+    QRScannerViewController *controller = [[QRScannerViewController alloc] initAsAddressScanner];
     controller.delegate = self;
     [self presentViewController:controller animated:YES completion:nil];
 }
