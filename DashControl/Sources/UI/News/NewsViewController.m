@@ -149,7 +149,7 @@ static NSString *const NEWS_LOADMORE_CELL_ID = @"NewsLoadMoreTableViewCell";
     CGFloat const defaultHeight = 104.0;
     if (tableView == self.tableView) {
         if ([self isLoadMoreIndexPath:indexPath]) {
-            return defaultHeight;
+            return 100.0;
         }
         else {
             return (indexPath.row == 0 ? 198.0 : defaultHeight);
