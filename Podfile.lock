@@ -13,6 +13,7 @@ PODS:
     - SDWebImage/Core (= 4.3.3)
   - SDWebImage/Core (4.3.3)
   - secp256k1_dash (0.1.0)
+  - SimulatorStatusMagic (2.1)
   - UIViewController-KeyboardAdditions (1.2.1)
 
 DEPENDENCIES:
@@ -24,6 +25,7 @@ DEPENDENCIES:
   - MBProgressHUD (= 1.1.0)
   - SDWebImage (= 4.3.3)
   - secp256k1_dash (= 0.1.0)
+  - SimulatorStatusMagic
   - UIViewController-KeyboardAdditions (= 1.2.1)
 
 SPEC REPOS:
@@ -37,6 +39,7 @@ SPEC REPOS:
     - RuntimeRoutines
     - SDWebImage
     - secp256k1_dash
+    - SimulatorStatusMagic
     - UIViewController-KeyboardAdditions
 
 SPEC CHECKSUMS:
@@ -49,8 +52,9 @@ SPEC CHECKSUMS:
   RuntimeRoutines: f23869ee8535543ec974146b835dec4b5bdebb6f
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
   secp256k1_dash: 16bc4c20423f88dc264db75d5611c9c6a5fd1f77
+  SimulatorStatusMagic: 481558caf2b9ccb2ceba2cc193728d4db3dcac07
   UIViewController-KeyboardAdditions: a691dc7e63a49854d341455a778ee8497dfc4662
 
-PODFILE CHECKSUM: a2fa0ba487f852b994682ead1ecdabdcd175708d
+PODFILE CHECKSUM: 37da7c23a0302ad1619956662fa433cc17158b64
 
 COCOAPODS: 1.5.0
