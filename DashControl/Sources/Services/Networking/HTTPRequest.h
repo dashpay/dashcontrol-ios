@@ -39,6 +39,12 @@ typedef NS_ENUM(NSUInteger, HTTPContentType) {
     HTTPContentType_UrlEncoded,
 };
 
+typedef NS_ENUM(NSUInteger, HTTPRequestDownloadTaskPolicy) {
+    HTTPRequestDownloadTaskPolicyNone,
+    HTTPRequestDownloadTaskPolicyOnDemand,
+    HTTPRequestDownloadTaskPolicyAlways,
+};
+
 typedef NS_ENUM(NSInteger, HTTPRequestErrorCode) {
     HTTPRequestErrorCode_Timeout,
     HTTPRequestErrorCode_ChunkedRequestWithoutChunkedDelegate
@@ -56,6 +62,9 @@ extern NSString *const HTTPRequestErrorDomain;
 @property (nullable, readonly, copy, nonatomic) NSString *sourceIdentifier;
 @property (readonly, assign, nonatomic) int64_t uniqueIdentifier;
 
+@property (assign, nonatomic) HTTPRequestDownloadTaskPolicy downloadTaskPolicy;
+@property (nullable, copy, nonatomic) NSString *downloadLocationPath;
+@property (nullable, copy, nonatomic) NSData *resumeData;
 @property (assign, nonatomic) BOOL chunks;
 @property (assign, nonatomic) NSURLRequestCachePolicy cachePolicy;
 @property (assign, nonatomic) NSJSONReadingOptions jsonReadingOptions;

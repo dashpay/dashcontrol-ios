@@ -33,11 +33,13 @@ static NSString *const HTTPResponseHeaderRetryAfter = @"Retry-After";
 
 @interface HTTPResponse ()
 
-@property (nullable, readonly, strong, nonatomic) NSURLResponse *response;
+@property (nullable, strong, nonatomic) NSURLResponse *response;
 @property (copy, nonatomic) NSDictionary<NSString *, NSString *> *responseHeaders;
 @property (strong, nonatomic) NSError *error;
+@property (nullable, strong, nonatomic) NSDate *retryAfter;
 @property (strong, nonatomic) NSData *body;
 @property (assign, nonatomic) NSTimeInterval requestTime;
+@property (assign, nonatomic) HTTPResponseStatusCode statusCode;
 
 @end
 
@@ -49,23 +51,31 @@ static NSString *const HTTPResponseHeaderRetryAfter = @"Retry-After";
     self = [super init];
     if (self) {
         _request = request;
-        _response = response;
-
-        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-            if (httpResponse.statusCode >= 300 || httpResponse.statusCode <= 101) {
-                _error = [NSError errorWithDomain:HTTPResponseErrorDomain
-                                             code:httpResponse.statusCode
-                                         userInfo:nil];
-            }
-            _responseHeaders = httpResponse.allHeaderFields;
-            _statusCode = httpResponse.statusCode;
-        }
-
-        _retryAfter = [self retryAfterForHeaders:_responseHeaders];
+        [self updateResponseIfNeeded:response];
     }
 
     return self;
+}
+
+- (void)updateResponseIfNeeded:(nullable NSURLResponse *)response {
+    if (self.response) {
+        return;
+    }
+    
+    self.response = response;
+    
+    if ([self.response isKindOfClass:[NSHTTPURLResponse class]]) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (httpResponse.statusCode >= 300 || httpResponse.statusCode <= 101) {
+            self.error = [NSError errorWithDomain:HTTPResponseErrorDomain
+                                         code:httpResponse.statusCode
+                                     userInfo:nil];
+        }
+        self.responseHeaders = httpResponse.allHeaderFields;
+        self.statusCode = httpResponse.statusCode;
+    }
+    
+    self.retryAfter = [self retryAfterForHeaders:self.responseHeaders];
 }
 
 - (BOOL)shouldRetry {

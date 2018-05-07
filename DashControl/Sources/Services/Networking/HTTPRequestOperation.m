@@ -101,15 +101,23 @@ static NSUInteger const HTTPRequestOperationMaxRedirects = 10;
             [self.requestOperationHandler receivedDataChunk:dataRange forResponse:self.response];
         }
         else {
-            [self.receivedData appendData:dataRange];
+            if (!self.receivedData) {
+                self.receivedData = [dataRange mutableCopy];
+            }
+            else {
+                [self.receivedData appendData:dataRange];
+            }
         }
     }];
 }
 
-- (nullable HTTPResponse *)completeWithError:(nullable NSError *)error {
+- (nullable HTTPResponse *)completeWithError:(nullable NSError *)error response:(nullable NSURLResponse *)response {
     id<HTTPRequestOperationHandler> requestOperationHandler = self.requestOperationHandler;
     if (!self.response) {
-        self.response = [[HTTPResponse alloc] initWithRequest:self.request response:nil];
+        self.response = [[HTTPResponse alloc] initWithRequest:self.request response:response];
+    }
+    else {
+        [self.response updateResponseIfNeeded:response];
     }
 
     if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
@@ -160,7 +168,12 @@ static NSUInteger const HTTPRequestOperationMaxRedirects = 10;
         self.receivedData = [NSMutableData data];
     }
 
-    return NSURLSessionResponseAllow;
+    if (self.request.downloadTaskPolicy == HTTPRequestDownloadTaskPolicyOnDemand) {
+        return NSURLSessionResponseBecomeDownload;
+    }
+    else {
+        return NSURLSessionResponseAllow;
+    }
 }
 
 - (BOOL)mayRedirect {
@@ -217,7 +230,7 @@ static NSUInteger const HTTPRequestOperationMaxRedirects = 10;
 - (void)completeIfInFlight {
     // Always call the last error the request completed with if retrying
     if (self.started && !self.calledCancelledRequest && !self.calledFailedResponse && !self.calledSuccessfulResponse) {
-        [self completeWithError:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCancelled userInfo:nil]];
+        [self completeWithError:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCancelled userInfo:nil] response:nil];
     }
 }
 

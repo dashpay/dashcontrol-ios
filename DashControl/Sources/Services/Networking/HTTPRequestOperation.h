@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSURLSessionResponseDisposition)receiveResponse:(NSURLResponse *)response;
 - (void)receiveData:(NSData *)data;
-- (nullable HTTPResponse *)completeWithError:(nullable NSError *)error;
+- (nullable HTTPResponse *)completeWithError:(nullable NSError *)error response:(nullable NSURLResponse *)response;
 - (BOOL)mayRedirect;
 - (void)start;
 - (void)provideNewBodyStreamWithCompletion:(void (^)(NSInputStream *_Nonnull))completionHandler;

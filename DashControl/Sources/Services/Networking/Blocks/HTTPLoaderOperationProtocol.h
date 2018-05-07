@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol HTTPLoaderOperationProtocol <NSObject>
 
 - (void)cancel;
+- (void)cancelByProducingResumeData:(void (^)(NSData *_Nullable resumeData))completionHandler;
 
 @end
 
