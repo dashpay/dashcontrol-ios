@@ -61,7 +61,7 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
         }
         {
             _nameDetail = [[TextFieldFormCellModel alloc] initWithTitle:NSLocalizedString(@"Name", nil)
-                                                            placeholder:NSLocalizedString(@"Wallet name (optional)", nil)];
+                                                            placeholder:NSLocalizedString(@"Masternode name (optional)", nil)];
             _nameDetail.tag = MasternodeType_Name;
             _nameDetail.text = _masternode.name;
             _nameDetail.returnKeyType = UIReturnKeyDone;
