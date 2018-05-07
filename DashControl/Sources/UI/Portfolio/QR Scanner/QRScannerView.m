@@ -106,7 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
             if (qrCodeObject.type == QRCodeObjectTypeValid) {
                 // display successful scanning then return
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self.delegate qrScannerView:self didScanDASHAddress:qrCodeObject.metadataObject.stringValue];
+                    [self.delegate qrScannerView:self didScanString:qrCodeObject.metadataObject.stringValue];
                 });
             }
         }];

@@ -151,7 +151,7 @@ static NSTimeInterval const kResumeSearchTimeInterval = 1.0;
     });
 }
 
-- (BOOL)validateQRCodeObjectValue:(NSString *_Nullable)stringValue error:(NSError *_Nullable *_Nullable)error {
+- (BOOL)validateQRCodeObjectValue:(NSString *_Nullable)stringValue error:(NSError *__autoreleasing _Nullable *_Nullable)error {
     return YES;
 }
 
@@ -252,7 +252,7 @@ static NSTimeInterval const kResumeSearchTimeInterval = 1.0;
 
         NSError *error = nil;
         BOOL valid = [self validateQRCodeObjectValue:codeObject.stringValue error:&error];
-        
+
         if (valid) {
             [self.qrCodeObject setValid];
         }

@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol QRScannerViewControllerDelegate <NSObject>
 
 - (void)qrScannerViewControllerDidCancel:(QRScannerViewController *)controller;
-- (void)qrScannerViewController:(QRScannerViewController *)controller didScanDASHAddress:(NSString *)address;
+- (void)qrScannerViewController:(QRScannerViewController *)controller didScanString:(NSString *)scannedString;
 
 @end
 
@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, weak, nonatomic) id<QRScannerViewControllerDelegate> delegate;
 
 - (instancetype)initAsAddressScanner;
+- (instancetype)initAsDashCentralAuth;
 
 @end
 

@@ -15,24 +15,13 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUIView.h>
+#import "QRScannerViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class QRScannerViewModel;
-@class QRScannerView;
+extern NSString * const DashCentralAuthQRScannerViewModelErrorDomain;
 
-@protocol QRScannerViewDelegate <NSObject>
-
-- (void)qrScannerViewDidCancel:(QRScannerView *)view;
-- (void)qrScannerView:(QRScannerView *)view didScanString:(NSString *)scannedString;
-
-@end
-
-@interface QRScannerView : KVOUIView
-
-@property (strong, nonatomic) QRScannerViewModel *viewModel;
-@property (nullable, weak, nonatomic) id<QRScannerViewDelegate> delegate;
+@interface DashCentralAuthQRScannerViewModel : QRScannerViewModel
 
 @end
 

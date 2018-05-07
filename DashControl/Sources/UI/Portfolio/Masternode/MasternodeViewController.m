@@ -149,8 +149,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)qrScannerViewController:(QRScannerViewController *)controller didScanDASHAddress:(NSString *)address {
-    [self.viewModel updateAddress:address];
+- (void)qrScannerViewController:(QRScannerViewController *)controller didScanString:(NSString *)scannedString {
+    [self.viewModel updateAddress:scannedString];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

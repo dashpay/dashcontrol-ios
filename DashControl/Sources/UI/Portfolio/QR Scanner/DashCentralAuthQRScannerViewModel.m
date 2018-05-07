@@ -15,24 +15,34 @@
 //  limitations under the License.
 //
 
-#import "AddressQRScannerViewModel.h"
-
-#import "NSString+Dash.h"
+#import "DashCentralAuthQRScannerViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString *const AddressQRScannerViewModelErrorDomain = @"AddressQRScannerViewModelErrorDomain";
+NSString *const DashCentralAuthQRScannerViewModelErrorDomain = @"DashCentralAuthQRScannerViewModelErrorDomain";
 
-@implementation AddressQRScannerViewModel
+@interface DashCentralAuthQRScannerViewModel ()
+
+@property (strong, nonatomic) NSCharacterSet *allowedCharacterSet;
+
+@end
+
+@implementation DashCentralAuthQRScannerViewModel
+
+- (NSCharacterSet *)allowedCharacterSet {
+    if (!_allowedCharacterSet) {
+        _allowedCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"];
+    }
+    return _allowedCharacterSet;
+}
 
 - (BOOL)validateQRCodeObjectValue:(NSString *_Nullable)stringValue error:(NSError *__autoreleasing _Nullable *_Nullable)error {
-    NSString *addr = [stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    BOOL valid = [addr isValidDashAddress];
+    BOOL valid = [stringValue rangeOfCharacterFromSet:self.allowedCharacterSet].location != NSNotFound;
     if (!valid && error) {
-        *error = [NSError errorWithDomain:AddressQRScannerViewModelErrorDomain
+        *error = [NSError errorWithDomain:DashCentralAuthQRScannerViewModelErrorDomain
                                      code:1
                                  userInfo:@{
-                                     NSLocalizedDescriptionKey : NSLocalizedString(@"not a DASH QR code", nil),
+                                     NSLocalizedDescriptionKey : NSLocalizedString(@"invalid API key", nil),
                                  }];
     }
 
