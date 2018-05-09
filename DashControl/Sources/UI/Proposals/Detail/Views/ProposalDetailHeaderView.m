@@ -79,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
             [lineView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
             [lineView.heightAnchor constraintEqualToConstant:1.0],
 
-            [self.heightAnchor constraintGreaterThanOrEqualToConstant:40.0],
+            [self.heightAnchor constraintEqualToConstant:40.0],
         ] enumerateObjectsUsingBlock:^(NSLayoutConstraint *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             obj.active = YES;
         }];

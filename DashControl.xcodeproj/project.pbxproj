@@ -44,6 +44,7 @@
 		2A289A55203AC10E00EDC98E /* NewsSearchResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A289A54203AC10E00EDC98E /* NewsSearchResultsController.m */; };
 		2A28DF3C20A0997300132DBF /* AddressQRScannerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A28DF3B20A0997300132DBF /* AddressQRScannerViewModel.m */; };
 		2A28DF3F20A0A4D100132DBF /* DashCentralAuthQRScannerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A28DF3E20A0A4D100132DBF /* DashCentralAuthQRScannerViewModel.m */; };
+		2A28DF4220A1929500132DBF /* ProposalDetailCommentsButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A28DF4120A1929500132DBF /* ProposalDetailCommentsButtonView.m */; };
 		2A32D60320515C1B004B38A6 /* ProposalDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A32D60220515C1B004B38A6 /* ProposalDetailHeaderView.m */; };
 		2A32D60520515C28004B38A6 /* ProposalDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A32D60420515C28004B38A6 /* ProposalDetailHeaderView.xib */; };
 		2A32D6082051D91D004B38A6 /* ProposalDetailHeaderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A32D6072051D91D004B38A6 /* ProposalDetailHeaderViewModel.m */; };
@@ -331,6 +332,8 @@
 		2A28DF3B20A0997300132DBF /* AddressQRScannerViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressQRScannerViewModel.m; sourceTree = "<group>"; };
 		2A28DF3D20A0A4D100132DBF /* DashCentralAuthQRScannerViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DashCentralAuthQRScannerViewModel.h; sourceTree = "<group>"; };
 		2A28DF3E20A0A4D100132DBF /* DashCentralAuthQRScannerViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DashCentralAuthQRScannerViewModel.m; sourceTree = "<group>"; };
+		2A28DF4020A1929500132DBF /* ProposalDetailCommentsButtonView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalDetailCommentsButtonView.h; sourceTree = "<group>"; };
+		2A28DF4120A1929500132DBF /* ProposalDetailCommentsButtonView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailCommentsButtonView.m; sourceTree = "<group>"; };
 		2A32D60120515C1B004B38A6 /* ProposalDetailHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalDetailHeaderView.h; sourceTree = "<group>"; };
 		2A32D60220515C1B004B38A6 /* ProposalDetailHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailHeaderView.m; sourceTree = "<group>"; };
 		2A32D60420515C28004B38A6 /* ProposalDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProposalDetailHeaderView.xib; sourceTree = "<group>"; };
@@ -969,6 +972,8 @@
 		2A32D60020515BE1004B38A6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2A28DF4020A1929500132DBF /* ProposalDetailCommentsButtonView.h */,
+				2A28DF4120A1929500132DBF /* ProposalDetailCommentsButtonView.m */,
 				2A32D60120515C1B004B38A6 /* ProposalDetailHeaderView.h */,
 				2A32D60220515C1B004B38A6 /* ProposalDetailHeaderView.m */,
 				2A32D60420515C28004B38A6 /* ProposalDetailHeaderView.xib */,
@@ -2029,6 +2034,7 @@
 				2A8F8184203EB74900D3D6C9 /* DCMarketEntity+Extensions.m in Sources */,
 				FB9CC1A51F87D4860079309F /* BRBIP32Sequence.m in Sources */,
 				2AEF299120737932008590E4 /* WalletAddressViewModel.m in Sources */,
+				2A28DF4220A1929500132DBF /* ProposalDetailCommentsButtonView.m in Sources */,
 				2A32D637205471BE004B38A6 /* ProposalDetailTableViewCellModel.m in Sources */,
 				FB17AEE61FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataProperties.m in Sources */,
 				2A4FE29D203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m in Sources */,

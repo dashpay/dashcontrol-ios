@@ -21,6 +21,7 @@
 
 #import "DCBudgetProposalEntity+CoreDataClass.h"
 #import "UIColor+DCStyle.h"
+#import "ProposalDetailCommentsButtonView.h"
 #import "ProposalDetailHeaderView.h"
 #import "ProposalDetailTableViewCell.h"
 #import "ProposalDetailTitleView.h"
@@ -29,6 +30,7 @@
 
 static NSString *const PROPOSALDETAIL_CELL_ID = @"ProposalDetailTableViewCell";
 static CGFloat const VOTES_VIEW_HEIGHT = 90.0;
+static CGFloat const COMMENTS_BUTTON_VIEW_HEIGHT = 135.0;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -37,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet ProposalDetailVotesView *votesView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *votesViewTopConstraint;
+@property (strong, nonatomic) IBOutlet ProposalDetailCommentsButtonView *commentsButtonView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *commentsButtonViewBottomConstraint;
 @property (strong, nonatomic) ProposalDetailHeaderView *headerView;
 @property (strong, nonatomic) ProposalDetailTitleView *titleView;
 @property (strong, nonatomic) ProposalDetailViewModel *viewModel;
@@ -61,12 +65,14 @@ NS_ASSUME_NONNULL_BEGIN
     self.votesView.viewModel = self.viewModel.votesViewModel;
 
     [self.tableView registerClass:ProposalDetailTableViewCell.class forCellReuseIdentifier:PROPOSALDETAIL_CELL_ID];
-    self.tableView.contentInset = UIEdgeInsetsMake(VOTES_VIEW_HEIGHT, 0.0, 0.0, 0.0);
+    self.tableView.contentInset = UIEdgeInsetsMake(VOTES_VIEW_HEIGHT, 0.0, COMMENTS_BUTTON_VIEW_HEIGHT, 0.0);
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     refreshControl.tintColor = [UIColor dc_barTintColor];
-    [refreshControl addTarget:self action:@selector(refreshControlAction:) forControlEvents:UIControlEventValueChanged];
     self.tableView.refreshControl = refreshControl;
+
+    self.commentsButtonView.hidden = YES;
+    [self updateCommentsButtonView];
 
     [self updateHeaderView];
 
@@ -79,8 +85,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Actions
 
-- (IBAction)refreshControlAction:(UIRefreshControl *)sender {
-    [self reload];
+- (IBAction)commentsButtonAction:(id)sender {
+    NSLog(@"TODO");
 }
 
 #pragma mark UITableViewDataSource
@@ -110,8 +116,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self.titleView scrollViewDidScroll:scrollView threshold:VOTES_VIEW_HEIGHT];
 
-    CGFloat offset = scrollView.contentOffset.y + scrollView.contentInset.top;
-    self.votesViewTopConstraint.constant = MIN(-offset, 0.0);
+    CGFloat topOffset = scrollView.contentOffset.y + scrollView.contentInset.top;
+    self.votesViewTopConstraint.constant = MIN(-topOffset, 0.0);
+
+    CGFloat bottomOffset = (scrollView.contentSize.height - (CGRectGetHeight(scrollView.frame) + scrollView.contentOffset.y)) + scrollView.contentInset.bottom;
+    self.commentsButtonViewBottomConstraint.constant = MIN(-bottomOffset, 0.0);
 
     if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
         for (ProposalDetailTableViewCell *cell in self.tableView.visibleCells) {
@@ -128,6 +137,8 @@ NS_ASSUME_NONNULL_BEGIN
     self.cellHeight = height > 0.0 ? @(height) : nil;
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
+    [self scrollViewDidScroll:self.tableView];
+    self.commentsButtonView.hidden = NO;
 }
 
 - (void)proposalDetailTableViewCell:(ProposalDetailTableViewCell *)cell openURL:(NSURL *)url {
@@ -168,6 +179,7 @@ NS_ASSUME_NONNULL_BEGIN
         strongify;
 
         [self updateHeaderView];
+        [self updateCommentsButtonView];
         [self.tableView reloadData];
 
         [self.tableView.refreshControl endRefreshing];
@@ -181,6 +193,10 @@ NS_ASSUME_NONNULL_BEGIN
     CGSize headerSize = [self.headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     self.headerView.frame = CGRectMake(0.0, 0.0, headerSize.width, headerSize.height);
     self.tableView.tableHeaderView = self.headerView;
+}
+
+- (void)updateCommentsButtonView {
+    self.commentsButtonView.commentsCount = [NSString stringWithFormat:@"%d", self.viewModel.proposal.commentsCount];
 }
 
 @end
