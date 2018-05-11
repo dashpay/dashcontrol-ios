@@ -19,10 +19,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSDate (DCAdditions)
+@class DCBudgetProposalCommentEntity;
 
-- (NSString *)dc_asInDateString;
-- (NSString *)dc_asDateAgoString;
+@interface ProposalCommentTableViewCellModel : NSObject
+
+@property (readonly, copy, nonatomic) NSString *username;
+@property (readonly, assign, nonatomic) BOOL postedByOwner;
+@property (nullable, readonly, copy, nonatomic) NSString *repliedToUsername;
+@property (readonly, assign, nonatomic) BOOL repliedToIsOwner;
+@property (readonly, copy, nonatomic) NSString *date;
+@property (readonly, copy, nonatomic) NSString *comment;
+@property (readonly, assign, nonatomic) BOOL shouldIndent;
+
+- (instancetype)initWithCommentEntity:(DCBudgetProposalCommentEntity *)entity
+                               parent:(nullable DCBudgetProposalCommentEntity *)parentEntity;
 
 @end
 

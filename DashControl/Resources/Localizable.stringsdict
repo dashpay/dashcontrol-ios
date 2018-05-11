@@ -18,10 +18,10 @@
 			<string>%d Superblocks</string>
 		</dict>
 	</dict>
-	<key>in %ld second(s)</key>
+	<key>%ld second(s)</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>in %#@seconds@</string>
+		<string>%#@seconds@</string>
 		<key>seconds</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -34,10 +34,10 @@
 			<string>%ld seconds</string>
 		</dict>
 	</dict>
-	<key>in %ld minute(s)</key>
+	<key>%ld minute(s)</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>in %#@minutes@</string>
+		<string>%#@minutes@</string>
 		<key>minutes</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -50,10 +50,10 @@
 			<string>%ld minutes</string>
 		</dict>
 	</dict>
-	<key>in %ld hour(s)</key>
+	<key>%ld hour(s)</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>in %#@hours@</string>
+		<string>%#@hours@</string>
 		<key>hours</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -66,10 +66,10 @@
 			<string>%ld hours</string>
 		</dict>
 	</dict>
-	<key>in %ld day(s)</key>
+	<key>%ld day(s)</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>in %#@days@</string>
+		<string>%#@days@</string>
 		<key>days</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -82,10 +82,10 @@
 			<string>%ld days</string>
 		</dict>
 	</dict>
-	<key>in %ld week(s)</key>
+	<key>%ld week(s)</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>in %#@weeks@</string>
+		<string>%#@weeks@</string>
 		<key>weeks</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -98,10 +98,10 @@
 			<string>%ld weeks</string>
 		</dict>
 	</dict>
-	<key>in %ld month(s)</key>
+	<key>%ld month(s)</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>in %#@months@</string>
+		<string>%#@months@</string>
 		<key>months</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -114,10 +114,10 @@
 			<string>%ld months</string>
 		</dict>
 	</dict>
-	<key>in %ld year(s)</key>
+	<key>%ld year(s)</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>in %#@years@</string>
+		<string>%#@years@</string>
 		<key>years</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

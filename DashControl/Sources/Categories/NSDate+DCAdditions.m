@@ -22,24 +22,36 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation NSDate (DCAdditions)
 
 - (NSString *)dc_asInDateString {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *now = [NSDate date];
-
-    NSDate *earliest = now;
+    NSDate *earliest = [NSDate date];
     NSDate *latest = self;
+    NSString *relativeDateString = [self dc_relativeDateStringEarliest:earliest latest:latest];
+    return [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"in", @"as in 'in 2 hours'"), relativeDateString];
+}
+
+- (NSString *)dc_asDateAgoString {
+    NSDate *earliest = self;
+    NSDate *latest = [NSDate date];
+    NSString *relativeDateString = [self dc_relativeDateStringEarliest:earliest latest:latest];
+    return [NSString stringWithFormat:@"%@ %@", relativeDateString, NSLocalizedString(@"ago", @"as in '2 months ago'")];
+}
+
+#pragma mark Private
+
+- (NSString *)dc_relativeDateStringEarliest:(NSDate *)earliest latest:(NSDate *)latest {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
 
     NSUInteger upToHours = NSCalendarUnitSecond | NSCalendarUnitMinute | NSCalendarUnitHour;
     NSDateComponents *difference = [calendar components:upToHours fromDate:earliest toDate:latest options:kNilOptions];
 
     if (difference.hour < 24) {
         if (difference.hour >= 1) {
-            return [self dc_localizedStringWithFormat:@"in %ld day(s)" value:difference.hour];
+            return [self dc_localizedStringWithFormat:@"%ld hour(s)" value:difference.hour];
         }
         else if (difference.minute >= 1) {
-            return [self dc_localizedStringWithFormat:@"in %ld minute(s)" value:difference.minute];
+            return [self dc_localizedStringWithFormat:@"%ld minute(s)" value:difference.minute];
         }
         else {
-            return [self dc_localizedStringWithFormat:@"in %ld second(s)" value:difference.second];
+            return [self dc_localizedStringWithFormat:@"%ld second(s)" value:difference.second];
         }
     }
     else {
@@ -54,21 +66,19 @@ NS_ASSUME_NONNULL_BEGIN
         difference = [calendar components:bigUnits fromDate:earliest toDate:latest options:kNilOptions];
 
         if (difference.year >= 1) {
-            return [self dc_localizedStringWithFormat:@"in %ld year(s)" value:difference.year];
+            return [self dc_localizedStringWithFormat:@"%ld year(s)" value:difference.year];
         }
         else if (difference.month >= 1) {
-            return [self dc_localizedStringWithFormat:@"in %ld month(s)" value:difference.month];
+            return [self dc_localizedStringWithFormat:@"%ld month(s)" value:difference.month];
         }
         else if (difference.weekOfYear >= 1) {
-            return [self dc_localizedStringWithFormat:@"in %ld week(s)" value:difference.weekOfYear];
+            return [self dc_localizedStringWithFormat:@"%ld week(s)" value:difference.weekOfYear];
         }
         else {
-            return [self dc_localizedStringWithFormat:@"in %ld day(s)" value:difference.day];
+            return [self dc_localizedStringWithFormat:@"%ld day(s)" value:difference.day];
         }
     }
 }
-
-#pragma mark Private
 
 - (NSString *)dc_localizedStringWithFormat:(NSString *)format value:(NSInteger)value {
     return [NSString localizedStringWithFormat:NSLocalizedString(format, nil), value];

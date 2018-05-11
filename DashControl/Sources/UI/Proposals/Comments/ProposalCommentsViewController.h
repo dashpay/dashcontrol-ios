@@ -15,14 +15,15 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import "FetchedResultsTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSDate (DCAdditions)
+@class DCBudgetProposalEntity;
 
-- (NSString *)dc_asInDateString;
-- (NSString *)dc_asDateAgoString;
+@interface ProposalCommentsViewController : FetchedResultsTableViewController
+
++ (instancetype)controllerWithProposal:(DCBudgetProposalEntity *)proposal;
 
 @end
 

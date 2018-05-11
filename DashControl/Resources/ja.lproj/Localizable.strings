@@ -59,6 +59,9 @@
 /* No comment provided by engineer. */
 "Address" = "Address";
 
+/* as in '2 months ago' */
+"ago" = "ago";
+
 /* No comment provided by engineer. */
 "Alert type" = "Alert type";
 
@@ -112,6 +115,12 @@
 
 /* No comment provided by engineer. */
 "Import using QR code" = "Import using QR code";
+
+/* as in 'in 2 hours' */
+"in" = "in";
+
+/* No comment provided by engineer. */
+"In reply to" = "In reply to";
 
 /* No comment provided by engineer. */
 "invalid API key" = "invalid API key";
@@ -201,7 +210,13 @@
 "Proposal" = "Proposal";
 
 /* No comment provided by engineer. */
+"proposal owner" = "proposal owner";
+
+/* No comment provided by engineer. */
 "Proposals" = "Proposals";
+
+/* No comment provided by engineer. */
+"Reply" = "Reply";
 
 /* No comment provided by engineer. */
 "required" = "required";

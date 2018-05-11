@@ -17,12 +17,19 @@
 
 #import <Foundation/Foundation.h>
 
+#import "DCBudgetProposalCommentEntity+CoreDataClass.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSDate (DCAdditions)
+@class DCPersistenceStack;
 
-- (NSString *)dc_asInDateString;
-- (NSString *)dc_asDateAgoString;
+@interface ProposalCommentsViewModel : NSObject
+
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+
+@property (readonly, strong, nonatomic) NSFetchedResultsController<DCBudgetProposalCommentEntity *> *fetchedResultsController;
+
+- (instancetype)initWithProposal:(DCBudgetProposalEntity *)proposal;
 
 @end
 

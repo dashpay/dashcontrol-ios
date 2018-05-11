@@ -15,14 +15,15 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSDate (DCAdditions)
+@class ProposalCommentTableViewCellModel;
 
-- (NSString *)dc_asInDateString;
-- (NSString *)dc_asDateAgoString;
+@interface ProposalCommentTableViewCell : UITableViewCell
+
+- (void)configureWithViewModel:(ProposalCommentTableViewCellModel *)viewModel;
 
 @end
 

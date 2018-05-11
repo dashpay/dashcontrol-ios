@@ -27,6 +27,7 @@
 #import "ProposalDetailTitleView.h"
 #import "ProposalDetailViewModel.h"
 #import "ProposalDetailVotesView.h"
+#import "ProposalCommentsViewController.h"
 
 static NSString *const PROPOSALDETAIL_CELL_ID = @"ProposalDetailTableViewCell";
 static CGFloat const VOTES_VIEW_HEIGHT = 90.0;
@@ -86,7 +87,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Actions
 
 - (IBAction)commentsButtonAction:(id)sender {
-    NSLog(@"TODO");
+    ProposalCommentsViewController *controller = [ProposalCommentsViewController controllerWithProposal:self.viewModel.proposal];
+    [self showViewController:controller sender:self];
 }
 
 #pragma mark UITableViewDataSource

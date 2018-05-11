@@ -81,6 +81,11 @@
 		2A4473A720429CC400B52BCB /* ChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4473A620429CC400B52BCB /* ChartViewController.m */; };
 		2A4473AA2042B69D00B52BCB /* ChartViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4473A92042B69D00B52BCB /* ChartViewModel.m */; };
 		2A4473AE2042E8DA00B52BCB /* DCSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4473AD2042E8DA00B52BCB /* DCSegmentedControl.m */; };
+		2A46C23E20A32830007037FA /* ProposalCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C23D20A32830007037FA /* ProposalCommentsViewController.m */; };
+		2A46C24120A32848007037FA /* ProposalCommentsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C24020A32848007037FA /* ProposalCommentsViewModel.m */; };
+		2A46C24520A328B1007037FA /* ProposalCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C24420A328B1007037FA /* ProposalCommentTableViewCell.m */; };
+		2A46C24820A328BF007037FA /* ProposalCommentTableViewCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C24720A328BF007037FA /* ProposalCommentTableViewCellModel.m */; };
+		2A46C24A20A328D8007037FA /* ProposalCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A46C24920A328D8007037FA /* ProposalCommentTableViewCell.xib */; };
 		2A4FE281203AE489007FD160 /* UIColor+DCStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FE280203AE489007FD160 /* UIColor+DCStyle.m */; };
 		2A4FE29D203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FE29C203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m */; };
 		2A587E99206A53A5004BC537 /* PortfolioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A587E98206A53A5004BC537 /* PortfolioViewController.m */; };
@@ -400,6 +405,15 @@
 		2A4473A92042B69D00B52BCB /* ChartViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartViewModel.m; sourceTree = "<group>"; };
 		2A4473AC2042E8DA00B52BCB /* DCSegmentedControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSegmentedControl.h; sourceTree = "<group>"; };
 		2A4473AD2042E8DA00B52BCB /* DCSegmentedControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSegmentedControl.m; sourceTree = "<group>"; };
+		2A46C23C20A32830007037FA /* ProposalCommentsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalCommentsViewController.h; sourceTree = "<group>"; };
+		2A46C23D20A32830007037FA /* ProposalCommentsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalCommentsViewController.m; sourceTree = "<group>"; };
+		2A46C23F20A32848007037FA /* ProposalCommentsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalCommentsViewModel.h; sourceTree = "<group>"; };
+		2A46C24020A32848007037FA /* ProposalCommentsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalCommentsViewModel.m; sourceTree = "<group>"; };
+		2A46C24320A328B1007037FA /* ProposalCommentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalCommentTableViewCell.h; sourceTree = "<group>"; };
+		2A46C24420A328B1007037FA /* ProposalCommentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalCommentTableViewCell.m; sourceTree = "<group>"; };
+		2A46C24620A328BF007037FA /* ProposalCommentTableViewCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalCommentTableViewCellModel.h; sourceTree = "<group>"; };
+		2A46C24720A328BF007037FA /* ProposalCommentTableViewCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalCommentTableViewCellModel.m; sourceTree = "<group>"; };
+		2A46C24920A328D8007037FA /* ProposalCommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProposalCommentTableViewCell.xib; sourceTree = "<group>"; };
 		2A4FE27F203AE489007FD160 /* UIColor+DCStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+DCStyle.h"; sourceTree = "<group>"; };
 		2A4FE280203AE489007FD160 /* UIColor+DCStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DCStyle.m"; sourceTree = "<group>"; };
 		2A4FE282203AF2A7007FD160 /* BaseNewsTableViewController+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BaseNewsTableViewController+Protected.h"; sourceTree = "<group>"; };
@@ -742,6 +756,7 @@
 		241719C31F4D9EC30045C2D6 /* Proposals */ = {
 			isa = PBXGroup;
 			children = (
+				2A46C23B20A32806007037FA /* Comments */,
 				24C86EF81F5EBF6A00735785 /* Detail */,
 				24C86EF71F5EBF3700735785 /* List */,
 			);
@@ -1028,6 +1043,30 @@
 				2A4473AD2042E8DA00B52BCB /* DCSegmentedControl.m */,
 				2AC693FC2064F0A000F64482 /* PriceTriggerTableViewCellModel.h */,
 				2AC693FD2064F0A000F64482 /* PriceTriggerTableViewCellModel.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2A46C23B20A32806007037FA /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				2A46C24220A32893007037FA /* Views */,
+				2A46C23C20A32830007037FA /* ProposalCommentsViewController.h */,
+				2A46C23D20A32830007037FA /* ProposalCommentsViewController.m */,
+				2A46C23F20A32848007037FA /* ProposalCommentsViewModel.h */,
+				2A46C24020A32848007037FA /* ProposalCommentsViewModel.m */,
+			);
+			path = Comments;
+			sourceTree = "<group>";
+		};
+		2A46C24220A32893007037FA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2A46C24320A328B1007037FA /* ProposalCommentTableViewCell.h */,
+				2A46C24420A328B1007037FA /* ProposalCommentTableViewCell.m */,
+				2A46C24920A328D8007037FA /* ProposalCommentTableViewCell.xib */,
+				2A46C24620A328BF007037FA /* ProposalCommentTableViewCellModel.h */,
+				2A46C24720A328BF007037FA /* ProposalCommentTableViewCellModel.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1743,6 +1782,7 @@
 				2A87492A20851E1700764AE4 /* SubtitleTableViewCell.xib in Resources */,
 				2A32D60520515C28004B38A6 /* ProposalDetailHeaderView.xib in Resources */,
 				2A3F49D9204E88E5005EB5D9 /* ProposalsHeaderView.xib in Resources */,
+				2A46C24A20A328D8007037FA /* ProposalCommentTableViewCell.xib in Resources */,
 				2ACFBBC320340C090099727D /* Montserrat-Light.otf in Resources */,
 				2A32D60A2052495C004B38A6 /* Localizable.stringsdict in Resources */,
 				2A587EA9206A88C3004BC537 /* ItemTableViewCell.xib in Resources */,
@@ -1906,6 +1946,7 @@
 				2A8F8181203E9D2300D3D6C9 /* NSManagedObject+DCExtensions.m in Sources */,
 				2AEF29532070DBA3008590E4 /* PortfolioMasternodeTableViewCellModel.m in Sources */,
 				2A4473A720429CC400B52BCB /* ChartViewController.m in Sources */,
+				2A46C24120A32848007037FA /* ProposalCommentsViewModel.m in Sources */,
 				2AEF294D2070DB87008590E4 /* PortfolioWalletTableViewCellModel.m in Sources */,
 				2AEF29B920740626008590E4 /* QRCodeButton.m in Sources */,
 				2A04E6E1202DA5E20065F30D /* HTTPLoaderFactory.m in Sources */,
@@ -1920,6 +1961,7 @@
 				2A4473AA2042B69D00B52BCB /* ChartViewModel.m in Sources */,
 				2A87492D208523D400764AE4 /* SubtitleTableViewCell.m in Sources */,
 				FB9CC1861F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataProperties.m in Sources */,
+				2A46C24520A328B1007037FA /* ProposalCommentTableViewCell.m in Sources */,
 				2AEF297720734F53008590E4 /* ButtonFormTableViewCell.m in Sources */,
 				FBE1F50D1F5D4CF500823A77 /* DCMarketEntity+CoreDataClass.m in Sources */,
 				2A04E6ED202DAB340065F30D /* RunOnMain.m in Sources */,
@@ -1964,6 +2006,7 @@
 				2AEF298A20736C8F008590E4 /* FormTableViewController.m in Sources */,
 				2A80B584203699E70015E1AA /* DCPersistenceStack.m in Sources */,
 				2AD693C62032C9AC0084D840 /* NewsTableViewCell.m in Sources */,
+				2A46C23E20A32830007037FA /* ProposalCommentsViewController.m in Sources */,
 				2A6F5967203566A600D7BD85 /* ForwardingNavigationController.m in Sources */,
 				2AEF299520737E41008590E4 /* MasternodeViewController.m in Sources */,
 				2A0DAAF5208DD25400992DC1 /* ProposalsTopViewModel.m in Sources */,
@@ -1982,6 +2025,7 @@
 				2A97221F2051587700545079 /* ProposalDetailViewController.m in Sources */,
 				2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */,
 				2A972208204F343100545079 /* NavigationTitleButton.m in Sources */,
+				2A46C24820A328BF007037FA /* ProposalCommentTableViewCellModel.m in Sources */,
 				2A32D60320515C1B004B38A6 /* ProposalDetailHeaderView.m in Sources */,
 				2A32D64920571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataClass.m in Sources */,
 				2A6FBED020769B1D0055BAC8 /* Credentials.m in Sources */,
