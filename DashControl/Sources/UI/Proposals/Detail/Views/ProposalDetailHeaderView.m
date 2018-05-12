@@ -18,7 +18,7 @@
 #import "ProposalDetailHeaderView.h"
 
 #import "UIFont+DCStyle.h"
-#import "MBCircularProgressBarView.h"
+#import "ProposalDetailBasicInfoView.h"
 #import "ProposalDetailHeaderViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -94,12 +94,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ProposalDetailHeaderView ()
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
-
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property (strong, nonatomic) IBOutlet UILabel *ownerUsernameLabel;
-@property (strong, nonatomic) IBOutlet MBCircularProgressBarView *progressBarView;
-
+@property (strong, nonatomic) IBOutlet ProposalDetailBasicInfoView *basicInfoView;
 @property (strong, nonatomic) IBOutlet UIStackView *rowsStackView;
+
 
 @end
 
@@ -125,25 +122,15 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil];
     [self addSubview:self.contentView];
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
-    [self.contentView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor].active = YES;
-    [self.contentView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-    [self.contentView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor].active = YES;
-    [self.contentView.widthAnchor constraintEqualToAnchor:self.widthAnchor].active = YES;
+    [NSLayoutConstraint activateConstraints:@[
+        [self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [self.contentView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [self.contentView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+        [self.contentView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [self.contentView.widthAnchor constraintEqualToAnchor:self.widthAnchor],
+    ]];
 
     // KVO
-
-    [self mvvm_observe:@"viewModel.completedPercent" with:^(typeof(self) self, NSNumber * value) {
-        self.progressBarView.value = self.viewModel.completedPercent;
-    }];
-
-    [self mvvm_observe:@"viewModel.title" with:^(typeof(self) self, NSString * value) {
-        self.titleLabel.text = value;
-    }];
-
-    [self mvvm_observe:@"viewModel.ownerUsername" with:^(typeof(self) self, NSString * value) {
-        self.ownerUsernameLabel.text = value;
-    }];
 
     [self mvvm_observe:@"viewModel.rows" with:^(typeof(self) self, NSArray<Pair<NSString *> *> * value) {
         for (UIView *subview in self.rowsStackView.subviews) {
@@ -158,6 +145,11 @@ NS_ASSUME_NONNULL_BEGIN
             [self.rowsStackView addArrangedSubview:view];
         }
     }];
+}
+
+- (void)setViewModel:(ProposalDetailHeaderViewModel *)viewModel {
+    _viewModel = viewModel;
+    self.basicInfoView.viewModel = viewModel;
 }
 
 @end

@@ -17,9 +17,12 @@
 
 #import "ProposalCommentsViewController.h"
 
+#import "DCBudgetProposalEntity+CoreDataClass.h"
 #import "ProposalCommentTableViewCell.h"
 #import "ProposalCommentTableViewCellModel.h"
 #import "ProposalCommentsViewModel.h"
+#import "ProposalDetailBasicInfoView.h"
+#import "ProposalDetailTitleView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,21 +30,30 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
 
 @interface ProposalCommentsViewController ()
 
+@property (strong, nonatomic) IBOutlet ProposalDetailBasicInfoView *basicInfoView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *basicInfoViewTopConstraint;
+@property (strong, nonatomic) ProposalDetailTitleView *titleView;
+
+@property (strong, nonatomic) ProposalDetailHeaderViewModel *detailHeaderViewModel;
 @property (strong, nonatomic) ProposalCommentsViewModel *viewModel;
 
 @end
 
 @implementation ProposalCommentsViewController
 
-+ (instancetype)controllerWithProposal:(DCBudgetProposalEntity *)proposal {
++ (instancetype)controllerWithProposal:(DCBudgetProposalEntity *)proposal
+                 detailHeaderViewModel:(ProposalDetailHeaderViewModel *)detailHeaderViewModel {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Proposals" bundle:nil];
     ProposalCommentsViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([self class])];
+    viewController.detailHeaderViewModel = detailHeaderViewModel;
     viewController.viewModel = [[ProposalCommentsViewModel alloc] initWithProposal:proposal];
     return viewController;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.navigationItem.titleView = self.titleView;
 
     self.view.backgroundColor = [UIColor colorWithRed:243.0 / 255.0 green:243.0 / 255.0 blue:243.0 / 255.0 alpha:1.0];
 
@@ -53,6 +65,11 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
     self.tableView.estimatedRowHeight = 158.0;
     self.tableView.allowsSelection = NO;
     [self.tableView registerNib:[UINib nibWithNibName:COMMENT_CELL_ID bundle:nil] forCellReuseIdentifier:COMMENT_CELL_ID];
+
+    self.basicInfoView.viewModel = self.detailHeaderViewModel;
+    CGSize size = [self.basicInfoView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    self.tableView.contentInset = UIEdgeInsetsMake(size.height, 0.0, 0.0, 0.0);
+    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -90,7 +107,24 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
 
 #pragma mark UITableViewDelegate
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.titleView scrollViewDidScroll:scrollView threshold:0.0];
+
+    CGFloat topOffset = scrollView.contentOffset.y + scrollView.contentInset.top;
+    self.basicInfoViewTopConstraint.constant = MIN(-topOffset, 0.0);
+}
+
 #pragma mark Private
+
+- (ProposalDetailTitleView *)titleView {
+    if (!_titleView) {
+        _titleView = [[ProposalDetailTitleView alloc] initWithFrame:CGRectZero];
+        _titleView.dummyTitle = NSLocalizedString(@"Discussion", nil);
+        _titleView.title = self.viewModel.proposal.title;
+        [_titleView sizeToFit];
+    }
+    return _titleView;
+}
 
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView {
     return self.viewModel.fetchedResultsController;

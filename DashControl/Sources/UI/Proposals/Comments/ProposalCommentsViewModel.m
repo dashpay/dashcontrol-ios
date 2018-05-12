@@ -25,7 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProposalCommentsViewModel ()
 
-@property (strong, nonatomic) DCBudgetProposalEntity *proposal;
 @property (strong, nonatomic) NSFetchedResultsController<DCBudgetProposalCommentEntity *> *fetchedResultsController;
 
 @end

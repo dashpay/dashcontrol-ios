@@ -87,7 +87,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Actions
 
 - (IBAction)commentsButtonAction:(id)sender {
-    ProposalCommentsViewController *controller = [ProposalCommentsViewController controllerWithProposal:self.viewModel.proposal];
+    ProposalCommentsViewController *controller = [ProposalCommentsViewController controllerWithProposal:self.viewModel.proposal
+                                                                                  detailHeaderViewModel:self.viewModel.headerViewModel];
     [self showViewController:controller sender:self];
 }
 

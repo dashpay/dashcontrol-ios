@@ -20,10 +20,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class DCBudgetProposalEntity;
+@class ProposalDetailHeaderViewModel;
 
 @interface ProposalCommentsViewController : FetchedResultsTableViewController
 
-+ (instancetype)controllerWithProposal:(DCBudgetProposalEntity *)proposal;
++ (instancetype)controllerWithProposal:(DCBudgetProposalEntity *)proposal
+                 detailHeaderViewModel:(ProposalDetailHeaderViewModel *)detailHeaderViewModel;
 
 @end
 

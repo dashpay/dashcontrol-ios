@@ -15,22 +15,15 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
-
-#import "DCBudgetProposalCommentEntity+CoreDataClass.h"
+#import <KVO-MVVM/KVOUIView.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCPersistenceStack;
+@class ProposalDetailHeaderViewModel;
 
-@interface ProposalCommentsViewModel : NSObject
+@interface ProposalDetailBasicInfoView : KVOUIView
 
-@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
-
-@property (readonly, strong, nonatomic) DCBudgetProposalEntity *proposal;
-@property (readonly, strong, nonatomic) NSFetchedResultsController<DCBudgetProposalCommentEntity *> *fetchedResultsController;
-
-- (instancetype)initWithProposal:(DCBudgetProposalEntity *)proposal;
+@property (strong, nonatomic) ProposalDetailHeaderViewModel *viewModel;
 
 @end
 

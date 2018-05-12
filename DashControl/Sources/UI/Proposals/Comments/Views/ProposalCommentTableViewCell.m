@@ -46,7 +46,7 @@ static CGFloat const LEADING_PADDING = 24.0;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+
     [self.replyButton setTitle:NSLocalizedString(@"Reply", nil) forState:UIControlStateNormal];
 }
 
@@ -87,7 +87,7 @@ static CGFloat const LEADING_PADDING = 24.0;
 
     self.dateLabel.text = viewModel.date;
     self.commentLabel.text = viewModel.comment;
-    
+
     NSInteger level = viewModel.shouldIndent ? 2 : 1;
     CGFloat leading = LEADING_PADDING * level;
     self.usernameLeadingConstraint.constant = leading;
