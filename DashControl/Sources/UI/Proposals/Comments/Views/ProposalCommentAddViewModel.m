@@ -15,25 +15,19 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import "ProposalCommentAddViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ProposalCommentTableViewCellModel;
-@class ProposalCommentTableViewCell;
-@class ProposalCommentAddViewModel;
+@implementation ProposalCommentAddViewModel
 
-@protocol ProposalCommentTableViewCellDelegate <NSObject>
-
-- (void)proposalCommentTableViewCell:(ProposalCommentTableViewCell *)cell didUpdateHeightShouldScrollToCellAnimated:(BOOL)shouldScrollToCellAnimated;
-
-@end
-
-@interface ProposalCommentTableViewCell : UITableViewCell
-
-@property (strong, nonatomic) ProposalCommentTableViewCellModel *viewModel;
-@property (strong, nonatomic) ProposalCommentAddViewModel *commentAddViewModel;
-@property (nullable, weak, nonatomic) id<ProposalCommentTableViewCellDelegate> delegate;
+- (instancetype)initWithType:(ProposalCommentAddViewModelType)type {
+    self = [super init];
+    if (self) {
+        _type = type;
+    }
+    return self;
+}
 
 @end
 

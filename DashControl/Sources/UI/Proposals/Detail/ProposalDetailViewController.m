@@ -137,7 +137,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark ProposalDetailTableViewCellDelegate
 
 - (void)proposalDetailTableViewCell:(ProposalDetailTableViewCell *)cell didUpdateHeight:(CGFloat)height {
-    self.cellHeight = height > 0.0 ? @(height) : nil;
+    // TODO: debug
+    self.cellHeight = @0.0;// height > 0.0 ? @(height) : nil;
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
     [self scrollViewDidScroll:self.tableView];

@@ -17,7 +17,10 @@
 
 #import "ProposalCommentsViewController.h"
 
+#import <UIViewController-KeyboardAdditions/UIViewController+KeyboardAdditions.h>
+
 #import "DCBudgetProposalEntity+CoreDataClass.h"
+#import "ProposalCommentAddViewModel.h"
 #import "ProposalCommentTableViewCell.h"
 #import "ProposalCommentTableViewCellModel.h"
 #import "ProposalCommentsViewModel.h"
@@ -28,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
 
-@interface ProposalCommentsViewController ()
+@interface ProposalCommentsViewController () <ProposalCommentTableViewCellDelegate>
 
 @property (strong, nonatomic) IBOutlet ProposalDetailBasicInfoView *basicInfoView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *basicInfoViewTopConstraint;
@@ -36,6 +39,10 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
 
 @property (strong, nonatomic) ProposalDetailHeaderViewModel *detailHeaderViewModel;
 @property (strong, nonatomic) ProposalCommentsViewModel *viewModel;
+@property (nullable, strong, nonatomic) NSIndexPath *addingReplyIndexPath;
+
+@property (strong, nonatomic) ProposalCommentTableViewCell *heightCalculationCell;
+@property (strong, nonatomic) NSMutableDictionary<NSString *, ProposalCommentAddViewModel *> *commentAddViewModelsByIdentifiers;
 
 @end
 
@@ -53,6 +60,8 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.commentAddViewModelsByIdentifiers = [NSMutableDictionary dictionary];
+
     self.navigationItem.titleView = self.titleView;
 
     self.view.backgroundColor = [UIColor colorWithRed:243.0 / 255.0 green:243.0 / 255.0 blue:243.0 / 255.0 alpha:1.0];
@@ -61,8 +70,7 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorInset = UIEdgeInsetsMake(0.0, 24.0, 0.0, 24.0);
     self.tableView.separatorColor = [UIColor colorWithRed:106.0 / 255.0 green:120.0 / 255.0 blue:141.0 / 255.0 alpha:1.0];
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.estimatedRowHeight = 158.0;
+    self.tableView.estimatedRowHeight = UITableViewAutomaticDimension;
     self.tableView.allowsSelection = NO;
     [self.tableView registerNib:[UINib nibWithNibName:COMMENT_CELL_ID bundle:nil] forCellReuseIdentifier:COMMENT_CELL_ID];
 
@@ -74,6 +82,18 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [self ka_startObservingKeyboardNotifications];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+    [self ka_stopObservingKeyboardNotifications];
 }
 
 - (void)fetchedResultsController:(NSFetchedResultsController<DCBudgetProposalCommentEntity *> *)fetchedResultsController
@@ -88,7 +108,10 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
         parent = [fetchedResultsController objectAtIndexPath:parentIndexPath];
     }
     ProposalCommentTableViewCellModel *viewModel = [[ProposalCommentTableViewCellModel alloc] initWithCommentEntity:entity parent:parent];
-    [cell configureWithViewModel:viewModel];
+    ProposalCommentAddViewModel *commentAddViewModel = [self commentAddViewModelForEntity:entity];
+    cell.viewModel = viewModel;
+    cell.commentAddViewModel = commentAddViewModel;
+    cell.delegate = self;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -107,11 +130,57 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
 
 #pragma mark UITableViewDelegate
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ProposalCommentTableViewCell *cell = self.heightCalculationCell;
+
+    NSFetchedResultsController *frc = [self fetchedResultsControllerForTableView:tableView];
+    [self fetchedResultsController:frc configureCell:cell atIndexPath:indexPath];
+
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
+    cell.bounds = CGRectMake(0.0, 0.0, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
+
+    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    height += 1.0; // an extra point to the height to account for the cell separator
+
+    return ceil(height);
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self.titleView scrollViewDidScroll:scrollView threshold:0.0];
 
     CGFloat topOffset = scrollView.contentOffset.y + scrollView.contentInset.top;
     self.basicInfoViewTopConstraint.constant = MIN(-topOffset, 0.0);
+}
+
+#pragma mark ProposalCommentTableViewCellDelegate
+
+- (void)proposalCommentTableViewCell:(ProposalCommentTableViewCell *)cell didUpdateHeightShouldScrollToCellAnimated:(BOOL)shouldScrollToCellAnimated {
+    [UIView setAnimationsEnabled:NO];
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+    [UIView setAnimationsEnabled:YES];
+
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    if (!indexPath) {
+        return;
+    }
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:shouldScrollToCellAnimated];
+    });
+}
+
+#pragma mark Keyboard
+
+- (void)ka_keyboardShowOrHideAnimationWithHeight:(CGFloat)height
+                               animationDuration:(NSTimeInterval)animationDuration
+                                  animationCurve:(UIViewAnimationCurve)animationCurve {
+    UIEdgeInsets contentInset = self.tableView.contentInset;
+    contentInset.bottom = height;
+    self.tableView.contentInset = contentInset;
 }
 
 #pragma mark Private
@@ -126,8 +195,30 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
     return _titleView;
 }
 
+- (ProposalCommentTableViewCell *)heightCalculationCell {
+    if (!_heightCalculationCell) {
+        _heightCalculationCell = [[NSBundle mainBundle] loadNibNamed:COMMENT_CELL_ID owner:nil options:nil].firstObject;
+        NSParameterAssert(_heightCalculationCell);
+    }
+    return _heightCalculationCell;
+}
+
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView {
     return self.viewModel.fetchedResultsController;
+}
+
+- (ProposalCommentAddViewModel *)commentAddViewModelForEntity:(DCBudgetProposalCommentEntity *)entity {
+    NSString *identifier = entity.identifier;
+    NSParameterAssert(identifier);
+    if (!identifier) {
+        return nil;
+    }
+    ProposalCommentAddViewModel *commentAddViewModel = self.commentAddViewModelsByIdentifiers[identifier];
+    if (!commentAddViewModel) {
+        commentAddViewModel = [[ProposalCommentAddViewModel alloc] initWithType:ProposalCommentAddViewModelTypeReply];
+        self.commentAddViewModelsByIdentifiers[identifier] = commentAddViewModel;
+    }
+    return commentAddViewModel;
 }
 
 @end

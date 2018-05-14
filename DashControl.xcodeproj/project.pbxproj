@@ -88,6 +88,9 @@
 		2A46C24A20A328D8007037FA /* ProposalCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A46C24920A328D8007037FA /* ProposalCommentTableViewCell.xib */; };
 		2A46C24D20A5A834007037FA /* ProposalDetailBasicInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C24C20A5A834007037FA /* ProposalDetailBasicInfoView.m */; };
 		2A46C24F20A5A844007037FA /* ProposalDetailBasicInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A46C24E20A5A844007037FA /* ProposalDetailBasicInfoView.xib */; };
+		2A46C25220A6E7FD007037FA /* ProposalCommentAddView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C25120A6E7FD007037FA /* ProposalCommentAddView.m */; };
+		2A46C25420A6E80D007037FA /* ProposalCommentAddView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A46C25320A6E80D007037FA /* ProposalCommentAddView.xib */; };
+		2A46C25720A75258007037FA /* IntrinsicTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C25620A75258007037FA /* IntrinsicTextView.m */; };
 		2A4FE281203AE489007FD160 /* UIColor+DCStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FE280203AE489007FD160 /* UIColor+DCStyle.m */; };
 		2A4FE29D203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FE29C203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m */; };
 		2A587E99206A53A5004BC537 /* PortfolioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A587E98206A53A5004BC537 /* PortfolioViewController.m */; };
@@ -183,6 +186,7 @@
 		2AF39E8C209AE7E100479948 /* DashControlSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF39E8B209AE7E100479948 /* DashControlSnapshots.swift */; };
 		2AF39E96209AF85F00479948 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF39E95209AF85F00479948 /* SnapshotHelper.swift */; };
 		2AF39E99209BABC600479948 /* UITestingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF39E98209BABC600479948 /* UITestingHelper.m */; };
+		2AF39EC320A9BAEC00479948 /* ProposalCommentAddViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF39EC220A9BAEC00479948 /* ProposalCommentAddViewModel.m */; };
 		8B0BD619FFF877813DC0386A /* libPods-DashControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 742C8B5087BA50FD669F86E9 /* libPods-DashControl.a */; };
 		FB17AEE31FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AED81FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataClass.m */; };
 		FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB17AEDA1FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m */; };
@@ -419,6 +423,11 @@
 		2A46C24B20A5A834007037FA /* ProposalDetailBasicInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalDetailBasicInfoView.h; sourceTree = "<group>"; };
 		2A46C24C20A5A834007037FA /* ProposalDetailBasicInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailBasicInfoView.m; sourceTree = "<group>"; };
 		2A46C24E20A5A844007037FA /* ProposalDetailBasicInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProposalDetailBasicInfoView.xib; sourceTree = "<group>"; };
+		2A46C25020A6E7FD007037FA /* ProposalCommentAddView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalCommentAddView.h; sourceTree = "<group>"; };
+		2A46C25120A6E7FD007037FA /* ProposalCommentAddView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalCommentAddView.m; sourceTree = "<group>"; };
+		2A46C25320A6E80D007037FA /* ProposalCommentAddView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProposalCommentAddView.xib; sourceTree = "<group>"; };
+		2A46C25520A75257007037FA /* IntrinsicTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntrinsicTextView.h; sourceTree = "<group>"; };
+		2A46C25620A75258007037FA /* IntrinsicTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntrinsicTextView.m; sourceTree = "<group>"; };
 		2A4FE27F203AE489007FD160 /* UIColor+DCStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+DCStyle.h"; sourceTree = "<group>"; };
 		2A4FE280203AE489007FD160 /* UIColor+DCStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DCStyle.m"; sourceTree = "<group>"; };
 		2A4FE282203AF2A7007FD160 /* BaseNewsTableViewController+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BaseNewsTableViewController+Protected.h"; sourceTree = "<group>"; };
@@ -594,6 +603,8 @@
 		2AF39E95209AF85F00479948 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		2AF39E97209BABC600479948 /* UITestingHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITestingHelper.h; sourceTree = "<group>"; };
 		2AF39E98209BABC600479948 /* UITestingHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UITestingHelper.m; sourceTree = "<group>"; };
+		2AF39EC120A9BAEC00479948 /* ProposalCommentAddViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalCommentAddViewModel.h; sourceTree = "<group>"; };
+		2AF39EC220A9BAEC00479948 /* ProposalCommentAddViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalCommentAddViewModel.m; sourceTree = "<group>"; };
 		403ADE725BE30A95BD44A394 /* Pods-DashControlTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControlTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests.release.xcconfig"; sourceTree = "<group>"; };
 		481845A5C2EBC2EB1752483D /* Pods-DashControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControl.release.xcconfig"; path = "Pods/Target Support Files/Pods-DashControl/Pods-DashControl.release.xcconfig"; sourceTree = "<group>"; };
 		558B8AE6721A9375C76DBBD3 /* Pods-DashControlTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashControlTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1070,6 +1081,11 @@
 		2A46C24220A32893007037FA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2A46C25020A6E7FD007037FA /* ProposalCommentAddView.h */,
+				2A46C25120A6E7FD007037FA /* ProposalCommentAddView.m */,
+				2A46C25320A6E80D007037FA /* ProposalCommentAddView.xib */,
+				2AF39EC120A9BAEC00479948 /* ProposalCommentAddViewModel.h */,
+				2AF39EC220A9BAEC00479948 /* ProposalCommentAddViewModel.m */,
 				2A46C24320A328B1007037FA /* ProposalCommentTableViewCell.h */,
 				2A46C24420A328B1007037FA /* ProposalCommentTableViewCell.m */,
 				2A46C24920A328D8007037FA /* ProposalCommentTableViewCell.xib */,
@@ -1142,6 +1158,8 @@
 				2A289A4A203AAF3200EDC98E /* SearchController */,
 				2A0DAAEA208DC2BF00992DC1 /* DCTableViewController.h */,
 				2A0DAAEB208DC2BF00992DC1 /* DCTableViewController.m */,
+				2A46C25520A75257007037FA /* IntrinsicTextView.h */,
+				2A46C25620A75258007037FA /* IntrinsicTextView.m */,
 				2A0DAAED208DC8C400992DC1 /* FetchedResultsTableViewController.h */,
 				2A0DAAEE208DC8C400992DC1 /* FetchedResultsTableViewController.m */,
 				2A6F5965203566A600D7BD85 /* ForwardingNavigationController.h */,
@@ -1780,6 +1798,7 @@
 				2A4473A0204207E400B52BCB /* Price.storyboard in Resources */,
 				FB1F8AB51FBCD2EA00175311 /* BIP39Words.plist in Resources */,
 				2A6FBEF5207C0CFF0055BAC8 /* News.storyboard in Resources */,
+				2A46C25420A6E80D007037FA /* ProposalCommentAddView.xib in Resources */,
 				2AEF296D207345DB008590E4 /* SelectorFormTableViewCell.xib in Resources */,
 				2A32D6392054800B004B38A6 /* ProposalDescriptionTemplate.html in Resources */,
 				2AEF29BB20740647008590E4 /* QRCodeButton.xib in Resources */,
@@ -2057,9 +2076,11 @@
 				2A6FBEFA207C97510055BAC8 /* ProposalDetailVotesView.m in Sources */,
 				2A289A55203AC10E00EDC98E /* NewsSearchResultsController.m in Sources */,
 				FB17AEE41FA2F93900B3B3F0 /* DCWalletAccountEntity+CoreDataProperties.m in Sources */,
+				2A46C25720A75258007037FA /* IntrinsicTextView.m in Sources */,
 				2A4473AE2042E8DA00B52BCB /* DCSegmentedControl.m in Sources */,
 				FB84EDC21F32898700E4D400 /* main.m in Sources */,
 				FBE1F50B1F5D4CF500823A77 /* DCExchangeEntity+CoreDataClass.m in Sources */,
+				2AF39EC320A9BAEC00479948 /* ProposalCommentAddViewModel.m in Sources */,
 				FB4311021FA2BCD800784EBC /* NSString+Sugar.m in Sources */,
 				2A587EA3206A85B0004BC537 /* AddItemTableViewCell.m in Sources */,
 				2A6FBECD2076961C0055BAC8 /* APIBaseAuthorized.m in Sources */,
@@ -2085,6 +2106,7 @@
 				FBE1F5091F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m in Sources */,
 				2A6FBEEB207B28880055BAC8 /* PortfolioHeaderViewModel.m in Sources */,
 				2A8F8184203EB74900D3D6C9 /* DCMarketEntity+Extensions.m in Sources */,
+				2A46C25220A6E7FD007037FA /* ProposalCommentAddView.m in Sources */,
 				2A46C24D20A5A834007037FA /* ProposalDetailBasicInfoView.m in Sources */,
 				FB9CC1A51F87D4860079309F /* BRBIP32Sequence.m in Sources */,
 				2AEF299120737932008590E4 /* WalletAddressViewModel.m in Sources */,

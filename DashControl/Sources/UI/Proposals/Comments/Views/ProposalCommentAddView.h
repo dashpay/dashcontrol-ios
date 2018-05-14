@@ -19,21 +19,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ProposalCommentTableViewCellModel;
-@class ProposalCommentTableViewCell;
+@class ProposalCommentAddView;
 @class ProposalCommentAddViewModel;
 
-@protocol ProposalCommentTableViewCellDelegate <NSObject>
+@protocol ProposalCommentAddViewDelegate <NSObject>
 
-- (void)proposalCommentTableViewCell:(ProposalCommentTableViewCell *)cell didUpdateHeightShouldScrollToCellAnimated:(BOOL)shouldScrollToCellAnimated;
+- (void)proposalCommentAddViewTextDidChange:(ProposalCommentAddView *)view;
 
 @end
 
-@interface ProposalCommentTableViewCell : UITableViewCell
+@interface ProposalCommentAddView : UIView
 
-@property (strong, nonatomic) ProposalCommentTableViewCellModel *viewModel;
-@property (strong, nonatomic) ProposalCommentAddViewModel *commentAddViewModel;
-@property (nullable, weak, nonatomic) id<ProposalCommentTableViewCellDelegate> delegate;
+@property (nullable, weak, nonatomic) id<ProposalCommentAddViewDelegate> delegate;
+@property (strong, nonatomic) ProposalCommentAddViewModel *viewModel;
 
 @end
 

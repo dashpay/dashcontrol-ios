@@ -19,6 +19,8 @@
 
 #import "UIColor+DCStyle.h"
 #import "UIFont+DCStyle.h"
+#import "ProposalCommentAddView.h"
+#import "ProposalCommentAddViewModel.h"
 #import "ProposalCommentTableViewCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -26,19 +28,22 @@ NS_ASSUME_NONNULL_BEGIN
 static CGFloat const INREPLYTO_USERNAME_PADDING = 13.0;
 static CGFloat const LEADING_PADDING = 24.0;
 
-@interface ProposalCommentTableViewCell ()
+@interface ProposalCommentTableViewCell () <ProposalCommentAddViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *inRelpyToLabel;
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
 @property (strong, nonatomic) IBOutlet UILabel *commentLabel;
 @property (strong, nonatomic) IBOutlet UIButton *replyButton;
+@property (strong, nonatomic) IBOutlet ProposalCommentAddView *commentAddView;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *inReplyToUsernameVerticalConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *usernameLeadingConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *dateLeadingConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *commentLeadingConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *replyLeadingConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *commentAddViewHeightConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *commentAddViewHiddenConstraint;
 
 @end
 
@@ -47,10 +52,12 @@ static CGFloat const LEADING_PADDING = 24.0;
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-    [self.replyButton setTitle:NSLocalizedString(@"Reply", nil) forState:UIControlStateNormal];
+    self.commentAddView.delegate = self;
 }
 
-- (void)configureWithViewModel:(ProposalCommentTableViewCellModel *)viewModel {
+- (void)setViewModel:(ProposalCommentTableViewCellModel *)viewModel {
+    _viewModel = viewModel;
+
     NSString *proposalOwner = [NSString stringWithFormat:@" (%@)", NSLocalizedString(@"proposal owner", nil)];
 
     if (viewModel.repliedToUsername) {
@@ -94,6 +101,61 @@ static CGFloat const LEADING_PADDING = 24.0;
     self.dateLeadingConstraint.constant = leading;
     self.commentLeadingConstraint.constant = leading;
     self.replyLeadingConstraint.constant = leading;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+
+    [self.contentView setNeedsLayout];
+    [self.contentView layoutIfNeeded];
+
+    self.commentLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.commentLabel.frame);
+}
+
+- (void)setCommentAddViewModel:(ProposalCommentAddViewModel *)commentAddViewModel {
+    _commentAddViewModel = commentAddViewModel;
+
+    self.commentAddView.viewModel = commentAddViewModel;
+    [self setCommentAddViewVisible:commentAddViewModel.visible];
+}
+
+- (IBAction)replyButtonAction:(id)sender {
+    if (self.commentAddViewHiddenConstraint.active) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.commentAddView becomeFirstResponder];
+        });
+
+        self.commentAddViewModel.visible = YES;
+
+        [self.delegate proposalCommentTableViewCell:self didUpdateHeightShouldScrollToCellAnimated:YES];
+
+        [self setCommentAddViewVisible:self.commentAddViewModel.visible];
+    }
+    else {
+        [self.commentAddView resignFirstResponder];
+
+        self.commentAddViewModel.visible = NO;
+
+        [self setCommentAddViewVisible:self.commentAddViewModel.visible];
+
+        [self.delegate proposalCommentTableViewCell:self didUpdateHeightShouldScrollToCellAnimated:YES];
+    }
+}
+
+#pragma mark ProposalCommentAddViewDelegate
+
+- (void)proposalCommentAddViewTextDidChange:(ProposalCommentAddView *)view {
+    [self.delegate proposalCommentTableViewCell:self didUpdateHeightShouldScrollToCellAnimated:NO];
+}
+
+#pragma mark Private
+
+- (void)setCommentAddViewVisible:(BOOL)visible {
+    self.commentAddViewHiddenConstraint.active = !visible;
+    self.commentAddViewHeightConstraint.active = visible;
+
+    NSString *buttonTitle = visible ? NSLocalizedString(@"Cancel", nil) : NSLocalizedString(@"Reply", nil);
+    [self.replyButton setTitle:buttonTitle forState:UIControlStateNormal];
 }
 
 @end
