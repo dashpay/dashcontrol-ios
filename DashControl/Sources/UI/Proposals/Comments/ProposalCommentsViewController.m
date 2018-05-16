@@ -20,6 +20,7 @@
 #import <UIViewController-KeyboardAdditions/UIViewController+KeyboardAdditions.h>
 
 #import "DCBudgetProposalEntity+CoreDataClass.h"
+#import "ProposalCommentAddTableViewCell.h"
 #import "ProposalCommentAddViewModel.h"
 #import "ProposalCommentTableViewCell.h"
 #import "ProposalCommentTableViewCellModel.h"
@@ -27,22 +28,31 @@
 #import "ProposalDetailBasicInfoView.h"
 #import "ProposalDetailTitleView.h"
 #import "QRScannerViewController.h"
+#import "TableViewFRCDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
+NSString *const COMMENT_ADD_CELL_ID = @"ProposalCommentAddTableViewCell";
 
-@interface ProposalCommentsViewController () <ProposalCommentTableViewCellDelegate, QRScannerViewControllerDelegate, ProposalCommentAddViewModelUpdatesObserver>
+typedef NS_ENUM(NSUInteger, ProposalCommentsSection) {
+    ProposalCommentsSection_AddComment = 0,
+    ProposalCommentsSection_Comments = 1,
+};
+
+@interface ProposalCommentsViewController () <ProposalCommentAddViewParentCellDelegate, QRScannerViewControllerDelegate, ProposalCommentAddViewModelUpdatesObserver>
 
 @property (strong, nonatomic) IBOutlet ProposalDetailBasicInfoView *basicInfoView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *basicInfoViewTopConstraint;
 @property (strong, nonatomic) ProposalDetailTitleView *titleView;
 
+@property (strong, nonatomic) TableViewFRCDelegate *frcDelegate;
 @property (strong, nonatomic) ProposalDetailHeaderViewModel *detailHeaderViewModel;
 @property (strong, nonatomic) ProposalCommentsViewModel *viewModel;
 
-@property (strong, nonatomic) ProposalCommentTableViewCell *heightCalculationCell;
+@property (strong, nonatomic) NSMutableDictionary<NSString *, UITableViewCell *> *heightCalculationCellsByIdentifier;
 @property (strong, nonatomic) NSMutableDictionary<NSString *, ProposalCommentAddViewModel *> *commentAddViewModelsByIdentifiers;
+@property (strong, nonatomic) ProposalCommentAddViewModel *rootCommentAddViewModel;
 @property (nullable, strong, nonatomic) ProposalCommentAddViewModel *commentToSend;
 
 @end
@@ -62,6 +72,9 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
     [super viewDidLoad];
 
     self.commentAddViewModelsByIdentifiers = [NSMutableDictionary dictionary];
+    self.heightCalculationCellsByIdentifier = [NSMutableDictionary dictionary];
+    self.rootCommentAddViewModel = [[ProposalCommentAddViewModel alloc] initWithProposalHash:self.viewModel.proposal.proposalHash];
+    self.rootCommentAddViewModel.visible = YES;
 
     self.navigationItem.titleView = self.titleView;
 
@@ -73,12 +86,25 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
     self.tableView.separatorColor = [UIColor colorWithRed:106.0 / 255.0 green:120.0 / 255.0 blue:141.0 / 255.0 alpha:1.0];
     self.tableView.estimatedRowHeight = UITableViewAutomaticDimension;
     self.tableView.allowsSelection = NO;
-    [self.tableView registerNib:[UINib nibWithNibName:COMMENT_CELL_ID bundle:nil] forCellReuseIdentifier:COMMENT_CELL_ID];
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    NSArray<NSString *> *cellIds = @[ COMMENT_CELL_ID, COMMENT_ADD_CELL_ID ];
+    for (NSString *cellId in cellIds) {
+        UINib *nib = [UINib nibWithNibName:cellId bundle:nil];
+        NSParameterAssert(nib);
+        [self.tableView registerNib:nib forCellReuseIdentifier:cellId];
+    }
 
     self.basicInfoView.viewModel = self.detailHeaderViewModel;
     CGSize size = [self.basicInfoView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     self.tableView.contentInset = UIEdgeInsetsMake(size.height, 0.0, 0.0, 0.0);
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
+
+    // KVO
+
+    [self mvvm_observe:@"viewModel.fetchedResultsController" with:^(typeof(self) self, id value) {
+        self.viewModel.fetchedResultsController.delegate = self.frcDelegate;
+        [self.tableView reloadData];
+    }];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -97,51 +123,81 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
     [self ka_stopObservingKeyboardNotifications];
 }
 
-- (void)fetchedResultsController:(NSFetchedResultsController<DCBudgetProposalCommentEntity *> *)fetchedResultsController
-                   configureCell:(ProposalCommentTableViewCell *)cell
-                     atIndexPath:(NSIndexPath *)indexPath {
-    DCBudgetProposalCommentEntity *entity = [fetchedResultsController objectAtIndexPath:indexPath];
-    DCBudgetProposalCommentEntity *parent = nil;
-    BOOL hasParent = (entity.level > 0);
-    NSInteger parentRow = indexPath.row - 1;
-    if (hasParent && parentRow >= 0) {
-        NSIndexPath *parentIndexPath = [NSIndexPath indexPathForRow:parentRow inSection:indexPath.section];
-        parent = [fetchedResultsController objectAtIndexPath:parentIndexPath];
-    }
-    ProposalCommentTableViewCellModel *viewModel = [[ProposalCommentTableViewCellModel alloc] initWithCommentEntity:entity parent:parent];
-    ProposalCommentAddViewModel *commentAddViewModel = [self commentAddViewModelForEntity:entity];
-    cell.viewModel = viewModel;
-    cell.commentAddViewModel = commentAddViewModel;
-    cell.delegate = self;
+#pragma mark UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSFetchedResultsController *frc = [self fetchedResultsControllerForTableView:tableView];
-    id<NSFetchedResultsSectionInfo> sectionInfo = frc.sections.firstObject;
-    NSUInteger numberOfObjects = sectionInfo.numberOfObjects;
-    return numberOfObjects;
+    if (section == ProposalCommentsSection_AddComment) {
+        return 1;
+    }
+    else {
+        NSFetchedResultsController *frc = [self fetchedResultsControllerForTableView:tableView];
+        id<NSFetchedResultsSectionInfo> sectionInfo = frc.sections.firstObject;
+        NSUInteger numberOfObjects = sectionInfo.numberOfObjects;
+        return numberOfObjects;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ProposalCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:COMMENT_CELL_ID forIndexPath:indexPath];
-    NSFetchedResultsController *frc = [self fetchedResultsControllerForTableView:tableView];
-    [self fetchedResultsController:frc configureCell:cell atIndexPath:indexPath];
-    return cell;
+    switch (indexPath.section) {
+        case ProposalCommentsSection_AddComment: {
+            ProposalCommentAddTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:COMMENT_ADD_CELL_ID forIndexPath:indexPath];
+            [self configureCommentAddCell:cell atIndexPath:indexPath];
+            return cell;
+        }
+        case ProposalCommentsSection_Comments: {
+            ProposalCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:COMMENT_CELL_ID forIndexPath:indexPath];
+            [self configureCommentCell:cell atIndexPath:indexPath];
+            return cell;
+        }
+        default: {
+            NSAssert(NO, @"Inconsistent data source");
+            return [UITableViewCell new];
+        }
+    }
 }
 
 #pragma mark UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ProposalCommentTableViewCell *cell = self.heightCalculationCell;
+    NSString *cellId = nil;
+    switch (indexPath.section) {
+        case ProposalCommentsSection_AddComment:
+            cellId = COMMENT_ADD_CELL_ID;
+            break;
+        case ProposalCommentsSection_Comments:
+            cellId = COMMENT_CELL_ID;
+            break;
+    }
 
-    NSFetchedResultsController *frc = [self fetchedResultsControllerForTableView:tableView];
+    UITableViewCell *cell = self.heightCalculationCellsByIdentifier[cellId];
+    if (!cell) {
+        cell = [[NSBundle mainBundle] loadNibNamed:cellId owner:nil options:nil].firstObject;
+        self.heightCalculationCellsByIdentifier[cellId] = cell;
+    }
 
-    id<ProposalCommentAddViewModelUpdatesObserver> originalUpdatesObserver = nil;
-    DCBudgetProposalCommentEntity *entity = [frc objectAtIndexPath:indexPath];
-    ProposalCommentAddViewModel *commentAddViewModel = [self commentAddViewModelForEntity:entity];
-    originalUpdatesObserver = commentAddViewModel.uiUpdatesObserver;
+    ProposalCommentAddViewModel *commentAddViewModel = nil;
+    switch (indexPath.section) {
+        case ProposalCommentsSection_AddComment: {
+            commentAddViewModel = self.rootCommentAddViewModel;
 
-    [self fetchedResultsController:frc configureCell:cell atIndexPath:indexPath];
+            [self configureCommentAddCell:(ProposalCommentAddTableViewCell *)cell atIndexPath:indexPath];
+
+            break;
+        }
+        case ProposalCommentsSection_Comments: {
+            DCBudgetProposalCommentEntity *entity = [self commentAtIndexPath:indexPath];
+            commentAddViewModel = [self commentAddViewModelForEntity:entity];
+
+            [self configureCommentCell:(ProposalCommentTableViewCell *)cell atIndexPath:indexPath];
+
+            break;
+        }
+    }
+    id<ProposalCommentAddViewModelUpdatesObserver> originalUpdatesObserver = commentAddViewModel.uiUpdatesObserver;
 
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
@@ -164,9 +220,9 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
     self.basicInfoViewTopConstraint.constant = MIN(-topOffset, 0.0);
 }
 
-#pragma mark ProposalCommentTableViewCellDelegate
+#pragma mark ProposalCommentAddViewParentCellDelegate
 
-- (void)proposalCommentTableViewCell:(ProposalCommentTableViewCell *)cell didUpdateHeightShouldScrollToCellAnimated:(BOOL)shouldScrollToCellAnimated {
+- (void)proposalCommentAddViewParentCell:(ProposalCommentTableViewCell *)cell didUpdateHeightShouldScrollToCellAnimated:(BOOL)shouldScrollToCellAnimated {
     [UIView setAnimationsEnabled:NO];
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
@@ -182,7 +238,7 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
     });
 }
 
-- (void)proposalCommentTableViewCellAddCommentAction:(ProposalCommentTableViewCell *)cell {
+- (void)proposalCommentAddViewParentCellAddCommentAction:(ProposalCommentTableViewCell *)cell {
     if (self.viewModel.authorized) {
         [cell.commentAddViewModel send];
     }
@@ -226,6 +282,51 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
 
 #pragma mark Private
 
+- (DCBudgetProposalCommentEntity *)commentAtIndexPath:(NSIndexPath *)indexPath {
+    NSFetchedResultsController *frc = self.viewModel.fetchedResultsController;
+    id<NSFetchedResultsSectionInfo> sectionInfo = frc.sections.firstObject;
+    NSArray *objects = sectionInfo.objects;
+    DCBudgetProposalCommentEntity *entity = objects[indexPath.row];
+    return entity;
+}
+
+- (void)configureCommentCell:(ProposalCommentTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    DCBudgetProposalCommentEntity *entity = [self commentAtIndexPath:indexPath];
+    DCBudgetProposalCommentEntity *parent = nil;
+    BOOL hasParent = (entity.level > 0);
+    NSInteger parentRow = indexPath.row - 1;
+    if (hasParent && parentRow >= 0) {
+        NSIndexPath *parentIndexPath = [NSIndexPath indexPathForRow:parentRow inSection:indexPath.section];
+        parent = [self commentAtIndexPath:parentIndexPath];
+    }
+    ProposalCommentTableViewCellModel *viewModel = [[ProposalCommentTableViewCellModel alloc] initWithCommentEntity:entity parent:parent];
+    ProposalCommentAddViewModel *commentAddViewModel = [self commentAddViewModelForEntity:entity];
+    cell.viewModel = viewModel;
+    cell.commentAddViewModel = commentAddViewModel;
+    cell.delegate = self;
+}
+
+- (void)configureCommentAddCell:(ProposalCommentAddTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    cell.commentAddViewModel = self.rootCommentAddViewModel;
+    cell.delegate = self;
+}
+
+- (TableViewFRCDelegate *)frcDelegate {
+    if (!_frcDelegate) {
+        _frcDelegate = [[TableViewFRCDelegate alloc] init];
+        _frcDelegate.tableView = self.tableView;
+        weakify;
+        _frcDelegate.configureCellBlock = ^(NSFetchedResultsController *_Nonnull fetchedResultsController, UITableViewCell *_Nonnull cell, NSIndexPath *_Nonnull indexPath) {
+            strongify;
+            [self configureCommentCell:(ProposalCommentTableViewCell *)cell atIndexPath:indexPath];
+        };
+        _frcDelegate.transformationBlock = ^NSIndexPath *_Nonnull(NSIndexPath *_Nonnull indexPath) {
+            return [NSIndexPath indexPathForRow:indexPath.row inSection:1];
+        };
+    }
+    return _frcDelegate;
+}
+
 - (void)showAuthorization {
     QRScannerViewController *controller = [[QRScannerViewController alloc] initAsDashCentralAuth];
     controller.delegate = self;
@@ -240,14 +341,6 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
         [_titleView sizeToFit];
     }
     return _titleView;
-}
-
-- (ProposalCommentTableViewCell *)heightCalculationCell {
-    if (!_heightCalculationCell) {
-        _heightCalculationCell = [[NSBundle mainBundle] loadNibNamed:COMMENT_CELL_ID owner:nil options:nil].firstObject;
-        NSParameterAssert(_heightCalculationCell);
-    }
-    return _heightCalculationCell;
 }
 
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView {

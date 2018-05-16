@@ -17,24 +17,18 @@
 
 #import <UIKit/UIKit.h>
 
+#import "ProposalCommentAddViewParentCellDelegate.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class ProposalCommentTableViewCellModel;
-@class ProposalCommentTableViewCell;
 @class ProposalCommentAddViewModel;
-
-@protocol ProposalCommentTableViewCellDelegate <NSObject>
-
-- (void)proposalCommentTableViewCell:(ProposalCommentTableViewCell *)cell didUpdateHeightShouldScrollToCellAnimated:(BOOL)shouldScrollToCellAnimated;
-- (void)proposalCommentTableViewCellAddCommentAction:(ProposalCommentTableViewCell *)cell;
-
-@end
 
 @interface ProposalCommentTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) ProposalCommentTableViewCellModel *viewModel;
 @property (strong, nonatomic) ProposalCommentAddViewModel *commentAddViewModel;
-@property (nullable, weak, nonatomic) id<ProposalCommentTableViewCellDelegate> delegate;
+@property (nullable, weak, nonatomic) id<ProposalCommentAddViewParentCellDelegate> delegate;
 
 @end
 

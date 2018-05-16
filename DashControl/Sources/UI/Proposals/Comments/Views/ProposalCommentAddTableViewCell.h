@@ -15,26 +15,18 @@
 //  limitations under the License.
 //
 
-#import "DCTableViewController.h"
+#import <UIKit/UIKit.h>
+
+#import "ProposalCommentAddViewParentCellDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCBudgetProposalEntity;
-@class ProposalDetailHeaderViewModel;
-@class ProposalCommentsViewController;
+@class ProposalCommentAddViewModel;
 
-@protocol ProposalCommentsViewControllerDelegate <NSObject>
+@interface ProposalCommentAddTableViewCell : UITableViewCell
 
-- (void)proposalCommentsViewControllerDidAddComment:(ProposalCommentsViewController *)controller;
-
-@end
-
-@interface ProposalCommentsViewController : DCTableViewController
-
-@property (nullable, weak, nonatomic) id<ProposalCommentsViewControllerDelegate> delegate;
-
-+ (instancetype)controllerWithProposal:(DCBudgetProposalEntity *)proposal
-                 detailHeaderViewModel:(ProposalDetailHeaderViewModel *)detailHeaderViewModel;
+@property (strong, nonatomic) ProposalCommentAddViewModel *commentAddViewModel;
+@property (nullable, weak, nonatomic) id<ProposalCommentAddViewParentCellDelegate> delegate;
 
 @end
 

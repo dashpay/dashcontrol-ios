@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
     self = [self initWithProposalHash:proposalHash];
     if (self) {
         _replyToCommentId = replyToCommentId;
-        _type = ProposalCommentAddViewModelTypeReply;
+        _type = ProposalCommentAddViewModelType_Reply;
     }
     return self;
 }
@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)send {
-    self.state = ProposalCommentAddViewModelStateSending;
+    self.state = ProposalCommentAddViewModelState_Sending;
 
     NSString *trimmedString = [self.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     weakify;
@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
             [self.mainUpdatesObserver proposalCommentAddViewModelDidAddComment:self];
         }
         else {
-            self.state = ProposalCommentAddViewModelStateError;
+            self.state = ProposalCommentAddViewModelState_Error;
         }
     }];
 }
@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)reset {
     self.text = nil;
-    self.state = ProposalCommentAddViewModelStateNone;
+    self.state = ProposalCommentAddViewModelState_None;
 }
 
 @end

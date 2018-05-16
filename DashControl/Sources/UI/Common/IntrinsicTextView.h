@@ -15,11 +15,11 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import "PlaceholderTextView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IntrinsicTextView : UITextView
+@interface IntrinsicTextView : PlaceholderTextView
 
 @end
 

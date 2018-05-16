@@ -29,7 +29,7 @@ DEPENDENCIES:
   - UIViewController-KeyboardAdditions (= 1.2.1)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Charts
     - DeluxeInjection
     - Godzippa
@@ -57,4 +57,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 37da7c23a0302ad1619956662fa433cc17158b64
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.2

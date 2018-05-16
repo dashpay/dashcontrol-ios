@@ -20,13 +20,14 @@
 #import "UIColor+DCStyle.h"
 #import "UIView+DCAnimations.h"
 #import "ProposalCommentAddViewModel.h"
+#import "IntrinsicTextView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ProposalCommentAddView () <UITextViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
-@property (strong, nonatomic) IBOutlet UITextView *textView;
+@property (strong, nonatomic) IBOutlet IntrinsicTextView *textView;
 @property (strong, nonatomic) IBOutlet UIButton *addButton;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 
@@ -64,22 +65,23 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.textView.delegate = self;
     self.textView.layer.borderWidth = 1.0;
+    self.textView.placeholderText = NSLocalizedString(@"Write a comment...", nil);
 
     // KVO
 
     [self mvvm_observe:@"viewModel.state" with:^(typeof(self) self, NSNumber * value) {
         switch (self.viewModel.state) {
-            case ProposalCommentAddViewModelStateNone: {
+            case ProposalCommentAddViewModelState_None: {
                 [self setViewLoading:NO];
                 [self updateFirstResponderState:self.isFirstResponder];
                 break;
             }
-            case ProposalCommentAddViewModelStateSending: {
+            case ProposalCommentAddViewModelState_Sending: {
                 [self setViewLoading:YES];
                 [self updateFirstResponderState:self.isFirstResponder];
                 break;
             }
-            case ProposalCommentAddViewModelStateError: {
+            case ProposalCommentAddViewModelState_Error: {
                 [self setViewLoading:NO];
                 UIColor *redColor = [UIColor colorWithRed:255.0 / 255.0 green:37.0 / 255.0 blue:101.0 / 255.0 alpha:1.0];
                 self.textView.layer.borderColor = redColor.CGColor;
@@ -178,11 +180,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)resetAddButtonTitle {
     NSString *buttonTitle = nil;
     switch (self.viewModel.type) {
-        case ProposalCommentAddViewModelTypeComment: {
+        case ProposalCommentAddViewModelType_Comment: {
             buttonTitle = NSLocalizedString(@"Add Comment", nil);
             break;
         }
-        case ProposalCommentAddViewModelTypeReply: {
+        case ProposalCommentAddViewModelType_Reply: {
             buttonTitle = NSLocalizedString(@"Add Reply", nil);
             break;
         }

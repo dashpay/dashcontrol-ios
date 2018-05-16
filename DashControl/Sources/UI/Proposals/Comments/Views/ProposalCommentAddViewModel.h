@@ -23,14 +23,14 @@ NS_ASSUME_NONNULL_BEGIN
 @class ProposalCommentAddViewModel;
 
 typedef NS_ENUM(NSUInteger, ProposalCommentAddViewModelType) {
-    ProposalCommentAddViewModelTypeComment,
-    ProposalCommentAddViewModelTypeReply,
+    ProposalCommentAddViewModelType_Comment,
+    ProposalCommentAddViewModelType_Reply,
 };
 
 typedef NS_ENUM(NSUInteger, ProposalCommentAddViewModelState) {
-    ProposalCommentAddViewModelStateNone,
-    ProposalCommentAddViewModelStateSending,
-    ProposalCommentAddViewModelStateError,
+    ProposalCommentAddViewModelState_None,
+    ProposalCommentAddViewModelState_Sending,
+    ProposalCommentAddViewModelState_Error,
 };
 
 @protocol ProposalCommentAddViewModelUpdatesObserver <NSObject>

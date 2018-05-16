@@ -128,7 +128,7 @@ static CGFloat const LEADING_PADDING = 24.0;
 
         self.commentAddViewModel.visible = YES;
 
-        [self.delegate proposalCommentTableViewCell:self didUpdateHeightShouldScrollToCellAnimated:YES];
+        [self.delegate proposalCommentAddViewParentCell:self didUpdateHeightShouldScrollToCellAnimated:YES];
 
         [self setCommentAddViewVisible:self.commentAddViewModel.visible];
     }
@@ -140,12 +140,12 @@ static CGFloat const LEADING_PADDING = 24.0;
 #pragma mark ProposalCommentAddViewDelegate
 
 - (void)proposalCommentAddViewTextDidChange:(ProposalCommentAddView *)view {
-    [self.delegate proposalCommentTableViewCell:self didUpdateHeightShouldScrollToCellAnimated:NO];
+    [self.delegate proposalCommentAddViewParentCell:self didUpdateHeightShouldScrollToCellAnimated:NO];
 }
 
 - (void)proposalCommentAddViewAddButtonAction:(ProposalCommentAddView *)view {
     if ([self.commentAddViewModel isCommentValid]) {
-        [self.delegate proposalCommentTableViewCellAddCommentAction:self];
+        [self.delegate proposalCommentAddViewParentCellAddCommentAction:self];
     }
     else {
         [self.commentAddView shakeTextView];
@@ -175,7 +175,7 @@ static CGFloat const LEADING_PADDING = 24.0;
 
     [self setCommentAddViewVisible:self.commentAddViewModel.visible];
 
-    [self.delegate proposalCommentTableViewCell:self didUpdateHeightShouldScrollToCellAnimated:YES];
+    [self.delegate proposalCommentAddViewParentCell:self didUpdateHeightShouldScrollToCellAnimated:YES];
 }
 
 @end

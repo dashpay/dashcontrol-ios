@@ -272,6 +272,9 @@
 /* No comment provided by engineer. */
 "Will be\nfunded" = "Will be\nfunded";
 
+/* No comment provided by engineer. */
+"Write a comment..." = "Write a comment...";
+
 /* Will be funded - yes
    Yes votes count title */
 "Yes" = "Yes";

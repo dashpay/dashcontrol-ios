@@ -95,6 +95,9 @@
 		2A46C28320AB87A7007037FA /* UIView+DCAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C28220AB87A7007037FA /* UIView+DCAnimations.m */; };
 		2A46C28620AC2687007037FA /* QRScannerHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A46C28520AC2687007037FA /* QRScannerHintView.xib */; };
 		2A46C28920AC26DE007037FA /* QRScannerHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C28820AC26DE007037FA /* QRScannerHintView.m */; };
+		2A46C28D20AC78AD007037FA /* ProposalCommentAddTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C28B20AC78AD007037FA /* ProposalCommentAddTableViewCell.m */; };
+		2A46C28E20AC78AD007037FA /* ProposalCommentAddTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A46C28C20AC78AD007037FA /* ProposalCommentAddTableViewCell.xib */; };
+		2A4A2FE220AD699500835B92 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A2FE120AD699500835B92 /* PlaceholderTextView.m */; };
 		2A4FE281203AE489007FD160 /* UIColor+DCStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FE280203AE489007FD160 /* UIColor+DCStyle.m */; };
 		2A4FE29D203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FE29C203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m */; };
 		2A587E99206A53A5004BC537 /* PortfolioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A587E98206A53A5004BC537 /* PortfolioViewController.m */; };
@@ -439,6 +442,12 @@
 		2A46C28520AC2687007037FA /* QRScannerHintView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QRScannerHintView.xib; sourceTree = "<group>"; };
 		2A46C28720AC26DE007037FA /* QRScannerHintView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRScannerHintView.h; sourceTree = "<group>"; };
 		2A46C28820AC26DE007037FA /* QRScannerHintView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRScannerHintView.m; sourceTree = "<group>"; };
+		2A46C28A20AC78AD007037FA /* ProposalCommentAddTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalCommentAddTableViewCell.h; sourceTree = "<group>"; };
+		2A46C28B20AC78AD007037FA /* ProposalCommentAddTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalCommentAddTableViewCell.m; sourceTree = "<group>"; };
+		2A46C28C20AC78AD007037FA /* ProposalCommentAddTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProposalCommentAddTableViewCell.xib; sourceTree = "<group>"; };
+		2A46C28F20AC7D08007037FA /* ProposalCommentAddViewParentCellDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalCommentAddViewParentCellDelegate.h; sourceTree = "<group>"; };
+		2A4A2FE020AD699500835B92 /* PlaceholderTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceholderTextView.h; sourceTree = "<group>"; };
+		2A4A2FE120AD699500835B92 /* PlaceholderTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceholderTextView.m; sourceTree = "<group>"; };
 		2A4FE27F203AE489007FD160 /* UIColor+DCStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+DCStyle.h"; sourceTree = "<group>"; };
 		2A4FE280203AE489007FD160 /* UIColor+DCStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DCStyle.m"; sourceTree = "<group>"; };
 		2A4FE282203AF2A7007FD160 /* BaseNewsTableViewController+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BaseNewsTableViewController+Protected.h"; sourceTree = "<group>"; };
@@ -1092,6 +1101,9 @@
 		2A46C24220A32893007037FA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2A46C28A20AC78AD007037FA /* ProposalCommentAddTableViewCell.h */,
+				2A46C28B20AC78AD007037FA /* ProposalCommentAddTableViewCell.m */,
+				2A46C28C20AC78AD007037FA /* ProposalCommentAddTableViewCell.xib */,
 				2A46C25020A6E7FD007037FA /* ProposalCommentAddView.h */,
 				2A46C25120A6E7FD007037FA /* ProposalCommentAddView.m */,
 				2A46C25320A6E80D007037FA /* ProposalCommentAddView.xib */,
@@ -1102,6 +1114,7 @@
 				2A46C24920A328D8007037FA /* ProposalCommentTableViewCell.xib */,
 				2A46C24620A328BF007037FA /* ProposalCommentTableViewCellModel.h */,
 				2A46C24720A328BF007037FA /* ProposalCommentTableViewCellModel.m */,
+				2A46C28F20AC7D08007037FA /* ProposalCommentAddViewParentCellDelegate.h */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1181,12 +1194,14 @@
 				2A289A4A203AAF3200EDC98E /* SearchController */,
 				2A0DAAEA208DC2BF00992DC1 /* DCTableViewController.h */,
 				2A0DAAEB208DC2BF00992DC1 /* DCTableViewController.m */,
-				2A46C25520A75257007037FA /* IntrinsicTextView.h */,
-				2A46C25620A75258007037FA /* IntrinsicTextView.m */,
 				2A0DAAED208DC8C400992DC1 /* FetchedResultsTableViewController.h */,
 				2A0DAAEE208DC8C400992DC1 /* FetchedResultsTableViewController.m */,
 				2A6F5965203566A600D7BD85 /* ForwardingNavigationController.h */,
 				2A6F5966203566A600D7BD85 /* ForwardingNavigationController.m */,
+				2A46C25520A75257007037FA /* IntrinsicTextView.h */,
+				2A46C25620A75258007037FA /* IntrinsicTextView.m */,
+				2A4A2FE020AD699500835B92 /* PlaceholderTextView.h */,
+				2A4A2FE120AD699500835B92 /* PlaceholderTextView.m */,
 				2A587EAB206A8D8E004BC537 /* TableViewFRCDelegate.h */,
 				2A587EAC206A8D8E004BC537 /* TableViewFRCDelegate.m */,
 			);
@@ -1823,6 +1838,7 @@
 				2AE3C46C2091C33C00CE83A8 /* NewsLoadMoreTableViewCell.xib in Resources */,
 				2A4473A0204207E400B52BCB /* Price.storyboard in Resources */,
 				FB1F8AB51FBCD2EA00175311 /* BIP39Words.plist in Resources */,
+				2A46C28E20AC78AD007037FA /* ProposalCommentAddTableViewCell.xib in Resources */,
 				2A6FBEF5207C0CFF0055BAC8 /* News.storyboard in Resources */,
 				2A46C25420A6E80D007037FA /* ProposalCommentAddView.xib in Resources */,
 				2AEF296D207345DB008590E4 /* SelectorFormTableViewCell.xib in Resources */,
@@ -1991,6 +2007,7 @@
 				FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */,
 				2AEF29702073465A008590E4 /* SelectorFormCellModel.m in Sources */,
 				2A04E6DB202DA5E20065F30D /* HTTPLoaderManager.m in Sources */,
+				2A4A2FE220AD699500835B92 /* PlaceholderTextView.m in Sources */,
 				2AD0973320571DF300033B72 /* DCChartDataTimeIntervalEntity+Extensions.m in Sources */,
 				2A587E9E206A846B004BC537 /* PortfolioViewModel.m in Sources */,
 				2AC693FB2064E74F00F64482 /* PriceViewModel.m in Sources */,
@@ -2096,6 +2113,7 @@
 				2AEF29622072CD25008590E4 /* BaseFormCellModel.m in Sources */,
 				2A08CF57207F0FAE002C1192 /* NSURLRequest+DCcURL.m in Sources */,
 				FB9CC1AB1F87D4A60079309F /* BRKey.m in Sources */,
+				2A46C28D20AC78AD007037FA /* ProposalCommentAddTableViewCell.m in Sources */,
 				2AEF29E7207421E5008590E4 /* QRScannerViewController.m in Sources */,
 				2A3F49A92049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.m in Sources */,
 				2A04E6E5202DA5E20065F30D /* HTTPURLRequestBuilder.m in Sources */,
