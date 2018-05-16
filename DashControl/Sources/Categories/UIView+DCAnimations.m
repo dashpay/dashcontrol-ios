@@ -15,26 +15,19 @@
 //  limitations under the License.
 //
 
-#import "FetchedResultsTableViewController.h"
+#import "UIView+DCAnimations.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCBudgetProposalEntity;
-@class ProposalDetailHeaderViewModel;
-@class ProposalCommentsViewController;
+@implementation UIView (DCAnimations)
 
-@protocol ProposalCommentsViewControllerDelegate <NSObject>
-
-- (void)proposalCommentsViewControllerDidAddComment:(ProposalCommentsViewController *)controller;
-
-@end
-
-@interface ProposalCommentsViewController : FetchedResultsTableViewController
-
-@property (nullable, weak, nonatomic) id<ProposalCommentsViewControllerDelegate> delegate;
-
-+ (instancetype)controllerWithProposal:(DCBudgetProposalEntity *)proposal
-                 detailHeaderViewModel:(ProposalDetailHeaderViewModel *)detailHeaderViewModel;
+- (void)dc_shakeView {
+    CAKeyframeAnimation *shakeAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
+    shakeAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    shakeAnimation.duration = 0.5;
+    shakeAnimation.values = @[ @(-16), @(16), @(-8), @(8), @(-4), @(4), @(0) ];
+    [self.layer addAnimation:shakeAnimation forKey:@"ShakeAnimation"];
+}
 
 @end
 

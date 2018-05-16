@@ -15,26 +15,25 @@
 //  limitations under the License.
 //
 
-#import "FetchedResultsTableViewController.h"
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCBudgetProposalEntity;
-@class ProposalDetailHeaderViewModel;
-@class ProposalCommentsViewController;
+@class HTTPLoaderManager;
+@class DCPersistenceStack;
+@protocol HTTPLoaderOperationProtocol;
 
-@protocol ProposalCommentsViewControllerDelegate <NSObject>
+@interface APIBudgetPrivate : NSObject
 
-- (void)proposalCommentsViewControllerDidAddComment:(ProposalCommentsViewController *)controller;
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+@property (strong, nonatomic) InjectedClass(HTTPLoaderManager) httpManager;
 
-@end
+@property (nullable, copy, nonatomic) NSString *userAPIKey;
 
-@interface ProposalCommentsViewController : FetchedResultsTableViewController
-
-@property (nullable, weak, nonatomic) id<ProposalCommentsViewControllerDelegate> delegate;
-
-+ (instancetype)controllerWithProposal:(DCBudgetProposalEntity *)proposal
-                 detailHeaderViewModel:(ProposalDetailHeaderViewModel *)detailHeaderViewModel;
+- (id<HTTPLoaderOperationProtocol>)postComment:(NSString *)comment
+                                  proposalHash:(NSString *)proposalHash
+                              replyToCommentId:(nullable NSString *)replyToCommentId
+                                    completion:(void (^)(BOOL success))completion;
 
 @end
 

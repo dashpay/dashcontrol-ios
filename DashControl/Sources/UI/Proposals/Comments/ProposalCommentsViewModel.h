@@ -22,15 +22,21 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class DCPersistenceStack;
+@class APIBudgetPrivate;
 
 @interface ProposalCommentsViewModel : NSObject
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+@property (strong, nonatomic) InjectedClass(APIBudgetPrivate) api;
 
 @property (readonly, strong, nonatomic) DCBudgetProposalEntity *proposal;
 @property (readonly, strong, nonatomic) NSFetchedResultsController<DCBudgetProposalCommentEntity *> *fetchedResultsController;
 
+@property (readonly, assign, nonatomic) BOOL authorized;
+
 - (instancetype)initWithProposal:(DCBudgetProposalEntity *)proposal;
+
+- (void)authorizeWithUserAPIKey:(NSString *)userAPIKey;
 
 @end
 

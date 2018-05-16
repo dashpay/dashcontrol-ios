@@ -18,6 +18,7 @@
 #import "FormTableViewController.h"
 
 #import "UIColor+DCStyle.h"
+#import "UIView+DCAnimations.h"
 #import "ButtonFormTableViewCell.h"
 #import "SelectorFormTableViewCell.h"
 #import "SwitcherFormTableViewCell.h"
@@ -65,11 +66,7 @@ static NSString *const BUTTON_CELL_ID = @"ButtonFormTableViewCell";
 
 - (void)displayErrorStateForCellAtIndex:(NSInteger)index {
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
-    CAKeyframeAnimation *shakeAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
-    shakeAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    shakeAnimation.duration = 0.5;
-    shakeAnimation.values = @[ @(-16), @(16), @(-8), @(8), @(-4), @(4), @(0) ];
-    [cell.layer addAnimation:shakeAnimation forKey:@"ShakeAnimation"];
+    [cell dc_shakeView];
 }
 
 #pragma mark UITableViewDataSource

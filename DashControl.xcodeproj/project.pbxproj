@@ -91,6 +91,8 @@
 		2A46C25220A6E7FD007037FA /* ProposalCommentAddView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C25120A6E7FD007037FA /* ProposalCommentAddView.m */; };
 		2A46C25420A6E80D007037FA /* ProposalCommentAddView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A46C25320A6E80D007037FA /* ProposalCommentAddView.xib */; };
 		2A46C25720A75258007037FA /* IntrinsicTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C25620A75258007037FA /* IntrinsicTextView.m */; };
+		2A46C28020AB7095007037FA /* APIBudgetPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C27F20AB7095007037FA /* APIBudgetPrivate.m */; };
+		2A46C28320AB87A7007037FA /* UIView+DCAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C28220AB87A7007037FA /* UIView+DCAnimations.m */; };
 		2A4FE281203AE489007FD160 /* UIColor+DCStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FE280203AE489007FD160 /* UIColor+DCStyle.m */; };
 		2A4FE29D203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FE29C203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m */; };
 		2A587E99206A53A5004BC537 /* PortfolioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A587E98206A53A5004BC537 /* PortfolioViewController.m */; };
@@ -428,6 +430,10 @@
 		2A46C25320A6E80D007037FA /* ProposalCommentAddView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProposalCommentAddView.xib; sourceTree = "<group>"; };
 		2A46C25520A75257007037FA /* IntrinsicTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntrinsicTextView.h; sourceTree = "<group>"; };
 		2A46C25620A75258007037FA /* IntrinsicTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntrinsicTextView.m; sourceTree = "<group>"; };
+		2A46C27E20AB7095007037FA /* APIBudgetPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIBudgetPrivate.h; sourceTree = "<group>"; };
+		2A46C27F20AB7095007037FA /* APIBudgetPrivate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIBudgetPrivate.m; sourceTree = "<group>"; };
+		2A46C28120AB87A7007037FA /* UIView+DCAnimations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+DCAnimations.h"; sourceTree = "<group>"; };
+		2A46C28220AB87A7007037FA /* UIView+DCAnimations.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+DCAnimations.m"; sourceTree = "<group>"; };
 		2A4FE27F203AE489007FD160 /* UIColor+DCStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+DCStyle.h"; sourceTree = "<group>"; };
 		2A4FE280203AE489007FD160 /* UIColor+DCStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DCStyle.m"; sourceTree = "<group>"; };
 		2A4FE282203AF2A7007FD160 /* BaseNewsTableViewController+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BaseNewsTableViewController+Protected.h"; sourceTree = "<group>"; };
@@ -1138,6 +1144,8 @@
 				2A6FBECC2076961C0055BAC8 /* APIBaseAuthorized.m */,
 				2A3F49AD204AEC09005EB5D9 /* APIBudget.h */,
 				2A3F49AE204AEC09005EB5D9 /* APIBudget.m */,
+				2A46C27E20AB7095007037FA /* APIBudgetPrivate.h */,
+				2A46C27F20AB7095007037FA /* APIBudgetPrivate.m */,
 				2A6F595E2034259600D7BD85 /* APINews.h */,
 				2A6F595F2034259600D7BD85 /* APINews.m */,
 				2A6FBED12076A2880055BAC8 /* APIPortfolio.h */,
@@ -1574,6 +1582,8 @@
 				2A80B58C2039B3050015E1AA /* UIFont+DCStyle.m */,
 				FBEF66FF1F83DE30003424D2 /* UIImage+Sugar.h */,
 				FBEF67001F83DE30003424D2 /* UIImage+Sugar.m */,
+				2A46C28120AB87A7007037FA /* UIView+DCAnimations.h */,
+				2A46C28220AB87A7007037FA /* UIView+DCAnimations.m */,
 				2AE3C464208FCE6600CE83A8 /* UIViewController+DCChildControllers.h */,
 				2AE3C465208FCE6600CE83A8 /* UIViewController+DCChildControllers.m */,
 			);
@@ -1958,6 +1968,7 @@
 				2A04E6E9202DA5E20065F30D /* Injections.m in Sources */,
 				2A3F49B5204BFF50005EB5D9 /* DCBudgetProposalCommentEntity+CoreDataProperties.m in Sources */,
 				2A6FBEC120763B2E0055BAC8 /* DCWalletEntity+Extensions.m in Sources */,
+				2A46C28020AB7095007037FA /* APIBudgetPrivate.m in Sources */,
 				2A32D6082051D91D004B38A6 /* ProposalDetailHeaderViewModel.m in Sources */,
 				2A04E6E7202DA5E20065F30D /* HTTPRateLimiterMap.m in Sources */,
 				FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */,
@@ -2107,6 +2118,7 @@
 				2A6FBEEB207B28880055BAC8 /* PortfolioHeaderViewModel.m in Sources */,
 				2A8F8184203EB74900D3D6C9 /* DCMarketEntity+Extensions.m in Sources */,
 				2A46C25220A6E7FD007037FA /* ProposalCommentAddView.m in Sources */,
+				2A46C28320AB87A7007037FA /* UIView+DCAnimations.m in Sources */,
 				2A46C24D20A5A834007037FA /* ProposalDetailBasicInfoView.m in Sources */,
 				FB9CC1A51F87D4860079309F /* BRBIP32Sequence.m in Sources */,
 				2AEF299120737932008590E4 /* WalletAddressViewModel.m in Sources */,

@@ -15,7 +15,7 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import <KVO-MVVM/KVOUIView.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,13 +25,16 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ProposalCommentAddViewDelegate <NSObject>
 
 - (void)proposalCommentAddViewTextDidChange:(ProposalCommentAddView *)view;
+- (void)proposalCommentAddViewAddButtonAction:(ProposalCommentAddView *)view;
 
 @end
 
-@interface ProposalCommentAddView : UIView
+@interface ProposalCommentAddView : KVOUIView
 
 @property (nullable, weak, nonatomic) id<ProposalCommentAddViewDelegate> delegate;
 @property (strong, nonatomic) ProposalCommentAddViewModel *viewModel;
+
+- (void)shakeTextView;
 
 @end
 

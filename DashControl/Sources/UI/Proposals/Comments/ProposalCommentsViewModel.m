@@ -17,6 +17,7 @@
 
 #import "ProposalCommentsViewModel.h"
 
+#import "APIBudgetPrivate.h"
 #import "DCPersistenceStack.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -46,6 +47,16 @@ NS_ASSUME_NONNULL_BEGIN
     }
     return _fetchedResultsController;
 }
+
+- (BOOL)authorized {
+    return !!self.api.userAPIKey;
+}
+
+- (void)authorizeWithUserAPIKey:(NSString *)userAPIKey {
+    self.api.userAPIKey = userAPIKey;
+}
+
+#pragma mark Private
 
 + (NSFetchedResultsController *)fetchedResultsControllerWithProposal:(DCBudgetProposalEntity *)proposal
                                                              context:(NSManagedObjectContext *)context {

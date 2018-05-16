@@ -15,26 +15,13 @@
 //  limitations under the License.
 //
 
-#import "FetchedResultsTableViewController.h"
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCBudgetProposalEntity;
-@class ProposalDetailHeaderViewModel;
-@class ProposalCommentsViewController;
+@interface UIView (DCAnimations)
 
-@protocol ProposalCommentsViewControllerDelegate <NSObject>
-
-- (void)proposalCommentsViewControllerDidAddComment:(ProposalCommentsViewController *)controller;
-
-@end
-
-@interface ProposalCommentsViewController : FetchedResultsTableViewController
-
-@property (nullable, weak, nonatomic) id<ProposalCommentsViewControllerDelegate> delegate;
-
-+ (instancetype)controllerWithProposal:(DCBudgetProposalEntity *)proposal
-                 detailHeaderViewModel:(ProposalDetailHeaderViewModel *)detailHeaderViewModel;
+- (void)dc_shakeView;
 
 @end
 

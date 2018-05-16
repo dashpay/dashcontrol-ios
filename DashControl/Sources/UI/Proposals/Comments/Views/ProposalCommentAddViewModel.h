@@ -19,18 +19,46 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class APIBudgetPrivate;
+@class ProposalCommentAddViewModel;
+
 typedef NS_ENUM(NSUInteger, ProposalCommentAddViewModelType) {
     ProposalCommentAddViewModelTypeComment,
     ProposalCommentAddViewModelTypeReply,
 };
 
+typedef NS_ENUM(NSUInteger, ProposalCommentAddViewModelState) {
+    ProposalCommentAddViewModelStateNone,
+    ProposalCommentAddViewModelStateSending,
+    ProposalCommentAddViewModelStateError,
+};
+
+@protocol ProposalCommentAddViewModelUpdatesObserver <NSObject>
+
+- (void)proposalCommentAddViewModelDidAddComment:(ProposalCommentAddViewModel *)viewModel;
+
+@end
+
 @interface ProposalCommentAddViewModel : NSObject
 
+@property (strong, nonatomic) InjectedClass(APIBudgetPrivate) api;
+
 @property (readonly, assign, nonatomic) ProposalCommentAddViewModelType type;
+@property (readonly, assign, nonatomic) ProposalCommentAddViewModelState state;
+@property (readonly, copy, nonatomic) NSString *proposalHash;
+@property (nullable, readonly, copy, nonatomic) NSString *replyToCommentId;
 @property (assign, nonatomic) BOOL visible;
 @property (nullable, copy, nonatomic) NSString *text;
 
-- (instancetype)initWithType:(ProposalCommentAddViewModelType)type;
+@property (nullable, weak, nonatomic) id<ProposalCommentAddViewModelUpdatesObserver> mainUpdatesObserver;
+@property (nullable, weak, nonatomic) id<ProposalCommentAddViewModelUpdatesObserver> uiUpdatesObserver;
+
+- (instancetype)initWithProposalHash:(NSString *)proposalHash replyToCommentId:(NSString *)replyToCommentId;
+- (instancetype)initWithProposalHash:(NSString *)proposalHash;
+- (instancetype)init NS_UNAVAILABLE;
+
+- (BOOL)isCommentValid;
+- (void)send;
 
 @end
 

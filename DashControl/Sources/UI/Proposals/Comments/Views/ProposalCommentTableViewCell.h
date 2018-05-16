@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ProposalCommentTableViewCellDelegate <NSObject>
 
 - (void)proposalCommentTableViewCell:(ProposalCommentTableViewCell *)cell didUpdateHeightShouldScrollToCellAnimated:(BOOL)shouldScrollToCellAnimated;
+- (void)proposalCommentTableViewCellAddCommentAction:(ProposalCommentTableViewCell *)cell;
 
 @end
 

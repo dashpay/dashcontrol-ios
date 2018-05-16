@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 static CGFloat const INREPLYTO_USERNAME_PADDING = 13.0;
 static CGFloat const LEADING_PADDING = 24.0;
 
-@interface ProposalCommentTableViewCell () <ProposalCommentAddViewDelegate>
+@interface ProposalCommentTableViewCell () <ProposalCommentAddViewDelegate, ProposalCommentAddViewModelUpdatesObserver>
 
 @property (strong, nonatomic) IBOutlet UILabel *inRelpyToLabel;
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -114,6 +114,7 @@ static CGFloat const LEADING_PADDING = 24.0;
 
 - (void)setCommentAddViewModel:(ProposalCommentAddViewModel *)commentAddViewModel {
     _commentAddViewModel = commentAddViewModel;
+    _commentAddViewModel.uiUpdatesObserver = self;
 
     self.commentAddView.viewModel = commentAddViewModel;
     [self setCommentAddViewVisible:commentAddViewModel.visible];
@@ -132,13 +133,7 @@ static CGFloat const LEADING_PADDING = 24.0;
         [self setCommentAddViewVisible:self.commentAddViewModel.visible];
     }
     else {
-        [self.commentAddView resignFirstResponder];
-
-        self.commentAddViewModel.visible = NO;
-
-        [self setCommentAddViewVisible:self.commentAddViewModel.visible];
-
-        [self.delegate proposalCommentTableViewCell:self didUpdateHeightShouldScrollToCellAnimated:YES];
+        [self exitAddCommentMode];
     }
 }
 
@@ -148,14 +143,39 @@ static CGFloat const LEADING_PADDING = 24.0;
     [self.delegate proposalCommentTableViewCell:self didUpdateHeightShouldScrollToCellAnimated:NO];
 }
 
+- (void)proposalCommentAddViewAddButtonAction:(ProposalCommentAddView *)view {
+    if ([self.commentAddViewModel isCommentValid]) {
+        [self.delegate proposalCommentTableViewCellAddCommentAction:self];
+    }
+    else {
+        [self.commentAddView shakeTextView];
+    }
+}
+
+#pragma mark ProposalCommentAddViewModelUpdatesObserver
+
+- (void)proposalCommentAddViewModelDidAddComment:(ProposalCommentAddViewModel *)viewModel {
+    [self exitAddCommentMode];
+}
+
 #pragma mark Private
 
 - (void)setCommentAddViewVisible:(BOOL)visible {
     self.commentAddViewHiddenConstraint.active = !visible;
     self.commentAddViewHeightConstraint.active = visible;
 
-    NSString *buttonTitle = visible ? NSLocalizedString(@"Cancel", nil) : NSLocalizedString(@"Reply", nil);
+    NSString *buttonTitle = visible ? NSLocalizedString(@"Hide Reply", nil) : NSLocalizedString(@"Reply", nil);
     [self.replyButton setTitle:buttonTitle forState:UIControlStateNormal];
+}
+
+- (void)exitAddCommentMode {
+    [self.commentAddView resignFirstResponder];
+
+    self.commentAddViewModel.visible = NO;
+
+    [self setCommentAddViewVisible:self.commentAddViewModel.visible];
+
+    [self.delegate proposalCommentTableViewCell:self didUpdateHeightShouldScrollToCellAnimated:YES];
 }
 
 @end

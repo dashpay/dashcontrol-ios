@@ -17,16 +17,64 @@
 
 #import "ProposalCommentAddViewModel.h"
 
+#import "APIBudgetPrivate.h"
+
 NS_ASSUME_NONNULL_BEGIN
+
+@interface ProposalCommentAddViewModel ()
+
+@property (assign, nonatomic) ProposalCommentAddViewModelState state;
+
+@end
 
 @implementation ProposalCommentAddViewModel
 
-- (instancetype)initWithType:(ProposalCommentAddViewModelType)type {
-    self = [super init];
+- (instancetype)initWithProposalHash:(NSString *)proposalHash replyToCommentId:(NSString *)replyToCommentId {
+    self = [self initWithProposalHash:proposalHash];
     if (self) {
-        _type = type;
+        _replyToCommentId = replyToCommentId;
+        _type = ProposalCommentAddViewModelTypeReply;
     }
     return self;
+}
+
+- (instancetype)initWithProposalHash:(NSString *)proposalHash {
+    self = [super init];
+    if (self) {
+        _proposalHash = proposalHash;
+    }
+    return self;
+}
+
+- (BOOL)isCommentValid {
+    NSString *trimmedString = [self.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    return trimmedString.length > 0;
+}
+
+- (void)send {
+    self.state = ProposalCommentAddViewModelStateSending;
+
+    NSString *trimmedString = [self.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    weakify;
+    [self.api postComment:trimmedString proposalHash:self.proposalHash replyToCommentId:self.replyToCommentId completion:^(BOOL success) {
+        strongify;
+        if (success) {
+            [self reset];
+
+            [self.uiUpdatesObserver proposalCommentAddViewModelDidAddComment:self];
+            [self.mainUpdatesObserver proposalCommentAddViewModelDidAddComment:self];
+        }
+        else {
+            self.state = ProposalCommentAddViewModelStateError;
+        }
+    }];
+}
+
+#pragma mark Private
+
+- (void)reset {
+    self.text = nil;
+    self.state = ProposalCommentAddViewModelStateNone;
 }
 
 @end

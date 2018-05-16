@@ -21,13 +21,13 @@
 
 #import "DCBudgetProposalEntity+CoreDataClass.h"
 #import "UIColor+DCStyle.h"
+#import "ProposalCommentsViewController.h"
 #import "ProposalDetailCommentsButtonView.h"
 #import "ProposalDetailHeaderView.h"
 #import "ProposalDetailTableViewCell.h"
 #import "ProposalDetailTitleView.h"
 #import "ProposalDetailViewModel.h"
 #import "ProposalDetailVotesView.h"
-#import "ProposalCommentsViewController.h"
 
 static NSString *const PROPOSALDETAIL_CELL_ID = @"ProposalDetailTableViewCell";
 static CGFloat const VOTES_VIEW_HEIGHT = 90.0;
@@ -35,7 +35,7 @@ static CGFloat const COMMENTS_BUTTON_VIEW_HEIGHT = 135.0;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ProposalDetailViewController () <UITableViewDelegate, UITableViewDataSource, ProposalDetailTableViewCellDelegate>
+@interface ProposalDetailViewController () <UITableViewDelegate, UITableViewDataSource, ProposalDetailTableViewCellDelegate, ProposalCommentsViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet ProposalDetailVotesView *votesView;
@@ -89,6 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)commentsButtonAction:(id)sender {
     ProposalCommentsViewController *controller = [ProposalCommentsViewController controllerWithProposal:self.viewModel.proposal
                                                                                   detailHeaderViewModel:self.viewModel.headerViewModel];
+    controller.delegate = self;
     [self showViewController:controller sender:self];
 }
 
@@ -138,7 +139,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)proposalDetailTableViewCell:(ProposalDetailTableViewCell *)cell didUpdateHeight:(CGFloat)height {
     // TODO: debug
-    self.cellHeight = @0.0;// height > 0.0 ? @(height) : nil;
+    self.cellHeight = @0.0; // height > 0.0 ? @(height) : nil;
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
     [self scrollViewDidScroll:self.tableView];
@@ -150,6 +151,12 @@ NS_ASSUME_NONNULL_BEGIN
     safariViewController.preferredBarTintColor = [UIColor dc_barTintColor];
     safariViewController.preferredControlTintColor = [UIColor whiteColor];
     [self showDetailViewController:safariViewController sender:self];
+}
+
+#pragma mark ProposalCommentsViewControllerDelegate
+
+- (void)proposalCommentsViewControllerDidAddComment:(ProposalCommentsViewController *)controller {
+    [self reload];
 }
 
 #pragma mark Private

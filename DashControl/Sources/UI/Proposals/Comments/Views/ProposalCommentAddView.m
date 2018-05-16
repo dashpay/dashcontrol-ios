@@ -17,8 +17,9 @@
 
 #import "ProposalCommentAddView.h"
 
-#import "ProposalCommentAddViewModel.h"
 #import "UIColor+DCStyle.h"
+#import "UIView+DCAnimations.h"
+#import "ProposalCommentAddViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (strong, nonatomic) IBOutlet UITextView *textView;
 @property (strong, nonatomic) IBOutlet UIButton *addButton;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 
 @end
 
@@ -61,28 +63,51 @@ NS_ASSUME_NONNULL_BEGIN
     ]];
 
     self.textView.delegate = self;
-    
     self.textView.layer.borderWidth = 1.0;
-    [self updateFirstResponderState:NO];
+
+    // KVO
+
+    [self mvvm_observe:@"viewModel.state" with:^(typeof(self) self, NSNumber * value) {
+        switch (self.viewModel.state) {
+            case ProposalCommentAddViewModelStateNone: {
+                [self setViewLoading:NO];
+                [self updateFirstResponderState:self.isFirstResponder];
+                break;
+            }
+            case ProposalCommentAddViewModelStateSending: {
+                [self setViewLoading:YES];
+                [self updateFirstResponderState:self.isFirstResponder];
+                break;
+            }
+            case ProposalCommentAddViewModelStateError: {
+                [self setViewLoading:NO];
+                UIColor *redColor = [UIColor colorWithRed:255.0 / 255.0 green:37.0 / 255.0 blue:101.0 / 255.0 alpha:1.0];
+                self.textView.layer.borderColor = redColor.CGColor;
+                break;
+            }
+        }
+    }];
+
+    [self mvvm_observe:@"viewModel.visible" with:^(typeof(self) self, NSNumber * value) {
+        BOOL hidden = !self.viewModel.visible;
+        self.addButton.hidden = hidden;
+        self.textView.hidden = hidden;
+        self.activityIndicatorView.hidden = hidden;
+    }];
+
+    [self mvvm_observe:@"viewModel.text" with:^(typeof(self) self, NSString * value) {
+        self.textView.text = value;
+    }];
 }
 
-- (void)setViewModel:(ProposalCommentAddViewModel *)viewModel {
-    _viewModel = viewModel;
+- (void)shakeTextView {
+    [self.textView dc_shakeView];
+}
 
-    self.textView.text = viewModel.text;
+#pragma mark Actions
 
-    NSString *buttonTitle = nil;
-    switch (viewModel.type) {
-        case ProposalCommentAddViewModelTypeComment: {
-            buttonTitle = NSLocalizedString(@"Add Comment", nil);
-            break;
-        }
-        case ProposalCommentAddViewModelTypeReply: {
-            buttonTitle = NSLocalizedString(@"Add Reply", nil);
-            break;
-        }
-    }
-    [self.addButton setTitle:buttonTitle.uppercaseString forState:UIControlStateNormal];
+- (IBAction)addButtonAction:(id)sender {
+    [self.delegate proposalCommentAddViewAddButtonAction:self];
 }
 
 #pragma mark UIResponder
@@ -131,6 +156,38 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateFirstResponderState:(BOOL)active {
     UIColor *color = active ? [UIColor dc_barTintColor] : [UIColor colorWithRed:211.0 / 255.0 green:214.0 / 255.0 blue:219.0 / 255.0 alpha:1.0];
     self.textView.layer.borderColor = color.CGColor;
+}
+
+- (void)setViewLoading:(BOOL)loading {
+    if (loading) {
+        self.textView.editable = NO; // resigns first responder
+        self.addButton.userInteractionEnabled = NO;
+        [self.addButton setTitle:nil forState:UIControlStateNormal];
+        self.activityIndicatorView.alpha = 1.0;
+        [self.activityIndicatorView startAnimating];
+    }
+    else {
+        self.textView.editable = YES;
+        self.addButton.userInteractionEnabled = YES;
+        [self resetAddButtonTitle];
+        self.activityIndicatorView.alpha = 0.0;
+        [self.activityIndicatorView stopAnimating];
+    }
+}
+
+- (void)resetAddButtonTitle {
+    NSString *buttonTitle = nil;
+    switch (self.viewModel.type) {
+        case ProposalCommentAddViewModelTypeComment: {
+            buttonTitle = NSLocalizedString(@"Add Comment", nil);
+            break;
+        }
+        case ProposalCommentAddViewModelTypeReply: {
+            buttonTitle = NSLocalizedString(@"Add Reply", nil);
+            break;
+        }
+    }
+    [self.addButton setTitle:buttonTitle.uppercaseString forState:UIControlStateNormal];
 }
 
 @end

@@ -26,12 +26,13 @@
 #import "ProposalCommentsViewModel.h"
 #import "ProposalDetailBasicInfoView.h"
 #import "ProposalDetailTitleView.h"
+#import "QRScannerViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
 
-@interface ProposalCommentsViewController () <ProposalCommentTableViewCellDelegate>
+@interface ProposalCommentsViewController () <ProposalCommentTableViewCellDelegate, QRScannerViewControllerDelegate, ProposalCommentAddViewModelUpdatesObserver>
 
 @property (strong, nonatomic) IBOutlet ProposalDetailBasicInfoView *basicInfoView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *basicInfoViewTopConstraint;
@@ -39,10 +40,10 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
 
 @property (strong, nonatomic) ProposalDetailHeaderViewModel *detailHeaderViewModel;
 @property (strong, nonatomic) ProposalCommentsViewModel *viewModel;
-@property (nullable, strong, nonatomic) NSIndexPath *addingReplyIndexPath;
 
 @property (strong, nonatomic) ProposalCommentTableViewCell *heightCalculationCell;
 @property (strong, nonatomic) NSMutableDictionary<NSString *, ProposalCommentAddViewModel *> *commentAddViewModelsByIdentifiers;
+@property (nullable, strong, nonatomic) ProposalCommentAddViewModel *commentToSend;
 
 @end
 
@@ -134,6 +135,12 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
     ProposalCommentTableViewCell *cell = self.heightCalculationCell;
 
     NSFetchedResultsController *frc = [self fetchedResultsControllerForTableView:tableView];
+
+    id<ProposalCommentAddViewModelUpdatesObserver> originalUpdatesObserver = nil;
+    DCBudgetProposalCommentEntity *entity = [frc objectAtIndexPath:indexPath];
+    ProposalCommentAddViewModel *commentAddViewModel = [self commentAddViewModelForEntity:entity];
+    originalUpdatesObserver = commentAddViewModel.uiUpdatesObserver;
+
     [self fetchedResultsController:frc configureCell:cell atIndexPath:indexPath];
 
     [cell setNeedsUpdateConstraints];
@@ -144,6 +151,8 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
 
     CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
     height += 1.0; // an extra point to the height to account for the cell separator
+
+    commentAddViewModel.uiUpdatesObserver = originalUpdatesObserver;
 
     return ceil(height);
 }
@@ -173,6 +182,25 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
     });
 }
 
+- (void)proposalCommentTableViewCellAddCommentAction:(ProposalCommentTableViewCell *)cell {
+    [cell.commentAddViewModel send];
+
+    return;
+    if (self.viewModel.authorized) {
+        [cell.commentAddViewModel send];
+    }
+    else {
+        self.commentToSend = cell.commentAddViewModel;
+        [self showAuthorization];
+    }
+}
+
+#pragma mark ProposalCommentAddViewModelUpdatesObserver
+
+- (void)proposalCommentAddViewModelDidAddComment:(ProposalCommentAddViewModel *)viewModel {
+    [self.delegate proposalCommentsViewControllerDidAddComment:self];
+}
+
 #pragma mark Keyboard
 
 - (void)ka_keyboardShowOrHideAnimationWithHeight:(CGFloat)height
@@ -183,7 +211,29 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
     self.tableView.contentInset = contentInset;
 }
 
+#pragma mark QRScannerViewControllerDelegate
+
+- (void)qrScannerViewControllerDidCancel:(QRScannerViewController *)controller {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)qrScannerViewController:(QRScannerViewController *)controller didScanString:(NSString *)scannedString {
+    [self.viewModel authorizeWithUserAPIKey:scannedString];
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+    if (self.commentToSend) {
+        [self.commentToSend send];
+        self.commentToSend = nil;
+    }
+}
+
 #pragma mark Private
+
+- (void)showAuthorization {
+    QRScannerViewController *controller = [[QRScannerViewController alloc] initAsDashCentralAuth];
+    controller.delegate = self;
+    [self presentViewController:controller animated:YES completion:nil];
+}
 
 - (ProposalDetailTitleView *)titleView {
     if (!_titleView) {
@@ -215,7 +265,9 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
     }
     ProposalCommentAddViewModel *commentAddViewModel = self.commentAddViewModelsByIdentifiers[identifier];
     if (!commentAddViewModel) {
-        commentAddViewModel = [[ProposalCommentAddViewModel alloc] initWithType:ProposalCommentAddViewModelTypeReply];
+        commentAddViewModel = [[ProposalCommentAddViewModel alloc] initWithProposalHash:self.viewModel.proposal.proposalHash
+                                                                       replyToCommentId:identifier];
+        commentAddViewModel.mainUpdatesObserver = self;
         self.commentAddViewModelsByIdentifiers[identifier] = commentAddViewModel;
     }
     return commentAddViewModel;

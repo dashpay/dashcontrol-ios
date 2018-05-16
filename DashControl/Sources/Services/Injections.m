@@ -22,6 +22,7 @@
 #import <DeluxeInjection/DeluxeInjection.h>
 
 #import "APIBudget.h"
+#import "APIBudgetPrivate.h"
 #import "APINews.h"
 #import "APIPortfolio.h"
 #import "APIPrice.h"
@@ -65,6 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
         [[[lets inject] byPropertyClass:[APIBudget class]] getterValueLazyByClass:[APIBudget class]];
         [[[lets inject] byPropertyClass:[APITrigger class]] getterValueLazyByClass:[APITrigger class]];
         [[[lets inject] byPropertyClass:[APIPortfolio class]] getterValueLazyByClass:[APIPortfolio class]];
+        [[[lets inject] byPropertyClass:[APIBudgetPrivate class]] getterValueLazyByClass:[APIBudgetPrivate class]];
 
         // temporary injections, will be satisfied when CoreData stack get initialized
         id nilValue = nil;
