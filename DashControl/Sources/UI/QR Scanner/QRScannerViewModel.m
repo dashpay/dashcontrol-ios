@@ -84,6 +84,10 @@ static NSTimeInterval const kResumeSearchTimeInterval = 1.0;
     return (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted);
 }
 
+- (nullable NSString *)hintText {
+    return nil;
+}
+
 - (void)startPreview {
     void (^doStartPreview)(void) = ^{
 #if !TARGET_OS_SIMULATOR

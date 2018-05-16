@@ -93,6 +93,8 @@
 		2A46C25720A75258007037FA /* IntrinsicTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C25620A75258007037FA /* IntrinsicTextView.m */; };
 		2A46C28020AB7095007037FA /* APIBudgetPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C27F20AB7095007037FA /* APIBudgetPrivate.m */; };
 		2A46C28320AB87A7007037FA /* UIView+DCAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C28220AB87A7007037FA /* UIView+DCAnimations.m */; };
+		2A46C28620AC2687007037FA /* QRScannerHintView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A46C28520AC2687007037FA /* QRScannerHintView.xib */; };
+		2A46C28920AC26DE007037FA /* QRScannerHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C28820AC26DE007037FA /* QRScannerHintView.m */; };
 		2A4FE281203AE489007FD160 /* UIColor+DCStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FE280203AE489007FD160 /* UIColor+DCStyle.m */; };
 		2A4FE29D203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FE29C203F30E6007FD160 /* NSManagedObjectContext+DCExtensions.m */; };
 		2A587E99206A53A5004BC537 /* PortfolioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A587E98206A53A5004BC537 /* PortfolioViewController.m */; };
@@ -434,6 +436,9 @@
 		2A46C27F20AB7095007037FA /* APIBudgetPrivate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIBudgetPrivate.m; sourceTree = "<group>"; };
 		2A46C28120AB87A7007037FA /* UIView+DCAnimations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+DCAnimations.h"; sourceTree = "<group>"; };
 		2A46C28220AB87A7007037FA /* UIView+DCAnimations.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+DCAnimations.m"; sourceTree = "<group>"; };
+		2A46C28520AC2687007037FA /* QRScannerHintView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QRScannerHintView.xib; sourceTree = "<group>"; };
+		2A46C28720AC26DE007037FA /* QRScannerHintView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRScannerHintView.h; sourceTree = "<group>"; };
+		2A46C28820AC26DE007037FA /* QRScannerHintView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRScannerHintView.m; sourceTree = "<group>"; };
 		2A4FE27F203AE489007FD160 /* UIColor+DCStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+DCStyle.h"; sourceTree = "<group>"; };
 		2A4FE280203AE489007FD160 /* UIColor+DCStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DCStyle.m"; sourceTree = "<group>"; };
 		2A4FE282203AF2A7007FD160 /* BaseNewsTableViewController+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BaseNewsTableViewController+Protected.h"; sourceTree = "<group>"; };
@@ -1101,6 +1106,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		2A46C28420AC2672007037FA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2A46C28720AC26DE007037FA /* QRScannerHintView.h */,
+				2A46C28820AC26DE007037FA /* QRScannerHintView.m */,
+				2A46C28520AC2687007037FA /* QRScannerHintView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		2A587EA4206A887D004BC537 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -1347,6 +1362,7 @@
 		2AEF29DF2074219A008590E4 /* QR Scanner */ = {
 			isa = PBXGroup;
 			children = (
+				2A46C28420AC2672007037FA /* Views */,
 				2AEF29E1207421E5008590E4 /* QRScannerView.h */,
 				2AEF29E0207421E5008590E4 /* QRScannerView.m */,
 				2AEF29E5207421E5008590E4 /* QRScannerViewController.h */,
@@ -1416,6 +1432,7 @@
 				24FE253D1F4C7DA200E32652 /* Price */,
 				241719C31F4D9EC30045C2D6 /* Proposals */,
 				24E584011F3ADA0100A12087 /* News */,
+				2AEF29DF2074219A008590E4 /* QR Scanner */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1435,7 +1452,6 @@
 		FB4F93B71F8252210078E259 /* Portfolio */ = {
 			isa = PBXGroup;
 			children = (
-				2AEF29DF2074219A008590E4 /* QR Scanner */,
 				2AEF299220737E2C008590E4 /* Masternode */,
 				2AEF298B207378D9008590E4 /* WalletAddress */,
 				2AEF294A2070DB64008590E4 /* Views */,
@@ -1822,6 +1838,7 @@
 				2A46C24A20A328D8007037FA /* ProposalCommentTableViewCell.xib in Resources */,
 				2ACFBBC320340C090099727D /* Montserrat-Light.otf in Resources */,
 				2A32D60A2052495C004B38A6 /* Localizable.stringsdict in Resources */,
+				2A46C28620AC2687007037FA /* QRScannerHintView.xib in Resources */,
 				2A46C24F20A5A844007037FA /* ProposalDetailBasicInfoView.xib in Resources */,
 				2A587EA9206A88C3004BC537 /* ItemTableViewCell.xib in Resources */,
 				2A587E9B206A53CA004BC537 /* Portfolio.storyboard in Resources */,
@@ -2140,6 +2157,7 @@
 				2A04E6DF202DA5E20065F30D /* HTTPRequestOperation.m in Sources */,
 				2AEF299E20738FF1008590E4 /* AddressTextFieldFormCellModel.m in Sources */,
 				2AE410532066D33000C41AC5 /* ExchangeMarketPairObject.m in Sources */,
+				2A46C28920AC26DE007037FA /* QRScannerHintView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

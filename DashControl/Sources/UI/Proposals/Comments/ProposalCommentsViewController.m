@@ -183,9 +183,6 @@ NSString *const COMMENT_CELL_ID = @"ProposalCommentTableViewCell";
 }
 
 - (void)proposalCommentTableViewCellAddCommentAction:(ProposalCommentTableViewCell *)cell {
-    [cell.commentAddViewModel send];
-
-    return;
     if (self.viewModel.authorized) {
         [cell.commentAddViewModel send];
     }

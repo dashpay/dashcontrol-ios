@@ -63,8 +63,10 @@ static NSString *const USER_API_KEY_KEY = @"DC_USER_API_KEY";
 
         NSDictionary *dictionary = (NSDictionary *)parsedData;
         if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
+            NSString *status = dictionary[@"status"];
             if (completion) {
-                completion(YES);
+                BOOL success = [status isEqualToString:@"ok"];
+                completion(success);
             }
         }
         else {

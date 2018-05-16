@@ -29,6 +29,10 @@ NSString *const DashCentralAuthQRScannerViewModelErrorDomain = @"DashCentralAuth
 
 @implementation DashCentralAuthQRScannerViewModel
 
+- (nullable NSString *)hintText {
+    return NSLocalizedString(@"Login to your account using DashCentral\nOpen DashCentral.org → My Account → Mobile Access and scan the QR code", nil);
+}
+
 - (NSCharacterSet *)allowedCharacterSet {
     if (!_allowedCharacterSet) {
         _allowedCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"];
