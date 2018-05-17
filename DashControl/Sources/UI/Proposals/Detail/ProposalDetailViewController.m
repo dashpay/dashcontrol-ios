@@ -139,10 +139,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)proposalDetailTableViewCell:(ProposalDetailTableViewCell *)cell didUpdateHeight:(CGFloat)height {
     self.cellHeight = height > 0.0 ? @(height) : nil;
+    [UIView setAnimationsEnabled:NO];
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
     [self scrollViewDidScroll:self.tableView];
     self.commentsButtonView.hidden = NO;
+    [UIView setAnimationsEnabled:YES];
 }
 
 - (void)proposalDetailTableViewCell:(ProposalDetailTableViewCell *)cell openURL:(NSURL *)url {

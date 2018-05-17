@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ProposalDetailTableViewCellModel : NSObject
 
 @property (readonly, copy, nonatomic) NSString *html;
+@property (assign, nonatomic) BOOL expanded;
 
 - (void)updateWithProposal:(DCBudgetProposalEntity *)proposal;
 
