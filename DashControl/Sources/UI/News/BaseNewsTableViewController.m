@@ -34,7 +34,7 @@ NSString *const NEWS_CELL_ID = @"NewsTableViewCell";
 
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView registerNib:[UINib nibWithNibName:@"NewsTableViewCell" bundle:nil] forCellReuseIdentifier:NEWS_CELL_ID];
+    [self.tableView registerNib:[UINib nibWithNibName:NEWS_CELL_ID bundle:nil] forCellReuseIdentifier:NEWS_CELL_ID];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

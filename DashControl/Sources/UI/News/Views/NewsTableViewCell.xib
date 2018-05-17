@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -92,9 +92,9 @@
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.11764705882352941" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
-                <outlet property="newsDateLabel" destination="RN9-we-3A2" id="JKx-3v-fsB"/>
-                <outlet property="newsImageView" destination="6h8-BW-aUe" id="lra-7a-vqs"/>
-                <outlet property="newsTitleLabel" destination="4Lg-iS-rgC" id="ghz-Dh-bEc"/>
+                <outlet property="newsDateLabel" destination="RN9-we-3A2" id="2b3-tR-rvX"/>
+                <outlet property="newsImageView" destination="6h8-BW-aUe" id="DFW-Se-OC9"/>
+                <outlet property="newsTitleLabel" destination="4Lg-iS-rgC" id="ap9-3E-TJy"/>
             </connections>
         </tableViewCell>
     </objects>

@@ -15,26 +15,18 @@
 //  limitations under the License.
 //
 
-#import "NewsTableViewCell.h"
+#import "NewsTableViewCell+Protected.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/UIView+WebCache.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NewsTableViewCell ()
-
-@property (weak, nullable, nonatomic) IBOutlet UIImageView *newsImageView;
-@property (weak, nullable, nonatomic) IBOutlet UILabel *newsTitleLabel;
-@property (weak, nullable, nonatomic) IBOutlet UILabel *newsDateLabel;
-
-@end
-
 @implementation NewsTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+
     self.newsImageView.sd_imageTransition = SDWebImageTransition.fadeTransition;
 }
 
