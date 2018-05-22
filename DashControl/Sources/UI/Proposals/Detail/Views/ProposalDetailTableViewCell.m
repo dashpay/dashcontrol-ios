@@ -18,13 +18,25 @@
 #import "ProposalDetailTableViewCell.h"
 
 #import <WebKit/WebKit.h>
+
+#import "UIFont+DCStyle.h"
 #import "ProposalDetailTableViewCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+static CGSize const EXPAND_BUTTON_SIZE = {202.0, 35.0};
+static CGFloat const EXPAND_BUTTON_PADDING = 24.0;
+
+static CGFloat ContentShrinkedHeight(void) {
+    return [UIScreen mainScreen].bounds.size.height;
+}
+
 @interface ProposalDetailTableViewCell () <WKNavigationDelegate>
 
 @property (strong, nonatomic) WKWebView *webView;
+@property (strong, nonatomic) UIView *expandOverlayView;
+@property (strong, nonatomic) UIButton *expandButton;
+@property (assign, nonatomic) CGFloat expandedHeight;
 
 @end
 
@@ -49,15 +61,42 @@ NS_ASSUME_NONNULL_BEGIN
         [self.contentView addSubview:webView];
         _webView = webView;
 
-        [@[
+        UIView *expandOverlayView = [[UIView alloc] initWithFrame:CGRectZero];
+        expandOverlayView.translatesAutoresizingMaskIntoConstraints = NO;
+        expandOverlayView.backgroundColor = [UIColor whiteColor];
+        [self.contentView addSubview:expandOverlayView];
+        _expandOverlayView = expandOverlayView;
+
+        UIButton *expandButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        expandButton.translatesAutoresizingMaskIntoConstraints = NO;
+        expandButton.backgroundColor = [UIColor colorWithRed:106.0 / 255.0 green:120.0 / 255.0 blue:141.0 / 255.0 alpha:1.0];
+        expandButton.layer.cornerRadius = 4.0;
+        expandButton.layer.masksToBounds = YES;
+        expandButton.titleLabel.font = [UIFont dc_montserratSemiBoldFontOfSize:11.0];
+        [expandButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        NSString *expandButtonTitle = NSLocalizedString(@"Show full description", nil);
+        [expandButton setTitle:expandButtonTitle.uppercaseString forState:UIControlStateNormal];
+        [expandButton addTarget:self action:@selector(expandButtonAction) forControlEvents:UIControlEventTouchUpInside];
+        [expandOverlayView addSubview:expandButton];
+        _expandButton = expandButton;
+
+        [NSLayoutConstraint activateConstraints:@[
             [webView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor],
             [webView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
             [webView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
             [webView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
             [webView.widthAnchor constraintEqualToAnchor:self.contentView.widthAnchor],
-        ] enumerateObjectsUsingBlock:^(NSLayoutConstraint *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            obj.active = YES;
-        }];
+
+            [expandOverlayView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor],
+            [expandOverlayView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor],
+            [expandOverlayView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor],
+
+            [expandButton.topAnchor constraintEqualToAnchor:expandOverlayView.topAnchor constant:EXPAND_BUTTON_PADDING],
+            [expandButton.leadingAnchor constraintEqualToAnchor:expandOverlayView.leadingAnchor constant:EXPAND_BUTTON_PADDING],
+            [expandButton.bottomAnchor constraintEqualToAnchor:expandOverlayView.bottomAnchor constant:-EXPAND_BUTTON_PADDING],
+            [expandButton.widthAnchor constraintEqualToConstant:EXPAND_BUTTON_SIZE.width],
+            [expandButton.heightAnchor constraintEqualToConstant:EXPAND_BUTTON_SIZE.height],
+        ]];
 
         // KVO
 
@@ -65,6 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
             if (!value) {
                 return;
             }
+            self.expandOverlayView.hidden = YES;
             [self.webView loadHTMLString:self.viewModel.html baseURL:nil];
         }];
     }
@@ -73,6 +113,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)performSetNeedLayoutOnWebView {
     [self.webView setNeedsLayout];
+}
+
+- (void)expandButtonAction {
+    self.expandOverlayView.hidden = YES;
+    self.viewModel.expanded = YES;
+    [self.delegate proposalDetailTableViewCell:self didUpdateHeight:self.expandedHeight];
 }
 
 #pragma mark WKNavigationDelegate
@@ -88,7 +134,12 @@ NS_ASSUME_NONNULL_BEGIN
         [self.webView evaluateJavaScript:@"document.documentElement.scrollHeight" completionHandler:^(id _Nullable result, NSError *_Nullable error) {
             strongify;
 
-            CGFloat height = [result doubleValue];
+            CGFloat expandedHeight = [result doubleValue];
+            CGFloat shrinkedHeight = ContentShrinkedHeight();
+            BOOL canExpand = !self.viewModel.expanded && shrinkedHeight < expandedHeight;
+            CGFloat height = canExpand ? shrinkedHeight : expandedHeight;
+            self.expandedHeight = expandedHeight;
+            self.expandOverlayView.hidden = !canExpand;
             [self.delegate proposalDetailTableViewCell:self didUpdateHeight:height];
         }];
     }];

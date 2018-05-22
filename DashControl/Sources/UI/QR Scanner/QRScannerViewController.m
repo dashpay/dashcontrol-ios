@@ -17,8 +17,11 @@
 
 #import "QRScannerViewController.h"
 
+#import "AddressQRScannerViewModel.h"
+#import "DashCentralAuthQRScannerViewModel.h"
 #import "QRScannerView.h"
-#import "QRScannerViewModel.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface QRScannerViewController () <QRScannerViewDelegate>
 
@@ -31,11 +34,20 @@
 
 @dynamic view;
 
-- (QRScannerViewModel *)viewModel {
-    if (!_viewModel) {
-        _viewModel = [[QRScannerViewModel alloc] init];
+- (instancetype)initAsAddressScanner {
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        _viewModel = [[AddressQRScannerViewModel alloc] init];
     }
-    return _viewModel;
+    return self;
+}
+
+- (instancetype)initAsDashCentralAuth {
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        _viewModel = [[DashCentralAuthQRScannerViewModel alloc] init];
+    }
+    return self;
 }
 
 - (void)loadView {
@@ -100,8 +112,10 @@
     [self.delegate qrScannerViewControllerDidCancel:self];
 }
 
-- (void)qrScannerView:(QRScannerView *)view didScanDASHAddress:(NSString *)address {
-    [self.delegate qrScannerViewController:self didScanDASHAddress:address];
+- (void)qrScannerView:(QRScannerView *)view didScanString:(NSString *)scannedString {
+    [self.delegate qrScannerViewController:self didScanString:scannedString];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -46,11 +46,14 @@ typedef NS_ENUM(NSUInteger, QRCodeObjectType) {
 @property (readonly, strong, nonatomic) AVCaptureSession *captureSession;
 @property (readonly, assign, nonatomic, getter=isCameraDeniedOrRestricted) BOOL cameraDeniedOrRestricted;
 @property (nullable, readonly, strong, nonatomic) QRCodeObject *qrCodeObject;
+@property (nullable, readonly, copy, nonatomic) NSString *hintText;
 
 - (void)startPreview;
 - (void)stopPreview;
 
 - (void)switchTorch;
+
+- (BOOL)validateQRCodeObjectValue:(NSString *_Nullable)stringValue error:(NSError *__autoreleasing _Nullable *_Nullable)error;
 
 @end
 

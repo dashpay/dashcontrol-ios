@@ -13,6 +13,9 @@
         <array key="Montserrat-Light.otf">
             <string>Montserrat-Light</string>
         </array>
+        <array key="Montserrat-Regular.otf">
+            <string>Montserrat-Regular</string>
+        </array>
     </customFonts>
     <scenes>
         <!--Proposals Navigation-->
@@ -52,7 +55,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rE5-7A-BUS">
-                                        <rect key="frame" x="24" y="12" width="26.5" height="13.5"/>
+                                        <rect key="frame" x="24" y="12" width="26.5" height="13"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="11"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -66,7 +69,7 @@
                                         </attributedString>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alloted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ztp-OA-ERZ">
-                                        <rect key="frame" x="312.5" y="12" width="38.5" height="13.5"/>
+                                        <rect key="frame" x="312.5" y="12" width="38.5" height="13"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="11"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -323,20 +326,128 @@
                                     <outlet property="yesVotesTitleLabel" destination="Yuc-PW-3g6" id="Eza-fH-JQT"/>
                                 </connections>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vVJ-uw-VJS" userLabel="Comments View" customClass="ProposalDetailCommentsButtonView">
+                                <rect key="frame" x="0.0" y="532" width="375" height="135"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gRI-Q2-4tg" userLabel="Line View">
+                                        <rect key="frame" x="0.0" y="48" width="375" height="1"/>
+                                        <color key="backgroundColor" red="0.41568627450000001" green="0.47058823529999999" blue="0.55294117649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="iol-U0-0yO"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Join the discussion!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ayz-k1-DJr">
+                                        <rect key="frame" x="24" y="12" width="193" height="24.5"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="20"/>
+                                        <color key="textColor" red="0.0" green="0.4431372549" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <attributedString key="userComments">
+                                            <fragment content="#bc-ignore!">
+                                                <attributes>
+                                                    <font key="NSFont" metaFont="smallSystem"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="proposalCommentsIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Em3-Ji-Wxf">
+                                        <rect key="frame" x="328.5" y="19.5" width="12" height="13"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ywt-ol-7xI">
+                                        <rect key="frame" x="344.5" y="18.5" width="6.5" height="12.5"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="10"/>
+                                        <color key="textColor" red="0.41568627450000001" green="0.47058823529999999" blue="0.55294117649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <attributedString key="userComments">
+                                            <fragment content="#bc-ignore!">
+                                                <attributes>
+                                                    <font key="NSFont" metaFont="smallSystem"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cV7-U7-lNX" customClass="ProposalDetailCommentsButton">
+                                        <rect key="frame" x="0.0" y="49" width="375" height="86"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Submit your comments and exchange your ideas on this proposal" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="16v-9v-Mq8">
+                                                <rect key="frame" x="24" y="10" width="302" height="66"/>
+                                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
+                                                <color key="textColor" red="0.41568627450000001" green="0.47058823529999999" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <attributedString key="userComments">
+                                                    <fragment content="#bc-ignore!">
+                                                        <attributes>
+                                                            <font key="NSFont" metaFont="smallSystem"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="disclosureIcon" translatesAutoresizingMaskIntoConstraints="NO" id="RhP-IT-02f">
+                                                <rect key="frame" x="342" y="36" width="9" height="14"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="9" id="HdX-9z-vMY"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="RhP-IT-02f" secondAttribute="trailing" constant="24" id="8qW-55-DRf"/>
+                                            <constraint firstItem="RhP-IT-02f" firstAttribute="centerY" secondItem="cV7-U7-lNX" secondAttribute="centerY" id="VoB-ci-il1"/>
+                                            <constraint firstItem="16v-9v-Mq8" firstAttribute="top" secondItem="cV7-U7-lNX" secondAttribute="top" constant="10" id="ZfE-XJ-GxD"/>
+                                            <constraint firstItem="RhP-IT-02f" firstAttribute="leading" secondItem="16v-9v-Mq8" secondAttribute="trailing" constant="16" id="mak-X0-3Vd"/>
+                                            <constraint firstItem="16v-9v-Mq8" firstAttribute="leading" secondItem="cV7-U7-lNX" secondAttribute="leading" constant="24" id="rL7-hu-7nS"/>
+                                            <constraint firstAttribute="bottom" secondItem="16v-9v-Mq8" secondAttribute="bottom" constant="10" id="tdn-Fg-PAj"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="commentsButtonAction:" destination="Ier-88-ATE" eventType="touchUpInside" id="jVk-ta-WGe"/>
+                                            <outlet property="disclosureImageView" destination="RhP-IT-02f" id="cM0-zy-k57"/>
+                                            <outlet property="titleLabel" destination="16v-9v-Mq8" id="dxJ-v8-tsW"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="ywt-ol-7xI" firstAttribute="centerY" secondItem="ayz-k1-DJr" secondAttribute="centerY" id="51d-NN-sHq"/>
+                                    <constraint firstItem="gRI-Q2-4tg" firstAttribute="leading" secondItem="vVJ-uw-VJS" secondAttribute="leading" id="5a0-Kz-ZoM"/>
+                                    <constraint firstItem="gRI-Q2-4tg" firstAttribute="top" secondItem="vVJ-uw-VJS" secondAttribute="top" constant="48" id="7UL-qq-ITS"/>
+                                    <constraint firstAttribute="trailing" secondItem="gRI-Q2-4tg" secondAttribute="trailing" id="Gv3-SK-2jO"/>
+                                    <constraint firstItem="cV7-U7-lNX" firstAttribute="leading" secondItem="vVJ-uw-VJS" secondAttribute="leading" id="J9u-c4-voF"/>
+                                    <constraint firstAttribute="trailing" secondItem="cV7-U7-lNX" secondAttribute="trailing" id="KpM-1T-JdI"/>
+                                    <constraint firstItem="cV7-U7-lNX" firstAttribute="top" secondItem="gRI-Q2-4tg" secondAttribute="bottom" id="Nuw-qb-7AC"/>
+                                    <constraint firstItem="ywt-ol-7xI" firstAttribute="centerY" secondItem="Em3-Ji-Wxf" secondAttribute="centerY" constant="-1" id="Pj7-dQ-oPy"/>
+                                    <constraint firstAttribute="trailing" secondItem="ywt-ol-7xI" secondAttribute="trailing" constant="24" id="YkE-Ba-FGL"/>
+                                    <constraint firstAttribute="bottom" secondItem="cV7-U7-lNX" secondAttribute="bottom" id="ZVG-84-l5N"/>
+                                    <constraint firstItem="ywt-ol-7xI" firstAttribute="leading" secondItem="Em3-Ji-Wxf" secondAttribute="trailing" constant="4" id="dYk-9d-QAE"/>
+                                    <constraint firstItem="ayz-k1-DJr" firstAttribute="leading" secondItem="vVJ-uw-VJS" secondAttribute="leading" constant="24" id="eQg-h5-bqp"/>
+                                    <constraint firstAttribute="height" constant="135" id="r5u-c5-RwF"/>
+                                    <constraint firstItem="ayz-k1-DJr" firstAttribute="top" secondItem="vVJ-uw-VJS" secondAttribute="top" constant="12" id="ruL-wJ-u5s"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="commentsCountLabel" destination="ywt-ol-7xI" id="fNP-xQ-xD1"/>
+                                    <outlet property="joinDiscussionLabel" destination="ayz-k1-DJr" id="eO0-SR-DoH"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="XTh-Ud-SOk" firstAttribute="bottom" secondItem="vVJ-uw-VJS" secondAttribute="bottom" id="0cC-lT-URM"/>
                             <constraint firstItem="Ndw-gx-xfP" firstAttribute="top" secondItem="XTh-Ud-SOk" secondAttribute="top" id="6D1-iq-LtO"/>
                             <constraint firstItem="XTh-Ud-SOk" firstAttribute="bottom" secondItem="Dut-HX-n9y" secondAttribute="bottom" id="8QW-jS-R8G"/>
                             <constraint firstItem="Ndw-gx-xfP" firstAttribute="trailing" secondItem="XTh-Ud-SOk" secondAttribute="trailing" id="Dp4-fL-4gc"/>
                             <constraint firstItem="Dut-HX-n9y" firstAttribute="trailing" secondItem="XTh-Ud-SOk" secondAttribute="trailing" id="GiQ-4H-yO9"/>
                             <constraint firstItem="Ndw-gx-xfP" firstAttribute="leading" secondItem="XTh-Ud-SOk" secondAttribute="leading" id="Jmx-Vf-FNA"/>
                             <constraint firstItem="Dut-HX-n9y" firstAttribute="top" secondItem="XTh-Ud-SOk" secondAttribute="top" id="NbA-A8-8b3"/>
+                            <constraint firstItem="vVJ-uw-VJS" firstAttribute="leading" secondItem="XTh-Ud-SOk" secondAttribute="leading" id="SaN-l5-7Tn"/>
                             <constraint firstItem="Dut-HX-n9y" firstAttribute="leading" secondItem="XTh-Ud-SOk" secondAttribute="leading" id="gf1-Lc-nA7"/>
+                            <constraint firstItem="vVJ-uw-VJS" firstAttribute="trailing" secondItem="XTh-Ud-SOk" secondAttribute="trailing" id="tUr-Bx-baX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XTh-Ud-SOk"/>
                     </view>
                     <connections>
+                        <outlet property="commentsButtonView" destination="vVJ-uw-VJS" id="tnL-Ea-bkU"/>
+                        <outlet property="commentsButtonViewBottomConstraint" destination="0cC-lT-URM" id="7IC-Kx-w7X"/>
                         <outlet property="tableView" destination="Dut-HX-n9y" id="hdY-3l-Ujg"/>
                         <outlet property="votesView" destination="Ndw-gx-xfP" id="XeU-RQ-84Y"/>
                         <outlet property="votesViewTopConstraint" destination="6D1-iq-LtO" id="l3l-45-uds"/>
@@ -346,8 +457,40 @@
             </objects>
             <point key="canvasLocation" x="1014" y="-1811"/>
         </scene>
+        <!--Proposal Comments View Controller-->
+        <scene sceneID="Kfj-RP-1hs">
+            <objects>
+                <viewController storyboardIdentifier="ProposalCommentsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kfm-8u-Pxl" customClass="ProposalCommentsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PEI-UD-8Ls">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="100" translatesAutoresizingMaskIntoConstraints="NO" id="lLq-fK-oO2" customClass="ProposalDetailBasicInfoView">
+                                <rect key="frame" x="0.0" y="20" width="375" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="lLq-fK-oO2" firstAttribute="top" secondItem="cNg-5N-x3h" secondAttribute="top" id="8J4-P6-rRO"/>
+                            <constraint firstItem="cNg-5N-x3h" firstAttribute="trailing" secondItem="lLq-fK-oO2" secondAttribute="trailing" id="Va4-qW-JAv"/>
+                            <constraint firstItem="lLq-fK-oO2" firstAttribute="leading" secondItem="cNg-5N-x3h" secondAttribute="leading" id="iw2-ON-ihp"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cNg-5N-x3h"/>
+                    </view>
+                    <connections>
+                        <outlet property="basicInfoView" destination="lLq-fK-oO2" id="Qpk-Ay-oci"/>
+                        <outlet property="basicInfoViewTopConstraint" destination="8J4-P6-rRO" id="gxY-dn-r16"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yEB-tj-pUO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1831" y="-1811"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="disclosureIcon" width="9" height="14"/>
+        <image name="proposalCommentsIcon" width="12" height="13"/>
         <image name="tabBarProposals" width="20" height="20"/>
     </resources>
 </document>

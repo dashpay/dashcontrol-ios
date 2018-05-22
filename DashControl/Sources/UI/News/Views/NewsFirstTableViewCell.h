@@ -15,22 +15,11 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import "NewsTableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class QRScannerViewController;
-
-@protocol QRScannerViewControllerDelegate <NSObject>
-
-- (void)qrScannerViewControllerDidCancel:(QRScannerViewController *)controller;
-- (void)qrScannerViewController:(QRScannerViewController *)controller didScanDASHAddress:(NSString *)address;
-
-@end
-
-@interface QRScannerViewController : UIViewController
-
-@property (nullable, weak, nonatomic) id<QRScannerViewControllerDelegate> delegate;
+@interface NewsFirstTableViewCell : NewsTableViewCell
 
 @end
 

@@ -15,24 +15,25 @@
 //  limitations under the License.
 //
 
-#import <KVO-MVVM/KVOUIView.h>
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class QRScannerViewModel;
-@class QRScannerView;
+@class HTTPLoaderManager;
+@class DCPersistenceStack;
+@protocol HTTPLoaderOperationProtocol;
 
-@protocol QRScannerViewDelegate <NSObject>
+@interface APIBudgetPrivate : NSObject
 
-- (void)qrScannerViewDidCancel:(QRScannerView *)view;
-- (void)qrScannerView:(QRScannerView *)view didScanDASHAddress:(NSString *)address;
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+@property (strong, nonatomic) InjectedClass(HTTPLoaderManager) httpManager;
 
-@end
+@property (nullable, copy, nonatomic) NSString *userAPIKey;
 
-@interface QRScannerView : KVOUIView
-
-@property (strong, nonatomic) QRScannerViewModel *viewModel;
-@property (nullable, weak, nonatomic) id<QRScannerViewDelegate> delegate;
+- (id<HTTPLoaderOperationProtocol>)postComment:(NSString *)comment
+                                  proposalHash:(NSString *)proposalHash
+                              replyToCommentId:(nullable NSString *)replyToCommentId
+                                    completion:(void (^)(BOOL success))completion;
 
 @end
 

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Light.otf">
+            <string>Montserrat-Light</string>
+        </array>
+        <array key="Montserrat-Regular.otf">
+            <string>Montserrat-Regular</string>
+        </array>
+        <array key="Montserrat-SemiBold.otf">
+            <string>Montserrat-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProposalCommentTableViewCell" rowHeight="166" id="nZm-Gq-Sl9" customClass="ProposalCommentTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="134"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nZm-Gq-Sl9" id="MHs-lG-tuZ">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="133.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="300" placeholderIntrinsicWidth="290" placeholderIntrinsicHeight="0.0" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="oBw-cs-ZP7">
+                        <rect key="frame" x="24" y="13" width="327" height="0.0"/>
+                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="11"/>
+                        <color key="textColor" red="0.41568627450980389" green="0.47058823529411764" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <attributedString key="userComments">
+                            <fragment content="#bc-ignore!">
+                                <attributes>
+                                    <font key="NSFont" metaFont="smallSystem"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="301" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="aOh-sM-1PI">
+                        <rect key="frame" x="24" y="13" width="327" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="k1l-Ct-Cfi"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="13"/>
+                        <color key="textColor" red="0.0" green="0.44317391509999998" blue="0.74421042199999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <attributedString key="userComments">
+                            <fragment content="#bc-ignore">
+                                <attributes>
+                                    <font key="NSFont" metaFont="smallSystem"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="302" text="Some date ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahe-tn-aoh">
+                        <rect key="frame" x="24" y="33" width="327" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="AfW-km-L08"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
+                        <color key="textColor" red="0.41568627450000001" green="0.47058823529999999" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <attributedString key="userComments">
+                            <fragment content="#bc-ignore!">
+                                <attributes>
+                                    <font key="NSFont" metaFont="smallSystem"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="260" text="Comment text" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dY8-0B-iJc">
+                        <rect key="frame" x="24" y="74" width="327" height="15.5"/>
+                        <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="13"/>
+                        <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                        <attributedString key="userComments">
+                            <fragment content="#bc-ignore!">
+                                <attributes>
+                                    <font key="NSFont" metaFont="smallSystem"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="303" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kha-TH-cZy">
+                        <rect key="frame" x="24" y="89.5" width="34" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="OjN-ev-x3P"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="12"/>
+                        <state key="normal" title="Reply">
+                            <color key="titleColor" red="0.0" green="0.44317391509999998" blue="0.74421042199999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <attributedString key="userComments">
+                            <fragment content="#bc-ignore!">
+                                <attributes>
+                                    <font key="NSFont" metaFont="smallSystem"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <connections>
+                            <action selector="replyButtonAction:" destination="nZm-Gq-Sl9" eventType="touchUpInside" id="fgs-Pn-baW"/>
+                        </connections>
+                    </button>
+                    <view contentMode="scaleToFill" verticalHuggingPriority="350" translatesAutoresizingMaskIntoConstraints="NO" id="pJy-Si-ZIP" userLabel="Comment Add View" customClass="ProposalCommentAddView">
+                        <rect key="frame" x="24" y="133.5" width="327" height="0.0"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" id="V7z-oJ-MxG"/>
+                            <constraint firstAttribute="height" priority="600" constant="120" id="vOZ-ie-43E"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="vOZ-ie-43E"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="kha-TH-cZy" firstAttribute="top" secondItem="dY8-0B-iJc" secondAttribute="bottom" id="4lS-aJ-PmG"/>
+                    <constraint firstItem="pJy-Si-ZIP" firstAttribute="top" secondItem="kha-TH-cZy" secondAttribute="bottom" id="7l0-HT-h0S"/>
+                    <constraint firstItem="oBw-cs-ZP7" firstAttribute="top" secondItem="MHs-lG-tuZ" secondAttribute="top" constant="13" id="EQe-sK-LMR"/>
+                    <constraint firstAttribute="bottom" secondItem="pJy-Si-ZIP" secondAttribute="bottom" id="Ivs-cW-dOX"/>
+                    <constraint firstAttribute="trailing" secondItem="oBw-cs-ZP7" secondAttribute="trailing" constant="24" id="K7k-rF-qc6"/>
+                    <constraint firstItem="dY8-0B-iJc" firstAttribute="leading" secondItem="MHs-lG-tuZ" secondAttribute="leading" constant="24" id="Kyy-To-x7e"/>
+                    <constraint firstAttribute="trailing" secondItem="dY8-0B-iJc" secondAttribute="trailing" constant="24" id="Lr7-Dj-OWc"/>
+                    <constraint firstItem="aOh-sM-1PI" firstAttribute="leading" secondItem="MHs-lG-tuZ" secondAttribute="leading" constant="24" id="MTS-p6-o3f"/>
+                    <constraint firstItem="ahe-tn-aoh" firstAttribute="leading" secondItem="MHs-lG-tuZ" secondAttribute="leading" constant="24" id="ToL-fM-XF1"/>
+                    <constraint firstAttribute="trailing" secondItem="pJy-Si-ZIP" secondAttribute="trailing" constant="24" id="TqY-KV-HQ7"/>
+                    <constraint firstAttribute="trailing" secondItem="ahe-tn-aoh" secondAttribute="trailing" constant="24" id="c9k-jc-sRn"/>
+                    <constraint firstItem="dY8-0B-iJc" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ahe-tn-aoh" secondAttribute="bottom" priority="950" constant="21" id="cqe-ig-vMQ"/>
+                    <constraint firstItem="ahe-tn-aoh" firstAttribute="top" secondItem="aOh-sM-1PI" secondAttribute="bottom" id="gfx-ur-pcD"/>
+                    <constraint firstItem="aOh-sM-1PI" firstAttribute="top" secondItem="oBw-cs-ZP7" secondAttribute="bottom" id="h58-Vi-Lgp"/>
+                    <constraint firstItem="kha-TH-cZy" firstAttribute="leading" secondItem="MHs-lG-tuZ" secondAttribute="leading" constant="24" id="kN2-fc-JuY"/>
+                    <constraint firstAttribute="trailing" secondItem="aOh-sM-1PI" secondAttribute="trailing" constant="24" id="o4B-Wb-hpk"/>
+                    <constraint firstItem="oBw-cs-ZP7" firstAttribute="leading" secondItem="MHs-lG-tuZ" secondAttribute="leading" constant="24" id="orJ-Iy-fb8"/>
+                    <constraint firstItem="pJy-Si-ZIP" firstAttribute="leading" secondItem="MHs-lG-tuZ" secondAttribute="leading" constant="24" id="wev-5v-c8f"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="commentAddView" destination="pJy-Si-ZIP" id="abt-Vf-ifK"/>
+                <outlet property="commentAddViewHeightConstraint" destination="vOZ-ie-43E" id="yPS-n9-Tvj"/>
+                <outlet property="commentAddViewHiddenConstraint" destination="V7z-oJ-MxG" id="60F-D5-VZR"/>
+                <outlet property="commentLabel" destination="dY8-0B-iJc" id="Ivf-Zi-Lnj"/>
+                <outlet property="commentLeadingConstraint" destination="Kyy-To-x7e" id="ABR-TF-OcI"/>
+                <outlet property="dateLabel" destination="ahe-tn-aoh" id="b1t-4x-lOo"/>
+                <outlet property="dateLeadingConstraint" destination="ToL-fM-XF1" id="YLV-Ed-ALw"/>
+                <outlet property="inRelpyToLabel" destination="oBw-cs-ZP7" id="0NW-uA-CZh"/>
+                <outlet property="inReplyToUsernameVerticalConstraint" destination="h58-Vi-Lgp" id="1a7-T6-DcF"/>
+                <outlet property="replyButton" destination="kha-TH-cZy" id="mba-cy-mLm"/>
+                <outlet property="replyLeadingConstraint" destination="kN2-fc-JuY" id="BsI-Fy-TT4"/>
+                <outlet property="usernameLabel" destination="aOh-sM-1PI" id="Pq3-7z-dAA"/>
+                <outlet property="usernameLeadingConstraint" destination="MTS-p6-o3f" id="NJY-r6-taE"/>
+            </connections>
+            <point key="canvasLocation" x="-474.5" y="273.5"/>
+        </tableViewCell>
+    </objects>
+</document>

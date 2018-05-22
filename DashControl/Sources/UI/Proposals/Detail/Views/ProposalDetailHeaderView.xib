@@ -6,25 +6,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Montserrat-Light.otf">
-            <string>Montserrat-Light</string>
-        </array>
-        <array key="Montserrat-Regular.otf">
-            <string>Montserrat-Regular</string>
-        </array>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProposalDetailHeaderView">
             <connections>
+                <outlet property="basicInfoView" destination="iUt-ai-NIa" id="7YN-rG-sah"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="i3f-GU-WFK"/>
-                <outlet property="ownerUsernameLabel" destination="PCP-j1-c30" id="KrX-TH-QwN"/>
-                <outlet property="progressBarView" destination="Dhv-vn-Zdy" id="nCy-yE-djQ"/>
                 <outlet property="rowsStackView" destination="7cm-R0-O2m" id="TYd-GR-Bc0"/>
-                <outlet property="titleLabel" destination="mOy-1Z-ywm" id="XDm-3n-3qo"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -32,111 +21,19 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iUt-ai-NIa" userLabel="Main Info View">
-                    <rect key="frame" x="0.0" y="10" width="375" height="78.5"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" horizontalCompressionResistancePriority="800" translatesAutoresizingMaskIntoConstraints="NO" id="Dhv-vn-Zdy" customClass="MBCircularProgressBarView">
-                            <rect key="frame" x="289" y="10" width="62" height="62"/>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="62" id="Fma-nu-OMV"/>
-                                <constraint firstAttribute="width" constant="62" id="lh1-LQ-GeP"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="value">
-                                    <real key="value" value="0.0"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="progressColor">
-                                    <color key="value" red="0.16169300680000001" green="0.65248411890000002" blue="0.93340212109999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="progressStrokeColor">
-                                    <color key="value" red="0.16169300680000001" green="0.65248411890000002" blue="0.93340212109999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="progressLineWidth">
-                                    <real key="value" value="6"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="emptyLineWidth">
-                                    <real key="value" value="7"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="emptyLineColor">
-                                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="displayP3"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="emptyLineStrokeColor">
-                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
-                                    <real key="value" value="100"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="string" keyPath="valueFontName" value="Montserrat-Light"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="valueFontSize">
-                                    <real key="value" value="18"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
-                                    <color key="value" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="emptyCapType">
-                                    <integer key="value" value="1"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOy-1Z-ywm" userLabel="Title Label">
-                            <rect key="frame" x="24" y="10" width="249" height="24.5"/>
-                            <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="20"/>
-                            <color key="textColor" red="0.0" green="0.44317391509999998" blue="0.74421042199999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                            <attributedString key="userComments">
-                                <fragment content="#bc-ignore!">
-                                    <attributes>
-                                        <font key="NSFont" metaFont="smallSystem"/>
-                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                    </attributes>
-                                </fragment>
-                            </attributedString>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="300" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCP-j1-c30" userLabel="Owner Label">
-                            <rect key="frame" x="24" y="40.5" width="249" height="13"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="13" id="5M7-Lt-74p"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="10"/>
-                            <color key="textColor" red="0.41568627450980389" green="0.47058823529411764" blue="0.55294117647058827" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                            <attributedString key="userComments">
-                                <fragment content="#bc-ignore!">
-                                    <attributes>
-                                        <font key="NSFont" metaFont="smallSystem"/>
-                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                    </attributes>
-                                </fragment>
-                            </attributedString>
-                        </label>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2vG-78-tur" userLabel="Line View">
-                            <rect key="frame" x="24" y="77.5" width="327" height="1"/>
-                            <color key="backgroundColor" red="0.89019607840000003" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="1" id="KfF-Ov-l6x"/>
-                            </constraints>
-                        </view>
-                    </subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iUt-ai-NIa" userLabel="Info View" customClass="ProposalDetailBasicInfoView">
+                    <rect key="frame" x="0.0" y="10" width="375" height="95"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2vG-78-tur" userLabel="Line View">
+                    <rect key="frame" x="24" y="105" width="327" height="1"/>
+                    <color key="backgroundColor" red="0.89019607840000003" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="mOy-1Z-ywm" firstAttribute="top" secondItem="iUt-ai-NIa" secondAttribute="top" constant="10" id="8Zx-R5-SEY"/>
-                        <constraint firstItem="Dhv-vn-Zdy" firstAttribute="leading" secondItem="PCP-j1-c30" secondAttribute="trailing" constant="16" id="BIB-9V-Din"/>
-                        <constraint firstItem="Dhv-vn-Zdy" firstAttribute="leading" secondItem="mOy-1Z-ywm" secondAttribute="trailing" priority="900" constant="16" id="DKR-fE-d4j"/>
-                        <constraint firstItem="PCP-j1-c30" firstAttribute="top" secondItem="mOy-1Z-ywm" secondAttribute="bottom" constant="6" id="OeU-oJ-zjY"/>
-                        <constraint firstItem="PCP-j1-c30" firstAttribute="leading" secondItem="iUt-ai-NIa" secondAttribute="leading" constant="24" id="QOU-2C-O4y"/>
-                        <constraint firstAttribute="bottom" secondItem="2vG-78-tur" secondAttribute="bottom" id="Sbf-Nf-qaD"/>
-                        <constraint firstItem="2vG-78-tur" firstAttribute="top" secondItem="PCP-j1-c30" secondAttribute="bottom" constant="24" id="W95-SO-Ul8"/>
-                        <constraint firstAttribute="trailing" secondItem="2vG-78-tur" secondAttribute="trailing" constant="24" id="Wnp-vw-1UO"/>
-                        <constraint firstAttribute="trailing" secondItem="Dhv-vn-Zdy" secondAttribute="trailing" constant="24" id="YlD-tc-pKK"/>
-                        <constraint firstItem="mOy-1Z-ywm" firstAttribute="leading" secondItem="iUt-ai-NIa" secondAttribute="leading" constant="24" id="ZZn-5J-e6C"/>
-                        <constraint firstItem="Dhv-vn-Zdy" firstAttribute="top" secondItem="iUt-ai-NIa" secondAttribute="top" constant="10" id="fPW-fL-5ek"/>
-                        <constraint firstItem="2vG-78-tur" firstAttribute="leading" secondItem="iUt-ai-NIa" secondAttribute="leading" constant="24" id="qeY-cb-OFs"/>
-                        <constraint firstItem="mOy-1Z-ywm" firstAttribute="width" secondItem="iUt-ai-NIa" secondAttribute="width" multiplier="0.6635" id="xa0-SV-DYr"/>
+                        <constraint firstAttribute="height" constant="1" id="KfF-Ov-l6x"/>
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7cm-R0-O2m">
-                    <rect key="frame" x="24" y="88.5" width="327" height="17.5"/>
+                    <rect key="frame" x="24" y="106" width="327" height="0.0"/>
                     <constraints>
                         <constraint firstAttribute="height" priority="200" id="X7u-WZ-j6d"/>
                     </constraints>
@@ -147,10 +44,13 @@
                 <constraint firstItem="iUt-ai-NIa" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="5RA-rQ-mzd"/>
                 <constraint firstItem="7cm-R0-O2m" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="6N5-va-gTS"/>
                 <constraint firstAttribute="trailing" secondItem="7cm-R0-O2m" secondAttribute="trailing" constant="24" id="EcB-XW-YYe"/>
+                <constraint firstItem="2vG-78-tur" firstAttribute="top" secondItem="iUt-ai-NIa" secondAttribute="bottom" id="Eky-Qv-xVW"/>
                 <constraint firstAttribute="bottom" secondItem="7cm-R0-O2m" secondAttribute="bottom" constant="24" id="cic-JV-Zmh"/>
                 <constraint firstItem="iUt-ai-NIa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="d1N-qS-uZj"/>
-                <constraint firstItem="7cm-R0-O2m" firstAttribute="top" secondItem="iUt-ai-NIa" secondAttribute="bottom" id="pAI-JJ-TcD"/>
+                <constraint firstItem="7cm-R0-O2m" firstAttribute="top" secondItem="2vG-78-tur" secondAttribute="bottom" id="dSe-BR-JYc"/>
+                <constraint firstAttribute="trailing" secondItem="2vG-78-tur" secondAttribute="trailing" constant="24" id="tBg-bG-ATA"/>
                 <constraint firstAttribute="trailing" secondItem="iUt-ai-NIa" secondAttribute="trailing" id="u3G-sk-lFW"/>
+                <constraint firstItem="2vG-78-tur" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="yu7-Z2-yJz"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="33.5" y="53.5"/>

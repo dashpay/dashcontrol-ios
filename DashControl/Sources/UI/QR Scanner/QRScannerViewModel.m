@@ -17,8 +17,6 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-#import "NSString+Dash.h"
-
 #import "QRScannerViewModel.h"
 
 static NSTimeInterval const kResumeSearchTimeInterval = 1.0;
@@ -86,6 +84,10 @@ static NSTimeInterval const kResumeSearchTimeInterval = 1.0;
     return (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted);
 }
 
+- (nullable NSString *)hintText {
+    return nil;
+}
+
 - (void)startPreview {
     void (^doStartPreview)(void) = ^{
 #if !TARGET_OS_SIMULATOR
@@ -151,6 +153,10 @@ static NSTimeInterval const kResumeSearchTimeInterval = 1.0;
             DCDebugLog([self class], error);
         }
     });
+}
+
+- (BOOL)validateQRCodeObjectValue:(NSString *_Nullable)stringValue error:(NSError *__autoreleasing _Nullable *_Nullable)error {
+    return YES;
 }
 
 #pragma mark Private
@@ -248,12 +254,18 @@ static NSTimeInterval const kResumeSearchTimeInterval = 1.0;
     dispatch_sync(dispatch_get_main_queue(), ^{ // sync!
         self.qrCodeObject = [[QRCodeObject alloc] initWithMetadataObject:codeObject];
 
-        NSString *addr = [codeObject.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        if ([addr isValidDashAddress]) {
+        NSError *error = nil;
+        BOOL valid = [self validateQRCodeObjectValue:codeObject.stringValue error:&error];
+
+        if (valid) {
             [self.qrCodeObject setValid];
         }
         else {
-            [self.qrCodeObject setInvalidWithErrorMessage:NSLocalizedString(@"not a DASH QR code", nil)];
+            NSString *errorMessage = nil;
+            if (error) {
+                errorMessage = error.userInfo[NSLocalizedDescriptionKey];
+            }
+            [self.qrCodeObject setInvalidWithErrorMessage:errorMessage];
 
             [self performSelector:@selector(resumeQRCodeSearch) withObject:nil afterDelay:kResumeSearchTimeInterval];
         }

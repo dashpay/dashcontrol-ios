@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProposalCommentAddTableViewCell" rowHeight="230" id="KGk-i7-Jjw" customClass="ProposalCommentAddTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="230"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="393" height="229.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" verticalHuggingPriority="350" translatesAutoresizingMaskIntoConstraints="NO" id="JZO-t7-Dez" userLabel="Comment Add View" customClass="ProposalCommentAddView">
+                        <rect key="frame" x="24" y="24" width="345" height="203.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" priority="600" constant="120" id="A7M-IY-zZU"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="JZO-t7-Dez" secondAttribute="bottom" constant="2" id="4E1-j2-tHS"/>
+                    <constraint firstItem="JZO-t7-Dez" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="YMd-iQ-Qbo"/>
+                    <constraint firstAttribute="trailing" secondItem="JZO-t7-Dez" secondAttribute="trailing" constant="24" id="geb-cN-y7J"/>
+                    <constraint firstItem="JZO-t7-Dez" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="24" id="s2N-nb-cvT"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="commentAddView" destination="JZO-t7-Dez" id="h3s-KZ-Fol"/>
+            </connections>
+            <point key="canvasLocation" x="42.5" y="147"/>
+        </tableViewCell>
+    </objects>
+</document>

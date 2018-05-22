@@ -57,7 +57,16 @@
 "ADD" = "ADD";
 
 /* No comment provided by engineer. */
+"Add Comment" = "Add Comment";
+
+/* No comment provided by engineer. */
+"Add Reply" = "Add Reply";
+
+/* No comment provided by engineer. */
 "Address" = "Address";
+
+/* as in '2 months ago' */
+"ago" = "ago";
 
 /* No comment provided by engineer. */
 "Alert type" = "Alert type";
@@ -102,6 +111,9 @@
 "DASH per month" = "DASH per month";
 
 /* No comment provided by engineer. */
+"Discussion" = "Discussion";
+
+/* No comment provided by engineer. */
 "Error" = "Error";
 
 /* No comment provided by engineer. */
@@ -111,7 +123,25 @@
 "Final voting\ndeadline" = "Final voting\ndeadline";
 
 /* No comment provided by engineer. */
+"Hide Reply" = "Hide Reply";
+
+/* No comment provided by engineer. */
 "Import using QR code" = "Import using QR code";
+
+/* as in 'in 2 hours' */
+"in" = "in";
+
+/* No comment provided by engineer. */
+"In reply to" = "In reply to";
+
+/* No comment provided by engineer. */
+"invalid API key" = "invalid API key";
+
+/* No comment provided by engineer. */
+"Join the discussion!" = "Join the discussion!";
+
+/* No comment provided by engineer. */
+"Login to your account using DashCentral\nOpen DashCentral.org → My Account → Mobile Access and scan the QR code" = "Login to your account using DashCentral\nOpen DashCentral.org → My Account → Mobile Access and scan the QR code";
 
 /* No comment provided by engineer. */
 "Market" = "Market";
@@ -195,7 +225,13 @@
 "Proposal" = "Proposal";
 
 /* No comment provided by engineer. */
+"proposal owner" = "proposal owner";
+
+/* No comment provided by engineer. */
 "Proposals" = "Proposals";
+
+/* No comment provided by engineer. */
+"Reply" = "Reply";
 
 /* No comment provided by engineer. */
 "required" = "required";
@@ -208,6 +244,12 @@
 
 /* No comment provided by engineer. */
 "Settings" = "Settings";
+
+/* No comment provided by engineer. */
+"Show full description" = "Show full description";
+
+/* No comment provided by engineer. */
+"Submit your comments and exchange your ideas on this proposal" = "Submit your comments and exchange your ideas on this proposal";
 
 /* No comment provided by engineer. */
 "Superblock" = "Superblock";
@@ -232,6 +274,9 @@
 
 /* No comment provided by engineer. */
 "Will be\nfunded" = "Will be\nfunded";
+
+/* No comment provided by engineer. */
+"Write a comment..." = "Write a comment...";
 
 /* Will be funded - yes
    Yes votes count title */

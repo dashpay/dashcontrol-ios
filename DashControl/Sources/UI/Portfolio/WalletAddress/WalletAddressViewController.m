@@ -114,7 +114,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)qrCodeButtonAction {
-    QRScannerViewController *controller = [[QRScannerViewController alloc] init];
+    QRScannerViewController *controller = [[QRScannerViewController alloc] initAsAddressScanner];
     controller.delegate = self;
     [self presentViewController:controller animated:YES completion:nil];
 }
@@ -125,8 +125,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)qrScannerViewController:(QRScannerViewController *)controller didScanDASHAddress:(NSString *)address {
-    [self.viewModel updateAddress:address];
+- (void)qrScannerViewController:(QRScannerViewController *)controller didScanString:(NSString *)scannedString {
+    [self.viewModel updateAddress:scannedString];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

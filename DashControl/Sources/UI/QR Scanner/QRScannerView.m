@@ -20,13 +20,19 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import "UIFont+DCStyle.h"
+#import "QRScannerHintView.h"
 #import "QRScannerViewModel.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+static CGFloat const HINT_VIEW_PADDING = 40.0;
 
 @interface QRScannerView ()
 
-@property (weak, nonatomic) AVCaptureVideoPreviewLayer *previewLayer;
-@property (weak, nonatomic) CAShapeLayer *qrCodeLayer;
-@property (weak, nonatomic) CATextLayer *qrCodeTextLayer;
+@property (strong, nonatomic) AVCaptureVideoPreviewLayer *previewLayer;
+@property (strong, nonatomic) QRScannerHintView *hintView;
+@property (strong, nonatomic) CAShapeLayer *qrCodeLayer;
+@property (strong, nonatomic) CATextLayer *qrCodeTextLayer;
 
 @end
 
@@ -41,6 +47,11 @@
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         [self.layer addSublayer:previewLayer];
         _previewLayer = previewLayer;
+
+        QRScannerHintView *hintView = [[QRScannerHintView alloc] initWithFrame:CGRectZero];
+        hintView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:hintView];
+        _hintView = hintView;
 
         UIView *overlayView = [[UIView alloc] initWithFrame:CGRectZero];
         overlayView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -77,13 +88,24 @@
 
         // Layout
 
-        [overlayView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor].active = YES;
-        [overlayView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor].active = YES;
-        [overlayView.topAnchor constraintEqualToAnchor:toolbar.topAnchor].active = YES;
-        [overlayView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
+        if (@available(iOS 11.0, *)) {
+            [hintView.topAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.topAnchor constant:HINT_VIEW_PADDING].active = YES;
+        }
+        else {
+            [hintView.topAnchor constraintEqualToAnchor:self.topAnchor constant:HINT_VIEW_PADDING].active = YES;
+        }
+        [NSLayoutConstraint activateConstraints:@[
+            [hintView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:HINT_VIEW_PADDING],
+            [hintView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-HINT_VIEW_PADDING],
 
-        [toolbar.leadingAnchor constraintEqualToAnchor:self.leadingAnchor].active = YES;
-        [toolbar.trailingAnchor constraintEqualToAnchor:self.trailingAnchor].active = YES;
+            [overlayView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+            [overlayView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+            [overlayView.topAnchor constraintEqualToAnchor:toolbar.topAnchor],
+            [overlayView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+
+            [toolbar.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+            [toolbar.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        ]];
         if (@available(iOS 11.0, *)) {
             [toolbar.bottomAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.bottomAnchor].active = YES;
         }
@@ -92,21 +114,26 @@
         }
 
         // KVO
-        
-        [self mvvm_observe:@"viewModel.qrCodeObject" with:^(typeof(self) self, QRCodeObject *value){
+
+        [self mvvm_observe:@"viewModel.qrCodeObject" with:^(typeof(self) self, QRCodeObject * value) {
             [self handleQRCodeObject:value];
         }];
-        
-        [self mvvm_observe:@"viewModel.qrCodeObject.type" with:^(typeof(self) self, id value){
+
+        [self mvvm_observe:@"viewModel.qrCodeObject.type" with:^(typeof(self) self, id value) {
             QRCodeObject *qrCodeObject = self.viewModel.qrCodeObject;
             [self updateQRCodeLayer:self.qrCodeLayer forObject:qrCodeObject];
-            
+
             if (qrCodeObject.type == QRCodeObjectTypeValid) {
                 // display successful scanning then return
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self.delegate qrScannerView:self didScanDASHAddress:qrCodeObject.metadataObject.stringValue];
+                    [self.delegate qrScannerView:self didScanString:qrCodeObject.metadataObject.stringValue];
                 });
             }
+        }];
+
+        [self mvvm_observe:@"viewModel.hintText" with:^(typeof(self) self, NSString * value) {
+            self.hintView.text = value;
+            self.hintView.hidden = (self.hintView.text.length == 0);
         }];
     }
     return self;
@@ -195,7 +222,7 @@
     layer.fillColor = [color colorWithAlphaComponent:0.3].CGColor;
 
     [self.qrCodeTextLayer removeFromSuperlayer];
-    
+
     if (!qrCodeObject.errorMessage) {
         return;
     }
@@ -224,3 +251,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
