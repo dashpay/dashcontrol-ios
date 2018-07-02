@@ -1,7 +1,4 @@
 PODS:
-  - Charts (3.1.1):
-    - Charts/Core (= 3.1.1)
-  - Charts/Core (3.1.1)
   - DeluxeInjection (0.8.6):
     - RuntimeRoutines (~> 0.3.2)
   - Godzippa (2.0.0)
@@ -17,7 +14,6 @@ PODS:
   - UIViewController-KeyboardAdditions (1.2.1)
 
 DEPENDENCIES:
-  - Charts (= 3.1.1)
   - DeluxeInjection (= 0.8.6)
   - Godzippa (= 2.0.0)
   - KVO-MVVM (= 0.5.1)
@@ -30,7 +26,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Charts
     - DeluxeInjection
     - Godzippa
     - KVO-MVVM
@@ -43,7 +38,6 @@ SPEC REPOS:
     - UIViewController-KeyboardAdditions
 
 SPEC CHECKSUMS:
-  Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
   DeluxeInjection: 03964b27f8aa5a787221907e1f82364ef7bafef7
   Godzippa: b423a467a9e4b4cb43bb4f3adb989d312795eb88
   KVO-MVVM: 4df3afd1f7ebcb69735458b85db59c4271ada7c6
@@ -55,6 +49,6 @@ SPEC CHECKSUMS:
   SimulatorStatusMagic: 481558caf2b9ccb2ceba2cc193728d4db3dcac07
   UIViewController-KeyboardAdditions: a691dc7e63a49854d341455a778ee8497dfc4662
 
-PODFILE CHECKSUM: 37da7c23a0302ad1619956662fa433cc17158b64
+PODFILE CHECKSUM: e05b1962bb1e12da8f13ed268bdd01ccdf3eea66
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.5.3

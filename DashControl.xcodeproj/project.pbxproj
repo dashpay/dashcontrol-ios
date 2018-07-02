@@ -81,6 +81,7 @@
 		2A4473A720429CC400B52BCB /* ChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4473A620429CC400B52BCB /* ChartViewController.m */; };
 		2A4473AA2042B69D00B52BCB /* ChartViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4473A92042B69D00B52BCB /* ChartViewModel.m */; };
 		2A4473AE2042E8DA00B52BCB /* DCSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4473AD2042E8DA00B52BCB /* DCSegmentedControl.m */; };
+		2A44D5B720E9F09F0033E46B /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A44D5B620E9F09F0033E46B /* Charts.framework */; };
 		2A46C23E20A32830007037FA /* ProposalCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C23D20A32830007037FA /* ProposalCommentsViewController.m */; };
 		2A46C24120A32848007037FA /* ProposalCommentsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C24020A32848007037FA /* ProposalCommentsViewModel.m */; };
 		2A46C24520A328B1007037FA /* ProposalCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A46C24420A328B1007037FA /* ProposalCommentTableViewCell.m */; };
@@ -108,7 +109,6 @@
 		2A587EA7206A88AC004BC537 /* ItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A587EA6206A88AC004BC537 /* ItemTableViewCell.m */; };
 		2A587EA9206A88C3004BC537 /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A587EA8206A88C3004BC537 /* ItemTableViewCell.xib */; };
 		2A587EAD206A8D8E004BC537 /* TableViewFRCDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A587EAC206A8D8E004BC537 /* TableViewFRCDelegate.m */; };
-		2A5BFC83207DCF0E005328B8 /* DummySwiftFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BFC82207DCF0E005328B8 /* DummySwiftFile.swift */; };
 		2A6AFF6620ADEBF100F208A6 /* NewsFirstTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6AFF6520ADEBF100F208A6 /* NewsFirstTableViewCell.m */; };
 		2A6F59602034259600D7BD85 /* APINews.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F595F2034259600D7BD85 /* APINews.m */; };
 		2A6F5967203566A600D7BD85 /* ForwardingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F5966203566A600D7BD85 /* ForwardingNavigationController.m */; };
@@ -419,6 +419,7 @@
 		2A4473A92042B69D00B52BCB /* ChartViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartViewModel.m; sourceTree = "<group>"; };
 		2A4473AC2042E8DA00B52BCB /* DCSegmentedControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSegmentedControl.h; sourceTree = "<group>"; };
 		2A4473AD2042E8DA00B52BCB /* DCSegmentedControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSegmentedControl.m; sourceTree = "<group>"; };
+		2A44D5B620E9F09F0033E46B /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/iOS/Charts.framework; sourceTree = "<group>"; };
 		2A46C23C20A32830007037FA /* ProposalCommentsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalCommentsViewController.h; sourceTree = "<group>"; };
 		2A46C23D20A32830007037FA /* ProposalCommentsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalCommentsViewController.m; sourceTree = "<group>"; };
 		2A46C23F20A32848007037FA /* ProposalCommentsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalCommentsViewModel.h; sourceTree = "<group>"; };
@@ -468,7 +469,6 @@
 		2A587EAA206A895C004BC537 /* ItemTableViewCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemTableViewCellModel.h; sourceTree = "<group>"; };
 		2A587EAB206A8D8E004BC537 /* TableViewFRCDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewFRCDelegate.h; sourceTree = "<group>"; };
 		2A587EAC206A8D8E004BC537 /* TableViewFRCDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewFRCDelegate.m; sourceTree = "<group>"; };
-		2A5BFC82207DCF0E005328B8 /* DummySwiftFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummySwiftFile.swift; sourceTree = "<group>"; };
 		2A6AFF6420ADEBF100F208A6 /* NewsFirstTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsFirstTableViewCell.h; sourceTree = "<group>"; };
 		2A6AFF6520ADEBF100F208A6 /* NewsFirstTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsFirstTableViewCell.m; sourceTree = "<group>"; };
 		2A6AFF6720ADEC4300F208A6 /* NewsTableViewCell+Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NewsTableViewCell+Protected.h"; sourceTree = "<group>"; };
@@ -782,6 +782,7 @@
 				FBEF66FB1F83DCED003424D2 /* Security.framework in Frameworks */,
 				24B0004D1F580FF5007D24A1 /* MobileCoreServices.framework in Frameworks */,
 				24B0004B1F580FEB007D24A1 /* CoreSpotlight.framework in Frameworks */,
+				2A44D5B720E9F09F0033E46B /* Charts.framework in Frameworks */,
 				24B000441F5724B6007D24A1 /* SafariServices.framework in Frameworks */,
 				FB4310FF1FA2B90700784EBC /* LocalAuthentication.framework in Frameworks */,
 				24E1D8DE1F4D742D00AE2C47 /* UserNotifications.framework in Frameworks */,
@@ -1423,6 +1424,7 @@
 		F8F9FBF8277751CF40134EEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2A44D5B620E9F09F0033E46B /* Charts.framework */,
 				FB4310FE1FA2B8BC00784EBC /* LocalAuthentication.framework */,
 				FBEF66FA1F83DCED003424D2 /* Security.framework */,
 				24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */,
@@ -1522,7 +1524,6 @@
 		FB84EDC01F32898700E4D400 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				2A5BFC82207DCF0E005328B8 /* DummySwiftFile.swift */,
 				24E584151F3ADCEF00A12087 /* DashControl-PrefixHeader.pch */,
 				2442A01B1F4D6CDC006FAC0D /* DashControl.entitlements */,
 				FB300E381FB55B7F00B3CDE0 /* Images.xcassets */,
@@ -1721,6 +1722,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FB84EDD71F32898700E4D400 /* Build configuration list for PBXNativeTarget "DashControl" */;
 			buildPhases = (
+				2A44D5B820E9F0C40033E46B /* [Carthage] Run Script Copy Frameworks */,
 				B13CDC11D77705DD862345F6 /* [CP] Check Pods Manifest.lock */,
 				FB84EDB91F32898700E4D400 /* Sources */,
 				FB84EDBA1F32898700E4D400 /* Frameworks */,
@@ -1889,6 +1891,22 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		2A44D5B820E9F0C40033E46B /* [Carthage] Run Script Copy Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Charts.framework",
+			);
+			name = "[Carthage] Run Script Copy Frameworks";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Charts.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 		2AB9AA7B20454F85005979C4 /* [Carthage] Run Script Copy Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2149,7 +2167,6 @@
 				2A289A4D203AB00700EDC98E /* DCSearchController.m in Sources */,
 				2AEF297320734F30008590E4 /* ButtonFormCellModel.m in Sources */,
 				2AE3C4722093149C00CE83A8 /* SearchNavigationTitleView.m in Sources */,
-				2A5BFC83207DCF0E005328B8 /* DummySwiftFile.swift in Sources */,
 				2A587EA7206A88AC004BC537 /* ItemTableViewCell.m in Sources */,
 				2A04E6E6202DA5E20065F30D /* NetworkActivityIndicatorManager.m in Sources */,
 				2A0DAAD920872CB000992DC1 /* ProposalsSegmentedControl.m in Sources */,
@@ -2294,7 +2311,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 558B8AE6721A9375C76DBBD3 /* Pods-DashControlTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
@@ -2328,7 +2344,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 403ADE725BE30A95BD44A394 /* Pods-DashControlTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
@@ -2361,6 +2376,7 @@
 		FB84EDD51F32898700E4D400 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2420,6 +2436,7 @@
 		FB84EDD61F32898700E4D400 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2482,6 +2499,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 44RJ69WHFF;
 				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DashControl/Supporting Files/DashControl-PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
@@ -2523,6 +2544,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 44RJ69WHFF;
 				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DashControl/Supporting Files/DashControl-PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
