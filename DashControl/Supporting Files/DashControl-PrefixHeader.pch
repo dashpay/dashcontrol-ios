@@ -24,6 +24,8 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CGBase.h> // for CGFloat
+#import <CoreData/CoreData.h>
+#import <Availability.h>
 
 // DI
 @protocol DIInject;

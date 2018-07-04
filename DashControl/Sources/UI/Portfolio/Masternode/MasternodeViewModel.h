@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class DCMasternodeEntity;
 @class DCPersistenceStack;
 @class APIPortfolio;
+@class DSChain;
 
 @interface MasternodeViewModel : NSObject
 
@@ -32,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, strong, nonatomic) NSArray<BaseFormCellModel *> *items;
 @property (readonly, assign, nonatomic) BOOL deleteAvailable;
+
+@property (strong, nonatomic) DSChain *chain;
 
 - (instancetype)initWithMasternode:(nullable DCMasternodeEntity *)masternode;
 

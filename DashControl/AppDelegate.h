@@ -13,12 +13,15 @@ NS_ASSUME_NONNULL_BEGIN
 @class DCPersistenceStack;
 @class APITrigger;
 @class DCWalletManager;
+@class DSChainPeerManager;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 @property (strong, nonatomic) InjectedClass(APITrigger) apiTrigger;
 @property (strong, nonatomic) InjectedClass(DCWalletManager) walletManager;
+
+@property (strong, nonatomic) DSChainPeerManager *chainPeerManager;
 
 @property (strong, nonatomic) UIWindow *window;
 

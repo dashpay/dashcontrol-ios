@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation NSData (Hash)
 
-- (NSString *)SHA1 {
+- (NSString *)SHA1String {
     unsigned int outputLength = CC_SHA1_DIGEST_LENGTH;
     unsigned char output[outputLength];
 

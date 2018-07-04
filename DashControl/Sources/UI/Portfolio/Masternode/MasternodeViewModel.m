@@ -113,7 +113,7 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
         BaseFormCellModel *detail = self.items[index];
         if ([detail isKindOfClass:AddressTextFieldFormCellModel.class]) {
             NSString *text = [(AddressTextFieldFormCellModel *)detail text];
-            if (text.length == 0 || ![text isValidDashAddress]) {
+            if (text.length == 0 || ![text isValidDashAddressOnChain:self.chain]) {
                 return index;
             }
         }

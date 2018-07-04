@@ -18,6 +18,7 @@
 #import "MasternodeViewController.h"
 
 #import <MBProgressHUD/MBProgressHUD.h>
+#import <DashSync/DashSync.h>
 
 #import "FormTableViewController.h"
 #import "MasternodeViewModel.h"
@@ -37,7 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)controllerWithMasternode:(nullable DCMasternodeEntity *)masternode {
     MasternodeViewController *controller = [[MasternodeViewController alloc] initWithNibName:nil bundle:nil];
-    controller.viewModel = [[MasternodeViewModel alloc] initWithMasternode:masternode];
+    MasternodeViewModel *viewModel = [[MasternodeViewModel alloc] initWithMasternode:masternode];
+    viewModel.chain = [DSChain mainnet];
+    controller.viewModel = viewModel;
     return controller;
 }
 

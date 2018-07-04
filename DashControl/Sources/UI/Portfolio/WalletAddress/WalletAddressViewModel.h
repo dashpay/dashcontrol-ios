@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class DCWalletAddressEntity;
 @class DCPersistenceStack;
+@class DSChain;
 
 @interface WalletAddressViewModel : NSObject
 
@@ -30,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, strong, nonatomic) NSArray<BaseFormCellModel *> *items;
 @property (readonly, assign, nonatomic) BOOL deleteAvailable;
+
+@property (strong, nonatomic) DSChain *chain;
 
 - (instancetype)initWithWalletAddress:(nullable DCWalletAddressEntity *)walletAddress;
 

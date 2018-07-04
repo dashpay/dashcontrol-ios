@@ -34,7 +34,7 @@ static NSURL *StoreURL() {
     else {
         tokenData = [@"default" dataUsingEncoding:NSUTF8StringEncoding];
     }
-    NSString *fileName = [tokenData SHA1];
+    NSString *fileName = [tokenData SHA1String];
     NSString *fullFileName = [fileName stringByAppendingPathExtension:@"db"];
     NSURL *directoryURL = [NSPersistentContainer defaultDirectoryURL];
     NSURL *storeURL = [directoryURL URLByAppendingPathComponent:fullFileName];

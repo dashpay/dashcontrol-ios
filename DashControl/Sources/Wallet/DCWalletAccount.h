@@ -19,14 +19,16 @@ typedef NS_ENUM(uint32_t, WalletAccountState) {
 
 @class DCWalletAccountEntity;
 @class NSManagedObjectContext;
+@class DSChain;
 
 @interface DCWalletAccount : NSObject
 
 @property (readonly, assign, nonatomic) WalletAccountState state;
 
-- (instancetype)initWithAccountPublicKey:(NSData *)accountPublicKey
+- (instancetype)initWithAccountPublicKey:(NSString *)accountPublicKey
                                     hash:(nullable NSString *)hash
-                               inContext:(NSManagedObjectContext *)context;
+                               inContext:(NSManagedObjectContext *)context
+                                 onChain:(DSChain *)chain;
 
 - (void)startUpWithWalletAccountEntity:(DCWalletAccountEntity *)walletAccountEntity;
 

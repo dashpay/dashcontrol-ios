@@ -21,7 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const AddressQRScannerViewModelErrorDomain;
 
+@class DSChain;
+
 @interface AddressQRScannerViewModel : QRScannerViewModel
+
+@property (strong, nonatomic) DSChain *chain;
 
 @end
 

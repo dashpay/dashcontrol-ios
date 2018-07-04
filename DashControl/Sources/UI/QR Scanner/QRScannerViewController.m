@@ -17,6 +17,8 @@
 
 #import "QRScannerViewController.h"
 
+#import <DashSync/DashSync.h>
+
 #import "AddressQRScannerViewModel.h"
 #import "DashCentralAuthQRScannerViewModel.h"
 #import "QRScannerView.h"
@@ -37,7 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initAsAddressScanner {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        _viewModel = [[AddressQRScannerViewModel alloc] init];
+        AddressQRScannerViewModel *viewModel = [[AddressQRScannerViewModel alloc] init];
+        viewModel.chain = [DSChain mainnet];
+        _viewModel = viewModel;
     }
     return self;
 }

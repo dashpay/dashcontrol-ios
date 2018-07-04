@@ -11,6 +11,7 @@
 #import <CoreSpotlight/CoreSpotlight.h>
 #import <UserNotifications/UserNotifications.h>
 
+#import <DashSync/DashSync.h>
 #import <SDWebImage/SDImageCache.h>
 
 #ifdef DEBUG
@@ -71,6 +72,8 @@
 
     // Request Device Token For Apple Push Notifications without auth request
     [self requestPushToken];
+    
+    [self configureDashSync];
 
     [self configureAppearance];
     [self configureImageCache];
@@ -257,6 +260,28 @@
     SDImageCacheConfig *config = [SDImageCache sharedImageCache].config;
     config.maxCacheAge = 60 * 60 * 24 * 28;  // 4 weeks
     config.maxCacheSize = 1024 * 1204 * 200; // 200 mb
+}
+
+- (void)configureDashSync {
+    // Configure DashSync stack
+    
+    [DSAuthenticationManager sharedInstance].usesAuthentication = NO;
+    [DashSync sharedSyncController];
+    [[DSOptionsManager sharedInstance] setKeepHeaders:YES];
+    [[DSOptionsManager sharedInstance] setSyncFromGenesis:NO];
+    [[DSOptionsManager sharedInstance] setSyncFromHeight:145000];
+    [[DSOptionsManager sharedInstance] setSyncType:DSSyncType_GovernanceVoting];
+    
+    // Start syncing
+    
+    DSChain *chain = [DSChain mainnet];
+    self.chainPeerManager = [[DSChainManager sharedInstance] peerManagerForChain:chain];
+    [[DashSync sharedSyncController] startSyncForChain:self.chainPeerManager.chain];
+    
+    // Configure DashControl objects
+    
+    self.walletManager.chain = chain;
+    [self.walletManager performWalletsInitialization];
 }
 
 @end

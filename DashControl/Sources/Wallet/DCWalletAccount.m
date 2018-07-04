@@ -8,12 +8,13 @@
 
 #import "DCWalletAccount.h"
 
+#import <DashSync/DashSync.h>
+
 #import "DCWalletAccountEntity+CoreDataProperties.h"
 #import "DCWalletAccountEntity+Extensions.h"
 #import "DCWalletAddressEntity+CoreDataProperties.h"
-#import "BRBIP32Sequence.h"
-#import "BRKey.h"
 #import "DCServerBloomFilter.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,22 +23,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DCWalletAccount ()
 
+@property (strong, nonatomic) DSChain *chain;
+@property (strong, nonatomic) DSDerivationPath *derivationPath;
 @property (assign, nonatomic) WalletAccountState state;
 @property (strong, nonatomic) NSData *publicKey;
 @property (strong, nonatomic) NSMutableArray *internalAddresses;
 @property (strong, nonatomic) NSMutableArray *externalAddresses;
 @property (strong, nonatomic) NSMutableArray *usedAddresses;
-@property (strong, nonatomic) BRBIP32Sequence *sequence;
 
 @end
 
 @implementation DCWalletAccount
 
-- (instancetype)initWithAccountPublicKey:(NSData *)accountPublicKey
+- (instancetype)initWithAccountPublicKey:(NSString *)accountPublicKey
                                     hash:(nullable NSString *)hash
-                               inContext:(NSManagedObjectContext *)context {
+                               inContext:(NSManagedObjectContext *)context
+                                 onChain:(DSChain *)chain {
     self = [super init];
     if (self) {
+        _chain = chain;
+        _derivationPath = [DSDerivationPath derivationPathWithSerializedExtendedPublicKey:accountPublicKey onChain:_chain];
+        
         DCWalletAccountEntity *walletAccountEntity = nil;
         NSArray<DCWalletAddressEntity *> *previousInternalAddresses = nil;
         NSArray<DCWalletAddressEntity *> *previousExternalAddresses = nil;
@@ -58,13 +64,11 @@ NS_ASSUME_NONNULL_BEGIN
         if (!previousExternalAddresses) {
             previousExternalAddresses = [NSArray array];
         }
-        self.publicKey = accountPublicKey;
-        self.state = WalletAccountStopped;
+        _state = WalletAccountStopped;
 
-        self.internalAddresses = [previousInternalAddresses mutableArrayReferencedByKeyPath:@"address"];
-        self.externalAddresses = [previousExternalAddresses mutableArrayReferencedByKeyPath:@"address"];
-        self.usedAddresses = [NSMutableArray array];
-        self.sequence = [[BRBIP32Sequence alloc] init];
+        _internalAddresses = [previousInternalAddresses mutableArrayReferencedByKeyPath:@"address"];
+        _externalAddresses = [previousExternalAddresses mutableArrayReferencedByKeyPath:@"address"];
+        _usedAddresses = [NSMutableArray array];
     }
     return self;
 }
@@ -94,8 +98,8 @@ NS_ASSUME_NONNULL_BEGIN
 
         NSMutableSet *createdAddresses = [NSMutableSet set];
         while (a.count < gapLimit) { // generate new addresses up to gapLimit
-            NSData *pubKey = [self.sequence publicKey:n internal:internal masterPublicKey:self.publicKey];
-            NSString *addr = [BRKey keyWithPublicKey:pubKey].address;
+            NSData *pubKey = [self.derivationPath generatePublicKeyAtIndex:n internal:internal];
+            NSString *addr = [[DSKey keyWithPublicKey:pubKey] addressForChain:self.chain];
             if (!addr) {
                 DCDebugLog(self.class, @"error generating keys");
                 return @[];

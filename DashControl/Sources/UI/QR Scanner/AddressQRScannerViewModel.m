@@ -27,7 +27,7 @@ NSString *const AddressQRScannerViewModelErrorDomain = @"AddressQRScannerViewMod
 
 - (BOOL)validateQRCodeObjectValue:(NSString *_Nullable)stringValue error:(NSError *__autoreleasing _Nullable *_Nullable)error {
     NSString *addr = [stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    BOOL valid = [addr isValidDashAddress];
+    BOOL valid = [addr isValidDashAddressOnChain:self.chain];
     if (!valid && error) {
         *error = [NSError errorWithDomain:AddressQRScannerViewModelErrorDomain
                                      code:1
