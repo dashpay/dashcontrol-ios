@@ -125,6 +125,7 @@
 		2A6FBEF5207C0CFF0055BAC8 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6FBEF4207C0CFF0055BAC8 /* News.storyboard */; };
 		2A6FBEFA207C97510055BAC8 /* ProposalDetailVotesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEF9207C97510055BAC8 /* ProposalDetailVotesView.m */; };
 		2A6FBEFD207C98410055BAC8 /* ProposalDetailVotesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEFC207C98410055BAC8 /* ProposalDetailVotesViewModel.m */; };
+		2A7F8F6E20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F8F6D20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m */; };
 		2A80B584203699E70015E1AA /* DCPersistenceStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B583203699E70015E1AA /* DCPersistenceStack.m */; };
 		2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B58620369E7F0015E1AA /* NSData+Hash.m */; };
 		2A80B58A2036A8F40015E1AA /* DCLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B5892036A8F40015E1AA /* DCLogging.m */; };
@@ -490,6 +491,8 @@
 		2A6FBEF9207C97510055BAC8 /* ProposalDetailVotesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailVotesView.m; sourceTree = "<group>"; };
 		2A6FBEFB207C98410055BAC8 /* ProposalDetailVotesViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalDetailVotesViewModel.h; sourceTree = "<group>"; };
 		2A6FBEFC207C98410055BAC8 /* ProposalDetailVotesViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailVotesViewModel.m; sourceTree = "<group>"; };
+		2A7F8F6C20F32D030048A9ED /* IPAddressTextFieldFormCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPAddressTextFieldFormCellModel.h; sourceTree = "<group>"; };
+		2A7F8F6D20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPAddressTextFieldFormCellModel.m; sourceTree = "<group>"; };
 		2A80B582203699E70015E1AA /* DCPersistenceStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCPersistenceStack.h; sourceTree = "<group>"; };
 		2A80B583203699E70015E1AA /* DCPersistenceStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCPersistenceStack.m; sourceTree = "<group>"; };
 		2A80B58520369E7F0015E1AA /* NSData+Hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Hash.h"; sourceTree = "<group>"; };
@@ -1282,6 +1285,8 @@
 				2AEF299D20738FF1008590E4 /* AddressTextFieldFormCellModel.m */,
 				2AEF29662072D227008590E4 /* DecimalTextFieldFormCellModel.h */,
 				2AEF29672072D227008590E4 /* DecimalTextFieldFormCellModel.m */,
+				2A7F8F6C20F32D030048A9ED /* IPAddressTextFieldFormCellModel.h */,
+				2A7F8F6D20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m */,
 				2AEF29632072CD8C008590E4 /* TextFieldFormCellModel.h */,
 				2AEF29642072CD8C008590E4 /* TextFieldFormCellModel.m */,
 				2AEF295A2072B0DF008590E4 /* TextFieldFormTableViewCell.h */,
@@ -1967,6 +1972,7 @@
 				2A4473A720429CC400B52BCB /* ChartViewController.m in Sources */,
 				2A46C24120A32848007037FA /* ProposalCommentsViewModel.m in Sources */,
 				2AEF294D2070DB87008590E4 /* PortfolioWalletTableViewCellModel.m in Sources */,
+				2A7F8F6E20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m in Sources */,
 				2AEF29B920740626008590E4 /* QRCodeButton.m in Sources */,
 				2A04E6E1202DA5E20065F30D /* HTTPLoaderFactory.m in Sources */,
 				2AEF296B207345BC008590E4 /* SelectorFormTableViewCell.m in Sources */,
