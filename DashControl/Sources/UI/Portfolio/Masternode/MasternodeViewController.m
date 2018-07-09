@@ -17,9 +17,10 @@
 
 #import "MasternodeViewController.h"
 
-#import <MBProgressHUD/MBProgressHUD.h>
 #import <DashSync/DashSync.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 
+#import "AppDelegate.h"
 #import "FormTableViewController.h"
 #import "MasternodeViewModel.h"
 #import "QRCodeButton.h"
@@ -39,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)controllerWithMasternode:(nullable DCMasternodeEntity *)masternode {
     MasternodeViewController *controller = [[MasternodeViewController alloc] initWithNibName:nil bundle:nil];
     MasternodeViewModel *viewModel = [[MasternodeViewModel alloc] initWithMasternode:masternode];
-    viewModel.chain = [DSChain mainnet];
+    viewModel.chain = [AppDelegate sharedDelegate].chain;
     controller.viewModel = viewModel;
     return controller;
 }
@@ -114,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
             if (indexOfInvalidDetail != NSNotFound) {
                 [self.formController displayErrorStateForCellAtIndex:indexOfInvalidDetail];
             }
-            
+
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         }
         else {

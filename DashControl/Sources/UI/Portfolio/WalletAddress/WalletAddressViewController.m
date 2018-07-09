@@ -17,9 +17,10 @@
 
 #import "WalletAddressViewController.h"
 
-#import <MBProgressHUD/MBProgressHUD.h>
 #import <DashSync/DashSync.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 
+#import "AppDelegate.h"
 #import "FormTableViewController.h"
 #import "QRCodeButton.h"
 #import "QRScannerViewController.h"
@@ -38,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)controllerWalletAddress:(nullable DCWalletAddressEntity *)walletAddress {
     WalletAddressViewController *controller = [[WalletAddressViewController alloc] initWithNibName:nil bundle:nil];
     WalletAddressViewModel *viewModel = [[WalletAddressViewModel alloc] initWithWalletAddress:walletAddress];
-    viewModel.chain = [DSChain mainnet];
+    viewModel.chain = [AppDelegate sharedDelegate].chain;
     controller.viewModel = viewModel;
     return controller;
 }

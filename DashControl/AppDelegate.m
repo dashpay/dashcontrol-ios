@@ -29,9 +29,16 @@
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate>
 
+@property (strong, nonatomic) DSChainPeerManager *chainPeerManager;
+@property (strong, nonatomic) DSChain *chain;
+
 @end
 
 @implementation AppDelegate
+
++ (instancetype)sharedDelegate {
+    return (AppDelegate *)[UIApplication sharedApplication].delegate;
+}
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // place all initialization code here that needs to be called "before" state restoration occurs
@@ -274,13 +281,13 @@
     
     // Start syncing
     
-    DSChain *chain = [DSChain mainnet];
-    self.chainPeerManager = [[DSChainManager sharedInstance] peerManagerForChain:chain];
-    [[DashSync sharedSyncController] startSyncForChain:self.chainPeerManager.chain];
+    self.chain = [DSChain mainnet];
+    self.chainPeerManager = [[DSChainManager sharedInstance] peerManagerForChain:self.chain];
+    [[DashSync sharedSyncController] startSyncForChain:self.chain];
     
     // Configure DashControl objects
     
-    self.walletManager.chain = chain;
+    self.walletManager.chain = self.chain;
     [self.walletManager performWalletsInitialization];
 }
 
