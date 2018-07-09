@@ -17,94 +17,124 @@
 
 #import "MasternodeViewModel.h"
 
-#import "DCMasternodeEntity+CoreDataClass.h"
+#import <arpa/inet.h>
+#import <DashSync/DashSync.h>
+
 #import "NSManagedObjectContext+DCExtensions.h"
+#import "NSManagedObject+DCExtensions.h"
 #import "NSString+Dash.h"
 #import "APIPortfolio.h"
-#import "AddressTextFieldFormCellModel.h"
+#import "PrivateKeyTextFieldFormCellModel.h"
 #import "ButtonFormCellModel.h"
 #import "DCFormattingUtils.h"
 #import "DCPersistenceStack.h"
 #import "SwitcherFormCellModel.h"
+#import "IPAddressTextFieldFormCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, MasternodeType) {
-    MasternodeType_Address,
-    MasternodeType_Name,
+    MasternodeType_IPAddress,
+    MasternodeType_PrivateKey,
     MasternodeType_AddButton,
 };
 
 @interface MasternodeViewModel ()
 
-@property (nullable, strong, nonatomic) DCMasternodeEntity *masternode;
-@property (strong, nonatomic) AddressTextFieldFormCellModel *addressDetail;
-@property (strong, nonatomic) TextFieldFormCellModel *nameDetail;
+@property (strong, nonatomic) IPAddressTextFieldFormCellModel *ipAddressKeyDetail;
+@property (strong, nonatomic) PrivateKeyTextFieldFormCellModel *privateKeyDetail;
+
+@property (nullable, strong, nonatomic) DSMasternodeBroadcastEntity *masternodeBroadcast;
 
 @end
 
 @implementation MasternodeViewModel
 
-- (instancetype)initWithMasternode:(nullable DCMasternodeEntity *)masternode {
+- (instancetype)initWithMasternode:(nullable DSMasternodeBroadcastEntity *)masternode {
     self = [super init];
     if (self) {
-        _masternode = masternode;
+        _masternodeBroadcast = masternode;
 
         NSMutableArray *items = [NSMutableArray array];
         {
-            _addressDetail = [[AddressTextFieldFormCellModel alloc] initWithTitle:NSLocalizedString(@"Address", nil)
-                                                                      placeholder:NSLocalizedString(@"Wallet Address", nil)];
-            _addressDetail.tag = MasternodeType_Address;
-            _addressDetail.text = _masternode.address;
-            _addressDetail.returnKeyType = UIReturnKeyNext;
-            [items addObject:_addressDetail];
+            _ipAddressKeyDetail = [[IPAddressTextFieldFormCellModel alloc] initWithTitle:NSLocalizedString(@"IP Address", nil)
+                                                                             placeholder:NSLocalizedString(@"Masternode IP", nil)];
+            _ipAddressKeyDetail.tag = MasternodeType_IPAddress;
+            _ipAddressKeyDetail.returnKeyType = UIReturnKeyNext;
+            if (masternode) {
+                char s[INET6_ADDRSTRLEN];
+                uint32_t ipAddress = masternode.address;
+                _ipAddressKeyDetail.text = [NSString stringWithFormat:@"%s", inet_ntop(AF_INET, &ipAddress, s, sizeof(s))];
+            }
+            [items addObject:_ipAddressKeyDetail];
         }
         {
-            _nameDetail = [[TextFieldFormCellModel alloc] initWithTitle:NSLocalizedString(@"Name", nil)
-                                                            placeholder:NSLocalizedString(@"Masternode name (optional)", nil)];
-            _nameDetail.tag = MasternodeType_Name;
-            _nameDetail.text = _masternode.name;
-            _nameDetail.returnKeyType = UIReturnKeyDone;
-            [items addObject:_nameDetail];
+            _privateKeyDetail = [[PrivateKeyTextFieldFormCellModel alloc] initWithTitle:NSLocalizedString(@"Private key", nil)
+                                                                      placeholder:NSLocalizedString(@"Masternode private key", nil)];
+            _privateKeyDetail.tag = MasternodeType_PrivateKey;
+            _privateKeyDetail.text = masternode ? @"***" : nil;
+            _privateKeyDetail.returnKeyType = UIReturnKeyNext;
+            _privateKeyDetail.secureTextEntry = YES;
+            [items addObject:_privateKeyDetail];
         }
-        {
-            NSString *title = _masternode ? NSLocalizedString(@"SAVE", nil) : NSLocalizedString(@"ADD", nil);
+        if (!masternode) {
+            NSString *title = NSLocalizedString(@"ADD", nil);
             ButtonFormCellModel *detail = [[ButtonFormCellModel alloc] initWithTitle:title];
             detail.tag = MasternodeType_AddButton;
             [items addObject:detail];
         }
         _items = [items copy];
+        
+        // KVO
+        
+        [self mvvm_observe:@"ipAddressKeyDetail.text" with:^(typeof(self) self, NSString *value){
+            if (!value || value.length == 0) {
+                self.masternodeBroadcast = nil;
+                return;
+            }
+            
+            NSPredicate *predicate = [self.class masternodeBroadcastPredicateForString:value chain:self.chain];
+            if (!predicate) {
+                self.masternodeBroadcast = nil;
+                return;
+            }
+            
+            NSManagedObjectContext *context = [DSMasternodeBroadcastEntity context];
+            NSArray <DSMasternodeBroadcastEntity *> *mnbs = [DSMasternodeBroadcastEntity dc_objectsWithPredicate:predicate
+                                                                                                       inContext:context requestConfigureBlock:^(NSFetchRequest * _Nonnull fetchRequest) {
+                                                                                                           fetchRequest.fetchLimit = 2;
+                                                                                                       }];
+            if (mnbs.count == 1) {
+                self.masternodeBroadcast = mnbs.firstObject;
+                
+                char s[INET6_ADDRSTRLEN];
+                uint32_t ipAddress = self.masternodeBroadcast.address;
+                self.ipAddressKeyDetail.text = [NSString stringWithFormat:@"%s", inet_ntop(AF_INET, &ipAddress, s, sizeof(s))];
+            }
+        }];
     }
     return self;
 }
 
 - (BOOL)deleteAvailable {
-    return (self.masternode != nil);
+    return (self.masternodeBroadcast != nil);
 }
 
 - (void)updateAddress:(NSString *)address {
-    self.addressDetail.text = address;
+//    self.addressDetail.text = address;
 }
 
 - (void)deleteCurrentWithCompletion:(void (^)(void))completion {
-    NSParameterAssert(self.masternode);
+    NSParameterAssert(self.masternodeBroadcast);
 
-    NSManagedObjectID *objectID = self.masternode.objectID;
-    weakify;
-    [self.stack.persistentContainer performBackgroundTask:^(NSManagedObjectContext *_Nonnull context) {
-        strongify;
-
-        NSManagedObject *object = [context objectWithID:objectID];
-        [context deleteObject:object];
-
-        context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-        [context dc_saveIfNeeded];
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (completion) {
-                completion();
-            }
-        });
+    NSManagedObjectContext * context = [DSMasternodeBroadcastEntity context];
+    [context performBlockAndWait:^{
+        self.masternodeBroadcast.claimed = NO;
+        [DSMasternodeBroadcastEntity saveContext];
+        
+        if (completion) {
+            completion();
+        }
     }];
 }
 
@@ -113,7 +143,7 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
         BaseFormCellModel *detail = self.items[index];
         if ([detail isKindOfClass:AddressTextFieldFormCellModel.class]) {
             NSString *text = [(AddressTextFieldFormCellModel *)detail text];
-            if (text.length == 0 || ![text isValidDashAddressOnChain:self.chain]) {
+            if (text.length == 0) {
                 return index;
             }
         }
@@ -122,56 +152,57 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
     return NSNotFound;
 }
 
-- (void)checkBalanceAtAddressCompletion:(void (^)(NSString *_Nullable errorMessage, NSNumber *_Nullable balance, NSInteger indexOfInvalidDetail))completion {
-    weakify;
-    [self.apiPortfolio balanceSumInAddresses:@[ self.addressDetail.text ] completion:^(NSNumber *_Nullable balance) {
-        strongify;
-
+- (void)registerMasternodeCompletion:(void (^)(NSString *_Nullable errorMessage, NSInteger indexOfInvalidDetail))completion {
+    if (!self.masternodeBroadcast) {
         if (completion) {
-            if (!balance) {
-                completion(NSLocalizedString(@"Can't check the address contains 1000 Dash", nil), nil, NSNotFound);
-            }
-            else if (balance.unsignedLongLongValue < 1000 * DUFFS) {
-                NSInteger index = [self.items indexOfObject:self.addressDetail];
-                completion(NSLocalizedString(@"Not a valid masternode address. This address does not contain the required 1000 Dash", nil), balance, index);
-            }
-            else {
-                completion(nil, balance, NSNotFound);
-            }
+            completion(NSLocalizedString(@"Select your masternode", nil), MasternodeType_IPAddress);
         }
-    }];
+        
+        return;
+    }
+    
+    if (![self.privateKeyDetail.text isValidDashPrivateKeyOnChain:self.chain]) {
+        if (completion) {
+            completion(NSLocalizedString(@"Invalid private key", nil), MasternodeType_PrivateKey);
+        }
+
+        return;
+    }
+    
+    DSMasternodeBroadcast *mnb = [self.masternodeBroadcast masternodeBroadcast];
+    DSKey *key = [DSKey keyWithPrivateKey:self.privateKeyDetail.text onChain:self.chain];
+    if (![key.publicKey isEqualToData:mnb.publicKey]) {
+        if (completion) {
+            completion(NSLocalizedString(@"Mismatched Key. This private key is valid but does not correspond to this masternode.", nil), MasternodeType_PrivateKey);
+        }
+        
+        return;
+    }
+    
+    [self.chain registerVotingKey:self.privateKeyDetail.text.base58ToData forMasternodeBroadcast:mnb];
+    
+    if (completion) {
+        completion(nil, NSNotFound);
+    }
 }
 
-- (void)saveCurrentWithBalance:(NSNumber *)balance completion:(void (^)(void))completion {
-    NSAssert([self indexOfInvalidDetail] == NSNotFound, @"Validate data before saving");
-
-    NSManagedObjectID * _Nullable objectID = self.masternode.objectID;
-    
-    weakify;
-    [self.stack.persistentContainer performBackgroundTask:^(NSManagedObjectContext *_Nonnull context) {
-        strongify;
-
-        DCMasternodeEntity *masternode = nil;
-        if (objectID) {
-            masternode = [context objectWithID:objectID];
++ (nullable NSPredicate *)masternodeBroadcastPredicateForString:(NSString *)searchString chain:(DSChain *)chain {
+    if ([searchString isEqualToString:@"0"] || [searchString longLongValue]) {
+        NSArray *ipArray = [searchString componentsSeparatedByString:@"."];
+        NSMutableArray *partPredicates = [NSMutableArray array];
+        NSPredicate *chainPredicate = [NSPredicate predicateWithFormat:@"masternodeBroadcastHash.chain == %@", chain.chainEntity];
+        [partPredicates addObject:chainPredicate];
+        for (int i = 0; i < MIN(ipArray.count, 4); i++) {
+            if ([ipArray[i] isEqualToString:@""])
+                break;
+            NSPredicate *currentPartPredicate = [NSPredicate predicateWithFormat:@"(((address >> %@) & 255) == %@)", @(i * 8), @([ipArray[i] integerValue])];
+            [partPredicates addObject:currentPartPredicate];
         }
-        else {
-            masternode = [[DCMasternodeEntity alloc] initWithContext:context];
-        }
-        masternode.address = self.addressDetail.text;
-        masternode.amount = balance.longLongValue;
-        NSString *trimmedName = [self.nameDetail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        masternode.name = trimmedName.length > 0 ? trimmedName : nil;
+        
+        return [NSCompoundPredicate andPredicateWithSubpredicates:partPredicates];
+    }
 
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
-        [context dc_saveIfNeeded];
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (completion) {
-                completion();
-            }
-        });
-    }];
+    return nil;
 }
 
 @end

@@ -35,13 +35,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)validateReplacementString:(NSString *)string text:(nullable NSString *)text {
-    BOOL allowedString = ([string rangeOfCharacterFromSet:self.allowedCharacterSet].location != NSNotFound ||
-                          string.length == 0);
-    if (!allowedString) {
+    if (![super validateReplacementString:string text:text]) {
         return NO;
     }
     
-    return [super validateReplacementString:string text:text];
+    BOOL allowedString = ([string rangeOfCharacterFromSet:self.allowedCharacterSet].location != NSNotFound ||
+                          string.length == 0);
+    
+    return allowedString;
 }
 
 @end

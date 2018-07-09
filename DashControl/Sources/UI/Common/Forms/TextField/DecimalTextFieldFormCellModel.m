@@ -30,6 +30,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)validateReplacementString:(NSString *)string text:(nullable NSString *)text {
+    if (![super validateReplacementString:string text:text]) {
+        return NO;
+    }
+    
     NSString *decimalSeparator = [NSLocale currentLocale].decimalSeparator;
     NSCharacterSet *decimalSeparatorSet = [NSCharacterSet characterSetWithCharactersInString:decimalSeparator];
     BOOL allowedString = ([string rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location != NSNotFound ||
@@ -44,8 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
          [text rangeOfCharacterFromSet:decimalSeparatorSet].location != NSNotFound)) {
         return NO;
     }
-
-    return [super validateReplacementString:string text:text];
+    
+    return YES;
 }
 
 @end

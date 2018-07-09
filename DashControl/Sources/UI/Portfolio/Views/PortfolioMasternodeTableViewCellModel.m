@@ -17,7 +17,9 @@
 
 #import "PortfolioMasternodeTableViewCellModel.h"
 
-#import "DCMasternodeEntity+CoreDataClass.h"
+#import <arpa/inet.h>
+#import <DashSync/DashSync.h>
+
 #import "DCFormattingUtils.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -27,12 +29,13 @@ NS_ASSUME_NONNULL_BEGIN
 @synthesize title = _title;
 @synthesize subtitle = _subtitle;
 
-- (instancetype)initWithEntity:(DCMasternodeEntity *)entity {
+- (instancetype)initWithEntity:(DSMasternodeBroadcastEntity *)entity {
     self = [super init];
     if (self) {
-        _title = entity.name ?: entity.address;
-        double worthDash = entity.amount / (double)DUFFS;
-        _subtitle = [DCFormattingUtils.dashNumberFormatter stringFromNumber:@(worthDash)];
+        char s[INET6_ADDRSTRLEN];
+        uint32_t ipAddress = entity.address;
+        _title = [NSString stringWithFormat:@"%s", inet_ntop(AF_INET, &ipAddress, s, sizeof(s))];
+        _subtitle = @"";
     }
     return self;
 }

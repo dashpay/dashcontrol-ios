@@ -281,7 +281,7 @@
     
     // Start syncing
     
-    self.chain = [DSChain mainnet];
+    self.chain = [DSChain testnet];
     self.chainPeerManager = [[DSChainManager sharedInstance] peerManagerForChain:self.chain];
     [[DashSync sharedSyncController] startSyncForChain:self.chain];
     

@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation MasternodeViewController
 
-+ (instancetype)controllerWithMasternode:(nullable DCMasternodeEntity *)masternode {
++ (instancetype)controllerWithMasternode:(nullable DSMasternodeBroadcastEntity *)masternode {
     MasternodeViewController *controller = [[MasternodeViewController alloc] initWithNibName:nil bundle:nil];
     MasternodeViewModel *viewModel = [[MasternodeViewModel alloc] initWithMasternode:masternode];
     viewModel.chain = [AppDelegate sharedDelegate].chain;
@@ -98,11 +98,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)formTableViewControllerDone:(FormTableViewController *)controller {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    weakify;
-
-    [self.viewModel checkBalanceAtAddressCompletion:^(NSString *_Nullable errorMessage, NSNumber *_Nullable balance, NSInteger indexOfInvalidDetail) {
-        strongify;
+    [self.viewModel registerMasternodeCompletion:^(NSString *_Nullable errorMessage, NSInteger indexOfInvalidDetail) {
         if (errorMessage) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil)
                                                                                      message:errorMessage
@@ -115,16 +111,9 @@ NS_ASSUME_NONNULL_BEGIN
             if (indexOfInvalidDetail != NSNotFound) {
                 [self.formController displayErrorStateForCellAtIndex:indexOfInvalidDetail];
             }
-
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
         }
         else {
-            weakify;
-            [self.viewModel saveCurrentWithBalance:balance completion:^{
-                strongify;
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                [self.navigationController popViewControllerAnimated:YES];
-            }];
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }];
 }

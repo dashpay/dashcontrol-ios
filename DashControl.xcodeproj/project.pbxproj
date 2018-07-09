@@ -126,6 +126,7 @@
 		2A6FBEFA207C97510055BAC8 /* ProposalDetailVotesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEF9207C97510055BAC8 /* ProposalDetailVotesView.m */; };
 		2A6FBEFD207C98410055BAC8 /* ProposalDetailVotesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEFC207C98410055BAC8 /* ProposalDetailVotesViewModel.m */; };
 		2A7F8F6E20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F8F6D20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m */; };
+		2A7F8F7120F330670048A9ED /* PrivateKeyTextFieldFormCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F8F7020F330670048A9ED /* PrivateKeyTextFieldFormCellModel.m */; };
 		2A80B584203699E70015E1AA /* DCPersistenceStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B583203699E70015E1AA /* DCPersistenceStack.m */; };
 		2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B58620369E7F0015E1AA /* NSData+Hash.m */; };
 		2A80B58A2036A8F40015E1AA /* DCLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B5892036A8F40015E1AA /* DCLogging.m */; };
@@ -493,6 +494,8 @@
 		2A6FBEFC207C98410055BAC8 /* ProposalDetailVotesViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailVotesViewModel.m; sourceTree = "<group>"; };
 		2A7F8F6C20F32D030048A9ED /* IPAddressTextFieldFormCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPAddressTextFieldFormCellModel.h; sourceTree = "<group>"; };
 		2A7F8F6D20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPAddressTextFieldFormCellModel.m; sourceTree = "<group>"; };
+		2A7F8F6F20F330670048A9ED /* PrivateKeyTextFieldFormCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateKeyTextFieldFormCellModel.h; sourceTree = "<group>"; };
+		2A7F8F7020F330670048A9ED /* PrivateKeyTextFieldFormCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivateKeyTextFieldFormCellModel.m; sourceTree = "<group>"; };
 		2A80B582203699E70015E1AA /* DCPersistenceStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCPersistenceStack.h; sourceTree = "<group>"; };
 		2A80B583203699E70015E1AA /* DCPersistenceStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCPersistenceStack.m; sourceTree = "<group>"; };
 		2A80B58520369E7F0015E1AA /* NSData+Hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Hash.h"; sourceTree = "<group>"; };
@@ -1287,6 +1290,8 @@
 				2AEF29672072D227008590E4 /* DecimalTextFieldFormCellModel.m */,
 				2A7F8F6C20F32D030048A9ED /* IPAddressTextFieldFormCellModel.h */,
 				2A7F8F6D20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m */,
+				2A7F8F6F20F330670048A9ED /* PrivateKeyTextFieldFormCellModel.h */,
+				2A7F8F7020F330670048A9ED /* PrivateKeyTextFieldFormCellModel.m */,
 				2AEF29632072CD8C008590E4 /* TextFieldFormCellModel.h */,
 				2AEF29642072CD8C008590E4 /* TextFieldFormCellModel.m */,
 				2AEF295A2072B0DF008590E4 /* TextFieldFormTableViewCell.h */,
@@ -2092,6 +2097,7 @@
 				2A04E6E6202DA5E20065F30D /* NetworkActivityIndicatorManager.m in Sources */,
 				2A0DAAD920872CB000992DC1 /* ProposalsSegmentedControl.m in Sources */,
 				2A0DAAF2208DD24500992DC1 /* ProposalsTopView.m in Sources */,
+				2A7F8F7120F330670048A9ED /* PrivateKeyTextFieldFormCellModel.m in Sources */,
 				FB17AEE51FA2F93900B3B3F0 /* DCWalletAddressEntity+CoreDataClass.m in Sources */,
 				2AEF29682072D227008590E4 /* DecimalTextFieldFormCellModel.m in Sources */,
 				2A6FBEFD207C98410055BAC8 /* ProposalDetailVotesViewModel.m in Sources */,

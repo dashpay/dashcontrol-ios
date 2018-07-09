@@ -86,9 +86,6 @@
 /* As in 'By Username' */
 "By" = "By";
 
-/* No comment provided by engineer. */
-"Can't check the address contains 1000 Dash" = "Can't check the address contains 1000 Dash";
-
 /* Cancel button */
 "Cancel" = "Cancel";
 
@@ -138,6 +135,12 @@
 "invalid API key" = "invalid API key";
 
 /* No comment provided by engineer. */
+"Invalid private key" = "Invalid private key";
+
+/* No comment provided by engineer. */
+"IP Address" = "IP Address";
+
+/* No comment provided by engineer. */
 "Join the discussion!" = "Join the discussion!";
 
 /* No comment provided by engineer. */
@@ -150,7 +153,13 @@
 "Masternode" = "Masternode";
 
 /* No comment provided by engineer. */
-"Masternode name (optional)" = "Masternode name (optional)";
+"Masternode IP" = "Masternode IP";
+
+/* No comment provided by engineer. */
+"Masternode private key" = "Masternode private key";
+
+/* No comment provided by engineer. */
+"Mismatched Key. This private key is valid but does not correspond to this masternode." = "Mismatched Key. This private key is valid but does not correspond to this masternode.";
 
 /* No comment provided by engineer. */
 "Monthly\namount" = "Monthly\namount";
@@ -181,9 +190,6 @@
 
 /* No comment provided by engineer. */
 "not a DASH QR code" = "not a DASH QR code";
-
-/* No comment provided by engineer. */
-"Not a valid masternode address. This address does not contain the required 1000 Dash" = "Not a valid masternode address. This address does not contain the required 1000 Dash";
 
 /* ok */
 "ok" = "ok";
@@ -222,6 +228,9 @@
 "Price alerts" = "Price alerts";
 
 /* No comment provided by engineer. */
+"Private key" = "Private key";
+
+/* No comment provided by engineer. */
 "Proposal" = "Proposal";
 
 /* No comment provided by engineer. */
@@ -241,6 +250,9 @@
 
 /* Search bar placeholder */
 "Search" = "Search";
+
+/* No comment provided by engineer. */
+"Select your masternode" = "Select your masternode";
 
 /* No comment provided by engineer. */
 "Settings" = "Settings";
