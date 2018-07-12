@@ -23,7 +23,6 @@
 #import "NSManagedObject+DCExtensions.h"
 #import "NSManagedObjectContext+DCExtensions.h"
 #import "APIBudget.h"
-#import "AppDelegate.h"
 #import "DCPersistenceStack.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -133,8 +132,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSAssert(voteOutcome != DSGovernanceVoteSignal_None, @"Invalid vote value");
     NSParameterAssert(self.governanceObjectEntity);
 
-    AppDelegate *appDelegate = [AppDelegate sharedDelegate];
-    DSGovernanceSyncManager *governanceSyncManager = appDelegate.chainPeerManager.governanceSyncManager;
+    DSGovernanceSyncManager *governanceSyncManager = self.chainPeerManager.governanceSyncManager;
     DSGovernanceObject *governanceObject = [self.governanceObjectEntity governanceObject];
     [governanceSyncManager vote:voteOutcome onGovernanceProposal:governanceObject];
 
@@ -150,9 +148,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)canVote {
-    DSChain *chain = [AppDelegate sharedDelegate].chain;
     NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[
-        [NSPredicate predicateWithFormat:@"masternodeBroadcastHash.chain == %@", chain.chainEntity],
+        [NSPredicate predicateWithFormat:@"masternodeBroadcastHash.chain == %@", self.chain.chainEntity],
         [NSPredicate predicateWithFormat:@"claimed == %@", @YES],
     ]];
     NSManagedObjectContext *context = [DSMasternodeBroadcastEntity context];

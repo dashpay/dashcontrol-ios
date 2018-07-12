@@ -19,7 +19,6 @@
 
 #import "NSManagedObject+DCExtensions.h"
 #import "APIBudget.h"
-#import "AppDelegate.h"
 #import "DCPersistenceStack.h"
 #import "HTTPLoaderOperationProtocol.h"
 #import "ProposalsHeaderViewModel.h"

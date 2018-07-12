@@ -17,7 +17,6 @@
 
 #import "PortfolioViewModel.h"
 
-#import "AppDelegate.h"
 #import "DCPersistenceStack.h"
 #import "UITestingHelper.h"
 
@@ -77,10 +76,8 @@ static NSInteger const DASHWALLET_APPSTORE_ID = 1206647026;
         NSFetchRequest *fetchRequest = [DSMasternodeBroadcastEntity fetchRequest];
         NSManagedObjectContext *context = [DSMasternodeBroadcastEntity context];
 
-        DSChain *chain = [AppDelegate sharedDelegate].chain;
-
         NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[
-            [NSPredicate predicateWithFormat:@"masternodeBroadcastHash.chain == %@", chain.chainEntity],
+            [NSPredicate predicateWithFormat:@"masternodeBroadcastHash.chain == %@", self.chain.chainEntity],
             [NSPredicate predicateWithFormat:@"claimed == %@", @YES],
         ]];
         fetchRequest.predicate = predicate;

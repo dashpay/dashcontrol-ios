@@ -25,7 +25,7 @@ extern NSString *const PrivateKeyQRScannerViewModelErrorDomain;
 
 @interface PrivateKeyQRScannerViewModel : QRScannerViewModel
 
-@property (strong, nonatomic) DSChain *chain;
+@property (strong, nonatomic) InjectedClass(DSChain) chain;
 
 @end
 

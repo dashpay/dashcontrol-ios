@@ -18,10 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 @property (strong, nonatomic) InjectedClass(APIPortfolio) api;
-
-@property (strong, nonatomic) DSChain *chain;
-
-- (void)performWalletsInitialization;
+@property (strong, nonatomic) InjectedClass(DSChain) chain;
 
 - (void)importWalletMasterAddressFromSource:(NSString *)source
                     withExtended32PublicKey:(NSString *_Nullable)extended32PublicKey

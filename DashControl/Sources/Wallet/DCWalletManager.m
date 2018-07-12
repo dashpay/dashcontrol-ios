@@ -44,27 +44,25 @@ NSString *Hash160String(NSData *data) {
     self = [super init];
     if (self) {
         _wallets = [NSMutableSet set];
+        
+        NSAssert(self.chain, @"Chain should be set after initializing DashSync");
+        
+        [self.stack.persistentContainer performBackgroundTask:^(NSManagedObjectContext *context) {
+            NSArray<DCWalletAccountEntity *> *accountEntities = [DCWalletAccountEntity dc_objectsInContext:context];
+            for (DCWalletAccountEntity *accountEntity in accountEntities) {
+                NSString *locationInKeyValueStore = accountEntity.hash160Key;
+                NSString *pubkeyString = [[NSUserDefaults standardUserDefaults] stringForKey:locationInKeyValueStore];
+                DCWalletAccount *walletAccount = [[DCWalletAccount alloc] initWithAccountPublicKey:pubkeyString
+                                                                                              hash:locationInKeyValueStore
+                                                                                         inContext:context
+                                                                                           onChain:self.chain];
+                [self.wallets addObject:walletAccount];
+                [walletAccount startUpWithWalletAccountEntity:accountEntity];
+            }
+            [self updateBloomFilterInContext:context];
+        }];
     }
     return self;
-}
-
-- (void)performWalletsInitialization {
-    NSAssert(self.chain, @"Chain should be set after initializing DashSync");
-    
-    [self.stack.persistentContainer performBackgroundTask:^(NSManagedObjectContext *context) {
-        NSArray<DCWalletAccountEntity *> *accountEntities = [DCWalletAccountEntity dc_objectsInContext:context];
-        for (DCWalletAccountEntity *accountEntity in accountEntities) {
-            NSString *locationInKeyValueStore = accountEntity.hash160Key;
-            NSString *pubkeyString = [[NSUserDefaults standardUserDefaults] stringForKey:locationInKeyValueStore];
-            DCWalletAccount *walletAccount = [[DCWalletAccount alloc] initWithAccountPublicKey:pubkeyString
-                                                                                          hash:locationInKeyValueStore
-                                                                                     inContext:context
-                                                                                       onChain:self.chain];
-            [self.wallets addObject:walletAccount];
-            [walletAccount startUpWithWalletAccountEntity:accountEntity];
-        }
-        [self updateBloomFilterInContext:context];
-    }];
 }
 
 - (void)importWalletMasterAddressFromSource:(NSString *)source

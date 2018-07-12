@@ -25,10 +25,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class DCPersistenceStack;
+@class DSChain;
 
 @interface PortfolioViewModel : NSObject
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+@property (strong, nonatomic) InjectedClass(DSChain) chain;
 
 @property (readonly, nonatomic, strong) NSFetchedResultsController<DCWalletEntity *> *walletFetchedResultsController;
 @property (readonly, nonatomic, strong) NSFetchedResultsController<DCWalletAddressEntity *> *walletAddressFetchedResultsController;

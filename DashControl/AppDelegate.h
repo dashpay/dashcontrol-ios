@@ -22,9 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) InjectedClass(APITrigger) apiTrigger;
 @property (strong, nonatomic) InjectedClass(DCWalletManager) walletManager;
 
-@property (readonly, strong, nonatomic) DSChainPeerManager *chainPeerManager;
-@property (readonly, strong, nonatomic) DSChain *chain;
-
 @property (strong, nonatomic) UIWindow *window;
 
 + (instancetype)sharedDelegate;

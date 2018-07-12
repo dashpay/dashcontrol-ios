@@ -20,7 +20,6 @@
 #import <DashSync/DashSync.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 
-#import "AppDelegate.h"
 #import "FormTableViewController.h"
 #import "MasternodeViewModel.h"
 #import "QRCodeButton.h"
@@ -40,7 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)controllerWithMasternode:(nullable DSMasternodeBroadcastEntity *)masternode {
     MasternodeViewController *controller = [[MasternodeViewController alloc] initWithNibName:nil bundle:nil];
     MasternodeViewModel *viewModel = [[MasternodeViewModel alloc] initWithMasternode:masternode];
-    viewModel.chain = [AppDelegate sharedDelegate].chain;
     controller.viewModel = viewModel;
     return controller;
 }

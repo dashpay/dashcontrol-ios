@@ -25,10 +25,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class DCPersistenceStack;
 @class DCBudgetProposalEntity;
+@class DSChainPeerManager;
+@class DSChain;
 
 @interface ProposalDetailHeaderViewModel : NSObject
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+@property (strong, nonatomic) InjectedClass(DSChainPeerManager) chainPeerManager;
+@property (strong, nonatomic) InjectedClass(DSChain) chain;
 
 @property (readonly, assign, nonatomic) CGFloat completedPercent;
 @property (readonly, copy, nonatomic) NSString *title;

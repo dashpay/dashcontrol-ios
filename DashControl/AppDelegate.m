@@ -29,9 +29,6 @@ static NSUInteger const PORTFOLIO_TAB_INDEX = 3;
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate>
 
-@property (strong, nonatomic) DSChainPeerManager *chainPeerManager;
-@property (strong, nonatomic) DSChain *chain;
-
 @end
 
 @implementation AppDelegate
@@ -79,8 +76,6 @@ static NSUInteger const PORTFOLIO_TAB_INDEX = 3;
 
     // Request Device Token For Apple Push Notifications without auth request
     [self requestPushToken];
-
-    [self configureDashSync];
 
     [self configureAppearance];
     [self configureImageCache];
@@ -296,28 +291,6 @@ static NSUInteger const PORTFOLIO_TAB_INDEX = 3;
     SDImageCacheConfig *config = [SDImageCache sharedImageCache].config;
     config.maxCacheAge = 60 * 60 * 24 * 28;  // 4 weeks
     config.maxCacheSize = 1024 * 1204 * 200; // 200 mb
-}
-
-- (void)configureDashSync {
-    // Configure DashSync stack
-
-    [DSAuthenticationManager sharedInstance].usesAuthentication = NO;
-    [DashSync sharedSyncController];
-    [[DSOptionsManager sharedInstance] setKeepHeaders:YES];
-    [[DSOptionsManager sharedInstance] setSyncFromGenesis:NO];
-    [[DSOptionsManager sharedInstance] setSyncFromHeight:145000];
-    [[DSOptionsManager sharedInstance] setSyncType:DSSyncType_GovernanceVoting];
-
-    // Start syncing
-
-    self.chain = [DSChain mainnet];
-    self.chainPeerManager = [[DSChainManager sharedInstance] peerManagerForChain:self.chain];
-    [[DashSync sharedSyncController] startSyncForChain:self.chain];
-
-    // Configure DashControl objects
-
-    self.walletManager.chain = self.chain;
-    [self.walletManager performWalletsInitialization];
 }
 
 @end

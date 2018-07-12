@@ -19,6 +19,7 @@
 
 #import "Injections.h"
 
+#import <DashSync/DashSync.h>
 #import <DeluxeInjection/DeluxeInjection.h>
 
 #import "APIBudget.h"
@@ -72,6 +73,24 @@ NS_ASSUME_NONNULL_BEGIN
         id nilValue = nil;
         [[[lets inject] byPropertyClass:[ChartViewModel class]] getterValue:nilValue];
         [[[lets inject] byPropertyClass:[DCWalletManager class]] getterValue:nilValue];
+
+        // Configure DashSync stack
+
+        [DSAuthenticationManager sharedInstance].usesAuthentication = NO;
+        [DashSync sharedSyncController];
+        [[DSOptionsManager sharedInstance] setKeepHeaders:YES];
+        [[DSOptionsManager sharedInstance] setSyncFromGenesis:NO];
+        [[DSOptionsManager sharedInstance] setSyncFromHeight:145000];
+        [[DSOptionsManager sharedInstance] setSyncType:DSSyncType_GovernanceVoting];
+
+        DSChain *chain = [DSChain mainnet];
+        DSChainPeerManager *chainPeerManager = [[DSChainManager sharedInstance] peerManagerForChain:chain];
+
+        [[[lets inject] byPropertyClass:[DSChain class]] getterValue:chain];
+        [[[lets inject] byPropertyClass:[DSChainPeerManager class]] getterValue:chainPeerManager];
+
+        // Start syncing
+        [[DashSync sharedSyncController] startSyncForChain:chain];
     }];
 }
 

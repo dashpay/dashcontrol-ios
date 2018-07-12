@@ -25,7 +25,7 @@ extern NSString * const AddressQRScannerViewModelErrorDomain;
 
 @interface AddressQRScannerViewModel : QRScannerViewModel
 
-@property (strong, nonatomic) DSChain *chain;
+@property (strong, nonatomic) InjectedClass(DSChain) chain;
 
 @end
 
