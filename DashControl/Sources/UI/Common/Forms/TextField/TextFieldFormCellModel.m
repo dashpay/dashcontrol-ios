@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super initWithTitle:title];
     if (self) {
         _placeholder = [placeholder copy];
+        _userInteractionEnabled = YES;
     }
     return self;
 }

@@ -54,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.textField.returnKeyType = _cellModel.returnKeyType;
     self.textField.enablesReturnKeyAutomatically = _cellModel.enablesReturnKeyAutomatically;
     self.textField.secureTextEntry = _cellModel.secureTextEntry;
+    self.textField.userInteractionEnabled = _cellModel.userInteractionEnabled;
 }
 
 - (void)textFieldBecomeFirstResponder {

@@ -65,6 +65,7 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
                 char s[INET6_ADDRSTRLEN];
                 uint32_t ipAddress = masternode.address;
                 _ipAddressKeyDetail.text = [NSString stringWithFormat:@"%s", inet_ntop(AF_INET, &ipAddress, s, sizeof(s))];
+                _ipAddressKeyDetail.userInteractionEnabled = NO;
             }
             [items addObject:_ipAddressKeyDetail];
         }
@@ -75,6 +76,7 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
             _privateKeyDetail.text = masternode ? @"***" : nil;
             _privateKeyDetail.returnKeyType = UIReturnKeyNext;
             _privateKeyDetail.secureTextEntry = YES;
+            _privateKeyDetail.userInteractionEnabled = !masternode;
             [items addObject:_privateKeyDetail];
         }
         if (!masternode) {
