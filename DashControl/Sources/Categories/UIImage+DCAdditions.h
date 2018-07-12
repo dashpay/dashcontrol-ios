@@ -19,22 +19,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class QRScannerViewController;
+@interface UIImage (DCAdditions)
 
-@protocol QRScannerViewControllerDelegate <NSObject>
-
-- (void)qrScannerViewControllerDidCancel:(QRScannerViewController *)controller;
-- (void)qrScannerViewController:(QRScannerViewController *)controller didScanString:(NSString *)scannedString;
-
-@end
-
-@interface QRScannerViewController : UIViewController
-
-@property (nullable, weak, nonatomic) id<QRScannerViewControllerDelegate> delegate;
-
-- (instancetype)initAsAddressScanner;
-- (instancetype)initAsDashCentralAuth;
-- (instancetype)initAsPrivateKeyScanner;
++ (UIImage *)dc_imageWithColor:(UIColor *)color;
 
 @end
 

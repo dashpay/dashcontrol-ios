@@ -89,6 +89,9 @@
 /* Cancel button */
 "Cancel" = "Cancel";
 
+/* No comment provided by engineer. */
+"Cast your vote" = "Cast your vote";
+
 /* Price Screen */
 "Choose Exchange" = "Choose Exchange";
 
@@ -296,3 +299,6 @@
 
 /* No comment provided by engineer. */
 "Your DASH" = "Your DASH";
+
+/* No comment provided by engineer. */
+"Your vote" = "Your vote";

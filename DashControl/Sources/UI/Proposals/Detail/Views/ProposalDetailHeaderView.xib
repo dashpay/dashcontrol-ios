@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -8,36 +8,124 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Light.otf">
+            <string>Montserrat-Light</string>
+        </array>
+        <array key="Montserrat-SemiBold.otf">
+            <string>Montserrat-SemiBold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProposalDetailHeaderView">
             <connections>
+                <outlet property="abstainButton" destination="xca-4I-LgG" id="hhb-xw-tvF"/>
                 <outlet property="basicInfoView" destination="iUt-ai-NIa" id="7YN-rG-sah"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="i3f-GU-WFK"/>
+                <outlet property="noButton" destination="EgZ-5k-MHu" id="aJY-L6-JHq"/>
                 <outlet property="rowsStackView" destination="7cm-R0-O2m" id="TYd-GR-Bc0"/>
+                <outlet property="voteTitleLabel" destination="Hf6-HN-k7f" id="Ufa-sD-T4c"/>
+                <outlet property="yesButton" destination="DV0-5m-NEx" id="IyV-Ce-Nct"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="Content View">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="230"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iUt-ai-NIa" userLabel="Info View" customClass="ProposalDetailBasicInfoView">
-                    <rect key="frame" x="0.0" y="10" width="375" height="95"/>
+                    <rect key="frame" x="0.0" y="10" width="375" height="107.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2vG-78-tur" userLabel="Line View">
-                    <rect key="frame" x="24" y="105" width="327" height="1"/>
+                    <rect key="frame" x="24" y="117.5" width="327" height="1"/>
                     <color key="backgroundColor" red="0.89019607840000003" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="KfF-Ov-l6x"/>
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7cm-R0-O2m">
-                    <rect key="frame" x="24" y="106" width="327" height="0.0"/>
+                    <rect key="frame" x="24" y="118.5" width="327" height="0.0"/>
                     <constraints>
                         <constraint firstAttribute="height" priority="200" id="X7u-WZ-j6d"/>
                     </constraints>
                 </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZWB-En-J5z">
+                    <rect key="frame" x="0.0" y="118.5" width="375" height="87.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cast your vote" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hf6-HN-k7f">
+                            <rect key="frame" x="24" y="16" width="140" height="24.5"/>
+                            <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="20"/>
+                            <color key="textColor" red="0.0" green="0.4431372549" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2DJ-gW-SCY">
+                            <rect key="frame" x="24" y="52.5" width="327" height="35"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DV0-5m-NEx">
+                                    <rect key="frame" x="0.0" y="0.0" width="103.5" height="35"/>
+                                    <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="11"/>
+                                    <state key="normal" title="YES">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="4"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="voteButtonAction:" destination="-1" eventType="touchUpInside" id="tGD-OF-C4v"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xca-4I-LgG">
+                                    <rect key="frame" x="111.5" y="0.0" width="104" height="35"/>
+                                    <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="11"/>
+                                    <state key="normal" title="ABSTAIN">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="4"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="voteButtonAction:" destination="-1" eventType="touchUpInside" id="J1e-8B-KQe"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EgZ-5k-MHu">
+                                    <rect key="frame" x="223.5" y="0.0" width="103.5" height="35"/>
+                                    <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="11"/>
+                                    <state key="normal" title="NO">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="4"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="voteButtonAction:" destination="-1" eventType="touchUpInside" id="cqs-yv-jqc"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="eB8-32-A01"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="Hf6-HN-k7f" firstAttribute="top" secondItem="ZWB-En-J5z" secondAttribute="top" constant="16" id="5YP-fq-81F"/>
+                        <constraint firstAttribute="trailing" secondItem="2DJ-gW-SCY" secondAttribute="trailing" constant="24" id="aeu-Bc-5Gj"/>
+                        <constraint firstAttribute="bottom" secondItem="2DJ-gW-SCY" secondAttribute="bottom" id="g2o-Xr-ihD"/>
+                        <constraint firstItem="2DJ-gW-SCY" firstAttribute="top" secondItem="Hf6-HN-k7f" secondAttribute="bottom" constant="12" id="j2f-lw-k2k"/>
+                        <constraint firstItem="Hf6-HN-k7f" firstAttribute="leading" secondItem="ZWB-En-J5z" secondAttribute="leading" constant="24" id="wQK-cw-0Te"/>
+                        <constraint firstItem="2DJ-gW-SCY" firstAttribute="leading" secondItem="ZWB-En-J5z" secondAttribute="leading" constant="24" id="wR8-3o-voE"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -45,15 +133,18 @@
                 <constraint firstItem="7cm-R0-O2m" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="6N5-va-gTS"/>
                 <constraint firstAttribute="trailing" secondItem="7cm-R0-O2m" secondAttribute="trailing" constant="24" id="EcB-XW-YYe"/>
                 <constraint firstItem="2vG-78-tur" firstAttribute="top" secondItem="iUt-ai-NIa" secondAttribute="bottom" id="Eky-Qv-xVW"/>
-                <constraint firstAttribute="bottom" secondItem="7cm-R0-O2m" secondAttribute="bottom" constant="24" id="cic-JV-Zmh"/>
+                <constraint firstItem="ZWB-En-J5z" firstAttribute="top" secondItem="7cm-R0-O2m" secondAttribute="bottom" id="Kwg-NS-Cfl"/>
+                <constraint firstAttribute="bottom" secondItem="ZWB-En-J5z" secondAttribute="bottom" constant="24" id="WJO-8l-Rqp"/>
+                <constraint firstItem="ZWB-En-J5z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Xuh-pn-LEr"/>
                 <constraint firstItem="iUt-ai-NIa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="d1N-qS-uZj"/>
                 <constraint firstItem="7cm-R0-O2m" firstAttribute="top" secondItem="2vG-78-tur" secondAttribute="bottom" id="dSe-BR-JYc"/>
+                <constraint firstAttribute="trailing" secondItem="ZWB-En-J5z" secondAttribute="trailing" id="rpB-hn-Fsw"/>
                 <constraint firstAttribute="trailing" secondItem="2vG-78-tur" secondAttribute="trailing" constant="24" id="tBg-bG-ATA"/>
                 <constraint firstAttribute="trailing" secondItem="iUt-ai-NIa" secondAttribute="trailing" id="u3G-sk-lFW"/>
                 <constraint firstItem="2vG-78-tur" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="yu7-Z2-yJz"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="33.5" y="53.5"/>
+            <point key="canvasLocation" x="33.5" y="53"/>
         </view>
     </objects>
 </document>

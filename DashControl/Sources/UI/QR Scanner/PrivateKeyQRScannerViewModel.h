@@ -15,26 +15,17 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import "QRScannerViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class QRScannerViewController;
+extern NSString *const PrivateKeyQRScannerViewModelErrorDomain;
 
-@protocol QRScannerViewControllerDelegate <NSObject>
+@class DSChain;
 
-- (void)qrScannerViewControllerDidCancel:(QRScannerViewController *)controller;
-- (void)qrScannerViewController:(QRScannerViewController *)controller didScanString:(NSString *)scannedString;
+@interface PrivateKeyQRScannerViewModel : QRScannerViewModel
 
-@end
-
-@interface QRScannerViewController : UIViewController
-
-@property (nullable, weak, nonatomic) id<QRScannerViewControllerDelegate> delegate;
-
-- (instancetype)initAsAddressScanner;
-- (instancetype)initAsDashCentralAuth;
-- (instancetype)initAsPrivateKeyScanner;
+@property (strong, nonatomic) DSChain *chain;
 
 @end
 

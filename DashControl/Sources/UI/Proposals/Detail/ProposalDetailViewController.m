@@ -21,6 +21,7 @@
 
 #import "DCBudgetProposalEntity+CoreDataClass.h"
 #import "UIColor+DCStyle.h"
+#import "AppDelegate.h"
 #import "ProposalCommentsViewController.h"
 #import "ProposalDetailCommentsButtonView.h"
 #import "ProposalDetailHeaderView.h"
@@ -35,7 +36,7 @@ static CGFloat const COMMENTS_BUTTON_VIEW_HEIGHT = 135.0;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ProposalDetailViewController () <UITableViewDelegate, UITableViewDataSource, ProposalDetailTableViewCellDelegate, ProposalCommentsViewControllerDelegate>
+@interface ProposalDetailViewController () <UITableViewDelegate, UITableViewDataSource, ProposalDetailTableViewCellDelegate, ProposalCommentsViewControllerDelegate, ProposalDetailHeaderViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet ProposalDetailVotesView *votesView;
@@ -160,12 +161,20 @@ NS_ASSUME_NONNULL_BEGIN
     [self reload];
 }
 
+#pragma mark ProposalDetailHeaderViewDelegate
+
+- (void)proposalDetailHeaderViewShowAddMasternodeController:(ProposalDetailHeaderView *)view {
+    AppDelegate *appDelegate = [AppDelegate sharedDelegate];
+    [appDelegate showAddMasternodeController];
+}
+
 #pragma mark Private
 
 - (ProposalDetailHeaderView *)headerView {
     if (!_headerView) {
         _headerView = [[ProposalDetailHeaderView alloc] initWithFrame:CGRectZero];
         _headerView.viewModel = self.viewModel.headerViewModel;
+        _headerView.delegate = self;
     }
     return _headerView;
 }

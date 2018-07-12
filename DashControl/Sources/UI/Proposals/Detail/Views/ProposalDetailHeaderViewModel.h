@@ -17,13 +17,18 @@
 
 #import <Foundation/Foundation.h>
 
+#import <DashSync/DashSync.h>
+
 #import "Pair.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class DCPersistenceStack;
 @class DCBudgetProposalEntity;
 
 @interface ProposalDetailHeaderViewModel : NSObject
+
+@property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 
 @property (readonly, assign, nonatomic) CGFloat completedPercent;
 @property (readonly, copy, nonatomic) NSString *title;
@@ -31,7 +36,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, copy, nonatomic) NSArray<Pair<NSString *> *> *rows;
 
+@property (readonly, assign, nonatomic) BOOL voteAllowed;
+@property (readonly, assign, nonatomic) DSGovernanceVoteOutcome voteOutcome;
+
 - (void)updateWithProposal:(DCBudgetProposalEntity *)proposal;
+- (void)voteOnProposalWithOutcome:(DSGovernanceVoteOutcome)voteOutcome;
+- (BOOL)canVote;
 
 @end
 

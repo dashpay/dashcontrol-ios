@@ -14,27 +14,21 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //
+//
 
-#import <UIKit/UIKit.h>
+#import "DCBudgetProposalVoteEntity+CoreDataClass.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class QRScannerViewController;
+@interface DCBudgetProposalVoteEntity (CoreDataProperties)
 
-@protocol QRScannerViewControllerDelegate <NSObject>
++ (NSFetchRequest<DCBudgetProposalVoteEntity *> *)fetchRequest;
 
-- (void)qrScannerViewControllerDidCancel:(QRScannerViewController *)controller;
-- (void)qrScannerViewController:(QRScannerViewController *)controller didScanString:(NSString *)scannedString;
-
-@end
-
-@interface QRScannerViewController : UIViewController
-
-@property (nullable, weak, nonatomic) id<QRScannerViewControllerDelegate> delegate;
-
-- (instancetype)initAsAddressScanner;
-- (instancetype)initAsDashCentralAuth;
-- (instancetype)initAsPrivateKeyScanner;
+@property (nullable, nonatomic, copy) NSString *proposalHash;
+@property (nonatomic) int16_t outcome;
+@property (nullable, nonatomic, copy) NSDate *date;
+@property (nullable, nonatomic, retain) DCBudgetProposalEntity *proposal;
 
 @end
 

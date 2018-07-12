@@ -237,8 +237,7 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         }
         case PortfolioSection_AddMasternode: {
-            MasternodeViewController *masternodeViewController = [MasternodeViewController controllerWithMasternode:nil];
-            [self showViewController:masternodeViewController sender:self];
+            [self showAddMasternodeController];
             break;
         }
         case PortfolioSection_Wallet: {
@@ -271,6 +270,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offset = scrollView.contentOffset.y + scrollView.contentInset.top;
     self.topViewTopConstraint.constant = MIN(-offset, 0.0);
+}
+
+#pragma mark Public
+
+- (void)showAddMasternodeController {
+    MasternodeViewController *masternodeViewController = [MasternodeViewController controllerWithMasternode:nil];
+    [self showViewController:masternodeViewController sender:self];
 }
 
 #pragma mark Private

@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)sharedDelegate;
 
+- (void)showAddMasternodeController;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PortfolioViewController : DCTableViewController
 
+- (void)showAddMasternodeController;
+
 @end
 
 NS_ASSUME_NONNULL_END

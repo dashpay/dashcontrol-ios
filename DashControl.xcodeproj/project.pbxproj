@@ -127,6 +127,10 @@
 		2A6FBEFD207C98410055BAC8 /* ProposalDetailVotesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEFC207C98410055BAC8 /* ProposalDetailVotesViewModel.m */; };
 		2A7F8F6E20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F8F6D20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m */; };
 		2A7F8F7120F330670048A9ED /* PrivateKeyTextFieldFormCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F8F7020F330670048A9ED /* PrivateKeyTextFieldFormCellModel.m */; };
+		2A7F8F7B20F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F8F7920F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataClass.m */; };
+		2A7F8F7C20F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F8F7A20F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataProperties.m */; };
+		2A7F8F7F20F557320048A9ED /* UIImage+DCAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F8F7E20F557320048A9ED /* UIImage+DCAdditions.m */; };
+		2A7F8F8220F7359D0048A9ED /* PrivateKeyQRScannerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F8F8120F7359D0048A9ED /* PrivateKeyQRScannerViewModel.m */; };
 		2A80B584203699E70015E1AA /* DCPersistenceStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B583203699E70015E1AA /* DCPersistenceStack.m */; };
 		2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B58620369E7F0015E1AA /* NSData+Hash.m */; };
 		2A80B58A2036A8F40015E1AA /* DCLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B5892036A8F40015E1AA /* DCLogging.m */; };
@@ -221,7 +225,6 @@
 		FB4550DE1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4550DC1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataProperties.m */; };
 		FB84EDC21F32898700E4D400 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC11F32898700E4D400 /* main.m */; };
 		FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB84EDC41F32898700E4D400 /* AppDelegate.m */; };
-		FB9CC1631F83E38F0079309F /* UIImage+Sugar.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEF67001F83DE30003424D2 /* UIImage+Sugar.m */; };
 		FB9CC1801F83E45F0079309F /* DCMasternodeEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC1721F83E45C0079309F /* DCMasternodeEntity+CoreDataClass.m */; };
 		FB9CC1841F83E45F0079309F /* DCMasternodeEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC17B1F83E45E0079309F /* DCMasternodeEntity+CoreDataProperties.m */; };
 		FB9CC1851F83E45F0079309F /* DCMasternodePaymentEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9CC17C1F83E45E0079309F /* DCMasternodePaymentEntity+CoreDataClass.m */; };
@@ -496,6 +499,14 @@
 		2A7F8F6D20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPAddressTextFieldFormCellModel.m; sourceTree = "<group>"; };
 		2A7F8F6F20F330670048A9ED /* PrivateKeyTextFieldFormCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateKeyTextFieldFormCellModel.h; sourceTree = "<group>"; };
 		2A7F8F7020F330670048A9ED /* PrivateKeyTextFieldFormCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivateKeyTextFieldFormCellModel.m; sourceTree = "<group>"; };
+		2A7F8F7720F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCBudgetProposalVoteEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		2A7F8F7820F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCBudgetProposalVoteEntity+CoreDataClass.h"; sourceTree = "<group>"; };
+		2A7F8F7920F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCBudgetProposalVoteEntity+CoreDataClass.m"; sourceTree = "<group>"; };
+		2A7F8F7A20F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCBudgetProposalVoteEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		2A7F8F7D20F557320048A9ED /* UIImage+DCAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+DCAdditions.h"; sourceTree = "<group>"; };
+		2A7F8F7E20F557320048A9ED /* UIImage+DCAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DCAdditions.m"; sourceTree = "<group>"; };
+		2A7F8F8020F7359D0048A9ED /* PrivateKeyQRScannerViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateKeyQRScannerViewModel.h; sourceTree = "<group>"; };
+		2A7F8F8120F7359D0048A9ED /* PrivateKeyQRScannerViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivateKeyQRScannerViewModel.m; sourceTree = "<group>"; };
 		2A80B582203699E70015E1AA /* DCPersistenceStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCPersistenceStack.h; sourceTree = "<group>"; };
 		2A80B583203699E70015E1AA /* DCPersistenceStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCPersistenceStack.m; sourceTree = "<group>"; };
 		2A80B58520369E7F0015E1AA /* NSData+Hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Hash.h"; sourceTree = "<group>"; };
@@ -720,8 +731,6 @@
 		FBEBE5401F5802DE0056D921 /* DCChartTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCChartTimeFormatter.h; sourceTree = "<group>"; };
 		FBEBE5411F5802DE0056D921 /* DCChartTimeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCChartTimeFormatter.m; sourceTree = "<group>"; };
 		FBEF66FA1F83DCED003424D2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		FBEF66FF1F83DE30003424D2 /* UIImage+Sugar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Sugar.h"; sourceTree = "<group>"; };
-		FBEF67001F83DE30003424D2 /* UIImage+Sugar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Sugar.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1355,16 +1364,18 @@
 			isa = PBXGroup;
 			children = (
 				2A46C28420AC2672007037FA /* Views */,
+				2A28DF3A20A0997300132DBF /* AddressQRScannerViewModel.h */,
+				2A28DF3B20A0997300132DBF /* AddressQRScannerViewModel.m */,
+				2A28DF3D20A0A4D100132DBF /* DashCentralAuthQRScannerViewModel.h */,
+				2A28DF3E20A0A4D100132DBF /* DashCentralAuthQRScannerViewModel.m */,
+				2A7F8F8020F7359D0048A9ED /* PrivateKeyQRScannerViewModel.h */,
+				2A7F8F8120F7359D0048A9ED /* PrivateKeyQRScannerViewModel.m */,
 				2AEF29E1207421E5008590E4 /* QRScannerView.h */,
 				2AEF29E0207421E5008590E4 /* QRScannerView.m */,
 				2AEF29E5207421E5008590E4 /* QRScannerViewController.h */,
 				2AEF29E2207421E5008590E4 /* QRScannerViewController.m */,
 				2AEF29E3207421E5008590E4 /* QRScannerViewModel.h */,
 				2AEF29E4207421E5008590E4 /* QRScannerViewModel.m */,
-				2A28DF3A20A0997300132DBF /* AddressQRScannerViewModel.h */,
-				2A28DF3B20A0997300132DBF /* AddressQRScannerViewModel.m */,
-				2A28DF3D20A0A4D100132DBF /* DashCentralAuthQRScannerViewModel.h */,
-				2A28DF3E20A0A4D100132DBF /* DashCentralAuthQRScannerViewModel.m */,
 			);
 			path = "QR Scanner";
 			sourceTree = "<group>";
@@ -1517,6 +1528,10 @@
 				2A3F49A32049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.m */,
 				2A3F49A12049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataProperties.h */,
 				2A3F49A42049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataProperties.m */,
+				2A7F8F7820F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataClass.h */,
+				2A7F8F7920F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataClass.m */,
+				2A7F8F7720F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataProperties.h */,
+				2A7F8F7A20F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataProperties.m */,
 				FBE1F4FD1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.h */,
 				FBE1F4FE1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataClass.m */,
 				FBE1F4FF1F5D4CF500823A77 /* DCChartDataEntryEntity+CoreDataProperties.h */,
@@ -1582,12 +1597,12 @@
 				2A4FE280203AE489007FD160 /* UIColor+DCStyle.m */,
 				2A80B58B2039B3050015E1AA /* UIFont+DCStyle.h */,
 				2A80B58C2039B3050015E1AA /* UIFont+DCStyle.m */,
-				FBEF66FF1F83DE30003424D2 /* UIImage+Sugar.h */,
-				FBEF67001F83DE30003424D2 /* UIImage+Sugar.m */,
 				2A46C28120AB87A7007037FA /* UIView+DCAnimations.h */,
 				2A46C28220AB87A7007037FA /* UIView+DCAnimations.m */,
 				2AE3C464208FCE6600CE83A8 /* UIViewController+DCChildControllers.h */,
 				2AE3C465208FCE6600CE83A8 /* UIViewController+DCChildControllers.m */,
+				2A7F8F7D20F557320048A9ED /* UIImage+DCAdditions.h */,
+				2A7F8F7E20F557320048A9ED /* UIImage+DCAdditions.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1952,7 +1967,6 @@
 			files = (
 				2A04E6E2202DA5E20065F30D /* HTTPLoader.m in Sources */,
 				FB4310D71F9DA96700784EBC /* DCWalletManager.m in Sources */,
-				FB9CC1631F83E38F0079309F /* UIImage+Sugar.m in Sources */,
 				2AF39E99209BABC600479948 /* UITestingHelper.m in Sources */,
 				2A04E6E9202DA5E20065F30D /* Injections.m in Sources */,
 				2A3F49B5204BFF50005EB5D9 /* DCBudgetProposalCommentEntity+CoreDataProperties.m in Sources */,
@@ -1979,6 +1993,7 @@
 				2AEF294D2070DB87008590E4 /* PortfolioWalletTableViewCellModel.m in Sources */,
 				2A7F8F6E20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m in Sources */,
 				2AEF29B920740626008590E4 /* QRCodeButton.m in Sources */,
+				2A7F8F7F20F557320048A9ED /* UIImage+DCAdditions.m in Sources */,
 				2A04E6E1202DA5E20065F30D /* HTTPLoaderFactory.m in Sources */,
 				2AEF296B207345BC008590E4 /* SelectorFormTableViewCell.m in Sources */,
 				2A32D63420546347004B38A6 /* ProposalDetailTableViewCell.m in Sources */,
@@ -2040,14 +2055,17 @@
 				2A28DF3C20A0997300132DBF /* AddressQRScannerViewModel.m in Sources */,
 				2A80B58A2036A8F40015E1AA /* DCLogging.m in Sources */,
 				2A04E6DE202DA5E20065F30D /* HTTPResponse.m in Sources */,
+				2A7F8F8220F7359D0048A9ED /* PrivateKeyQRScannerViewModel.m in Sources */,
 				FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */,
 				2A6FBEBE207634530055BAC8 /* DCWalletAccountEntity+Extensions.m in Sources */,
 				2AE7F50F2034CC7100A8E770 /* NewsViewModel.m in Sources */,
 				2A0DAAEC208DC2BF00992DC1 /* DCTableViewController.m in Sources */,
+				2A7F8F7B20F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataClass.m in Sources */,
 				2AEF29502070DB93008590E4 /* PortfolioWalletAddressTableViewCellModel.m in Sources */,
 				FBE1F50C1F5D4CF500823A77 /* DCExchangeEntity+CoreDataProperties.m in Sources */,
 				2A3F49AB2049426F005EB5D9 /* DCBudgetInfoEntity+CoreDataClass.m in Sources */,
 				2AB9AA7620453EF9005979C4 /* Pair.m in Sources */,
+				2A7F8F7C20F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataProperties.m in Sources */,
 				FB4311051FA2C19800784EBC /* NSURL+Sugar.m in Sources */,
 				2A97221F2051587700545079 /* ProposalDetailViewController.m in Sources */,
 				2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */,

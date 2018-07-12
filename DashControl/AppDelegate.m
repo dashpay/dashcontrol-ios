@@ -22,10 +22,10 @@
 #import "DCPersistenceStack.h"
 #import "DCWalletManager.h"
 #import "Injections.h"
+#import "PortfolioViewController.h"
 #import "UITestingHelper.h"
 
-#define kRSSFeedViewControllerIndex 0
-#define kProposalsViewControllerIndex 2
+static NSUInteger const PORTFOLIO_TAB_INDEX = 3;
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate>
 
@@ -79,7 +79,7 @@
 
     // Request Device Token For Apple Push Notifications without auth request
     [self requestPushToken];
-    
+
     [self configureDashSync];
 
     [self configureAppearance];
@@ -256,6 +256,35 @@
     }];
 }
 
+#pragma mark - Public
+
+- (void)showAddMasternodeController {
+    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+    if (![tabBarController isKindOfClass:UITabBarController.class]) {
+        NSAssert(NO, @"Invalid UI stack");
+        return;
+    }
+    
+    tabBarController.selectedIndex = PORTFOLIO_TAB_INDEX;
+    
+    UINavigationController *navigationController = (UINavigationController *)tabBarController.viewControllers[PORTFOLIO_TAB_INDEX];
+    if (![navigationController isKindOfClass:UINavigationController.class]) {
+        NSAssert(NO, @"Invalid UI stack");
+        return;
+    }
+    
+    [navigationController dismissViewControllerAnimated:NO completion:nil];
+    [navigationController popToRootViewControllerAnimated:NO];
+    
+    PortfolioViewController *portfolioController = (PortfolioViewController *)navigationController.topViewController;
+    if (![portfolioController isKindOfClass:PortfolioViewController.class]) {
+        NSAssert(NO, @"Invalid UI stack");
+        return;
+    }
+    
+    [portfolioController showAddMasternodeController];
+}
+
 #pragma mark - Private
 
 - (void)configureAppearance {
@@ -271,22 +300,22 @@
 
 - (void)configureDashSync {
     // Configure DashSync stack
-    
+
     [DSAuthenticationManager sharedInstance].usesAuthentication = NO;
     [DashSync sharedSyncController];
     [[DSOptionsManager sharedInstance] setKeepHeaders:YES];
     [[DSOptionsManager sharedInstance] setSyncFromGenesis:NO];
     [[DSOptionsManager sharedInstance] setSyncFromHeight:145000];
     [[DSOptionsManager sharedInstance] setSyncType:DSSyncType_GovernanceVoting];
-    
+
     // Start syncing
-    
-    self.chain = [DSChain testnet];
+
+    self.chain = [DSChain mainnet];
     self.chainPeerManager = [[DSChainManager sharedInstance] peerManagerForChain:self.chain];
     [[DashSync sharedSyncController] startSyncForChain:self.chain];
-    
+
     // Configure DashControl objects
-    
+
     self.walletManager.chain = self.chain;
     [self.walletManager performWalletsInitialization];
 }
