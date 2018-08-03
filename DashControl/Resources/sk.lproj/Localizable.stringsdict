@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>%d Superblock(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@superblocks@</string>
+		<key>superblocks</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d superblok</string>
+			<key>few</key>
+			<string>%d superbloky</string>
+			<key>many</key>
+			<string>%d superblokov</string>
+			<key>other</key>
+			<string>%d superblokov</string>
+		</dict>
+	</dict>
+	<key>%ld second(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@seconds@</string>
+		<key>seconds</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld sekunda</string>
+			<key>few</key>
+			<string>%ld sekundy</string>
+			<key>many</key>
+			<string>%ld sekúnd</string>
+			<key>other</key>
+			<string>%ld sekúnd</string>
+		</dict>
+	</dict>
+	<key>%ld minute(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@minutes@</string>
+		<key>minutes</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld minúta</string>
+			<key>few</key>
+			<string>%ld minúty</string>
+			<key>many</key>
+			<string>%ld minút</string>
+			<key>other</key>
+			<string>%ld minút</string>
+		</dict>
+	</dict>
+	<key>%ld hour(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@hours@</string>
+		<key>hours</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld hodina</string>
+			<key>few</key>
+			<string>%ld hodiny</string>
+			<key>many</key>
+			<string>%ld hodín</string>
+			<key>other</key>
+			<string>%ld hodín</string>
+		</dict>
+	</dict>
+	<key>%ld day(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@days@</string>
+		<key>days</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld deň</string>
+			<key>few</key>
+			<string>%ld dni</string>
+			<key>many</key>
+			<string>%ld dní</string>
+			<key>other</key>
+			<string>%ld dní</string>
+		</dict>
+	</dict>
+	<key>%ld week(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@weeks@</string>
+		<key>weeks</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld týždeň</string>
+			<key>few</key>
+			<string>%ld týždne</string>
+			<key>many</key>
+			<string>%ld týždňov</string>
+			<key>other</key>
+			<string>%ld týždňov</string>
+		</dict>
+	</dict>
+	<key>%ld month(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@months@</string>
+		<key>months</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld mesiac</string>
+			<key>few</key>
+			<string>%ld mesiace</string>
+			<key>many</key>
+			<string>%ld mesiacov</string>
+			<key>other</key>
+			<string>%ld mesiacov</string>
+		</dict>
+	</dict>
+	<key>%ld year(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@years@</string>
+		<key>years</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld rok</string>
+			<key>few</key>
+			<string>%ld roky</string>
+			<key>many</key>
+			<string>%ld rokov</string>
+			<key>other</key>
+			<string>%ld rokov</string>
+		</dict>
+	</dict>
+	<key>%d month(s) remaining</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@months@</string>
+		<key>months</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Zostáva %d mesiac</string>
+			<key>few</key>
+			<string>Zostávajú %d mesiace</string>
+			<key>many</key>
+			<string>Zostáva %d mesiacov</string>
+			<key>other</key>
+			<string>Zostáva %d mesiacov</string>
+		</dict>
+	</dict>
+	<key>No. This proposal needs additional %d Yes vote(s) to become funded</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@votes@</string>
+		<key>votes</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Nie. Tento návrh potrebuje %d ďalší hlas za Áno, aby bol za-financovaný</string>
+			<key>few</key>
+			<string>Nie. Tento návrh potrebuje %d ďalšie hlasy za Áno, aby bol za-financovaný</string>
+			<key>many</key>
+			<string>Nie. Tento návrh potrebuje %d ďalších hlasov za Áno, aby bol za-financovaný</string>
+			<key>other</key>
+			<string>Nie. Tento návrh potrebuje %d ďalších hlasov za Áno, aby bol za-financovaný</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

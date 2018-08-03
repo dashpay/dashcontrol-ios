@@ -1,0 +1,17 @@
+[main]
+host = https://www.transifex.com
+
+[dash-control-ios.localizable-strings]
+file_filter = DashControl/Resources/<lang>.lproj/Localizable.strings
+minimum_perc = 0
+source_file = DashControl/Resources/en.lproj/Localizable.strings
+source_lang = en
+type = STRINGS
+
+[dash-control-ios.localizable-stringsdict]
+file_filter = DashControl/Resources/<lang>.lproj/Localizable.stringsdict
+minimum_perc = 0
+source_file = DashControl/Resources/en.lproj/Localizable.stringsdict
+source_lang = en
+type = STRINGSDICT
+
