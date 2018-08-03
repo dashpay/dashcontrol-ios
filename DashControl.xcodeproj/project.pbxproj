@@ -375,6 +375,13 @@
 		2A32D64620571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCChartDataTimeIntervalEntity+CoreDataClass.h"; sourceTree = "<group>"; };
 		2A32D64720571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCChartDataTimeIntervalEntity+CoreDataClass.m"; sourceTree = "<group>"; };
 		2A32D64820571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCChartDataTimeIntervalEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
+		2A377C532114B7BE00B0508F /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2A377C542114B7CA00B0508F /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = bg; path = bg.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		2A377C552114B81300B0508F /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = th; path = th.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		2A377C562114B83E00B0508F /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = vi; path = vi.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		2A377C572114B8F000B0508F /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = it; path = it.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		2A377C582114B8F500B0508F /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2A377C592114B91800B0508F /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sk; path = sk.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		2A3F49A12049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCBudgetProposalEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
 		2A3F49A22049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DCBudgetProposalEntity+CoreDataClass.h"; sourceTree = "<group>"; };
 		2A3F49A32049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DCBudgetProposalEntity+CoreDataClass.m"; sourceTree = "<group>"; };
@@ -1798,6 +1805,8 @@
 				sk,
 				tr,
 				el,
+				bg,
+				it,
 			);
 			mainGroup = FB84EDB41F32898700E4D400;
 			productRefGroup = FB84EDBE1F32898700E4D400 /* Products */;
@@ -2207,6 +2216,11 @@
 			isa = PBXVariantGroup;
 			children = (
 				2A7DCCD820DB63FC0097049F /* en */,
+				2A377C542114B7CA00B0508F /* bg */,
+				2A377C552114B81300B0508F /* th */,
+				2A377C562114B83E00B0508F /* vi */,
+				2A377C572114B8F000B0508F /* it */,
+				2A377C592114B91800B0508F /* sk */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -2246,6 +2260,8 @@
 				FB300E4F1FB71C1800B3CDE0 /* sk */,
 				FB300E501FB71C1900B3CDE0 /* tr */,
 				FB300E511FB71C1A00B3CDE0 /* el */,
+				2A377C532114B7BE00B0508F /* bg */,
+				2A377C582114B8F500B0508F /* it */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
