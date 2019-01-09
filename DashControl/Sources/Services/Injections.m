@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 
         // Configure DashSync stack
 
-        [DSAuthenticationManager sharedInstance].usesAuthentication = NO;
+        [[DSAuthenticationManager sharedInstance] setOneTimeShouldUseAuthentication:NO];
         [DashSync sharedSyncController];
         [[DSOptionsManager sharedInstance] setKeepHeaders:YES];
         [[DSOptionsManager sharedInstance] setSyncFromGenesis:NO];
@@ -84,10 +84,10 @@ NS_ASSUME_NONNULL_BEGIN
         [[DSOptionsManager sharedInstance] setSyncType:DSSyncType_GovernanceVoting];
 
         DSChain *chain = [DSChain mainnet];
-        DSChainPeerManager *chainPeerManager = [[DSChainManager sharedInstance] peerManagerForChain:chain];
+        DSChainManager *chainManager = [[DSChainsManager sharedInstance] chainManagerForChain:chain];
 
         [[[lets inject] byPropertyClass:[DSChain class]] getterValue:chain];
-        [[[lets inject] byPropertyClass:[DSChainPeerManager class]] getterValue:chainPeerManager];
+        [[[lets inject] byPropertyClass:[DSChainManager class]] getterValue:chainManager];
 
         // Start syncing
         [[DashSync sharedSyncController] startSyncForChain:chain];

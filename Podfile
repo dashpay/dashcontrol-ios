@@ -3,8 +3,7 @@ platform :ios, '10.0'
 inhibit_all_warnings!
 
 def app_pods
-    pod 'DashSync', :git => 'git@github.com:dashevo/dashsync-ios.git', :branch => 'master', :commit => 'afaafa3be7be962320ad5eb626e34b0c4b47d9f6'
-    pod 'secp256k1_dash', '0.1.0'
+    pod 'DashSync', :path => '../DashSync/'
     pod 'SDWebImage', '4.3.3'
     pod 'MBCircularProgressBar', '0.3.5'
     pod 'MBProgressHUD', '1.1.0'

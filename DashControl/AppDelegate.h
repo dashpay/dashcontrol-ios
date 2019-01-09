@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class DCPersistenceStack;
 @class APITrigger;
 @class DCWalletManager;
-@class DSChainPeerManager;
+@class DSChainManager;
 @class DSChain;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>

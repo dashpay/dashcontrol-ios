@@ -256,7 +256,7 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         }
         case PortfolioSection_Masternode: {
-            DSMasternodeBroadcastEntity *masternode = [self masternodeEntityAtIndexPath:indexPath];
+            DSSimplifiedMasternodeEntryEntity *masternode = [self masternodeEntityAtIndexPath:indexPath];
             MasternodeViewController *masternodeViewController = [MasternodeViewController controllerWithMasternode:masternode];
             [self showViewController:masternodeViewController sender:self];
             break;
@@ -375,11 +375,11 @@ NS_ASSUME_NONNULL_BEGIN
     return entity;
 }
 
-- (DSMasternodeBroadcastEntity *)masternodeEntityAtIndexPath:(NSIndexPath *)indexPath {
+- (DSSimplifiedMasternodeEntryEntity *)masternodeEntityAtIndexPath:(NSIndexPath *)indexPath {
     NSFetchedResultsController *frc = self.viewModel.masternodeFetchedResultsController;
     id<NSFetchedResultsSectionInfo> sectionInfo = frc.sections.firstObject;
     NSArray *objects = sectionInfo.objects;
-    DSMasternodeBroadcastEntity *entity = objects[indexPath.row];
+    DSSimplifiedMasternodeEntryEntity *entity = objects[indexPath.row];
     return entity;
 }
 
@@ -409,7 +409,7 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         }
         case PortfolioSection_Masternode: {
-            DSMasternodeBroadcastEntity *entity = [self masternodeEntityAtIndexPath:indexPath];
+            DSSimplifiedMasternodeEntryEntity *entity = [self masternodeEntityAtIndexPath:indexPath];
             viewModel = [[PortfolioMasternodeTableViewCellModel alloc] initWithEntity:entity];
             break;
         }

@@ -1,0 +1,304 @@
+
+/* No comment provided by engineer. */
+"%@ is not allowed to access the camera" = "%@ is not allowed to access the camera";
+
+/* No comment provided by engineer. */
+"%d month(s) remaining" = "%d month(s) remaining";
+
+/* No comment provided by engineer. */
+"%d totaling in %d DASH" = "%1$d totaling in %2$d DASH";
+
+/* 15 minutes */
+"15M" = "15M";
+
+/* 1 day */
+"1D" = "1D";
+
+/* 1 month */
+"1M" = "1M";
+
+/* 1 week */
+"1W" = "1W";
+
+/* 24 hours */
+"24H" = "24H";
+
+/* 2 days */
+"2D" = "2D";
+
+/* 2 hours */
+"2H" = "2H";
+
+/* 30 minutes */
+"30M" = "30M";
+
+/* 4 days */
+"4D" = "4D";
+
+/* 4 hours */
+"4H" = "4H";
+
+/* 5 minutes */
+"5M" = "5M";
+
+/* 6 hours */
+"6H" = "6H";
+
+/* 6 months */
+"6M" = "6M";
+
+/* No comment provided by engineer. */
+"\nallow camera access in\nSettings->Privacy->Camera->%@" = "\nallow camera access in\nSettings->Privacy->Camera->%@";
+
+/* Abstain votes count title */
+"Abstain" = "Abstain";
+
+/* No comment provided by engineer. */
+"ADD" = "ADD";
+
+/* No comment provided by engineer. */
+"Add Comment" = "Add Comment";
+
+/* No comment provided by engineer. */
+"Add Reply" = "Add Reply";
+
+/* No comment provided by engineer. */
+"Address" = "Address";
+
+/* as in '2 months ago' */
+"ago" = "ago";
+
+/* No comment provided by engineer. */
+"Alert type" = "Alert type";
+
+/* No comment provided by engineer. */
+"Alert when over" = "Alert when over";
+
+/* No comment provided by engineer. */
+"Alert when under" = "Alert when under";
+
+/* No comment provided by engineer. */
+"Alloted" = "Alloted";
+
+/* No comment provided by engineer. */
+"Any" = "Any";
+
+/* As in 'By Username' */
+"By" = "By";
+
+/* Cancel button */
+"Cancel" = "Cancel";
+
+/* No comment provided by engineer. */
+"Cast your vote" = "Cast your vote";
+
+/* Price Screen */
+"Choose Exchange" = "Choose Exchange";
+
+/* Price Screen */
+"Choose Market" = "Choose Market";
+
+/* No comment provided by engineer. */
+"Completed\npayments" = "Completed\npayments";
+
+/* Current proposals */
+"Current" = "Current";
+
+/* No comment provided by engineer. */
+"DASH" = "DASH";
+
+/* No comment provided by engineer. */
+"DASH per month" = "DASH per month";
+
+/* No comment provided by engineer. */
+"Discussion" = "Discussion";
+
+/* No comment provided by engineer. */
+"Error" = "Error";
+
+/* No comment provided by engineer. */
+"Exchange" = "Exchange";
+
+/* No comment provided by engineer. */
+"Final voting\ndeadline" = "Final voting\ndeadline";
+
+/* No comment provided by engineer. */
+"Hide Reply" = "Hide Reply";
+
+/* No comment provided by engineer. */
+"Import using QR code" = "Import using QR code";
+
+/* as in 'in 2 hours' */
+"in" = "in";
+
+/* No comment provided by engineer. */
+"In reply to" = "In reply to";
+
+/* No comment provided by engineer. */
+"invalid API key" = "invalid API key";
+
+/* No comment provided by engineer. */
+"Invalid private key" = "Invalid private key";
+
+/* No comment provided by engineer. */
+"IP Address" = "IP Address";
+
+/* No comment provided by engineer. */
+"Join the discussion!" = "Join the discussion!";
+
+/* No comment provided by engineer. */
+"Login to your account using DashCentral\nOpen DashCentral.org → My Account → Mobile Access and scan the QR code" = "Login to your account using DashCentral\nOpen DashCentral.org → My Account → Mobile Access and scan the QR code";
+
+/* No comment provided by engineer. */
+"Market" = "Market";
+
+/* No comment provided by engineer. */
+"Masternode" = "Masternode";
+
+/* No comment provided by engineer. */
+"Masternode IP" = "Masternode IP";
+
+/* No comment provided by engineer. */
+"Masternode private key" = "Masternode private key";
+
+/* No comment provided by engineer. */
+"Mismatched Key. This private key is valid but does not correspond to this masternode." = "Mismatched Key. This private key is valid but does not correspond to this masternode.";
+
+/* No comment provided by engineer. */
+"Monthly\namount" = "Monthly\namount";
+
+/* No comment provided by engineer. */
+"My Dash Wallet" = "My Dash Wallet";
+
+/* No comment provided by engineer. */
+"My Masternodes" = "My Masternodes";
+
+/* No comment provided by engineer. */
+"My Wallet Addresses" = "My Wallet Addresses";
+
+/* No comment provided by engineer. */
+"Name" = "Name";
+
+/* No comment provided by engineer. */
+"News" = "News";
+
+/* No votes count title */
+"No" = "No";
+
+/* No comment provided by engineer. */
+"no payments occurred yet" = "no payments occurred yet";
+
+/* No comment provided by engineer. */
+"No. This proposal needs additional %d Yes vote(s) to become funded" = "No. This proposal needs additional %d Yes vote(s) to become funded";
+
+/* No comment provided by engineer. */
+"not a DASH QR code" = "not a DASH QR code";
+
+/* ok */
+"ok" = "ok";
+
+/* No comment provided by engineer. */
+"one-time payment" = "one-time payment";
+
+/* No comment provided by engineer. */
+"One-time\npayment" = "One-time\npayment";
+
+/* Ongoing proposals */
+"Ongoing" = "Ongoing";
+
+/* No comment provided by engineer. */
+"Over %@" = "Over %@";
+
+/* No comment provided by engineer. */
+"Owner" = "Owner";
+
+/* Past proposals */
+"Past" = "Past";
+
+/* No comment provided by engineer. */
+"Payment\nadded / end" = "Payment\nadded / end";
+
+/* No comment provided by engineer. */
+"Portfolio" = "Portfolio";
+
+/* No comment provided by engineer. */
+"Price" = "Price";
+
+/* No comment provided by engineer. */
+"Price Alert" = "Price Alert";
+
+/* No comment provided by engineer. */
+"Price alerts" = "Price alerts";
+
+/* No comment provided by engineer. */
+"Private key" = "Private key";
+
+/* No comment provided by engineer. */
+"Proposal" = "Proposal";
+
+/* No comment provided by engineer. */
+"proposal owner" = "proposal owner";
+
+/* No comment provided by engineer. */
+"Proposals" = "Proposals";
+
+/* No comment provided by engineer. */
+"Reply" = "Reply";
+
+/* No comment provided by engineer. */
+"required" = "required";
+
+/* No comment provided by engineer. */
+"SAVE" = "SAVE";
+
+/* Search bar placeholder */
+"Search" = "Search";
+
+/* No comment provided by engineer. */
+"Select your masternode" = "Select your masternode";
+
+/* No comment provided by engineer. */
+"Settings" = "Settings";
+
+/* No comment provided by engineer. */
+"Show full description" = "Show full description";
+
+/* No comment provided by engineer. */
+"Submit your comments and exchange your ideas on this proposal" = "Submit your comments and exchange your ideas on this proposal";
+
+/* No comment provided by engineer. */
+"Superblock" = "Superblock";
+
+/* No comment provided by engineer. */
+"Total" = "Total";
+
+/* No comment provided by engineer. */
+"Under %@" = "Under %@";
+
+/* No comment provided by engineer. */
+"Value in USD" = "Value in USD";
+
+/* No comment provided by engineer. */
+"Voting deadline" = "Voting deadline";
+
+/* No comment provided by engineer. */
+"Wallet Address" = "Wallet Address";
+
+/* No comment provided by engineer. */
+"Wallet name (optional)" = "Wallet name (optional)";
+
+/* No comment provided by engineer. */
+"Will be\nfunded" = "Will be\nfunded";
+
+/* No comment provided by engineer. */
+"Write a comment..." = "Write a comment...";
+
+/* Will be funded - yes
+   Yes votes count title */
+"Yes" = "Yes";
+
+/* No comment provided by engineer. */
+"Your DASH" = "Your DASH";
+
+/* No comment provided by engineer. */
+"Your vote" = "Your vote";
