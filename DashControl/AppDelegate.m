@@ -109,7 +109,7 @@ static NSUInteger const PORTFOLIO_TAB_INDEX = 3;
 
 #pragma mark - NSUserActivity Search API
 
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)activity restorationHandler:(void (^)(NSArray *))restorationHandler {
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)activity restorationHandler:(void(^)(NSArray<id<UIUserActivityRestoring>> * __nullable restorableObjects))restorationHandler {
     BOOL wasHandled = NO;
     if ([activity.activityType isEqual:CSSearchableItemActionType]) {
         NSString *activityIdentifier = [activity.userInfo valueForKey:CSSearchableItemActivityIdentifier];

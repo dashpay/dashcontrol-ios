@@ -57,25 +57,6 @@
             </objects>
             <point key="canvasLocation" x="661" y="-85"/>
         </scene>
-        <!--Price-->
-        <scene sceneID="86E-We-Wtr">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Price" id="820-gR-pAB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Price" image="tabBarPrice" id="chu-OR-gwb">
-                        <attributedString key="userComments">
-                            <fragment content="#bc-ignore!">
-                                <attributes>
-                                    <font key="NSFont" metaFont="smallSystem"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                </attributes>
-                            </fragment>
-                        </attributedString>
-                    </tabBarItem>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jqr-jc-PuQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="659" y="79"/>
-        </scene>
         <!--Portfolio-->
         <scene sceneID="kwK-0P-FzY">
             <objects>
@@ -118,7 +99,6 @@
     <resources>
         <image name="tabBarNews" width="23" height="23"/>
         <image name="tabBarPortfolio" width="23" height="19"/>
-        <image name="tabBarPrice" width="21" height="21"/>
         <image name="tabBarProposals" width="20" height="20"/>
     </resources>
 </document>
