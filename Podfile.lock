@@ -1,6 +1,24 @@
 PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
+  - bls-signatures-pod (0.2.9)
   - DashSync (0.1.0):
-    - secp256k1_dash (= 0.1.0)
+    - AFNetworking (~> 3.0)
+    - bls-signatures-pod (= 0.2.9)
+    - secp256k1_dash (= 0.1.2)
   - DeluxeInjection (0.8.6):
     - RuntimeRoutines (~> 0.3.2)
   - Godzippa (2.0.0)
@@ -11,24 +29,25 @@ PODS:
   - SDWebImage (4.3.3):
     - SDWebImage/Core (= 4.3.3)
   - SDWebImage/Core (4.3.3)
-  - secp256k1_dash (0.1.0)
-  - SimulatorStatusMagic (2.1)
+  - secp256k1_dash (0.1.2)
+  - SimulatorStatusMagic (2.4.1)
   - UIViewController-KeyboardAdditions (1.2.1)
 
 DEPENDENCIES:
-  - "DashSync (from `git@github.com:dashevo/dashsync-ios.git`, commit `afaafa3be7be962320ad5eb626e34b0c4b47d9f6`, branch `master`)"
+  - DashSync (from `../DashSync/`)
   - DeluxeInjection (= 0.8.6)
   - Godzippa (= 2.0.0)
   - KVO-MVVM (= 0.5.1)
   - MBCircularProgressBar (= 0.3.5)
   - MBProgressHUD (= 1.1.0)
   - SDWebImage (= 4.3.3)
-  - secp256k1_dash (= 0.1.0)
   - SimulatorStatusMagic
   - UIViewController-KeyboardAdditions (= 1.2.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - bls-signatures-pod
     - DeluxeInjection
     - Godzippa
     - KVO-MVVM
@@ -42,17 +61,12 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   DashSync:
-    :branch: master
-    :commit: afaafa3be7be962320ad5eb626e34b0c4b47d9f6
-    :git: "git@github.com:dashevo/dashsync-ios.git"
-
-CHECKOUT OPTIONS:
-  DashSync:
-    :commit: afaafa3be7be962320ad5eb626e34b0c4b47d9f6
-    :git: "git@github.com:dashevo/dashsync-ios.git"
+    :path: "../DashSync/"
 
 SPEC CHECKSUMS:
-  DashSync: b8c0f6b11ca8fbb8faece8760485f38829109b35
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  bls-signatures-pod: 56adce76843f10f484ff996c33aee36cfd98ae5e
+  DashSync: e6a30009f9499549bce8043e443b86dc9333dced
   DeluxeInjection: 03964b27f8aa5a787221907e1f82364ef7bafef7
   Godzippa: b423a467a9e4b4cb43bb4f3adb989d312795eb88
   KVO-MVVM: 4df3afd1f7ebcb69735458b85db59c4271ada7c6
@@ -60,10 +74,10 @@ SPEC CHECKSUMS:
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   RuntimeRoutines: f23869ee8535543ec974146b835dec4b5bdebb6f
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
-  secp256k1_dash: 16bc4c20423f88dc264db75d5611c9c6a5fd1f77
-  SimulatorStatusMagic: 481558caf2b9ccb2ceba2cc193728d4db3dcac07
+  secp256k1_dash: 7fdbc23e3e8a27d522ec211b874d97fb091c2b23
+  SimulatorStatusMagic: 28d4a9d1a500ac7cea0b2b5a43c1c6ddb40ba56c
   UIViewController-KeyboardAdditions: a691dc7e63a49854d341455a778ee8497dfc4662
 
-PODFILE CHECKSUM: da4644882cb8d455a02a6f2e9ca7d57174a6359e
+PODFILE CHECKSUM: aed60bb0d69db0a0c58511219052e28fda2ce52e
 
 COCOAPODS: 1.5.3

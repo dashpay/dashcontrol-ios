@@ -21,11 +21,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DSMasternodeBroadcastEntity;
+@class DSSimplifiedMasternodeEntryEntity;
 
 @interface PortfolioMasternodeTableViewCellModel : NSObject <SubtitleTableViewCellModel>
 
-- (instancetype)initWithEntity:(DSMasternodeBroadcastEntity *)entity;
+- (instancetype)initWithEntity:(DSSimplifiedMasternodeEntryEntity *)entity;
 
 @end
 

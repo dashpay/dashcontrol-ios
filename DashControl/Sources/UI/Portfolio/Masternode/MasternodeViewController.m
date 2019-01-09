@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation MasternodeViewController
 
-+ (instancetype)controllerWithMasternode:(nullable DSMasternodeBroadcastEntity *)masternode {
++ (instancetype)controllerWithMasternode:(nullable DSSimplifiedMasternodeEntryEntity *)masternode {
     MasternodeViewController *controller = [[MasternodeViewController alloc] initWithNibName:nil bundle:nil];
     MasternodeViewModel *viewModel = [[MasternodeViewModel alloc] initWithMasternode:masternode];
     controller.viewModel = viewModel;

@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @synthesize title = _title;
 @synthesize subtitle = _subtitle;
 
-- (instancetype)initWithEntity:(DSMasternodeBroadcastEntity *)entity {
+- (instancetype)initWithEntity:(DSSimplifiedMasternodeEntryEntity *)entity {
     self = [super init];
     if (self) {
         char s[INET6_ADDRSTRLEN];

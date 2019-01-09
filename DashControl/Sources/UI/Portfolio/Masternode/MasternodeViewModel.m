@@ -44,16 +44,16 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
 @property (strong, nonatomic) IPAddressTextFieldFormCellModel *ipAddressKeyDetail;
 @property (strong, nonatomic) PrivateKeyTextFieldFormCellModel *privateKeyDetail;
 
-@property (nullable, strong, nonatomic) DSMasternodeBroadcastEntity *masternodeBroadcast;
+@property (nullable, strong, nonatomic) DSSimplifiedMasternodeEntryEntity *simplifiedMasternodeEntry;
 
 @end
 
 @implementation MasternodeViewModel
 
-- (instancetype)initWithMasternode:(nullable DSMasternodeBroadcastEntity *)masternode {
+- (instancetype)initWithMasternode:(nullable DSSimplifiedMasternodeEntryEntity *)masternode {
     self = [super init];
     if (self) {
-        _masternodeBroadcast = masternode;
+        _simplifiedMasternodeEntry = masternode;
 
         NSMutableArray *items = [NSMutableArray array];
         {
@@ -91,26 +91,26 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
         
         [self mvvm_observe:@"ipAddressKeyDetail.text" with:^(typeof(self) self, NSString *value){
             if (!value || value.length == 0) {
-                self.masternodeBroadcast = nil;
+                self.simplifiedMasternodeEntry = nil;
                 return;
             }
             
-            NSPredicate *predicate = [self.class masternodeBroadcastPredicateForString:value chain:self.chain];
+            NSPredicate *predicate = [self.class simplifiedMasternodeEntryPredicateForString:value chain:self.chain];
             if (!predicate) {
-                self.masternodeBroadcast = nil;
+                self.simplifiedMasternodeEntry = nil;
                 return;
             }
             
-            NSManagedObjectContext *context = [DSMasternodeBroadcastEntity context];
-            NSArray <DSMasternodeBroadcastEntity *> *mnbs = [DSMasternodeBroadcastEntity dc_objectsWithPredicate:predicate
+            NSManagedObjectContext *context = [DSSimplifiedMasternodeEntryEntity context];
+            NSArray <DSSimplifiedMasternodeEntryEntity *> *masternodes = [DSSimplifiedMasternodeEntryEntity dc_objectsWithPredicate:predicate
                                                                                                        inContext:context requestConfigureBlock:^(NSFetchRequest * _Nonnull fetchRequest) {
                                                                                                            fetchRequest.fetchLimit = 2;
                                                                                                        }];
-            if (mnbs.count == 1) {
-                self.masternodeBroadcast = mnbs.firstObject;
+            if (masternodes.count == 1) {
+                self.simplifiedMasternodeEntry = masternodes.firstObject;
                 
                 char s[INET6_ADDRSTRLEN];
-                uint32_t ipAddress = self.masternodeBroadcast.address;
+                uint32_t ipAddress = self.simplifiedMasternodeEntry.address;
                 self.ipAddressKeyDetail.text = [NSString stringWithFormat:@"%s", inet_ntop(AF_INET, &ipAddress, s, sizeof(s))];
             }
         }];
@@ -119,7 +119,7 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
 }
 
 - (BOOL)deleteAvailable {
-    return (self.masternodeBroadcast != nil);
+    return (self.simplifiedMasternodeEntry != nil);
 }
 
 - (void)updateAddress:(NSString *)address {
@@ -127,12 +127,12 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
 }
 
 - (void)deleteCurrentWithCompletion:(void (^)(void))completion {
-    NSParameterAssert(self.masternodeBroadcast);
+    NSParameterAssert(self.simplifiedMasternodeEntry);
 
-    NSManagedObjectContext * context = [DSMasternodeBroadcastEntity context];
+    NSManagedObjectContext * context = [DSSimplifiedMasternodeEntryEntity context];
     [context performBlockAndWait:^{
-        self.masternodeBroadcast.claimed = NO;
-        [DSMasternodeBroadcastEntity saveContext];
+        self.simplifiedMasternodeEntry.claimed = NO;
+        [DSSimplifiedMasternodeEntryEntity saveContext];
         
         if (completion) {
             completion();
@@ -155,7 +155,7 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
 }
 
 - (void)registerMasternodeCompletion:(void (^)(NSString *_Nullable errorMessage, NSInteger indexOfInvalidDetail))completion {
-    if (!self.masternodeBroadcast) {
+    if (!self.simplifiedMasternodeEntry) {
         if (completion) {
             completion(NSLocalizedString(@"Select your masternode", nil), MasternodeType_IPAddress);
         }
@@ -171,9 +171,9 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
         return;
     }
     
-    DSMasternodeBroadcast *mnb = [self.masternodeBroadcast masternodeBroadcast];
+    DSSimplifiedMasternodeEntry *masternode = [self.simplifiedMasternodeEntry simplifiedMasternodeEntry];
     DSKey *key = [DSKey keyWithPrivateKey:self.privateKeyDetail.text onChain:self.chain];
-    if (![key.publicKey isEqualToData:mnb.publicKey]) {
+    if (!uint160_eq([key.publicKey hash160], masternode.keyIDVoting)) {
         if (completion) {
             completion(NSLocalizedString(@"Mismatched Key. This private key is valid but does not correspond to this masternode.", nil), MasternodeType_PrivateKey);
         }
@@ -181,18 +181,18 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
         return;
     }
     
-    [self.chain registerVotingKey:self.privateKeyDetail.text.base58ToData forMasternodeBroadcast:mnb];
+    [self.chain registerVotingKey:self.privateKeyDetail.text.base58ToData forMasternodeEntry:masternode];
     
     if (completion) {
         completion(nil, NSNotFound);
     }
 }
 
-+ (nullable NSPredicate *)masternodeBroadcastPredicateForString:(NSString *)searchString chain:(DSChain *)chain {
++ (nullable NSPredicate *)simplifiedMasternodeEntryPredicateForString:(NSString *)searchString chain:(DSChain *)chain {
     if ([searchString isEqualToString:@"0"] || [searchString longLongValue]) {
         NSArray *ipArray = [searchString componentsSeparatedByString:@"."];
         NSMutableArray *partPredicates = [NSMutableArray array];
-        NSPredicate *chainPredicate = [NSPredicate predicateWithFormat:@"masternodeBroadcastHash.chain == %@", chain.chainEntity];
+        NSPredicate *chainPredicate = [NSPredicate predicateWithFormat:@"simplifiedMasternodeEntry.chain == %@", chain.chainEntity];
         [partPredicates addObject:chainPredicate];
         for (int i = 0; i < MIN(ipArray.count, 4); i++) {
             if ([ipArray[i] isEqualToString:@""])
