@@ -19,8 +19,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-int64_t const DUFFS = 100000000;
-
 @implementation DCFormattingUtils
 
 + (NSNumberFormatter *)dashNumberFormatter {

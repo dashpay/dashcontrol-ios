@@ -15,17 +15,17 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
-
-#import <DashSync/DashSync.h>
+#import "QRScannerViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DCFormattingUtils : NSObject
+extern NSString *const PrivateKeyQRScannerViewModelErrorDomain;
 
-@property (readonly, class, nonatomic) NSNumberFormatter *dashNumberFormatter;
+@class DSChain;
 
-- (instancetype)init NS_UNAVAILABLE;
+@interface PrivateKeyQRScannerViewModel : QRScannerViewModel
+
+@property (strong, nonatomic) InjectedClass(DSChain) chain;
 
 @end
 

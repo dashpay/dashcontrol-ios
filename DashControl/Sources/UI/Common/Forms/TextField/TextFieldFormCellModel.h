@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) UIReturnKeyType returnKeyType;
 @property (assign, nonatomic) BOOL enablesReturnKeyAutomatically;
 @property (assign, nonatomic, getter=isSecureTextEntry) BOOL secureTextEntry;
+@property (assign, nonatomic, getter=isUserInteractionEnabled) BOOL userInteractionEnabled; // default is YES.
 
 - (instancetype)initWithTitle:(nullable NSString *)title placeholder:(nullable NSString *)placeholder NS_DESIGNATED_INITIALIZER;
 

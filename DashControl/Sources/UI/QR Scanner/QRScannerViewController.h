@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initAsAddressScanner;
 - (instancetype)initAsDashCentralAuth;
+- (instancetype)initAsPrivateKeyScanner;
 
 @end
 

@@ -15,17 +15,11 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
-
-#import <DashSync/DashSync.h>
+#import "TextFieldFormCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DCFormattingUtils : NSObject
-
-@property (readonly, class, nonatomic) NSNumberFormatter *dashNumberFormatter;
-
-- (instancetype)init NS_UNAVAILABLE;
+@interface IPAddressTextFieldFormCellModel : TextFieldFormCellModel
 
 @end
 

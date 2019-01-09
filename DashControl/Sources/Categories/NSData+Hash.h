@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSData (Hash)
 
-- (NSString *)SHA1;
+- (NSString *)SHA1String;
 
 @end
 

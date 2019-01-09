@@ -8,6 +8,8 @@
 
 #import "DCWalletManager.h"
 
+#import <DashSync/DashSync.h>
+
 #import "DCWalletAccountEntity+CoreDataClass.h"
 #import "DCWalletAccountEntity+Extensions.h"
 #import "DCWalletAddressEntity+CoreDataClass.h"
@@ -16,14 +18,19 @@
 #import "NSData+Dash.h"
 #import "NSManagedObject+DCExtensions.h"
 #import "NSManagedObjectContext+DCExtensions.h"
-#import "NSString+Dash.h"
 #import "APIPortfolio.h"
-#import "BRBIP32Sequence.h"
 #import "DCPersistenceStack.h"
 #import "DCServerBloomFilter.h"
 #import "DCWalletAccount.h"
 
 static NSString *const SERVER_BLOOM_FILTER_HASH = @"SERVER_BLOOM_FILTER_HASH";
+
+NSString *Hash160String(NSData *data) {
+       UInt160 hash160 = data.hash160;
+       NSMutableData *d = [NSMutableData secureDataWithCapacity:160/8 + 1];
+       [d appendBytes:&hash160 length:sizeof(hash160)];
+       return [NSString base58checkWithData:d];
+}
 
 @interface DCWalletManager ()
 
@@ -37,12 +44,18 @@ static NSString *const SERVER_BLOOM_FILTER_HASH = @"SERVER_BLOOM_FILTER_HASH";
     self = [super init];
     if (self) {
         _wallets = [NSMutableSet set];
+        
+        NSAssert(self.chain, @"Chain should be set after initializing DashSync");
+        
         [self.stack.persistentContainer performBackgroundTask:^(NSManagedObjectContext *context) {
             NSArray<DCWalletAccountEntity *> *accountEntities = [DCWalletAccountEntity dc_objectsInContext:context];
             for (DCWalletAccountEntity *accountEntity in accountEntities) {
                 NSString *locationInKeyValueStore = accountEntity.hash160Key;
-                NSData *pubkeyData = [[NSUserDefaults standardUserDefaults] dataForKey:locationInKeyValueStore];
-                DCWalletAccount *walletAccount = [[DCWalletAccount alloc] initWithAccountPublicKey:pubkeyData hash:locationInKeyValueStore inContext:context];
+                NSString *pubkeyString = [[NSUserDefaults standardUserDefaults] stringForKey:locationInKeyValueStore];
+                DCWalletAccount *walletAccount = [[DCWalletAccount alloc] initWithAccountPublicKey:pubkeyString
+                                                                                              hash:locationInKeyValueStore
+                                                                                         inContext:context
+                                                                                           onChain:self.chain];
                 [self.wallets addObject:walletAccount];
                 [walletAccount startUpWithWalletAccountEntity:accountEntity];
             }
@@ -55,24 +68,26 @@ static NSString *const SERVER_BLOOM_FILTER_HASH = @"SERVER_BLOOM_FILTER_HASH";
 - (void)importWalletMasterAddressFromSource:(NSString *)source
                     withExtended32PublicKey:(NSString *_Nullable)extended32PublicKey
                         extended44PublicKey:(NSString *_Nullable)extended44PublicKey {
-    BOOL valid = ([extended32PublicKey isValidDashSerializedPublicKey] || [extended44PublicKey isValidDashSerializedPublicKey]);
+    NSAssert(self.chain, @"Chain should be set after initializing DashSync");
+    
+    BOOL valid = ([extended32PublicKey isValidDashExtendedPublicKeyOnChain:self.chain] ||
+                  [extended44PublicKey isValidDashExtendedPublicKeyOnChain:self.chain]);
     if (!valid) {
         return;
     }
 
     [self.stack.persistentContainer performBackgroundTask:^(NSManagedObjectContext *context) {
-        BRBIP32Sequence *sequence = [[BRBIP32Sequence alloc] init];
-        NSData *data32 = [sequence deserializedMasterPublicKey:extended32PublicKey];
-        NSData *data44 = [sequence deserializedMasterPublicKey:extended44PublicKey];
-        NSString *extended32PublicKeyHash = [data32 hash160String];
-        NSString *extended44PublicKeyHash = [data44 hash160String];
+        NSData *data32 = [DSDerivationPath deserializedExtendedPublicKey:extended32PublicKey onChain:self.chain];
+        NSData *data44 = [DSDerivationPath deserializedExtendedPublicKey:extended44PublicKey onChain:self.chain];
+        NSString *extended32PublicKeyHash = Hash160String(data32);
+        NSString *extended44PublicKeyHash = Hash160String(data44);
 
         DCWalletAccountEntity *wallet32Account;
         BOOL has32Account = [DCWalletAccountEntity hasWalletAccountForPublicKeyHash:extended32PublicKeyHash inContext:context];
         if (!has32Account) {
             wallet32Account = [[DCWalletAccountEntity alloc] initWithContext:context];
             wallet32Account.hash160Key = extended32PublicKeyHash;
-            [[NSUserDefaults standardUserDefaults] setObject:data32 forKey:extended32PublicKeyHash];
+            [[NSUserDefaults standardUserDefaults] setObject:extended32PublicKey forKey:extended32PublicKeyHash];
         }
 
         DCWalletAccountEntity *wallet44Account;
@@ -80,7 +95,7 @@ static NSString *const SERVER_BLOOM_FILTER_HASH = @"SERVER_BLOOM_FILTER_HASH";
         if (!has44Account) {
             wallet44Account = [[DCWalletAccountEntity alloc] initWithContext:context];
             wallet44Account.hash160Key = extended44PublicKeyHash;
-            [[NSUserDefaults standardUserDefaults] setObject:data44 forKey:extended44PublicKeyHash];
+            [[NSUserDefaults standardUserDefaults] setObject:extended44PublicKey forKey:extended44PublicKeyHash];
         }
 
         if (has44Account && has32Account) {
@@ -121,12 +136,18 @@ static NSString *const SERVER_BLOOM_FILTER_HASH = @"SERVER_BLOOM_FILTER_HASH";
         [context dc_saveIfNeeded];
 
         if (!has32Account) {
-            DCWalletAccount *data32Account = [[DCWalletAccount alloc] initWithAccountPublicKey:data32 hash:extended32PublicKeyHash inContext:context];
+            DCWalletAccount *data32Account = [[DCWalletAccount alloc] initWithAccountPublicKey:extended32PublicKey
+                                                                                          hash:extended32PublicKeyHash
+                                                                                     inContext:context
+                                                                                       onChain:self.chain];
             [self.wallets addObject:data32Account];
             [data32Account startUpWithWalletAccountEntity:wallet32Account];
         }
         if (!has44Account) {
-            DCWalletAccount *data44Account = [[DCWalletAccount alloc] initWithAccountPublicKey:data44 hash:extended44PublicKeyHash inContext:context];
+            DCWalletAccount *data44Account = [[DCWalletAccount alloc] initWithAccountPublicKey:extended44PublicKey
+                                                                                          hash:extended44PublicKeyHash
+                                                                                     inContext:context
+                                                                                       onChain:self.chain];
             [self.wallets addObject:data44Account];
             [data44Account startUpWithWalletAccountEntity:wallet44Account];
         }

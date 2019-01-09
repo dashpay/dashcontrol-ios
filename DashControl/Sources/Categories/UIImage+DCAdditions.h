@@ -15,17 +15,13 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
-
-#import <DashSync/DashSync.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DCFormattingUtils : NSObject
+@interface UIImage (DCAdditions)
 
-@property (readonly, class, nonatomic) NSNumberFormatter *dashNumberFormatter;
-
-- (instancetype)init NS_UNAVAILABLE;
++ (UIImage *)dc_imageWithColor:(UIColor *)color;
 
 @end
 

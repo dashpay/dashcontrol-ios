@@ -20,10 +20,18 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class ProposalDetailHeaderViewModel;
+@class ProposalDetailHeaderView;
+
+@protocol ProposalDetailHeaderViewDelegate <NSObject>
+
+- (void)proposalDetailHeaderViewShowAddMasternodeController:(ProposalDetailHeaderView *)view;
+
+@end
 
 @interface ProposalDetailHeaderView : KVOUIView
 
 @property (strong, nonatomic) ProposalDetailHeaderViewModel *viewModel;
+@property (nullable, weak, nonatomic) id<ProposalDetailHeaderViewDelegate> delegate;
 
 @end
 

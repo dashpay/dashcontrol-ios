@@ -19,11 +19,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class DCMasternodeEntity;
+@class DSMasternodeBroadcastEntity;
 
 @interface MasternodeViewController : UIViewController
 
-+ (instancetype)controllerWithMasternode:(nullable DCMasternodeEntity *)masternode;
++ (instancetype)controllerWithMasternode:(nullable DSMasternodeBroadcastEntity *)masternode;
 
 @end
 

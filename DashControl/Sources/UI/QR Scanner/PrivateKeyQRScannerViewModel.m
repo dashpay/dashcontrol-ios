@@ -15,24 +15,24 @@
 //  limitations under the License.
 //
 
-#import "AddressQRScannerViewModel.h"
+#import "PrivateKeyQRScannerViewModel.h"
 
 #import "NSString+Dash.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString *const AddressQRScannerViewModelErrorDomain = @"AddressQRScannerViewModelErrorDomain";
+NSString *const PrivateKeyQRScannerViewModelErrorDomain = @"PrivateKeyQRScannerViewModelErrorDomain";
 
-@implementation AddressQRScannerViewModel
+@implementation PrivateKeyQRScannerViewModel
 
 - (BOOL)validateQRCodeObjectValue:(NSString *_Nullable)stringValue error:(NSError *__autoreleasing _Nullable *_Nullable)error {
     NSString *addr = [stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    BOOL valid = [addr isValidDashAddressOnChain:self.chain];
+    BOOL valid = [addr isValidDashPrivateKeyOnChain:self.chain];
     if (!valid && error) {
-        *error = [NSError errorWithDomain:AddressQRScannerViewModelErrorDomain
+        *error = [NSError errorWithDomain:PrivateKeyQRScannerViewModelErrorDomain
                                      code:1
                                  userInfo:@{
-                                     NSLocalizedDescriptionKey : NSLocalizedString(@"not a DASH QR code", nil),
+                                     NSLocalizedDescriptionKey : NSLocalizedString(@"Invalid private key", nil),
                                  }];
     }
 

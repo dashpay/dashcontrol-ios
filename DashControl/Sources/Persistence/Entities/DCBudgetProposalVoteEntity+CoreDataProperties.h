@@ -14,18 +14,21 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //
+//
 
-#import <Foundation/Foundation.h>
+#import "DCBudgetProposalVoteEntity+CoreDataClass.h"
 
-#import <DashSync/DashSync.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DCFormattingUtils : NSObject
+@interface DCBudgetProposalVoteEntity (CoreDataProperties)
 
-@property (readonly, class, nonatomic) NSNumberFormatter *dashNumberFormatter;
++ (NSFetchRequest<DCBudgetProposalVoteEntity *> *)fetchRequest;
 
-- (instancetype)init NS_UNAVAILABLE;
+@property (nullable, nonatomic, copy) NSString *proposalHash;
+@property (nonatomic) int16_t outcome;
+@property (nullable, nonatomic, copy) NSDate *date;
+@property (nullable, nonatomic, retain) DCBudgetProposalEntity *proposal;
 
 @end
 

@@ -14,10 +14,10 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //
-
-import Foundation
-
 //
-// This file leads to compile our project in the mix mode (Objective-C + Swift)
-// Because we have a Swift dependecy (Charts library) that linked statically
-//
+
+#import "DCBudgetProposalVoteEntity+CoreDataClass.h"
+
+@implementation DCBudgetProposalVoteEntity
+
+@end

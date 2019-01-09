@@ -15,27 +15,35 @@
 //  limitations under the License.
 //
 
-#import "TextFieldFormCellModel.h"
+#import "IPAddressTextFieldFormCellModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation TextFieldFormCellModel
+@interface IPAddressTextFieldFormCellModel ()
 
-- (instancetype)initWithTitle:(nullable NSString *)title placeholder:(nullable NSString *)placeholder {
-    self = [super initWithTitle:title];
-    if (self) {
-        _placeholder = [placeholder copy];
-        _userInteractionEnabled = YES;
+@property (strong, nonatomic) NSCharacterSet *allowedCharacterSet;
+
+@end
+
+@implementation IPAddressTextFieldFormCellModel
+
+- (NSCharacterSet *)allowedCharacterSet {
+    if (!_allowedCharacterSet) {
+        _allowedCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@".0123456789"];
     }
-    return self;
-}
-
-- (instancetype)initWithTitle:(nullable NSString *)title {
-    return [self initWithTitle:title placeholder:nil];
+    return _allowedCharacterSet;
 }
 
 - (BOOL)validateReplacementString:(NSString *)string text:(nullable NSString *)text {
-    return YES;
+    if (![super validateReplacementString:string text:text]) {
+        return NO;
+    }
+
+    // TODO: more smart validation
+    BOOL allowedString = ([string rangeOfCharacterFromSet:self.allowedCharacterSet].location != NSNotFound ||
+                          string.length == 0);
+
+    return allowedString;
 }
 
 @end

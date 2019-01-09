@@ -237,8 +237,7 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         }
         case PortfolioSection_AddMasternode: {
-            MasternodeViewController *masternodeViewController = [MasternodeViewController controllerWithMasternode:nil];
-            [self showViewController:masternodeViewController sender:self];
+            [self showAddMasternodeController];
             break;
         }
         case PortfolioSection_Wallet: {
@@ -257,7 +256,7 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         }
         case PortfolioSection_Masternode: {
-            DCMasternodeEntity *masternode = [self masternodeEntityAtIndexPath:indexPath];
+            DSMasternodeBroadcastEntity *masternode = [self masternodeEntityAtIndexPath:indexPath];
             MasternodeViewController *masternodeViewController = [MasternodeViewController controllerWithMasternode:masternode];
             [self showViewController:masternodeViewController sender:self];
             break;
@@ -271,6 +270,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offset = scrollView.contentOffset.y + scrollView.contentInset.top;
     self.topViewTopConstraint.constant = MIN(-offset, 0.0);
+}
+
+#pragma mark Public
+
+- (void)showAddMasternodeController {
+    MasternodeViewController *masternodeViewController = [MasternodeViewController controllerWithMasternode:nil];
+    [self showViewController:masternodeViewController sender:self];
 }
 
 #pragma mark Private
@@ -369,11 +375,11 @@ NS_ASSUME_NONNULL_BEGIN
     return entity;
 }
 
-- (DCMasternodeEntity *)masternodeEntityAtIndexPath:(NSIndexPath *)indexPath {
+- (DSMasternodeBroadcastEntity *)masternodeEntityAtIndexPath:(NSIndexPath *)indexPath {
     NSFetchedResultsController *frc = self.viewModel.masternodeFetchedResultsController;
     id<NSFetchedResultsSectionInfo> sectionInfo = frc.sections.firstObject;
     NSArray *objects = sectionInfo.objects;
-    DCMasternodeEntity *entity = objects[indexPath.row];
+    DSMasternodeBroadcastEntity *entity = objects[indexPath.row];
     return entity;
 }
 
@@ -403,7 +409,7 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         }
         case PortfolioSection_Masternode: {
-            DCMasternodeEntity *entity = [self masternodeEntityAtIndexPath:indexPath];
+            DSMasternodeBroadcastEntity *entity = [self masternodeEntityAtIndexPath:indexPath];
             viewModel = [[PortfolioMasternodeTableViewCellModel alloc] initWithEntity:entity];
             break;
         }

@@ -2,11 +2,13 @@
 
 ## Requirements
 
-DashControl uses [CocoaPods](http://cocoapods.org) to manage their dependencies. To install it run in the command line:
+DashControl uses both [CocoaPods](http://cocoapods.org) and [Carthage](https://github.com/Carthage/Carthage) to manage dependencies. To install them run in the command line:
 - `gem install cocoapods` or  `sudo gem install cocoapods` (if first command fails)
+- `brew update && brew install carthage`
 
 To get started with the DashControl run the following commands after every "git pull":
 - `pod install`
+- `carthage bootstrap`
 
 Use **DashControl.xcworkspace** to open the project.
 

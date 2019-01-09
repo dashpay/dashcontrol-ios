@@ -71,12 +71,19 @@ static NSInteger const DASHWALLET_APPSTORE_ID = 1206647026;
     return _walletAddressFetchedResultsController;
 }
 
-- (NSFetchedResultsController<DCMasternodeEntity *> *)masternodeFetchedResultsController {
+- (NSFetchedResultsController<DSMasternodeBroadcastEntity *> *)masternodeFetchedResultsController {
     if (!_masternodeFetchedResultsController) {
-        NSFetchRequest *fetchRequest = [DCMasternodeEntity fetchRequest];
-        NSManagedObjectContext *context = self.stack.persistentContainer.viewContext;
+        NSFetchRequest *fetchRequest = [DSMasternodeBroadcastEntity fetchRequest];
+        NSManagedObjectContext *context = [DSMasternodeBroadcastEntity context];
+
+        NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[
+            [NSPredicate predicateWithFormat:@"masternodeBroadcastHash.chain == %@", self.chain.chainEntity],
+            [NSPredicate predicateWithFormat:@"claimed == %@", @YES],
+        ]];
+        fetchRequest.predicate = predicate;
+        
         _masternodeFetchedResultsController = [self.class fetchedResultsControllerWithFetchRequest:fetchRequest
-                                                                                          sortKeys:@[ @"name", @"address" ]
+                                                                                          sortKeys:@[ @"address" ]
                                                                                            context:context];
     }
     return _masternodeFetchedResultsController;

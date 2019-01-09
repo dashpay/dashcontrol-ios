@@ -11,6 +11,7 @@
 #import <CoreSpotlight/CoreSpotlight.h>
 #import <UserNotifications/UserNotifications.h>
 
+#import <DashSync/DashSync.h>
 #import <SDWebImage/SDImageCache.h>
 
 #ifdef DEBUG
@@ -21,16 +22,20 @@
 #import "DCPersistenceStack.h"
 #import "DCWalletManager.h"
 #import "Injections.h"
+#import "PortfolioViewController.h"
 #import "UITestingHelper.h"
 
-#define kRSSFeedViewControllerIndex 0
-#define kProposalsViewControllerIndex 2
+static NSUInteger const PORTFOLIO_TAB_INDEX = 3;
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate>
 
 @end
 
 @implementation AppDelegate
+
++ (instancetype)sharedDelegate {
+    return (AppDelegate *)[UIApplication sharedApplication].delegate;
+}
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // place all initialization code here that needs to be called "before" state restoration occurs
@@ -244,6 +249,35 @@
     [UNUserNotificationCenter.currentNotificationCenter requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError *_Nullable error) {
         DCDebugLog([self class], @"Push auth error: %@", error);
     }];
+}
+
+#pragma mark - Public
+
+- (void)showAddMasternodeController {
+    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+    if (![tabBarController isKindOfClass:UITabBarController.class]) {
+        NSAssert(NO, @"Invalid UI stack");
+        return;
+    }
+    
+    tabBarController.selectedIndex = PORTFOLIO_TAB_INDEX;
+    
+    UINavigationController *navigationController = (UINavigationController *)tabBarController.viewControllers[PORTFOLIO_TAB_INDEX];
+    if (![navigationController isKindOfClass:UINavigationController.class]) {
+        NSAssert(NO, @"Invalid UI stack");
+        return;
+    }
+    
+    [navigationController dismissViewControllerAnimated:NO completion:nil];
+    [navigationController popToRootViewControllerAnimated:NO];
+    
+    PortfolioViewController *portfolioController = (PortfolioViewController *)navigationController.topViewController;
+    if (![portfolioController isKindOfClass:PortfolioViewController.class]) {
+        NSAssert(NO, @"Invalid UI stack");
+        return;
+    }
+    
+    [portfolioController showAddMasternodeController];
 }
 
 #pragma mark - Private

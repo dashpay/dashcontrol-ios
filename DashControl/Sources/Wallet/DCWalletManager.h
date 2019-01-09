@@ -12,11 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class DCPersistenceStack;
 @class APIPortfolio;
+@class DSChain;
 
 @interface DCWalletManager : NSObject
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 @property (strong, nonatomic) InjectedClass(APIPortfolio) api;
+@property (strong, nonatomic) InjectedClass(DSChain) chain;
 
 - (void)importWalletMasterAddressFromSource:(NSString *)source
                     withExtended32PublicKey:(NSString *_Nullable)extended32PublicKey

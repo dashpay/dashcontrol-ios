@@ -15,17 +15,25 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
-
-#import <DashSync/DashSync.h>
+#import "UIImage+DCAdditions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DCFormattingUtils : NSObject
+@implementation UIImage (DCAdditions)
 
-@property (readonly, class, nonatomic) NSNumberFormatter *dashNumberFormatter;
-
-- (instancetype)init NS_UNAVAILABLE;
++ (UIImage *)dc_imageWithColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0.0, 0.0, 1.0, 1.0);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, color.CGColor);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
 
 @end
 

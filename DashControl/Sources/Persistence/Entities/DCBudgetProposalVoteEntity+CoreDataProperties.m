@@ -14,19 +14,19 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //
+//
 
-#import <Foundation/Foundation.h>
+#import "DCBudgetProposalVoteEntity+CoreDataProperties.h"
 
-#import <DashSync/DashSync.h>
+@implementation DCBudgetProposalVoteEntity (CoreDataProperties)
 
-NS_ASSUME_NONNULL_BEGIN
++ (NSFetchRequest<DCBudgetProposalVoteEntity *> *)fetchRequest {
+	return [NSFetchRequest fetchRequestWithEntityName:@"DCBudgetProposalVoteEntity"];
+}
 
-@interface DCFormattingUtils : NSObject
-
-@property (readonly, class, nonatomic) NSNumberFormatter *dashNumberFormatter;
-
-- (instancetype)init NS_UNAVAILABLE;
+@dynamic proposalHash;
+@dynamic outcome;
+@dynamic date;
+@dynamic proposal;
 
 @end
-
-NS_ASSUME_NONNULL_END

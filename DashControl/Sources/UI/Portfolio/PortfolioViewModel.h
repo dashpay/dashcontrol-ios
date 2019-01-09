@@ -17,21 +17,24 @@
 
 #import <Foundation/Foundation.h>
 
-#import "DCMasternodeEntity+CoreDataClass.h"
+#import <DashSync/DashSync.h>
+
 #import "DCWalletAddressEntity+CoreDataClass.h"
 #import "DCWalletEntity+CoreDataClass.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class DCPersistenceStack;
+@class DSChain;
 
 @interface PortfolioViewModel : NSObject
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
+@property (strong, nonatomic) InjectedClass(DSChain) chain;
 
 @property (readonly, nonatomic, strong) NSFetchedResultsController<DCWalletEntity *> *walletFetchedResultsController;
 @property (readonly, nonatomic, strong) NSFetchedResultsController<DCWalletAddressEntity *> *walletAddressFetchedResultsController;
-@property (readonly, nonatomic, strong) NSFetchedResultsController<DCMasternodeEntity *> *masternodeFetchedResultsController;
+@property (readonly, nonatomic, strong) NSFetchedResultsController<DSMasternodeBroadcastEntity *> *masternodeFetchedResultsController;
 
 @property (readonly, strong, nonatomic) NSURL *dashWalletURL;
 @property (readonly, strong, nonatomic) NSURL *dashWalletRequestURL;

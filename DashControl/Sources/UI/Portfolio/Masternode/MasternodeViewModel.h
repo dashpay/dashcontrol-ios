@@ -15,7 +15,7 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import <KVO-MVVM/KVONSObject.h>
 
 #import "BaseFormCellModel.h"
 
@@ -24,24 +24,27 @@ NS_ASSUME_NONNULL_BEGIN
 @class DCMasternodeEntity;
 @class DCPersistenceStack;
 @class APIPortfolio;
+@class DSChain;
+@class DSMasternodeBroadcastEntity;
 
-@interface MasternodeViewModel : NSObject
+@interface MasternodeViewModel : KVONSObject
 
 @property (strong, nonatomic) InjectedClass(DCPersistenceStack) stack;
 @property (strong, nonatomic) InjectedClass(APIPortfolio) apiPortfolio;
+@property (strong, nonatomic) InjectedClass(DSChain) chain;
 
 @property (readonly, strong, nonatomic) NSArray<BaseFormCellModel *> *items;
 @property (readonly, assign, nonatomic) BOOL deleteAvailable;
 
-- (instancetype)initWithMasternode:(nullable DCMasternodeEntity *)masternode;
+- (instancetype)initWithMasternode:(nullable DSMasternodeBroadcastEntity *)masternode;
 
 - (void)updateAddress:(NSString *)address;
 
 - (void)deleteCurrentWithCompletion:(void (^)(void))completion;
 
 - (NSInteger)indexOfInvalidDetail;
-- (void)checkBalanceAtAddressCompletion:(void (^)(NSString *_Nullable errorMessage, NSNumber *_Nullable balance, NSInteger indexOfInvalidDetail))completion;
-- (void)saveCurrentWithBalance:(NSNumber *)balance completion:(void (^)(void))completion;
+
+- (void)registerMasternodeCompletion:(void (^)(NSString *_Nullable errorMessage, NSInteger indexOfInvalidDetail))completion;
 
 @end
 

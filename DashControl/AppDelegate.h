@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class DCPersistenceStack;
 @class APITrigger;
 @class DCWalletManager;
+@class DSChainPeerManager;
+@class DSChain;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -21,6 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) InjectedClass(DCWalletManager) walletManager;
 
 @property (strong, nonatomic) UIWindow *window;
+
++ (instancetype)sharedDelegate;
+
+- (void)showAddMasternodeController;
 
 @end
 

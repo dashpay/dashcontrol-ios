@@ -17,6 +17,7 @@
 
 #import "MasternodeViewController.h"
 
+#import <DashSync/DashSync.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 
 #import "FormTableViewController.h"
@@ -35,9 +36,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation MasternodeViewController
 
-+ (instancetype)controllerWithMasternode:(nullable DCMasternodeEntity *)masternode {
++ (instancetype)controllerWithMasternode:(nullable DSMasternodeBroadcastEntity *)masternode {
     MasternodeViewController *controller = [[MasternodeViewController alloc] initWithNibName:nil bundle:nil];
-    controller.viewModel = [[MasternodeViewModel alloc] initWithMasternode:masternode];
+    MasternodeViewModel *viewModel = [[MasternodeViewModel alloc] initWithMasternode:masternode];
+    controller.viewModel = viewModel;
     return controller;
 }
 
@@ -94,11 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)formTableViewControllerDone:(FormTableViewController *)controller {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    weakify;
-
-    [self.viewModel checkBalanceAtAddressCompletion:^(NSString *_Nullable errorMessage, NSNumber *_Nullable balance, NSInteger indexOfInvalidDetail) {
-        strongify;
+    [self.viewModel registerMasternodeCompletion:^(NSString *_Nullable errorMessage, NSInteger indexOfInvalidDetail) {
         if (errorMessage) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil)
                                                                                      message:errorMessage
@@ -111,16 +109,9 @@ NS_ASSUME_NONNULL_BEGIN
             if (indexOfInvalidDetail != NSNotFound) {
                 [self.formController displayErrorStateForCellAtIndex:indexOfInvalidDetail];
             }
-            
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
         }
         else {
-            weakify;
-            [self.viewModel saveCurrentWithBalance:balance completion:^{
-                strongify;
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                [self.navigationController popViewControllerAnimated:YES];
-            }];
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }];
 }
@@ -138,7 +129,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)qrCodeButtonAction {
-    QRScannerViewController *controller = [[QRScannerViewController alloc] initAsAddressScanner];
+    QRScannerViewController *controller = [[QRScannerViewController alloc] initAsPrivateKeyScanner];
     controller.delegate = self;
     [self presentViewController:controller animated:YES completion:nil];
 }

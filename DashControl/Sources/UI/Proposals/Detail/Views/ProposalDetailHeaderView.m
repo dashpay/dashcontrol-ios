@@ -18,6 +18,7 @@
 #import "ProposalDetailHeaderView.h"
 
 #import "UIFont+DCStyle.h"
+#import "UIImage+DCAdditions.h"
 #import "ProposalDetailBasicInfoView.h"
 #import "ProposalDetailHeaderViewModel.h"
 
@@ -96,7 +97,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (strong, nonatomic) IBOutlet ProposalDetailBasicInfoView *basicInfoView;
 @property (strong, nonatomic) IBOutlet UIStackView *rowsStackView;
-
+@property (strong, nonatomic) IBOutlet UILabel *voteTitleLabel;
+@property (strong, nonatomic) IBOutlet UIButton *yesButton;
+@property (strong, nonatomic) IBOutlet UIButton *abstainButton;
+@property (strong, nonatomic) IBOutlet UIButton *noButton;
 
 @end
 
@@ -130,6 +134,21 @@ NS_ASSUME_NONNULL_BEGIN
         [self.contentView.widthAnchor constraintEqualToAnchor:self.widthAnchor],
     ]];
 
+    UIColor *color = [UIColor colorWithRed:141.0 / 255.0 green:201.0 / 255.0 blue:25.0 / 255.0 alpha:1.0];
+    [self.yesButton setBackgroundImage:[UIImage dc_imageWithColor:color] forState:UIControlStateNormal];
+    color = [UIColor colorWithRed:255.0 / 255.0 green:43.0 / 255.0 blue:104.0 / 255.0 alpha:1.0];
+    [self.noButton setBackgroundImage:[UIImage dc_imageWithColor:color] forState:UIControlStateNormal];
+    color = [UIColor colorWithRed:231.0 / 255.0 green:188.0 / 255.0 blue:82.0 / 255.0 alpha:1.0];
+    [self.abstainButton setBackgroundImage:[UIImage dc_imageWithColor:color] forState:UIControlStateNormal];
+    [self.yesButton setTitle:[NSLocalizedString(@"Yes", nil) uppercaseString] forState:UIControlStateNormal];
+    [self.noButton setTitle:[NSLocalizedString(@"No", nil) uppercaseString] forState:UIControlStateNormal];
+    [self.abstainButton setTitle:[NSLocalizedString(@"Abstain", nil) uppercaseString] forState:UIControlStateNormal];
+    self.yesButton.tag = DSGovernanceVoteOutcome_Yes;
+    self.noButton.tag = DSGovernanceVoteOutcome_No;
+    self.abstainButton.tag = DSGovernanceVoteOutcome_Abstain;
+
+    self.voteTitleLabel.text = NSLocalizedString(@"Cast your vote", nil);
+
     // KVO
 
     [self mvvm_observe:@"viewModel.rows" with:^(typeof(self) self, NSArray<Pair<NSString *> *> * value) {
@@ -145,11 +164,72 @@ NS_ASSUME_NONNULL_BEGIN
             [self.rowsStackView addArrangedSubview:view];
         }
     }];
+
+    [self mvvm_observe:@"viewModel.voteOutcome" with:^(typeof(self) self, NSNumber * value) {
+        self.yesButton.userInteractionEnabled = YES;
+        self.noButton.userInteractionEnabled = YES;
+        self.abstainButton.userInteractionEnabled = YES;
+
+        if (!self.viewModel.voteAllowed) {
+            self.yesButton.enabled = NO;
+            self.noButton.enabled = NO;
+            self.abstainButton.enabled = NO;
+
+            return;
+        }
+
+        switch (self.viewModel.voteOutcome) {
+            case DSGovernanceVoteOutcome_None: {
+                self.yesButton.enabled = YES;
+                self.noButton.enabled = YES;
+                self.abstainButton.enabled = YES;
+                break;
+            }
+            case DSGovernanceVoteOutcome_Yes: {
+                self.yesButton.enabled = YES;
+                self.noButton.enabled = NO;
+                self.abstainButton.enabled = NO;
+                self.yesButton.userInteractionEnabled = NO;
+                break;
+            }
+            case DSGovernanceVoteOutcome_No: {
+                self.yesButton.enabled = NO;
+                self.noButton.enabled = YES;
+                self.abstainButton.enabled = NO;
+                self.noButton.userInteractionEnabled = NO;
+                break;
+            }
+            case DSGovernanceVoteOutcome_Abstain: {
+                self.yesButton.enabled = NO;
+                self.noButton.enabled = NO;
+                self.abstainButton.enabled = YES;
+                self.abstainButton.userInteractionEnabled = NO;
+                break;
+            }
+        }
+
+        if (self.viewModel.voteOutcome == DSGovernanceVoteOutcome_None) {
+            self.voteTitleLabel.text = NSLocalizedString(@"Cast your vote", nil);
+        }
+        else {
+            self.voteTitleLabel.text = NSLocalizedString(@"Your vote", nil);
+        }
+    }];
 }
 
 - (void)setViewModel:(ProposalDetailHeaderViewModel *)viewModel {
     _viewModel = viewModel;
     self.basicInfoView.viewModel = viewModel;
+}
+
+- (IBAction)voteButtonAction:(UIButton *)sender {
+    if ([self.viewModel canVote]) {
+        DSGovernanceVoteOutcome voteOutcome = (DSGovernanceVoteOutcome)sender.tag;
+        [self.viewModel voteOnProposalWithOutcome:voteOutcome];
+    }
+    else {
+        [self.delegate proposalDetailHeaderViewShowAddMasternodeController:self];
+    }
 }
 
 @end

@@ -18,18 +18,28 @@
 #import "ProposalDetailHeaderViewModel.h"
 
 #import "DCBudgetProposalEntity+CoreDataClass.h"
+#import "DCBudgetProposalVoteEntity+CoreDataClass.h"
 #import "NSDate+DCAdditions.h"
+#import "NSManagedObject+DCExtensions.h"
+#import "NSManagedObjectContext+DCExtensions.h"
 #import "APIBudget.h"
+#import "DCPersistenceStack.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ProposalDetailHeaderViewModel ()
+
+@property (nullable, strong, nonatomic) DCBudgetProposalEntity *proposal;
 
 @property (assign, nonatomic) CGFloat completedPercent;
 @property (copy, nonatomic) NSString *title;
 @property (copy, nonatomic) NSString *ownerUsername;
 
 @property (copy, nonatomic) NSArray<Pair *> *rows;
+
+@property (assign, nonatomic) BOOL voteAllowed;
+@property (assign, nonatomic) DSGovernanceVoteOutcome voteOutcome;
+@property (nullable, strong, nonatomic) DSGovernanceObjectEntity *governanceObjectEntity;
 
 @end
 
@@ -38,6 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateWithProposal:(DCBudgetProposalEntity *)proposal {
     NSInteger masternodesCount = APIBudget.masternodesCount;
     CGFloat percent = masternodesCount > 0 ? MIN(MAX((proposal.yesVotesCount - proposal.noVotesCount) / (masternodesCount * MASTERNODES_SUFFICIENT_VOTING_PERCENT), 0.0), 1.0) : 0.0;
+    self.proposal = proposal;
     self.completedPercent = percent * 100.0;
     self.title = proposal.title;
     if (proposal.ownerUsername.length > 0) {
@@ -96,6 +107,54 @@ NS_ASSUME_NONNULL_BEGIN
     [rows addObject:[Pair first:NSLocalizedString(@"Will be\nfunded", nil) second:funded]];
 
     self.rows = rows;
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ANY identifier LIKE[c] %@", proposal.name];
+    NSManagedObjectContext *context = [DSGovernanceObjectEntity context];
+    self.governanceObjectEntity = [DSGovernanceObjectEntity dc_objectWithPredicate:predicate inContext:context];
+
+    predicate = [NSPredicate predicateWithFormat:@"proposalHash == %@", proposal.proposalHash];
+    context = proposal.managedObjectContext;
+    DCBudgetProposalVoteEntity *voteEntity = [DCBudgetProposalVoteEntity dc_objectWithPredicate:predicate inContext:context];
+    BOOL hasVote = NO;
+    DSGovernanceVoteOutcome voteOutcome = DSGovernanceVoteOutcome_None;
+    if (voteEntity) {
+        voteOutcome = voteEntity.outcome;
+        hasVote = (voteOutcome != DSGovernanceVoteOutcome_None);
+    }
+
+    self.voteAllowed = !!self.governanceObjectEntity;
+    self.voteOutcome = voteOutcome;
+}
+
+- (void)voteOnProposalWithOutcome:(DSGovernanceVoteOutcome)voteOutcome {
+    self.voteOutcome = voteOutcome;
+
+    NSAssert(voteOutcome != DSGovernanceVoteSignal_None, @"Invalid vote value");
+    NSParameterAssert(self.governanceObjectEntity);
+
+    DSGovernanceSyncManager *governanceSyncManager = self.chainPeerManager.governanceSyncManager;
+    DSGovernanceObject *governanceObject = [self.governanceObjectEntity governanceObject];
+    [governanceSyncManager vote:voteOutcome onGovernanceProposal:governanceObject];
+
+    [self.stack.persistentContainer performBackgroundTask:^(NSManagedObjectContext *_Nonnull context) {
+        DCBudgetProposalVoteEntity *voteEntity = [[DCBudgetProposalVoteEntity alloc] initWithContext:context];
+        voteEntity.proposalHash = self.proposal.proposalHash;
+        voteEntity.outcome = voteOutcome;
+        voteEntity.date = [NSDate date];
+
+        context.mergePolicy = NSOverwriteMergePolicy;
+        [context dc_saveIfNeeded];
+    }];
+}
+
+- (BOOL)canVote {
+    NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[
+        [NSPredicate predicateWithFormat:@"masternodeBroadcastHash.chain == %@", self.chain.chainEntity],
+        [NSPredicate predicateWithFormat:@"claimed == %@", @YES],
+    ]];
+    NSManagedObjectContext *context = [DSMasternodeBroadcastEntity context];
+    DSMasternodeBroadcastEntity *anyMasternode = [DSMasternodeBroadcastEntity dc_objectWithPredicate:predicate inContext:context];
+    return !!anyMasternode;
 }
 
 @end

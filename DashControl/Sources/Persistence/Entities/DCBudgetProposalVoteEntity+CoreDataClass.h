@@ -14,19 +14,19 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //
+//
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
-#import <DashSync/DashSync.h>
+@class DCBudgetProposalEntity;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DCFormattingUtils : NSObject
-
-@property (readonly, class, nonatomic) NSNumberFormatter *dashNumberFormatter;
-
-- (instancetype)init NS_UNAVAILABLE;
+@interface DCBudgetProposalVoteEntity : NSManagedObject
 
 @end
 
 NS_ASSUME_NONNULL_END
+
+#import "DCBudgetProposalVoteEntity+CoreDataProperties.h"

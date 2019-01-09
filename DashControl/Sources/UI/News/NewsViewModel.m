@@ -18,7 +18,6 @@
 #import "NewsViewModel.h"
 
 #import "APINews.h"
-#import "AppDelegate.h"
 #import "DCPersistenceStack.h"
 #import "HTTPLoaderOperationProtocol.h"
 

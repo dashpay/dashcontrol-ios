@@ -17,8 +17,11 @@
 
 #import "QRScannerViewController.h"
 
+#import <DashSync/DashSync.h>
+
 #import "AddressQRScannerViewModel.h"
 #import "DashCentralAuthQRScannerViewModel.h"
+#import "PrivateKeyQRScannerViewModel.h"
 #import "QRScannerView.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -37,7 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initAsAddressScanner {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        _viewModel = [[AddressQRScannerViewModel alloc] init];
+        AddressQRScannerViewModel *viewModel = [[AddressQRScannerViewModel alloc] init];
+        _viewModel = viewModel;
     }
     return self;
 }
@@ -46,6 +50,15 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _viewModel = [[DashCentralAuthQRScannerViewModel alloc] init];
+    }
+    return self;
+}
+
+- (instancetype)initAsPrivateKeyScanner {
+    self = [super init];
+    if (self) {
+        PrivateKeyQRScannerViewModel *viewModel = [[PrivateKeyQRScannerViewModel alloc] init];
+        _viewModel = viewModel;
     }
     return self;
 }
