@@ -51,11 +51,11 @@ class DashControlSnapshots: XCTestCase {
         
         // ----------------------------
         
-        tabBarsQuery.buttons["Price"].tap()
-        app.staticTexts["1W"].tap()
-        app.staticTexts["4H"].tap()
-        
-        snapshot("2Price")
+//        tabBarsQuery.buttons["Price"].tap()
+//        app.staticTexts["1W"].tap()
+//        app.staticTexts["4H"].tap()
+//
+//        snapshot("2Price")
         
         // ----------------------------
         

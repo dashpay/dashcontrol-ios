@@ -1704,6 +1704,7 @@
 				TargetAttributes = {
 					2AF39E88209AE7E100479948 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						TestTargetID = FB84EDBC1F32898700E4D400;
 					};
