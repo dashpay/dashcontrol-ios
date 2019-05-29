@@ -31,7 +31,7 @@
 #import "ChartViewModel.h"
 #import "DCPersistenceStack.h"
 #import "DCWalletManager.h"
-#import "Networking.h"
+#import "DSNetworking.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

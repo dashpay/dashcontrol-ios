@@ -1,22 +1,6 @@
 PODS:
-  - AFNetworking (3.2.1):
-    - AFNetworking/NSURLSession (= 3.2.1)
-    - AFNetworking/Reachability (= 3.2.1)
-    - AFNetworking/Security (= 3.2.1)
-    - AFNetworking/Serialization (= 3.2.1)
-    - AFNetworking/UIKit (= 3.2.1)
-  - AFNetworking/NSURLSession (3.2.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.2.1)
-  - AFNetworking/Security (3.2.1)
-  - AFNetworking/Serialization (3.2.1)
-  - AFNetworking/UIKit (3.2.1):
-    - AFNetworking/NSURLSession
   - bls-signatures-pod (0.2.9)
   - DashSync (0.1.0):
-    - AFNetworking (~> 3.0)
     - bls-signatures-pod (= 0.2.9)
     - secp256k1_dash (= 0.1.2)
   - DeluxeInjection (0.8.6):
@@ -46,7 +30,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - AFNetworking
     - bls-signatures-pod
     - DeluxeInjection
     - Godzippa
@@ -64,9 +47,8 @@ EXTERNAL SOURCES:
     :path: "../DashSync/"
 
 SPEC CHECKSUMS:
-  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   bls-signatures-pod: 56adce76843f10f484ff996c33aee36cfd98ae5e
-  DashSync: e6a30009f9499549bce8043e443b86dc9333dced
+  DashSync: 421125885841a5c20e8a2409718067acf9921f14
   DeluxeInjection: 03964b27f8aa5a787221907e1f82364ef7bafef7
   Godzippa: b423a467a9e4b4cb43bb4f3adb989d312795eb88
   KVO-MVVM: 4df3afd1f7ebcb69735458b85db59c4271ada7c6
@@ -80,4 +62,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: aed60bb0d69db0a0c58511219052e28fda2ce52e
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1

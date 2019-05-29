@@ -18,7 +18,7 @@
 #import "APIPortfolio.h"
 
 #import "DCServerBloomFilter.h"
-#import "Networking.h"
+#import "DSNetworking.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
