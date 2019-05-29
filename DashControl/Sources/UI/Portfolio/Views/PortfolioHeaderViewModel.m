@@ -23,7 +23,7 @@
 #import "APIPortfolio.h"
 #import "DCFormattingUtils.h"
 #import "DCPersistenceStack.h"
-#import "Networking.h"
+#import "DSNetworking.h"
 #import "UITestingHelper.h"
 
 NS_ASSUME_NONNULL_BEGIN

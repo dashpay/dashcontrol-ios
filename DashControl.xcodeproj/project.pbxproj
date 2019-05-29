@@ -14,23 +14,8 @@
 		24B0004D1F580FF5007D24A1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B0004C1F580FF5007D24A1 /* MobileCoreServices.framework */; };
 		24E1D8DE1F4D742D00AE2C47 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E1D8DD1F4D742D00AE2C47 /* UserNotifications.framework */; };
 		24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24E584051F3ADAC900A12087 /* DashControl.xcdatamodeld */; };
-		2A04E6DB202DA5E20065F30D /* HTTPLoaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6B2202DA5E20065F30D /* HTTPLoaderManager.m */; };
-		2A04E6DC202DA5E20065F30D /* HTTPLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6B4202DA5E20065F30D /* HTTPLoaderOperation.m */; };
-		2A04E6DD202DA5E20065F30D /* HTTPRateLimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6B9202DA5E20065F30D /* HTTPRateLimiter.m */; };
-		2A04E6DE202DA5E20065F30D /* HTTPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6BB202DA5E20065F30D /* HTTPResponse.m */; };
-		2A04E6DF202DA5E20065F30D /* HTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6BF202DA5E20065F30D /* HTTPRequestOperation.m */; };
-		2A04E6E0202DA5E20065F30D /* HTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6C1202DA5E20065F30D /* HTTPRequest.m */; };
-		2A04E6E1202DA5E20065F30D /* HTTPLoaderFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6C2202DA5E20065F30D /* HTTPLoaderFactory.m */; };
-		2A04E6E2202DA5E20065F30D /* HTTPLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6C5202DA5E20065F30D /* HTTPLoader.m */; };
-		2A04E6E3202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6CB202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m */; };
-		2A04E6E4202DA5E20065F30D /* HTTPCancellationTokenImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6CC202DA5E20065F30D /* HTTPCancellationTokenImpl.m */; };
-		2A04E6E5202DA5E20065F30D /* HTTPURLRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6CE202DA5E20065F30D /* HTTPURLRequestBuilder.m */; };
-		2A04E6E6202DA5E20065F30D /* NetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6D3202DA5E20065F30D /* NetworkActivityIndicatorManager.m */; };
-		2A04E6E7202DA5E20065F30D /* HTTPRateLimiterMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6D6202DA5E20065F30D /* HTTPRateLimiterMap.m */; };
-		2A04E6E8202DA5E20065F30D /* HTTPService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6D8202DA5E20065F30D /* HTTPService.m */; };
 		2A04E6E9202DA5E20065F30D /* Injections.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6DA202DA5E20065F30D /* Injections.m */; };
 		2A04E6ED202DAB340065F30D /* RunOnMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A04E6EB202DAB340065F30D /* RunOnMain.m */; };
-		2A08CF57207F0FAE002C1192 /* NSURLRequest+DCcURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A08CF56207F0FAE002C1192 /* NSURLRequest+DCcURL.m */; };
 		2A0DAAD42086910200992DC1 /* ProposalsSegmentSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0DAAD32086910200992DC1 /* ProposalsSegmentSelectorView.m */; };
 		2A0DAAD62086913300992DC1 /* ProposalsSegmentSelectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A0DAAD52086913300992DC1 /* ProposalsSegmentSelectorView.xib */; };
 		2A0DAAD920872CB000992DC1 /* ProposalsSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0DAAD820872CB000992DC1 /* ProposalsSegmentedControl.m */; };
@@ -124,13 +109,13 @@
 		2A6FBEF5207C0CFF0055BAC8 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6FBEF4207C0CFF0055BAC8 /* News.storyboard */; };
 		2A6FBEFA207C97510055BAC8 /* ProposalDetailVotesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEF9207C97510055BAC8 /* ProposalDetailVotesView.m */; };
 		2A6FBEFD207C98410055BAC8 /* ProposalDetailVotesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6FBEFC207C98410055BAC8 /* ProposalDetailVotesViewModel.m */; };
+		2A7DCCD720DB63FC0097049F /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 2A7DCCD920DB63FC0097049F /* Localizable.stringsdict */; };
 		2A7F8F6E20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F8F6D20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m */; };
 		2A7F8F7120F330670048A9ED /* PrivateKeyTextFieldFormCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F8F7020F330670048A9ED /* PrivateKeyTextFieldFormCellModel.m */; };
 		2A7F8F7B20F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F8F7920F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataClass.m */; };
 		2A7F8F7C20F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F8F7A20F476070048A9ED /* DCBudgetProposalVoteEntity+CoreDataProperties.m */; };
 		2A7F8F7F20F557320048A9ED /* UIImage+DCAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F8F7E20F557320048A9ED /* UIImage+DCAdditions.m */; };
 		2A7F8F8220F7359D0048A9ED /* PrivateKeyQRScannerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F8F8120F7359D0048A9ED /* PrivateKeyQRScannerViewModel.m */; };
-		2A7DCCD720DB63FC0097049F /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 2A7DCCD920DB63FC0097049F /* Localizable.stringsdict */; };
 		2A80B584203699E70015E1AA /* DCPersistenceStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B583203699E70015E1AA /* DCPersistenceStack.m */; };
 		2A80B58720369E7F0015E1AA /* NSData+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B58620369E7F0015E1AA /* NSData+Hash.m */; };
 		2A80B58A2036A8F40015E1AA /* DCLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A80B5892036A8F40015E1AA /* DCLogging.m */; };
@@ -279,50 +264,9 @@
 		24E584061F3ADAC900A12087 /* DashControl.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DashControl.xcdatamodel; sourceTree = "<group>"; };
 		24E584151F3ADCEF00A12087 /* DashControl-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DashControl-PrefixHeader.pch"; sourceTree = "<group>"; };
 		2A04E6AE202DA5E20065F30D /* Injections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Injections.h; sourceTree = "<group>"; };
-		2A04E6B1202DA5E20065F30D /* HTTPLoaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderOperation.h; sourceTree = "<group>"; };
-		2A04E6B2202DA5E20065F30D /* HTTPLoaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPLoaderManager.m; sourceTree = "<group>"; };
-		2A04E6B3202DA5E20065F30D /* HTTPLoaderBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderBlocks.h; sourceTree = "<group>"; };
-		2A04E6B4202DA5E20065F30D /* HTTPLoaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPLoaderOperation.m; sourceTree = "<group>"; };
-		2A04E6B5202DA5E20065F30D /* HTTPLoaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderManager.h; sourceTree = "<group>"; };
-		2A04E6B6202DA5E20065F30D /* HTTPLoaderOperationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderOperationProtocol.h; sourceTree = "<group>"; };
-		2A04E6B7202DA5E20065F30D /* HTTPLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoader.h; sourceTree = "<group>"; };
-		2A04E6B8202DA5E20065F30D /* HTTPLoaderAuthoriser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderAuthoriser.h; sourceTree = "<group>"; };
-		2A04E6B9202DA5E20065F30D /* HTTPRateLimiter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRateLimiter.m; sourceTree = "<group>"; };
-		2A04E6BA202DA5E20065F30D /* HTTPLoaderFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderFactory.h; sourceTree = "<group>"; };
-		2A04E6BB202DA5E20065F30D /* HTTPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPResponse.m; sourceTree = "<group>"; };
-		2A04E6BC202DA5E20065F30D /* HTTPRequestOperationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRequestOperationHandler.h; sourceTree = "<group>"; };
-		2A04E6BD202DA5E20065F30D /* HTTPService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPService.h; sourceTree = "<group>"; };
-		2A04E6BE202DA5E20065F30D /* HTTPLoaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLoaderDelegate.h; sourceTree = "<group>"; };
-		2A04E6BF202DA5E20065F30D /* HTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRequestOperation.m; sourceTree = "<group>"; };
-		2A04E6C0202DA5E20065F30D /* HTTPRateLimiterMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRateLimiterMap.h; sourceTree = "<group>"; };
-		2A04E6C1202DA5E20065F30D /* HTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRequest.m; sourceTree = "<group>"; };
-		2A04E6C2202DA5E20065F30D /* HTTPLoaderFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPLoaderFactory.m; sourceTree = "<group>"; };
-		2A04E6C3202DA5E20065F30D /* HTTPCancellationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPCancellationToken.h; sourceTree = "<group>"; };
-		2A04E6C4202DA5E20065F30D /* HTTPRateLimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRateLimiter.h; sourceTree = "<group>"; };
-		2A04E6C5202DA5E20065F30D /* HTTPLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPLoader.m; sourceTree = "<group>"; };
-		2A04E6C7202DA5E20065F30D /* HTTPCancellationTokenImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPCancellationTokenImpl.h; sourceTree = "<group>"; };
-		2A04E6C8202DA5E20065F30D /* SPTDataLoaderExponentialTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTDataLoaderExponentialTimer.h; sourceTree = "<group>"; };
-		2A04E6C9202DA5E20065F30D /* HTTPURLRequestBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPURLRequestBuilder.h; sourceTree = "<group>"; };
-		2A04E6CA202DA5E20065F30D /* HTTPLoader+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPLoader+Private.h"; sourceTree = "<group>"; };
-		2A04E6CB202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTDataLoaderExponentialTimer.m; sourceTree = "<group>"; };
-		2A04E6CC202DA5E20065F30D /* HTTPCancellationTokenImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPCancellationTokenImpl.m; sourceTree = "<group>"; };
-		2A04E6CD202DA5E20065F30D /* HTTPResponse+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPResponse+Private.h"; sourceTree = "<group>"; };
-		2A04E6CE202DA5E20065F30D /* HTTPURLRequestBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPURLRequestBuilder.m; sourceTree = "<group>"; };
-		2A04E6CF202DA5E20065F30D /* HTTPRequest+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPRequest+Private.h"; sourceTree = "<group>"; };
-		2A04E6D0202DA5E20065F30D /* HTTPLoaderFactory+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HTTPLoaderFactory+Private.h"; sourceTree = "<group>"; };
-		2A04E6D1202DA5E20065F30D /* HTTPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPResponse.h; sourceTree = "<group>"; };
-		2A04E6D3202DA5E20065F30D /* NetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
-		2A04E6D4202DA5E20065F30D /* NetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
-		2A04E6D5202DA5E20065F30D /* HTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRequest.h; sourceTree = "<group>"; };
-		2A04E6D6202DA5E20065F30D /* HTTPRateLimiterMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRateLimiterMap.m; sourceTree = "<group>"; };
-		2A04E6D7202DA5E20065F30D /* HTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRequestOperation.h; sourceTree = "<group>"; };
-		2A04E6D8202DA5E20065F30D /* HTTPService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPService.m; sourceTree = "<group>"; };
-		2A04E6D9202DA5E20065F30D /* Networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Networking.h; sourceTree = "<group>"; };
 		2A04E6DA202DA5E20065F30D /* Injections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Injections.m; sourceTree = "<group>"; };
 		2A04E6EB202DAB340065F30D /* RunOnMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunOnMain.m; sourceTree = "<group>"; };
 		2A04E6EC202DAB340065F30D /* RunOnMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunOnMain.h; sourceTree = "<group>"; };
-		2A08CF55207F0FAE002C1192 /* NSURLRequest+DCcURL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+DCcURL.h"; sourceTree = "<group>"; };
-		2A08CF56207F0FAE002C1192 /* NSURLRequest+DCcURL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+DCcURL.m"; sourceTree = "<group>"; };
 		2A0DAAD22086910200992DC1 /* ProposalsSegmentSelectorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalsSegmentSelectorView.h; sourceTree = "<group>"; };
 		2A0DAAD32086910200992DC1 /* ProposalsSegmentSelectorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalsSegmentSelectorView.m; sourceTree = "<group>"; };
 		2A0DAAD52086913300992DC1 /* ProposalsSegmentSelectorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProposalsSegmentSelectorView.xib; sourceTree = "<group>"; };
@@ -501,6 +445,7 @@
 		2A6FBEF9207C97510055BAC8 /* ProposalDetailVotesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailVotesView.m; sourceTree = "<group>"; };
 		2A6FBEFB207C98410055BAC8 /* ProposalDetailVotesViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProposalDetailVotesViewModel.h; sourceTree = "<group>"; };
 		2A6FBEFC207C98410055BAC8 /* ProposalDetailVotesViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProposalDetailVotesViewModel.m; sourceTree = "<group>"; };
+		2A7DCCD820DB63FC0097049F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		2A7F8F6C20F32D030048A9ED /* IPAddressTextFieldFormCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPAddressTextFieldFormCellModel.h; sourceTree = "<group>"; };
 		2A7F8F6D20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPAddressTextFieldFormCellModel.m; sourceTree = "<group>"; };
 		2A7F8F6F20F330670048A9ED /* PrivateKeyTextFieldFormCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateKeyTextFieldFormCellModel.h; sourceTree = "<group>"; };
@@ -513,7 +458,6 @@
 		2A7F8F7E20F557320048A9ED /* UIImage+DCAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DCAdditions.m"; sourceTree = "<group>"; };
 		2A7F8F8020F7359D0048A9ED /* PrivateKeyQRScannerViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateKeyQRScannerViewModel.h; sourceTree = "<group>"; };
 		2A7F8F8120F7359D0048A9ED /* PrivateKeyQRScannerViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivateKeyQRScannerViewModel.m; sourceTree = "<group>"; };
-		2A7DCCD820DB63FC0097049F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		2A80B582203699E70015E1AA /* DCPersistenceStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCPersistenceStack.h; sourceTree = "<group>"; };
 		2A80B583203699E70015E1AA /* DCPersistenceStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCPersistenceStack.m; sourceTree = "<group>"; };
 		2A80B58520369E7F0015E1AA /* NSData+Hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Hash.h"; sourceTree = "<group>"; };
@@ -899,85 +843,12 @@
 			isa = PBXGroup;
 			children = (
 				2A6F595D2034258600D7BD85 /* API */,
-				2A04E6AF202DA5E20065F30D /* Networking */,
 				2A6FBECE20769B1D0055BAC8 /* Credentials.h */,
 				2A6FBECF20769B1D0055BAC8 /* Credentials.m */,
 				2A04E6AE202DA5E20065F30D /* Injections.h */,
 				2A04E6DA202DA5E20065F30D /* Injections.m */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		2A04E6AF202DA5E20065F30D /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				2A04E6D2202DA5E20065F30D /* Additional */,
-				2A04E6B0202DA5E20065F30D /* Blocks */,
-				2A04E6C6202DA5E20065F30D /* Private */,
-				2A04E6C3202DA5E20065F30D /* HTTPCancellationToken.h */,
-				2A04E6B7202DA5E20065F30D /* HTTPLoader.h */,
-				2A04E6C5202DA5E20065F30D /* HTTPLoader.m */,
-				2A04E6B8202DA5E20065F30D /* HTTPLoaderAuthoriser.h */,
-				2A04E6BE202DA5E20065F30D /* HTTPLoaderDelegate.h */,
-				2A04E6BA202DA5E20065F30D /* HTTPLoaderFactory.h */,
-				2A04E6C2202DA5E20065F30D /* HTTPLoaderFactory.m */,
-				2A04E6C4202DA5E20065F30D /* HTTPRateLimiter.h */,
-				2A04E6B9202DA5E20065F30D /* HTTPRateLimiter.m */,
-				2A04E6C0202DA5E20065F30D /* HTTPRateLimiterMap.h */,
-				2A04E6D6202DA5E20065F30D /* HTTPRateLimiterMap.m */,
-				2A04E6D5202DA5E20065F30D /* HTTPRequest.h */,
-				2A04E6C1202DA5E20065F30D /* HTTPRequest.m */,
-				2A04E6D7202DA5E20065F30D /* HTTPRequestOperation.h */,
-				2A04E6BF202DA5E20065F30D /* HTTPRequestOperation.m */,
-				2A04E6BC202DA5E20065F30D /* HTTPRequestOperationHandler.h */,
-				2A04E6D1202DA5E20065F30D /* HTTPResponse.h */,
-				2A04E6BB202DA5E20065F30D /* HTTPResponse.m */,
-				2A04E6BD202DA5E20065F30D /* HTTPService.h */,
-				2A04E6D8202DA5E20065F30D /* HTTPService.m */,
-				2A04E6D9202DA5E20065F30D /* Networking.h */,
-			);
-			path = Networking;
-			sourceTree = "<group>";
-		};
-		2A04E6B0202DA5E20065F30D /* Blocks */ = {
-			isa = PBXGroup;
-			children = (
-				2A04E6B3202DA5E20065F30D /* HTTPLoaderBlocks.h */,
-				2A04E6B5202DA5E20065F30D /* HTTPLoaderManager.h */,
-				2A04E6B2202DA5E20065F30D /* HTTPLoaderManager.m */,
-				2A04E6B1202DA5E20065F30D /* HTTPLoaderOperation.h */,
-				2A04E6B4202DA5E20065F30D /* HTTPLoaderOperation.m */,
-				2A04E6B6202DA5E20065F30D /* HTTPLoaderOperationProtocol.h */,
-			);
-			path = Blocks;
-			sourceTree = "<group>";
-		};
-		2A04E6C6202DA5E20065F30D /* Private */ = {
-			isa = PBXGroup;
-			children = (
-				2A04E6C7202DA5E20065F30D /* HTTPCancellationTokenImpl.h */,
-				2A04E6CC202DA5E20065F30D /* HTTPCancellationTokenImpl.m */,
-				2A04E6CA202DA5E20065F30D /* HTTPLoader+Private.h */,
-				2A04E6D0202DA5E20065F30D /* HTTPLoaderFactory+Private.h */,
-				2A04E6CF202DA5E20065F30D /* HTTPRequest+Private.h */,
-				2A04E6CD202DA5E20065F30D /* HTTPResponse+Private.h */,
-				2A04E6C9202DA5E20065F30D /* HTTPURLRequestBuilder.h */,
-				2A04E6CE202DA5E20065F30D /* HTTPURLRequestBuilder.m */,
-				2A04E6C8202DA5E20065F30D /* SPTDataLoaderExponentialTimer.h */,
-				2A04E6CB202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m */,
-			);
-			path = Private;
-			sourceTree = "<group>";
-		};
-		2A04E6D2202DA5E20065F30D /* Additional */ = {
-			isa = PBXGroup;
-			children = (
-				2A04E6D4202DA5E20065F30D /* NetworkActivityIndicatorManager.h */,
-				2A04E6D3202DA5E20065F30D /* NetworkActivityIndicatorManager.m */,
-				2A08CF55207F0FAE002C1192 /* NSURLRequest+DCcURL.h */,
-				2A08CF56207F0FAE002C1192 /* NSURLRequest+DCcURL.m */,
-			);
-			path = Additional;
 			sourceTree = "<group>";
 		};
 		2A04E6EA202DAB340065F30D /* Helpers */ = {
@@ -1730,6 +1601,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				es,
@@ -1883,7 +1755,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DashControl/Pods-DashControl-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-DashControl/Pods-DashControl-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/DashSync/DashSync.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/MBCircularProgressBar/MBCircularProgressBar.bundle",
 			);
@@ -1894,7 +1766,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DashControl/Pods-DashControl-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DashControl/Pods-DashControl-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9EDCE32632289D723EF39407 /* [CP] Copy Pods Resources */ = {
@@ -1903,7 +1775,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-DashControlTests/Pods-DashControlTests-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/DashSync/DashSync.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/MBCircularProgressBar/MBCircularProgressBar.bundle",
 			);
@@ -1914,7 +1786,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DashControlTests/Pods-DashControlTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DashControlTests/Pods-DashControlTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B13CDC11D77705DD862345F6 /* [CP] Check Pods Manifest.lock */ = {
@@ -1974,7 +1846,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A04E6E2202DA5E20065F30D /* HTTPLoader.m in Sources */,
 				FB4310D71F9DA96700784EBC /* DCWalletManager.m in Sources */,
 				2AF39E99209BABC600479948 /* UITestingHelper.m in Sources */,
 				2A04E6E9202DA5E20065F30D /* Injections.m in Sources */,
@@ -1982,15 +1853,12 @@
 				2A6FBEC120763B2E0055BAC8 /* DCWalletEntity+Extensions.m in Sources */,
 				2A46C28020AB7095007037FA /* APIBudgetPrivate.m in Sources */,
 				2A32D6082051D91D004B38A6 /* ProposalDetailHeaderViewModel.m in Sources */,
-				2A04E6E7202DA5E20065F30D /* HTTPRateLimiterMap.m in Sources */,
 				FB2F9B3D1F5C9F960035180D /* NSArray+SWAdditions.m in Sources */,
 				2AEF29702073465A008590E4 /* SelectorFormCellModel.m in Sources */,
-				2A04E6DB202DA5E20065F30D /* HTTPLoaderManager.m in Sources */,
 				2A4A2FE220AD699500835B92 /* PlaceholderTextView.m in Sources */,
 				2AD0973320571DF300033B72 /* DCChartDataTimeIntervalEntity+Extensions.m in Sources */,
 				2A587E9E206A846B004BC537 /* PortfolioViewModel.m in Sources */,
 				2AC693FB2064E74F00F64482 /* PriceViewModel.m in Sources */,
-				2A04E6DC202DA5E20065F30D /* HTTPLoaderOperation.m in Sources */,
 				2AE7F50A2034A99500A8E770 /* DCNewsPostEntity+CoreDataClass.m in Sources */,
 				2A44739E20419D3000B52BCB /* DCChartDataEntryEntity+Extensions.m in Sources */,
 				2AD693C32032C99A0084D840 /* NewsViewController.m in Sources */,
@@ -2003,12 +1871,10 @@
 				2A7F8F6E20F32D030048A9ED /* IPAddressTextFieldFormCellModel.m in Sources */,
 				2AEF29B920740626008590E4 /* QRCodeButton.m in Sources */,
 				2A7F8F7F20F557320048A9ED /* UIImage+DCAdditions.m in Sources */,
-				2A04E6E1202DA5E20065F30D /* HTTPLoaderFactory.m in Sources */,
 				2AEF296B207345BC008590E4 /* SelectorFormTableViewCell.m in Sources */,
 				2A32D63420546347004B38A6 /* ProposalDetailTableViewCell.m in Sources */,
 				2A3F49B4204BFF50005EB5D9 /* DCBudgetProposalCommentEntity+CoreDataClass.m in Sources */,
 				2A3F49AF204AEC09005EB5D9 /* APIBudget.m in Sources */,
-				2A04E6E0202DA5E20065F30D /* HTTPRequest.m in Sources */,
 				FB4550DE1FB1D3C3001CC1ED /* DCTriggerEntity+CoreDataProperties.m in Sources */,
 				2AEF298220735DE4008590E4 /* SwitcherFormTableViewCell.m in Sources */,
 				FB84EDC51F32898700E4D400 /* AppDelegate.m in Sources */,
@@ -2023,18 +1889,15 @@
 				2AEF297F20735DA5008590E4 /* SwitcherFormCellModel.m in Sources */,
 				FBEBE5421F5802DE0056D921 /* DCChartTimeFormatter.m in Sources */,
 				2AEF299820737E61008590E4 /* MasternodeViewModel.m in Sources */,
-				2A04E6E8202DA5E20065F30D /* HTTPService.m in Sources */,
 				2A289A50203AB44400EDC98E /* BaseNewsTableViewController.m in Sources */,
 				2A972205204F29B600545079 /* ProposalsHeaderViewModel.m in Sources */,
 				2A32D64A20571052004B38A6 /* DCChartDataTimeIntervalEntity+CoreDataProperties.m in Sources */,
 				24E584071F3ADAC900A12087 /* DashControl.xcdatamodeld in Sources */,
 				2A80B58D2039B3050015E1AA /* UIFont+DCStyle.m in Sources */,
 				2AE3C466208FCE6600CE83A8 /* UIViewController+DCChildControllers.m in Sources */,
-				2A04E6DD202DA5E20065F30D /* HTTPRateLimiter.m in Sources */,
 				FB4310DD1F9EFC4000784EBC /* DCServerBloomFilter.m in Sources */,
 				2A0DAAEF208DC8C400992DC1 /* FetchedResultsTableViewController.m in Sources */,
 				FB9CC1801F83E45F0079309F /* DCMasternodeEntity+CoreDataClass.m in Sources */,
-				2A04E6E3202DA5E20065F30D /* SPTDataLoaderExponentialTimer.m in Sources */,
 				2A0DAAD42086910200992DC1 /* ProposalsSegmentSelectorView.m in Sources */,
 				2A3F49AC2049426F005EB5D9 /* DCBudgetInfoEntity+CoreDataProperties.m in Sources */,
 				2AEF298E20737904008590E4 /* WalletAddressViewController.m in Sources */,
@@ -2046,7 +1909,6 @@
 				2AC693EC2061D63D00F64482 /* APITrigger.m in Sources */,
 				2A587E99206A53A5004BC537 /* PortfolioViewController.m in Sources */,
 				2A6AFF6620ADEBF100F208A6 /* NewsFirstTableViewCell.m in Sources */,
-				2A04E6E4202DA5E20065F30D /* HTTPCancellationTokenImpl.m in Sources */,
 				2A6FBEE3207B18F90055BAC8 /* PortfolioHeaderView.m in Sources */,
 				FBE1F50E1F5D4CF500823A77 /* DCMarketEntity+CoreDataProperties.m in Sources */,
 				2A8F8187203EBB7200D3D6C9 /* DCExchangeEntity+Extensions.m in Sources */,
@@ -2063,7 +1925,6 @@
 				2A0DAAF5208DD25400992DC1 /* ProposalsTopViewModel.m in Sources */,
 				2A28DF3C20A0997300132DBF /* AddressQRScannerViewModel.m in Sources */,
 				2A80B58A2036A8F40015E1AA /* DCLogging.m in Sources */,
-				2A04E6DE202DA5E20065F30D /* HTTPResponse.m in Sources */,
 				2A7F8F8220F7359D0048A9ED /* PrivateKeyQRScannerViewModel.m in Sources */,
 				FB4310DA1F9EF4B500784EBC /* DCWalletAccount.m in Sources */,
 				2A6FBEBE207634530055BAC8 /* DCWalletAccountEntity+Extensions.m in Sources */,
@@ -2091,11 +1952,9 @@
 				2A80B5922039C0DB0015E1AA /* DCSearchBar.m in Sources */,
 				2A8F817E203E723600D3D6C9 /* APIPrice.m in Sources */,
 				2AEF29622072CD25008590E4 /* BaseFormCellModel.m in Sources */,
-				2A08CF57207F0FAE002C1192 /* NSURLRequest+DCcURL.m in Sources */,
 				2A46C28D20AC78AD007037FA /* ProposalCommentAddTableViewCell.m in Sources */,
 				2AEF29E7207421E5008590E4 /* QRScannerViewController.m in Sources */,
 				2A3F49A92049426F005EB5D9 /* DCBudgetProposalEntity+CoreDataClass.m in Sources */,
-				2A04E6E5202DA5E20065F30D /* HTTPURLRequestBuilder.m in Sources */,
 				2A4FE281203AE489007FD160 /* UIColor+DCStyle.m in Sources */,
 				2A587EAD206A8D8E004BC537 /* TableViewFRCDelegate.m in Sources */,
 				2A6FBEFA207C97510055BAC8 /* ProposalDetailVotesView.m in Sources */,
@@ -2121,7 +1980,6 @@
 				2AEF297320734F30008590E4 /* ButtonFormCellModel.m in Sources */,
 				2AE3C4722093149C00CE83A8 /* SearchNavigationTitleView.m in Sources */,
 				2A587EA7206A88AC004BC537 /* ItemTableViewCell.m in Sources */,
-				2A04E6E6202DA5E20065F30D /* NetworkActivityIndicatorManager.m in Sources */,
 				2A0DAAD920872CB000992DC1 /* ProposalsSegmentedControl.m in Sources */,
 				2A0DAAF2208DD24500992DC1 /* ProposalsTopView.m in Sources */,
 				2A7F8F7120F330670048A9ED /* PrivateKeyTextFieldFormCellModel.m in Sources */,
@@ -2150,7 +2008,6 @@
 				2AE7F50B2034A99500A8E770 /* DCNewsPostEntity+CoreDataProperties.m in Sources */,
 				2A3F49CF204C833D005EB5D9 /* ProposalsViewModel.m in Sources */,
 				2AEF295C2072B0DF008590E4 /* TextFieldFormTableViewCell.m in Sources */,
-				2A04E6DF202DA5E20065F30D /* HTTPRequestOperation.m in Sources */,
 				2AEF299E20738FF1008590E4 /* AddressTextFieldFormCellModel.m in Sources */,
 				2AE410532066D33000C41AC5 /* ExchangeMarketPairObject.m in Sources */,
 				2A46C28920AC26DE007037FA /* QRScannerHintView.m in Sources */,

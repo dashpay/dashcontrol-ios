@@ -78,7 +78,7 @@ static NSInteger const DASHWALLET_APPSTORE_ID = 1206647026;
 
         NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[
             [NSPredicate predicateWithFormat:@"chain == %@", self.chain.chainEntity],
-            [NSPredicate predicateWithFormat:@"claimed == %@", @YES],
+            [NSPredicate predicateWithFormat:@"localMasternode != nil"],
         ]];
         fetchRequest.predicate = predicate;
         

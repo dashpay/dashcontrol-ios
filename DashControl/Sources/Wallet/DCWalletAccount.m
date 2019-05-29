@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DCWalletAccount ()
 
 @property (strong, nonatomic) DSChain *chain;
-@property (strong, nonatomic) DSDerivationPath *derivationPath;
+@property (strong, nonatomic) DSFundsDerivationPath *derivationPath;
 @property (assign, nonatomic) WalletAccountState state;
 @property (strong, nonatomic) NSData *publicKey;
 @property (strong, nonatomic) NSMutableArray *internalAddresses;
@@ -98,8 +98,8 @@ NS_ASSUME_NONNULL_BEGIN
 
         NSMutableSet *createdAddresses = [NSMutableSet set];
         while (a.count < gapLimit) { // generate new addresses up to gapLimit
-            NSData *pubKey = [self.derivationPath generatePublicKeyAtIndex:n internal:internal];
-            NSString *addr = [[DSKey keyWithPublicKey:pubKey] addressForChain:self.chain];
+            NSData *pubKey = [self.derivationPath publicKeyDataAtIndex:n internal:internal];
+            NSString *addr = [[DSECDSAKey keyWithPublicKey:pubKey] addressForChain:self.chain];
             if (!addr) {
                 DCDebugLog(self.class, @"error generating keys");
                 return @[];

@@ -63,7 +63,7 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
             _ipAddressKeyDetail.returnKeyType = UIReturnKeyNext;
             if (masternode) {
                 char s[INET6_ADDRSTRLEN];
-                uint32_t ipAddress = masternode.address;
+                uint32_t ipAddress = (uint32_t)masternode.address;
                 _ipAddressKeyDetail.text = [NSString stringWithFormat:@"%s", inet_ntop(AF_INET, &ipAddress, s, sizeof(s))];
                 _ipAddressKeyDetail.userInteractionEnabled = NO;
             }
@@ -110,7 +110,7 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
                 self.simplifiedMasternodeEntry = masternodes.firstObject;
                 
                 char s[INET6_ADDRSTRLEN];
-                uint32_t ipAddress = self.simplifiedMasternodeEntry.address;
+                uint32_t ipAddress = (uint32_t)self.simplifiedMasternodeEntry.address;
                 self.ipAddressKeyDetail.text = [NSString stringWithFormat:@"%s", inet_ntop(AF_INET, &ipAddress, s, sizeof(s))];
             }
         }];
@@ -131,7 +131,7 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
 
     NSManagedObjectContext * context = [DSSimplifiedMasternodeEntryEntity context];
     [context performBlockAndWait:^{
-        self.simplifiedMasternodeEntry.claimed = NO;
+        self.simplifiedMasternodeEntry.localMasternode = nil; //todo (review this)
         [DSSimplifiedMasternodeEntryEntity saveContext];
         
         if (completion) {
@@ -172,8 +172,8 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
     }
     
     DSSimplifiedMasternodeEntry *masternode = [self.simplifiedMasternodeEntry simplifiedMasternodeEntry];
-    DSKey *key = [DSKey keyWithPrivateKey:self.privateKeyDetail.text onChain:self.chain];
-    if (!uint160_eq([key.publicKey hash160], masternode.keyIDVoting)) {
+    DSECDSAKey *key = [DSECDSAKey keyWithPrivateKey:self.privateKeyDetail.text onChain:self.chain];
+    if (!uint160_eq([key.publicKeyData hash160], masternode.keyIDVoting)) {
         if (completion) {
             completion(NSLocalizedString(@"Mismatched Key. This private key is valid but does not correspond to this masternode.", nil), MasternodeType_PrivateKey);
         }
@@ -181,7 +181,7 @@ typedef NS_ENUM(NSUInteger, MasternodeType) {
         return;
     }
     
-    [self.chain registerVotingKey:self.privateKeyDetail.text.base58ToData forMasternodeEntry:masternode];
+    //[self.chain registerVotingKey:self.privateKeyDetail.text.base58ToData forMasternodeEntry:masternode]; todo
     
     if (completion) {
         completion(nil, NSNotFound);

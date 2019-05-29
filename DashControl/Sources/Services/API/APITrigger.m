@@ -27,7 +27,7 @@
 #import "Credentials.h"
 #import "DCPersistenceStack.h"
 #import "DCTrigger.h"
-#import "Networking.h"
+#import "DSNetworking.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

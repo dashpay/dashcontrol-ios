@@ -25,7 +25,7 @@
 #import "NSManagedObject+DCExtensions.h"
 #import "NSManagedObjectContext+DCExtensions.h"
 #import "DCPersistenceStack.h"
-#import "Networking.h"
+#import "DSNetworking.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
